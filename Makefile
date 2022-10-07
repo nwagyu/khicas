@@ -86,7 +86,7 @@ GIAC_CFLAGS += -DDEVICE -DNUMWORKS -DHAVE_CONFIG_H -DIN_GIAC -DTIMEOUT -DNO_STDE
 .PHONY: patch_kdisplay
 patch_kdisplay:
 	@echo "PATCH   src/giac/src/kdisplay.cc"
-	$(Q) patch --silent --forward --strip=1 < src/giac_src_kdisplay.patch
+	$(Q) patch --forward --strip=1 --reject-file=- < src/giac_src_kdisplay.patch || true
 
 output/giac/kdisplay.o: patch_kdisplay
 
