@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Roots and poles of a rational function: froot
+</title>
+</head>
+<body >
+<a href="cascmd_en364.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en366.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec846" class="subsection">5.33.1  Roots and poles of a rational function: <span style="font-family:monospace">froot</span>
+<a id="hevea_default618"></a></h3>
+<p>The <span style="font-family:monospace">froot</span> command finds roots and poles of a rational function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">froot</span> takes one argument:<br>
+ <span style="font-style:italic">rat</span>, a rational function.
+</li><li class="li-itemize"><span style="font-family:monospace">froot(</span><span style="font-style:italic">rat</span><span style="font-family:monospace">)</span> returns a vector whose
+components are the roots and the poles of <span style="font-style:italic">rat</span>, each one
+followed by its multiplicity.<br>
+ If <span style="font-family:monospace">Xcas</span> can not find the exact values of the
+roots or poles, it tries to find approximate values if <span style="font-style:italic">rat</span> has
+numeric coefficients.
+</li></ul><h4 id="sec847" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">froot((x^5-2*x^4+x^3)/(x-2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,0,3,2,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+Hence, for  <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">x</span><sup>5</sup>−2<span style="font-style:italic">x</span><sup>4</sup>+<span style="font-style:italic">x</span><sup>3</sup>/<span style="font-style:italic">x</span>−2:
+<ul class="itemize"><li class="li-itemize">
+1 is a root of multiplicity 2,
+</li><li class="li-itemize">0 is a root of multiplicity 3,
+</li><li class="li-itemize">2 is a pole of order 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">froot((x^3-2*x^2+1)/(x-2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">1,1,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,1,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,1,2,−1</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+To find the complex roots and poles, put <span style="font-family:monospace">Xcas</span> in complex mode
+(check <span style="font-family:monospace">Complex</span> in the <span style="font-family:monospace">cas</span> configuration, red button
+giving the state line; see Section <a href="cascmd_en025.html#ssec%3Acomplex">2.5.5</a>).</p><h4 id="sec848" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input (in complex mode):</span>
+</p><div class="center">
+<span style="font-family:monospace">froot((x^2+1)/(x-2))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−<span style="font-style:italic">i</span>,1,<span style="font-style:italic">i</span>,1,2,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en364.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en366.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Copying variables: CopyVar
+
+</title>
+</head>
+<body >
+<a href="cascmd_en059.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en061.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:copyvar" class="subsection">4.4.7  Copying variables: <span style="font-family:monospace">CopyVar</span>
+<a id="hevea_default79"></a>
+</h3>
+<p>The <span style="font-family:monospace">CopyVar</span> command copies the contents of one variable into
+another, without evaluating the contents.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">CopyVar</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">fromvar</span>, the name of a variable to copy from.
+</li><li class="li-itemize"><span style="font-style:italic">tovar</span>, the name of a variable to copy to.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">CopyVar(</span><span style="font-style:italic">fromvar</span><span style="font-family:monospace">,</span><span style="font-style:italic">tovar</span><span style="font-family:monospace">)</span>
+copies the unevaluated contents of <span style="font-style:italic">fromvar</span> into <span style="font-family:monospace">tovar</span>.
+</li></ul><h4 id="sec97" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">a:=c</span> </td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">c:=5</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">CopyVar(a,b)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">c</span>
+</td></tr>
+</table><p>
+<span style="font-style:italic">then:</span>
+</p><div class="center">
+<span style="font-family:monospace">b</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">5
+</td></tr>
+</table><p>
+Changing the value if <span style="font-family:monospace">c</span> will also change the output of
+<span style="font-family:monospace">b</span>, since <span style="font-family:monospace">b</span> contains <span style="font-family:monospace">c</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">c:=10:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">b</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">10
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en059.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en061.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

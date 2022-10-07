@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The least common multiple: lcm</title>
+</head>
+<body >
+<a href="cascmd_en096.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en098.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:ilcm" class="subsection">5.5.3  The least common multiple: <span style="font-family:monospace">lcm</span><a id="hevea_default175"></a></h3>
+<p>The <span style="font-family:monospace">lcm</span> command finds the least common multiple (LCM) of a
+set of integers or polynomials. (See also Section <a href="cascmd_en332.html#ssec%3Alcm">5.28.8</a> for
+polynomials.)</p><p><br>
+</p><p>With one argument:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lcm</span> takes one argument:<br>
+ <span style="font-style:italic">seq</span>, a sequence or list of integers or
+polynomials.
+</li><li class="li-itemize"><span style="font-family:monospace">lcm(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns the LCM of the elements of <span style="font-style:italic">s</span>.
+</li></ul><h4 id="sec190" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lcm(18,15)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  90
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lcm(-5-12*i,11-10*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −53+8 <span style="font-style:italic">i</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lcm(18,15,21,36)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1260
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lcm([18,15,21,36])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1260
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>With two arguments:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lcm</span> takes two arguments:<br>
+ <span style="font-style:italic">s</span> and <span style="font-style:italic">t</span>, two lists of
+the same length containing integers or polynomials
+(alternatively, a matrix <span style="font-style:italic">m</span> with two rows whose elements are
+integers or polynomials).
+</li><li class="li-itemize"><span style="font-family:monospace">lcm(</span><span style="font-style:italic">s</span><span style="font-family:monospace">,</span><span style="font-style:italic">t</span><span style="font-family:monospace">)</span> (or <span style="font-family:monospace">lcm(</span><span style="font-style:italic">m</span><span style="font-family:monospace">)</span>) returns
+the list whose <span style="font-style:italic">k</span>th element is the LCM of the <span style="font-style:italic">k</span>th elements of <span style="font-style:italic">s</span> and
+<span style="font-style:italic">t</span> (or the <span style="font-style:italic">k</span>th column of <span style="font-style:italic">m</span>).
+</li></ul><h4 id="sec191" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">lcm([6,10,12],[21,5,8])</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">lcm([[6,10,12],[21,5,8]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">42,10,24</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en096.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en098.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sorting a list by decreasing order: SortD
+</title>
+</head>
+<body >
+<a href="cascmd_en439.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en441.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1020" class="subsection">5.40.20  Sorting a list by decreasing order: <span style="font-family:monospace">SortD</span>
+<a id="hevea_default725"></a></h3>
+<p>The <span style="font-family:monospace">SortD</span> command sorts a list or a matrix in decreasing order.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">SortD</span> takes one argument:<br>
+ <span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize">If <span style="font-style:italic">L</span> is not a matrix:<br>
+ <span style="font-family:monospace">SortA(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns a copy of <span style="font-style:italic">L</span> with the elements in
+decreasing order.<br>
+ If <span style="font-style:italic">L</span> is a matrix:<br>
+ <span style="font-family:monospace">SortA(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns a copy of <span style="font-style:italic">L</span> where the columns are sorted
+according to decreasing order in the first row.
+</li></ul><h4 id="sec1021" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">SortD([3,4,2])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,3,2</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">SortD([[3,4,2],[6,4,5]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en439.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en441.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

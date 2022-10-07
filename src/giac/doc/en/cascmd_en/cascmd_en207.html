@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Xcas operators:   $ %
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en206.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en208.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:xcasops" class="subsection">5.14.1  <span style="font-family:monospace">Xcas</span> operators:   <span style="font-family:monospace">$</span> <span style="font-family:monospace">%</span>
+<a id="hevea_default336"></a>
+<a id="hevea_default337"></a>
+<a id="hevea_default338"></a>
+<a id="hevea_default339"></a>
+</h3>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">$</span> is the infixed version of <span style="font-family:monospace">seq</span> (see
+Section <a href="cascmd_en412.html#ssec%3Amakeseq">5.39.2</a>).<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(2^k)$(k=0..3)</span>
+</div>
+(do not forget to put parenthesis around the arguments)<br>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">seq(2^k,k=0..3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1,2,4,8
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">mod</span> or <span style="font-family:monospace">%</span> defines a modular number; <span style="font-style:italic">a</span> mod <span style="font-style:italic">n</span> is
+the equivalence class of <span style="font-style:italic">a</span> in ℤ/<span style="font-style:italic">n</span>ℤ.<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">5 % 7</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">5 mod 7</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%7
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">@</span> is used to compose functions; (<span style="font-style:italic">f</span><span style="font-family:monospace">@</span><span style="font-style:italic">g</span>)(<span style="font-style:italic">x</span>)=<span style="font-style:italic">f</span>(<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>)).<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(sin@exp)(x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">@@</span> is used to compose a function with itself many times (like
+a power, replacing multiplication by composition); for example,
+(<span style="font-style:italic">f</span><span style="font-family:monospace">@@</span>3)(<span style="font-style:italic">x</span>)=<span style="font-style:italic">f</span>(<span style="font-style:italic">f</span>(<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>))).<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(sin@@4)(x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">sin<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">minus</span>, <span style="font-family:monospace">union</span> and <span style="font-family:monospace">intersect</span> return the difference, the union and the
+intersection of two sets, respectively. (See Section <a href="cascmd_en051.html#ssec%3Asets">4.3.2</a>).<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">A := set[1,2,3,4];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">B := set[3,4,5,6];</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">A minus B</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⟦ 1,2⟧
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">A union B</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⟦ 1,2,3,4,5,6⟧
+</td></tr>
+</table>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">A intersect B</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⟦ 3,4⟧
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">-&gt;</span> is used to define a function, which can be assigned a name.<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(x-&gt;x^2)(3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">9
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">f := x -&gt; x^2</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">f(3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">9
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">=&gt;</span> is the infixed version of <span style="font-family:monospace">sto</span> (see
+Section <a href="cascmd_en055.html#ssec%3Aassign">4.4.2</a>) and so is used to store an expression in a
+variable.<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">2 =&gt; a</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">a</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">:=</span> is used to store an expression in a variable, but the
+variable comes first (the argument order is switched from <span style="font-family:monospace">=&gt;</span>).<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">a := 2</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">a</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">=&lt;</span> to store an expression in a variable, but the storage is
+done by reference if the target is a matrix element or a list element.
+This is faster if you modify objects inside an existing list or matrix
+of large size, because no copy is made, the change is done in place.
+Use with care, all objects pointing to this matrix or list will
+be modified.<br>
+<span style="font-weight:bold">Example</span><br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L := [2,3];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L2 := L;</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">L[0] =&lt; 5</span>
+</div>
+<span style="font-style:italic">and:</span>
+<div class="center">
+<span style="font-family:monospace">L</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">L2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en206.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en208.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

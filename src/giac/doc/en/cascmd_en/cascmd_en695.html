@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Testing a distribution with the Kolmogorov-Smirnov distribution: kolmogorovt
+</title>
+</head>
+<body >
+<a href="cascmd_en694.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en697.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1805" class="subsection">8.5.5  Testing a distribution with the Kolmogorov-Smirnov distribution: <span style="font-family:monospace">kolmogorovt</span>
+<a id="hevea_default1282"></a></h3>
+<p>The <span style="font-family:monospace">kolmogorovt</span> command uses the Kolmogorov test to
+compare sample data to a specified continuous distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">kolmogorovt</span> takes two arguments and possibly
+additional parameters.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list of sample data.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">distr</span>. This can be one of
+<ul class="itemize"><li class="li-itemize">
+The name of a distribution and the necessary parameters (see
+Section <a href="cascmd_en663.html#ssec%3Arandvar">8.3.14</a> for a list of distributions and their parameters).
+</li><li class="li-itemize">Another list of sample data.
+</li></ul>
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">kolmogorovt(</span><span style="font-style:italic">L</span><span style="font-family:monospace">,</span><span style="font-style:italic">distr</span><span style="font-family:monospace">)</span> returns a
+list of three values:
+<ul class="itemize"><li class="li-itemize">
+The <span style="font-style:italic">D</span> statistic, which is the maximum distance between the
+cumulative distribution functions of the samples or the sample and
+the given distribution.
+</li><li class="li-itemize">The <span style="font-style:italic">K</span> value, where <span style="font-style:italic">K</span> = <span style="font-style:italic">D</span>√<span style="text-decoration:overline"><span style="font-style:italic">n</span></span> (for a single data set,
+where <span style="font-style:italic">n</span> is the size of the data set) or <span style="font-style:italic">K</span>=<span style="font-style:italic">D</span>√<span style="text-decoration:overline"><span style="font-style:italic">n</span></span><sub><span style="text-decoration:overline">1</span></sub><span style="text-decoration:overline"> </span><span style="text-decoration:overline"><span style="font-style:italic">n</span></span><sub><span style="text-decoration:overline">2</span></sub><span style="text-decoration:overline"> /(</span><span style="text-decoration:overline"><span style="font-style:italic">n</span></span><sub><span style="text-decoration:overline">1</span></sub><span style="text-decoration:overline"> +
+</span><span style="text-decoration:overline"><span style="font-style:italic">n</span></span><sub><span style="text-decoration:overline">2</span></sub><span style="text-decoration:overline">)</span> (when there are two data sets, with sizes <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>).
+The <span style="font-style:italic">K</span> value will tend towards the Kolmogorov-Smirnov distribution
+as the size of the data set goes to infinity.
+</li><li class="li-itemize"><span style="font-family:monospace">1 - kolmogorovd(K)</span>, which will be close to 1 when the
+distributions look like they match.
+</li></ul>
+</li></ul><h4 id="sec1806" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">kolmogorovt(randvector(100,normald,0,1),normald(0,1))</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">D=0.112141597243,K=1.12141597243,1-kolmogorovd(K)=,0.161616499536</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">kolmogorovt(randvector(100,normald,0,1),student(2))</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">D=0.112592987625,K=1.12592987625,1-kolmogorovd(K)=0.158375510292</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en694.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en697.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

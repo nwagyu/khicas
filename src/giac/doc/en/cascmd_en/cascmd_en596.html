@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Global attributes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en595.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en597.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1489" class="subsection">7.3.2  Global attributes
+<a id="hevea_default1049"></a>
+<a id="hevea_default1050"></a>
+<a id="hevea_default1051"></a>
+<a id="hevea_default1052"></a>
+<a id="hevea_default1053"></a>
+<a id="hevea_default1054"></a>
+<a id="hevea_default1055"></a>
+<a id="hevea_default1056"></a>
+<a id="hevea_default1057"></a>
+<a id="hevea_default1058"></a>
+<a id="hevea_default1059"></a>
+<a id="hevea_default1060"></a>
+<a id="hevea_default1061"></a>
+<a id="hevea_default1062"></a>
+<a id="hevea_default1063"></a>
+<a id="hevea_default1064"></a>
+<a id="hevea_default1065"></a>
+<a id="hevea_default1066"></a>
+<a id="hevea_default1067"></a>
+<a id="hevea_default1068"></a></h3>
+<p>These attributes are shared by all objects of the same scene
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">title=</span><span style="font-style:italic">"titlename"</span> sets the title.
+</li><li class="li-itemize"><span style="font-family:monospace">labels=[</span><span style="font-style:italic">"xname","yname","zname"</span><span style="font-family:monospace">]</span> sets
+names of the <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span> axes.
+</li><li class="li-itemize"><span style="font-family:monospace">gl_x_axis_name=</span><span style="font-style:italic">"xname"</span>,
+<span style="font-family:monospace">gl_y_axis_name=</span><span style="font-style:italic">"yname"</span>,
+<span style="font-family:monospace">gl_z_axis_name=</span><span style="font-style:italic">"zname"</span> sets the names of the axes
+individually.
+</li><li class="li-itemize"><span style="font-family:monospace">legend=[</span><span style="font-style:italic">"xunit","yunit","zunit"</span><span style="font-style:italic">]</span> sets
+units for the axes.
+</li><li class="li-itemize"><span style="font-family:monospace">gl_x_axis_unit=</span><span style="font-style:italic">"xunit"</span>,
+<span style="font-family:monospace">gl_y_axis_unit=</span><span style="font-style:italic">"yunit"</span>,
+<span style="font-family:monospace">gl_z_axis_unit=</span><span style="font-style:italic">"zunit"</span> sets units for the axes
+individually.
+</li><li class="li-itemize"><span style="font-family:monospace">axes=true</span> or <span style="font-family:monospace">axes=false</span> shows or hides the axis.
+</li><li class="li-itemize"><span style="font-family:monospace">gl_texture=</span><span style="font-style:italic">"filename"</span> sets the background
+image to <span style="font-style:italic">"filename"</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">gl_x=</span><span style="font-style:italic">xmin..xmax</span>, <span style="font-family:monospace">gl_y=</span><span style="font-style:italic">ymin..ymax</span>,
+<span style="font-family:monospace">gl_z=</span><span style="font-style:italic">zmin..zmax</span> sets the graphic configuration
+(do not use for interactive scenes)
+</li><li class="li-itemize"><span style="font-family:monospace">gl_xtick=</span><span style="font-style:italic">xmark</span>,
+<span style="font-family:monospace">gl_ytick=</span><span style="font-style:italic">ymark</span>, <span style="font-family:monospace">gl_ztick=</span><span style="font-style:italic">zmark</span>
+sets the tick marks for the axes.
+</li><li class="li-itemize"><span style="font-family:monospace">gl_shownames=true</span> or <span style="font-family:monospace">gl_shownames=false</span>
+shows or hides objects names
+</li><li class="li-itemize"><span style="font-family:monospace">gl_rotation=[</span><span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span><span style="font-family:monospace">]</span>: defines the rotation axis
+for the animation rotation of 3-d scenes.
+</li><li class="li-itemize"><span style="font-family:monospace">gl_quaternion=[</span><span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span>,<span style="font-style:italic">t</span><span style="font-family:monospace">]</span>: defines the quaternion
+for the visualization in 3-d scenes (do not use for interactive
+scenes)
+</li><li class="li-itemize">a few other OpenGL light configuration options are
+available but not described here.
+</li></ul><h4 id="sec1490" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">title="median_line";triangle(-1-i,1,1+i);median_line(-1-i,1,1+i);median_line(1,-1-i,1+i);median_line(1+i,1,-1-i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en028.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">labels=["u","v"];plotfunc(u+1,u)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en029.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en595.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en597.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

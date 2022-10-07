@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Matrix row norm: rownorm rowNorm
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en541.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en543.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:rownorm" class="subsection">5.50.4  Matrix row norm: <span style="font-family:monospace">rownorm</span> <span style="font-family:monospace">rowNorm</span>
+<a id="hevea_default925"></a>
+<a id="hevea_default926"></a>
+<a id="hevea_default927"></a>
+</h3>
+<p>The row norm of a matrix <span style="font-style:italic">A</span> is max<sub><span style="font-style:italic">k</span></sub>(∑<sub><span style="font-style:italic">j</span></sub> |<span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>|).
+(This is also an operator norm; see Section <a href="cascmd_en544.html#ssec%3Amatrixopnorm">5.50.6</a>.)
+The <span style="font-family:monospace">rownorm</span> command finds the row norm of a matrix.<br>
+<span style="font-family:monospace">rowNorm</span> is a synonym for <span style="font-family:monospace">rownorm</span>, and for matrices
+<span style="font-family:monospace">linfnorm</span> is also a synonym.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rownorm</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a matrix
+</li><li class="li-itemize"><span style="font-family:monospace">rownorm(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns the row norm of <span style="font-style:italic">A</span>.
+</li></ul><h4 id="sec1331" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">rownorm([[1,2],[3,-4]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">7
+</td></tr>
+</table><p>
+Indeed: max(1+2,3+4)=7.</p>
+<hr>
+<a href="cascmd_en541.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en543.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

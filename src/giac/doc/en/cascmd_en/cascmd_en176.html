@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Barycenter of complex numbers: barycenter
+
+</title>
+</head>
+<body >
+<a href="cascmd_en175.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en177.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:baryc" class="subsection">5.10.8  Barycenter of complex numbers: <span style="font-family:monospace">barycenter</span>
+<a id="hevea_default300"></a>
+</h3>
+<p>The <em>barycenter</em>, or center of mass, of a set of points <span style="font-style:italic">A</span><sub>1</sub>,
+<span style="font-style:italic">A</span><sub>2</sub>,…,<span style="font-style:italic">A</span><sub><span style="font-style:italic">n</span></sub> with masses
+α<sub>1</sub>,α<sub>2</sub>,…,α<sub><span style="font-style:italic">n</span></sub> is </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">α<sub>1</sub><span style="font-style:italic">A</span><sub>1</sub>+⋯ + α<sub><span style="font-style:italic">n</span></sub><span style="font-style:italic">A</span><sub><span style="font-style:italic">n</span></sub></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">α<sub>1</sub>+⋯ +
+α<sub><span style="font-style:italic">n</span></sub></td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table><p> This formula makes sense even if the α<sub><span style="font-style:italic">j</span></sub> are
+not positive real numbers, and is still called the barycenter of the
+weighted points.</p><p>The <span style="font-family:monospace">barycenter</span> command computes the barycenter of a set of
+weighted points.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">barycenter</span> takes an unspecified number of arguments:<br>
+ each argument is a list <span style="font-style:italic">l</span><sub><span style="font-style:italic">j</span></sub>=[<span style="font-style:italic">A</span><sub><span style="font-style:italic">j</span></sub>,α<sub><span style="font-style:italic">j</span></sub>] containing a point <span style="font-style:italic">A</span><sub><span style="font-style:italic">j</span></sub> (or the
+affix of a point) and a weight α<sub><span style="font-style:italic">j</span></sub> for the point. The sum of
+the weights needs to be non-zero.<br>
+ These lists can also be given as
+two columns of a matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">barycenter(</span><span style="font-style:italic">l</span><sub>1</sub>,<span style="font-style:italic">l</span><sub>2</sub>,…,<span style="font-style:italic">l</span><sub><span style="font-style:italic">n</span></sub><span style="font-family:monospace">)</span> returns the
+barycenter of the points <span style="font-style:italic">A</span><sub><span style="font-style:italic">j</span></sub> weighted by the real coefficients
+α<sub><span style="font-style:italic">j</span></sub>. If ∑α<sub><span style="font-style:italic">j</span></sub> = 0, <span style="font-family:monospace">barycenter</span> returns an
+error.
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Warning.</span><br>
+The barycenter command returns a point, not a complex number. To have
+a complex number in the output, the input must be
+<span style="font-family:monospace">affix(barycenter(</span><span style="font-style:italic">l</span><sub>1</sub>,<span style="font-style:italic">l</span><sub>2</sub><span style="font-family:monospace">))</span> (see Section <a href="cascmd_en839.html#ssec%3Aaffix">13.13.1</a>).</p><h4 id="sec368" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">affix(barycenter([1+i,2],[1-i,1]))</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">affix(barycenter([[1+i,2],[1-i,1]]))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3+<span style="font-style:italic">i</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+<hr>
+<a href="cascmd_en175.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en177.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

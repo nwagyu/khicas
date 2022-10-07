@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Defining intervals: i[]
+</title>
+</head>
+<body >
+<a href="cascmd_en401.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en403.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec929" class="subsection">5.38.1  Defining intervals: <span style="font-family:monospace">i[]</span>
+<a id="hevea_default668"></a></h3>
+<p>An interval is a range of real numbers, whose end points will be
+floats with at least 15 significant digits. 
+The <span style="font-style:italic">i</span> command creates intervals, with the arguments in square
+brackets.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">i</span> takes two arguments:<br>
+ <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, two real numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">i[</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">]</span> returns the interval between <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>.<br>
+ If <span style="font-style:italic">a</span> &gt; <span style="font-style:italic">b</span>, then <span style="font-family:monospace">i[</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">]</span> returns
+<span style="font-family:monospace">i[evalf(</span><span style="font-style:italic">b</span><span style="font-family:monospace">,15)-epsilon,evalf(</span><span style="font-style:italic">a</span><span style="font-family:monospace">,15)+epsilon]</span> (see
+Section <a href="cascmd_en027.html#ssec%3Aconfcomp">2.5.7</a>, item <a href="cascmd_en027.html#enum%3Aeps">9</a>).
+</li></ul><h4 id="sec930" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">i[1,13/11]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  [1.00000000000000..1.18181818181819]
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">i[pi,sqrt(3)]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  [1.73205080756886..3.14159265358980]
+</td></tr>
+</table>
+</li></ul><p>Intervals can also be created by following a decimal number with a
+question mark. If the decimal number contains <span style="font-style:italic">n</span> digits, the
+interval will be centered at <span style="font-style:italic">a</span> and have width 2· 10<sup>−<span style="font-style:italic">n</span></sup>.</p><h4 id="sec931" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">0.123?</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.121999999999999..0.124000000000000</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">789.123456?</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.789123454999990<span style="font-style:italic">e</span>3..0.789123456999998<span style="font-style:italic">e</span>3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en401.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en403.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

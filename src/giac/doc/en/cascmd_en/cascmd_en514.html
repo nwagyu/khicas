@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Eigenvalues: egvl eigenvalues eigVl
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en513.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en515.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1268" class="subsection">5.48.2  Eigenvalues: <span style="font-family:monospace">egvl</span> <span style="font-family:monospace">eigenvalues</span> <span style="font-family:monospace">eigVl</span>
+<a id="hevea_default888"></a>
+<a id="hevea_default889"></a>
+<a id="hevea_default890"></a></h3>
+<p>The <span style="font-family:monospace">egvl</span> command finds the Jordan form of a matrix.<br>
+<span style="font-family:monospace">eigenvalues</span> and <span style="font-family:monospace">eigVl</span> are synonyms for <span style="font-family:monospace">egvl</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">egvl</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a square matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">egvl(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns the Jordan normal form of <span style="font-style:italic">A</span>.
+</li></ul><h4 id="sec1269" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">egvl([[4,1,-2],[1,2,-1],[2,1,0]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">egvl([[4,1,0],[1,2,-1],[2,1,0]])</span>
+</div>
+<span style="font-style:italic">Output:</span><br>
+See Section <a href="cascmd_en309.html#ssec%3Arootof">5.27.21</a> for a discussion of <span style="font-family:monospace">rootof</span>.
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:small">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</span></td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:small"><span style="font-style:italic">rootof</span></span></td><td class="dcell"><span style="font-size:small">⎛<br>
+⎝</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">1,0,−20,0,100</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">,</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">1,0,−24,0,144,0,−148</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">⎞<br>
+⎠</span></td></tr>
+</table></td></tr>
+<tr><td class="hbar"><span style="font-size:small"></span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:small">18</span></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><span style="font-size:small">0</span></td><td style="text-align:center;white-space:nowrap" ><span style="font-size:small">0</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-size:small">0</span></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:small"><span style="font-style:italic">rootof</span></span></td><td class="dcell"><span style="font-size:small">⎛<br>
+⎝</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">−1,0,20,18,8</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">,</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">1,0,−24,0,144,0,−148</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">⎞<br>
+⎠</span></td></tr>
+</table></td></tr>
+<tr><td class="hbar"><span style="font-size:small"></span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:small">36</span></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><span style="font-size:small">0</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-size:small">0</span></td><td style="text-align:center;white-space:nowrap" ><span style="font-size:small">0</span></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:small"><span style="font-style:italic">rootof</span></span></td><td class="dcell"><span style="font-size:small">⎛<br>
+⎝</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">−1,0,20,−18,8</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">,</span></td><td class="dcell"><span style="font-size:small">⎡<br>
+⎣</span></td><td class="dcell"><span style="font-size:small">1,0,−24,0,144,0,−148</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎦</span></td><td class="dcell"><span style="font-size:small">⎞<br>
+⎠</span></td></tr>
+</table></td></tr>
+<tr><td class="hbar"><span style="font-size:small"></span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:small">36</span></td></tr>
+</table></td></tr>
+</table></td><td class="dcell"><span style="font-size:small">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</span></td></tr>
+</table><span style="font-size:small">
+</span>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">evalf(egvl([[4,1,0],[1,2,-1],[2,1,0]]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1.46081112719</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >4.21431974338</td><td style="text-align:center;white-space:nowrap" >0.0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.324869129433</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en513.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en515.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

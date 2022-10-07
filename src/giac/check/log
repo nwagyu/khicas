@@ -1,0 +1,3283 @@
+make  check-TESTS
+make[1] : on entre dans le répertoire « /home/parisse/giac-1.9.0/check »
+// Using locale /usr/share/locale/
+// en_US.UTF8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Time 0
+// Time 0.01
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0.03
+// Time 0
+// Time 0.04
+// Time 0
+// Time 0
+// Time 0.03
+// Time 0
+// Time 0
+// Time 0
+// Time 0.03
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0.01
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+No checks were made for singular points of antiderivative -1/ln(t) for definite integration in [2,x]
+// Time 0
+No checks were made for singular points of antiderivative ln(n+1)+2*ln(n+2)-3*ln(n+3)+n*ln(1+2/n/(n+3)) for definite integration in [1,+infinity]
+// Time 0.01
+No checks were made for singular points of antiderivative (t^2*n^2-t*pi*n^2-2)*n^3/(-n^3)^2*cos(n*t)-(2*t*n-pi*n)*n^3/(-n^3)^2*sin(n*t) for definite integration in [0,pi]
+// Time 0.01
+No checks were made for singular points of antiderivative exp(t)*(1/(1+n^2)*cos(n*t)+n/(1+n^2)*sin(n*t)) for definite integration in [-pi,pi]
+// Time 0
+No checks were made for singular points of antiderivative exp(-x)*(-1/2*cos(x)+1/2*sin(x)) for definite integration in [0,+infinity]
+// Time 0
+// Time 0.05
+Warning, integration of abs or sign assumes constant sign by intervals (correct if the argument is real):
+Check [abs(ln(x))]
+Discontinuities at zeroes of ln(x) were not checked
+No checks were made for singular points of antiderivative x^2*exp(sign(ln(x))*ln(x))/(sign(ln(x))+2) for definite integration in [2,t]
+// Time 0.02
+No checks were made for singular points of antiderivative 1/sqrt(2)*exp(-t^2/2)*2/t*sqrt(t*x) for definite integration in [a,b]
+// Time 0
+// Time 0
+// Time 0.05
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 0.43
+PASS: chk_integrate
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0.07
+// Total time 0.11
+PASS: chk_factor
+// Using locale /usr/share/locale/
+// fr_FR.UTF-8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Time 0.01
+// Time 0.01
+// Time 0.02
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.4
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+
+Temps mis pour l'évaluation: 4.41
+// Time 4.42
+// Total time 4.88
+PASS: chk_normalize
+// Using locale /usr/share/locale/
+// fr_FR.UTF-8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Time 0.01
+// Total time 0.01
+PASS: chk_partfrac
+// Using locale /usr/share/locale/
+// fr_FR.UTF-8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.04
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0.03
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.04
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+
+Temps mis pour l'évaluation: 1.79
+// Time 1.79
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+
+Temps mis pour l'évaluation: 1.65
+// Time 1.65
+// Time 0
+// Time 0.01
+// Total time 3.71
+PASS: chk_limit
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// Success
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Warning, argument is not an equation, solving x^2-1=0
+// Time 0
+// Time 0
+Warning, argument is not an equation, solving x^2-3=0
+// Time 0
+Warning, argument is not an equation, solving x^3-3*y=0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.31
+// Time 0
+// Time 0.03
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Converting to exact approx symbolic matrix
+// Time 0
+// Time 0.01
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Total time 0.51
+PASS: chk_cas
+// Using locale /usr/share/locale/
+// en_US.UTF8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Time 0
+// Time 0
+medianes
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+mediatrices
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+bissectrices
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0.01
+// Time 0
+// Time 0
+Napoleon theorem
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Feuerbach theorem
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+teste que le pied de la altitude est sur c de 2 facons, doit renvoyer 1 puis 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+circle incircle de A,B,C, center
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0.01
+Le prochain resultat doit etre 0
+// Time 0
+// Time 0
+theoreme de Simson
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Variable x should be purged
+Variable y should be purged
+// Time 0.01
+// Time 0
+// Time 0
+Morley theorem
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.04
+// Time 0.04
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Total time 0.21
+PASS: chk_geo
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Parsing find_equi
+// Warning: Ptest,test, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// compiling find_equi
+// Parsing find_equi
+// Warning: Ptest,test, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// compiling find_equi
+// Time 0.01
+q:0
+q:1
+test equilateral,1,1,1
+equilateral,1,1,1,confirme
+test equilateral,1,3,13
+Warning, the test a==b is performed by checking
+that the internal representation of regroup(a-b) is not 0.
+Therefore a==b may return false even if a and b are mathematically equal,
+if they have different internal representations.
+You can explicitly call a simplification function like simplify(a-b)==0 to avoid this.
+equilateral,1,3,13,confirme
+q:2
+q:3
+test equilateral,3,13,1
+equilateral,3,13,1,confirme
+test equilateral,3,17,25
+equilateral,3,17,25,confirme
+q:4
+q:5
+test equilateral,5,27,13
+equilateral,5,27,13,confirme
+test equilateral,5,29,25
+equilateral,5,29,25,confirme
+q:6
+q:7
+q:8
+q:9
+q:10
+q:11
+q:12
+q:13
+test equilateral,13,1,3
+equilateral,13,1,3,confirme
+test equilateral,13,5,27
+equilateral,13,5,27,confirme
+q:14
+q:15
+test equilateral,15,15,15
+equilateral,15,15,15,confirme
+test equilateral,15,17,27
+equilateral,15,17,27,confirme
+q:16
+q:17
+test equilateral,17,25,3
+equilateral,17,25,3,confirme
+test equilateral,17,27,15
+equilateral,17,27,15,confirme
+q:18
+q:19
+q:20
+q:21
+q:22
+q:23
+q:24
+q:25
+test equilateral,25,3,17
+equilateral,25,3,17,confirme
+test equilateral,25,5,29
+equilateral,25,5,29,confirme
+q:26
+q:27
+test equilateral,27,13,5
+equilateral,27,13,5,confirme
+test equilateral,27,15,17
+equilateral,27,15,17,confirme
+q:28
+q:29
+test equilateral,29,25,5
+equilateral,29,25,5,confirme
+test equilateral,29,29,29
+equilateral,29,29,29,confirme
+q:30
+q:31
+q:32
+q:33
+q:34
+q:35
+
+Evaluation time: 1.9
+// Time 1.9
+// Time 0
+// Total time 1.91
+PASS: chk_morley_demo
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// End defining f
+// Success
+// End defining m1
+// Success
+// End defining m2
+// Success
+// End defining m3
+// Success
+// End defining m4
+// Success
+// End defining h1
+// Time 0
+// Time 0.03
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.03
+// Time 0
+// Time 0
+// Time 0.03
+// Time 0
+// Time 0
+// Time 0.03
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.3
+
+Evaluation time: 0.54
+// Time 0.54
+Simplification assuming t near 0
+Simplification assuming t near 0
+Simplification assuming t near 0
+Simplification assuming t near 0
+// Time 0.16
+Simplification assuming t near 0
+Simplification assuming t near 0
+Simplification assuming t near 0
+Simplification assuming t near 0
+// Time 0.26
+// Total time 1.4
+PASS: chk_xavier
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: a, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Success
+// End defining f
+// Success
+// End defining f
+// Warning: f, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining T
+// Warning: a,n, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: L,a, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+(Comment) scanning line 91
+(Comment) scanning line 92
+(Comment) scanning line 93
+(Comment) scanning line 94
+(Comment) scanning line 95
+(Comment) scanning line 96
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+OK c'est un  carre
+// Time 0
+// Time 0
+calcul du det 8x8 antisymetrique formel
+// Time 0
+
+Evaluation time: 1.72
+// Time 1.72
+// Time 0.03
+OK c'est bien nul
+
+Evaluation time: 1.11
+// Time 1.11
+// GCD eval dimension 27 3248367 Vector [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2] 5250 Vector [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1]1380 
+Find_good_eval 3248799 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 3249753 0
+Gb= 3250077 0
+Find_good_eval 3250092 [-28,-28,23,-26,-46,-87,88,6,-16,14,69,71,-78,-74,81,-27,-87,81,-88,51,-8,68,48,-46,-59,-69]
+Fb= 3316761 %%%{13461,[2]%%%}+%%%{2905,[1]%%%}+%%%{12350,[0]%%%}
+Gb= 3337359 %%%{13461,[1]%%%}+%%%{-13554,[0]%%%}
+FOUND good eval3337386 [-28,-28,23,-26,-46,-87,88,6,-16,14,69,71,-78,-74,81,-27,-87,81,-88,51,-8,68,48,-46,-59,-69]
+// evaled GCD deg 1
+Trying q/lgcd(q) as gcd 27 3337434
+lgcd(q) ok 27 3343669
+Success q/lgcd(q) as gcd 27 3403278
+
+Evaluation time: 0.45
+// Time 0.45
+OK pour le pfaffien 8x8
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+La jordanisation est bonne
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 3.35
+PASS: chk_fhan1
+// Using locale /usr/share/locale/
+// en_US.UTF8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// Success
+// End defining Cond
+// Success
+// Success
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.07
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0.04
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 0.14
+PASS: chk_fhan2
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// Success
+// End defining minval
+// Success
+// End defining trans
+// Warning: k,n,l,B,minval,j,trans, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining Zequiv
+// Success
+// End defining f
+// Success
+// End defining transC
+// Warning: k,n,l,B,minval,j,transC, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining ZequivC
+// Warning: n,Zequiv,d,L,f,T,ZequivC, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining elem
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 0.02
+PASS: chk_fhan3
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: a, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Success
+// Success
+// Success
+// Success
+// Success
+// Success
+// Success
+// Success
+// End defining T
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+// Time 0.03
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+0
+0
+0
+0
+// Time 0.03
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+0
+// Time 0.05
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+  ***   Warning: increasing stack size to 2048000.
+  *** _ZM_mul_worker: Warning: increasing stack size to 4096000.
+// Time 0.23
+// Time 0.16
+// Time 0.24
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0.19
+// Time 0.14
+// Time 0.14
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.31
+// Time 0.13
+// Time 0.17
+// Time 0.18
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.25
+// Time 0
+// Time 0.01
+// Time 0
+
+Evaluation time: 0.83
+// Time 0.83
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 3.16
+PASS: chk_fhan4
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: j, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining extr
+// Warning: a, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Success
+// End defining monpolyfaddeev
+// Success
+// Warning: P,x,k, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining cf
+// Warning: a, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.04
+// Time 0
+// Time 0
+// Time 0
+// Time 0.04
+// Time 0
+// Time 0
+// Time 0
+// Time 0.04
+// Time 0.01
+// Time 0
+// Time 0.12
+// GCD eval dimension 24 346941 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 20 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]20 
+Find_good_eval 347221 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 347279 0
+Gb= 347300 0
+Find_good_eval 347321 [44,48,82,48,55,-65,-20,72,-86,-16,77,-46,-28,-28,23,-26,-46,-87,88,6,-16,14,69]
+Fb= 347878 %%%{-48,[1]%%%}+%%%{106,[0]%%%}
+Gb= 348372 %%%{-48,[1]%%%}+%%%{106,[0]%%%}
+FOUND good eval348385 [44,48,82,48,55,-65,-20,72,-86,-16,77,-46,-28,-28,23,-26,-46,-87,88,6,-16,14,69]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 348420
+lgcd(p) ok 24 348487
+Success p/lgcd(p) as gcd 24 348508
+// GCD eval dimension 24 349587 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 60 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]60 
+Find_good_eval 349811 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 349860 0
+Gb= 349891 0
+Find_good_eval 349906 [71,-78,-74,81,-27,-87,81,-88,51,-8,68,48,-46,-59,-69,84,31,45,-28,99,84,56,-66]
+Fb= 351770 %%%{9425,[1]%%%}+%%%{-1684,[0]%%%}
+Gb= 352751 %%%{9425,[1]%%%}+%%%{-1684,[0]%%%}
+FOUND good eval352763 [71,-78,-74,81,-27,-87,81,-88,51,-8,68,48,-46,-59,-69,84,31,45,-28,99,84,56,-66]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 352794
+lgcd(p) ok 24 352919
+Success p/lgcd(p) as gcd 24 352942
+// GCD eval dimension 24 353994 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 354146 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 354192 0
+Gb= 354222 0
+Find_good_eval 354233 [92,-31,-63,33,44,93,-37,-20,39,-4,-40,-48,10,-58,31,78,81,-22,10,-26,-97,37,-9]
+Fb= 355663 %%%{12176,[1]%%%}+%%%{-12422,[0]%%%}
+Gb= 357064 %%%{12176,[1]%%%}+%%%{-12422,[0]%%%}
+FOUND good eval357074 [92,-31,-63,33,44,93,-37,-20,39,-4,-40,-48,10,-58,31,78,81,-22,10,-26,-97,37,-9]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 357096
+lgcd(p) ok 24 357212
+Success p/lgcd(p) as gcd 24 357235
+// GCD eval dimension 24 358582 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 358734 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 358781 0
+Gb= 358810 0
+Find_good_eval 358821 [-54,60,89,77,-85,76,84,-5,64,-56,74,98,18,26,0,3,86,32,53,-39,32,45,79]
+Fb= 360046 %%%{-8899,[1]%%%}+%%%{-1640,[0]%%%}
+Gb= 361340 %%%{-8899,[1]%%%}+%%%{-1640,[0]%%%}
+FOUND good eval361353 [-54,60,89,77,-85,76,84,-5,64,-56,74,98,18,26,0,3,86,32,53,-39,32,45,79]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 361379
+lgcd(p) ok 24 361620
+Success p/lgcd(p) as gcd 24 361642
+// GCD eval dimension 24 362212 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 20 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]20 
+Find_good_eval 362356 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 362381 0
+Gb= 362393 0
+Find_good_eval 362403 [41,43,-31,42,-91,-77,-72,-7,6,-20,-40,81,-64,83,-68,-60,2,92,8,-70,-12,80,-96]
+Fb= 362688 %%%{-42,[1]%%%}+%%%{2451,[0]%%%}
+Gb= 362947 %%%{-42,[1]%%%}+%%%{2451,[0]%%%}
+FOUND good eval362955 [41,43,-31,42,-91,-77,-72,-7,6,-20,-40,81,-64,83,-68,-60,2,92,8,-70,-12,80,-96]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 362976
+lgcd(p) ok 24 363090
+Success p/lgcd(p) as gcd 24 363104
+// GCD eval dimension 24 363642 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 60 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]60 
+Find_good_eval 363786 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 363815 0
+Gb= 363833 0
+Find_good_eval 363843 [-29,-95,-68,60,-66,8,34,-7,-21,-18,-46,11,70,-59,63,-86,67,0,-59,28,-36,-43,55]
+Fb= 364562 %%%{6321,[1]%%%}+%%%{13148,[0]%%%}
+Gb= 365210 %%%{6321,[1]%%%}+%%%{13148,[0]%%%}
+FOUND good eval365220 [-29,-95,-68,60,-66,8,34,-7,-21,-18,-46,11,70,-59,63,-86,67,0,-59,28,-36,-43,55]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 365244
+lgcd(p) ok 24 365340
+Success p/lgcd(p) as gcd 24 365361
+// GCD eval dimension 24 366421 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 366573 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 366614 0
+Gb= 366643 0
+Find_good_eval 366654 [-12,-71,-13,-93,-85,-18,93,-22,-43,-7,-3,46,85,31,84,-86,82,76,-49,-25,-65,15,-33]
+Fb= 368172 %%%{14286,[1]%%%}+%%%{-13734,[0]%%%}
+Gb= 369580 %%%{14286,[1]%%%}+%%%{-13734,[0]%%%}
+FOUND good eval369589 [-12,-71,-13,-93,-85,-18,93,-22,-43,-7,-3,46,85,31,84,-86,82,76,-49,-25,-65,15,-33]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 369615
+lgcd(p) ok 24 369728
+Success p/lgcd(p) as gcd 24 369752
+// GCD eval dimension 24 371165 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 371316 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 371363 0
+Gb= 371392 0
+Find_good_eval 371403 [-84,-49,-17,52,-13,-64,24,84,-65,8,-81,22,61,-16,-8,-16,-33,-6,-57,-32,63,73,13]
+Fb= 372880 %%%{-13898,[1]%%%}+%%%{-11140,[0]%%%}
+Gb= 374441 %%%{-13898,[1]%%%}+%%%{-11140,[0]%%%}
+FOUND good eval374453 [-84,-49,-17,52,-13,-64,24,84,-65,8,-81,22,61,-16,-8,-16,-33,-6,-57,-32,63,73,13]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 374479
+lgcd(p) ok 24 374670
+Success p/lgcd(p) as gcd 24 374691
+// GCD eval dimension 24 375255 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 20 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]20 
+Find_good_eval 375395 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 375418 0
+Gb= 375430 0
+Find_good_eval 375439 [-3,-97,-13,89,-63,1,7,11,-47,-77,-14,87,-38,-37,13,-94,17,-70,45,77,-80,-85,75]
+Fb= 375699 %%%{-89,[1]%%%}+%%%{-9760,[0]%%%}
+Gb= 375945 %%%{-89,[1]%%%}+%%%{-9760,[0]%%%}
+FOUND good eval375954 [-3,-97,-13,89,-63,1,7,11,-47,-77,-14,87,-38,-37,13,-94,17,-70,45,77,-80,-85,75]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 375973
+lgcd(p) ok 24 376001
+Success p/lgcd(p) as gcd 24 376012
+// GCD eval dimension 24 376500 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 60 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]60 
+Find_good_eval 376640 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 376667 0
+Gb= 376685 0
+Find_good_eval 376694 [-92,-8,-33,-35,42,62,91,-55,63,26,66,-29,89,69,-50,-56,89,-63,61,-4,-97,-89,55]
+Fb= 377431 %%%{-14180,[1]%%%}+%%%{2663,[0]%%%}
+Gb= 378228 %%%{-14180,[1]%%%}+%%%{2663,[0]%%%}
+FOUND good eval378240 [-92,-8,-33,-35,42,62,91,-55,63,26,66,-29,89,69,-50,-56,89,-63,61,-4,-97,-89,55]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 378263
+lgcd(p) ok 24 378361
+Success p/lgcd(p) as gcd 24 378381
+// GCD eval dimension 24 379361 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 379513 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 379553 0
+Gb= 379670 0
+Find_good_eval 379688 [30,-21,-65,-82,-62,5,7,87,-69,71,-44,44,-43,85,53,42,-95,-25,59,-68,96,-78,60]
+Fb= 381205 %%%{-8336,[1]%%%}+%%%{-2316,[0]%%%}
+Gb= 382614 %%%{-8336,[1]%%%}+%%%{-2316,[0]%%%}
+FOUND good eval382623 [30,-21,-65,-82,-62,5,7,87,-69,71,-44,44,-43,85,53,42,-95,-25,59,-68,96,-78,60]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 382663
+lgcd(p) ok 24 382778
+Success p/lgcd(p) as gcd 24 382801
+// GCD eval dimension 24 384060 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 384209 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 384254 0
+Gb= 384283 0
+Find_good_eval 384294 [-22,-84,-1,40,-42,98,79,32,2,-92,39,-20,50,72,91,-18,-31,46,18,29,3,-41,-97]
+Fb= 385865 %%%{8943,[1]%%%}+%%%{3549,[0]%%%}
+Gb= 387312 %%%{8943,[1]%%%}+%%%{3549,[0]%%%}
+FOUND good eval387322 [-22,-84,-1,40,-42,98,79,32,2,-92,39,-20,50,72,91,-18,-31,46,18,29,3,-41,-97]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 387351
+lgcd(p) ok 24 387545
+Success p/lgcd(p) as gcd 24 387565
+// GCD eval dimension 24 388238 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 16 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]16 
+Find_good_eval 388382 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 388408 0
+Gb= 388419 0
+Find_good_eval 388429 [-38,2,-51,-98,69,-52,72,50,45,-24,-63,28,32,-66,-52,62,23,85,72,-2,-3,-88,-42]
+Fb= 388695 %%%{98,[1]%%%}+%%%{8523,[0]%%%}
+Gb= 388944 %%%{98,[1]%%%}+%%%{8523,[0]%%%}
+FOUND good eval388953 [-38,2,-51,-98,69,-52,72,50,45,-24,-63,28,32,-66,-52,62,23,85,72,-2,-3,-88,-42]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 388973
+lgcd(p) ok 24 389000
+Success p/lgcd(p) as gcd 24 389013
+// GCD eval dimension 24 389482 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 48 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]48 
+Find_good_eval 389625 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 389649 0
+Gb= 389665 0
+Find_good_eval 389674 [-96,-55,-34,-9,-29,-86,-35,1,-36,25,99,60,97,-56,8,-38,11,77,3,39,49,-80,-8]
+Fb= 390323 %%%{-5977,[1]%%%}+%%%{12640,[0]%%%}
+Gb= 390977 %%%{-5977,[1]%%%}+%%%{12640,[0]%%%}
+FOUND good eval390985 [-96,-55,-34,-9,-29,-86,-35,1,-36,25,99,60,97,-56,8,-38,11,77,3,39,49,-80,-8]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 391005
+lgcd(p) ok 24 391077
+Success p/lgcd(p) as gcd 24 391094
+// GCD eval dimension 24 391880 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 96 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]96 
+Find_good_eval 392028 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 392062 0
+Gb= 392086 0
+Find_good_eval 392096 [-96,87,35,14,-15,40,39,65,-63,-42,-12,14,51,-33,71,-83,-85,11,52,33,-80,76,14]
+Fb= 393451 %%%{3414,[1]%%%}+%%%{-11024,[0]%%%}
+Gb= 394707 %%%{3414,[1]%%%}+%%%{-11024,[0]%%%}
+FOUND good eval394716 [-96,87,35,14,-15,40,39,65,-63,-42,-12,14,51,-33,71,-83,-85,11,52,33,-80,76,14]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 394743
+lgcd(p) ok 24 394883
+Success p/lgcd(p) as gcd 24 394906
+// GCD eval dimension 24 395882 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 96 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]96 
+Find_good_eval 396031 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 396069 0
+Gb= 396094 0
+Find_good_eval 396104 [-33,-32,-27,-64,-69,46,-38,97,-52,64,89,94,26,-27,20,-27,57,24,19,-14,-32,-82,79]
+Fb= 397295 %%%{-7276,[1]%%%}+%%%{-10294,[0]%%%}
+Gb= 398617 %%%{-7276,[1]%%%}+%%%{-10294,[0]%%%}
+FOUND good eval398628 [-33,-32,-27,-64,-69,46,-38,97,-52,64,89,94,26,-27,20,-27,57,24,19,-14,-32,-82,79]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 398652
+lgcd(p) ok 24 398845
+Success p/lgcd(p) as gcd 24 398864
+// GCD eval dimension 24 399417 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 20 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]20 
+Find_good_eval 399561 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 399584 0
+Gb= 399597 0
+Find_good_eval 399606 [58,81,-88,-45,12,-32,-20,-40,-77,-21,2,-43,22,43,-79,-92,-3,-93,97,18,-21,73,-15]
+Fb= 399880 %%%{45,[1]%%%}+%%%{11095,[0]%%%}
+Gb= 400145 %%%{45,[1]%%%}+%%%{11095,[0]%%%}
+FOUND good eval400153 [58,81,-88,-45,12,-32,-20,-40,-77,-21,2,-43,22,43,-79,-92,-3,-93,97,18,-21,73,-15]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 400174
+lgcd(p) ok 24 400202
+Success p/lgcd(p) as gcd 24 400214
+// GCD eval dimension 24 400766 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 60 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]60 
+Find_good_eval 400913 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 400941 0
+Gb= 400959 0
+Find_good_eval 400968 [-4,-46,-60,79,3,-82,-13,-64,65,-72,77,2,80,44,-33,18,97,71,41,20,-42,71,97]
+Fb= 401720 %%%{-78,[1]%%%}+%%%{-10815,[0]%%%}
+Gb= 402454 %%%{-78,[1]%%%}+%%%{-10815,[0]%%%}
+FOUND good eval402463 [-4,-46,-60,79,3,-82,-13,-64,65,-72,77,2,80,44,-33,18,97,71,41,20,-42,71,97]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 402484
+lgcd(p) ok 24 402574
+Success p/lgcd(p) as gcd 24 402593
+// GCD eval dimension 24 403679 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 403830 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 403872 0
+Gb= 403901 0
+Find_good_eval 403911 [-65,22,-4,-8,-94,40,-94,51,37,69,48,59,-92,-84,-59,-80,72,21,32,2,-43,-99,-71]
+Fb= 405331 %%%{-3999,[1]%%%}+%%%{263,[0]%%%}
+Gb= 406734 %%%{-3999,[1]%%%}+%%%{263,[0]%%%}
+FOUND good eval406743 [-65,22,-4,-8,-94,40,-94,51,37,69,48,59,-92,-84,-59,-80,72,21,32,2,-43,-99,-71]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 406765
+lgcd(p) ok 24 406871
+Success p/lgcd(p) as gcd 24 406893
+// GCD eval dimension 24 408058 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 408208 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 408250 0
+Gb= 408278 0
+Find_good_eval 408289 [16,19,34,-59,-77,-5,-94,80,-82,44,18,-19,-38,1,49,-57,-23,-97,68,-33,21,-43,-38]
+Fb= 409749 %%%{-12447,[1]%%%}+%%%{8824,[0]%%%}
+Gb= 411141 %%%{-12447,[1]%%%}+%%%{8824,[0]%%%}
+FOUND good eval411150 [16,19,34,-59,-77,-5,-94,80,-82,44,18,-19,-38,1,49,-57,-23,-97,68,-33,21,-43,-38]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 411173
+lgcd(p) ok 24 411379
+Success p/lgcd(p) as gcd 24 411399
+// GCD eval dimension 24 411979 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 20 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]20 
+Find_good_eval 412124 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 412147 0
+Gb= 412159 0
+Find_good_eval 412169 [-3,-4,-83,-8,-38,29,40,-81,-28,-37,-94,39,18,24,-58,14,-99,-66,65,-98,-18,-81,22]
+Fb= 412442 %%%{8,[1]%%%}+%%%{6434,[0]%%%}
+Gb= 412706 %%%{8,[1]%%%}+%%%{6434,[0]%%%}
+FOUND good eval412715 [-3,-4,-83,-8,-38,29,40,-81,-28,-37,-94,39,18,24,-58,14,-99,-66,65,-98,-18,-81,22]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 412735
+lgcd(p) ok 24 412764
+Success p/lgcd(p) as gcd 24 412776
+// GCD eval dimension 24 413440 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 60 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]60 
+Find_good_eval 413588 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 413619 0
+Gb= 413638 0
+Find_good_eval 413648 [73,9,30,75,38,-39,85,33,-4,-70,15,2,72,-32,97,-71,93,80,-3,-64,-13,-73,-15]
+Fb= 414467 %%%{9638,[1]%%%}+%%%{-8268,[0]%%%}
+Gb= 415225 %%%{9638,[1]%%%}+%%%{-8268,[0]%%%}
+FOUND good eval415235 [73,9,30,75,38,-39,85,33,-4,-70,15,2,72,-32,97,-71,93,80,-3,-64,-13,-73,-15]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 415257
+lgcd(p) ok 24 415348
+Success p/lgcd(p) as gcd 24 415367
+// GCD eval dimension 24 416425 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 416576 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 416616 0
+Gb= 416644 0
+Find_good_eval 416654 [40,82,-30,57,-86,73,-42,-28,94,84,33,-8,21,-98,-4,36,4,19,92,-77,-22,63,75]
+Fb= 418158 %%%{-2640,[1]%%%}+%%%{-11891,[0]%%%}
+Gb= 419569 %%%{-2640,[1]%%%}+%%%{-11891,[0]%%%}
+FOUND good eval419578 [40,82,-30,57,-86,73,-42,-28,94,84,33,-8,21,-98,-4,36,4,19,92,-77,-22,63,75]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 419602
+lgcd(p) ok 24 419712
+Success p/lgcd(p) as gcd 24 419734
+// GCD eval dimension 24 420808 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] 120 Vector [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]120 
+Find_good_eval 420957 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Fb= 421010 0
+Gb= 421039 0
+Find_good_eval 421049 [91,90,38,-42,-11,-20,-27,64,92,60,-6,67,43,-20,14,-38,-55,51,-96,32,64,-90,-85]
+Fb= 422541 %%%{-8088,[1]%%%}+%%%{-13268,[0]%%%}
+Gb= 424091 %%%{-8088,[1]%%%}+%%%{-13268,[0]%%%}
+FOUND good eval424104 [91,90,38,-42,-11,-20,-27,64,92,60,-6,67,43,-20,14,-38,-55,51,-96,32,64,-90,-85]
+// evaled GCD deg 1
+Trying p/lgcd(p) as gcd 24 424131
+lgcd(p) ok 24 424347
+Success p/lgcd(p) as gcd 24 424367
+// Time 0.07
+// Time 0
+// Time 0
+// Time 0
+// Time 0.04
+// Time 0.03
+// Time 0.17
+// Time 0.19
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0.01
+// Time 0
+// Time 0.04
+// Time 0.04
+// Time 0.01
+// Time 0.01
+// Time 0.03
+// Total time 0.92
+PASS: chk_fhan5
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining monlagrange
+// Success
+// Success
+// Success
+// Success
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.18
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.19
+// Time 0.18
+// Time 0.06
+// Time 0.21
+pcar OK
+// Time 0
+pcar OK
+// Time 0.01
+// Time 0.03
+// Time 0.06
+// Time 0
+// Time 0
+// Time 0
+// Time 0.06
+// Time 0.05
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 1.05
+PASS: chk_fhan6
+// Using locale /usr/share/locale/
+// en_US.UTF8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// End defining M
+// Success
+// End defining f
+// Warning: a,b,c, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining egal
+// Warning: y,z,x,egal,t, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining pointresiduel
+// Warning: pointresiduel, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining plus
+// Warning: plus, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining nplus
+// Success
+// End defining egalomega
+// Warning: egalomega,plus, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining factell
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+Near [0,0], 1/epsilon^2*f([0,0]+epsilon*[1,t])=-3*t roots [0.0]
+Singular points directions: [cell_i, cell_j, singularity, next solution] [[50,50,0.0,0.0666666666667+0.00148146522433*i],[50,50,0.0,-0.0666666666667+0.0014814977397*i]]
+Bad branch, questionnable accuracy
+// Time 0.08
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+noneg:noneg
+// Time 0
+eg:eg
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+1,1,1
+1,2,20011
+1,3,1
+1,4,1
+1,5,1
+1,6,1
+1,7,1
+1,8,1
+1,9,1
+1,10,1
+1,11,1
+1,12,1
+1,13,1
+1,14,1
+1,15,1
+1,16,1
+1,17,1
+1,18,1
+1,19,1
+1,20,1
+2,1,1
+2,2,1
+2,3,1
+2,4,1
+2,5,1
+2,6,1
+2,7,1
+2,8,1
+2,9,1
+2,10,1
+2,11,1
+2,12,1
+2,13,20011
+2,14,1
+2,15,1
+2,16,1
+2,17,1
+2,18,1
+2,19,20011
+2,20,1
+3,1,1
+3,2,1
+3,3,1
+3,4,1
+3,5,1
+3,6,1
+3,7,1
+3,8,1
+3,9,1
+3,10,1
+3,11,1
+3,12,1
+3,13,1
+3,14,1
+3,15,1
+3,16,1
+3,17,1
+3,18,1
+3,19,1
+3,20,1
+
+Evaluation time: 0.66
+// Time 0.66
+// Time 0
+// Time 0
+1,1,1
+1,2,1234577
+1,3,1
+1,4,1
+1,5,1
+1,6,1
+1,7,1
+1,8,1
+1,9,1
+1,10,1
+1,11,1
+1,12,1
+1,13,1
+1,14,1
+1,15,1
+1,16,1
+1,17,1
+1,18,1
+1,19,1
+1,20,1
+2,1,1
+2,2,1
+2,3,1
+2,4,1
+2,5,1234577
+2,6,1
+2,7,1
+2,8,1
+2,9,1
+2,10,1
+2,11,1
+2,12,1
+2,13,1
+2,14,1
+2,15,1
+2,16,1
+2,17,1
+2,18,1
+2,19,1
+2,20,1
+3,1,1
+3,2,1
+3,3,1
+3,4,1
+3,5,1
+3,6,1
+3,7,1
+3,8,1
+3,9,1
+3,10,1
+3,11,1
+3,12,1
+3,13,1
+3,14,1
+3,15,1
+3,16,1
+3,17,1
+3,18,1
+3,19,1
+3,20,1
+
+Evaluation time: 1.91
+// Time 1.91
+// Total time 2.68
+PASS: chk_fhan8
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: t, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining P
+// Warning: a,l, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Success
+// End defining puis
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.06
+// Time 0
+// Time 0
+// Time 0
+// Total time 0.16
+PASS: chk_fhan0
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0.23
+// Time 0.27
+// Time 0.11
+// Time 0
+// Time 0
+// Time 0.26
+// Time 0
+// Time 0
+// Time 0.01
+  ***   Warning: increasing stack size to 2048000.
+  ***   Warning: increasing stack size to 4096000.
+  ***   Warning: increasing stack size to 8192000.
+
+Evaluation time: 1.69
+// Time 1.69
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+ca fait bien p-1
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0.23
+// Time 0.24
+// Time 0.22
+// Time 0
+// Time 0.22
+// Time 0.22
+// Time 0.12
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 3.89
+13c13
+< 1,
+---
+> matrix[[2,7,1],[3,2,1],[389,2,1],[733,2,1],[156904374622257604823879982847602392900751802349981470895277241,2,matrix[[2,13,1],[3,3,1],[5,2,1],[7,2,1],[56467,2,1],[6553084925887974620811527,2,matrix[[2,5,1],[19,2,1],[71,2,1],[126823,2,1]]]]]],
+FAIL: chk_fhan11
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// End defining orbites
+// Warning: X, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining phi
+// Warning: P, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining puiss
+// Warning: P,x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining puiss
+// Warning: puiss,q, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining testcarre
+// Warning: puiss,q, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining inve
+// Success
+// End defining ordre
+============== restarted ===============
+// Time 0.01
+// Time 0
+// Time 0
+Assigning variables a and K
+Now e.g. a^200+1 will build an element of K
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.04
+Assigning variables b and L
+Now e.g. b^200+1 will build an element of L
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+1,2
+2,4
+2,8
+4,16
+8,32
+16,64
+32,128
+64,256
+// Time 0.01
+(X-1)*(X+1),2
+(X-1)*(X+1)*(X^2+1),4
+(X-1)*(X+1)*(X^2+1)*(X^4+1),8
+(X-1)*(X+1)*(X^2+1)*(X^4+1)*(X^8+1),16
+(X-1)*(X+1)*(X^2+1)*(X^4+1)*(X^8+1)*(X^16+1),32
+(X-1)*(X+1)*(X^2+1)*(X^4+1)*(X^8+1)*(X^16+1)*(X^32+1),64
+(X-1)*(X+1)*(X^2+1)*(X^4+1)*(X^8+1)*(X^16+1)*(X^32+1)*(X^64+1),128
+(X-1)*(X+1)*(X^2+1)*(X^4+1)*(X^8+1)*(X^16+1)*(X^32+1)*(X^64+1)*(X^128+1),256
+// Time 0
+// Time 0
+1*X+1
+1*X^2+1
+(1*X^2+1*X-1)*(1*X^2-1*X-1)
+(1*X^4+1*X^2-1)*(1*X^4-1*X^2-1)
+(1*X^8+1*X^4-1)*(1*X^8-1*X^4-1)
+(1*X^16+1*X^8-1)*(1*X^16-1*X^8-1)
+(1*X^32+1*X^16-1)*(1*X^32-1*X^16-1)
+(1*X^64+1*X^32-1)*(1*X^64-1*X^32-1)
+// Time 0.02
+i_i_:64
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+ca marche
+// Time 0
+// Total time 0.16
+PASS: chk_fhan12
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining facto1
+// Warning: x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining facto2
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Total time 0.05
+PASS: chk_fhan13
+// Using locale /usr/share/locale/
+// en_US.UTF8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining randP
+// Warning: x,l, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining berl
+// Warning: A,B,rep,p,N,r,LX,Q,P,x,Powmod, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining unfacteur
+// Warning: unfacteur,t,tt, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining facteurpseudoirred
+// Warning: A, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining borne
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+facteurs multiples,2
+facteurs multiples,3
+facteurs multiples,11
+facteurs multiples,13
+facteurs multiples,19
+facteurs multiples,23
+// Time 0.05
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+f est irred
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+x^2+9*x+17,est un diviseur dans Z
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Total time 0.1
+PASS: chk_fhan14
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: v, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining paff
+// Warning: a, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Ellipsis of center (-50/7,17/2)
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 0.05
+PASS: chk_fhan15
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// Warning: q,x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: S3h,x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: S4h,x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Near [0,2], 1/epsilon^2*f([0,2]+epsilon*[1,t])=1 roots []
+Near [0,2], 1/epsilon^2*f([0,2]+epsilon*[1,t])=1 roots []
+Near [0,2], 1/epsilon^2*f([0,2]+epsilon*[1,t])=1 roots []
+Singular points directions: [cell_i, cell_j, singularity, next solution] [[50,70,2.0*i,-0.00112947877252+2.03333333333*i],[50,70,2.0*i,0.00112947877252+2.03333333333*i],[50,70,2.0*i,-0.00109243590672+1.96666666667*i],[50,70,2.0*i,0.00109243590672+1.96666666667*i],[50,70,2.0*i,-0.00112947877252+2.03333333333*i],[50,70,2.0*i,0.00112947877252+2.03333333333*i],[50,70,2.0*i,-0.00109243590672+1.96666666667*i],[50,70,2.0*i,0.00109243590672+1.96666666667*i],[50,70,2.0*i,-0.00112947877252+2.03333333333*i],[50,70,2.0*i,0.00112947877252+2.03333333333*i],[50,70,2.0*i,-0.00109243590672+1.96666666667*i],[50,70,2.0*i,0.00109243590672+1.96666666667*i]]
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+// Time 0.06
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+schur row 1 5.00933e-12
+Francis algorithm not precise enough for[1.0,-8.26409192534e+36,1.70738038376e+73,8.85244006785e+107]
+Near [0,0], 1/epsilon^2*f([0,0]+epsilon*[1,t])=9*t^2 roots [0.0]
+Near [0,0], 1/epsilon^2*f([0,0]+epsilon*[1,t])=9*t^2 roots [0.0]
+Near [0,0], 1/epsilon^2*f([0,0]+epsilon*[1,t])=9*t^2 roots [0.0]
+Singular points directions: [cell_i, cell_j, singularity, next solution] [[0,0,0.0,0.00666666666667-0.00171924829653*i],[0,0,0.0,0.00666666666667+0.00120989161359*i],[0,0,0.0,0.00666666666667-0.00171924829653*i],[0,0,0.0,0.00666666666667+0.00120989161359*i],[0,0,0.0,0.00666666666667-0.00171924829653*i],[0,0,0.0,0.00666666666667+0.00120989161359*i]]
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+// Time 0.27
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.06
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Warning, argument is not an equation, solving -14699.0*t^6+25716.0*t^5+1779.0*t^4-15116.0*t^3-624.0*t^2+2496.0*t+448.0=0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.06
+// Time 0
+// Time 0
+schur row 5 -2.79096e-08
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+Warning, argument is not an equation, solving x^3-2.0*x^2-20.0*x+48.0=0
+// Time 0
+// Time 0
+Warning, argument is not an equation, solving x^3-2*x^2-20*x+48=0
+// Time 0
+// Time 0
+Warning, argument is not an equation, solving 6*sqrt(13)+18+y^2=0
+Warning, argument is not an equation, solving -6*sqrt(13)+18+y^2=0
+Warning, argument is not an equation, solving y^2=0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Ellipsoid of center [0,0,0]
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.27
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.05
+// Total time 0.83
+PASS: chk_fhan16
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: x,y,z, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining rl
+// Warning: rl, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining ql
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Near [2,1], 1/epsilon^2*f([2,1]+epsilon*[1,t])=-6+2*t+10*t^2 roots [-0.881024967591,0.681024967591]
+Near [2,1], 1/epsilon^2*f([2,1]+epsilon*[1,t])=-6+2*t+10*t^2 roots [-0.881024967591,0.681024967591]
+Singular points directions: [cell_i, cell_j, singularity, next solution] [[60,55,2.0+i,2.06666666667+0.939938800939*i],[60,55,2.0+i,1.93333333333+1.0574044987*i],[60,55,2.0+i,2.06666666667+1.04434273302*i],[60,55,2.0+i,1.93333333333+0.953437648204*i],[60,55,2.0+i,2.06666666667+0.939938800939*i],[60,55,2.0+i,1.93333333333+1.0574044987*i],[60,55,2.0+i,2.06666666667+1.04434273302*i],[60,55,2.0+i,1.93333333333+0.953437648204*i]]
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+// Time 0.11
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+c'est bon, le point trouve est bien sur la cubique
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Groebner basis computation time 0.000755 Memory 59.104M
+S est
+ bien  lisse. on peut continuer!
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+c'est bon
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0.15
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+Warning, argument is not an equation, solving (-4*a^6*u+10*a^6*v+57*a^6-18*a^5*u-13*a^5*v+13*a^5-4*a^4*u-15*a^4*v+92*a^4-10*a^3*u+67*a^3*v-458*a^3-66*a^2*u+91*a^2*v+523*a^2-62*a*u+36*a*v-885*a-16*u+4*v+298)/(a^6-2*a^5+9*a^4-16*a^3+24*a^2-32*a+16)=0
+// Time 0
+// Time 0.01
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+c'est bien de degre 27
+// Time 0
+// Total time 0.38
+PASS: chk_fhan17
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: A,x,P, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Near [1,0], 1/epsilon^2*f([1,0]+epsilon*[1,t])=7+8*t+t^2 roots [-7.0,-1.0]
+Near [1,0], 1/epsilon^2*f([1,0]+epsilon*[1,t])=7+8*t+t^2 roots [-7.0,-1.0]
+Near [2,1], 1/epsilon^2*f([2,1]+epsilon*[1,t])=-4+7*t+13*t^2 roots [-0.885816136226,0.347354597765]
+Near [1,1], 1/epsilon^2*f([1,1]+epsilon*[1,t])=-4-2*t+t^2 roots [-1.2360679775,3.2360679775]
+Near [2,1], 1/epsilon^2*f([2,1]+epsilon*[1,t])=-4+7*t+13*t^2 roots [-0.885816136226,0.347354597765]
+Near [1,1], 1/epsilon^2*f([1,1]+epsilon*[1,t])=-4-2*t+t^2 roots [-1.2360679775,3.2360679775]
+Near [2,1], 1/epsilon^2*f([2,1]+epsilon*[1,t])=-4+7*t+13*t^2 roots [-0.885816136226,0.347354597765]
+Near [1,1], 1/epsilon^2*f([1,1]+epsilon*[1,t])=-4-2*t+t^2 roots [-1.2360679775,3.2360679775]
+Near [2,1], 1/epsilon^2*f([2,1]+epsilon*[1,t])=-4+7*t+13*t^2 roots [-0.885816136226,0.347354597765]
+Near [1,1], 1/epsilon^2*f([1,1]+epsilon*[1,t])=-4-2*t+t^2 roots [-1.2360679775,3.2360679775]
+Singular points directions: [cell_i, cell_j, singularity, next solution] [[40,20,1.0,1.01750749956-0.116666666667*i],[40,20,1.0,0.984298297257+0.116666666667*i],[40,20,1.0,1.01623362425-0.0166666666667*i],[40,20,1.0,0.982835796847+0.0166666666667*i],[40,20,1.0,1.01750749956-0.116666666667*i],[40,20,1.0,0.984298297257+0.116666666667*i],[40,20,1.0,1.01623362425-0.0166666666667*i],[40,20,1.0,0.982835796847+0.0166666666667*i],[60,40,2.0+i,2.01666666667+0.985089269594*i],[60,40,2.0+i,1.98333333333+1.0146162523*i],[60,40,2.0+i,2.01666666667+1.00580773806*i],[60,40,2.0+i,1.98333333333+0.994229813537*i],[40,40,1.0+i,1.01742962193+0.979398867042*i],[40,40,1.0+i,0.983990659661+1.02060113296*i],[40,40,1.0+i,1.01892941475+1.05393446629*i],[40,40,1.0+i,0.985250778257+0.946065533708*i],[60,40,2.0+i,2.01666666667+0.985089269594*i],[60,40,2.0+i,1.98333333333+1.0146162523*i],[60,40,2.0+i,2.01666666667+1.00580773806*i],[60,40,2.0+i,1.98333333333+0.994229813537*i],[40,40,1.0+i,1.01742962193+0.979398867042*i],[40,40,1.0+i,0.983990659661+1.02060113296*i],[40,40,1.0+i,1.01892941475+1.05393446629*i],[40,40,1.0+i,0.985250778257+0.946065533708*i],[60,40,2.0+i,2.01666666667+0.985089269594*i],[60,40,2.0+i,1.98333333333+1.0146162523*i],[60,40,2.0+i,2.01666666667+1.00580773806*i],[60,40,2.0+i,1.98333333333+0.994229813537*i],[40,40,1.0+i,1.01742962193+0.979398867042*i],[40,40,1.0+i,0.983990659661+1.02060113296*i],[40,40,1.0+i,1.01892941475+1.05393446629*i],[40,40,1.0+i,0.985250778257+0.946065533708*i],[60,40,2.0+i,2.01666666667+0.985089269594*i],[60,40,2.0+i,1.98333333333+1.0146162523*i],[60,40,2.0+i,2.01666666667+1.00580773806*i],[60,40,2.0+i,1.98333333333+0.994229813537*i],[40,40,1.0+i,1.01742962193+0.979398867042*i],[40,40,1.0+i,0.983990659661+1.02060113296*i],[40,40,1.0+i,1.01892941475+1.05393446629*i],[40,40,1.0+i,0.985250778257+0.946065533708*i]]
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+Warning! Could not loop or reach boundaries 
+
+Evaluation time: 0.41
+// Time 0.41
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Warning, argument is not an equation, solving -44*t^4-81*t^3-84*t^2-29*t-2+(16*t^4+15*t^3+41*t^2+23*t+2)*x=0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+Warning, argument is not an equation, solving 77*t^3+73*t^2+6*t+(16*t^4+15*t^3+41*t^2+23*t+2)*y=0
+// Time 0
+// Time 0.19
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Total time 0.62
+PASS: chk_fhan19
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+Warning: non-square matrix!
+// Time 0
+// Time 0
+Warning: non-square matrix!
+// Time 0
+// Time 0
+// Time 0
+Hyperbola of center (1201/284,-523/568)
+// Time 0.03
+// Time 0.09
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Groebner basis computation time 0.00056 Memory 60.98M
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.01
+Line A-5*B+1=0
+Line A-3*B-6=0
+Line A-2*B-3=0
+Line A-2*B+2=0
+Line A-B+1=0
+// Time 0
+// Total time 0.18
+PASS: chk_fhan20
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: x,g, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: x,tmp, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining ST
+// Warning: PU, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: x,j, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining MU
+// Warning: x,MU,U, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining scalU
+// Warning: scalU, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: scalU,GS, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: x, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining recip
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0.03
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+ca doit etre nul,0
+ca doit etre nul,0
+ca doit etre nul,0
+ca doit etre nul,0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.03
+// Time 0.08
+// Time 0
+// Time 0
+// Time 0.01
+// Total time 0.2
+PASS: chk_fhan21
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Success
+// End defining puis
+// Warning: x,p, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining periode
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+
+Evaluation time: 13.95
+// Time 13.95
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Total time 14.01
+PASS: chk_fhan9
+// Using locale /usr/share/locale/
+// C
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: S, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Warning: S, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Warning: S, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Warning: S,f, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining h
+// Warning: H,rep,w,k,r, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining jeu
+// Success
+// End defining f
+// Warning: H,HE, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining syst
+// Warning: syst, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining sol
+// Warning: S, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Warning: sol,S,f,a,b,c,l, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining question
+// Warning: j, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining prodlist
+// Success
+// Warning: prodlist,powerlist,aa,a, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining powerlist
+// Warning: j, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining powerlist2
+// Warning: S, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Warning: sol,S,powerlist2,L,f,A,l, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining questionbis
+// Success
+// End defining f
+// Success
+// End defining distham
+// Warning: distham,v, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: distham,C, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// Warning: distham,C, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+menti a la question:,2
+// Time 0
+// Time 0
+votre nombre est:,13
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+erreur
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+est il dans,[8,9,10,11,12,13,14,15]
+est il dans,[4,5,6,7,12,13,14,15]
+est il dans,[2,3,6,7,10,11,14,15]
+est il dans,[1,3,5,7,9,11,13,15]
+est il dans,[1,2,4,7,9,10,12,15]
+est il dans,[1,2,5,6,8,11,12,15]
+est il dans,[1,3,4,6,8,10,13,15]
+// Time 0.01
+// Time 0
+// Time 0
+powerlist: recursive definition
+// Time 0
+// Time 0
+BON
+// Time 0
+// Time 0
+est il dans,[8,9,10,11,12,13,14,15]
+est il dans,[4,5,6,7,12,13,14,15]
+est il dans,[2,3,6,7,10,11,14,15]
+est il dans,[1,3,5,7,9,11,13,15]
+est il dans,[1,2,4,7,9,10,12,15]
+est il dans,[1,2,5,6,8,11,12,15]
+est il dans,[1,3,4,6,8,10,13,15]
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Warning, the test a==b is performed by checking
+that the internal representation of regroup(a-b) is not 0.
+Therefore a==b may return false even if a and b are mathematically equal,
+if they have different internal representations.
+You can explicitly call a simplification function like simplify(a-b)==0 to avoid this.
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0.02
+// Time 0.02
+// Total time 0.09
+PASS: chk_fhan18
+// Using locale /usr/share/locale/
+// en_US.UTF8
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 1
+// Giac share root-directory:/usr/share/giac/
+// Giac share root-directory:/usr/share/giac/
+Added 0 synonyms
+// Giac share root-directory:/usr/share/giac/
+// Warning: x,f, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining g
+// Success
+// End defining f
+// Warning: f, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining df
+// Warning: J, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Warning: p, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining f
+// Warning: x,m,p,dp,u,s,t,d,invdp, declared as global variable(s). If symbolic variables are required, declare them as local and run purge
+// End defining Dunford
+============== restarted ===============
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.02
+0.0857864376269
+0.00245310429357
+2.12390141741e-06
+1.5916157281e-12
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0.01
+// Time 0
+// Time 0
+// Time 0
+// Time 0.07
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+// Time 0
+Warning, the test a==b is performed by checking
+that the internal representation of regroup(a-b) is not 0.
+Therefore a==b may return false even if a and b are mathematically equal,
+if they have different internal representations.
+You can explicitly call a simplification function like simplify(a-b)==0 to avoid this.
+// Time 0.02
+// Time 0
+// Time 0
+// Time 0.01
+// Time 0
+// Total time 0.14
+PASS: chk_fhan7
+====================
+1 of 30 tests failed
+====================
+make[1]: *** [Makefile:349: check-TESTS] Error 1
+make[1] : on quitte le répertoire « /home/parisse/giac-1.9.0/check »
+make: *** [Makefile:472: check-am] Error 2

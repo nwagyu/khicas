@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Solving Diophantine equations: isolve</title>
+</head>
+<body >
+<a href="cascmd_en116.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en118.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec235" class="subsection">5.5.23  Solving Diophantine equations: <span style="font-family:monospace">isolve</span><a id="hevea_default207"></a></h3>
+<p>The <span style="font-family:monospace">isolve</span> command attempts to solve the given equations over the integers. Note that it automatically solves for all of the indeterminates present in the equations.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">isolve</span> takes one mandatory argument: an equation or list of equations.
+</li><li class="li-itemize"><span style="font-family:monospace">isolve</span> also takes the following optional arguments:
+<ul class="itemize"><li class="li-itemize">
+a (sequence or list of) symbol(s), which are used as the names for global variables present in the solution, can be passed as the second argument. These names default to _<span style="font-style:italic">Z</span>0,_<span style="font-style:italic">Z</span>1,… for general integers and to _<span style="font-style:italic">N</span>0,_<span style="font-style:italic">N</span>1,… for positive integers.
+</li><li class="li-itemize"><span style="font-family:monospace">seq=false</span>, which makes <span style="font-family:monospace">isolve</span> return only particular/fundamental solution(s) found by the solver. By default, <span style="font-family:monospace">seq=true</span>, which makes <span style="font-family:monospace">isolve</span> return sequences (classes) of solutions whenever possible.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">isolve</span> can solve the following types of equations:
+<ul class="itemize"><li class="li-itemize">
+(systems of) linear equation(s)
+</li><li class="li-itemize">general quadratic equations with two indeterminates
+</li><li class="li-itemize">equations of the type <span style="font-style:italic">Q</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span>)=0, where <span style="font-style:italic">Q</span> is a ternary quadratic form
+</li><li class="li-itemize">equations of the type <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">g</span>(<span style="font-style:italic">y</span>), where <span style="font-style:italic">f</span>,<span style="font-style:italic">g</span>∈ℤ[<span style="font-style:italic">X</span>] are monic polynomials with degrees <span style="font-style:italic">m</span> and <span style="font-style:italic">n</span> such that <span style="font-style:italic">gcd</span>(<span style="font-style:italic">m</span>,<span style="font-style:italic">n</span>)&gt;1 and <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">g</span>(<span style="font-style:italic">y</span>) is irreducible in ℚ[<span style="font-style:italic">X</span>,<span style="font-style:italic">Y</span>]
+</li></ul>
+</li></ul><h4 id="sec236" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Linear equations and systems can be solved.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isolve(5x+42y+8=0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=−10+42_<span style="font-style:italic">Z</span>0,<span style="font-style:italic">y</span>=1−5_<span style="font-style:italic">Z</span>0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isolve([x+y-z=4,x-2y+3z=3],m)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=<span style="font-style:italic">m</span>,<span style="font-style:italic">y</span>=−4 <span style="font-style:italic">m</span>+15,<span style="font-style:italic">z</span>=−3 <span style="font-style:italic">m</span>+11</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Here we find the general solution to Pell-type equation <span style="font-style:italic">x</span><sup>2</sup>−23<span style="font-style:italic">y</span><sup>2</sup>=1.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sol:=isolve(x^2-23y^2=1,n)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">24+5 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >23</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">24−5 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >23</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,<span style="font-style:italic">y</span>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">24+5 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >23</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">24−5 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >23</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >23</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+To check that it is indeed the solution, enter:
+<div class="center">
+<span style="font-family:monospace">simplify(subs(x^2-23y^2-1,sol))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+Now to obtain e.g. the first four solutions, enter:
+<div class="center">
+<span style="font-family:monospace">simplify(apply(unapply(apply(rhs,sol),n),[1,2,3,4]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">[24,5],[1151,240],[55224,11515],[2649601,552480]</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+To obtain only the fundamental solution, enter:
+<div class="center">
+<span style="font-family:monospace">isolve(x^2-23y^2=1,seq=false)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  [<span style="font-style:italic">x</span>=24,<span style="font-style:italic">y</span>=5]
+</td></tr>
+</table>
+</li><li class="li-itemize">The following two examples demonstrate solving quadratic equations with two indeterminates.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isolve(x^2-5x*y+4y^2=16)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=−4,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=−5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=0,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=−2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=4,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=10,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=21,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=4,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=0,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=−4,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=−10,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=−2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=−21,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=−5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isolve(x^2-3x*y+y^2-x=2,n)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >  [[<span style="font-style:italic">x</span></td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−3</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">−15 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−33</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">10</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−3</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">15 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−33</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">10</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">y</span></td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−3</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">−3 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−6</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−3</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">3 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−6</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">]]
+</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isolve(8x^2-24x*y+18y^2+5x+7y+16=0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=−174 _<span style="font-style:italic">Z</span>1<sup>2</sup>+17_<span style="font-style:italic">Z</span>1−2,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=−116 _<span style="font-style:italic">Z</span>1<sup>2</sup>+21_<span style="font-style:italic">Z</span>1−2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>=−174 _<span style="font-style:italic">Z</span>1<sup>2</sup>+41_<span style="font-style:italic">Z</span>1−4,</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span>=−116 _<span style="font-style:italic">Z</span>1<sup>2</sup>+37_<span style="font-style:italic">Z</span>1−4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Integral zeros of ternary quadratic forms can be found.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isolve(x^2+11y^2+6x*y-3z^2=0,a,b,c)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=<span style="font-style:italic">c</span> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−44 <span style="font-style:italic">a</span><sup>2</sup>+12 <span style="font-style:italic">b</span><sup>2</sup></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,<span style="font-style:italic">y</span>=<span style="font-style:italic">c</span> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">13 <span style="font-style:italic">a</span><sup>2</sup>−3 <span style="font-style:italic">b</span><sup>2</sup>−6 <span style="font-style:italic">a</span> <span style="font-style:italic">b</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,<span style="font-style:italic">z</span>=<span style="font-style:italic">c</span> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−11 <span style="font-style:italic">a</span><sup>2</sup>−3 <span style="font-style:italic">b</span><sup>2</sup>+2 <span style="font-style:italic">a</span> <span style="font-style:italic">b</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+The components of the above solution can be divided by the GCD of −44 <span style="font-style:italic">a</span><sup>2</sup>+12 <span style="font-style:italic">b</span><sup>2</sup>, 13 <span style="font-style:italic">a</span><sup>2</sup>−3 <span style="font-style:italic">b</span><sup>2</sup>−6 <span style="font-style:italic">a</span> <span style="font-style:italic">b</span>, and −11 <span style="font-style:italic">a</span><sup>2</sup>−3 <span style="font-style:italic">b</span><sup>2</sup>+2 <span style="font-style:italic">a</span> <span style="font-style:italic">b</span>, thus producing a parametrization for the pairwise-coprime solutions given <span style="font-style:italic">c</span>=1.
+</li><li class="li-itemize">Certain polynomial equations of the type <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">g</span>(<span style="font-style:italic">y</span>) can be fully solved, as in the following example.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isolve(x^2-3x+5=y^8-y^7+9y^6-7y^5+4y^4-y^3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>=−3,</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">y</span>=−1</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>=6,</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">y</span>=−1</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>=0,</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">y</span>=1</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>=3,</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">y</span>=1</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>=660,</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">y</span>=5</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>=−657,</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">y</span>=5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+The above list contains all integer solutions to the given equation.
+</li></ul>
+<hr>
+<a href="cascmd_en116.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en118.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

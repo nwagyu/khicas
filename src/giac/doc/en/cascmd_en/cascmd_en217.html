@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Defining a function with history: as_function_of
+</title>
+</head>
+<body >
+<a href="cascmd_en216.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en218.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec498" class="subsection">5.16.6  Defining a function with history: <span style="font-family:monospace">as_function_of</span>
+<a id="hevea_default408"></a></h3>
+<p>The <span style="font-family:monospace">as_function_of</span> command creates a function defined by an
+expression, even if the desired variable already has a value.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">as_function_of</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">x</span>, a variable.
+</li><li class="li-itemize"><span style="font-style:italic">exprvar</span>, another variable containing an expression which
+itself may involve <span style="font-style:italic">x</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">as_function_of(</span><span style="font-style:italic">exprvar</span><span style="font-family:monospace">,</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span>
+returns a function defined by the expression that <span style="font-style:italic">exprvar</span>
+contains.
+</li></ul><h4 id="sec499" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">a:=sin(x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">b:=sqrt(1+a^2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1+sin<sup>2</sup><span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">c:=as_function_of(b,a)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">(a) -&gt; { return(sqrt(1+a^2));}</span>
+</div><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">c(x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1+<span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td></tr>
+</table><p><br>
+</p><p><span style="font-weight:bold">Warning !!</span><br>
+If the variable <span style="font-family:monospace">b</span> has been assigned several times, the first
+assignment of <span style="font-family:monospace">b</span> following the last assignment of <span style="font-family:monospace">a</span>
+will be used. Moreover, the order used is the order of validation of
+the commandlines, which may not be reflected by the <span style="font-family:monospace">Xcas</span> interface if
+you reused previous commandlines.</p><h4 id="sec500" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">a:=2</span>
+<span style="font-family:monospace">b:=2*a+1</span>
+<span style="font-family:monospace">b:=3*a+2</span>
+<span style="font-family:monospace">c:=as_function_of(b,a)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">(a) -&gt; {return(2*a+1);}</span>
+</div><p>
+So <span style="font-family:monospace">c(x)</span> is equal to <span style="font-family:monospace">2*x+1</span>. But:
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">a:=2</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">b:=2*a+1</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">a:=2</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">b:=3*a+2</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">c:=as_function_of(b,a)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">(a) -&gt; {return(3*a+2);}</span>
+</div><p>
+So <span style="font-family:monospace">c(x)</span> is equal to <span style="font-family:monospace">3*x+2</span>.<br>
+Hence the line where <span style="font-family:monospace">a</span> is defined must be reevaluated before the good
+definition of <span style="font-family:monospace">b</span>.</p>
+<hr>
+<a href="cascmd_en216.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en218.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

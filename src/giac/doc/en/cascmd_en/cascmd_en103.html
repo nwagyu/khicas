@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The integer Euclidean remainder: irem remain smod mods mod %
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en102.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en104.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec203" class="subsection">5.5.9  The integer Euclidean remainder: <span style="font-family:monospace">irem</span> <span style="font-family:monospace">remain</span> <span style="font-family:monospace">smod</span> <span style="font-family:monospace">mods</span> <span style="font-family:monospace">mod</span> <span style="font-family:monospace">%</span>
+<a id="hevea_default184"></a>
+<a id="hevea_default185"></a>
+<a id="hevea_default186"></a>
+<a id="hevea_default187"></a>
+<a id="hevea_default188"></a>
+<a id="hevea_default189"></a></h3>
+<p>The <span style="font-family:monospace">irem</span> command finds the remainder of
+two integers (see Section <a href="cascmd_en102.html#ssec%3Aiquo">5.5.8</a>).<br>
+<span style="font-family:monospace">remain</span> is a synonym for <span style="font-family:monospace">irem</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">irem</span> takes two arguments:<br>
+ <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, integers.
+</li><li class="li-itemize"><span style="font-family:monospace">irem(</span><span style="font-style:italic">a</span><span style="font-family:monospace">,</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns
+the remainder <span style="font-style:italic">r</span> of <span style="font-style:italic">a</span> divided by <span style="font-style:italic">b</span>.
+</li></ul><h4 id="sec204" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">irem(148,5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">irem(factorial(148),factorial(45)+2 )</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  111615339728229933018338917803008301992120942047239639312
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">irem(25+12*i,5+7*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −4+<span style="font-style:italic">i</span>
+</td></tr>
+</table>
+Here <span style="font-style:italic">r</span>=<span style="font-style:italic">a</span>−<span style="font-style:italic">b</span>*<span style="font-style:italic">q</span>=−4+<span style="font-style:italic">i</span> and |−4+<span style="font-style:italic">i</span>|<sup>2</sup>=17&lt;|5+7*<span style="font-style:italic">i</span>|<sup>2</sup>/2=74/2=37
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">smod</span> command finds the symmetric
+remainder of two (ordinary) integers.<br>
+<span style="font-family:monospace">mods</span> is a synonym for <span style="font-family:monospace">smod</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">smod</span> takes two arguments:<br>
+ <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, integers.
+</li><li class="li-itemize"><span style="font-family:monospace">smod(</span><span style="font-style:italic">a</span><span style="font-family:monospace">,</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns the
+symmetric remainder <span style="font-style:italic">s</span> of the Euclidean division of <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>;
+namely, the value <span style="font-style:italic">s</span> with <span style="font-style:italic">a</span>=<span style="font-style:italic">b</span>*<span style="font-style:italic">q</span>+<span style="font-style:italic">s</span> and −<span style="font-style:italic">b</span>/2&lt;<span style="font-style:italic">s</span> ≤ <span style="font-style:italic">b</span>/2.
+</li></ul><h4 id="sec205" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">smod(148,5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−2
+</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">mod</span> operator is an infixed operator
+which takes an integer to a modular integer.<br>
+<span style="font-family:monospace">%</span> is a synonym for <span style="font-family:monospace">mod</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">mod</span> has two operands: <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>,
+ordinary integers.
+</li><li class="li-itemize"><span style="font-style:italic">a</span><span style="font-family:monospace"> mod </span><span style="font-style:italic">b</span>
+returns <span style="font-style:italic">r</span> % <span style="font-style:italic">b</span> in ℤ/<span style="font-style:italic">b</span>ℤ, where <span style="font-style:italic">r</span> is the
+remainder of the Euclidean division of the arguments <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>.
+</li></ul><h4 id="sec206" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">148 mod 5</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">148 % 5</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%5
+</td></tr>
+</table><p>
+Note that the result <span style="font-family:monospace">-2 % 5</span> is not an integer (-2) but
+an element of <span style="font-style:italic">Z</span>/5<span style="font-style:italic">Z</span> (see Section <a href="index.html#sec%3Amodulaire">5.34</a> for the possible
+operations in <span style="font-style:italic">Z</span>/5<span style="font-style:italic">Z</span>).</p>
+<hr>
+<a href="cascmd_en102.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en104.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

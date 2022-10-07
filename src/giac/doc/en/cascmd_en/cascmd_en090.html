@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Transforming a string into a number: expr</title>
+</head>
+<body >
+<a href="cascmd_en089.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en091.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:expr1" class="subsection">5.3.14  Transforming a string into a number: <span style="font-family:monospace">expr</span><a id="hevea_default163"></a></h3>
+<p>The <span style="font-family:monospace">expr</span> command transforms a string representing a valid
+<span style="font-family:monospace">Xcas</span> statement into the actual statement.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">expr</span> takes one argument:<br>
+ <span style="font-style:italic">str</span>, a string corresponding to an <span style="font-family:monospace">Xcas</span> statement.
+</li><li class="li-itemize"><span style="font-family:monospace">expr(</span><span style="font-style:italic">str</span><span style="font-family:monospace">)</span> evaluates the statement.
+</li></ul><h4 id="sec168" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">expr("a:=1")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+Then:<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">a</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+In particular, <span style="font-family:monospace">expr</span> can transform a string representing a
+number into the number (see Section <a href="index.html#sec%3Anumbs">4.1</a>).
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">expr("123")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  123
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">expr("0123")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  83
+</td></tr>
+</table>
+since <span style="font-family:monospace">0123</span> represents a base 8 integer (see
+Section <a href="cascmd_en093.html#ssec%3Abinocthex">5.4.1</a>) and 1· 8<sup>2</sup>+2· 8+3=83.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">expr("0x12f")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  303
+</td></tr>
+</table>
+since <span style="font-family:monospace">0x12f</span> represents a base 16 number and 1*16<sup>2</sup>+2*16+15=303.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">expr("123.4567")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  123.4567
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">expr("123e-5")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0.00123
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en089.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en091.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

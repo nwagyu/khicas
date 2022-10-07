@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if an object in space is a right triangle or a rectangle: is_rectangle
+</title>
+</head>
+<body >
+<a href="cascmd_en947.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en949.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dcheckrect" class="subsection">14.13.11  Checking if an object in space is a right triangle or a rectangle: <span style="font-family:monospace">is_rectangle</span>
+<a id="hevea_default1654"></a></h3>
+<p>See Section <a href="cascmd_en873.html#ssec%3A2dcheckrect">13.16.7</a> for checking for right triangles and
+rectangles in two-dimensional geometry.</p><p>The <span style="font-family:monospace">is_rectangle</span> command determines whether or not a
+geometric object is an rectangle or a right triangle.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_rectangle</span> takes one argument:<br>
+ <span style="font-style:italic">G</span>, a geometric object or a sequence of three or four points
+assumed to be the vertices of a triangle or a quadrilateral.
+</li><li class="li-itemize"><span style="font-family:monospace">is_rectangle(</span><span style="font-style:italic">G</span><span style="font-family:monospace">)</span> returns:
+<ul class="itemize"><li class="li-itemize">
+(for triangle <span style="font-style:italic">G</span>) 1,2 or 3 if <span style="font-style:italic">G</span> is a right
+triangle (the number indicates which vertex is has the right angle).
+</li><li class="li-itemize">(for quadrilaterals <span style="font-style:italic">G</span>) 1 if <span style="font-style:italic">G</span> is a rectangle but not a
+square.
+</li><li class="li-itemize">(for quadrilaterals <span style="font-style:italic">G</span>) 2 if <span style="font-style:italic">G</span> is square.
+</li><li class="li-itemize">0 otherwise.
+</li></ul>
+</li></ul><h4 id="sec2402" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_rectangle([2,0,0],[2,2,0],[0,2,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_rectangle([2,2,0],[-2,2,0],[-2,-1,0],[2,-1,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en947.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en949.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

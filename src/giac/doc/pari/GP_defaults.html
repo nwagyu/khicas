@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: GP defaults</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:gp_defaults"></div>
+<h2 class="center">GP defaults</h2>
+
+<p></p>
+<p> This section documents the GP defaults,
+that can be set either by the GP function <code><a href="Programming_in_GP__other_specific_functions.html#se:default"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">default</a></code> or in your GPRC.
+Be sure to check out <code>parisize</code> and <code>parisizemax</code> !</p>
+<p>
+<hr>
+<div id="se:def,TeXstyle"></div>
+<div id="TeXstyle"></div>
+<h4>TeXstyle</h4>
+<p>
+The bits of this default allow
+<code>gp</code> to use less rigid TeX formatting commands in the logfile. This
+default is only taken into account when <code><a href="Transcendental_functions.html#se:log"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">log</a></code> = 3. The bits of
+<code>TeXstyle</code> have the following meaning</p>
+<p>
+2: insert <code>\right</code> / <code>\left</code> pairs where appropriate.</p>
+<p>
+4: insert discretionary breaks in polynomials, to enhance the probability of
+a good line break.</p>
+<p>
+The default value is <code>0</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,breakloop"></div>
+<div id="breakloop"></div>
+<h4>breakloop</h4>
+<p>
+If true, enables the "break loop" debugging mode, see
+Section se:break_loop.</p>
+<p>
+The default value is <code>1</code> if we are running an interactive <code>gp</code>
+session, and <code>0</code> otherwise.</p>
+<p>
+
+<hr>
+<div id="se:def,colors"></div>
+<div id="colors"></div>
+<h4>colors</h4>
+<p>
+This default is only usable if <code>gp</code>
+is running within certain color-capable terminals. For instance <code>rxvt</code>,
+<code>color_xterm</code> and modern versions of <code>xterm</code> under X Windows, or
+standard Linux/DOS text consoles. It causes <code>gp</code> to use a small palette of
+colors for its output. With xterms, the colormap used corresponds to the
+resources <code>Xterm*colorn</code> where n ranges from 0 to 15 (see the
+file <code>misc/color.dft</code> for an example). Accepted values for this
+default are strings <code>"a<sub>1</sub>,...,a<sub>k</sub>"</code> where k &leq; 7 and each
+a<sub>i</sub> is either</p>
+<p>
+<b>*</b> the keyword <code>no</code> (use the default color, usually
+black on transparent background)</p>
+<p>
+<b>*</b> an integer between 0 and 15 corresponding to the
+aforementioned colormap</p>
+<p>
+<b>*</b> a triple [c<sub>0</sub>,c<sub>1</sub>,c<sub>2</sub>] where c<sub>0</sub> stands for foreground
+color, c<sub>1</sub> for background color, and c<sub>2</sub> for attributes (0 is default, 1
+is bold, 4 is underline).</p>
+<p>
+The output objects thus affected are respectively error messages,
+history numbers, prompt, input line, output, help messages, timer (that's
+seven of them). If k &lt; 7, the remaining a<sub>i</sub> are assumed to be no. For
+instance</p>
+<p></p>
+<p>
+</p><pre class="code">  default(colors, "9, 5, no, no, 4")
+</pre><p></p>
+<p></p>
+<p>typesets error messages in color 9, history numbers in color 5, output in
+color 4, and does not affect the rest.</p>
+<p>
+A set of default colors for dark (reverse video or PC console) and light
+backgrounds respectively is activated when <code>colors</code> is set to
+<code>darkbg</code>, resp.&nbsp;<code>lightbg</code> (or any proper prefix: <code>d</code> is
+recognized as an abbreviation for <code>darkbg</code>). A bold variant of
+<code>darkbg</code>, called <code>boldfg</code>, is provided if you find the former too
+pale.</p>
+<p>
+ In the present version, this default is incompatible with PariEmacs.
+Changing it will just fail silently (the alternative would be to display
+escape sequences as is, since Emacs will refuse to interpret them).
+You must customize color highlighting from the PariEmacs side, see its
+documentation.</p>
+<p>
+The default value is <code>""</code> (no colors).</p>
+<p>
+
+<hr>
+<div id="se:def,compatible"></div>
+<div id="compatible"></div>
+<h4>compatible</h4>
+<p>
+Obsolete. This default is now a no-op.</p>
+<p>
+
+<hr>
+<div id="se:def,datadir"></div>
+<div id="datadir"></div>
+<h4>datadir</h4>
+<p>
+The name of directory containing the optional data files. For now,
+this includes the <code>elldata</code>, <code>galdata</code>, <code>galpol</code>, <code>seadata</code>
+packages.</p>
+<p>
+The default value is <code>/usr/local/share/pari</code>, or the override specified
+via <code>Configure --datadir = </code>.</p>
+<p>
+
+<hr>
+<div id="se:def,debug"></div>
+<div id="debug"></div>
+<h4>debug</h4>
+<p>
+Debugging level. If it is non-zero, some extra messages may be printed,
+according to what is going on (see&nbsp;<code>\g</code>).</p>
+<p>
+The default value is <code>0</code> (no debugging messages).</p>
+<p>
+
+<hr>
+<div id="se:def,debugfiles"></div>
+<div id="debugfiles"></div>
+<h4>debugfiles</h4>
+<p>
+File usage debugging level. If it is non-zero, <code>gp</code> will print
+information on file descriptors in use, from PARI's point of view
+(see&nbsp;<code>\gf</code>).</p>
+<p>
+The default value is <code>0</code> (no debugging messages).</p>
+<p>
+
+<hr>
+<div id="se:def,debugmem"></div>
+<div id="debugmem"></div>
+<h4>debugmem</h4>
+<p>
+Memory debugging level (see <code>\gm</code>). If this is non-zero, <code>gp</code> will
+print increasingly precise notifications about memory use:</p>
+<p>
+<b>*</b> <code>debugmem</code> &gt; 0, notify when <code>parisize</code> changes (within the
+boundaries set by <code>parisizemax</code>);</p>
+<p>
+<b>*</b> <code>debugmem</code> &gt; 1, indicate any important garbage collection and the
+function it is taking place in;</p>
+<p>
+<b>*</b> <code>debugmem</code> &gt; 2, indicate the creation/destruction of
+"blocks" (or clones); expect lots of messages.</p>
+<p>
+<b>Important Note:</b>
+if you are running a version compiled for debugging (see Appendix&nbsp;A) and
+<code>debugmem</code> &gt; 1, <code>gp</code> will further regularly print information on
+memory usage, notifying whenever stack usage goes up or down by 1 MByte.
+This functionality is disabled on non-debugging builds as it noticeably
+slows down the performance.</p>
+<p>
+The default value is <code>1</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,echo"></div>
+<div id="echo"></div>
+<h4>echo</h4>
+<p>
+This default can be 0 (off), 1 (on) or 2 (on, raw). When <code>echo</code>
+mode is on, each command is reprinted before being executed. This can be
+useful when reading a file with the <code>\r</code> or <code><a href="Programming_in_GP__other_specific_functions.html#se:read"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">read</a></code> commands. For
+example, it is turned on at the beginning of the test files used to check
+whether <code>gp</code> has been built correctly (see <code>\e</code>). When <code>echo</code> is set
+to 1 the input is cleaned up, removing white space and comments and uniting
+multi-line input. When set to 2 (raw), the input is written as-is, without any
+pre-processing.</p>
+<p>
+The default value is <code>0</code> (no echo).</p>
+<p>
+
+<hr>
+<div id="se:def,factor_add_primes"></div>
+<div id="factor_add_primes"></div>
+<h4>factor_add_primes</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). If on,
+the integer factorization machinery calls <code><a href="Arithmetic_functions.html#se:addprimes"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">addprimes</a></code> on prime
+factors that were difficult to find (larger than 2<sup>24</sup>), so they are
+automatically tried first in other factorizations. If a routine is performing
+(or has performed) a factorization and is interrupted by an error or via
+Control-C, this lets you recover the prime factors already found. The
+downside is that a huge <code><a href="Arithmetic_functions.html#se:addprimes"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">addprimes</a></code> table unrelated to the current
+computations will slow down arithmetic functions relying on integer
+factorization; one should then empty the table using <code><a href="Arithmetic_functions.html#se:removeprimes"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">removeprimes</a></code>.</p>
+<p>
+The default value is <code>0</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,factor_proven"></div>
+<div id="factor_proven"></div>
+<h4>factor_proven</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). By
+default, the factors output by the integer factorization machinery are
+only pseudo-primes, not proven primes. If this toggle is
+set, a primality proof is done for each factor and all results depending on
+integer factorization are fully proven. This flag does not affect partial
+factorization when it is explicitly requested. It also does not affect the
+private table managed by <code><a href="Arithmetic_functions.html#se:addprimes"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">addprimes</a></code>: its entries are included as is in
+factorizations, without being tested for primality.</p>
+<p>
+The default value is <code>0</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,format"></div>
+<div id="format"></div>
+<h4>format</h4>
+<p>
+Of the form x.n, where x (conversion style)
+is a letter in {<code>e</code>,<code>f</code>,<code>g</code>}, and n (precision) is an
+integer; this affects the way real numbers are printed:</p>
+<p>
+<b>*</b> If the conversion style is <code>e</code>, real numbers are printed in
+scientific format, always with an explicit exponent,
+e.g.&nbsp;<code>3.3 E-5</code>.</p>
+<p>
+<b>*</b> In style <code>f</code>, real numbers are generally printed in
+fixed floating point format without exponent, e.g.&nbsp;<code>0.000033</code>. A
+large real number, whose integer part is not well defined (not enough
+significant digits), is printed in style&nbsp;<code>e</code>. For instance
+<code>10.^100</code> known to ten significant digits is always printed in style
+<code>e</code>.</p>
+<p>
+<b>*</b> In style <code>g</code>, non-zero real numbers are printed in <code>f</code> format,
+except when their decimal exponent is  &lt; -4, in which case they are printed
+in <code>e</code> format. Real zeroes (of arbitrary exponent) are printed in <code>e</code>
+format.</p>
+<p>
+The precision n is the number of significant digits printed for real
+numbers, except if n &lt; 0 where all the significant digits will be printed
+(initial default 28, or 38 for 64-bit machines). For more powerful formatting
+possibilities, see <code><a href="Programming_in_GP__other_specific_functions.html#se:printf"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">printf</a></code> and <code><a href="Programming_in_GP__other_specific_functions.html#se:Strprintf"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">Strprintf</a></code>.</p>
+<p>
+The default value is <code>"g.28"</code> and <code>"g.38"</code> on 32-bit and
+64-bit machines, respectively.</p>
+<p>
+
+<hr>
+<div id="se:def,graphcolormap"></div>
+<div id="graphcolormap"></div>
+<h4>graphcolormap</h4>
+<p>
+A vector of colors, to be used by hi-res graphing routines. Its length is
+arbitrary, but it must contain at least 3 entries: the first 3 colors are
+used for background, frame/ticks and axes respectively. All colors in the
+colormap may be freely used in <code><a href="Plotting_functions.html#se:plotcolor"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotcolor</a></code> calls.</p>
+<p>
+A color is either given as in the default by character strings or by an RGB
+code. For valid color names, see the standard <code>rgb.txt</code> file in X11
+distributions, where we restrict to lowercase letters and remove all
+whitespace from color names. An RGB code is a vector with 3 integer entries
+between 0 and 255 or a <code>#</code> followed by 6 hexadecimal digits.
+For instance <code>[250, 235, 215]</code>, <code>"#faebd7"</code>  and
+<code>"antiquewhite"</code> all represent the same color.</p>
+<p>
+The default value is [<code>"white"</code>, <code>"black"</code>, <code>"blue"</code>,
+<code>"violetred"</code>, <code>"red"</code>, <code>"green"</code>, <code>"grey"</code>,
+<code>"gainsboro"</code>].</p>
+<p>
+
+<hr>
+<div id="se:def,graphcolors"></div>
+<div id="graphcolors"></div>
+<h4>graphcolors</h4>
+<p>
+Entries in the
+<code>graphcolormap</code> that will be used to plot multi-curves. The successive
+curves are drawn in colors</p>
+<p>
+<code>graphcolormap[graphcolors[1]]</code>, <code>graphcolormap[graphcolors[2]]</code>,
+...</p>
+<p>
+cycling when the <code>graphcolors</code> list is exhausted.</p>
+<p>
+The default value is <code>[4,5]</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,help"></div>
+<div id="help"></div>
+<h4>help</h4>
+<p>
+Name of the external help program to use from within <code>gp</code> when
+extended help is invoked, usually through a <code>??</code> or <code>???</code> request
+(see Section se:exthelp), or <code>M-H</code> under readline (see
+Section se:readline).</p>
+<p>
+The default value is the path to the <code>gphelp</code> script we install.</p>
+<p>
+
+<hr>
+<div id="se:def,histfile"></div>
+<div id="histfile"></div>
+<h4>histfile</h4>
+<p>
+Name of a file where
+<code>gp</code> will keep a history of all <em>input</em> commands (results are
+omitted). If this file exists when the value of <code>histfile</code> changes,
+it is read in and becomes part of the session history. Thus, setting this
+default in your gprc saves your readline history between sessions. Setting
+this default to the empty string <code>""</code> changes it to
+<code> &lt; undefined &gt; </code>. Note that, by default, the number of history entries
+saved is not limited: set <code>history-size</code> in readline's <code>.inputrc</code>
+to limit the file size.</p>
+<p>
+The default value is <code> &lt; undefined &gt; </code> (no history file).</p>
+<p>
+
+<hr>
+<div id="se:def,histsize"></div>
+<div id="histsize"></div>
+<h4>histsize</h4>
+<p>
+<code>gp</code> keeps a history of the last
+<code>histsize</code> results computed so far, which you can recover using the
+<code>%</code> notation (see Section se:history). When this number is exceeded,
+the oldest values are erased. Tampering with this default is the only way to
+get rid of the ones you do not need anymore.</p>
+<p>
+The default value is <code>5000</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,lines"></div>
+<div id="lines"></div>
+<h4>lines</h4>
+<p>
+If set to a positive value, <code>gp</code> prints at
+most that many lines from each result, terminating the last line shown with
+<code>[+++]</code> if further material has been suppressed. The various <code><a href="Programming_in_GP__other_specific_functions.html#se:print"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">print</a></code>
+commands (see Section <a href="Programming_in_GP__other_specific_functions.html#se:gp_program"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">se:gp_program</a>) are unaffected, so you can always type
+<code>print(%)</code> or <code>\a</code> to view the full result. If the actual screen width
+cannot be determined, a "line" is assumed to be 80 characters long.</p>
+<p>
+The default value is <code>0</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,linewrap"></div>
+<div id="linewrap"></div>
+<h4>linewrap</h4>
+<p>
+If set to a positive value, <code>gp</code> wraps every single line after
+printing that many characters.</p>
+<p>
+The default value is <code>0</code> (unset).</p>
+<p>
+
+<hr>
+<div id="se:def,log"></div>
+<div id="log"></div>
+<h4>log</h4>
+<p>
+This can be either 0 (off) or 1, 2, 3
+(on, see below for the various modes). When logging mode is turned on, <code>gp</code>
+opens a log file, whose exact name is determined by the <code>logfile</code>
+default. Subsequently, all the commands and results will be written to that
+file (see <code>\l</code>). In case a file with this precise name already existed, it
+will not be erased: your data will be <em>appended</em> at the end.</p>
+<p>
+The specific positive values of <code><a href="Transcendental_functions.html#se:log"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">log</a></code> have the following meaning</p>
+<p>
+1: plain logfile</p>
+<p>
+2: emit color codes to the logfile (if <code>colors</code> is set).</p>
+<p>
+3: write LaTeX output to the logfile (can be further customized using
+<code>TeXstyle</code>).</p>
+<p>
+The default value is <code>0</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,logfile"></div>
+<div id="logfile"></div>
+<h4>logfile</h4>
+<p>
+Name of the log file to be used when the <code><a href="Transcendental_functions.html#se:log"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">log</a></code> toggle is on.
+Environment and time expansion are performed.</p>
+<p>
+The default value is <code>"pari.log"</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,nbthreads"></div>
+<div id="nbthreads"></div>
+<h4>nbthreads</h4>
+<p>
+This default is specific to the <em>parallel</em> version of PARI and gp
+(built via <code>Configure --mt = prthread</code> or <code>mpi</code>) and is ignored
+otherwise. In parallel mode, it governs the number of threads to use for
+parallel computing. The exact meaning and default value depend on the
+<code>mt</code> engine used:</p>
+<p>
+<b>*</b> <code>single</code>: not used (always a single thread).</p>
+<p>
+<b>*</b> <code>pthread</code>: number of threads (unlimited, default: number of cores)</p>
+<p>
+<b>*</b> <code>mpi</code>: number of MPI processes to use (limited to the number
+allocated by <code>mpirun</code>, default: use all allocated processes).</p>
+<p>
+See also <code>threadsize</code> and <code>threadsizemax</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,new_galois_format"></div>
+<div id="new_galois_format"></div>
+<h4>new_galois_format</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). If on,
+the <code><a href="General_number_fields.html#se:polgalois"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">polgalois</a></code> command will use a different, more
+consistent, naming scheme for Galois groups. This default is provided to
+ensure that scripts can control this behavior and do not break unexpectedly.</p>
+<p>
+The default value is <code>0</code>. This value will change to 1 (set) in the next
+major version.</p>
+<p>
+
+<hr>
+<div id="se:def,output"></div>
+<div id="output"></div>
+<h4>output</h4>
+<p>
+There are three possible values: 0
+( = &nbsp;<em>raw</em>), 1 ( = &nbsp;<em>prettymatrix</em>), or 3
+( = &nbsp;<em>external</em> <em>prettyprint</em>). This
+means that, independently of the default <code>format</code> for reals which we
+explained above, you can print results in three ways:</p>
+<p>
+<b>*</b> <em>raw format</em>, i.e.&nbsp;a format which is equivalent to what you
+input, including explicit multiplication signs, and everything typed on a
+line instead of two dimensional boxes. This can have several advantages, for
+instance it allows you to pick the result with a mouse or an editor, and to
+paste it somewhere else.</p>
+<p>
+<b>*</b> <em>prettymatrix format</em>: this is identical to raw format, except
+that matrices are printed as boxes instead of horizontally. This is
+prettier, but takes more space and cannot be used for input. Column vectors
+are still printed horizontally.</p>
+<p>
+<b>*</b> <em>external prettyprint</em>: pipes all <code>gp</code>
+output in TeX format to an external prettyprinter, according to the value of
+<code>prettyprinter</code>. The default script (<code>tex2mail</code>) converts its input
+to readable two-dimensional text.</p>
+<p>
+Independently of the setting of this default, an object can be printed
+in any of the three formats at any time using the commands <code>\a</code> and <code>\m</code>
+and <code>\B</code> respectively.</p>
+<p>
+The default value is <code>1</code> (<em>prettymatrix</em>).</p>
+<p>
+
+<hr>
+<div id="se:def,parisize"></div>
+<div id="parisize"></div>
+<h4>parisize</h4>
+<p>
+<code>gp</code>, and in fact any program using the PARI
+library, needs a <em>stack</em> in which to do its computations; <code>parisize</code>
+is the stack size, in bytes. It is recommended to increase this
+default using a <code>gprc</code>, to the value you believe PARI should be happy
+with, given your typical computation. We strongly recommend to also
+set <code>parisizemax</code> to a much larger value in your <code>gprc</code>, about what
+you believe your machine can stand: PARI will then try to fit its
+computations within about <code>parisize</code> bytes, but will increase the stack
+size if needed (up to <code>parisizemax</code>). Once the memory intensive
+computation is over, PARI will restore the stack size to the originally
+requested <code>parisize</code>.</p>
+<p>
+The default value is 4M, resp.&nbsp;8M on a 32-bit, resp.&nbsp;64-bit machine.</p>
+<p>
+
+<hr>
+<div id="se:def,parisizemax"></div>
+<div id="parisizemax"></div>
+<h4>parisizemax</h4>
+<p>
+<code>gp</code>, and in fact any program using the PARI library, needs a
+<em>stack</em> in which to do its computations.  If non-zero,  <code>parisizemax</code>
+is the maximum size the stack can grow to, in bytes.  If zero, the stack will
+not automatically grow, and will be limited to the value of <code>parisize</code>.</p>
+<p>
+When <code>parisizemax</code> is set, PARI tries to fit its
+computations within about <code>parisize</code> bytes, but will increase the stack
+size if needed, roughly doubling it each time (up to <code>parisizemax</code>
+of course!) and printing a message such as <code>Warning: increasing stack size to</code>
+<em>some value</em>. Once the memory intensive computation is over, PARI
+will restore the stack size to the originally requested <code>parisize</code>
+without printing further messages.</p>
+<p>
+We <em>strongly</em> recommend to set <code>parisizemax</code> permanently to a large
+non-zero value in your <code>gprc</code>, about what you believe your machine can
+stand. It is possible to increase or decrease <code>parisizemax</code> inside a
+running <code>gp</code> session, just use <code><a href="Programming_in_GP__other_specific_functions.html#se:default"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">default</a></code> as usual.</p>
+<p>
+The default value is 0, for backward compatibility reasons.</p>
+<p>
+
+<hr>
+<div id="se:def,path"></div>
+<div id="path"></div>
+<h4>path</h4>
+<p>
+This is a list of directories, separated by colons ':'
+(semicolons ';' in the DOS world, since colons are preempted for drive names).
+When asked to read a file whose name is not given by an absolute path
+(does not start with <code>/</code>, <code>./</code> or <code>../</code>), <code>gp</code> will look for
+it in these directories, in the order they were written in <code>path</code>. Here,
+as usual, <code>.</code> means the current directory, and <code>..</code> its immediate
+parent. Environment expansion is performed.</p>
+<p>
+The default value is <code>".:~:~/gp"</code> on UNIX systems,
+<code>".;C:\;C:\GP"</code> on DOS, OS/2 and Windows, and <code>"."</code> otherwise.</p>
+<p>
+
+<hr>
+<div id="se:def,plothsizes"></div>
+<div id="plothsizes"></div>
+<h4>plothsizes</h4>
+<p>
+If the graphic driver allows it, the array contains the size of the
+terminal, the size of the font, the size of the ticks.</p>
+<p>
+
+<hr>
+<div id="se:def,prettyprinter"></div>
+<div id="prettyprinter"></div>
+<h4>prettyprinter</h4>
+<p>
+The name of an external prettyprinter to use when
+<code>output</code> is&nbsp;3 (alternate prettyprinter). Note that the default
+<code>tex2mail</code> looks much nicer than the built-in "beautified
+format" (<code>output</code> = 2).</p>
+<p>
+The default value is <code>"tex2mail -TeX -noindent -ragged -by_par"</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,primelimit"></div>
+<div id="primelimit"></div>
+<h4>primelimit</h4>
+<p>
+<code>gp</code> precomputes a list of
+all primes less than <code>primelimit</code> at initialization time, and can build
+fast sieves on demand to quickly iterate over primes up to the <em>square</em>
+of <code>primelimit</code>. These are used by many arithmetic functions, usually for
+trial division purposes. The maximal value is 2<sup>32</sup> - 2049 (resp 2<sup>64</sup> -
+2049) on a 32-bit (resp.&nbsp;64-bit) machine, but values beyond 10^8,
+allowing to iterate over primes up to 10<sup>16</sup>, do not seem useful.</p>
+<p>
+Since almost all arithmetic functions eventually require some table of prime
+numbers, PARI guarantees that the first 6547 primes, up to and
+including 65557, are precomputed, even if <code>primelimit</code> is 1.</p>
+<p>
+This default is only used on startup: changing it will not recompute a new
+table.</p>
+<p>
+<b>Deprecated feature.</b> <code>primelimit</code> was used in some
+situations by algebraic number theory functions using the
+<code>nf_PARTIALFACT</code> flag (<code><a href="General_number_fields.html#se:nfbasis"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">nfbasis</a></code>, <code><a href="General_number_fields.html#se:nfdisc"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">nfdisc</a></code>, <code><a href="General_number_fields.html#se:nfinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">nfinit</a></code>,...):
+this assumes that all primes p &gt; <code>primelimit</code> have a certain
+property (the equation order is p-maximal). This is never done by default,
+and must be explicitly set by the user of such functions. Nevertheless,
+these functions now provide a more flexible interface, and their use
+of the global default <code>primelimit</code> is deprecated.</p>
+<p>
+<b>Deprecated feature.</b> <code>factor(N, 0)</code> was used to partially
+factor integers by removing all prime factors  &leq;  <code>primelimit</code>.
+Don't use this, supply an explicit bound: <code>factor(N, bound)</code>,
+which avoids relying on an unpredictable global variable.</p>
+<p>
+The default value is <code>500k</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,prompt"></div>
+<div id="prompt"></div>
+<h4>prompt</h4>
+<p>
+A string that will be printed as
+prompt. Note that most usual escape sequences are available there: <code>\e</code> for
+Esc, <code>\n</code> for Newline,..., <code>\\</code> for <code>\</code>. Time expansion is
+performed.</p>
+<p>
+This string is sent through the library function <code>strftime</code> (on a
+Unix system, you can try <code>man strftime</code> at your shell prompt). This means
+that <code>%</code> constructs have a special meaning, usually related to the time
+and date. For instance, <code>%H</code> = hour (24-hour clock) and <code>%M</code> = 
+minute [00,59] (use <code>%%</code> to get a real <code>%</code>).</p>
+<p>
+If you use <code>readline</code>, escape sequences in your prompt will result in
+display bugs. If you have a relatively recent <code>readline</code> (see the comment
+at the end of Section <a href="GP_defaults.html#se:def,colors"
+    onClick="parent.itemFrame.location='cont_GP_defaults.html'">se:def,colors</a>), you can brace them with special sequences
+(<code>\[</code> and <code>\]</code>), and you will be safe. If these just result in
+extra spaces in your prompt, then you'll have to get a more recent
+<code>readline</code>. See the file <code>misc/gprc.dft</code> for an example.</p>
+<p>
+S&lt; &gt;<b>Caution</b>: PariEmacs needs to know about the prompt pattern to
+separate your input from previous <code>gp</code> results, without ambiguity. It is
+not a trivial problem to adapt automatically this regular expression to an
+arbitrary prompt (which can be self-modifying!). See PariEmacs's
+documentation.</p>
+<p>
+The default value is <code>"? "</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,prompt_cont"></div>
+<div id="prompt_cont"></div>
+<h4>prompt_cont</h4>
+<p>
+A string that will be printed
+to prompt for continuation lines (e.g. in between braces, or after a
+line-terminating backslash). Everything that applies to <code>prompt</code>
+applies to <code>prompt_cont</code> as well.</p>
+<p>
+The default value is <code>""</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,psfile"></div>
+<div id="psfile"></div>
+<h4>psfile</h4>
+<p>
+This default is obsolete, use one of plotexport, plothexport or
+plothrawexport functions and write the result to file.</p>
+<p>
+
+<hr>
+<div id="se:def,readline"></div>
+<div id="readline"></div>
+<h4>readline</h4>
+<p>
+Switches readline line-editing
+facilities on and off. This may be useful if you are running <code>gp</code> in a Sun
+<code>cmdtool</code>, which interacts badly with readline. Of course, until readline
+is switched on again, advanced editing features like automatic completion
+and editing history are not available.</p>
+<p>
+The default value is <code>1</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,realbitprecision"></div>
+<div id="realbitprecision"></div>
+<h4>realbitprecision</h4>
+<p>
+The number of significant bits used to convert exact inputs given to
+transcendental functions (see Section <a href="Transcendental_functions.html#se:trans"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">se:trans</a>), or to create
+absolute floating point constants (input as <code>1.0</code> or <code><a href="Transcendental_functions.html#se:Pi"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Pi</a></code> for
+instance). Unless you tamper with the <code>format</code> default, this is also
+the number of significant bits used to print a <code>t_REAL</code> number;
+<code>format</code> will override this latter behavior, and allow you to have a
+large internal precision while outputting few digits for instance.</p>
+<p>
+Note that most PARI's functions currently handle precision on a word basis (by
+increments of 32 or 64 bits), hence bit precision may be a little larger
+than the number of bits you expected. For instance to get 10 bits of
+precision, you need one word of precision which, on a 64-bit machine,
+correspond to 64 bits. To make things even more confusing, this internal bit
+accuracy is converted to decimal digits when printing floating point numbers:
+now 64 bits correspond to 19 printed decimal digits
+(19 &lt; log<sub>10</sub>(2<sup>64</sup>) &lt; 20).</p>
+<p>
+The value returned when typing <code>default(realbitprecision)</code> is the internal
+number of significant bits, not the number of printed decimal digits:</p>
+<p>
+</p><pre class="code">  ? default(realbitprecision, 10)
+  ? \pb
+        realbitprecision = 64 significant bits
+  ? default(realbitprecision)
+  %1 = 64
+  ? \p
+        realprecision = 3 significant digits
+  ? default(realprecision)
+  %2 = 19
+</pre><p>
+Note that <code>realprecision</code> and <code>\p</code> allow
+to view and manipulate the internal precision in decimal digits.</p>
+<p>
+The default value is <code>128</code>, resp.&nbsp;<code>96</code>, on a 64-bit, resp&nbsp;.32-bit,
+machine.</p>
+<p>
+
+<hr>
+<div id="se:def,realprecision"></div>
+<div id="realprecision"></div>
+<h4>realprecision</h4>
+<p>
+The number of significant digits used to convert exact inputs given to
+transcendental functions (see Section <a href="Transcendental_functions.html#se:trans"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">se:trans</a>), or to create
+absolute floating point constants (input as <code>1.0</code> or <code><a href="Transcendental_functions.html#se:Pi"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Pi</a></code> for
+instance). Unless you tamper with the <code>format</code> default, this is also
+the number of significant digits used to print a <code>t_REAL</code> number;
+<code>format</code> will override this latter behavior, and allow you to have a
+large internal precision while outputting few digits for instance.</p>
+<p>
+Note that PARI's internal precision works on a word basis (by increments of
+32 or 64 bits), hence may be a little larger than the number of decimal
+digits you expected. For instance to get 2 decimal digits you need one word
+of precision which, on a 64-bit machine, actually gives you 19 digits (19 &lt; 
+log<sub>10</sub>(2<sup>64</sup>) &lt; 20). The value returned when typing
+<code>default(realprecision)</code> is the internal number of significant digits,
+not the number of printed digits:</p>
+<p>
+</p><pre class="code">  ? default(realprecision, 2)
+        realprecision = 19 significant digits (2 digits displayed)
+  ? default(realprecision)
+  %1 = 19
+</pre><p></p>
+<p>
+The default value is <code>38</code>, resp.&nbsp;<code>28</code>, on a 64-bit, resp.&nbsp;32-bit,
+machine.</p>
+<p>
+
+<hr>
+<div id="se:def,recover"></div>
+<div id="recover"></div>
+<h4>recover</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). If you change this to 0, any
+error becomes fatal and causes the gp interpreter to exit immediately. Can be
+useful in batch job scripts.</p>
+<p>
+The default value is <code>1</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,secure"></div>
+<div id="secure"></div>
+<h4>secure</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). If on, the <code><a href="Programming_in_GP__other_specific_functions.html#se:system"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">system</a></code> and
+<code><a href="Programming_in_GP__other_specific_functions.html#se:extern"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">extern</a></code> command are disabled. These two commands are potentially
+dangerous when you execute foreign scripts since they let <code>gp</code> execute
+arbitrary UNIX commands. <code>gp</code> will ask for confirmation before letting
+you (or a script) unset this toggle.</p>
+<p>
+The default value is <code>0</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,seriesprecision"></div>
+<div id="seriesprecision"></div>
+<h4>seriesprecision</h4>
+<p>
+Number of significant terms
+when converting a polynomial or rational function to a power series
+(see&nbsp;<code>\ps</code>).</p>
+<p>
+The default value is <code>16</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,simplify"></div>
+<div id="simplify"></div>
+<h4>simplify</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). When the PARI library computes
+something, the type of the
+result is not always the simplest possible. The only type conversions which
+the PARI library does automatically are rational numbers to integers (when
+they are of type <code>t_FRAC</code> and equal to integers), and similarly rational
+functions to polynomials (when they are of type <code>t_RFRAC</code> and equal to
+polynomials). This feature is useful in many cases, and saves time, but can
+be annoying at times. Hence you can disable this and, whenever you feel like
+it, use the function <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:simplify"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">simplify</a></code> (see Chapter 3) which allows you to
+simplify objects to the simplest possible types recursively (see&nbsp;<code>\y</code>).</p>
+<p></p>
+<p>
+The default value is <code>1</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,sopath"></div>
+<div id="sopath"></div>
+<h4>sopath</h4>
+<p>
+This is a list of directories, separated by colons ':'
+(semicolons ';' in the DOS world, since colons are preempted for drive names).
+When asked to <code><a href="Programming_in_GP__other_specific_functions.html#se:install"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">install</a></code> an external symbol from a shared library whose
+name is not given by an absolute path (does not start with <code>/</code>, <code>./</code>
+or <code>../</code>), <code>gp</code> will look for it in these directories, in the order
+they were written in <code>sopath</code>. Here, as usual, <code>.</code> means the current
+directory, and <code>..</code> its immediate parent. Environment expansion is
+performed.</p>
+<p>
+The default value is <code>""</code>, corresponding to an empty list of
+directories: <code><a href="Programming_in_GP__other_specific_functions.html#se:install"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">install</a></code> will use the library name as input (and look in
+the current directory if the name is not an absolute path).</p>
+<p>
+
+<hr>
+<div id="se:def,strictargs"></div>
+<div id="strictargs"></div>
+<h4>strictargs</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). If on, all arguments to <em>new</em>
+user functions are mandatory unless the function supplies an explicit default
+value.
+Otherwise arguments have the default value 0.</p>
+<p>
+In this example,</p>
+<p>
+</p><pre class="code">    fun(a,b=2)=a+b
+</pre><p></p>
+<p>
+<code>a</code> is mandatory, while <code>b</code> is optional. If <code>strictargs</code> is on:</p>
+<p>
+</p><pre class="code">  ? fun()
+   ***   at top-level: fun()
+   ***                 ^ &mdash; --
+   ***   in function fun: a,b=2
+   ***                    ^ &mdash; --
+   ***   missing mandatory argument 'a' in user function.
+</pre><p></p>
+<p>
+This applies to functions defined while <code>strictargs</code> is on. Changing <code>strictargs</code>
+does not affect the behavior of previously defined functions.</p>
+<p>
+The default value is <code>0</code>.</p>
+<p>
+
+<hr>
+<div id="se:def,strictmatch"></div>
+<div id="strictmatch"></div>
+<h4>strictmatch</h4>
+<p>
+Obsolete. This toggle is now a no-op.</p>
+<p>
+
+<hr>
+<div id="se:def,threadsize"></div>
+<div id="threadsize"></div>
+<h4>threadsize</h4>
+<p>
+This default is specific to the <em>parallel</em> version of PARI and gp
+(built via <code>Configure --mt = prthread</code> or <code>mpi</code>) and is ignored
+otherwise. In parallel mode,
+each thread allocates its own private <em>stack</em> for its
+computations, see <code>parisize</code>. This value determines the size in bytes of
+the stacks of each thread, so the total memory allocated will be
+<code>parisize</code>+<code>nbthreads</code> x <code>threadsize</code>.</p>
+<p>
+If set to 0, the value used is the same as <code>parisize</code>. It is not
+easy to estimate reliably a sufficient value for this parameter because PARI
+itself will parallelize computations and we recommend to not set this value
+explicitly unless it solves a specific problem for you. For instance if you
+see frequent messages of the form</p>
+<p>
+</p><pre class="code">   *** Warning: not enough memory, new thread stack 10000002048
+</pre><p>
+(Meaning that <code>threadsize</code> had to be temporarily increased.)
+On the other hand we strongly recommend to set <code>parisizemax</code> and
+<code>threadsizemax</code> to a non-zero value.</p>
+<p>
+The default value is 0.</p>
+<p>
+
+<hr>
+<div id="se:def,threadsizemax"></div>
+<div id="threadsizemax"></div>
+<h4>threadsizemax</h4>
+<p>
+This default is specific to the <em>parallel</em> version of PARI and gp
+(built via <code>Configure --mt = pthread</code> or <code>mpi</code>) and is ignored
+otherwise. In parallel mode,
+each threads allocates its own private <em>stack</em> for
+its computations, see <code>parisize</code> and <code>parisizemax</code>. The
+values of <code>threadsize</code> and <code>threadsizemax</code> determine the usual
+and maximal size in bytes of the stacks of each thread, so the total memory
+allocated will
+be between <code>parisize</code>+<code>nbthreads</code> x <code>threadsize</code>. and
+<code>parisizemax</code>+<code>nbthreads</code> x <code>threadsizemax</code>.</p>
+<p>
+If set to 0, the value used is the same as <code>threadsize</code>. We strongy
+recommend to set both <code>parisizemax</code> and <code>threadsizemax</code> to a
+non-zero value.</p>
+<p>
+The default value is 0.</p>
+<p>
+
+<hr>
+<div id="se:def,timer"></div>
+<div id="timer"></div>
+<h4>timer</h4>
+<p>
+This toggle is either 1 (on) or 0 (off). Every instruction sequence
+in the gp calculator (anything ended by a newline in your input) is timed,
+to some accuracy depending on the hardware and operating system. When
+<code>timer</code> is on, each such timing is printed immediately before the
+output as follows:</p>
+<p>
+</p><pre class="code">  ? factor(2^2^7+1)
+  time = 108 ms.     \\ this line omitted if 'timer' is 0
+  %1 =
+  [     59649589127497217 1]
+  
+  [5704689200685129054721 1]
+</pre><p>
+(See also <code>#</code> and <code>##</code>.)</p>
+<p>
+The time measured is the user CPU time, <em>not</em> including the time
+for printing the results. If the time is negligible ( &lt; 1 ms.), nothing is
+printed: in particular, no timing should be printed when defining a user
+function or an alias, or installing a symbol from the library.</p>
+<p>
+The default value is <code>0</code> (off).</p>
+<p>
+
+<hr>
+</body>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Markov chains: markov</title>
+</head>
+<body >
+<a href="cascmd_en688.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en690.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1792" class="subsection">8.4.24  Markov chains: <span style="font-family:monospace">markov</span></h3>
+<p>
+<a id="hevea_default1277"></a></p><p>The <span style="font-family:monospace">markov</span> command finds characteristic features of a Markov
+chain.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">markov</span> takes one argument:<br>
+ <span style="font-style:italic">M</span>, a transition matrix for a Markov process.
+</li><li class="li-itemize"><span style="font-family:monospace">markov(</span><span style="font-style:italic">M</span><span style="font-family:monospace">)</span> returns a sequence consisting of
+<ul class="itemize"><li class="li-itemize">
+the list of the positive recurrent states.
+</li><li class="li-itemize">the list of corresponding invariant probabilities.
+</li><li class="li-itemize">the list of other strong connected components.
+</li><li class="li-itemize">the list of probabilities of ending up in the sequence of recurrent states.
+</li></ul>
+</li></ul><h4 id="sec1793" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">markov([[0,0,1/2,0,1/2],[0,0,1,0,0],[1/4,1/4,0,1/4,1/4],[0,0,1/2,0,1/2],[0,0,0,0,1]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en688.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en690.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

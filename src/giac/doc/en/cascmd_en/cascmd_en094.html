@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Writing an integer in an arbitrary base b: convert
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en093.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en095.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:convertbase" class="subsection">5.4.2  Writing an integer in an arbitrary base <span style="font-style:italic">b</span>: <span style="font-family:monospace">convert</span>
+<a id="hevea_default169"></a>
+<a id="hevea_default170"></a>
+</h3>
+<p>The <span style="font-family:monospace">convert</span> command does various
+kinds of conversions depending on the option given as the second
+argument (see Section <a href="cascmd_en273.html#ssec%3Aconvert">5.23.26</a>). 
+<span style="font-family:monospace">convertir</span> is a synonym for <span style="font-family:monospace">convert</span>.</p><p>One thing that <span style="font-family:monospace">convert</span> can do is
+convert integers to arbitrary bases and back to the default base, both
+with the option <span style="font-family:monospace">base</span>.</p><p>To convert an integer into the list of its “digits” in base <span style="font-style:italic">b</span>:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convert</span> takes three
+arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer.
+</li><li class="li-itemize"><span style="font-family:monospace">base</span>, the symbol verbatim.
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, a positive integer, the value of the base.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">convert(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,base,</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns the list of
+digits of the integer <span style="font-style:italic">n</span> when written in base <span style="font-style:italic">b</span>. The
+list of digits will start with the 1s term, then the
+<span style="font-style:italic">b</span>s term, the <span style="font-style:italic">b</span><sup>2</sup> term, etc.
+</li></ul><h4 id="sec179" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">convert(123,base,8)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,7,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+To check the answer,
+input <span style="font-family:monospace">0173</span> (see Section <a href="cascmd_en093.html#ssec%3Abinocthex">5.4.1</a>) or
+<span style="font-family:monospace">horner(revlist([3,7,1]),8)</span> (see Section <a href="cascmd_en307.html#ssec%3Ahorner">5.27.19</a> and
+Section <a href="cascmd_en435.html#ssec%3Arlst">5.40.15</a>) or <span style="font-family:monospace">convert([3,7,1],base,8)</span>. The result
+will be <span style="font-family:monospace">123</span>.
+</p><p><br>
+</p><p>The base used for <span style="font-family:monospace">convert</span> can be any integer greater than 1.</p><h4 id="sec180" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">convert(142,base,12)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">10,11</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>To convert the its “digits” in base <span style="font-style:italic">b</span> into a base 10 integer:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convert</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list of integers representing the digits of the
+integer in base <span style="font-style:italic">b</span>, assumed to go in order of increasing
+significance.
+</li><li class="li-itemize"><span style="font-family:monospace">base</span>, the symbol verbatim.
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, a positive integer, the value of the base.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">convert(</span><span style="font-style:italic">L</span><span style="font-family:monospace">,base,</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns the integer which, in 
+base <span style="font-style:italic">b</span>, has the digits given in <span style="font-style:italic">L</span>.
+</li></ul><h4 id="sec181" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert([3,7,1],base,8)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  123
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert([10,11],base,12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  142
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en093.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en095.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

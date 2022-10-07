@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Individual attributes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en594.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en596.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:indattr" class="subsection">7.3.1  Individual attributes
+
+<a id="hevea_default1002"></a>
+<a id="hevea_default1003"></a>
+<a id="hevea_default1004"></a>
+<a id="hevea_default1005"></a>
+<a id="hevea_default1006"></a>
+<a id="hevea_default1007"></a>
+<a id="hevea_default1008"></a>
+<a id="hevea_default1009"></a>
+<a id="hevea_default1010"></a>
+<a id="hevea_default1011"></a>
+<a id="hevea_default1012"></a>
+<a id="hevea_default1013"></a>
+<a id="hevea_default1014"></a>
+<a id="hevea_default1015"></a>
+<a id="hevea_default1016"></a>
+<a id="hevea_default1017"></a>
+<a id="hevea_default1018"></a>
+<a id="hevea_default1019"></a>
+<a id="hevea_default1020"></a>
+<a id="hevea_default1021"></a>
+<a id="hevea_default1022"></a>
+<a id="hevea_default1023"></a>
+<a id="hevea_default1024"></a>
+<a id="hevea_default1025"></a>
+<a id="hevea_default1026"></a>
+<a id="hevea_default1027"></a>
+<a id="hevea_default1028"></a>
+<a id="hevea_default1029"></a>
+<a id="hevea_default1030"></a>
+<a id="hevea_default1031"></a>
+<a id="hevea_default1032"></a>
+<a id="hevea_default1033"></a>
+<a id="hevea_default1034"></a>
+<a id="hevea_default1035"></a>
+<a id="hevea_default1036"></a>
+<a id="hevea_default1037"></a>
+<a id="hevea_default1038"></a>
+<a id="hevea_default1039"></a>
+<a id="hevea_default1040"></a>
+<a id="hevea_default1041"></a>
+<a id="hevea_default1042"></a>
+<a id="hevea_default1043"></a>
+<a id="hevea_default1044"></a>
+<a id="hevea_default1045"></a>
+<a id="hevea_default1046"></a>
+<a id="hevea_default1047"></a>
+<a id="hevea_default1048"></a></h3>
+<p>Graphic attributes are optional arguments of the form
+<span style="font-family:monospace">display=</span><span style="font-style:italic">value</span>. They must be given as the last
+argument of a graphic instruction. Attributes are ordered in several
+categories: color, point shape, point width, line style, line
+thickness, legend value, position and presence. In addition, surfaces
+may be filled or not, 3-d surfaces may be filled with a texture, 3-d
+objects may also have properties with respect to the light.
+Attributes of different categories may be combined with <span style="font-family:monospace">+</span>, e.g. <br>
+<span style="font-family:monospace">plotfunc(</span><span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup><span style="font-family:monospace">,[x,y],display=red+line_width_3+filled)</span></p><p>The graphic attributes are:
+</p><ul class="itemize"><li class="li-itemize">
+Colors, set with <span style="font-family:monospace">display=</span><span style="font-style:italic">value</span> or
+<span style="font-family:monospace">color=</span><span style="font-style:italic">value</span>. The values can be:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">black</span>, <span style="font-family:monospace">white</span>, <span style="font-family:monospace">red</span>, <span style="font-family:monospace">blue</span>, <span style="font-family:monospace">green</span>,
+<span style="font-family:monospace">magenta</span>, <span style="font-family:monospace">cyan</span>, <span style="font-family:monospace">yellow</span>,
+</li><li class="li-itemize">a numeric value between 0 and 255,
+</li><li class="li-itemize">a numeric value between 256 and 256+7*16+14 for a color of the
+rainbow,
+</li><li class="li-itemize">any other numeric value smaller than 65535, the rendering
+is not guaranteed to be portable.
+</li></ul>
+</li><li class="li-itemize">Point shapes, set with <span style="font-family:monospace">display=</span><span style="font-style:italic">value</span>. The
+values can be:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rhombus_point plus_point</span>
+</li><li class="li-itemize"><span style="font-family:monospace">square_point cross_point</span>
+</li><li class="li-itemize"><span style="font-family:monospace">triangle_point</span>
+</li><li class="li-itemize"><span style="font-family:monospace">star_point</span>
+</li><li class="li-itemize"><span style="font-family:monospace">point_point</span>
+</li><li class="li-itemize"><span style="font-family:monospace">invisible_point</span>
+</li><li class="li-itemize">Point width, set with <span style="font-family:monospace">display=</span><span style="font-style:italic">value</span>. The
+values can be:<br>
+ <span style="font-family:monospace">point_width_</span><span style="font-style:italic">n</span> where <span style="font-style:italic">n</span> is an
+integer between 1 and 7.
+</li><li class="li-itemize">Line thickness, set with <span style="font-family:monospace">thickness=</span><span style="font-style:italic">n</span>
+or <span style="font-family:monospace">display=line_width_</span><span style="font-style:italic">n</span> where <span style="font-style:italic">n</span> is an
+integer between 1 and 7.
+</li><li class="li-itemize">Line shape, set with <span style="font-family:monospace">display=</span><span style="font-style:italic">value</span>. The
+values can be:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">dash_line</span>
+</li><li class="li-itemize"><span style="font-family:monospace">solid_line</span>
+</li><li class="li-itemize"><span style="font-family:monospace">dashdot_line</span>
+</li><li class="li-itemize"><span style="font-family:monospace">dashdotdot_line</span>
+</li><li class="li-itemize"><span style="font-family:monospace">cap_flat_line</span>
+</li><li class="li-itemize"><span style="font-family:monospace">cap_square_line</span>
+</li><li class="li-itemize"><span style="font-family:monospace">cap_round_line</span>
+</li></ul>
+</li><li class="li-itemize">Legend, the text is set with
+<span style="font-family:monospace">legend=</span><span style="font-style:italic">"legendname"</span>; 
+the position is set with <span style="font-family:monospace">display=</span><span style="font-style:italic">value</span>, where
+the values can be:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">quadrant1</span>
+</li><li class="li-itemize"><span style="font-family:monospace">quadrant2</span>
+</li><li class="li-itemize"><span style="font-family:monospace">quadrant3</span>
+</li><li class="li-itemize"><span style="font-family:monospace">quadrant4</span>
+</li></ul>
+and correspond to the position of the legend of the object
+(using the trigonometric plane conventions).
+The legend is not displayed if the attribute
+<span style="font-family:monospace">display=hidden_name</span> is added.
+</li><li class="li-itemize"><span style="font-family:monospace">display=filled</span> specifies that surfaces will be filled,
+</li><li class="li-itemize"><span style="font-family:monospace">gl_texture=</span><span style="font-style:italic">"picture_filename"</span> is used to
+fill a surface with a texture. Cf. the interface manual for a more
+complete description and for <span style="font-family:monospace">gl_material=</span> options.
+</li></ul><h4 id="sec1488" class="subsubsection">Examples</h4>
+<p>
+(See Section <a href="cascmd_en825.html#ssec%3A2dgenpolygon">13.10.3</a>, Section <a href="cascmd_en788.html#ssec%3A2dpoint">13.6.2</a>,
+Section <a href="cascmd_en785.html#sssec%3Adisplay">13.3.3</a> and Section <a href="cascmd_en804.html#ssec%3A2dsegments">13.7.3</a> for information on
+the commands used.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">polygon(-1,-i,1,2*i,legend="P")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en024.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">point(1+i,legend="hello")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en025.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">color(segment(0,1+i),red)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en026.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">segment(0,1+i,color=red)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en027.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en594.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en596.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

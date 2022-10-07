@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Lines and directed lines in space: line
+</title>
+</head>
+<body >
+<a href="cascmd_en900.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en902.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dlines" class="subsection">14.5.1  Lines and directed lines in space: <span style="font-family:monospace">line</span>
+<a id="hevea_default1607"></a></h3>
+<p>See Section <a href="cascmd_en802.html#ssec%3A2dlines">13.7.1</a> for lines in the plane.</p><p>The <span style="font-family:monospace">line</span> command returns and draws a directed line. It can
+take its arguments in different ways.</p><p>Two points:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">line</span> can take two arguments:<br>
+ <span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span>, two points (which can also be given as a list).
+</li><li class="li-itemize"><span style="font-family:monospace">line(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span><span style="font-family:monospace">)</span> returns and draws the line whose
+direction is from the <span style="font-style:italic">P</span> to <span style="font-style:italic">Q</span>.
+</li></ul><h4 id="sec2286" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">line([0,3,0],point(3,0,3))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en297.png">
+</div><p><br>
+A point and a direction vector.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">line</span> can take two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point.
+</li><li class="li-itemize"><span style="font-family:monospace">[</span><span style="font-style:italic">u</span><sub>1</sub>,<span style="font-style:italic">u</span><sub>2</sub>,<span style="font-style:italic">u</span><sub>3</sub><span style="font-family:monospace">]</span>, a direction vector.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">line(</span><span style="font-style:italic">P</span><span style="font-family:monospace">,[</span><span style="font-style:italic">u</span><sub>1</sub>,<span style="font-style:italic">u</span><sub>2</sub>,<span style="font-style:italic">u</span><sub>3</sub><span style="font-family:monospace">])</span> returns and draws the line
+through the given point with the direction given by the direction vector.
+</li></ul><h4 id="sec2287" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">line([0,3,0],[3,0,3])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en298.png">
+</div><p><br>
+</p><p>Two planes.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">line</span> can take two arguments:<br>
+ <span style="font-style:italic">eqn</span><sub>1</sub><span style="font-style:italic">,eqn</span><sub>2</sub>, the equations of two planes.
+</li><li class="li-itemize"><span style="font-family:monospace">line(</span><span style="font-style:italic">eqn</span><sub>1</sub><span style="font-style:italic">,eqn</span><sub>2</sub><span style="font-family:monospace">)</span> returns and
+draws the line which is the intersection of the planes.
+</li></ul><p>
+The direction of this line is given by the cross-product of the
+normals for the planes. For example, the intersection of the planes
+<span style="font-style:italic">x</span>=<span style="font-style:italic">y</span> (normal (1,−1,0)) and <span style="font-style:italic">y</span>=<span style="font-style:italic">z</span> (normal (0,1,−1)) will be
+(1,−1,0)× (0,1,−1) = (1,1,1).</p><h4 id="sec2288" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">line(x=y, y=z)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en299.png">
+</div>
+<hr>
+<a href="cascmd_en900.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en902.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

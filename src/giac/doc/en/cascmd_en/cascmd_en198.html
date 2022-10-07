@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Substituting a variable by a value (Maple and Mupad compatibility): subs
+</title>
+</head>
+<body >
+<a href="cascmd_en197.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en199.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec412" class="subsection">5.12.20  Substituting a variable by a value (Maple and Mupad compatibility): <span style="font-family:monospace">subs</span>
+<a id="hevea_default327"></a></h3>
+<p>In <span style="font-family:monospace">Maple</span> and in <span style="font-family:monospace">Mupad</span>, you would use the
+<span style="font-family:monospace">subs</span> command to substitute a variable by a value in an
+expression. But the order of the arguments differ between
+<span style="font-family:monospace">Maple</span> and <span style="font-family:monospace">Mupad</span>. Therefore, to achieve
+compatibility, in <span style="font-family:monospace">Xcas</span>, the <span style="font-family:monospace">subs</span> command arguments
+order depends on the mode (see Section <a href="cascmd_en022.html#ssec%3Alang">2.5.2</a>).</p><p>In <span style="font-family:monospace">Maple</span> mode:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">subs</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">eq</span>, an equality or list of equalities of the form
+<span style="font-style:italic">var</span><span style="font-family:monospace">=</span><span style="font-style:italic">value</span>.
+</li><li class="li-itemize"><span style="font-style:italic">expr</span>, an expression.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">subs(</span><span style="font-style:italic">eq</span><span style="font-family:monospace">,</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span>
+returns the expression with the variables replaced by their given
+values.
+</li></ul><h4 id="sec413" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input in </span><span style="font-style:italic"><span style="font-family:monospace">Maple</span></span><span style="font-style:italic"> mode (if the variable </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> is purged,
+otherwise first enter </span><span style="font-style:italic"><span style="font-family:monospace">purge(a)</span></span><span style="font-style:italic">):</span>
+<div class="center">
+<span style="font-family:monospace">subs(a=2,a^2+1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input in </span><span style="font-style:italic"><span style="font-family:monospace">Maple</span></span><span style="font-style:italic"> mode (if the variables </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> and
+</span><span style="font-style:italic"><span style="font-family:monospace">b</span></span><span style="font-style:italic"> are purged, otherwise first enter </span><span style="font-style:italic"><span style="font-family:monospace">purge(a,b)</span></span><span style="font-style:italic">):</span>
+<div class="center">
+<span style="font-family:monospace">subs([a=2,b=1],a^2+b)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li></ul><p>In <span style="font-family:monospace">Mupad</span> or <span style="font-family:monospace">Xcas</span> or <span style="font-family:monospace">TI</span> modes, <span style="font-family:monospace">subs</span>
+behaves like <span style="font-family:monospace">subst</span> (see Section <a href="cascmd_en196.html#ssec%3Asubst">5.12.18</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">subst</span> takes two or three arguments.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">eqs</span>, an equality of the form <span style="font-style:italic">var</span><span style="font-family:monospace">=</span><span style="font-style:italic">value</span>
+or a list of such equalities, or<br>
+ <span style="font-style:italic">vars,vals</span>, a variable or list of variables followed by a
+value or a list of values for substitution.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">subs(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">eqs</span>) or
+<span style="font-family:monospace">subs(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">vars</span><span style="font-family:monospace">,</span><span style="font-style:italic">vals</span><span style="font-family:monospace">)</span>
+returns the expression with the variables replaced by their given
+values.
+</li></ul><h4 id="sec414" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input in </span><span style="font-style:italic"><span style="font-family:monospace">Mupad</span></span><span style="font-style:italic"> or </span><span style="font-style:italic"><span style="font-family:monospace">Xcas</span></span><span style="font-style:italic"> or </span><span style="font-style:italic"><span style="font-family:monospace">TI</span></span><span style="font-style:italic"> modes (if the
+variable </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> is purged, otherwise first enter </span><span style="font-style:italic"><span style="font-family:monospace">purge(a)</span></span><span style="font-style:italic">):</span>
+<div class="center">
+<span style="font-family:monospace">subs(a^2+1,a=2)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">subs(a^2+1,a,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input in </span><span style="font-style:italic"><span style="font-family:monospace">Mupad</span></span><span style="font-style:italic"> or </span><span style="font-style:italic"><span style="font-family:monospace">Xcas</span></span><span style="font-style:italic"> or </span><span style="font-style:italic"><span style="font-family:monospace">TI</span></span><span style="font-style:italic"> modes (if the
+variables </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> and </span><span style="font-style:italic"><span style="font-family:monospace">b</span></span><span style="font-style:italic"> are purged, otherwise first enter
+</span><span style="font-style:italic"><span style="font-family:monospace">purge(a,b)</span></span><span style="font-style:italic"> first):</span>
+<div class="center">
+<span style="font-family:monospace">subs(a^2+b,[a=2,b=1])</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">subs(a^2+b,[a,b],[2,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li></ul><p>Note that <span style="font-family:monospace">subs</span> does not quote its argument, hence in a normal
+evaluation process, the substitution variable should be purged
+otherwise it will be replaced by its assigned value before
+substitution is done.</p>
+<hr>
+<a href="cascmd_en197.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en199.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

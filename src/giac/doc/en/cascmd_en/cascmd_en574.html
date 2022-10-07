@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Step by step Gauss-Jordan reduction of a matrix: pivot
+</title>
+</head>
+<body >
+<a href="cascmd_en573.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en575.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:pivot" class="subsection">5.56.5  Step by step Gauss-Jordan reduction of a matrix: <span style="font-family:monospace">pivot</span>
+<a id="hevea_default972"></a></h3>
+<p>One step of Gauss-Jordan elimination involves taking a non-zero
+element of a matrix (the pivot) and adding multiples of its row to the
+other rows to get zeros above and below the pivot. The <span style="font-family:monospace">pivot</span>
+command performs this operation.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">pivot</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a a matrix with <span style="font-style:italic">n</span> rows and <span style="font-style:italic">p</span> columns.
+</li><li class="li-itemize"><span style="font-style:italic">l</span> and <span style="font-style:italic">c</span>, two integers such that <span style="font-style:italic">l</span> is the index of a
+row of <span style="font-style:italic">A</span> and <span style="font-style:italic">c</span> is an index of column of <span style="font-style:italic">A</span>, and the element
+of <span style="font-style:italic">A</span> in row <span style="font-style:italic">l</span> and column <span style="font-style:italic">c</span> is non-zero.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">pivot(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">l</span>,<span style="font-style:italic">c</span><span style="font-family:monospace">)</span> returns the result of performing one
+step of the Gauss-Jordan method using the element of <span style="font-style:italic">A</span> in row <span style="font-style:italic">l</span>,
+column <span style="font-style:italic">c</span> as pivot.
+</li></ul><h4 id="sec1433" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pivot([[1,2],[3,4],[5,6]],1,1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pivot([[1,2],[3,4],[5,6]],0,1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en573.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en575.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

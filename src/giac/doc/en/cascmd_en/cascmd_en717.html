@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>fsolve with the option falsepos_solver
+</title>
+</head>
+<body >
+<a href="cascmd_en716.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en718.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1847" class="subsection">10.4.3  <span style="font-family:monospace">fsolve</span> with the option <span style="font-family:monospace">falsepos_solver</span>
+<a id="hevea_default1306"></a></h3>
+<p>The "false position" algorithm is an iterative algorithm based on
+linear interpolation: it computes the value of <span style="font-style:italic">f</span> at the intersection
+of the line (<span style="font-style:italic">a</span>,<span style="font-style:italic">f</span>(<span style="font-style:italic">a</span>)), (<span style="font-style:italic">b</span>,<span style="font-style:italic">f</span>(<span style="font-style:italic">b</span>)) with the <span style="font-style:italic">x</span> axis. This value gives
+us the part of the interval containing the root, and on which a new
+iteration is performed. The convergence is linear but generically
+faster than bisection.</p><h4 id="sec1848" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">fsolve((cos(x))=x,x,-1..1,falsepos_solver)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.739085133215</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en716.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en718.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

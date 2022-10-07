@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The population standard deviation: stddevp stdDev
+
+</title>
+</head>
+<body >
+<a href="cascmd_en628.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en630.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1570" class="subsection">8.1.4  The population standard deviation: <span style="font-family:monospace">stddevp</span> <span style="font-family:monospace">stdDev</span>
+<a id="hevea_default1131"></a>
+<a id="hevea_default1132"></a></h3>
+<p>Given a large population, rather than collecting all of the numbers it
+might be more feasible to get a smaller collection of numbers and try
+to extrapolate from that. For example, to get information about the
+ages of a large population, you might get the ages of a sample of 100
+of the people and work with that.</p><p>If a list of numbers is a sample of data from a larger population,
+then the mean of the sample
+can be used to estimate the mean of the population. The
+standard deviation uses the mean to find the standard deviation of the
+sample, but since the mean of the sample is only an approximation to
+the mean of the entire population, the standard deviation of the
+sample doesn’t provide an optimal estimate of the standard deviation
+of the population. An unbiased estimate of the standard deviation of
+the entire population is given by the population standard deviation;
+given a list <span style="font-style:italic">L</span> = [<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>] with
+mean µ, the population standard deviation is 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">s</span> =
+</td><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:2em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">(<span style="font-style:italic">x</span><sub>1</sub> − µ)<sup>2</sup> + … + (<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub> − µ)<sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span>−1</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">. 
+</td></tr>
+</table><p> 
+Note that
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">s</span><sup>2</sup>= </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span>−1</td></tr>
+</table></td><td class="dcell"> σ<sup>2</sup>.
+</td></tr>
+</table><p>
+where σ is the standard deviation of the sample.</p><p>The <span style="font-family:monospace">stddevp</span> command finds the standard deviation.<br>
+<span style="font-family:monospace">stdDev</span> is a synonym for <span style="font-family:monospace">stddevp</span>, for TI
+compatibility. There is no population variance function; if needed,
+it can be computed by squaring the <span style="font-family:monospace">stddevp</span> function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">stddevp</span> takes one mandatory argument and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list or matrix of numbers.
+</li><li class="li-itemize"><span style="font-style:italic">W</span>, a list or matrix of weights, the same size as <span style="font-style:italic">L</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">stddevp(</span><span style="font-style:italic">L</span> ⟩ <span style="font-style:italic">W</span>⟨<span style="font-family:monospace">)</span> returns the population
+standard deviation of the list or a list with the population
+standard deviations of the columns of the matrix.
+</li></ul><h4 id="sec1571" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">stddev([1,2,3,4])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+while:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">stddevp([1,2,3,4])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >15</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:= [0,1,2,3,4,5,6,7,8,9,10,11]</span>
+<span style="font-family:monospace">stddevp(A,A)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >66</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en628.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en630.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

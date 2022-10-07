@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Translating graphical output to LATEX: graph2tex graph3d2tex
+
+</title>
+</head>
+<body >
+<a href="cascmd_en036.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en038.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec54" class="subsection">2.7.3  Translating graphical output to L<sup>A</sup>T<sub>E</sub>X: <span style="font-family:monospace">graph2tex</span> <span style="font-family:monospace">graph3d2tex</span>
+<a id="hevea_default24"></a>
+<a id="hevea_default25"></a></h3>
+<p>You can see all of your graphic output at once on the
+<span style="font-family:monospace">DispG</span><a id="hevea_default26"></a> screen, which you can bring up with the
+command <span style="font-family:monospace">DispG()</span>. (This screen can be cleared with the
+command line command <span style="font-family:monospace">erase()</span>.) On the <span style="font-family:monospace">DispG</span> screen
+there will be a <span style="font-family:monospace">Print</span> menu; the
+<span style="font-family:monospace">Print</span>▸<span style="font-family:monospace">LaTeX print</span> will give you several
+files <span style="font-family:monospace">DispG.tex</span>, <span style="font-family:monospace">DispG.dvi</span>, <span style="font-family:monospace">DispG.ps</span> and
+<span style="font-family:monospace">DispG.png</span> with the graphics in different formats. To save it
+without using the <span style="font-family:monospace">DispG()</span> command you can use the
+<span style="font-family:monospace">graph2tex</span> command.</p><p>The <span style="font-family:monospace">graph2tex</span> command saves all current graphic output to a
+L<sup>A</sup>T<sub>E</sub>X file.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">graph2tex</span> takes one argument:<br>
+<span style="font-style:italic">filename</span><span style="font-family:monospace">.tex</span>, the name of a file.
+</li><li class="li-itemize"><span style="font-family:monospace">graph2tex("</span><span style="font-style:italic">filename</span><span style="font-family:monospace">.tex")</span>
+saves all graphic output in L<sup>A</sup>T<sub>E</sub>X form to the file
+<span style="font-style:italic">filename</span><span style="font-family:monospace">.tex</span>.
+</li></ul><h4 id="sec55" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">graph2tex("myfile.tex")</span>
+</div><p>
+results in a L<sup>A</sup>T<sub>E</sub>X file named <span style="font-family:monospace">myfile.tex</span> with the graphs.
+To save a three-dimensional graph, you can use the command <span style="font-family:monospace">graph3d2tex</span>.</p><p><br>
+</p><p>To save a single graph as a L<sup>A</sup>T<sub>E</sub>X file, you can use the <span style="font-family:monospace">M</span>
+menu to the right of the graph. Selecting
+<span style="font-family:monospace">M</span>▸<span style="font-family:monospace">Export Print</span>▸<span style="font-family:monospace">Print
+(with LaTeX)</span> will save the current graph. You can also save a single
+graph by selecting that level, then use the menu item
+<span style="font-family:monospace">File</span>▸<span style="font-family:monospace">LaTeX</span>▸<span style="font-family:monospace">LaTeX print
+selection</span>. This method will save the graph in several formats;
+<span style="font-style:italic">sessionname</span><span style="font-family:monospace">.tex</span>, <span style="font-style:italic">sessionname</span><span style="font-family:monospace">.dvi</span>,
+<span style="font-style:italic">sessionname</span><span style="font-family:monospace">.ps</span> and
+<span style="font-style:italic">sessionname</span><span style="font-family:monospace">.png</span>. If the session has not been saved
+and named, the files will begin with <span style="font-family:monospace">session</span><span style="font-style:italic">n</span> for
+some integer <span style="font-style:italic">n</span>.</p>
+<hr>
+<a href="cascmd_en036.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en038.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

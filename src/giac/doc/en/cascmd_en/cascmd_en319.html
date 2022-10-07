@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Natural interpolation: spline</title>
+</head>
+<body >
+<a href="cascmd_en318.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en320.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec742" class="subsection">5.27.31  Natural interpolation: <span style="font-family:monospace">spline</span></h3>
+<p>The <span style="font-family:monospace">spline</span> command finds the natural spline.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">spline</span> takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span><sub><span style="font-style:italic">x</span></sub>, a list of abscissas (in increasing order).
+</li><li class="li-itemize"><span style="font-style:italic">L</span><sub><span style="font-style:italic">y</span></sub>, a list of ordinates (the same length as <span style="font-style:italic">L</span><sub><span style="font-style:italic">x</span></sub>).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a variable name.
+</li><li class="li-itemize"><span style="font-style:italic">l</span>, an integer for the degree.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">spline(</span><span style="font-style:italic">L</span><sub><span style="font-style:italic">x</span></sub>,<span style="font-style:italic">L</span><sub><span style="font-style:italic">y</span></sub>,<span style="font-style:italic">x</span>,<span style="font-style:italic">l</span><span style="font-family:monospace">)</span> returns the
+natural spline function <span style="font-style:italic">s</span> of degree <span style="font-style:italic">l</span>, where <span style="font-style:italic">s</span>(<span style="font-style:italic">L</span><sub><span style="font-style:italic">x</span>,<span style="font-style:italic">j</span></sub>)=<span style="font-style:italic">L</span><sub><span style="font-style:italic">y</span>,<span style="font-style:italic">j</span></sub>
+for <span style="font-style:italic">j</span>=0..<span style="font-family:monospace">length</span>(<span style="font-style:italic">L</span><sub><span style="font-style:italic">x</span></sub>), as a list of polynomials, each
+polynomial being valid on the corresponding interval determined by
+<span style="font-style:italic">L</span><sub><span style="font-style:italic">x</span></sub>.
+</li></ul><h4 id="sec743" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Find the natural spline of degree 3, crossing through the points
+<span style="font-style:italic">x</span><sub>0</sub>=0,<span style="font-style:italic">y</span><sub>0</sub>=1, <span style="font-style:italic">x</span><sub>1</sub>=1,<span style="font-style:italic">y</span><sub>1</sub>=3 and <span style="font-style:italic">x</span><sub>2</sub>=2, <span style="font-style:italic">y</span><sub>2</sub>=0.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">spline([0,1,2],[1,3,0],x,3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>3</sup>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">13</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span>+1,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>3</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">15</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">+3</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+Where the first polynomial, −5/4 <span style="font-style:italic">x</span><sup>3</sup>+13/4 <span style="font-style:italic">x</span>+1, is
+defined on the interval [0,1] (the first interval defined by the
+list [0,1,2]) and the second polynomial 5/4
+(<span style="font-style:italic">x</span>−1)<sup>3</sup>−15/4
+(<span style="font-style:italic">x</span>−1)<sup>2</sup>−<span style="font-style:italic">x</span>−1/2+3 is defined on the interval
+[1,2], the second interval defined by the list [0,1,2].
+</li><li class="li-itemize">Find the natural spline of degree 4, crossing through the points
+<span style="font-style:italic">x</span><sub>0</sub>=0,<span style="font-style:italic">y</span><sub>0</sub>=1, <span style="font-style:italic">x</span><sub>1</sub>=1,<span style="font-style:italic">y</span><sub>1</sub>=3, <span style="font-style:italic">x</span><sub>2</sub>=2, <span style="font-style:italic">y</span><sub>2</sub>=0 and <span style="font-style:italic">x</span><sub>3</sub>=3, <span style="font-style:italic">y</span><sub>3</sub>=−1.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">spline([0,1,2,3],[1,3,0,-1],x,4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td></tr>
+</table></td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">62</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>4</sup>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">304</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span>+1,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">201</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>4</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">248</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>3</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">372</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">56</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+3,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+−</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">139</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>4</sup>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">556</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>3</sup>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">90</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">628</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">121</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+Output is a list of three polynomial functions of <span style="font-style:italic">x</span>,
+defined respectively on the intervals [0,1], [1,2] and [2,3].
+</li><li class="li-itemize">Find the natural spline interpolation of cos on
+[0,π/2,3π/2].<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">spline([0,pi/2,3*pi/2],cos([0,pi/2,3*pi/2]),x,3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">4 <span style="font-style:italic">x</span><sup>3</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3 π <sup>3</sup></td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">7 <span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3 π </td></tr>
+</table></td><td class="dcell">+1,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+−</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">3</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3 π <sup>3</sup></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2
+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">π <sup>2</sup></td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">4 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π
+</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3 π </td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en318.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en320.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

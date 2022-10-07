@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Getting an element of a sequence or a list: [] [[]] at
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en415.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en417.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:getels" class="subsection">5.39.6  Getting an element of a sequence or a list: <span style="font-family:monospace">[]</span> <span style="font-family:monospace">[[]]</span> <span style="font-family:monospace">at</span>
+<a id="hevea_default690"></a>
+<a id="hevea_default691"></a>
+<a id="hevea_default692"></a>
+</h3>
+<p>The elements of a sequence have indices beginning at 0 in
+<span style="font-family:monospace">Xcas</span> mode and 1 in other modes (see Section <a href="cascmd_en022.html#ssec%3Alang">2.5.2</a>).</p><p>You can get the an element of index <span style="font-style:italic">n</span> of a sequence or list by following
+the sequence or list with <span style="font-family:monospace">[</span><span style="font-style:italic">n</span><span style="font-family:monospace">]</span> (see Section <a href="cascmd_en053.html#ssec%3Aels">4.3.4</a>).<br>
+(Note that <span style="font-family:monospace">head(</span><span style="font-style:italic">S</span><span style="font-family:monospace">)</span> does the same thing as <span style="font-style:italic">S</span><span style="font-family:monospace">[0]</span>.)</p><h4 id="sec966" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(0,3,2)[1]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">S := 2,3,4,5</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">S[2]</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">[A,B,C,D][2]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">C</span>
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>For lists, the <span style="font-family:monospace">at</span> command can also be used to get the element
+at a specific position.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">at</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, an integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">at(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the element of <span style="font-style:italic">S</span> with index <span style="font-style:italic">n</span>.
+</li></ul><p>
+<span style="font-weight:bold">Note.</span>
+<span style="font-family:monospace">at</span> cannot be used for sequences, since the second argument
+would be merged with the sequence.</p><h4 id="sec967" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">[0,1,2][1]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">at([0,1,2],1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">1</span>
+</div>
+<hr>
+<a href="cascmd_en415.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en417.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

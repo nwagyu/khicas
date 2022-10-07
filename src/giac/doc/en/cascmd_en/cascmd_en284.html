@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Combining terms of the same type: combine
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en283.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en285.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec655" class="subsection">5.25.2  Combining terms of the same type: <span style="font-family:monospace">combine</span>
+<a id="hevea_default502"></a><a id="hevea_default503"></a><a id="hevea_default504"></a>
+<a id="hevea_default505"></a><a id="hevea_default506"></a>
+<a id="hevea_default507"></a><a id="hevea_default508"></a></h3>
+<p>The <span style="font-family:monospace">combine</span> command joins subexpressions of various types.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">combine</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">function</span>, the name of a function or class of
+functions. <span style="font-style:italic">function</span> can be one of <span style="font-family:monospace">exp</span>, <span style="font-family:monospace">log</span>,
+<span style="font-family:monospace">ln</span>, <span style="font-family:monospace">sin</span>, <span style="font-family:monospace">cos</span>, or <span style="font-family:monospace">trig</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">combine(</span><span style="font-style:italic">expr,function</span><span style="font-family:monospace">)</span> returns the
+expression with subexpressions corresponding to the second argument
+combined.
+</li></ul><p>
+The <span style="font-family:monospace">combine</span> command can duplicate the effect of other commands.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">combine(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,ln)</span> or
+<span style="font-family:monospace">combine(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,log)</span> gives the same result
+as <span style="font-family:monospace">lncollect(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> (see
+Section <a href="cascmd_en278.html#ssec%3Alncollect">5.24.5</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">combine(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,trig)</span> or
+<span style="font-family:monospace">combine(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,sin)</span> or
+<span style="font-family:monospace">combine(</span><span style="font-style:italic">expr</span><span style="font-style:italic">,cos)</span>
+gives the same result as <span style="font-family:monospace">tcollect(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span>
+(see Section <a href="cascmd_en251.html#ssec%3Atcollect">5.23.4</a>).
+</li></ul><h4 id="sec656" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">combine(exp(x)*exp(y)+sin(x)*cos(x)+ln(x)+ln(y),exp)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">cos<span style="font-style:italic">x</span>· sin<span style="font-style:italic">x</span>+ln<span style="font-style:italic">x</span>+ln<span style="font-style:italic">y</span>+<span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span>+<span style="font-style:italic">y</span></sup>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">combine(exp(x)*exp(y)+sin(x)*cos(x)+ln(x)+ln(y),trig)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">combine(exp(x)*exp(y)+sin(x)*cos(x)+ln(x)+ln(y),sin)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">combine(exp(x)*exp(y)+sin(x)*cos(x)+ln(x)+ln(y),cos)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup> <span style="font-style:italic">e</span><sup><span style="font-style:italic">y</span></sup>+ln<span style="font-style:italic">x</span>+ln<span style="font-style:italic">y</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">combine(exp(x)*exp(y)+sin(x)*cos(x)+ln(x)+ln(y),ln)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">combine(exp(x)*exp(y)+sin(x)*cos(x)+ln(x)+ln(y),log)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">cos<span style="font-style:italic">x</span>· sin<span style="font-style:italic">x</span>+<span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup> <span style="font-style:italic">e</span><sup><span style="font-style:italic">y</span></sup>+ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span> <span style="font-style:italic">y</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en283.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en285.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

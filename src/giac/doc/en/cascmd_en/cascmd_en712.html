@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Approximating solutions of the system v’=f(t,v): odesolve
+</title>
+</head>
+<body >
+<a href="cascmd_en711.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en713.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1837" class="subsection">10.3.6  Approximating solutions of the system v’=f(t,v): <span style="font-family:monospace">odesolve</span>
+<a id="hevea_default1298"></a></h3>
+<p>This section covers using <span style="font-family:monospace">odesolve</span> to solve first order systems of
+differential equations; using it to solve a single first order
+differential equation was discussed last section.</p><p>The <span style="font-family:monospace">odesolve</span> can be used to solve a system of the form
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>′ = <span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>,<span style="font-style:italic">x</span>)
+</td></tr>
+</table><p>
+where <span style="font-style:italic">x</span>=[<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>] is a list of unknown functions and <span style="font-style:italic">f</span>
+is a function of <span style="font-style:italic">n</span>+1 variables with an initial condition.</p><p><span style="font-family:monospace">odesolve</span> can takes its arguments in various ways.
+Letting <span style="font-style:italic">t</span> be the independent variable and <span style="font-style:italic">x</span>=[<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>] be
+a vector of dependent variables, <span style="font-style:italic">t</span><sub>0</sub> and <span style="font-style:italic">x</span><sub>0</sub> be the initial values, 
+<span style="font-style:italic">t</span><sub>1</sub> the place where you want the value of <span style="font-style:italic">x</span>, <span style="font-style:italic">f</span> be the function
+in the differential equation, <span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>,<span style="font-style:italic">x</span>) be a list of expressions which
+determines the function <span style="font-style:italic">f</span> (see Section <a href="cascmd_en209.html#ssec%3Afnexpr">5.15.1</a> for the
+difference between a function and an expression):
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">odesolve</span> takes three or four mandatory arguments and
+two optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">mandatory</span>, mandatory arguments given by one of the following
+sequences:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>,<span style="font-style:italic">x</span>),<span style="font-style:italic">t</span>=<span style="font-style:italic">t</span><sub>0</sub>..<span style="font-style:italic">t</span><sub>1</sub>,<span style="font-style:italic">x</span>,<span style="font-style:italic">x</span><sub>0</sub>
+</li><li class="li-itemize"><span style="font-style:italic">t</span><sub>0</sub>..<span style="font-style:italic">t</span><sub>1</sub>,(<span style="font-style:italic">t</span>,<span style="font-style:italic">y</span>)<span style="font-family:monospace">-&gt;</span><span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>,<span style="font-style:italic">y</span>),<span style="font-style:italic">x</span><sub>0</sub>
+</li><li class="li-itemize"><span style="font-style:italic">t</span><sub>0</sub>..<span style="font-style:italic">t</span><sub>1</sub>,<span style="font-style:italic">f</span>,<span style="font-style:italic">x</span><sub>0</sub>
+</li></ul>
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">curve</span>, the symbol.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">odesolve(</span><span style="font-style:italic">mandatory</span> ⟨,<span style="font-family:monospace">curve</span>⟩<span style="font-family:monospace">)</span>
+returns an approximate value of <span style="font-style:italic">x</span>(<span style="font-style:italic">t</span><sub>1</sub>) where <span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>) is the
+solution of:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    <span style="font-style:italic">x</span>′(<span style="font-style:italic">t</span>)=<span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>,<span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>)),     <span style="font-style:italic">x</span>(<span style="font-style:italic">t</span><sub>0</sub>)=<span style="font-style:italic">x</span><sub>0</sub> 
+</td></tr>
+</table>
+With an optional argument of <span style="font-family:monospace">curve</span>, the list of all the
+[<span style="font-style:italic">t</span>,[<span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>)]] values that were computed by the solver are returned.
+</li></ul><h4 id="sec1838" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Solve the system:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">x</span>′(<span style="font-style:italic">t</span>)</td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:left;white-space:nowrap" >−<span style="font-style:italic">y</span>(<span style="font-style:italic">t</span>)</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">y</span>′(<span style="font-style:italic">t</span>)</td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>)
+</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">odesolve([-y,x],t=0..pi,[x,y],[0,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1.79045146764×10<sup>−15</sup>,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve the system:<br>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">x</span>′(<span style="font-style:italic">t</span>)</td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:left;white-space:nowrap" >−<span style="font-style:italic">y</span>(<span style="font-style:italic">t</span>)</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">y</span>′(<span style="font-style:italic">t</span>)</td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>)
+</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">odesolve(0..pi,(t,v)-&gt;[-v[1],v[0]],[0,1])</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(t,v):=[-v[1],v[0]]</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">odesolve(0..pi,f,[0,1])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1.79045146764×10<sup>−15</sup>,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">odesolve(0..pi/4,f,[0,1],curve)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >   0.0</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.0,1.0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   0.0165441856471</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.0165434309391,0.999863148082</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   0.0325491321983</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.0325433851614,0.999470323763</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   0.0486049854945</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.0485858499906,0.998819010222</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   ⋮</td><td style="text-align:center;white-space:nowrap" >⋮</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   0.747336757246</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.679687679865,0.733501641333</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   0.76509544295</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.692605846268,0.721316256377</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   0.78286231703</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.705311395415,0.708897619897</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >   0.785398163397</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.707106781186,0.707106781186</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en711.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en713.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

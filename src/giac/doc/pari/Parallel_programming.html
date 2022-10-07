@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Parallel programming</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">Parallel programming</h2>
+
+<p></p>
+<p></p>
+<p>These function are only available if PARI was configured using
+<code>Configure --mt = ...</code>. Two multithread interfaces are supported:</p>
+<p>
+<b>*</b> POSIX threads</p>
+<p>
+<b>*</b> Message passing interface (MPI)</p>
+<p>
+As a rule, POSIX threads are well-suited for single systems, while MPI is used
+by most clusters. However the parallel GP interface does not depend on the
+chosen multithread interface: a properly written GP program will work
+identically with both.</p>
+<p>
+<hr>
+<div id="se:parapply"></div>
+<div id="parapply"></div>
+<h4>parapply(f, x)</h4>
+<p>
+Parallel evaluation of <code>f</code> on the elements of <code>x</code>.
+The function <code>f</code> must not access global variables or variables
+declared with local(), and must be free of side effects.</p>
+<p>
+</p><pre class="code">  parapply(factor,[2^256 + 1, 2^193 - 1])
+</pre><p></p>
+<p>
+factors 2<sup>256</sup> + 1 and 2<sup>193</sup> - 1 in parallel.</p>
+<p>
+</p><pre class="code">  {
+    my(E = ellinit([1,3]), V = vector(12,i,randomprime(2^200)));
+    parapply(p-&gt;ellcard(E,p), V)
+  }
+</pre><p></p>
+<p>
+computes the order of E(&Fopf;<sub>p</sub>) for 12 random primes of 200 bits.</p>
+<p>
+The library syntax is <code>GEN <b>parapply</b>(GEN f, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:pareval"></div>
+<div id="pareval"></div>
+<h4>pareval(x)</h4>
+<p>
+Parallel evaluation of the elements of <code>x</code>, where <code>x</code> is a
+vector of closures. The closures must be of arity 0, must not access
+global variables or variables declared with <code>local</code> and must be
+free of side effects.</p>
+<p>
+The library syntax is <code>GEN <b>pareval</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:parfor"></div>
+<div id="parfor"></div>
+<h4>parfor(i = a, {b}, <em>expr1</em>, {r}, {<em>expr2</em>})</h4>
+<p>
+Evaluates in parallel the expression <code>expr1</code> in the formal
+argument i running from a to b.
+If b is set to <code>+oo</code>, the loop runs indefinitely.
+If r and <code>expr2</code> are present, the expression <code>expr2</code> in the
+formal variables r and i is evaluated with r running through all
+the different results obtained for <code>expr1</code> and i takes the
+corresponding argument.</p>
+<p>
+The computations of <code>expr1</code> are <em>started</em> in increasing order
+of i; otherwise said, the computation for i = c is started after those
+for i = 1,..., c-1 have been started, but before the computation for
+i = c+1 is started. Notice that the order of <em>completion</em>, that is,
+the order in which the different r become available, may be different;
+<code>expr2</code> is evaluated sequentially on each r as it appears.</p>
+<p>
+The following example computes the sum of the squares of the integers
+from 1 to 10 by computing the squares in parallel and is equivalent
+to <code>parsum (i = 1, 10, i^2)</code>:</p>
+<p>
+</p><pre class="code">  ? s=0;
+  ? parfor (i=1, 10, i^2, r, s=s+r)
+  ? s
+  %3 = 385
+</pre><p></p>
+<p>
+More precisely, apart from a potentially different order of evaluation
+due to the parallelism, the line containing <code><a href="Parallel_programming.html#se:parfor"
+    onClick="parent.itemFrame.location='cont_Parallel_programming.html'">parfor</a></code> is equivalent to</p>
+<p>
+</p><pre class="code">  ? my (r); for (i=1, 10, r=i^2; s=s+r)
+</pre><p></p>
+<p>
+The sequentiality of the evaluation of <code>expr2</code> ensures that the
+variable <code>s</code> is not modified concurrently by two different additions,
+although the order in which the terms are added is non-deterministic.</p>
+<p>
+It is allowed for <code>expr2</code> to exit the loop using
+<code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:next"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">next</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>. If that happens for i = c,
+then the evaluation of <code>expr1</code> and <code>expr2</code> is continued
+for all values i &lt; c, and the return value is the one obtained for
+the smallest i causing an interruption in <code>expr2</code> (it may be
+undefined if this is a <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:next"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">next</a></code>).
+In that case, using side-effects
+in <code>expr2</code> may lead to undefined behavior, as the exact
+number of values of i for which it is executed is non-deterministic.
+The following example computes <code>nextprime(1000)</code> in parallel:</p>
+<p>
+</p><pre class="code">  ? parfor (i=1000, , isprime (i), r, if (r, return (i)))
+  %1 = 1009
+</pre><p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:parforprime"></div>
+<div id="parforprime"></div>
+<h4>parforprime(p = a, {b}, <em>expr1</em>, {r}, {<em>expr2</em>})</h4>
+<p>
+Behaves exactly as <code><a href="Parallel_programming.html#se:parfor"
+    onClick="parent.itemFrame.location='cont_Parallel_programming.html'">parfor</a></code>, but loops only over prime values p.
+Precisely, the functions evaluates in parallel the expression <code>expr1</code>
+in the formal
+argument p running through the primes from a to b.
+If b is set to <code>+oo</code>, the loop runs indefinitely.
+If r and <code>expr2</code> are present, the expression <code>expr2</code> in the
+formal variables r and p is evaluated with r running through all
+the different results obtained for <code>expr1</code> and p takes the
+corresponding argument.</p>
+<p>
+It is allowed fo <code>expr2</code> to exit the loop using
+<code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:next"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">next</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>; see the remarks in the documentation
+of <code><a href="Parallel_programming.html#se:parfor"
+    onClick="parent.itemFrame.location='cont_Parallel_programming.html'">parfor</a></code> for details.</p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:parforvec"></div>
+<div id="parforvec"></div>
+<h4>parforvec(X = v, <em>expr1</em>, {j}, {<em>expr2</em>}, {<em>flag</em>})</h4>
+<p>
+Evaluates the sequence <code>expr2</code> (dependent on X and j) for X
+as generated by <code><a href="Programming_in_GP__control_statements.html#se:forvec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">forvec</a></code>, in random order, computed in parallel. Substitute
+for j the value of <code>expr1</code> (dependent on X).</p>
+<p>
+It is allowed fo <code>expr2</code> to exit the loop using
+<code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:next"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">next</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>, however in that case, <code>expr2</code> will
+still be evaluated for all remaining value of p less than the current one,
+unless a subsequent <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:next"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">next</a></code>/<code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code> happens.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:parselect"></div>
+<div id="parselect"></div>
+<h4>parselect(f, A, {<em>flag</em> = 0})</h4>
+<p>
+Selects elements of A according to the selection function f, done in
+parallel.  If <em>flag</em> is 1, return the indices of those elements (indirect
+selection) The function <code>f</code> must not access global variables or
+variables declared with local(), and must be free of side effects.</p>
+<p>
+The library syntax is <code>GEN <b>parselect</b>(GEN f, GEN A, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:parsum"></div>
+<div id="parsum"></div>
+<h4>parsum(i = a, b, <em>expr</em>, {x})</h4>
+<p>
+Sum of expression <em>expr</em>, initialized at x, the formal parameter
+going from a to b, evaluated in parallel in random order.
+The expression <code>expr</code> must not access global variables or
+variables declared with <code>local()</code>, and must be free of side effects.</p>
+<p>
+</p><pre class="code">  parsum(i=1,1000,ispseudoprime(2^prime(i)-1))
+</pre><p></p>
+<p>
+returns the numbers of prime numbers among the first 1000 Mersenne numbers.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:parvector"></div>
+<div id="parvector"></div>
+<h4>parvector(N, i, <em>expr</em>)</h4>
+<p>
+As <code>vector(N,i,expr)</code> but the evaluations of <code>expr</code> are done in
+parallel. The expression <code>expr</code> must not access global variables or
+variables declared with <code>local()</code>, and must be free of side effects.</p>
+<p>
+</p><pre class="code">  parvector(10,i,quadclassunit(2^(100+i)+1).no)
+</pre><p></p>
+<p>
+computes the class numbers in parallel.</p>
+<p></p>
+<p>
+
+<hr>
+</body>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Cumulated sum of elements of each column of a matrix: cumSum
+</title>
+</head>
+<body >
+<a href="cascmd_en479.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en481.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1179" class="subsection">5.45.5  Cumulated sum of elements of each column of a matrix: <span style="font-family:monospace">cumSum</span>
+<a id="hevea_default822"></a></h3>
+<p>The <span style="font-family:monospace">cumSum</span> command finds the cumulated sum of each column of
+a matrix (see also Section <a href="cascmd_en447.html#ssec%3Acumsum">5.40.27</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">cumSum</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">cumSum(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns the matrix whose columns are the
+cumulated sum of the elements of the corresponding column of the matrix <span style="font-style:italic">A</span>.
+</li></ul><h4 id="sec1180" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">cumSum([[1,2],[3,4],[5,6]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >9</td><td style="text-align:center;white-space:nowrap" >12</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+since the cumulated sums of the first column are: 1, 1+3=4, 1+3+5=9
+and the accumulated sums of the second column are: 2, 2+4=6, 2+4+6=12.</p>
+<hr>
+<a href="cascmd_en479.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en481.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

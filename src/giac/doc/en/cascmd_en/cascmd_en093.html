@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Writing an integer in base 2, 8 or 16</title>
+</head>
+<body >
+<a href="cascmd_en092.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en094.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:binocthex" class="subsection">5.4.1  Writing an integer in base 2, 8 or 16<a id="hevea_default166"></a><a id="hevea_default167"></a><a id="hevea_default168"></a></h3>
+<p>Integers are typically entered and displayed in base 10. You can also
+enter an integer in base 2 (binary), base 8 (octal) or base 16
+(hexadecimal).</p><p>You can enter a number in base 2 by prefixing it with 0b; the
+remaining digits have to be <span style="font-family:monospace">0</span> or <span style="font-family:monospace">1</span> since it is
+binary.</p><h4 id="sec175" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">0b101</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">5
+</td></tr>
+</table><p>
+since 101 in binary is the same as 1· 1 + 0· 2 + 1·
+2<sup>2</sup> = 5 in decimal.</p><p><br>
+</p><p>You can enter a number in octal by prefixing it with <span style="font-family:monospace">0</span> or
+<span style="font-family:monospace">0o</span>; the remaining digits have to be <span style="font-family:monospace">0</span> through
+<span style="font-family:monospace">7</span> since it is base 8.</p><h4 id="sec176" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">0512</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">330
+</td></tr>
+</table><p>
+since 512 in base 8 is the same as 2· 1 + 1· 8 + 5·
+8<sup>2</sup> = 330 in decimal.</p><p><br>
+</p><p>You can enter a number in hexademical by prefixing it with 0x;
+the remaining digits have to be <span style="font-family:monospace">0</span> through <span style="font-family:monospace">9</span> or
+<span style="font-family:monospace">a</span> through <span style="font-family:monospace">f</span> (where <span style="font-family:monospace">a</span> is 10, <span style="font-family:monospace">b</span> is
+11, …, <span style="font-family:monospace">f</span> is 15).</p><h4 id="sec177" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">0x2f3</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">755
+</td></tr>
+</table><p>
+since 2<span style="font-style:italic">f</span>3 in base 16 is the same as 3· 1 + 15· 16 + 2·
+16<sup>2</sup> = 755 in decimal.</p><p><br>
+</p><p>You can have <span style="font-family:monospace">Xcas</span> print integers in octal or hexadecimal, as
+well as the default decimal. To change the base used for display, you
+can click on the red CAS status button and choose from the
+<span style="font-family:monospace">Integer basis</span> menu (see Section <a href="cascmd_en027.html#ssec%3Aconfcomp">2.5.7</a>, item
+<a href="cascmd_en027.html#enum%3Abase">14</a>). If you have <span style="font-family:monospace">Xcas</span> set to display in
+hexadecimal, you will get the following:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">15</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0<span style="font-style:italic">xF</span>
+</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">0x15</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0<span style="font-style:italic">x</span>15
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en092.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en094.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

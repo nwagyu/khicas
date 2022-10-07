@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Table of values and graph of a recurrent sequence: tableseq</title>
+</head>
+<body >
+<a href="cascmd_en205.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en207.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec429" class="subsection">5.13.4  Table of values and graph of a recurrent sequence: <span style="font-family:monospace">tableseq</span><a id="hevea_default335"></a></h3>
+<p>The <span style="font-family:monospace">tableseq</span> command fills a column of a spreadsheet with a
+recurrence relation. The spreadsheet can be opened with
+<span style="font-family:monospace">Alt+t</span> (see Section <a href="index.html#sec%3Aspreadsheet">3.5</a>).</p><p><span style="font-family:monospace">tableseq</span> takes three arguments, which can be different
+depending on how many terms are involved in the recurrence relation.</p><p>For a one term recurrence relation:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">tableseq</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>), a formula which defines the recurrence, through <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub>=<span style="font-style:italic">f</span>(<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, the variable.
+</li><li class="li-itemize"><span style="font-style:italic">u</span><sub>0</sub>, the initial term of the sequence.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">tableseq(</span><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)<span style="font-family:monospace">,</span><span style="font-style:italic">x</span><span style="font-family:monospace">,</span><span style="font-style:italic">u</span><sub>0</sub><span style="font-family:monospace">)</span> fills the current column of the
+spreadsheet, starting with the selected cell (or cell 0 if the entire
+column is selected), with the formula <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>), the next cell with the
+variable <span style="font-style:italic">x</span>, followed by the terms <span style="font-style:italic">u</span><sub>0</sub>, <span style="font-style:italic">u</span><sub>1</sub>, … of the
+sequence. (If the current cell is column <span style="font-style:italic">C</span>, row <span style="font-style:italic">n</span>, these latter
+cells will actually contain (if in row <span style="font-style:italic">k</span>)
+<span style="font-family:monospace">=evalf(subst(</span><span style="font-style:italic">C</span><span style="font-family:monospace">$</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">C</span><span style="font-family:monospace">$</span>(<span style="font-style:italic">n</span>+1)<span style="font-family:monospace">,</span><span style="font-style:italic">C</span>(<span style="font-style:italic">k</span>−1)<span style="font-family:monospace">))</span>, which means if
+you change the value in one cell, the values in the later cells will
+change accordingly.) See also <span style="font-family:monospace">plotseq</span>,
+Section <a href="index.html#sec%3Aplotseq">7.17</a>, for a graphic representation of a one-term
+recurrence sequence.
+</li></ul><h4 id="sec430" class="subsubsection">Example</h4>
+<p>
+Display the values of the sequence <span style="font-style:italic">u</span><sub>0</sub>=3.5, <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub>=sin(<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>)<br>
+Select a cell of the spreadsheet (for example <span style="font-family:monospace">B0</span>) and
+input in the command line:
+</p><div class="center">
+<span style="font-family:monospace">tableseq(sin(x),x,3.5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<table border=1  style="border-spacing:0;" class="cellpadding1"><tr><td style="text-align:left;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold">row</span></td><td style="text-align:left;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold">B</span></td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" >0</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >sin(x)</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" >1</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >x</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" >2</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >3.5</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" >3</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >-0.35078322769</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" >4</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >-0.343633444925</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" >5</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >-0.336910330426</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" >…</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >…</td></tr>
+</table>
+</div><p><br>
+</p><p>More generally, for a recurrence relation where each term depends on
+the previous <span style="font-style:italic">k</span> terms:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">tableseq</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>), a formula which defines the
+recurrence, through <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub>=<span style="font-style:italic">f</span>(<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>,…,<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>−<span style="font-style:italic">k</span></sub>).
+</li><li class="li-itemize">[<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>], a list of variables.
+</li><li class="li-itemize">[<span style="font-style:italic">u</span><sub>0</sub>,…,<span style="font-style:italic">u</span><sub><span style="font-style:italic">k</span>−1</sub>], a list of the beginning <span style="font-style:italic">k</span> terms.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">tableseq(</span><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>)<span style="font-family:monospace">,</span>[<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>]<span style="font-family:monospace">,</span>[<span style="font-style:italic">u</span><sub>0</sub>,…,<span style="font-style:italic">u</span><sub><span style="font-style:italic">k</span>−1</sub>]<span style="font-family:monospace">)</span>
+fills the current column of the
+spreadsheet, starting with the selected cell (or cell 0 if the entire
+column is selected), with the formula <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>),
+followed by the variables <span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>, followed by the
+terms <span style="font-style:italic">u</span><sub>0</sub>, <span style="font-style:italic">u</span><sub>1</sub>, … of the sequence.
+</li></ul><h4 id="sec431" class="subsubsection">Example</h4>
+<p>
+Display the values of the Fibonacci sequence
+<span style="font-style:italic">u</span><sub>0</sub>=1, <span style="font-style:italic">u</span><sub>1</sub>=1,…, <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+2</sub>=<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>+<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub><br>
+Select a cell, say <span style="font-family:monospace">B0</span>, and:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">tableseq(x+y,[x,y],[1,1])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<table border=1  style="border-spacing:0;" class="cellpadding1"><tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > <span style="font-weight:bold">row</span></td><td style="text-align:left;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold">B</span></td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > 0</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >x+y </td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > 1</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >x</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > 2</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >y</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > 3</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > 4</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > 5</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > …</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >…</td></tr>
+</table>
+</div>
+<hr>
+<a href="cascmd_en205.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en207.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

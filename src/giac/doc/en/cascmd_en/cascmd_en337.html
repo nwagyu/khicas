@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sturm sequences and number of sign changes of P on (a, b]: sturm
+sturmseq sturmab
+  </title>
+</head>
+<body >
+<a href="cascmd_en336.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en338.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec783" class="subsection">5.28.13  Sturm sequences and number of sign changes of <span style="font-style:italic">P</span> on (<span style="font-style:italic">a</span>, <span style="font-style:italic">b</span>]: <span style="font-family:monospace">sturm</span>
+<span style="font-family:monospace">sturmseq</span> <span style="font-family:monospace">sturmab</span>
+<a id="hevea_default585"></a> <a id="hevea_default586"></a> <a id="hevea_default587"></a></h3>
+<p>Given a polynomial or rational expression <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>), the Sturm sequence is
+the sequence <span style="font-style:italic">P</span><sub>1</sub>(<span style="font-style:italic">x</span>),<span style="font-style:italic">P</span><sub>2</sub>(<span style="font-style:italic">x</span>), … given by the recurrence
+relation:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span><sub>1</sub>(<span style="font-style:italic">x</span>) is the opposite of the euclidean division remainder of <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>) by
+<span style="font-style:italic">P</span>′(<span style="font-style:italic">x</span>).
+</li><li class="li-itemize"><span style="font-style:italic">P</span><sub>2</sub>(<span style="font-style:italic">x</span>) is the opposite of the euclidean division remainder of <span style="font-style:italic">P</span>′(<span style="font-style:italic">x</span>) by
+<span style="font-style:italic">P</span><sub>1</sub>(<span style="font-style:italic">x</span>).
+</li><li class="li-itemize">…</li></ul><p>
+If <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>) is a polynomial of degree <span style="font-style:italic">n</span>, then this sequence has at
+most <span style="font-style:italic">n</span> terms.</p><p>If <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>) is square-free, then Sturm’s Theorem gives a way to use the
+sequence to determine the number of zeros of <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>) on an interval.</p><p>The <span style="font-family:monospace">sturm</span> command can find either the Sturm sequence (in
+which case it can also be called as <span style="font-family:monospace">sturmseq</span>) or the number
+of zeros in an interval (in which case it can also be called as
+<span style="font-family:monospace">sturmab</span>).</p><p>To find the Sturm sequence:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sturm</span> (or <span style="font-family:monospace">sturmseq</span>) takes one mandatory
+argument and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a polynomial or rational expression.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, a variable name (by default <span style="font-family:monospace">x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">sturm(</span><span style="font-style:italic">P</span>  ⟨ ,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span> 
+(or <span style="font-family:monospace">sturmseq(</span><span style="font-style:italic">P</span>  ⟨,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span>)
+returns the list of the Sturm sequences and multiplicities of the
+square-free factors of <span style="font-style:italic">P</span>.
+</li></ul><h4 id="sec784" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm(2*x^3+2)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturm(2*y^3+2,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,0,0,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,0,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,−9</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+The first term gives the content of the numerator (here 2),
+then the Sturm sequence (in list representation) [<span style="font-style:italic">x</span><sup>3</sup>+1,3<span style="font-style:italic">x</span><sup>2</sup>,−9].<br>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm((2*x^3+2)/(3*x^2+2),x)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturmseq((2*x^3+2)/(3*x^2+2),x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,0,0,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,0,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,−9</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,1,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,0,2</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">6,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,−72</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+The first term gives the content of the numerator (here 2),
+then the Sturm sequence of the numerator ([[1,0,0,1],[3,0,0],-9]),
+then the content of the denominator (here 1) and the Sturm
+sequence of the denominator ([[3,0,2],[6,0],-72]). As expressions,
+[<span style="font-style:italic">x</span><sup>3</sup>+1,3<span style="font-style:italic">x</span><sup>2</sup>, −9] is the Sturm sequence of the numerator and
+[3<span style="font-style:italic">x</span><sup>2</sup>+2,6<span style="font-style:italic">x</span>,−72] is the Sturm sequence of the denominator.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm((x^3+1)^2,x)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturmseq((x^3+1)^2,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm(3*(3*x^3+1)/(2*x+2),x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,0,0,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">9,0,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,−81</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,2,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+The first term gives the content of the numerator
+(here <span style="font-family:monospace">3</span>),<br>
+ the second term gives the Sturm sequence of the numerator
+(here <span style="font-family:monospace">3x^3+1, 9x^2, -81</span>),<br>
+ the third term gives the content of the denominator (here
+<span style="font-family:monospace">2</span>),<br>
+ the fourth term gives the Sturm sequence of the denominator
+(<span style="font-family:monospace">x+1,1</span>).
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm(2*x^3+2,x)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturmseq(2*x^3+2,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,0,0,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,0,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,−9</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm((2*x^3+2)/(x+2),x)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturmseq((2*x^3+2)/(x+2),x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,0,0,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,0,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,−9</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,1,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p>To compute the number of zeros in an interval:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sturm</span> (or <span style="font-family:monospace">sturmab</span>) takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a polynomial expression.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a variable name.
+</li><li class="li-itemize"><span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, two real or complex numbers.
+</li></ul>
+</li><li class="li-itemize">If <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span> are reals, <span style="font-family:monospace">sturm(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> 
+(or <span style="font-family:monospace">sturmab(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span>)
+returns the number of sign changes of <span style="font-style:italic">P</span> on (<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>];
+In other words, it returns the number of zeros in [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>) of the
+polynomial <span style="font-style:italic">P</span>/<span style="font-style:italic">G</span> where <span style="font-style:italic">G</span>=gcd(<span style="font-style:italic">P</span>,<span style="font-style:italic">P</span>′).
+</li><li class="li-itemize">if <span style="font-style:italic">a</span> or <span style="font-style:italic">b</span> is complex, <span style="font-family:monospace">sturm(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> 
+(or <span style="font-family:monospace">sturmab(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span>)
+returns the number of complex roots of <span style="font-style:italic">P</span> in the rectangle
+having <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span> as opposite vertices.
+</li></ul><h4 id="sec785" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm(x^2*(x^3+2),x,-2,0)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturmab(x^2*(x^3+2),x,-2,0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturm(x^2*(x^3+2),x,-2,0)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturmab(x^2*(x^3+2),x,-2,0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center"><span style="font-family:monospace">sturm(x^3-1,x,-2-i,5+3i)</span></div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sturmab(x^3-1,x,-2-i,5+3i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center"><span style="font-family:monospace">sturm(x^3-1,x,-i,5+3i)</span></div>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sturmab(x^3-1,x,-i,5+3i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Warning!!!!</span><br>
+The polynomial is defined by its symbolic
+expression.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sturm([1,0,0,1],x)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">sturm([1,0,0,2,0,0],x,-2,0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">Bad argument type</span>
+</div>
+<hr>
+<a href="cascmd_en336.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en338.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

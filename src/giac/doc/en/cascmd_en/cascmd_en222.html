@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Length of an arc: arcLen
+
+</title>
+</head>
+<body >
+<a href="cascmd_en221.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en223.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:arclen" class="subsection">5.19.2  Length of an arc: <span style="font-family:monospace">arcLen</span>
+<a id="hevea_default413"></a>
+</h3>
+<p>The <span style="font-family:monospace">arcLen</span> command finds the lengths of curves in the plane,
+which can either be given by an equation or a curve object.</p><p>To find the length of a curve given by an equation:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">arcLen</span> takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression (resp. a list of two expressions [<span style="font-style:italic">expr</span><sub>1</sub>,<span style="font-family:monospace">expr</span><sub>2</sub>])
+involving a variable <span style="font-style:italic">x</span>.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, the name of the variable.
+</li><li class="li-itemize"><span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, two values for the bounds of this variable.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">arcLen(</span><span style="font-style:italic">expr,</span><span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span>
+(resp.
+<span style="font-family:monospace">arcLen([</span><span style="font-style:italic">expr</span><sub>1</sub>,<span style="font-style:italic">expr</span><sub>2</sub><span style="font-family:monospace">]</span><span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span>)
+returns the length of the curve defined by 
+<span style="font-style:italic">y</span>=<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">expr</span> (resp. by
+<span style="font-style:italic">x</span><sub>1</sub>=<span style="font-style:italic">expr</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>=<span style="font-style:italic">expr</span><sub>2</sub>) as <span style="font-style:italic">x</span> varies from
+<span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>, using the formula
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    arcLen(<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>),<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>)= </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">b</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left"><span style="font-style:italic">a</span></td></tr>
+</table></td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">f</span>′(<span style="font-style:italic">x</span>)<sup>2</sup>+1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">dx</span>
+</td></tr>
+</table>
+or
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    arcLen(<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>),<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>)= </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">b</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left"><span style="font-style:italic">a</span></td></tr>
+</table></td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>′(<span style="font-style:italic">t</span>)<sup>2</sup>+<span style="font-style:italic">y</span>′(<span style="font-style:italic">t</span>)<sup>2</sup></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">dt</span>
+</td></tr>
+</table>
+</li></ul><h4 id="sec512" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Compute the length of the parabola <span style="font-style:italic">y</span>=<span style="font-style:italic">x</span><sup>2</sup> from <span style="font-style:italic">x</span>=0 to <span style="font-style:italic">x</span>=1.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">arcLen(x^2,x,0,1)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">arcLen([t,t^2],t,0,1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−2</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Compute the length of the curve <span style="font-style:italic">y</span>=cosh(<span style="font-style:italic">x</span>) from <span style="font-style:italic">x</span>=0 to
+<span style="font-style:italic">x</span>=ln(2).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">arcLen(cosh(x),x,0,log(2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Compute the length of the circle <span style="font-style:italic">x</span>=cos(<span style="font-style:italic">t</span>),<span style="font-style:italic">y</span>=sin(<span style="font-style:italic">t</span>) from <span style="font-style:italic">t</span>=0 to
+<span style="font-style:italic">t</span>=2*π.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">arcLen([cos(t),sin(t)],t,0,2*pi)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 π
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>To find the length of a curve given by a curve object:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">arcLen</span> takes a single argument: <span style="font-style:italic">curve</span>, a
+geometric curve defined in one of the graphics chapters (chapters
+<a href="index.html#chap%3A2dgraphics">13</a> and <a href="index.html#chap%3A3dgraphics">14</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">arcLen(</span><span style="font-style:italic">curve</span><span style="font-family:monospace">)</span> returns the length of the
+curve.
+</li></ul><h4 id="sec513" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">arcLen(circle(0,1,0,pi/2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> π
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">arcLen(arc(0,1,pi/2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> π  </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en221.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en223.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Rewriting a power as an exponential: pow2exp
+
+</title>
+</head>
+<body >
+<a href="cascmd_en279.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en281.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:pow2exp" class="subsection">5.24.7  Rewriting a power as an exponential: <span style="font-family:monospace">pow2exp</span>
+<a id="hevea_default497"></a>
+</h3>
+<p>Powers with arbitrary (positive) bases are often defined in terms of
+exponentials with base <span style="font-style:italic">e</span> with
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">a</span><sup><span style="font-style:italic">x</span></sup> = <span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span> ln(<span style="font-style:italic">a</span>)</sup>
+</td></tr>
+</table><p>
+The <span style="font-family:monospace">pow2exp</span> rewrites powers to exponentials.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">pow2exp</span> takes one argument:<br>
+ <span style="font-style:italic">expr</span>, an exponential.
+</li><li class="li-itemize"><span style="font-family:monospace">pow2exp(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">expr</span>
+with any powers replaced by their corresponding exponential.
+</li></ul><h4 id="sec648" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">pow2exp(a^(x+y))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+<span style="font-style:italic">y</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">ln<span style="font-style:italic">a</span></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<hr>
+<a href="cascmd_en279.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en281.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

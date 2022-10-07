@@ -1,0 +1,19 @@
+table { width: 100%; }
+img { border: 0px; }
+
+table.ref { padding: 0px; border-spacing: 0px; background-color: #FFFFEE;
+            border: 0px;}
+td.refh { padding: 4px; background-color: #EEEEAA; }
+tr.spacer { background-color:#FFFFFF; height: 6px; }
+table.reftop { padding: 2px; border-spacing: 0px; background-color: #83a2ef;
+            border: 0px; }
+table.toc { padding: 0px; border-spacing: 0px; border: 0px }
+table.index { padding: 4px; border-spacing: 0px; border: 0px }
+
+.shortcuts { padding: 5px; border-spacing: 0; background-color: #83a2ef;
+             border: 1px solid black;}
+table.shortcuts { border-collapse: collapse; width: 80%; }
+
+.right { text-align:right; }
+.center { text-align:center; }
+.left { text-align:left; }

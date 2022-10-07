@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Values of a recurrence relation or a system: seqsolve
+
+</title>
+</head>
+<body >
+<a href="cascmd_en203.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en205.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:seqsolve" class="subsection">5.13.2  Values of a recurrence relation or a system: <span style="font-family:monospace">seqsolve</span>
+<a id="hevea_default333"></a>
+</h3>
+<p>(See also Section <a href="cascmd_en205.html#ssec%3Arsolve">5.13.3</a>.)</p><p>The <span style="font-family:monospace">seqsolve</span> command finds the terms of a recurrence
+relation.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">seqsolve</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">exprs</span>, an expression or list of expressions that
+define the recurrence relation.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of the variables used.
+</li><li class="li-itemize"><span style="font-style:italic">a</span>, the starting value.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">seqsolve(</span><span style="font-style:italic">exprs</span><span style="font-family:monospace">,</span><span style="font-style:italic">vars</span><span style="font-family:monospace">,</span><span style="font-style:italic">a</span><span style="font-family:monospace">)</span>
+returns a formula for the <span style="font-style:italic">n</span>th term of the sequence.
+</li></ul><p>
+For example, if a recurrence relation is defined by <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub> =
+<span style="font-style:italic">f</span>(<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">n</span>) with <span style="font-style:italic">u</span><sub>0</sub> = <span style="font-style:italic">a</span>, the arguments to <span style="font-family:monospace">seqsolve</span> will be
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">n</span>), [<span style="font-style:italic">x</span>,<span style="font-style:italic">n</span>] and <span style="font-style:italic">a</span>. If the recurrence
+relation is defined by <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+2</sub> = <span style="font-style:italic">g</span>(<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub>,<span style="font-style:italic">n</span>) with <span style="font-style:italic">u</span><sub>0</sub> = <span style="font-style:italic">a</span> and
+<span style="font-style:italic">u</span><sub>1</sub> = <span style="font-style:italic">b</span>, the arguments to <span style="font-family:monospace">seqsolve</span> will be
+<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">n</span>), [<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">n</span>] and [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>].</p><p>The recurrence relation must have a homogeneous linear part, the
+nonhomogeneous part must be a linear combination of a polynomials in
+<span style="font-style:italic">n</span> times geometric terms in <span style="font-style:italic">n</span>.</p><h4 id="sec426" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Find <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>, given that <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub> = 2<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub> + <span style="font-style:italic">n</span> and <span style="font-style:italic">u</span><sub>0</sub>=3.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seqsolve(2x+n,[x,n],3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−<span style="font-style:italic">n</span>−1+4· 2<sup><span style="font-style:italic">n</span></sup>
+</td></tr>
+</table>
+</li><li class="li-itemize">Find <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>, given that <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub> = 2<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub> + <span style="font-style:italic">n</span> 3<sup><span style="font-style:italic">n</span></sup> and <span style="font-style:italic">u</span><sub>0</sub>=3.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seqsolve(2x+n*3^n,[x,n],3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">n</span>−3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">· 3<sup><span style="font-style:italic">n</span></sup>+6· 2<sup><span style="font-style:italic">n</span></sup>
+</td></tr>
+</table>
+</li><li class="li-itemize">Find <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>, given that <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub> = <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub> + <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>−1</sub>, <span style="font-style:italic">u</span><sub>0</sub> = 0 and
+<span style="font-style:italic">u</span><sub>1</sub>=1.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seqsolve(x+y,[x,y,n],[0,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">5 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">−4 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−5 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+5 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+4 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">−5 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">20</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Find <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub> and <span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span></sub>, given that <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub>=<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub> + 2<span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span></sub>, <span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span>+1</sub> =
+<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub> + <span style="font-style:italic">n</span> + 1 with <span style="font-style:italic">u</span><sub>0</sub> = 1, <span style="font-style:italic">v</span><sub>0</sub> = 1.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seqsolve([x+2*y,n+1+x],[x,y,n],[0,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−2 <span style="font-style:italic">n</span>−</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup><span style="font-style:italic">n</span></sup>+4· 2<sup><span style="font-style:italic">n</span></sup>−3</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup><span style="font-style:italic">n</span></sup>+2· 2<sup><span style="font-style:italic">n</span></sup>−1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en203.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en205.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

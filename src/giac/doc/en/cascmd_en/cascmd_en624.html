@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Animation of a 3D graph: animate3d
+</title>
+</head>
+<body >
+<a href="cascmd_en623.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en625.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1558" class="subsection">7.21.2  Animation of a 3D graph: <span style="font-family:monospace">animate3d</span>
+<a id="hevea_default1126"></a></h3>
+<p>The <span style="font-family:monospace">animate3d</span> command creates three-dimensional animations
+using graphs of functions depending on a parameter. (See also
+Section <a href="cascmd_en598.html#ssec%3Aplotfunc3">7.4.2</a>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">animate</span> takes three mandatory arguments and two optional
+arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression involving three
+variables, one of which will be regarded as the parameter.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span> a list of the the (non-parameter)
+variables in the expression, which can also specify ranges of
+values <span style="font-style:italic">var=a..b</span>.
+</li><li class="li-itemize"><span style="font-style:italic">param</span> the name of the parameter, which can also
+specify a range of values.
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">frames=</span><span style="font-style:italic">n</span>, where <span style="font-style:italic">n</span> is an integer specifying the
+number of frames.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">xstep</span>, which can be
+<span style="font-family:monospace">xstep=</span><span style="font-style:italic">n</span> to specify the discretization
+step in the <span style="font-style:italic">x</span> direction.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">ystep</span>, which can be
+<span style="font-family:monospace">ystep=</span><span style="font-style:italic">m</span> to specify the discretization
+step in the <span style="font-style:italic">y</span> direction.
+</li><li class="li-itemize">Instead of <span style="font-style:italic">xstep</span> and <span style="font-family:monospace">ystep</span>, you could use
+the option <span style="font-family:monospace">nstep=</span><span style="font-style:italic">n</span> to specify the number of points used to 
+graph.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">animate3d(</span><span style="font-style:italic">expr,vars,param,</span><span style="font-family:monospace">frames=</span><span style="font-style:italic">n</span> ⟨<span style="font-style:italic">opt</span><span style="font-family:monospace">,xstep=</span><span style="font-style:italic">n</span><span style="font-family:monospace">, ystep=</span><span style="font-style:italic">m</span> ⟩<span style="font-family:monospace">)</span>
+draws an animation consisting of graph of the function as the
+parameter varies. 
+</li></ul><h4 id="sec1559" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">animate3d(x^2+a*y^2,[x=-2..2,y=-2..2],a=-2..2, frames=10,display=red+filled)</span>
+</div><p>
+<span style="font-style:italic">Output:</span><br>
+The output is an animation beginning with:
+</p><div class="center">
+<img src="cascmd_en092.png">
+</div>
+<hr>
+<a href="cascmd_en623.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en625.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The difference between a function and an expression
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en208.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en210.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:fnexpr" class="subsection">5.15.1  The difference between a function and an expression
+<a id="hevea_default346"></a>
+<a id="hevea_default347"></a>
+</h3>
+<p>Functions are often defined with expressions; for example,
+<span style="font-family:monospace">f(x):=x^2-1</span> defines a function <span style="font-family:monospace">f</span>, whose value at
+<span style="font-style:italic">x</span> is given by <span style="font-style:italic">x</span><sup>2</sup>+1. (The function <span style="font-family:monospace">f</span> can also be
+defined by <span style="font-family:monospace">f:=x-&gt;x^2-1</span>.) But the function is not the same
+as the expression; the variable <span style="font-family:monospace">x</span> is only a placeholder for
+the function; it is not part of actual definition of the function.
+Compare this with <span style="font-family:monospace">g:=x^2-1</span>, where <span style="font-family:monospace">g</span> is a variable
+which stores the expression <span style="font-family:monospace">x^2-1</span> and so the identifier
+<span style="font-family:monospace">x</span> is part of the definition of <span style="font-family:monospace">g</span>. To find the value
+of <span style="font-style:italic">f</span> for <span style="font-style:italic">x</span>=2, you can enter <span style="font-family:monospace">f(2)</span>, but to use <span style="font-family:monospace">g</span>
+to find the same value you have to do an explicit substitution and
+enter <span style="font-family:monospace">subst(g,x=2)</span>.</p><p>When a command expects a function as argument, this argument should be
+either the definition of the function (e.g. <span style="font-family:monospace">x-&gt;x^2-1</span>) or a
+variable name assigned to a function (e.g. <span style="font-family:monospace">f</span> previously
+defined by <span style="font-family:monospace">f(x):=x^2-1</span>).<br>
+When a command expects an expression as argument, this argument should
+be either the definition of the expression (for example
+<span style="font-family:monospace">x^2-1</span>), or a variable name assigned to an expression (e.g.
+<span style="font-family:monospace">g</span> previously defined by <span style="font-family:monospace">g:=x^2-1</span>), or the
+evaluation of a function (e.g. <span style="font-family:monospace">f(x)</span> where <span style="font-family:monospace">f</span> is the
+previously defined function by <span style="font-family:monospace">f(x):=x^2-1</span>).</p>
+<hr>
+<a href="cascmd_en208.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en210.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

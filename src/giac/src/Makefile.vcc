@@ -1,0 +1,22 @@
+# -*- mode:Makefile -*-
+# compil make -f Makefile.vcc
+#-*- mode:Makefile -*-
+
+#mode debug
+#CXXFLAGS = -DHAVE_CONFIG_H -DIN_GIAC /I. /I.. /I'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include' /EHsc /Zi /MDd /W3 # /D "_UNICODE" /D "UNICODE" -pg
+
+#mode release
+CXXFLAGS = -DHAVE_CONFIG_H -DIN_GIAC /I. /I.. /I'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include' /EHsc /MD /W3 # /D "_UNICODE" /D "UNICODE" -pg
+
+CXX=cl.exe
+
+GIACOBJS = input_lexer.obj sym2poly.obj gausspol.obj threaded.obj maple.obj ti89.obj mathml.obj moyal.obj misc.obj permu.obj quater.obj desolve.obj input_parser.obj symbolic.obj index.obj modpoly.obj modfactor.obj ezgcd.obj derive.obj solve.obj intg.obj intgab.obj risch.obj lin.obj series.obj subst.obj vecteur.obj sparse.obj csturm.obj tex.obj ifactor.obj alg_ext.obj gauss.obj isom.obj help.obj plot.obj plot3d.obj rpn.obj prog.obj pari.obj cocoa.obj optimization.obj signalprocessing.obj lpsolve.obj nautywrapper.obj graphe.obj graphtheory.obj markup.obj TmpLESystemSolver.obj TmpFGLM.obj unary.obj usual.obj identificateur.obj gen.obj tinymt32.obj global.obj
+
+giac_oo.lib:   $(GIACOBJS) first.obj
+	lib /out:giac_oo.lib $(GIACOBJS) first.obj 
+%.obj:	%.cc
+	$(CXX) $(CXXFLAGS) /c $<
+clean:
+	rm -f $(GIACOBJS) $(OBJS) giac_oo.lib
+
+

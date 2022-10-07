@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Putting together sine and cosine of the same angle: tcollect tCollect
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en250.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en252.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:tcollect" class="subsection">5.23.4  Putting together sine and cosine of the same angle: <span style="font-family:monospace">tcollect</span> <span style="font-family:monospace">tCollect</span>
+<a id="hevea_default448"></a>
+<a id="hevea_default449"></a>
+</h3>
+<p>The <span style="font-family:monospace">tcollect</span> command linearizes
+trigonometric expressions (in terms of sin(<span style="font-style:italic">n</span>*<span style="font-style:italic">x</span>) and cos(<span style="font-style:italic">n</span>*<span style="font-style:italic">x</span>)) and
+combines sines and cosines of the same angle.<br>
+<span style="font-family:monospace">tCollect</span> is a synonym for <span style="font-family:monospace">tcollect</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">tcollect</span> takes one argument:<br>
+ <span style="font-style:italic">expr</span>, an expression containing trigonometric functions.
+</li><li class="li-itemize"><span style="font-family:monospace">tcollect(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">expr</span>
+after first linearizing it and then combining sines and cosines of
+the same angle.
+</li></ul><h4 id="sec589" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">tcollect(sin(x)+cos(x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> cos</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> π </td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">tcollect(2*sin(x)*cos(x)+cos(2*x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> cos</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">2 <span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> π </td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en250.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en252.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

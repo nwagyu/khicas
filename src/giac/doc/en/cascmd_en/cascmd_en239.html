@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Potential: potential
+</title>
+</head>
+<body >
+<a href="cascmd_en238.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en240.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec561" class="subsection">5.21.6  Potential: <span style="font-family:monospace">potential</span>
+<a id="hevea_default439"></a></h3>
+<p>Recall that a vector field <span style="font-weight:bold"><span style="font-style:italic">F</span></span> is conservative if there is a
+scalar-valued function <span style="font-style:italic">f</span> such that grad <span style="font-style:italic">f</span>=<span style="font-weight:bold"><span style="font-style:italic">F</span></span>. In
+this case, <span style="font-style:italic">f</span> is called a potential of <span style="font-weight:bold"><span style="font-style:italic">F</span></span>, and is only
+determined up to a constant.</p><p>The <span style="font-family:monospace">potential</span> command computes the potential of a vector
+field, or signals an error if the vector field is not conservative.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">potential</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-weight:bold"><span style="font-style:italic">F</span></span>, a vector field given as a list of <span style="font-style:italic">n</span> expressions
+involving <span style="font-style:italic">n</span> variables.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of the variable names.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">potential(</span><span style="font-weight:bold"><span style="font-style:italic">F</span></span><span style="font-style:italic">,vars</span><span style="font-family:monospace">)</span>
+returns a potential function for <span style="font-weight:bold"><span style="font-style:italic">F</span></span> if <span style="font-weight:bold"><span style="font-style:italic">F</span></span> is
+conservative, and raises an error otherwise.
+</li></ul><p>
+Note that <span style="font-family:monospace">potential</span> is the reciprocal function of <span style="font-family:monospace">derive</span>.</p><h4 id="sec562" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">potential([2*x*y+3,x^2-4*z,-4*y],[x,y,z])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup> <span style="font-style:italic">y</span>+3 <span style="font-style:italic">x</span>−4 <span style="font-style:italic">y</span> <span style="font-style:italic">z</span>
+</td></tr>
+</table><p><br>
+</p><p>Note that in ℝ<sup>3</sup>, a vector field <span style="font-weight:bold"><span style="font-style:italic">F</span></span> is
+conservative if and only if its curl is zero; i.e., if
+<span style="font-weight:bold"><span style="font-style:italic">curl</span></span><span style="font-weight:bold"><span style="font-style:italic">F</span></span>=<span style="font-weight:bold">0</span>.
+In time-independent electro-magnetism,
+<span style="font-weight:bold"><span style="font-style:italic">F</span></span>=<span style="font-weight:bold"><span style="font-style:italic">E</span></span> is the electric field and <span style="font-style:italic">f</span> is the electric
+potential.</p>
+<hr>
+<a href="cascmd_en238.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en240.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The geometric distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en677.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en679.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:geometric" class="subsection">8.4.13  The geometric distribution
+</h3>
+<h4 id="sec1746" class="subsubsection">The probability density function for the geometric distribution: <span style="font-family:monospace">geometric</span>
+<a id="hevea_default1246"></a></h4>
+<p>If an experiment with probability of success <span style="font-style:italic">p</span> is iterated, the
+probability that the first success occurs on the <span style="font-style:italic">k</span>th trial is
+(1−<span style="font-style:italic">p</span>)<sup><span style="font-style:italic">k</span>−1</sup><span style="font-style:italic">p</span>. This gives the geometric distribution (with parameter
+<span style="font-style:italic">p</span>) on the natural numbers. Given such a <span style="font-style:italic">p</span>, the geometric density
+function at <span style="font-style:italic">n</span> is given by 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:geomd"></a>
+<span style="font-family:monospace">geometric</span>(<span style="font-style:italic">p</span>,<span style="font-style:italic">n</span>) = (1−<span style="font-style:italic">p</span>)<sup><span style="font-style:italic">n</span>−1</sup><span style="font-style:italic">p</span>
+    (10)</td></tr>
+</table><p>
+The <span style="font-family:monospace">geometric</span> command computes this density function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">geometric</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">p</span>, a probability (a number between 0 and 1).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+<span style="font-family:monospace">geometric(</span><span style="font-style:italic">p</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the geometric density
+function with probability <span style="font-style:italic">p</span>, given in (<a href="#eq%3Ageomd">10</a>).
+</li></ul><h4 id="sec1747" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">geometric(0.2,3)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.128
+</td></tr>
+</table>
+<h4 id="sec1748" class="subsubsection">The cumulative distribution function of the geometric distribution: <span style="font-family:monospace">geometric_cdf</span>
+<a id="hevea_default1247"></a></h4>
+<p>The <span style="font-family:monospace">geometric_cdf</span> command computes 
+the cumulative distribution function for the geometric distribution. 
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">geometric_cdf</span> takes three mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">p</span>, a probability (a number between 0 and 1).
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, a natural number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">k</span>, a natural number. 
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">betad_cdf(</span><span style="font-style:italic">p</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">n</span>) for the geometric distribution with
+probability <span style="font-style:italic">p</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">beta_cdf(</span><span style="font-style:italic">p</span>,<span style="font-style:italic">n</span>,<span style="font-style:italic">k</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">n</span> ≤ <span style="font-style:italic">X</span> ≤ <span style="font-style:italic">k</span>).
+</li></ul><p>
+It turns out that <span style="font-family:monospace">geometric_cdf</span>(<span style="font-style:italic">p</span>,<span style="font-style:italic">n</span>) = 1 − (1−<span style="font-style:italic">p</span>)<sup><span style="font-style:italic">n</span></sup>.</p><h4 id="sec1749" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">geometric_cdf(0.2,3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.488
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">geometric_cdf(0.2,3,5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.31232
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1750" class="subsubsection">The inverse distribution function for the geometric distribution: <span style="font-family:monospace">geometric_icdf</span>
+<a id="hevea_default1248"></a></h4>
+<p>The <span style="font-family:monospace">geometric_icdf</span> command
+computes the inverse distribution for the geometric distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">geometric_icdf</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">p</span>, a probability (a number between 0 and 1).
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number between 0 and 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">geometric_icdf(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for the geometric distribution with probability <span style="font-style:italic">p</span>;
+namely, the smallest natural number <span style="font-style:italic">n</span> for which Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">n</span>) ≥ <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1751" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">geometric_icdf(0.2,0.5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en677.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en679.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

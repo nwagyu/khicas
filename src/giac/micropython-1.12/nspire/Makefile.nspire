@@ -1,0 +1,57 @@
+include ../py/mkenv.mk
+-include mpconfigport.mk
+
+CC := nspire-gcc
+LD := arm-none-eabi-ld.gold
+
+ZEHNFLAGS = --name "micropython" --author "micropython team, ported by Fabian Vogt" --notice "Interactive python console" --version 09 --compress
+
+# define main target
+PROG = micropython
+
+# qstr definitions (must come before including py.mk)
+QSTR_DEFS = qstrdefsport.h
+
+# OS name, for simple autoconfig
+UNAME_S := $(shell uname -s)
+
+# Disable stripping of the main executable, relocation info is needed by genzehn
+NOSTRIP := 1
+# DEBUG := 1
+
+# include py core make definitions
+include ../py/py.mk
+
+INC =  -I.
+INC += -I..
+INC += -I../py
+INC += -I$(BUILD)
+
+# Debugging/Optimization
+ifdef DEBUG
+COPT = -O0 -g
+else
+COPT = -Os -g #-fomit-frame-pointer -flto
+endif
+
+# compiler settings
+CWARN = -Wall -Werror -Wno-error=cpp -Wno-error=format
+CFLAGS = -DMICROPY_LIB $(INC) $(CWARN) -ansi -std=gnu99 $(CFLAGS_MOD) $(COPT) $(CFLAGS_EXTRA)
+
+LDFLAGS = $(LDFLAGS_MOD) -lm $(LDFLAGS_EXTRA) -Wl,--nspireio
+
+# source files
+SRC_C = $(shell find . -name \*.c)
+
+SRC_QSTR += $(SRC_C)
+
+OBJ = $(PY_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
+
+include ../py/mkrules.mk
+
+all: $(PROG).tns
+
+$(PROG).tns: $(PROG)
+	+genzehn --input $^ --output $@.zehn $(ZEHNFLAGS)
+	+make-prg $@.zehn $@
+	+rm $@.zehn

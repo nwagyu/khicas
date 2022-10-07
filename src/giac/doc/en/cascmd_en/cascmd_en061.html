@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Assumptions on variables: about additionally assume purge supposons and or
+
+
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en060.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en062.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:about" class="subsection">4.4.8  Assumptions on variables: <span style="font-family:monospace">about</span> <span style="font-family:monospace">additionally</span> <span style="font-family:monospace">assume</span> <span style="font-family:monospace">purge</span> <span style="font-family:monospace">supposons</span> <span style="font-family:monospace">and</span> <span style="font-family:monospace">or</span>
+<a id="hevea_default80"></a>
+<a id="hevea_default81"></a>
+<a id="hevea_default82"></a>
+<a id="hevea_default83"></a>
+<a id="hevea_default84"></a>
+<a id="hevea_default85"></a>
+<a id="hevea_default86"></a>
+</h3>
+<p>If <span style="font-family:monospace">variable</span> is a purely symbolic variable (i.e., it doesn’t
+have a value or any assumptions made about it), then
+</p><div class="center">
+<span style="font-family:monospace">abs(variable)</span>
+</div><p>
+will return
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">variable</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table><p>
+since <span style="font-family:monospace">Xcas</span> doesn’t know what type of value the
+variable is supposed to represent.</p><p>The <span style="font-family:monospace">assume</span> (or <span style="font-family:monospace">supposons</span>) command lets you tell
+<span style="font-family:monospace">Xcas</span> some properties of a variable without giving the
+variable a specific value. The <span style="font-family:monospace">additionally</span> command can be
+used to add assumptions to a variable. The <span style="font-family:monospace">about</span> command
+will display the current assumptions about a variable, and the
+<span style="font-family:monospace">purge</span> command will remove all values and assumptions about a
+variable.</p><p><br>
+</p><p><span style="font-family:monospace">assume</span> (or <span style="font-family:monospace">supposons</span>) takes one mandatory
+argument and one optional argument:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">assumptions</span>, statements about a variable (such as
+equalities and inequalities, possibly combined with <span style="font-family:monospace">and</span> and
+<span style="font-family:monospace">or</span>, and domains).
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">additionally</span>, which indicates that the
+assumptions are to be added to previous assumptions, as opposed to
+replace them.
+</li></ul><p>
+<span style="font-family:monospace">assume(</span><span style="font-style:italic">assumptions</span> ⟨<span style="font-family:monospace">,additionally</span>⟩<span style="font-family:monospace">)</span>
+places the assumptions on the variable. With no second argument,
+it will remove any previous assumptions.</p><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">additionally</span> takes one argument:<br>
+<span style="font-style:italic">assumptions</span> as above.
+</li><li class="li-itemize"><span style="font-family:monospace">additionally(</span><span style="font-style:italic">assumptions</span><span style="font-family:monospace">)</span> adds the
+assumptions to a variable without removing assumptions.
+</li></ul><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">about</span> takes one argument:<br>
+<span style="font-style:italic">var</span>, the name of a variable.
+</li><li class="li-itemize"><span style="font-family:monospace">about(</span><span style="font-style:italic">var</span><span style="font-family:monospace">)</span> returns the current assumptions
+on the variable.
+</li></ul><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">purge</span> takes one argument:<br>
+<span style="font-style:italic">var</span>, a variable name or a sequence of variable names.
+</li><li class="li-itemize"><span style="font-family:monospace">purge(</span><span style="font-style:italic">var</span><span style="font-family:monospace">)</span> removes any assumptions you have
+made about the variable <span style="font-style:italic">var</span> (or about all the variables in
+the sequence).
+</li></ul><p><br>
+</p><p>For example, if you enter
+</p><div class="center">
+<span style="font-family:monospace">assume(variable &gt; 0)</span>
+</div><p>
+then <span style="font-family:monospace">Xcas</span> will assume that <span style="font-family:monospace">variable</span> is a positive real
+number, and so
+</p><div class="center">
+<span style="font-family:monospace">abs(variable)</span>
+</div><p>
+will be evaluated to
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">variable</span>
+</td></tr>
+</table><p>You can put one or more conditions in the <span style="font-family:monospace">assume</span> command by
+combining them with <span style="font-family:monospace">and</span> and <span style="font-family:monospace">or</span>. For example, if you
+want the variable <span style="font-family:monospace">a</span> to be in [2,4) ∪ (6,∞), you can
+enter
+</p><div class="center">
+<span style="font-family:monospace">assume((a &gt;= 2 and a &lt; 4) or a &gt; 6)</span>
+</div><p>If a variable has attached assumptions, then making another assumption
+with <span style="font-family:monospace">assume</span> will remove the original assumptions. To add
+extra assumptions, you can either use the <span style="font-family:monospace">additionally</span>
+command or give <span style="font-family:monospace">assume</span> a second argument of
+<span style="font-family:monospace">additionally</span><a id="hevea_default87"></a>. If
+you assume that <span style="font-style:italic">b</span> &gt; 0 with
+</p><div class="center">
+<span style="font-family:monospace">assume(b &gt; 0)</span>
+</div><p>
+and you want to add the condition that <span style="font-style:italic">b</span> &lt; 1, you can either enter
+</p><div class="center">
+<span style="font-family:monospace">assume(b &lt; 1, additionally)</span>
+</div><p>
+or
+</p><div class="center">
+<span style="font-family:monospace">additionally(b &lt; 1)</span>
+</div><p>As well as equalities and inequalities, you can make assumptions about
+the domain of a variable. If you want <span style="font-family:monospace">n</span> to represent an
+integer<a id="hevea_default88"></a>, for example, you can enter
+</p><div class="center">
+<span style="font-family:monospace">assume(n, integer)</span>
+</div><p>
+If you want <span style="font-family:monospace">n</span> to be a positive integer, you can add the
+condition
+</p><div class="center">
+<span style="font-family:monospace">additionally(n &gt; 0)</span>
+</div><p>
+You can also assume a variable is in one of the domains
+<span style="font-family:monospace">real</span>, <span style="font-family:monospace">integer</span>, <span style="font-family:monospace">complex</span> or
+<span style="font-family:monospace">rational</span> (see Section <a href="cascmd_en748.html#ssec%3Atype">12.2.5</a>).</p><p>You can check the assumptions on a variable with the <span style="font-family:monospace">about</span>
+command. For the above positive integer <span style="font-family:monospace">n</span>,<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">about(n)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">assume[integer,[line[0,+infinity]],[0]]</span>
+</div><p>
+The first element tells you that <span style="font-family:monospace">n</span> is an integer, the second
+element tells you that <span style="font-family:monospace">n</span> is between <span style="font-family:monospace">0</span> and
+<span style="font-family:monospace">+infinity</span>, and the third element tells you that the value
+<span style="font-family:monospace">0</span> is excluded.</p><p>If you assume that a variable is equal to a specific value, such as
+</p><div class="center">
+<span style="font-family:monospace">assume(c = 2)</span>
+</div><p>
+then by default the variable <span style="font-family:monospace">c</span> will remain unevaluated in
+later levels. If you want an expression involving <span style="font-family:monospace">c</span> to be
+evaluated, you would need to put the expression inside the
+<span style="font-family:monospace">evalf</span><a id="hevea_default89"></a> command (see Section <a href="cascmd_en136.html#ssec%3Aevalf">5.8.1</a>). After
+the above assumption on <span style="font-family:monospace">c</span>, if you enter
+</p><div class="center">
+<span style="font-family:monospace">evalf(c^2 + 3)</span>
+</div><p>
+then you will get
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">7.0
+</td></tr>
+</table><p>
+Right below the <span style="font-family:monospace">assume(c = 2)</span> command line
+there will be a slider; namely arrows pointing left and right with the
+value <span style="font-family:monospace">2</span> between them. These
+can be used to change the values of <span style="font-family:monospace">c</span>. If you click on the
+right arrow, the <span style="font-family:monospace">assume(c = 2)</span> command will transform to
+</p><div class="center">
+<span style="font-family:monospace">assume(c=[2.2,-10.0,10.0,0.0])</span>
+</div><p>
+and the value between the arrows will be <span style="font-family:monospace">2.2</span>. Also, any
+later levels where the variable <span style="font-family:monospace">c</span> is evaluated will be
+re-evaluated with the value of <span style="font-family:monospace">c</span> now <span style="font-family:monospace">2.2</span>. The
+output to <span style="font-family:monospace">evalf(c^2 + 3</span> will become
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">7.84
+</td></tr>
+</table><p>
+The <span style="font-family:monospace">-10.0</span> and <span style="font-family:monospace">10.0</span> in the <span style="font-family:monospace">assume</span> line
+represent the smallest and largest values that <span style="font-family:monospace">c</span> can become
+using the sliders. You can set them yourself in the <span style="font-family:monospace">assume</span>
+command, as well as the increment that the value will change; if you
+want <span style="font-family:monospace">c</span> to start with the value <span style="font-family:monospace">5</span> and vary between
+<span style="font-family:monospace">2</span> and <span style="font-family:monospace">8</span> in increments of <span style="font-family:monospace">0.05</span>, then you can
+enter
+</p><div class="center">
+<span style="font-family:monospace">assume(c = [5,2,8,0.05])</span>
+</div><p>Recall the <span style="font-family:monospace">purge</span> command removes assumptions about a
+variable.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">purge(a)</span>
+</div><p>
+then <span style="font-family:monospace">a</span> will no longer have any assumptions made about it.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">purge(a,b)</span>
+</div><p>
+then <span style="font-family:monospace">a</span> and <span style="font-family:monospace">b</span> will no longer have any assumptions
+made about them.</p>
+<hr>
+<a href="cascmd_en060.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en062.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

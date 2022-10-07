@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Polynomials and power series</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">Polynomials and power series</h2>
+
+<p></p>
+<p></p>
+<p>We group here all functions which are specific to polynomials or power
+series. Many other functions which can be applied on these objects are
+described in the other sections. Also, some of the functions described here
+can be applied to other types.</p>
+<p>
+<hr>
+<div id="se:O"></div>
+<div id="O"></div>
+<h4>O(p^e)</h4>
+<p>
+If p is an integer
+greater than 2, returns a p-adic 0 of precision e. In all other
+cases, returns a power series zero with precision given by e v, where v
+is the X-adic valuation of p with respect to its main variable.</p>
+<p>
+The library syntax is <code>GEN <b>ggrando</b>()</code>.
+<code>GEN <b>zeropadic</b>(GEN p, long e)</code> for a p-adic and
+<code>GEN <b>zeroser</b>(long v, long e)</code> for a power series zero in variable v.</p>
+<p>
+
+<hr>
+<div id="se:bezoutres"></div>
+<div id="bezoutres"></div>
+<h4>bezoutres(A, B, {v})</h4>
+<p>
+Deprecated alias for <code><a href="Polynomials_and_power_series.html#se:polresultantext"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polresultantext</a></code></p>
+<p>
+The library syntax is <code>GEN <b>polresultantext0</b>(GEN A, GEN B, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:deriv"></div>
+<div id="deriv"></div>
+<h4>deriv(x, {v})</h4>
+<p>
+Derivative of x with respect to the main
+variable if v is omitted, and with respect to v otherwise. The derivative
+of a scalar type is zero, and the derivative of a vector or matrix is done
+componentwise. One can use x' as a shortcut if the derivative is with
+respect to the main variable of x.</p>
+<p>
+By definition, the main variable of a <code>t_POLMOD</code> is the main variable among
+the coefficients from its two polynomial components (representative and
+modulus); in other words, assuming a polmod represents an element of
+R[X]/(T(X)), the variable X is a mute variable and the derivative is
+taken with respect to the main variable used in the base ring R.</p>
+<p>
+The library syntax is <code>GEN <b>deriv</b>(GEN x, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:diffop"></div>
+<div id="diffop"></div>
+<h4>diffop(x, v, d, {n = 1})</h4>
+<p>
+Let v be a vector of variables, and d a vector of the same length,
+return the image of x by the n-power (1 if n is not given) of the differential
+operator D that assumes the value <code>d[i]</code> on the variable <code>v[i]</code>.
+The value of D on a scalar type is zero, and D applies componentwise to a vector
+or matrix. When applied to a <code>t_POLMOD</code>, if no value is provided for the variable
+of the modulus, such value is derived using the implicit function theorem.</p>
+<p>
+Some examples:
+This function can be used to differentiate formal expressions:
+If E = exp(X^2) then we have E' = 2*X*E. We can derivate X*exp(X^2) as follow:</p>
+<p>
+</p><pre class="code">  ? diffop(E*X,[X,E],[1,2*X*E])
+  %1 = (2*X^2 + 1)*E
+</pre><p></p>
+<p>
+Let <code>Sin</code> and <code>Cos</code> be two function such that <code>Sin</code>^2+<code>Cos</code>^2 = 1
+and <code>Cos</code>' = -<code>Sin</code>. We can differentiate <code>Sin</code>/<code>Cos</code> as follow,
+PARI inferring the value of <code>Sin</code>' from the equation:</p>
+<p>
+</p><pre class="code">  ? diffop(Mod('Sin/'Cos,'Sin^2+'Cos^2-1),['Cos],[-'Sin])
+  %1 = Mod(1/Cos^2, Sin^2 + (Cos^2 - 1))
+  
+</pre><p></p>
+<p>
+Compute the Bell polynomials (both complete and partial) via the Faa di Bruno formula:</p>
+<p>
+</p><pre class="code">  Bell(k,n=-1)=
+  {
+    my(var(i)=eval(Str("X",i)));
+    my(x,v,dv);
+    v=vector(k,i,if(i==1,'E,var(i-1)));
+    dv=vector(k,i,if(i==1,'X*var(1)*'E,var(i)));
+    x=diffop('E,v,dv,k)/'E;
+    if(n&lt;0,subst(x,'X,1),polcoeff(x,n,'X))
+  }
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>diffop0</b>(GEN x, GEN v, GEN d, long n)</code>.</p>
+<p>
+For n = 1, the function <code>GEN <b>diffop</b>(GEN x, GEN v, GEN d)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:eval"></div>
+<div id="eval"></div>
+<h4>eval(x)</h4>
+<p>
+Replaces in x the formal variables by the values that
+have been assigned to them after the creation of x. This is mainly useful
+in GP, and not in library mode. Do not confuse this with substitution (see
+<code><a href="Polynomials_and_power_series.html#se:subst"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">subst</a></code>).</p>
+<p>
+If x is a character string, <code>eval(x)</code> executes x as a GP
+command, as if directly input from the keyboard, and returns its
+output.</p>
+<p>
+</p><pre class="code">  ? x1 = "one"; x2 = "two";
+  ? n = 1; eval(Str("x", n))
+  %2 = "one"
+  ? f = "exp"; v = 1;
+  ? eval(Str(f, "(", v, ")"))
+  %4 = 2.7182818284590452353602874713526624978
+</pre><p>
+Note that the first construct could be implemented in a
+simpler way by using a vector <code>x = ["one","two"]; x[n]</code>, and the second
+by using a closure <code>f = exp; f(v)</code>. The final example is more interesting:</p>
+<p>
+</p><pre class="code">  ? genmat(u,v) = matrix(u,v,i,j, eval( Str("x",i,j) ));
+  ? genmat(2,3)   \\ generic 2 x 3 matrix
+  %2 =
+  [x11 x12 x13]
+  
+  [x21 x22 x23]
+</pre><p></p>
+<p></p>
+<p>
+A syntax error in the evaluation expression raises an <code>e_SYNTAX</code>
+exception, which can be trapped as usual:</p>
+<p>
+</p><pre class="code">  ? 1a
+   ***   syntax error, unexpected variable name, expecting $end or ';': 1a
+   ***                                                                   ^-
+  ? E(expr) =
+    {
+      iferr(eval(expr),
+            e, print("syntax error"),
+            errname(e) == "e_SYNTAX");
+    }
+  ? E("1+1")
+  %1 = 2
+  ? E("1a")
+  syntax error
+</pre><p></p>
+<p>
+The library syntax is <code><b>geval</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factorpadic"></div>
+<div id="factorpadic"></div>
+<h4>factorpadic(<em>pol</em>, p, r)</h4>
+<p>
+p-adic factorization
+of the polynomial <em>pol</em> to precision r, the result being a
+two-column matrix as in <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>. Note that this is not the same
+as a factorization over &Zopf;/p^r&Zopf; (polynomials over that ring do not form a
+unique factorization domain, anyway), but approximations in &Qopf;/p^r&Zopf; of
+the true factorization in &Qopf;<sub>p</sub>[X].</p>
+<p>
+</p><pre class="code">  ? factorpadic(x^2 + 9, 3,5)
+  %1 =
+  [(1 + O(3^5))*x^2 + O(3^5)*x + (3^2 + O(3^5)) 1]
+  ? factorpadic(x^2 + 1, 5,3)
+  %2 =
+  [  (1 + O(5^3))*x + (2 + 5 + 2*5^2 + O(5^3)) 1]
+  
+  [(1 + O(5^3))*x + (3 + 3*5 + 2*5^2 + O(5^3)) 1]
+</pre><p></p>
+<p>
+The factors are normalized so that their leading coefficient is a power of
+p. The method used is a modified version of the round 4 algorithm of
+Zassenhaus.</p>
+<p>
+If <em>pol</em> has inexact <code>t_PADIC</code> coefficients, this is not always
+well-defined; in this case, the polynomial is first made integral by dividing
+out the p-adic content,  then lifted to &Zopf; using <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>
+coefficientwise.
+Hence we actually factor exactly a polynomial which is only p-adically
+close to the input. To avoid pitfalls, we advise to only factor polynomials
+with exact rational coefficients.</p>
+<p>
+The library syntax is <code><b>factorpadic</b>(GEN f,GEN p, long r)</code> . The function <code>factorpadic0</code> is
+deprecated, provided for backward compatibility.</p>
+<p>
+
+<hr>
+<div id="se:intformal"></div>
+<div id="intformal"></div>
+<h4>intformal(x, {v})</h4>
+<p>
+formal integration of x with respect to the variable v (wrt.
+the main variable if v is omitted). Since PARI cannot represent
+logarithmic or arctangent terms, any such term in the result will yield an
+error:</p>
+<p>
+</p><pre class="code">   ? intformal(x^2)
+   %1 = 1/3*x^3
+   ? intformal(x^2, y)
+   %2 = y*x^2
+   ? intformal(1/x)
+     ***   at top-level: intformal(1/x)
+     ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; --
+     *** intformal: domain error in intformal: residue(series, pole) != 0
+</pre><p></p>
+<p>
+The argument x can be of any type. When x is a rational function, we
+assume that the base ring is an integral domain of characteristic zero.</p>
+<p>
+  By  definition,   the main variable of a <code>t_POLMOD</code> is the main variable
+among the  coefficients  from  its  two  polynomial  components
+(representative and modulus); in other words, assuming a polmod represents an
+element of R[X]/(T(X)), the variable X is a mute variable and the
+integral is taken with respect to the main variable used in the base ring R.
+In particular, it is meaningless to integrate with respect to the main
+variable of <code>x.mod</code>:</p>
+<p>
+</p><pre class="code">  ? intformal(Mod(1,x^2+1), 'x)
+  *** intformal: incorrect priority in intformal: variable x = x
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>integ</b>(GEN x, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:padicappr"></div>
+<div id="padicappr"></div>
+<h4>padicappr(<em>pol</em>, a)</h4>
+<p>
+Vector of p-adic roots of the
+polynomial pol congruent to the p-adic number a modulo p, and with
+the same p-adic precision as a. The number a can be an ordinary
+p-adic number (type <code>t_PADIC</code>, i.e.&nbsp;an element of &Zopf;<sub>p</sub>) or can be an
+integral element of a finite extension of &Qopf;<sub>p</sub>, given as a <code>t_POLMOD</code>
+at least one of whose coefficients is a <code>t_PADIC</code>. In this case, the result
+is the vector of roots belonging to the same extension of &Qopf;<sub>p</sub> as a.</p>
+<p>
+The library syntax is <code>GEN <b>padicappr</b>(GEN pol, GEN a)</code>.
+Also available is <code>GEN <b>Zp_appr</b>(GEN f, GEN a)</code> when a is a
+<code>t_PADIC</code>.</p>
+<p>
+
+<hr>
+<div id="se:padicfields"></div>
+<div id="padicfields"></div>
+<h4>padicfields(p, N, {<em>flag</em> = 0})</h4>
+<p>
+Returns a vector of polynomials generating all the extensions of degree
+N of the field &Qopf;<sub>p</sub> of p-adic rational numbers; N is
+allowed to be a 2-component vector [n,d], in which case we return the
+extensions of degree n and discriminant p^d.</p>
+<p>
+The list is minimal in the sense that two different polynomials generate
+non-isomorphic extensions; in particular, the number of polynomials is the
+number of classes of non-isomorphic extensions. If P is a polynomial in this
+list, &alpha; is any root of P and K = &Qopf;<sub>p</sub>(&alpha;), then &alpha;
+is the sum of a uniformizer and a (lift of a) generator of the residue field
+of K; in particular, the powers of &alpha; generate the ring of p-adic
+integers of K.</p>
+<p>
+If <em>flag</em> = 1, replace each polynomial P by a vector [P, e, f, d, c]
+where e is the ramification index, f the residual degree, d the
+valuation of the discriminant, and c the number of conjugate fields.
+If <em>flag</em> = 2, only return the <em>number</em> of extensions in a fixed
+algebraic closure (Krasner's formula), which is much faster.</p>
+<p>
+The library syntax is <code>GEN <b>padicfields0</b>(GEN p, GEN N, long flag)</code>.
+Also available is
+<code>GEN <b>padicfields</b>(GEN p, long n, long d, long flag)</code>, which computes
+extensions of &Qopf;<sub>p</sub> of degree n and discriminant p^d.</p>
+<p>
+
+<hr>
+<div id="se:polchebyshev"></div>
+<div id="polchebyshev"></div>
+<h4>polchebyshev(n, {<em>flag</em> = 1}, {a = 'x})</h4>
+<p>
+Returns the n-th
+Chebyshev polynomial of the first kind T<sub>n</sub> (<em>flag</em> = 1) or the second
+kind U<sub>n</sub> (<em>flag</em> = 2), evaluated at a (<code>'x</code> by default). Both series of
+polynomials satisfy the 3-term relation
+ P<sub>n+1</sub> = 2xP<sub>n</sub> - P<sub>n-1</sub>, 
+and are determined by the initial conditions U<sub>0</sub> = T<sub>0</sub> = 1, T<sub>1</sub> = x,
+U<sub>1</sub> = 2x. In fact T<sub>n</sub>' = n U<sub>n-1</sub> and, for all complex numbers z, we
+have T<sub>n</sub>(cos z) = cos (nz) and U<sub>n-1</sub>(cos z) = sin(nz)/sin z.
+If n &geq; 0, then these polynomials have degree n.  For n &lt; 0,
+T<sub>n</sub> is equal to T<sub>-n</sub> and U<sub>n</sub> is equal to -U<sub>-2-n</sub>.
+In particular, U<sub>-1</sub> = 0.</p>
+<p>
+The library syntax is <code>GEN <b>polchebyshev_eval</b>(long n, long flag, GEN a = NULL)</code>.
+Also available are
+<code>GEN <b>polchebyshev</b>(long n, long flag, long v)</code>,
+<code>GEN <b>polchebyshev1</b>(long n, long v)</code> and
+<code>GEN <b>polchebyshev2</b>(long n, long v)</code> for T<sub>n</sub> and U<sub>n</sub> respectively.</p>
+<p>
+
+<hr>
+<div id="se:polclass"></div>
+<div id="polclass"></div>
+<h4>polclass(D, {<em>inv</em> = 0}, {x = 'x})</h4>
+<p>
+Return a polynomial in &Zopf;[x] generating the Hilbert class field for the
+imaginary quadratic discriminant D.  If inv is 0 (the default),
+use the modular j-function and return the classical Hilbert polynomial,
+otherwise use a class invariant. The following invariants correspond to
+the different values of inv, where f denotes Weber's function
+<code><a href="Transcendental_functions.html#se:weber"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">weber</a></code>, and w<sub>p,q</sub> the double eta quotient given by
+w<sub>p,q</sub> = (&eta;(x/p) &eta;(x/q) )/(&eta;(x) &eta;(x/{pq}) )</p>
+<p>
+The invariants w<sub>p,q</sub> are not allowed unless they satisfy the following
+technical conditions ensuring they do generate the Hilbert class
+field and not a strict subfield:</p>
+<p>
+<b>*</b> if p != q, we need them both non-inert, prime to the conductor of
+&Zopf;[sqrt{D}]. Let P, Q be prime ideals  above p and q; if both are
+unramified, we further require that P<sup>&#177; 1</sup> Q<sup>&#177; 1</sup> be all distinct in
+the class group of &Zopf;[sqrt{D}]; if both are ramified, we require that PQ
+ != 1 in the class group.</p>
+<p>
+<b>*</b> if p = q, we want it split and prime to the conductor and
+the prime ideal above it must have order  != 1, 2, 4 in the class group.</p>
+<p>
+Invariants are allowed under the additional conditions on D
+listed below.</p>
+<p>
+<b>*</b> 0 : j</p>
+<p>
+<b>*</b> 1 : f, D = 1 mod 8 and D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 2 : f^2, D = 1 mod 8 and D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 3 : f^3, D = 1 mod 8;</p>
+<p>
+<b>*</b> 4 : f^4, D = 1 mod 8 and D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 5 : &gamma;<sub>2</sub> = j<sup>1/3</sup>, D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 6 : w<sub>2,3</sub>, D = 1 mod 8 and D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 8 : f^8, D = 1 mod 8 and D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 9 : w<sub>3,3</sub>, D = 1 mod 2 and D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 10: w<sub>2,5</sub>, D != 60 mod 80 and D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 14: w<sub>2,7</sub>, D = 1 mod 8;</p>
+<p>
+<b>*</b> 15: w<sub>3,5</sub>, D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 21: w<sub>3,7</sub>, D = 1 mod 2 and 21 does not divide D</p>
+<p>
+<b>*</b> 23: w<sub>2,3</sub>^2, D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 24: w<sub>2,5</sub>^2, D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 26: w<sub>2,13</sub>, D != 156 mod 208;</p>
+<p>
+<b>*</b> 27: w<sub>2,7</sub>^2, D != 28 mod 112;</p>
+<p>
+<b>*</b> 28: w<sub>3,3</sub>^2, D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 35: w<sub>5,7</sub>, D = 1,2 mod 3;</p>
+<p>
+<b>*</b> 39: w<sub>3,13</sub>, D = 1 mod 2 and D = 1,2 mod 3;</p>
+<p>
+The algorithm for computing the polynomial does not use the floating point
+approach, which would evaluate a precise modular function in a precise
+complex argument. Instead, it relies on a faster Chinese remainder based
+approach modulo small primes, in which the class invariant is only defined
+algebraically by the modular polynomial relating the modular function to j.
+So in fact, any of the several roots of the modular polynomial may actually
+be the class invariant, and more precise assertions cannot be made.</p>
+<p>
+For instance, while <code>polclass(D)</code> returns the minimal polynomial of
+j(&tau;) with &tau; (any) quadratic integer for the discriminant D,
+the polynomial returned by <code>polclass(D, 5)</code> can be the minimal polynomial
+of any of &gamma;<sub>2</sub> (&tau;), &zeta;<sub>3</sub> &gamma;<sub>2</sub> (&tau;) or
+&zeta;<sub>3</sub>^2 &gamma;<sub>2</sub> (&tau;), the three roots of the modular polynomial
+j = &gamma;<sub>2</sub>^3, in which j has been specialised to j (&tau;).</p>
+<p>
+The modular polynomial is given by
+j = ((f<sup>24</sup>-16)^3 )/(f<sup>24</sup>) for Weber's function f.</p>
+<p>
+For the double eta quotients of level N = p q, all functions are covered
+such that the modular curve X<sub>0</sub>^+ (N), the function field of which is
+generated by the functions invariant under &Gamma;^0 (N) and the
+Fricke-Atkin-Lehner involution, is of genus 0 with function field
+generated by (a power of) the double eta quotient w.
+This ensures that the full Hilbert class field (and not a proper subfield)
+is generated by class invariants from these double eta quotients.
+Then the modular polynomial is of degree 2 in j, and
+of degree &psi; (N) = (p+1)(q+1) in w.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? polclass(-163)
+  %1 = x + 262537412640768000
+  ? polclass(-51, , 'z)
+  %2 = z^2 + 5541101568*z + 6262062317568
+  ? polclass(-151,1)
+  x^7 - x^6 + x^5 + 3*x^3 - x^2 + 3*x + 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polclass</b>(GEN D, long inv, long x = -1)</code> where <code>x</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:polcoef"></div>
+<div id="polcoef"></div>
+<h4>polcoef(x, n, {v})</h4>
+<p>
+Coefficient of degree n of the polynomial x, with respect to the
+main variable if v is omitted, with respect to v otherwise.  If n
+is greater than the degree, the result is zero.</p>
+<p>
+Naturally applies to scalars (polynomial of degree 0), as well as to
+rational functions whose denominator is a monomial. It also applies to power
+series: if n is less than the valuation, the result is zero. If it is
+greater than the largest significant degree, then an error message is issued.</p>
+<p>
+The library syntax is <code>GEN <b>polcoef</b>(GEN x, long n, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:polcoeff"></div>
+<div id="polcoeff"></div>
+<h4>polcoeff(x, n, {v})</h4>
+<p>
+Deprecated alias for polcoef.</p>
+<p>
+The library syntax is <code>GEN <b>polcoeff0</b>(GEN x, long n, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:polcyclo"></div>
+<div id="polcyclo"></div>
+<h4>polcyclo(n, {a = 'x})</h4>
+<p>
+n-th cyclotomic polynomial, evaluated at a (<code>'x</code> by default). The
+integer n must be positive.</p>
+<p>
+Algorithm used: reduce to the case where n is squarefree; to compute the
+cyclotomic polynomial, use &Phi;<sub>np</sub>(x) = &Phi;<sub>n</sub>(x^p)/&Phi;(x); to compute
+it evaluated, use &Phi;<sub>n</sub>(x) = &prod;<sub>d | n</sub> (x^d-1)<sup>&mu;(n/d)</sup>. In the
+evaluated case, the algorithm assumes that a^d - 1 is either 0 or
+invertible, for all d | n. If this is not the case (the base ring has
+zero divisors), use <code>subst(polcyclo(n),x,a)</code>.</p>
+<p>
+The library syntax is <code>GEN <b>polcyclo_eval</b>(long n, GEN a = NULL)</code>.
+The variant <code>GEN <b>polcyclo</b>(long n, long v)</code> returns the n-th
+cyclotomic polynomial in variable v.</p>
+<p>
+
+<hr>
+<div id="se:polcyclofactors"></div>
+<div id="polcyclofactors"></div>
+<h4>polcyclofactors(f)</h4>
+<p>
+Returns a vector of polynomials, whose product is the product of
+distinct cyclotomic polynomials dividing f.</p>
+<p>
+</p><pre class="code">  ? f = x^10+5*x^8-x^7+8*x^6-4*x^5+8*x^4-3*x^3+7*x^2+3;
+  ? v = polcyclofactors(f)
+  %2 = [x^2 + 1, x^2 + x + 1, x^4 - x^3 + x^2 - x + 1]
+  ? apply(poliscycloprod, v)
+  %3 = [1, 1, 1]
+  ? apply(poliscyclo, v)
+  %4 = [4, 3, 10]
+</pre><p>
+In general, the polynomials are products of cyclotomic
+polynomials and not themselves irreducible:</p>
+<p>
+</p><pre class="code">  ? g = x^8+2*x^7+6*x^6+9*x^5+12*x^4+11*x^3+10*x^2+6*x+3;
+  ? polcyclofactors(g)
+  %2 = [x^6 + 2*x^5 + 3*x^4 + 3*x^3 + 3*x^2 + 2*x + 1]
+  ? factor(%[1])
+  %3 =
+  [            x^2 + x + 1 1]
+  
+  [x^4 + x^3 + x^2 + x + 1 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polcyclofactors</b>(GEN f)</code>.</p>
+<p>
+
+<hr>
+<div id="se:poldegree"></div>
+<div id="poldegree"></div>
+<h4>poldegree(x, {v})</h4>
+<p>
+Degree of the polynomial x in the main variable if v is omitted, in
+the variable v otherwise.</p>
+<p>
+The degree of 0 is <code>-oo</code>. The degree of a non-zero scalar is 0.
+Finally, when x is a non-zero polynomial or rational function, returns the
+ordinary degree of x. Raise an error otherwise.</p>
+<p>
+The library syntax is <code>GEN <b>gppoldegree</b>(GEN x, long v = -1)</code> where <code>v</code> is a variable number.
+Also available is
+<code>long <b>poldegree</b>(GEN x, long v)</code>, which returns <code>-LONG_MAX</code> if x = 0
+and the degree as a <code>long</code> integer.</p>
+<p>
+
+<hr>
+<div id="se:poldisc"></div>
+<div id="poldisc"></div>
+<h4>poldisc(<em>pol</em>, {v})</h4>
+<p>
+Discriminant of the polynomial
+<em>pol</em> in the main variable if v is omitted, in v otherwise. Uses a
+modular algorithm over &Zopf; or &Qopf;, and the subresultant algorithm
+otherwise.</p>
+<p>
+</p><pre class="code">  ? T = x^4 + 2*x+1;
+  ? poldisc(T)
+  %2 = -176
+  ? poldisc(T^2)
+  %3 = 0
+</pre><p></p>
+<p></p>
+<p>
+For convenience, the function also applies to types <code>t_QUAD</code> and
+<code>t_QFI</code>/<code>t_QFR</code>:</p>
+<p>
+</p><pre class="code">  ? z = 3*quadgen(8) + 4;
+  ? poldisc(z)
+  %2 = 8
+  ? q = Qfb(1,2,3);
+  ? poldisc(q)
+  %4 = -8
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>poldisc0</b>(GEN pol, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:poldiscfactors"></div>
+<div id="poldiscfactors"></div>
+<h4>poldiscfactors(T, {<em>flag</em> = 0})</h4>
+<p>
+Given a polynomial T with integer coefficients, return
+[D, <em>faD</em>] where D is the discriminant of T and
+<em>faD</em> is a partial factorization of D: entries in its first
+column are coprime and not perfect powers but need not be primes.
+If <em>flag</em> is 1, finish the factorization using <code><a href="Arithmetic_functions.html#se:factorint"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factorint</a></code>.</p>
+<p>
+</p><pre class="code">  ? T = x^3 - 6021021*x^2 + 12072210077769*x - 8092423140177664432;
+  ? [D,faD] = poldiscfactors(T); print(faD); D
+  [3, 3; 7, 2; 373, 2; 500009, 2; 24639061, 2]
+  %2 = -27937108625866859018515540967767467
+  
+  ? T = x^3 + 9*x^2 + 27*x - 125014250689643346789780229390526092263790263725;
+  ? [D,faD] = poldiscfactors(T); print(faD)
+  [2, 6; 3, 3; 125007125141751093502187, 4]
+  ? [D,faD] = poldiscfactors(T, 1); print(faD)
+  [2, 6; 3, 3; 500009, 12; 1000003, 4]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>poldiscfactors</b>(GEN T, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:poldiscreduced"></div>
+<div id="poldiscreduced"></div>
+<h4>poldiscreduced(f)</h4>
+<p>
+Reduced discriminant vector of the
+(integral, monic) polynomial f. This is the vector of elementary divisors
+of &Zopf;[&alpha;]/f'(&alpha;)&Zopf;[&alpha;], where &alpha; is a root of the
+polynomial f. The components of the result are all positive, and their
+product is equal to the absolute value of the discriminant of&nbsp;f.</p>
+<p>
+The library syntax is <code>GEN <b>reduceddiscsmith</b>(GEN f)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polgraeffe"></div>
+<div id="polgraeffe"></div>
+<h4>polgraeffe(f)</h4>
+<p>
+Returns the Graeffe transform g of f, such that g(x^2) = f(x)
+f(-x).</p>
+<p>
+The library syntax is <code>GEN <b>polgraeffe</b>(GEN f)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polhensellift"></div>
+<div id="polhensellift"></div>
+<h4>polhensellift(A, B, p, e)</h4>
+<p>
+Given a prime p, an integral polynomial A whose leading coefficient
+is a p-unit, a vector B of integral polynomials that are monic and
+pairwise relatively prime modulo p, and whose product is congruent to
+A/lc(A) modulo p, lift the elements of B to polynomials whose
+product is congruent to A modulo p^e.</p>
+<p>
+More generally, if T is an integral polynomial irreducible mod p, and
+B is a factorization of A over the finite field &Fopf;<sub>p</sub>[t]/(T), you can
+lift it to &Zopf;<sub>p</sub>[t]/(T, p^e) by replacing the p argument with [p,T]:</p>
+<p>
+</p><pre class="code">  ? { T = t^3 - 2; p = 7; A = x^2 + t + 1;
+      B = [x + (3*t^2 + t + 1), x + (4*t^2 + 6*t + 6)];
+      r = polhensellift(A, B, [p, T], 6) }
+  %1 = [x + (20191*t^2 + 50604*t + 75783), x + (97458*t^2 + 67045*t + 41866)]
+  ? liftall( r[1] * r[2] * Mod(Mod(1,p^6),T) )
+  %2 = x^2 + (t + 1)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polhensellift</b>(GEN A, GEN B, GEN p, long e)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polhermite"></div>
+<div id="polhermite"></div>
+<h4>polhermite(n, {a = 'x})</h4>
+<p>
+n-th Hermite polynomial H<sub>n</sub> evaluated at a
+(<code>'x</code> by default), i.e.
+ H<sub>n</sub>(x) = (-1)^n e<sup>x^2</sup> (d^n)/(dx^n)e<sup>-x^2</sup>.</p>
+<p>
+The library syntax is <code>GEN <b>polhermite_eval</b>(long n, GEN a = NULL)</code>.
+The variant <code>GEN <b>polhermite</b>(long n, long v)</code> returns the n-th
+Hermite polynomial in variable v.</p>
+<p>
+
+<hr>
+<div id="se:polinterpolate"></div>
+<div id="polinterpolate"></div>
+<h4>polinterpolate(X, {Y}, {t = 'x}, {&e})</h4>
+<p>
+Given the data vectors
+X and Y of the same length n (X containing the x-coordinates,
+and Y the corresponding y-coordinates), this function finds the
+interpolating polynomial P of minimal degree passing through these
+points and evaluates it at&nbsp;t. If Y is omitted, the polynomial P
+interpolates the (i,X[i]). If present, e will contain an error estimate
+on the returned value.</p>
+<p>
+The library syntax is <code>GEN <b>polint</b>(GEN X, GEN Y = NULL, GEN t = NULL, GEN *e = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:poliscyclo"></div>
+<div id="poliscyclo"></div>
+<h4>poliscyclo(f)</h4>
+<p>
+Returns 0 if f is not a cyclotomic polynomial, and n &gt; 0 if f = 
+&Phi;<sub>n</sub>, the n-th cyclotomic polynomial.</p>
+<p>
+</p><pre class="code">  ? poliscyclo(x^4-x^2+1)
+  %1 = 12
+  ? polcyclo(12)
+  %2 = x^4 - x^2 + 1
+  ? poliscyclo(x^4-x^2-1)
+  %3 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>poliscyclo</b>(GEN f)</code>.</p>
+<p>
+
+<hr>
+<div id="se:poliscycloprod"></div>
+<div id="poliscycloprod"></div>
+<h4>poliscycloprod(f)</h4>
+<p>
+Returns 1 if f is a product of cyclotomic polynomial, and 0
+otherwise.</p>
+<p>
+</p><pre class="code">  ? f = x^6+x^5-x^3+x+1;
+  ? poliscycloprod(f)
+  %2 = 1
+  ? factor(f)
+  %3 =
+  [  x^2 + x + 1 1]
+  
+  [x^4 - x^2 + 1 1]
+  ? [ poliscyclo(T) | T &lt;- %[,1] ]
+  %4 = [3, 12]
+  ? polcyclo(3) * polcyclo(12)
+  %5 = x^6 + x^5 - x^3 + x + 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>poliscycloprod</b>(GEN f)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polisirreducible"></div>
+<div id="polisirreducible"></div>
+<h4>polisirreducible(<em>pol</em>)</h4>
+<p>
+<em>pol</em> being a polynomial (univariate in the present version <b>2.12.1</b>),
+returns 1 if <em>pol</em> is non-constant and irreducible, 0 otherwise.
+Irreducibility is checked over the smallest base field over which <em>pol</em>
+seems to be defined.</p>
+<p>
+The library syntax is <code>long <b>isirreducible</b>(GEN pol)</code>.</p>
+<p>
+
+<hr>
+<div id="se:pollead"></div>
+<div id="pollead"></div>
+<h4>pollead(x, {v})</h4>
+<p>
+Leading coefficient of the polynomial or power series x. This is
+ computed with respect to the main variable of x if v is omitted, with
+ respect to the variable v otherwise.</p>
+<p>
+The library syntax is <code>GEN <b>pollead</b>(GEN x, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:pollegendre"></div>
+<div id="pollegendre"></div>
+<h4>pollegendre(n, {a = 'x})</h4>
+<p>
+n-th Legendre polynomial evaluated at a (<code>'x</code> by
+default).</p>
+<p>
+The library syntax is <code>GEN <b>pollegendre_eval</b>(long n, GEN a = NULL)</code>.
+To obtain the n-th Legendre polynomial in variable v,
+use <code>GEN <b>pollegendre</b>(long n, long v)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polmodular"></div>
+<div id="polmodular"></div>
+<h4>polmodular(L, {<em>inv</em> = 0}, {x = 'x}, {y = 'y}, {<em>derivs</em> = 0})</h4>
+<p>
+Return the modular polynomial of prime level L in variables x and y
+for the modular function specified by <code>inv</code>.  If <code>inv</code> is 0 (the
+default), use the modular j function, if <code>inv</code> is 1 use the
+Weber-f function, and if <code>inv</code> is 5 use &gamma;<sub>2</sub> = 
+sqrt[3]{j}.
+See <code><a href="Polynomials_and_power_series.html#se:polclass"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polclass</a></code> for the full list of invariants.
+If x is given as <code>Mod(j, p)</code> or an element j of
+a finite field (as a <code>t_FFELT</code>), then return the modular polynomial of
+level L evaluated at j.  If j is from a finite field and
+<code>derivs</code> is non-zero, then return a triple where the
+last two elements are the first and second derivatives of the modular
+polynomial evaluated at j.</p>
+<p>
+</p><pre class="code">  ? polmodular(3)
+  %1 = x^4 + (-y^3 + 2232*y^2 - 1069956*y + 36864000)*x^3 + ...
+  ? polmodular(7, 1, , 'J)
+  %2 = x^8 - J^7*x^7 + 7*J^4*x^4 - 8*J*x + J^8
+  ? polmodular(7, 5, 7*ffgen(19)^0, 'j)
+  %3 = j^8 + 4*j^7 + 4*j^6 + 8*j^5 + j^4 + 12*j^2 + 18*j + 18
+  ? polmodular(7, 5, Mod(7,19), 'j)
+  %4 = Mod(1, 19)*j^8 + Mod(4, 19)*j^7 + Mod(4, 19)*j^6 + ...
+  
+  ? u = ffgen(5)^0; T = polmodular(3,0,,'j)*u;
+  ? polmodular(3, 0, u,'j,1)
+  %6 = [j^4 + 3*j^2 + 4*j + 1, 3*j^2 + 2*j + 4, 3*j^3 + 4*j^2 + 4*j + 2]
+  ? subst(T,x,u)
+  %7 = j^4 + 3*j^2 + 4*j + 1
+  ? subst(T',x,u)
+  %8 = 3*j^2 + 2*j + 4
+  ? subst(T'',x,u)
+  %9 = 3*j^3 + 4*j^2 + 4*j + 2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polmodular</b>(long L, long inv, GEN x = NULL, long y = -1, long derivs)</code> where <code>y</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:polrecip"></div>
+<div id="polrecip"></div>
+<h4>polrecip(<em>pol</em>)</h4>
+<p>
+Reciprocal polynomial of <em>pol</em>, i.e.&nbsp;the coefficients are in
+reverse order. <em>pol</em> must be a polynomial.</p>
+<p>
+The library syntax is <code>GEN <b>polrecip</b>(GEN pol)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polresultant"></div>
+<div id="polresultant"></div>
+<h4>polresultant(x, y, {v}, {<em>flag</em> = 0})</h4>
+<p>
+Resultant of the two
+polynomials x and y with exact entries, with respect to the main
+variables of x and y if v is omitted, with respect to the variable v
+otherwise. The algorithm assumes the base ring is a domain. If you also need
+the u and v such that x*u + y*v = Res(x,y), use the
+<code><a href="Polynomials_and_power_series.html#se:polresultantext"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polresultantext</a></code> function.</p>
+<p>
+If <em>flag</em> = 0 (default), uses the algorithm best suited to the inputs,
+either the subresultant algorithm (Lazard/Ducos variant, generic case),
+a modular algorithm (inputs in &Qopf;[X]) or Sylvester's matrix (inexact
+inputs).</p>
+<p>
+If <em>flag</em> = 1, uses the determinant of Sylvester's matrix instead; this should
+always be slower than the default.</p>
+<p>
+If x or y are multivariate with a huge <em>polynomial</em> content, it
+is advisable to remove it before calling this function. Compare:</p>
+<p>
+</p><pre class="code">  ? a = polcyclo(7) * ((t+1)/(t+2))^100;
+  ? b = polcyclo(11)* ((t+2)/(t+3))^100);
+  ? polresultant(a,b);
+  time = 3,833 ms.
+  ? ca = content(a); cb = content(b); \
+    polresultant(a/ca,b/cb)*ca^poldegree(b)*cb*poldegree(a); \\ instantaneous
+</pre><p>
+The function only removes rational denominators and does
+not compute automatically the content because it is generically small and
+potentially <em>very</em> expensive (e.g. in multivariate contexts).
+The choice is yours, depending on your application.</p>
+<p>
+The library syntax is <code>GEN <b>polresultant0</b>(GEN x, GEN y, long v = -1, long flag)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:polresultantext"></div>
+<div id="polresultantext"></div>
+<h4>polresultantext(A, B, {v})</h4>
+<p>
+Finds polynomials U and V such that A*U + B*V = R, where R is
+the resultant of U and V with respect to the main variables of A and
+B if v is omitted, and with respect to v otherwise. Returns the row
+vector [U,V,R]. The algorithm used (subresultant) assumes that the base
+ring is a domain.</p>
+<p>
+</p><pre class="code">  ? A = x*y; B = (x+y)^2;
+  ? [U,V,R] = polresultantext(A, B)
+  %2 = [-y*x - 2*y^2, y^2, y^4]
+  ? A*U + B*V
+  %3 = y^4
+  ? [U,V,R] = polresultantext(A, B, y)
+  %4 = [-2*x^2 - y*x, x^2, x^4]
+  ? A*U+B*V
+  %5 = x^4
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polresultantext0</b>(GEN A, GEN B, long v = -1)</code> where <code>v</code> is a variable number.
+Also available is
+<code>GEN <b>polresultantext</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polroots"></div>
+<div id="polroots"></div>
+<h4>polroots(T)</h4>
+<p>
+Complex roots of the polynomial
+T, given as a column vector where each root is repeated according to
+its multiplicity. The precision is given as for transcendental functions: in
+GP it is kept in the variable <code>realprecision</code> and is transparent to the
+user, but it must be explicitly given as a second argument in library mode.</p>
+<p>
+The algorithm used is a modification of Sch&uml;nhage's
+root-finding algorithm, due to and originally implemented by Gourdon.
+It is guaranteed to converge; if furthermore T has rational coefficients,
+roots are guaranteed to the required relative accuracy.</p>
+<p>
+The library syntax is <code>GEN <b>roots</b>(GEN T, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polrootsbound"></div>
+<div id="polrootsbound"></div>
+<h4>polrootsbound(T, {<em>tau</em> = 0.01})</h4>
+<p>
+Return a sharp upper bound B for the modulus of
+the largest complex root of the polynomial T with complex coefficients
+with relative error &tau;. More precisely, we have |z| &leq; B for all roots
+and there exist one root such that |z<sub>0</sub>| &geq; B exp(-2&tau;). Much faster
+than either polroots or polrootsreal.</p>
+<p>
+</p><pre class="code">  ? T=poltchebi(500);
+  ? vecmax(abs(polroots(T)))
+  time = 5,706 ms.
+  %2 = 0.99999506520185816611184481744870013191
+  ? vecmax(abs(polrootsreal(T)))
+  time = 1,972 ms.
+  %3 = 0.99999506520185816611184481744870013191
+  ? polrootsbound(T)
+  time = 217 ms.
+  %4 = 1.0098792554165905155
+  ? polrootsbound(T, log(2)/2) \\ allow a factor 2, much faster
+  time = 51 ms.
+  %5 = 1.4065759938190154354
+  ? polrootsbound(T, 1e-4)
+  time = 504 ms.
+  %6 = 1.0000920717983847741
+  ? polrootsbound(T, 1e-6)
+  time = 810 ms.
+  %7 = 0.9999960628901692905
+  ? polrootsbound(T, 1e-10)
+  time = 1,351 ms.
+  %8 = 0.9999950652993869760
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polrootsbound</b>(GEN T, GEN tau = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polrootsff"></div>
+<div id="polrootsff"></div>
+<h4>polrootsff(x, {p}, {a})</h4>
+<p>
+Obsolete, kept for backward compatibility: use factormod.</p>
+<p>
+The library syntax is <code>GEN <b>polrootsff</b>(GEN x, GEN p = NULL, GEN a = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polrootsmod"></div>
+<div id="polrootsmod"></div>
+<h4>polrootsmod(f, {D})</h4>
+<p>
+Vector of roots of the polynomial f over the finite field defined
+by the domain D as follows:</p>
+<p>
+<b>*</b> D = p a prime: factor over &Fopf;<sub>p</sub>;</p>
+<p>
+<b>*</b> D = [T,p] for a prime p and T an irreducible polynomial over
+&Fopf;<sub>p</sub>: factor over &Fopf;<sub>p</sub>[x]/(T);</p>
+<p>
+<b>*</b> D a <code>t_FFELT</code>: factor over the attached field;</p>
+<p>
+<b>*</b> D omitted: factor over the field of definition of f, which
+must be a finite field.</p>
+<p>
+Multiple roots are <em>not</em> repeated.</p>
+<p>
+</p><pre class="code">  ? polrootsmod(x^2-1,2)
+  %1 = [Mod(1, 2)]~
+  ? polrootsmod(x^2+1,3)
+  %2 = []~
+  ? polrootsmod(x^2+1, [3,y^2+1])
+  %3 = [Mod(Mod(1, 3)*y, Mod(1, 3)*y^2 + Mod(1, 3)),
+        Mod(Mod(2, 3)*y, Mod(1, 3)*y^2 + Mod(1, 3))]~
+  ? polrootsmod(x^2 + Mod(1,3))
+  %4 = []~
+  ? liftall( polrootsmod(x^2 + Mod(Mod(1,3),y^2+1)) )
+  %5 = [y, 2*y]~
+  ? t = ffgen(y^2+Mod(1,3)); polrootsmod(x^2 + t^0)
+  %6 = [y, 2*y]~
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polrootsmod</b>(GEN f, GEN D = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polrootspadic"></div>
+<div id="polrootspadic"></div>
+<h4>polrootspadic(x, p, r)</h4>
+<p>
+Vector of p-adic roots of the polynomial <em>pol</em>, given to
+p-adic precision r; the integer p is assumed to be a prime.
+Multiple roots are
+<em>not</em> repeated. Note that this is not the same as the roots in
+&Zopf;/p^r&Zopf;, rather it gives approximations in &Zopf;/p^r&Zopf; of the true roots
+living in &Qopf;<sub>p</sub>.</p>
+<p>
+</p><pre class="code">  ? polrootspadic(x^3 - x^2 + 64, 2, 5)
+  %1 = [2^3 + O(2^5), 2^3 + 2^4 + O(2^5), 1 + O(2^5)]~
+</pre><p></p>
+<p>
+If <em>pol</em> has inexact <code>t_PADIC</code> coefficients, this is not always
+well-defined; in this case, the polynomial is first made integral by dividing
+out the p-adic content, then lifted
+to &Zopf; using <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code> coefficientwise. Hence the roots given are
+approximations of the roots of an exact polynomial which is p-adically
+close to the input. To avoid pitfalls, we advise to only factor polynomials
+with exact rational coefficients.</p>
+<p>
+The library syntax is <code>GEN <b>rootpadic</b>(GEN x, GEN p, long r)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polrootsreal"></div>
+<div id="polrootsreal"></div>
+<h4>polrootsreal(T, {<em>ab</em>})</h4>
+<p>
+Real roots of the polynomial T with real coefficients, multiple
+roots being included according to their multiplicity. If the polynomial
+does not have rational coefficients, it is first rescaled and rounded.
+The roots are given to a relative accuracy of <code>realprecision</code>.
+If argument <em>ab</em> is
+present, it must be a vector [a,b] with two components (of type
+<code>t_INT</code>, <code>t_FRAC</code> or <code>t_INFINITY</code>) and we restrict to roots belonging
+to that closed interval.</p>
+<p>
+</p><pre class="code">  ? \p9
+  ? polrootsreal(x^2-2)
+  %1 = [-1.41421356, 1.41421356]~
+  ? polrootsreal(x^2-2, [1,+oo])
+  %2 = [1.41421356]~
+  ? polrootsreal(x^2-2, [2,3])
+  %3 = []~
+  ? polrootsreal((x-1)*(x-2), [2,3])
+  %4 = [2.00000000]~
+</pre><p></p>
+<p>
+The algorithm used is a modification of Uspensky's method (relying on
+Descartes's rule of sign), following Rouillier and Zimmerman's article
+"Efficient isolation of a polynomial real roots"
+(<code>http://hal.inria.fr/inria-00072518/</code>). Barring bugs, it is guaranteed
+to converge and to give the roots to the required accuracy.</p>
+<p>
+<b>Remark.</b> If the polynomial T is of the
+form Q(x^h) for some h &geq; 2 and <em>ab</em> is omitted, the routine will
+apply the algorithm to Q (restricting to non-negative roots when h is
+even), then take h-th roots. On the other hand, if you want to specify
+<em>ab</em>, you should apply the routine to Q yourself and a suitable
+interval [a',b'] using approximate h-th roots adapted to your problem:
+the function will not perform this change of variables if <em>ab</em> is present.</p>
+<p>
+The library syntax is <code>GEN <b>realroots</b>(GEN T, GEN ab = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polsturm"></div>
+<div id="polsturm"></div>
+<h4>polsturm(T, {<em>ab</em>})</h4>
+<p>
+Number of distinct real roots of the real polynomial <em>T</em>. If
+the argument <em>ab</em> is present, it must be a vector [a,b] with
+two real components (of type <code>t_INT</code>, <code>t_REAL</code>, <code>t_FRAC</code>
+or  <code>t_INFINITY</code>) and we count roots belonging to that closed interval.</p>
+<p>
+If possible, you should stick to exact inputs, that is avoid <code>t_REAL</code>s in
+T and the bounds a,b: the result is then guaranteed and we use a fast
+algorithm (Uspensky's method, relying on Descartes's rule of sign, see
+<code><a href="Polynomials_and_power_series.html#se:polrootsreal"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polrootsreal</a></code>). Otherwise, the polynomial is rescaled and rounded first
+and the result may be wrong due to that initial error. If only a or b is
+inexact, on the other hand, the interval is first thickened using rational
+endpoints and the result remains guaranteed unless there exist a root
+<em>very</em> close to a non-rational endpoint (which may be missed or unduly
+included).</p>
+<p>
+</p><pre class="code">  ? T = (x-1)*(x-2)*(x-3);
+  ? polsturm(T)
+  %2 = 3
+  ? polsturm(T, [-oo,2])
+  %3 = 2
+  ? polsturm(T, [1/2,+oo])
+  %4 = 3
+  ? polsturm(T, [1, Pi])  \\ Pi inexact: not recommended !
+  %5 = 3
+  ? polsturm(T*1., [0, 4])  \\ T*1. inexact: not recommended !
+  %6 = 3
+  ? polsturm(T^2, [0, 4])  \\ not squarefree: roots are not repeated!
+  %7 = 3
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>RgX_sturmpart</b>(GEN T, GEN ab)</code> or
+<code>long <b>sturm</b>(GEN T)</code> (for the case <code>ab = NULL</code>). The function
+<code>long <b>sturmpart</b>(GEN T, GEN a, GEN b)</code> is obsolete and deprecated.</p>
+<p>
+
+<hr>
+<div id="se:polsubcyclo"></div>
+<div id="polsubcyclo"></div>
+<h4>polsubcyclo(n, d, {v = 'x})</h4>
+<p>
+Gives polynomials (in variable v) defining the sub-Abelian extensions
+of degree d of the cyclotomic field &Qopf;(&zeta;<sub>n</sub>), where d | &phi;(n).</p>
+<p>
+If there is exactly one such extension the output is a polynomial, else it is
+a vector of polynomials, possibly empty. To get a vector in all cases,
+use <code>concat([], polsubcyclo(n,d))</code>.</p>
+<p>
+The function <code><a href="General_number_fields.html#se:galoissubcyclo"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoissubcyclo</a></code> allows to specify exactly which
+sub-Abelian extension should be computed.</p>
+<p>
+The library syntax is <code>GEN <b>polsubcyclo</b>(long n, long d, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:polsylvestermatrix"></div>
+<div id="polsylvestermatrix"></div>
+<h4>polsylvestermatrix(x, y)</h4>
+<p>
+Forms the Sylvester matrix
+corresponding to the two polynomials x and y, where the coefficients of
+the polynomials are put in the columns of the matrix (which is the natural
+direction for solving equations afterwards). The use of this matrix can be
+essential when dealing with polynomials with inexact entries, since
+polynomial Euclidean division doesn't make much sense in this case.</p>
+<p>
+The library syntax is <code>GEN <b>sylvestermatrix</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polsym"></div>
+<div id="polsym"></div>
+<h4>polsym(x, n)</h4>
+<p>
+Creates the column vector of the symmetric powers of the roots of the
+polynomial x up to power n, using Newton's formula.</p>
+<p>
+The library syntax is <code>GEN <b>polsym</b>(GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:poltchebi"></div>
+<div id="poltchebi"></div>
+<h4>poltchebi(n, {v = 'x})</h4>
+<p>
+Deprecated alias for <code><a href="Polynomials_and_power_series.html#se:polchebyshev"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polchebyshev</a></code></p>
+<p>
+The library syntax is <code>GEN <b>polchebyshev1</b>(long n, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:polzagier"></div>
+<div id="polzagier"></div>
+<h4>polzagier(n, m)</h4>
+<p>
+Creates Zagier's polynomial P<sub>n</sub><sup>(m)</sup> used in
+the functions <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code> and <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumpos"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumpos</a></code> (with <em>flag</em> = 1), see
+"Convergence acceleration of alternating series", Cohen et al.,
+<em>Experiment.&nbsp;Math.</em>, vol.&nbsp;9, 2000, pp.&nbsp;3--12.</p>
+<p>
+If m &lt; 0 or m &geq; n, P<sub>n</sub><sup>(m)</sup> = 0.
+We have
+P<sub>n</sub> := P<sub>n</sub><sup>(0)</sup> is T<sub>n</sub>(2x-1), where T<sub>n</sub> is the Legendre polynomial of
+the second kind. For n &gt; m &gt; 0, P<sub>n</sub><sup>(m)</sup> is the m-th difference with
+step 2 of the sequence n<sup>m+1</sup>P<sub>n</sub>; in this case, it satisfies
+2 P<sub>n</sub><sup>(m)</sup>(sin^2 t) = (d<sup>m+1</sup>)/(dt<sup>m+1</sup>)(sin(2t)^m sin(2(n-m)t)).</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>polzag</b>(long n, long m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:serconvol"></div>
+<div id="serconvol"></div>
+<h4>serconvol(x, y)</h4>
+<p>
+Convolution (or Hadamard product) of the
+two power series x and y; in other words if x = &sum; a<sub>k</sub>*X^k and y = &sum;
+b<sub>k</sub>*X^k then <code><a href="Polynomials_and_power_series.html#se:serconvol"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">serconvol</a></code>(x,y) = &sum; a<sub>k</sub>*b<sub>k</sub>*X^k.</p>
+<p>
+The library syntax is <code>GEN <b>convol</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:serlaplace"></div>
+<div id="serlaplace"></div>
+<h4>serlaplace(x)</h4>
+<p>
+x must be a power series with non-negative
+exponents or a polynomial. If x = &sum; (a<sub>k</sub>/k!)*X^k then the result is &sum;
+a<sub>k</sub>*X^k.</p>
+<p>
+The library syntax is <code>GEN <b>laplace</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:serreverse"></div>
+<div id="serreverse"></div>
+<h4>serreverse(s)</h4>
+<p>
+Reverse power series of s, i.e. the series t such that t(s) = x;
+s must be a power series whose valuation is exactly equal to one.</p>
+<p>
+</p><pre class="code">  ? \ps 8
+  ? t = serreverse(tan(x))
+  %2 = x - 1/3*x^3 + 1/5*x^5 - 1/7*x^7 + O(x^8)
+  ? tan(t)
+  %3 = x + O(x^8)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>serreverse</b>(GEN s)</code>.</p>
+<p>
+
+<hr>
+<div id="se:subst"></div>
+<div id="subst"></div>
+<h4>subst(x, y, z)</h4>
+<p>
+Replace the simple variable y by the argument z in the "polynomial"
+expression x. Every type is allowed for x, but if it is not a genuine
+polynomial (or power series, or rational function), the substitution will be
+done as if the scalar components were polynomials of degree zero. In
+particular, beware that:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? subst(1, x, [1,2; 3,4])
+  %1 =
+  [1 0]
+  
+  [0 1]
+  
+  ? subst(1, x, Mat([0,1]))
+    ***   at top-level: subst(1,x,Mat([0,1])
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    *** subst: forbidden substitution by a non square matrix.
+</pre><p></p>
+<p>
+If x is a power series, z must be either a polynomial, a power
+series, or a rational function. Finally, if x is a vector,
+matrix or list, the substitution is applied to each individual entry.</p>
+<p>
+Use the function <code><a href="Polynomials_and_power_series.html#se:substvec"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">substvec</a></code> to replace several variables at once,
+or the function <code><a href="Polynomials_and_power_series.html#se:substpol"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">substpol</a></code> to replace a polynomial expression.</p>
+<p>
+The library syntax is <code>GEN <b>gsubst</b>(GEN x, long y, GEN z)</code> where <code>y</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:substpol"></div>
+<div id="substpol"></div>
+<h4>substpol(x, y, z)</h4>
+<p>
+Replace the "variable" y by the argument z in the "polynomial"
+expression x. Every type is allowed for x, but the same behavior
+as <code><a href="Polynomials_and_power_series.html#se:subst"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">subst</a></code> above apply.</p>
+<p>
+The difference with <code><a href="Polynomials_and_power_series.html#se:subst"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">subst</a></code> is that y is allowed to be any polynomial
+here. The substitution is done moding out all components of x
+(recursively) by y - t, where t is a new free variable of lowest
+priority. Then substituting t by z in the resulting expression. For
+instance</p>
+<p>
+</p><pre class="code">  ? substpol(x^4 + x^2 + 1, x^2, y)
+  %1 = y^2 + y + 1
+  ? substpol(x^4 + x^2 + 1, x^3, y)
+  %2 = x^2 + y*x + 1
+  ? substpol(x^4 + x^2 + 1, (x+1)^2, y)
+  %3 = (-4*y - 6)*x + (y^2 + 3*y - 3)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gsubstpol</b>(GEN x, GEN y, GEN z)</code>.
+Further, <code>GEN <b>gdeflate</b>(GEN T, long v, long d)</code> attempts to
+write T(x) in the form t(x^d), where x = <code>pol<sub>x</sub></code>(v), and returns
+<code>NULL</code> if the substitution fails (for instance in the example <code>%2</code>
+above).</p>
+<p>
+
+<hr>
+<div id="se:substvec"></div>
+<div id="substvec"></div>
+<h4>substvec(x, v, w)</h4>
+<p>
+v being a vector of monomials of degree 1 (variables),
+w a vector of expressions of the same length, replace in the expression
+x all occurrences of v<sub>i</sub> by w<sub>i</sub>. The substitutions are done
+simultaneously; more precisely, the v<sub>i</sub> are first replaced by new
+variables in x, then these are replaced by the w<sub>i</sub>:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? substvec([x,y], [x,y], [y,x])
+  %1 = [y, x]
+  ? substvec([x,y], [x,y], [y,x+y])
+  %2 = [y, x + y]     \\ not [y, 2*y]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gsubstvec</b>(GEN x, GEN v, GEN w)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumformal"></div>
+<div id="sumformal"></div>
+<h4>sumformal(f, {v})</h4>
+<p>
+formal sum of the polynomial expression f with respect to the
+main variable if v is omitted, with respect to the variable v otherwise;
+it is assumed that the base ring has characteristic zero. In other words,
+considering f as a polynomial function in the variable v,
+returns F, a polynomial in v vanishing at 0, such that F(b) - F(a)
+ = sum<sub>v = a+1</sub>^b f(v):</p>
+<p>
+</p><pre class="code">  ? sumformal(n)  \\ 1 + ... + n
+  %1 = 1/2*n^2 + 1/2*n
+  ? f(n) = n^3+n^2+1;
+  ? F = sumformal(f(n))  \\ f(1) + ... + f(n)
+  %3 = 1/4*n^4 + 5/6*n^3 + 3/4*n^2 + 7/6*n
+  ? sum(n = 1, 2000, f(n)) == subst(F, n, 2000)
+  %4 = 1
+  ? sum(n = 1001, 2000, f(n)) == subst(F, n, 2000) - subst(F, n, 1000)
+  %5 = 1
+  ? sumformal(x^2 + x*y + y^2, y)
+  %6 = y*x^2 + (1/2*y^2 + 1/2*y)*x + (1/3*y^3 + 1/2*y^2 + 1/6*y)
+  ? x^2 * y + x * sumformal(y) + sumformal(y^2) == %
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sumformal</b>(GEN f, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:taylor"></div>
+<div id="taylor"></div>
+<h4>taylor(x, t, {d = <em>seriesprecision</em>})</h4>
+<p>
+Taylor expansion around 0 of x with respect to
+the simple variable t. x can be of any reasonable type, for example a
+rational function. Contrary to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Ser"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Ser</a></code>, which takes the valuation into
+account, this function adds O(t^d) to all components of x.</p>
+<p>
+</p><pre class="code">  ? taylor(x/(1+y), y, 5)
+  %1 = (y^4 - y^3 + y^2 - y + 1)*x + O(y^5)
+  ? Ser(x/(1+y), y, 5)
+   ***   at top-level: Ser(x/(1+y),y,5)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; -
+   *** Ser: main variable must have higher priority in gtoser.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>tayl</b>(GEN x, long t, long precdl)</code> where <code>t</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:thue"></div>
+<div id="thue"></div>
+<h4>thue(<em>tnf</em>, a, {<em>sol</em>})</h4>
+<p>
+Returns all solutions of the equation
+P(x,y) = a in integers x and y, where <em>tnf</em> was created with
+<code><a href="Polynomials_and_power_series.html#se:thueinit"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">thueinit</a></code>(P). If present, <em>sol</em> must contain the solutions of
+Norm(x) = a modulo units of positive norm in the number field
+defined by P (as computed by <code><a href="General_number_fields.html#se:bnfisintnorm"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnfisintnorm</a></code>). If there are infinitely
+many solutions, an error is issued.</p>
+<p>
+It is allowed to input directly the polynomial P instead of a <em>tnf</em>,
+in which case, the function first performs <code>thueinit(P,0)</code>. This is
+very wasteful if more than one value of a is required.</p>
+<p>
+If <em>tnf</em> was computed without assuming GRH (flag 1 in <code><a href="Polynomials_and_power_series.html#se:thueinit"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">thueinit</a></code>),
+then the result is unconditional. Otherwise, it depends in principle of the
+truth of the GRH, but may still be unconditionally correct in some
+favorable cases. The result is conditional on the GRH if
+a != &#177; 1 and P has a single irreducible rational factor, whose
+attached tentative class number h and regulator R (as computed
+assuming the GRH) satisfy</p>
+<p>
+<b>*</b> h &gt; 1,</p>
+<p>
+<b>*</b> R/0.2 &gt; 1.5.</p>
+<p>
+Here's how to solve the Thue equation x<sup>13</sup> - 5y<sup>13</sup> = - 4:</p>
+<p>
+</p><pre class="code">  ? tnf = thueinit(x^13 - 5);
+  ? thue(tnf, -4)
+  %1 = [[1, 1]]
+</pre><p>
+In this case, one checks that <code>bnfinit(x^13 -5).no</code>
+is 1. Hence, the only solution is (x,y) = (1,1) and the result is
+unconditional. On the other hand:</p>
+<p>
+</p><pre class="code">  ? P = x^3-2*x^2+3*x-17; tnf = thueinit(P);
+  ? thue(tnf, -15)
+  %2 = [[1, 1]]  \\ a priori conditional on the GRH.
+  ? K = bnfinit(P); K.no
+  %3 = 3
+  ? K.reg
+  %4 = 2.8682185139262873674706034475498755834
+</pre><p></p>
+<p>
+This time the result is conditional. All results computed using this
+particular <em>tnf</em> are likewise conditional, <em>except</em> for a right-hand
+side of &#177; 1.
+The above result is in fact correct, so we did not just disprove the GRH:</p>
+<p>
+</p><pre class="code">  ? tnf = thueinit(x^3-2*x^2+3*x-17, 1 /*unconditional*/);
+  ? thue(tnf, -15)
+  %4 = [[1, 1]]
+</pre><p></p>
+<p>
+Note that reducible or non-monic polynomials are allowed:</p>
+<p>
+</p><pre class="code">  ? tnf = thueinit((2*x+1)^5 * (4*x^3-2*x^2+3*x-17), 1);
+  ? thue(tnf, 128)
+  %2 = [[-1, 0], [1, 0]]
+</pre><p>
+Reducible polynomials are in fact much easier to handle.</p>
+<p>
+<b>Note.</b> When P is irreducible without a real root, the default
+strategy is to use brute force enumeration in time |a|<sup>1/deg P</sup> and
+avoid computing a touch <em>bnf</em> attached to P, see <code><a href="Polynomials_and_power_series.html#se:thueinit"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">thueinit</a></code>.
+Besides reusing a quantity you might need for other purposes, the
+default argument <em>sol</em> can also be used to use a different strategy
+and prove that there are no solutions; of course you need to compute a
+<em>bnf</em> on you own to obtain <em>sol</em>. If there <em>are</em> solutions
+this won't help unless P is quadratic, since the enumeration will be
+performed in any case.</p>
+<p>
+The library syntax is <code>GEN <b>thue</b>(GEN tnf, GEN a, GEN sol = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:thueinit"></div>
+<div id="thueinit"></div>
+<h4>thueinit(P, {<em>flag</em> = 0})</h4>
+<p>
+Initializes the <em>tnf</em> corresponding to P, a non-constant
+univariate polynomial with integer coefficients.
+The result is meant to be used in conjunction with <code><a href="Polynomials_and_power_series.html#se:thue"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">thue</a></code> to solve Thue
+equations P(X / Y)Y<sup>deg P</sup> = a, where a is an integer. Accordingly,
+P must either have at least two distinct irreducible factors over &Qopf;,
+or have one irreducible factor T with degree  &gt; 2 or two conjugate
+complex roots: under these (necessary and sufficient) conditions, the
+equation has finitely many integer solutions.</p>
+<p>
+</p><pre class="code">  ? S = thueinit(t^2+1);
+  ? thue(S, 5)
+  %2 = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
+  ? S = thueinit(t+1);
+   ***   at top-level: thueinit(t+1)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; -
+   *** thueinit: domain error in thueinit: P = t + 1
+</pre><p>
+The hardest case is when deg P &gt; 2 and P is irreducible
+with at least one real root. The routine then uses Bilu-Hanrot's algorithm.</p>
+<p>
+If <em>flag</em> is non-zero, certify results unconditionally. Otherwise, assume
+GRH, this being much faster of course. In the latter case, the result
+may still be unconditionally correct, see <code><a href="Polynomials_and_power_series.html#se:thue"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">thue</a></code>. For instance in most
+cases where P is reducible (not a pure power of an irreducible), <em>or</em>
+conditional computed class groups are trivial <em>or</em> the right hand side
+is &#177;1, then results are unconditional.</p>
+<p>
+<b>Note.</b> The general philosophy is to disprove the existence of large
+solutions then to enumerate bounded solutions naively. The implementation
+will overflow when there exist huge solutions and the equation has degree
+ &gt; 2 (the quadratic imaginary case is special, since we can stick to
+<code><a href="General_number_fields.html#se:bnfisintnorm"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnfisintnorm</a></code>, there are no fundamental units):</p>
+<p>
+</p><pre class="code">  ? thue(t^3+2, 10^30)
+   ***   at top-level: L=thue(t^3+2,10^30)
+   ***                   ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** thue: overflow in thue (SmallSols): y &lt;= 80665203789619036028928.
+  ? thue(x^2+2, 10^30)  \\ quadratic case much easier
+  %1 = [[-1000000000000000, 0], [1000000000000000, 0]]
+</pre><p></p>
+<p></p>
+<p>
+<b>Note.</b> It is sometimes possible to circumvent the above, and in any
+case obtain an important speed-up, if you can write P = Q(x^d) for some d &gt; 
+1 and Q still satisfying the <code><a href="Polynomials_and_power_series.html#se:thueinit"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">thueinit</a></code> hypotheses. You can then solve
+the equation attached to Q then eliminate all solutions (x,y) such that
+either x or y is not a d-th power.</p>
+<p>
+</p><pre class="code">  ? thue(x^4+1, 10^40); \\ stopped after 10 hours
+  ? filter(L,d) =
+      my(x,y); [[x,y] | v&lt;-L, ispower(v[1],d,&x)&&ispower(v[2],d,&y)];
+  ? L = thue(x^2+1, 10^40);
+  ? filter(L, 2)
+  %4 = [[0, 10000000000], [10000000000, 0]]
+</pre><p>
+The last 2 commands use less than 20ms.</p>
+<p>
+<b>Note.</b> When P is irreducible without a real root, the equation
+can be solved unconditionnally in time |a|<sup>1/deg P</sup>. When this
+latter quantity is huge and the equation has no solutions, this fact
+may still be ascertained via arithmetic conditions but this now implies
+solving norm equations, computing a <em>bnf</em> and possibly assuming the GRH.
+When there is no real root, the code does not compute a <em>bnf</em>
+(with certification if <em>flag</em> = 1) if it expects this to be an "easy"
+computation (because the result would only be used for huge values of a).
+See <code><a href="Polynomials_and_power_series.html#se:thue"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">thue</a></code> for a way to compute an expensive <em>bnf</em> on your own and
+still get a result where this default cheap strategy fails.</p>
+<p>
+The library syntax is <code>GEN <b>thueinit</b>(GEN P, long flag, long prec)</code>.</p>
+<p>
+
+<hr>
+</body>

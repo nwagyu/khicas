@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>List of prime factors: ifactors
+</title>
+</head>
+<body >
+<a href="cascmd_en098.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en100.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec194" class="subsection">5.5.5  List of prime factors: <span style="font-family:monospace">ifactors</span>
+<a id="hevea_default177"></a></h3>
+<p>The <span style="font-family:monospace">ifactors</span> command decomposes an integer into prime
+factors.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ifactors</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, an integer or a list of integers.
+</li><li class="li-itemize"><span style="font-family:monospace">ifactors(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> decomposes the integer <span style="font-style:italic">n</span> (or the integers
+of the list) into prime factors, given as a list (or
+a list of lists) in which each prime factor is followed by its
+multiplicity.
+</li></ul><h4 id="sec195" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactors(90)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,1,3,2,5,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+since 90=2<sup>1</sup>3<sup>2</sup>5<sup>1</sup>.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactors(-90)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1,1,2,1,3,2,5,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactors(31+22*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">i</span>,1,2−<span style="font-style:italic">i</span>,1,4−<span style="font-style:italic">i</span>,2</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactors([36,52])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >     2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >     2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >13</td><td style="text-align:center;white-space:nowrap" >1
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en098.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en100.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

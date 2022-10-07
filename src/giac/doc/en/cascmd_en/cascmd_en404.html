@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Interval arithmetic: + - * /
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en403.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en405.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec934" class="subsection">5.38.3  Interval arithmetic: <span style="font-family:monospace">+ - * /</span>
+<a id="hevea_default671"></a>
+<a id="hevea_default672"></a>
+<a id="hevea_default673"></a>
+<a id="hevea_default674"></a></h3>
+<p>You can apply the usual arithmetic operators, such as <span style="font-family:monospace">+</span>,
+<span style="font-family:monospace">-</span>, <span style="font-family:monospace">*</span> and <span style="font-family:monospace">/</span>, to intervals.</p><p>The result of adding two intervals is the interval whose endpoints are
+the sums of the left end points and the right end points.</p><h4 id="sec935" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">i[1,4] + i[2,3]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[3.00000000000000..7.00000000000000]
+</td></tr>
+</table><p><br>
+</p><p>The negative of an interval is the result of taking the negative of the
+end points of the interval. The new end points will have to be
+switched.</p><h4 id="sec936" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">-i[2,3]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[−3.00000000000000..−2.00000000000000]
+</td></tr>
+</table><p><br>
+</p><p>The product of two intervals is the interval whose endpoints are the
+product the left endpoints of the two intervals and the product of the
+right endpoints of the two intervals. The smallest
+product will be the left end point of the product interval, and the
+largest product will be the right end point of the product interval.</p><h4 id="sec937" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">i[1,4]*i[2,3]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[2.00000000000000..0.120000000000000<span style="font-style:italic">e</span>2]
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">i[-2,4]*i[3,5]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[−0.100000000000000<span style="font-style:italic">e</span>2..0.200000000000000<span style="font-style:italic">e</span>2]
+</td></tr>
+</table>
+</li></ul><p>The reciprocal of an interval is the interval determined by the
+reciprocals of the end points.</p><h4 id="sec938" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+textitInput:
+<div class="center">
+<span style="font-family:monospace">1/i[2,3]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[0.333333333333333..0.500000000000000]
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1/i[-6,-3]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[−0.333333333333333..−0.166666666666667]
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>If the original interval has zero as an end point, then the reciprocal
+interval will have plus or minus infinity as one of the end
+points. If one end point is positive and the other is negative, then the
+reciprocal will simply be the interval from -infinity to infinity.</p><h4 id="sec939" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1/i[0,2]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.500000000000000..+∞</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1/i[-1,0]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−∞..−1.00000000000000</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1/i[-2,3]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−∞..+∞</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>You can also, if you want, do the usual operations such as subtraction,
+division, powers and roots.</p>
+<hr>
+<a href="cascmd_en403.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en405.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

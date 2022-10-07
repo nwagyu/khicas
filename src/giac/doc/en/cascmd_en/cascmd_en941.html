@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if lines and/or planes in space are perpendicular: is_perpendicular
+</title>
+</head>
+<body >
+<a href="cascmd_en940.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en942.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dcheckperp" class="subsection">14.13.4  Checking if lines and/or planes in space are perpendicular: <span style="font-family:monospace">is_perpendicular</span>
+<a id="hevea_default1647"></a></h3>
+<p>See Section <a href="cascmd_en878.html#ssec%3A2dcheckperp">13.16.12</a> for checking for perpendicularity in
+two-dimensional geometry.</p><p>The <span style="font-family:monospace">is_perpendicular</span> command determines if two objects are
+perpendicular.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_perpendicular</span> takes two arguments:<br>
+ <span style="font-style:italic">L</span>,<span style="font-style:italic">P</span>, each one either a line or a plane.
+</li><li class="li-itemize"><span style="font-family:monospace">is_perpendicular(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">1</span> if <span style="font-style:italic">L</span> and <span style="font-style:italic">P</span>
+are perpendicular and returns <span style="font-family:monospace">0</span> otherwise.
+</li></ul><p>
+Note that two lines must be coplanar to be perpendicular.</p><h4 id="sec2388" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_perpendicular(line([2,3,-2],[-1,-1,-1]),line([1,0,0],[1,2,8]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">P1:= plane([0,0,0],[1,2,-3],[1,1,-2])</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">P2:= plane([-1,-1,-1],1,2,-3],[0,0,0])</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">is_perpendicular(P1,P2)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L:= plane([2,3,-2],[-1,-1,-1])</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">is_perpendicular(L,P1)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en940.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en942.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

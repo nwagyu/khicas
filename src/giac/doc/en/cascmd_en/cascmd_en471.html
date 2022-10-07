@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Special matrices</title>
+</head>
+<body >
+<a href="cascmd_en470.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en472.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1107" class="subsection">5.44.2  Special matrices</h3>
+<h4 id="sec1108" class="subsubsection">Identity matrix: <span style="font-family:monospace">idn</span> <span style="font-family:monospace">identity</span>
+<a id="hevea_default785"></a>
+<a id="hevea_default786"></a></h4>
+<p>The <span style="font-family:monospace">idn</span> command finds identity matrices.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">idn</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, a positive integer or<br>
+ <span style="font-style:italic">A</span>, a square matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">idn(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>× <span style="font-style:italic">n</span> identity matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">idn(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns the identity matrix the same size as
+<span style="font-style:italic">A</span>.
+</li></ul><h4 id="sec1109" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">idn(3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">idn([[2,3],[4,5]]</span>
+</div>
+<span style="font-family:monospace">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<h4 id="sec1110" class="subsubsection">Zero matrix: <span style="font-family:monospace">newMat</span>
+<a id="hevea_default787"></a></h4>
+<p>The <span style="font-family:monospace">newMat</span> command creates a matrix of all 0s.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">newMat</span> takes two arguments:<br>
+ <span style="font-style:italic">n</span> and <span style="font-style:italic">p</span>, two positive integers.
+<span style="font-family:monospace">newMat(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span> zero matrix.
+</li></ul><h4 id="sec1111" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">newMat(4,4)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h4 id="ssec:diag" class="subsubsection">Diagonals of matrices and diagonal matrices: <span style="font-family:monospace">BlockDiagonal</span> <span style="font-family:monospace">diag</span>
+<a id="hevea_default788"></a>
+<a id="hevea_default789"></a>
+</h4>
+<p>The <span style="font-family:monospace">diag</span> command either creates a diagonal matrix or finds
+the diagonal elements of an existing matrix.<br>
+<span style="font-family:monospace">BlockDiagonal</span> is a synonym for <span style="font-family:monospace">diag</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">diag</span> takes one argument:<br>
+ <span style="font-style:italic">L</span>, a list or a square matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">diag(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> (for a list <span style="font-style:italic">L</span>) returns the diagonal
+matrix with the entries of <span style="font-style:italic">L</span> on the diagonal.
+</li><li class="li-itemize"><span style="font-family:monospace">diag(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> (for a matrix <span style="font-style:italic">L</span>) returns a list
+consisting of the diagonal elements of <span style="font-style:italic">L</span>.
+</li></ul><h4 id="sec1113" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">diag([1,4])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">diag([[1,2],[3,4]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1114" class="subsubsection">Jordan block: <span style="font-family:monospace">JordanBlock</span>
+<a id="hevea_default790"></a></h4>
+<p>The <span style="font-family:monospace">JordanBlock</span> command creates a Jordan Block; i.e., a
+square matrix with the same value for all diagonal elements, 1s just
+above the diagonal, and 0s everyone else.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">JordanBlock</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, a positive integer.
+</li></ul>
+<span style="font-family:monospace">JordanBlock(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>× <span style="font-style:italic">n</span> matrix
+with <span style="font-style:italic">a</span>s on the principal diagonal, 1s above this diagonal and 0s 
+everywhere else.
+</li></ul><h4 id="sec1115" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">JordanBlock(7,3)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1116" class="subsubsection">Hilbert matrix: <span style="font-family:monospace">hilbert</span>
+<a id="hevea_default791"></a></h4>
+<p>A Hilbert matrix is a square matrix whose element in the <span style="font-style:italic">i</span>th row and
+<span style="font-style:italic">j</span>th column (recall the numbering starting at 0) is
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">j</span>+<span style="font-style:italic">k</span>+1</td></tr>
+</table></td></tr>
+</table><p>
+The <span style="font-family:monospace">hilbert</span> command finds Hilbert matrices.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">hilbert</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, a positive integer.
+</li><li class="li-itemize"><span style="font-family:monospace">hilbert(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>× <span style="font-style:italic">n</span> Hilbert matrix.
+</li></ul><h4 id="sec1117" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">hilbert(4)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">7</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+<h4 id="sec1118" class="subsubsection">Vandermonde matrix: <span style="font-family:monospace">vandermonde</span>
+<a id="hevea_default792"></a></h4>
+<p>A Vandermonde matrix is a square matrix where each row starts with a 1
+and is in geometric progression. The <span style="font-family:monospace">vandermonde</span> command
+finds a Vandermonde matrix.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">vandermonde</span> takes one argument:<br>
+ <span style="font-style:italic">X</span>=[<span style="font-style:italic">x</span><sub>0</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span>−1</sub>], a vector.
+</li><li class="li-itemize"><span style="font-family:monospace">vandermonde(</span><span style="font-style:italic">X</span><span style="font-family:monospace">)</span> returns the corresponding
+Vandermonde matrix; namely, the <span style="font-style:italic">k</span>th row of the
+matrix is the vector whose components are <span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub><sup><span style="font-style:italic">k</span></sup> for <span style="font-style:italic">i</span>=0..<span style="font-style:italic">n</span>−1 and
+<span style="font-style:italic">k</span>=0..<span style="font-style:italic">n</span>−1.
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Warning!</span><br>
+The indices of the rows and columns begin at 0 with <span style="font-family:monospace">Xcas</span>.</p><h4 id="sec1119" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">vandermonde([a,2,3])</span>
+</div><p>
+<span style="font-style:italic">Output (if </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> is symbolic else purge(a)):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span> <span style="font-style:italic">a</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >9</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+<hr>
+<a href="cascmd_en470.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en472.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

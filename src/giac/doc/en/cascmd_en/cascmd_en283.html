@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Expanding transcendental and trigonometric expressions: texpand tExpand
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en282.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en284.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:texpand" class="subsection">5.25.1  Expanding transcendental and trigonometric expressions: <span style="font-family:monospace">texpand</span> <span style="font-family:monospace">tExpand</span>
+<a id="hevea_default500"></a>
+<a id="hevea_default501"></a>
+</h3>
+<p>The <span style="font-family:monospace">texpand</span> command expands exponential
+and trigonometric functions, like simultaneous calling:<br>
+<span style="font-family:monospace">expexpand</span> (see Section <a href="cascmd_en275.html#ssec%3Aexpexpand">5.24.2</a>), which, for example,
+expands exp(<span style="font-style:italic">nx</span>) as exp(<span style="font-style:italic">x</span>)<sup><span style="font-style:italic">n</span></sup>,<br>
+<span style="font-family:monospace">lnexpand</span> (see Section <a href="cascmd_en276.html#ssec%3Alnexpand">5.24.3</a>), which, for example,
+expands ln(<span style="font-style:italic">x</span><sup><span style="font-style:italic">n</span></sup>) as <span style="font-style:italic">n</span>ln(<span style="font-style:italic">x</span>) , and<br>
+<span style="font-family:monospace">trigexpand</span> (see Section <a href="cascmd_en248.html#ssec%3Atrigexpand">5.23.1</a>), which, for
+example, expands sin(2<span style="font-style:italic">x</span>) as 2sin(<span style="font-style:italic">x</span>)cos(<span style="font-style:italic">x</span>).<br>
+<span style="font-family:monospace">tExpand</span> is a synonym for <span style="font-family:monospace">texpand</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">texpand</span> takes one argument:<br>
+ <span style="font-style:italic">expr</span>, an expression containing transcendental or trigonometric functions.
+</li><li class="li-itemize"><span style="font-family:monospace">texpand(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> expands these functions.
+</li></ul><h4 id="sec654" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Expand cos(<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(cos(x+y))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">cos<span style="font-style:italic">x</span>· cos<span style="font-style:italic">y</span>−sin<span style="font-style:italic">x</span>· sin<span style="font-style:italic">y</span>
+</td></tr>
+</table>
+</li><li class="li-itemize">Expand cos(3<span style="font-style:italic">x</span>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(cos(3*x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4 cos<sup>3</sup><span style="font-style:italic">x</span>−3 cos<span style="font-style:italic">x</span>
+</td></tr>
+</table>
+</li><li class="li-itemize">Expand  sin(3*<span style="font-style:italic">x</span>)+sin(7*<span style="font-style:italic">x</span>)/sin(5*<span style="font-style:italic">x</span>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand((sin(3*x)+sin(7*x))/sin(5*x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 sin<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">16 cos<sup>4</sup><span style="font-style:italic">x</span>−12 cos<sup>2</sup><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">sin<span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">+
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">28 sin<span style="font-style:italic">x</span>· cos<sup>2</sup><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">16 cos<sup>4</sup><span style="font-style:italic">x</span>−12
+cos<sup>2</sup><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">sin<span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">−</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">80 sin<span style="font-style:italic">x</span>· cos<sup>4</sup><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">16 cos<sup>4</sup><span style="font-style:italic">x</span>−
+12 cos<sup>2</sup><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">sin<span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">+ </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">64 sin<span style="font-style:italic">x</span>· cos<sup>6</sup><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">16 cos<sup>4</sup><span style="font-style:italic">x</span>−12 cos<sup>2</sup><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">sin<span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ></td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Output, after a simplification with </span><span style="font-style:italic"><span style="font-family:monospace">normal(ans())</span></span><span style="font-style:italic">:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4 cos<sup>2</sup><span style="font-style:italic">x</span>−2
+</td></tr>
+</table>
+</li><li class="li-itemize">Expand exp(<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(exp(x+y))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup> <span style="font-style:italic">e</span><sup><span style="font-style:italic">y</span></sup>
+</td></tr>
+</table>
+</li><li class="li-itemize">Expand ln(<span style="font-style:italic">x</span>× <span style="font-style:italic">y</span>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(log(x*y))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">ln<span style="font-style:italic">y</span>+ln<span style="font-style:italic">x</span>
+</td></tr>
+</table>
+</li><li class="li-itemize">Expand ln(<span style="font-style:italic">x</span><sup><span style="font-style:italic">n</span></sup>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(ln(x^n))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">n</span> ln<span style="font-style:italic">x</span>
+</td></tr>
+</table>
+</li><li class="li-itemize">Expand ln((<span style="font-style:italic">e</span><sup>2</sup>)+exp(2*ln(2))+exp(ln(3)+ln(2))).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(log(e^2)+exp(2*log(2))+exp(log(3)+log(2)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">6+2· 3
+</td></tr>
+</table>
+<span style="font-style:italic">or input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(log(e^2)+exp(2*log(2)))+ lncollect(exp(log(3)+log(2)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">12
+</td></tr>
+</table>
+</li><li class="li-itemize">Expand exp(<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>)+cos(<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>)+ln(3<span style="font-style:italic">x</span><sup>2</sup>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">texpand(exp(x+y)+cos(x+y)+ln(3*x^2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">cos<span style="font-style:italic">x</span>· cos<span style="font-style:italic">y</span>−sin<span style="font-style:italic">x</span>· sin<span style="font-style:italic">y</span>+<span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup> <span style="font-style:italic">e</span><sup><span style="font-style:italic">y</span></sup>+ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+2 ln</td><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en282.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en284.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

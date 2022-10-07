@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Factoring: factor cfactor
+</title>
+</head>
+<body >
+<a href="cascmd_en187.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en189.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:factore" class="subsection">5.12.10  Factoring: <span style="font-family:monospace">factor</span> <span style="font-family:monospace">cfactor</span>
+<a id="hevea_default314"></a><a id="hevea_default315"></a></h3>
+<p>The <span style="font-family:monospace">factor</span> and <span style="font-family:monospace">cfactor</span> commands factor expressions
+over their coefficient fields or extensions of their fields. (See also
+Section <a href="cascmd_en304.html#ssec%3Acollect">5.27.16</a>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">factor</span> takes one mandatory argument and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression or a list of expressions.
+</li><li class="li-itemize">Optionally, α, to specify an extension field.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">factor(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">expr</span>
+factored over the field of its coefficients, with the addition of <span style="font-style:italic">i</span>
+in complex mode (see Section <a href="cascmd_en025.html#ssec%3Acomplex">2.5.5</a>). If <span style="font-family:monospace">sqrt</span> is
+enabled in the Cas configuration (see Section <a href="cascmd_en027.html#ssec%3Aconfcomp">2.5.7</a>),
+polynomials of order 2 are factorized in complex mode or in real
+mode if the discriminant is positive.<br>
+ <span style="font-family:monospace">factor(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span>α<span style="font-family:monospace">)</span> returns <span style="font-style:italic">expr</span>
+factored over <span style="font-style:italic">F</span>[α], where <span style="font-style:italic">F</span> is the field of coefficients
+of <span style="font-style:italic">expr</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">cfactor</span> factors like <span style="font-family:monospace">factor</span>, except the
+field includes <span style="font-style:italic">i</span> whether in real or complex mode.
+</li></ul><h4 id="sec391" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Factor <span style="font-style:italic">x</span><sup>4</sup>−1 over ℚ.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">factor(x^4-1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+The coefficients are rationals, hence the factors are polynomials with
+rationals coefficients.
+</li><li class="li-itemize">Factor <span style="font-style:italic">x</span><sup>4</sup>−1 over ℚ[<span style="font-style:italic">i</span>].<br>
+This can be done in a number of ways.
+<ul class="itemize"><li class="li-itemize">
+Using <span style="font-family:monospace">cfactor</span>.<br>
+ <span style="font-style:italic">Input:</span> 
+<div class="center">
+<span style="font-family:monospace">cfactor(x^4-1</span>
+</div>
+</li><li class="li-itemize">Using <span style="font-family:monospace">factor</span> with adding <span style="font-style:italic">i</span> to the extension field.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">factor(x^4-1,i)</span>
+</div>
+</li><li class="li-itemize">Using <span style="font-family:monospace">factor</span> in complex mode.<br>
+ <span style="font-style:italic">Input (in complex mode):</span>
+<div class="center">
+<span style="font-family:monospace">factor(x^4-1)</span> 
+</div>
+In all cases, the result will be:<br>
+ <span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li></ul>
+</li><li class="li-itemize">Factor <span style="font-style:italic">x</span><sup>4</sup>+1 over ℚ<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">factor(x^4+1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span><sup>4</sup>+1
+</td></tr>
+</table>
+Indeed  <span style="font-style:italic">x</span><sup>4</sup>+1 has no factor with rational coefficients.
+</li><li class="li-itemize">Factor <span style="font-style:italic">x</span><sup>4</sup>+1 over ℚ[<span style="font-style:italic">i</span>].<br>
+ Using complex mode:<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cfactor(x^4+1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize">Factor <span style="font-style:italic">x</span><sup>4</sup>+1 over ℝ.<br>
+You have to provide the square root required for extending the
+rationals. In order to do that with the help of <span style="font-family:monospace">Xcas</span>,
+first check <span style="font-family:monospace">complex</span> in the <span style="font-family:monospace">cas</span>
+configuration:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve(x^4+1,x)</span>
+</div><a id="hevea_default316"></a><a id="hevea_default317"></a>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">i</span>,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">i</span></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+The roots depend on √<span style="text-decoration:overline">2</span>, and so will be in ℚ[√<span style="text-decoration:overline">2</span>].
+Putting <span style="font-family:monospace">Xcas</span> back in real mode, either check the <span style="font-family:monospace">sqrt</span> box in the Cas
+configuration or:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">factor(x^4+1,sqrt(2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table>
+To factor over ℂ, put <span style="font-family:monospace">Xcas</span> back in complex mode 
+or input <span style="font-family:monospace">cfactor(x^4+1,sqrt(2))</span>.
+</li></ul>
+<hr>
+<a href="cascmd_en187.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en189.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

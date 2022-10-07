@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Minimum polynomial of an algebraic number: pmin
+</title>
+</head>
+<body >
+<a href="cascmd_en177.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en179.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec371" class="subsection">5.11.2  Minimum polynomial of an algebraic number: <span style="font-family:monospace">pmin</span>
+<a id="hevea_default301"></a></h3>
+<p>The minimal polynomial of an algebraic number is the monic polynomial
+of smallest degree with integer coefficents which has the algebraic
+number as a root.</p><p>The <span style="font-family:monospace">pmin</span> command finds the minimum polynomial of an algebraic
+number.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">pmin</span> takes one mandatory argument and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+α, an algebraic number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, a variable name to use as the
+variable in the polynomial.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">pmin(</span>α<span style="font-family:monospace">)</span> returns the minimal polynomial for α,
+where the polynomial is given as a list of the coefficients (see
+Section <a href="cascmd_en289.html#ssec%3Aspoly">5.27.1</a>).<br>
+ <span style="font-family:monospace">pmin(</span>α,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the minimal
+polynomial for α as a symbolic expression with the variable
+<span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec372" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pmin(sqrt(2) + sqrt(3))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  ▯ 1,0,−10,0,1▯
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pmin(sqrt(2) + sqrt(3),x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">x</span><sup>4</sup>−10 <span style="font-style:italic">x</span><sup>2</sup>+1
+</td></tr>
+</table>
+Note that (√<span style="text-decoration:overline">2</span> + √<span style="text-decoration:overline">3</span>)<sup>2</sup> = 5 + 2√<span style="text-decoration:overline">6</span> and so
+((√<span style="text-decoration:overline">2</span> + √<span style="text-decoration:overline">3</span>)<sup>2</sup> − 5)<sup>2</sup> = 24, which can be rewritten as
+(√<span style="text-decoration:overline">2</span> + √<span style="text-decoration:overline">3</span>)<sup>4</sup> − 10 (√<span style="text-decoration:overline">2</span> + √<span style="text-decoration:overline">3</span>)<sup>2</sup> + 1 = 0.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pmin(sqrt(2) + i*sqrt(3))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  ▯ 1,0,2,0,25▯
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pmin(sqrt(2) + i*sqrt(3),z)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">z</span><sup>4</sup>+2 <span style="font-style:italic">z</span><sup>2</sup>+25
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pmin(sqrt(2) + 2*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  ▯ 1,0,4,0,36 ▯
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pmin(sqrt(2) + 2*i,z)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">z</span><sup>4</sup>+4 <span style="font-style:italic">z</span><sup>2</sup>+36
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en177.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en179.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

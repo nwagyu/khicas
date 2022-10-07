@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Computing inertia of a symmetric matrix: inertia</title>
+</head>
+<body >
+<a href="cascmd_en536.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en538.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1319" class="subsection">5.49.10  Computing inertia of a symmetric matrix: <span style="font-family:monospace">inertia</span></h3>
+<p>
+<a id="hevea_default919"></a></p><p>The <span style="font-family:monospace">inertia</span> command computes the inertia of a real symmetric matrix,
+i.e. the number of positive, negative and zero eigenvalues, by performing
+LDL decomposition (see Section <a href="cascmd_en536.html#sec%3Aldl">5.49.9</a>).
+It can also use the factorization for solving a system of
+linear equations if certain inertia-related conditions are satisfied.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">inertia</span> takes one mandatory argument and one or two optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a symmetric matrix of order <span style="font-style:italic">n</span> with real coefficients.
+</li><li class="li-itemize"><span style="font-style:italic">B</span> (optional), a matrix of type <span style="font-style:italic">m</span>× <span style="font-style:italic">n</span> or a vector of length <span style="font-style:italic">n</span>.
+</li><li class="li-itemize"><span style="font-style:italic">p</span><sub>0</sub> (optional), an integer such that 0≤ <span style="font-style:italic">p</span><sub>0</sub>≤ <span style="font-style:italic">n</span>.
+</li></ul>
+</li><li class="li-itemize">If called with a single argument <span style="font-style:italic">A</span>, <span style="font-family:monospace">inertia</span> returns the triple [<span style="font-style:italic">p</span>,<span style="font-style:italic">n</span>,<span style="font-style:italic">z</span>] where
+<span style="font-style:italic">p</span>, <span style="font-style:italic">n</span> and <span style="font-style:italic">z</span> are the numbers of positive, negative and zero eigenvalues of <span style="font-style:italic">A</span>, respectively.
+</li><li class="li-itemize">If called with arguments <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span>, <span style="font-family:monospace">inertia</span> returns the sequence containing two elements:
+the triple [<span style="font-style:italic">p</span>,<span style="font-style:italic">n</span>,<span style="font-style:italic">z</span>] and the solution <span style="font-style:italic">X</span> to the equation <span style="font-style:italic">AX</span><sup><span style="font-style:italic">T</span></sup>=<span style="font-style:italic">B</span><sup><span style="font-style:italic">T</span></sup> in case <span style="font-style:italic">z</span>=0.
+</li><li class="li-itemize">If called with three arguments, it returns the sequence containing [<span style="font-style:italic">p</span>,<span style="font-style:italic">n</span>,<span style="font-style:italic">z</span>] and <span style="font-style:italic">X</span>, but the latter
+is not computed if <span style="font-style:italic">p</span>≠ <span style="font-style:italic">p</span><sub>0</sub>.
+</li><li class="li-itemize"><span style="font-family:monospace">inertia</span> computes the inertia of <span style="font-style:italic">A</span> by computing the LDL factorization of <span style="font-style:italic">A</span>. The matrix
+<span style="font-style:italic">X</span> can be computed with small cost once <span style="font-style:italic">L</span> and <span style="font-style:italic">D</span> are known.
+</li><li class="li-itemize">Note that <span style="font-family:monospace">inertia</span> does not check whether <span style="font-style:italic">A</span> is symmetric.
+</li></ul><h4 id="sec1320" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">A:=[[1,-1,2],[-1,4,3],[2,3,-5]]</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >−1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−1</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >−5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">inertia(A)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,1,0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">inertia(A,[[1,2,3],[4,5,6]])</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,1,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">15</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">13</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">8</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">13</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">13</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">177</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">52</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">71</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">52</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">51</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">52</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">If we set <span style="font-style:italic">p</span><sub>0</sub>=1, then <span style="font-style:italic">X</span> is not computed.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">inertia(A,[[1,2,3],[4,5,6]],1)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,1,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en536.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en538.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

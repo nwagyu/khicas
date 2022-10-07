@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Chinese remainders: ichinrem ichrem chrem
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en114.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en116.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec230" class="subsection">5.5.21  Chinese remainders: <span style="font-family:monospace">ichinrem</span> <span style="font-family:monospace">ichrem</span> <span style="font-family:monospace">chrem</span>
+<a id="hevea_default203"></a>
+<a id="hevea_default204"></a>
+<a id="hevea_default205"></a></h3>
+<p>The Chinese Remainder Theorem states that if <span style="font-style:italic">p</span><sub>1</sub>, <span style="font-style:italic">p</span><sub>2</sub>, …,
+<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub> are relatively prime, then for any integers <span style="font-style:italic">a</span><sub>1</sub>, <span style="font-style:italic">a</span><sub>2</sub>,
+…<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub> there is a number <span style="font-style:italic">c</span> such that <span style="font-style:italic">c</span> = <span style="font-style:italic">a</span><sub>1</sub>
+(mod <span style="font-style:italic">p</span><sub>1</sub> ), <span style="font-style:italic">c</span>=<span style="font-style:italic">a</span><sub>2</sub> (mod <span style="font-style:italic">p</span><sub>2</sub> ), …, <span style="font-style:italic">c</span> = <span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub> (mod <span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub> ).
+The <span style="font-family:monospace">ichinrem</span> command will find this value of <span style="font-style:italic">c</span>.<br>
+<span style="font-family:monospace">ichrem</span> is a synonym for <span style="font-family:monospace">ichinrem</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ichinrem</span> takes one or more
+arguments:<br>
+ Each argument is a pair of integers <span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub> and <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub> either as a list
+[<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub>,<span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub>] or as a modular integer <span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub>% <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub>.
+</li><li class="li-itemize"><span style="font-family:monospace">ichinrem(</span>[<span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">p</span><sub>1</sub>]<span style="font-family:monospace">,</span>[<span style="font-style:italic">a</span><sub>2</sub>,<span style="font-style:italic">p</span><sub>2</sub>]<span style="font-family:monospace">,…,</span>[<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>]<span style="font-family:monospace">)</span>
+if possible returns a list <span style="font-family:monospace">[</span><span style="font-style:italic">c</span><span style="font-family:monospace">,</span><span style="font-style:italic">L</span><span style="font-family:monospace">]</span>, where <span style="font-style:italic">L</span> =
+<span style="font-style:italic">lcm</span>(<span style="font-style:italic">p</span><sub>1</sub>,<span style="font-style:italic">p</span><sub>2</sub>,…,<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>) and <span style="font-style:italic">c</span> satisfies <span style="font-style:italic">c</span>=<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub> (mod <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub> ) for
+<span style="font-style:italic">k</span>=1,…,<span style="font-style:italic">n</span>.
+</li></ul><p>
+Note that any multiple of <span style="font-style:italic">L</span> = <span style="font-style:italic">lcm</span>(<span style="font-style:italic">p</span><sub>1</sub>,<span style="font-style:italic">p</span><sub>2</sub>,…,<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>) can be
+added to <span style="font-style:italic">c</span> and the equalities will still be true. If the <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub>
+are relatively prime, then by the Chinese remainder theorem a solution
+<span style="font-style:italic">c</span> will exist; what’s more, any two solutions will be congruent
+modulo the product of the <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub>s.<br>
+If all of the arguments are given as modular integers, then the result
+will also be given as a modular integer <span style="font-style:italic">c</span> % <span style="font-style:italic">l</span>.</p><p>The <span style="font-family:monospace">chrem</span> command does the same thing as <span style="font-family:monospace">ichinrem</span>,
+but the input is given in a different form.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">chrem</span> takes two arguments:<br>
+ [<span style="font-style:italic">a</span><sub>1</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>] and [<span style="font-style:italic">p</span><sub>1</sub>,…,<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>],
+lists of integers of the same size.
+</li><li class="li-itemize"><span style="font-family:monospace">chrem(</span>[<span style="font-style:italic">a</span><sub>1</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>],[<span style="font-style:italic">p</span><sub>1</sub>,…,<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>]<span style="font-family:monospace">)</span>
+returns [<span style="font-style:italic">c</span>,<span style="font-style:italic">L</span>], as for <span style="font-style:italic">ichinrem</span>.
+</li></ul><p>
+<span style="font-variant:small-caps">Be careful</span> with
+the order of the parameters, indeed:<br>
+<span style="font-family:monospace">chrem([a,b],[p,q])=ichrem([a,p],[b,q])=ichinrem([a,p],[b,q])</span></p><h4 id="sec231" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >  <span style="font-style:italic">x</span></td><td style="text-align:left;white-space:nowrap" >= 3 (mod 5 )</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span></td><td style="text-align:left;white-space:nowrap" >= 9 (mod 13 )
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ichinrem([3,5],[9,13])</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">ichrem([3,5],[9,13])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">48,65</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+so <span style="font-family:monospace">x=48 (mod 65)</span><br>
+<span style="font-style:italic">You can also input:</span>
+<div class="center">
+<span style="font-family:monospace">ichrem(3%5,9%13)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−17</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%65
+</td></tr>
+</table>
+(note that 48 = −17 (mod 65 )).<br>
+Recalling that <span style="font-family:monospace">chrem</span> takes its arguments in a different form,
+you can also enter:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chrem([3,9],[5,13])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">48,65</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" > <span style="font-style:italic">x</span></td><td style="text-align:left;white-space:nowrap" >= 3 (mod 5 )</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span></td><td style="text-align:left;white-space:nowrap" >= 4 (mod 7 ) </td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span></td><td style="text-align:left;white-space:nowrap" >= 1 (mod 9 )
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ichinrem([3,5],[4,7],[1,9])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">298,315</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+hence <span style="font-family:monospace">x=298 (mod 315)</span><br>
+<span style="font-style:italic">Alternative input:</span>
+<div class="center">
+<span style="font-family:monospace">ichinrem([3%5,4%7,1%9])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−17</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%315
+</td></tr>
+</table>
+(note that 298 = −17 (mod 315 )).<br>
+Again, with the arguments in a different form, you can also enter:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chrem([3,4,1],[5,7,9])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">298,315</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+These three commands, <span style="font-family:monospace">ichinrem</span>,
+<span style="font-family:monospace">ichrem</span> and <span style="font-family:monospace">chrem</span>, may also be used to find the
+coefficients of a polynomial whose equivalence classes are known
+modulo several integers by using polynomials with integer coefficients
+instead of integers for the <span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub>.<br>
+For example, to find <span style="font-style:italic">ax</span>+<span style="font-style:italic">b</span> modulo 315=5 × 7 × 9 under the
+assumptions
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >     <span style="font-style:italic">a</span></td><td style="text-align:left;white-space:nowrap" >= 3 (mod 5 )</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">a</span></td><td style="text-align:left;white-space:nowrap" >= 4 (mod 7 ) </td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">a</span></td><td style="text-align:left;white-space:nowrap" >= 1 (mod 9 )
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+and
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >     <span style="font-style:italic">b</span></td><td style="text-align:left;white-space:nowrap" >= 1 (mod 5 )</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">b</span></td><td style="text-align:left;white-space:nowrap" >= 2 (mod 7 )</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">b</span></td><td style="text-align:left;white-space:nowrap" >= 3 (mod 9 )
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><h4 id="sec232" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ichinrem((3x+1)%5,(4x+2)%7,(x+3)%9)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−17</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%315</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">x</span>+156%315
+</td></tr>
+</table><p>
+hence <span style="font-family:monospace">a=-17 (mod 315)</span> and <span style="font-family:monospace">b=156 (mod 315)</span>.<br>
+As before, <span style="font-family:monospace">chrem</span> takes the same input in a different format.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">chrem([3x+1,4x+2,x+3],[5,7,9])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">298 <span style="font-style:italic">x</span>+156,315</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+(note that 298 = −17 (mod 3 )15).
+</p>
+<hr>
+<a href="cascmd_en114.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en116.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

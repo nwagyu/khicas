@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Line segments in the plane: segment Line
+
+</title>
+</head>
+<body >
+<a href="cascmd_en803.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en805.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dsegments" class="subsection">13.7.3  Line segments in the plane: <span style="font-family:monospace">segment</span> <span style="font-family:monospace">Line</span>
+<a id="hevea_default1493"></a>
+<a id="hevea_default1494"></a></h3>
+<p>See Section <a href="cascmd_en903.html#ssec%3A3dsegments">14.5.3</a> for segments in space.</p><p>The <span style="font-family:monospace">segment</span> command draws line segments. 
+(The <span style="font-family:monospace">segment</span> command can also draw vectors (see
+Section <a href="cascmd_en805.html#ssec%3A2dvectors">13.7.4</a>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">segment</span> takes two arguments:<br>
+ <span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span>, two points (which can also be given as a list).
+</li><li class="li-itemize"><span style="font-family:monospace">segment(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span><span style="font-family:monospace">)</span> returns the corresponding line
+segment and draws it. 
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">Line</span> command also draws line segments, with a slightly
+different syntax.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">Line</span> takes four arguments:<br>
+ <span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">c</span>,<span style="font-style:italic">d</span>, four real numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">Line(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">c</span>,<span style="font-style:italic">d</span><span style="font-family:monospace">)</span> returns and draws the line segment
+from (<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>) to (<span style="font-style:italic">c</span>,<span style="font-style:italic">d</span>).
+</li></ul><h4 id="sec2056" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">segment(-1,1+i)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">segment(point(-1),point(1,1))</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">Line(-1,0,1,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en181.png">
+</div>
+<hr>
+<a href="cascmd_en803.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en805.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

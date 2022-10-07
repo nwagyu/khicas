@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Similarity in space: similarity
+</title>
+</head>
+<body >
+<a href="cascmd_en956.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en958.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dsimilarity" class="subsection">14.14.6  Similarity in space: <span style="font-family:monospace">similarity</span>
+<a id="hevea_default1663"></a></h3>
+<p>See Section <a href="cascmd_en864.html#ssec%3A2dsimilarity">13.15.6</a> for similarities in the plane.</p><p>The <span style="font-family:monospace">similarity</span> command creates a command to rotate and
+scale about a given line.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">similarity</span> takes three mandatory arguments and
+one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a line (the axis of the rotation).
+</li><li class="li-itemize"><span style="font-style:italic">r</span>, a real number (the scaling ratio).
+</li><li class="li-itemize">θ, a real number (the angle of rotation).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">G</span>, a geometric object.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">similarity(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">r</span>,θ<span style="font-family:monospace">)</span> returns a new command which
+rotates about <span style="font-style:italic">L</span> through an angle of θ and scales about <span style="font-style:italic">L</span>
+by a factor of <span style="font-style:italic">r</span>. If <span style="font-style:italic">r</span> is negative, the direction of rotation
+is reversed.
+</li><li class="li-itemize"><span style="font-family:monospace">similarity(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">r</span>,θ,<span style="font-style:italic">G</span><span style="font-family:monospace">)</span> returns and draws the
+transformation of <span style="font-style:italic">G</span>.
+</li></ul><h4 id="sec2420" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">S:=sphere([0,0,0],0.5)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">s:= similarity(line(point(0,1,0),point(0,1,1)), 2, 2*pi/3)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">color(S,blue),s(S)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en350.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">similarity(line(point(0,1,0),point(1,1,1)), 2, 2*pi/3, S))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en351.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en956.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en958.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

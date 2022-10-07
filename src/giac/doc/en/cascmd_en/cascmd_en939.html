@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if points and/or lines in space are coplanar: is_coplanar
+</title>
+</head>
+<body >
+<a href="cascmd_en938.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en940.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2383" class="subsection">14.13.2  Checking if points and/or lines in space are coplanar: <span style="font-family:monospace">is_coplanar</span>
+<a id="hevea_default1645"></a></h3>
+<p>The <span style="font-family:monospace">is_coplanar</span> command determines whether or not several
+points or several lines are coplanar.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_coplanar</span> takes one argument:<br>
+ <span style="font-style:italic">S</span>, a sequence where each element is a point or a line.
+</li><li class="li-itemize"><span style="font-family:monospace">is_coplanar(</span><span style="font-style:italic">S</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">1</span> is the elements
+of <span style="font-style:italic">S</span> are coplanar and returns <span style="font-family:monospace">0</span> otherwise.
+</li></ul><h4 id="sec2384" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_coplanar([0,0,0],[1,2,-3],[1,1,-2],[2,1,-3])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_coplanar([-1,2,0],[1,2,-3],[1,1,-2],[2,1,-3])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_coplanar([0,0,0],[1,2,-3],line([1,1,-2],[2,1,-3]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_coplanar(line([-1,2,0],[1,2,-3]),line([1,1,-2],[2,1,-3]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en938.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en940.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

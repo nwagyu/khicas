@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Creating a matrix with a formula or function: makemat matrix
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en472.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en474.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:matrixcommand" class="subsection">5.44.4  Creating a matrix with a formula or function: <span style="font-family:monospace">makemat</span> <span style="font-family:monospace">matrix</span>
+<a id="hevea_default798"></a>
+<a id="hevea_default799"></a>
+</h3>
+<p>You can use a function or a formula to specify the elements of a
+matrix with the <span style="font-family:monospace">makemat</span> or <span style="font-family:monospace">matrix</span> command.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">makemat</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>, a function of two variables <span style="font-family:monospace">j</span> and
+<span style="font-family:monospace">k</span> which returns the value of <span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>, the element at
+row index <span style="font-family:monospace">j</span> and column index <span style="font-family:monospace">k</span> of the resulting
+matrix.
+</li><li class="li-itemize"><span style="font-style:italic">n</span> and <span style="font-style:italic">p</span>, two positive integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">makemat(</span><span style="font-style:italic">f</span>,<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span> matrix
+<span style="font-style:italic">A</span>=(<span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>) with <span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>=<span style="font-style:italic">f</span>(<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>) for <span style="font-style:italic">j</span>=1..<span style="font-style:italic">n</span> and <span style="font-style:italic">k</span>=1..<span style="font-style:italic">p</span>.
+</li></ul><h4 id="sec1130" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">makemat((j,k)-&gt;j+k,4,3)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">h(j,k):=j+k</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">makemat(h,4,3)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table><p>
+Note that the indices are counted starting from 0.</p><p>The <span style="font-family:monospace">matrix</span> command can be used similarly, but note that the
+arguments are given in a different order and the indices start at 1.<br>
+(<span style="font-family:monospace">matrix</span> can also be used to turn tables into matrices; see
+Section <a href="cascmd_en495.html#ssec%3Aspmatrices">5.46.1</a>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">matrix</span> takes two mandatory arguments and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span> and <span style="font-style:italic">p</span>, two integers.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">f</span>, a function of two variables <span style="font-family:monospace">j</span> and
+<span style="font-family:monospace">k</span> which should return the value of <span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>, the element at
+row index <span style="font-family:monospace">j</span> and column index <span style="font-family:monospace">k</span> of the resulting
+matrix.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">matrix(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span> matrix consisting of
+all 0s.
+</li><li class="li-itemize"><span style="font-family:monospace">matrix(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>,<span style="font-style:italic">f</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span> matrix
+<span style="font-style:italic">A</span>=(<span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>) with <span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>,<span style="font-style:italic">k</span></sub>=<span style="font-style:italic">f</span>(<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>) for <span style="font-style:italic">j</span>=1..<span style="font-style:italic">n</span> and <span style="font-style:italic">k</span>=1..<span style="font-style:italic">p</span>.
+</li></ul><h4 id="sec1131" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">matrix(2,3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">matrix(4,3,(j,k)-&gt;j+k)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">h(j,k):=j+k</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">matrix(4,3,h)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en472.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en474.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

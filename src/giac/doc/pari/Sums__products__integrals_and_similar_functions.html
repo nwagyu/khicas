@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Sums, products, integrals and similar functions</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:sums"></div>
+<h2 class="center">Sums, products, integrals and similar functions</h2>
+
+<p></p>
+<p></p>
+<p>
+Although the <code>gp</code> calculator is programmable, it is useful to have
+a number of preprogrammed loops, including sums, products, and a certain
+number of recursions. Also, a number of functions from numerical analysis
+like numerical integration and summation of series will be described here.</p>
+<p>
+One of the parameters in these loops must be the control variable, hence a
+simple variable name. In the descriptions, the letter X will always denote
+any simple variable name, and represents the formal parameter used in the
+function. The expression to be summed, integrated, etc. is any legal PARI
+expression, including of course expressions using loops.</p>
+<p>
+<b>Library mode.</b>
+Since it is easier to program directly the loops in library mode, these
+functions are mainly useful for GP programming. On the other hand, numerical
+routines code a function (to be integrated, summed, etc.) with two parameters
+named</p>
+<p>
+</p><pre class="code">    GEN (*eval)(void*,GEN)
+    void *E;  \\ context: eval(E, x) must evaluate your function at x.
+</pre><p></p>
+<p>
+see the Libpari manual for details.</p>
+<p>
+<b>Numerical integration.</b>
+Starting with version 2.2.9 the "double exponential" univariate
+integration method is implemented in <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code> and its variants. Romberg
+integration is still available under the name <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnumromb"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnumromb</a></code>, but
+superseded. It is possible to compute numerically integrals to thousands of
+decimal places in reasonable time, as long as the integrand is regular. It is
+also reasonable to compute numerically integrals in several variables,
+although more than two becomes lengthy. The integration domain may be
+non-compact, and the integrand may have reasonable singularities at
+endpoints. To use <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>, you must split the integral into a sum
+of subintegrals where the function has no singularities except at the
+endpoints. Polynomials in logarithms are not considered singular, and
+neglecting these logs, singularities are assumed to be algebraic (asymptotic
+to C(x-a)<sup>-&alpha;</sup> for some &alpha; &gt; -1 when x is
+close to a), or to correspond to simple discontinuities of some (higher)
+derivative of the function. For instance, the point 0 is a singularity of
+abs(x).</p>
+<p>
+See also the discrete summation methods below, sharing the prefix <code><a href="Sums__products__integrals_and_similar_functions.html#se:sum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sum</a></code>.</p>
+<p>
+<hr>
+<div id="se:asympnum"></div>
+<div id="asympnum"></div>
+<h4>asympnum(<em>expr</em>, {k = 20}, {<em>alpha</em> = 1})</h4>
+<p>
+Asymptotic expansion of <em>expr</em>, corresponding to a sequence u(n),
+assuming it has the shape
+u(n)  ~  &sum;<sub>i &geq; 0</sub> a<sub>i</sub> n<sup>-i&alpha;</sup>
+with rational coefficients a<sub>i</sub> with reasonable height; the algorithm
+is heuristic and performs repeated calls to limitnum, with
+<code>k</code> and <code>alpha</code> are as in <code><a href="Sums__products__integrals_and_similar_functions.html#se:limitnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">limitnum</a></code></p>
+<p>
+</p><pre class="code">  ? f(n) = n! / (n^n*exp(-n)*sqrt(n));
+  ? asympnum(f)
+  %2 = []   \\ failure !
+  ? l = limitnum(f)
+  %3 = 2.5066282746310005024157652848110452530
+  ? asympnum(n-&gt;f(n)/l) \\ normalize
+  %4 = [1, 1/12, 1/288, -139/51840]
+</pre><p>
+and we indeed get a few terms of Stirling's expansion. Note
+that it helps to normalize with a limit computed to higher accuracy:</p>
+<p>
+</p><pre class="code">  ? \p100
+  ? L = limitnum(f)
+  ? \p38
+  ? asympnum(n-&gt;f(n)/L) \\ we get more terms!
+  %6 = [1, 1/12, 1/288, -139/51840, -571/2488320, 163879/209018880,\
+        5246819/75246796800, -534703531/902961561600]
+</pre><p>
+If <code>alpha</code> is not an integer, loss of accuracy is
+expected, so it should be precomputed to double accuracy, say:</p>
+<p>
+</p><pre class="code">  ? \p38
+  ? asympnum(n-&gt;-log(1-1/n^Pi),,Pi)
+  %1 = [0, 1, 1/2, 1/3]
+  ? asympnum(n-&gt;-log(1-1/sqrt(n)),,1/2)
+  %2 = [0, 1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8, 1/9, 1/10, 1/11, 1/12, \
+    1/13, 1/14, 1/15, 1/16, 1/17, 1/18, 1/19, 1/20, 1/21, 1/22]
+  
+  ? localprec(100); a = Pi;
+  ? asympnum(n-&gt;-log(1-1/n^a),,a) \\ better !
+  %4 = [0, 1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8, 1/9, 1/10, 1/11, 1/12]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>asympnum</b>(void *E, GEN (*u)(void *,GEN,long), long muli, GEN alpha, long prec)</code>, where <code>u(E, n, prec)</code> must return u(n) in precision <code>prec</code>.
+Also available is
+<code>GEN <b>asympnum0</b>(GEN u, long muli, GEN alpha, long prec)</code>, where u
+must be a vector of sufficient length as above.</p>
+<p>
+
+<hr>
+<div id="se:contfraceval"></div>
+<div id="contfraceval"></div>
+<h4>contfraceval(<em>CF</em>, t, {<em>lim</em> = -1})</h4>
+<p>
+Given a continued fraction <code>CF</code> output by <code><a href="Sums__products__integrals_and_similar_functions.html#se:contfracinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">contfracinit</a></code>, evaluate
+the first <code>lim</code> terms of the continued fraction at <code>t</code> (all
+terms if <code>lim</code> is negative or omitted; if positive, <code>lim</code> must be
+less than or equal to the length of <code>CF</code>.</p>
+<p>
+The library syntax is <code>GEN <b>contfraceval</b>(GEN CF, GEN t, long lim)</code>.</p>
+<p>
+
+<hr>
+<div id="se:contfracinit"></div>
+<div id="contfracinit"></div>
+<h4>contfracinit(M, {<em>lim</em> = -1})</h4>
+<p>
+Given M representing the power series S = &sum;<sub>n &geq; 0</sub> M[n+1]z^n,
+transform it into a continued fraction; restrict to n &leq; <code>lim</code>
+if latter is non-negative. M can be a vector, a power
+series, a polynomial, or a rational function.
+The result is a 2-component vector [A,B] such that
+S = M[1] / (1+A[1]z+B[1]z^2/(1+A[2]z+B[2]z^2/(1+...1/(1+A[lim/2]z)))).
+Does not work if any coefficient of M vanishes, nor for series for
+which certain partial denominators vanish.</p>
+<p>
+The library syntax is <code>GEN <b>contfracinit</b>(GEN M, long lim)</code>.</p>
+<p>
+
+<hr>
+<div id="se:derivnum"></div>
+<div id="derivnum"></div>
+<h4>derivnum(X = a, <em>expr</em>, {<em>ind</em> = 1})</h4>
+<p>
+Numerical derivation of <em>expr</em> with respect to X at X = a. The
+order of derivation is 1 by default.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? derivnum(x=0, sin(exp(x))) - cos(1)
+  %1 = 0.E-38
+</pre><p></p>
+<p>
+A clumsier approach, which would not work in library mode, is</p>
+<p>
+</p><pre class="code">  ? f(x) = sin(exp(x))
+  ? f'(0) - cos(1)
+  %2 = 0.E-38
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> When a is a numerical type (integer, rational number, real number or
+<code>t_COMPLEX</code> of such), performs numerical derivation.</p>
+<p>
+<b>*</b> When a is a (polynomial, rational function or) power series, compute
+<code>derivnum(t = a,f)</code> as f'(a) = (f(a))'/a':</p>
+<p>
+</p><pre class="code">  ? derivnum(x = 1 + t, sqrt(x))
+  %1 = 1/2 - 1/4*t + 3/16*t^2 - 5/32*t^3 + ... + O(t^16)
+  ? derivnum(x = 1/(1 + t), sqrt(x))
+  %2 = 1/2 + 1/4*t - 1/16*t^2 + 1/32*t^3 + ... + O(t^16)
+  ? derivnum(x = 1 + t + O(t^17), sqrt(x))
+  %3 = 1/2 - 1/4*t + 3/16*t^2 - 5/32*t^3 + ... + O(t^16)
+</pre><p></p>
+<p></p>
+<p>
+If the parameter <em>ind</em> is present, it can be</p>
+<p>
+<b>*</b> a non-negative integer m, in which case we return f<sup>(m)</sup>(x);</p>
+<p>
+<b>*</b> or a vector of orders, in which case we return the vector of
+derivatives.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? derivnum(x = 0, exp(sin(x)), 16) \\ 16-th derivative
+  %1 = -52635599.000000000000000000000000000000
+  
+  ? round( derivnum(x = 0, exp(sin(x)), [0..13]) )  \\ 0-13-th derivatives
+  %2 = [1, 1, 1, 0, -3, -8, -3, 56, 217, 64, -2951, -12672, 5973, 309376]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>derivfunk</b>(void *E, GEN (*eval)(void*,GEN), GEN a, GEN ind, long prec)</code>.
+Also available is
+<code>GEN <b>derivfun</b>(void *E, GEN (*eval)(void *, GEN), GEN a, long prec)</code>.
+If a is a numerical type (<code>t_INT</code>, <code>t_FRAC</code>, <code>t_REAL</code> or
+<code>t_COMPLEX</code> of such, we have
+<code>GEN <b>derivnumk</b>(void *E, GEN (*eval)(void *, GEN, long), GEN a, GEN ind, long prec)</code>
+and
+<code>GEN <b>derivnum</b>(void *E, GEN (*eval)(void *, GEN, long prec), GEN a, long prec)</code></p>
+<p>
+
+<hr>
+<div id="se:intcirc"></div>
+<div id="intcirc"></div>
+<h4>intcirc(X = a, R, <em>expr</em>, {<em>tab</em>})</h4>
+<p>
+Numerical
+integration of (2i&pi;)<sup>-1</sup><em>expr</em> with respect to X on the circle
+|X-a |= R.
+In other words, when <em>expr</em> is a meromorphic
+function, sum of the residues in the corresponding disk; <em>tab</em> is as in
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>, except that if computed with <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnuminit</a></code> it should be with
+the endpoints <code>[-1, 1]</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \p105
+  ? intcirc(s=1, 0.5, zeta(s)) - 1
+  time = 496 ms.
+  %1 = 1.2883911040127271720 E-101 + 0.E-118*I
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>intcirc</b>(void *E, GEN (*eval)(void*,GEN), GEN a,GEN R,GEN tab, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:intfuncinit"></div>
+<div id="intfuncinit"></div>
+<h4>intfuncinit(t = a, b, f, {m = 0})</h4>
+<p>
+Initialize tables for use with integral transforms (such as Fourier,
+Laplace or Mellin transforms) in order to compute
+ &int;<sub>a</sub>^b f(t) k(t,z)  dt 
+for some kernel k(t,z).
+The endpoints a and b are coded as in <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>, f is the
+function to which the integral transform is to be applied and the
+non-negative integer m is as in <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>: multiply the number of
+sampling points roughly by 2^m, hopefully increasing the accuracy. This
+function is particularly useful when the function f is hard to compute,
+such as a gamma product.</p>
+<p>
+<b>Limitation.</b> the endpoints a and b must be at infinity,
+with the same asymptotic behavior. Oscillating types are not supported.
+This is easily overcome by integrating vectors of functions, see example
+below.</p>
+<p>
+<b>Examples.</b></p>
+<p>
+<b>*</b> numerical Fourier transform
+F(z) = &int;<sub>- oo </sub><sup>+ oo </sup> f(t)e<sup>-2i&pi; z t</sup> dt. 
+First the easy case, assume that f decrease exponentially:</p>
+<p>
+</p><pre class="code">     f(t) = exp(-t^2);
+     A = [-oo,1];
+     B = [+oo,1];
+     \p200
+     T = intfuncinit(t = A,B , f(t));
+     F(z) =
+     { my(a = -2*I*Pi*z);
+       intnum(t = A,B, exp(a*t), T);
+     }
+     ? F(1) - sqrt(Pi)*exp(-Pi^2)
+     %1 = -1.3... E-212
+</pre><p></p>
+<p>
+Now the harder case, f decrease slowly: we must specify the oscillating
+behavior. Thus, we cannot precompute usefully since everything depends on
+the point we evaluate at:</p>
+<p>
+</p><pre class="code">     f(t) = 1 / (1+ abs(t));
+     \p200
+     \\ Fourier cosine transform
+     FC(z) =
+     { my(a = 2*Pi*z);
+       intnum(t = [-oo, a*I], [+oo, a*I], cos(a*t)*f(t));
+     }
+     FC(1)
+</pre><p></p>
+<p>
+<b>*</b> Fourier coefficients: we must integrate over a period, but
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:intfuncinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intfuncinit</a></code> does not support finite endpoints.
+The solution is to integrate a vector of functions !</p>
+<p>
+</p><pre class="code">  FourierSin(f, T, k) =  \\ first k sine Fourier coeffs
+  {
+    my (w = 2*Pi/T);
+    my (v = vector(k+1));
+    intnum(t = -T/2, T/2,
+       my (z = exp(I*w*t));
+       v[1] = z;
+       for (j = 2, k, v[j] = v[j-1]*z);
+       f(t) * imag(v)) * 2/T;
+  }
+  FourierSin(t-&gt;sin(2*t), 2*Pi, 10)
+</pre><p>
+The same technique can be used instead of <code><a href="Sums__products__integrals_and_similar_functions.html#se:intfuncinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intfuncinit</a></code>
+to integrate f(t) k(t,z) whenever the list of z-values is known
+beforehand.</p>
+<p>
+Note that the above code includes an unrelated optimization: the
+sin(j w t) are computed as imaginary parts of exp(i j w t) and the
+latter by successive multiplications.</p>
+<p>
+<b>*</b> numerical Mellin inversion
+F(z) = (2i&pi;)<sup>-1</sup> &int;<sub>c -i oo </sub><sup>c+i oo </sup> f(s)z<sup>-s</sup> ds
+ = (2&pi;)<sup>-1</sup> &int;<sub>- oo </sub><sup>+ oo </sup>
+    f(c + i t)e<sup>-log z(c + it)</sup> dt. 
+We take c = 2 in the program below:</p>
+<p>
+</p><pre class="code">     f(s) = gamma(s)^3;  \\ f(c+it) decrease as exp(-3Pi|t|/2)
+     c = 2; \\ arbitrary
+     A = [-oo,3*Pi/2];
+     B = [+oo,3*Pi/2];
+     T = intfuncinit(t=A,B, f(c + I*t));
+     F(z) =
+     { my (a = -log(z));
+       intnum(t=A,B, exp(a*I*t), T)*exp(a*c) / (2*Pi);
+     }
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>intfuncinit</b>(void *E, GEN (*eval)(void*,GEN), GEN a,GEN b,long m, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:intnum"></div>
+<div id="intnum"></div>
+<h4>intnum(X = a, b, <em>expr</em>, {<em>tab</em>})</h4>
+<p>
+Numerical integration
+of <em>expr</em> on ]a,b[ with respect to X, using the
+double-exponential method, and thus O(Dlog D) evaluation of
+the integrand in precision D. The integrand may have values
+belonging to a vector space over the real numbers; in particular, it can be
+complex-valued or vector-valued. But it is assumed that the function is
+regular on ]a,b[. If the endpoints a and b are finite and the
+function is regular there, the situation is simple:</p>
+<p>
+</p><pre class="code">  ? intnum(x = 0,1, x^2)
+  %1 = 0.3333333333333333333333333333
+  ? intnum(x = 0,Pi/2, [cos(x), sin(x)])
+  %2 = [1.000000000000000000000000000, 1.000000000000000000000000000]
+</pre><p></p>
+<p>
+An endpoint equal to &#177; oo  is coded as <code>+oo</code> or <code>-oo</code>, as
+expected:</p>
+<p>
+</p><pre class="code">  ? intnum(x = 1,+oo, 1/x^2)
+  %3 = 1.000000000000000000000000000
+</pre><p></p>
+<p>
+In basic usage, it is assumed that the function does not decrease
+exponentially fast at infinity:</p>
+<p>
+</p><pre class="code">  ? intnum(x=0,+oo, exp(-x))
+    ***   at top-level: intnum(x=0,+oo,exp(-
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    *** exp: overflow in expo().
+</pre><p></p>
+<p>
+We shall see in a moment how to avoid that last problem, after describing
+the last <em>optional</em> argument <em>tab</em>.</p>
+<p>
+<b>The <em>tab.</b> argument</em>
+The routine uses weights w<sub>i</sub>, which are mostly independent of the function
+being integrated, evaluated at many sampling points x<sub>i</sub> and
+approximates the integral by &sum; w<sub>i</sub> f(x<sub>i</sub>). If <em>tab</em> is</p>
+<p>
+<b>*</b> a non-negative integer m, we multiply the number of sampling points
+by 2^m, hopefully increasing accuracy. Note that the running time
+increases roughly by a factor 2^m. One may try consecutive values of m
+until they give the same value up to an accepted error.</p>
+<p>
+<b>*</b> a set of integration tables containing precomputed x<sub>i</sub> and w<sub>i</sub>
+as output by <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnuminit</a></code>. This is useful if several integrations of
+the same type are performed (on the same kind of interval and functions,
+for a given accuracy): we skip a precomputation of O(Dlog D)
+elementary functions in accuracy D, whose running time has the same order
+of magnitude as the evaluation of the integrand. This is in particular
+useful for multivariate integrals.</p>
+<p>
+<b>Specifying the behavior at endpoints.</b>
+This is done as follows. An endpoint a is either given as such (a scalar,
+real or complex, <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code> or <code>-oo</code> for &#177; oo ), or as a two
+component vector [a,&alpha;], to indicate the behavior of the integrand in a
+neighborhood of a.</p>
+<p>
+If a is finite, the code [a,&alpha;] means the function has a
+singularity of the form (x-a)<sup>&alpha;</sup>, up to logarithms. (If &alpha; \ge
+0, we only assume the function is regular, which is the default assumption.)
+If a wrong singularity exponent is used, the result will lose decimals:</p>
+<p>
+</p><pre class="code">  ? c = -9/10;
+  ? intnum(x=0, 1, x^c)         \\  assume x<sup>-9/10</sup> is regular at 0
+  %1 = 9.9999839078827082322596783301939063944
+  ? intnum(x=[0,c], 1, x^c)  \\  no, it's not
+  %2 = 10.000000000000000000000000000000000000
+  ? intnum(x=[0,c/2], 1, x^c) \\  using a wrong exponent is bad
+  %3 = 9.9999999997122749095442279375719919769
+</pre><p></p>
+<p></p>
+<p>
+If a is &#177; oo , which is coded as <code>+oo</code> or <code>-oo</code>,
+the situation is more complicated, and [&#177;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code>,&alpha;] means:</p>
+<p>
+<b>*</b> &alpha; = 0 (or no &alpha; at all, i.e. simply &#177;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code>)
+assumes that the integrand tends to zero moderately quickly, at least as
+O(x<sup>-2</sup>) but not exponentially fast.</p>
+<p>
+<b>*</b> &alpha; &gt; 0 assumes that the function tends to zero exponentially fast
+approximately as exp(-&alpha; x). This includes oscillating but quickly
+decreasing functions such as exp(-x)sin(x).</p>
+<p>
+</p><pre class="code">  ? intnum(x=0, +oo, exp(-2*x))
+    ***   at top-level: intnum(x=0,+oo,exp(-
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    *** exp: exponent (expo) overflow
+  ? intnum(x=0, [+oo, 2], exp(-2*x))  \\  OK!
+  %1 = 0.50000000000000000000000000000000000000
+  ? intnum(x=0, [+oo, 3], exp(-2*x))  \\  imprecise exponent, still OK !
+  %2 = 0.50000000000000000000000000000000000000
+  ? intnum(x=0, [+oo, 10], exp(-2*x)) \\  wrong exponent  ==&gt;  disaster
+  %3 = 0.49999999999952372962457451698256707393
+</pre><p>
+As the last exemple shows, the exponential decrease rate
+<em>must</em> be indicated to avoid overflow, but the method is robust enough
+for a rough guess to be acceptable.</p>
+<p>
+<b>*</b> &alpha; &lt; -1 assumes that the function tends to 0 slowly, like
+x<sup>&alpha;</sup>. Here the algorithm is less robust and it is essential to give a
+sharp &alpha;, unless &alpha; &leq; -2 in which case we use
+the default algorithm as if &alpha; were missing (or equal to 0).</p>
+<p>
+</p><pre class="code">  ? intnum(x=1, +oo, x^(-3/2))         \\ default
+  %1 = 1.9999999999999999999999999999646391207
+  ? intnum(x=1, [+oo,-3/2], x^(-3/2))  \\ precise decrease rate
+  %2 = 2.0000000000000000000000000000000000000
+  ? intnum(x=1, [+oo,-11/10], x^(-3/2)) \\ worse than default
+  %3 = 2.0000000000000000000000000089298011973
+</pre><p></p>
+<p></p>
+<p>
+The last two codes are reserved for oscillating functions.
+Let k &gt; 0 real, and g(x) a non-oscillating function tending slowly to 0
+(e.g. like a negative power of x), then</p>
+<p>
+<b>*</b> &alpha; = k * I assumes that the function behaves like cos(kx)g(x).</p>
+<p>
+<b>*</b> &alpha; = -k* I assumes that the function behaves like sin(kx)g(x).</p>
+<p>
+Here it is critical to give the exact value of k. If the
+oscillating part is not a pure sine or cosine, one must expand it into a
+Fourier series, use the above codings, and sum the resulting contributions.
+Otherwise you will get nonsense. Note that cos(kx), and similarly
+sin(kx), means that very function, and not a translated version such as
+cos(kx+a).</p>
+<p>
+<b>Note.</b> If f(x) = cos(kx)g(x) where g(x) tends to zero
+exponentially fast as exp(-&alpha; x), it is up to the user to choose
+between [&#177;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code>,&alpha;] and [&#177;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code>,k* I], but a good rule of
+thumb is that
+if the oscillations are weaker than the exponential decrease, choose
+[&#177;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code>,&alpha;], otherwise choose [&#177;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code>,k*I], although the
+latter can reasonably be used in all cases, while the former cannot. To take
+a specific example, in most inverse Mellin transforms, the integrand is a
+product of an exponentially decreasing and an oscillating factor. If we
+choose the oscillating type of integral we perhaps obtain the best results,
+at the expense of having to recompute our functions for a different value of
+the variable z giving the transform, preventing us to use a function such
+as <code><a href="Sums__products__integrals_and_similar_functions.html#se:intfuncinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intfuncinit</a></code>. On the other hand using the exponential type of
+integral, we obtain less accurate results, but we skip expensive
+recomputations. See <code><a href="Sums__products__integrals_and_similar_functions.html#se:intfuncinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intfuncinit</a></code> for more explanations.</p>
+<p>
+<b>Power series limits.</b>
+The limits a and b can be power series of non-negative valuation,
+giving a power series expansion for the integral -- provided it exists.</p>
+<p>
+</p><pre class="code">  ? intnum(t=0,X + O(X^3), exp(t))
+  %4 = 1.000...*X - 0.5000...*X^2 + O(X^3)
+  ? bestappr( intnum(t=0,X + O(X^17), exp(t)) )- exp(X) + 1
+  %5 = O(X^17)
+</pre><p>
+The valuation of the limit cannot be negative
+since &int;<sub>0</sub><sup>1/X</sup>(1+t^2)<sup>-1</sup> dt = &pi;/2 - <code><a href="Standard_monadic_or_dyadic_operators.html#se:sign"
+    onClick="parent.itemFrame.location='cont_Standard_monadic_or_dyadic_operators.html'">sign</a></code>(X)+O(X^2).</p>
+<p>
+Polynomials and rational functions are also allowed and
+converted to power series using current <code>seriesprecision</code>:</p>
+<p>
+</p><pre class="code">  ? bestappr( intnum(t=1,1+X, 1/t) )
+  %6 = X - 1/2*X^2 + 1/3*X^3 - 1/4*X^4 + [...] + 1/15*X^15 + O(X^16)
+</pre><p></p>
+<p>
+The function does not work if the integral is singular with the constant
+coefficient of the series as limit:</p>
+<p>
+</p><pre class="code">  ? intnum(t=X^2+O(X^4),1, 1/sqrt(t))
+  %8 = 2.000... - 6.236608109630992528 E28*X^2 + O(X^4)
+</pre><p></p>
+<p>
+however you can use</p>
+<p>
+</p><pre class="code">  ? intnum(t=[X^2+O(X^4),-1/2],1, 1/sqrt(t))
+  %10 = 2.000000000000000000000000000-2.000000000000000000000000000*X^2+O(X^4)
+</pre><p>
+whis is translated internally to</p>
+<p>
+</p><pre class="code">  ? intnum(t=[0,-1/2],1, 1/sqrt(t))-intnum(t=[0,-1/2],X^2+O(X^4), 1/sqrt(t))
+</pre><p></p>
+<p>
+For this form the argument <em>tab</em> can be used only as an integer, not a
+table precomputed by <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnuminit</a></code>.</p>
+<p></p>
+<p></p>
+<p>
+We shall now see many examples to get a feeling for what the various
+parameters achieve. All examples below assume precision is set to 115
+decimal digits. We first type</p>
+<p>
+</p><pre class="code">  ? \p 115
+</pre><p></p>
+<p></p>
+<p>
+<b>Apparent singularities.</b> In many cases, apparent singularities
+can be ignored. For instance, if f(x) = 1
+/(exp(x)-1) - exp(-x)/x, then &int;<sub>0</sub>^ oo f(x)dx = &gamma;, Euler's
+constant <code><a href="Transcendental_functions.html#se:Euler"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Euler</a></code>. But</p>
+<p></p>
+<p>
+</p><pre class="code">  ? f(x) = 1/(exp(x)-1) - exp(-x)/x
+  ? intnum(x = 0, [oo,1],  f(x)) - Euler
+  %1 = 0.E-115
+</pre><p></p>
+<p>
+But close to 0 the function f is computed with an enormous loss of
+accuracy, and we are in fact lucky that it get multiplied by weights which are
+sufficiently close to 0 to hide this:</p>
+<p>
+</p><pre class="code">  ? f(1e-200)
+  %2 = -3.885337784451458142 E84
+</pre><p></p>
+<p></p>
+<p>
+A more robust solution is to define the function differently near special
+points, e.g. by a Taylor expansion</p>
+<p>
+</p><pre class="code">  ? F = truncate( f(t + O(t^10)) ); \\  expansion around t = 0
+  ? poldegree(F)
+  %4 = 7
+  ? g(x) = if (x &gt; 1e-18, f(x), subst(F,t,x)); \\  note that 7.18 &gt; 105
+  ? intnum(x = 0, [oo,1],  g(x)) - Euler
+  %2 = 0.E-115
+</pre><p>
+It is up to the user to determine constants such as the
+10<sup>-18</sup> and 10 used above.</p>
+<p>
+<b>True singularities.</b> With true singularities the result is worse.
+For instance</p>
+<p></p>
+<p>
+</p><pre class="code">  ? intnum(x = 0, 1,  x^(-1/2)) - 2
+  %1 = -3.5... E-68 \\  only 68 correct decimals
+  
+  ? intnum(x = [0,-1/2], 1,  x^(-1/2)) - 2
+  %2 = 0.E-114 \\  better
+</pre><p></p>
+<p></p>
+<p>
+<b>Oscillating functions.</b></p>
+<p></p>
+<p>
+</p><pre class="code">  ? intnum(x = 0, oo, sin(x) / x) - Pi/2
+  %1 = 16.19.. \\  nonsense
+  ? intnum(x = 0, [oo,1], sin(x)/x) - Pi/2
+  %2 = -0.006.. \\  bad
+  ? intnum(x = 0, [oo,-I], sin(x)/x) - Pi/2
+  %3 = 0.E-115 \\  perfect
+  ? intnum(x = 0, [oo,-I], sin(2*x)/x) - Pi/2  \\  oops, wrong k
+  %4 = 0.06...
+  ? intnum(x = 0, [oo,-2*I], sin(2*x)/x) - Pi/2
+  %5 = 0.E-115 \\  perfect
+  
+  ? intnum(x = 0, [oo,-I], sin(x)^3/x) - Pi/4
+  %6 = -0.0008... \\  bad
+  ? sin(x)^3 - (3*sin(x)-sin(3*x))/4
+  %7 = O(x^17)
+</pre><p></p>
+<p>
+We may use the above linearization and compute two oscillating integrals with
+endpoints <code>[oo, -I]</code> and <code>[oo, -3*I]</code> respectively, or
+notice the obvious change of variable, and reduce to the single integral
+(1/2)&int;<sub>0</sub>^ oo sin(x)/xdx. We finish with some more complicated
+examples:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? intnum(x = 0, [oo,-I], (1-cos(x))/x^2) - Pi/2
+  %1 = -0.0003... \\  bad
+  ? intnum(x = 0, 1, (1-cos(x))/x^2) \
+  + intnum(x = 1, oo, 1/x^2) - intnum(x = 1, [oo,I], cos(x)/x^2) - Pi/2
+  %2 = 0.E-115 \\  perfect
+  
+  ? intnum(x = 0, [oo, 1], sin(x)^3*exp(-x)) - 0.3
+  %3 = -7.34... E-55 \\  bad
+  ? intnum(x = 0, [oo,-I], sin(x)^3*exp(-x)) - 0.3
+  %4 = 8.9... E-103 \\  better. Try higher m
+  ? tab = intnuminit(0,[oo,-I], 1); \\  double number of sampling points
+  ? intnum(x = 0, oo, sin(x)^3*exp(-x), tab) - 0.3
+  %6 = 0.E-115 \\  perfect
+</pre><p></p>
+<p></p>
+<p>
+<b>Warning.</b> Like <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code>, <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code> often assigns a
+reasonable value to diverging integrals. Use these values at your own risk!
+For example:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? intnum(x = 0, [oo, -I], x^2*sin(x))
+  %1 = -2.0000000000...
+</pre><p></p>
+<p>
+Note the formula
+ &int;<sub>0</sub>^ oo sin(x)/x^sdx = cos(&pi; s/2) &Gamma;(1-s) , 
+a priori valid only for 0 &lt; Re(s) &lt; 2, but the right hand side provides an
+analytic continuation which may be evaluated at s = -2...</p>
+<p>
+<b>Multivariate integration.</b>
+Using successive univariate integration with respect to different formal
+parameters, it is immediate to do naive multivariate integration. But it is
+important to use a suitable <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnuminit</a></code> to precompute data for the
+<em>internal</em> integrations at least!</p>
+<p>
+For example, to compute the double integral on the unit disc x^2+y^2 &leq; 1
+of the function x^2+y^2, we can write</p>
+<p>
+</p><pre class="code">  ? tab = intnuminit(-1,1);
+  ? intnum(x=-1,1, intnum(y=-sqrt(1-x^2),sqrt(1-x^2), x^2+y^2, tab),tab) - Pi/2
+  %2 = -7.1... E-115 \\  OK
+  
+</pre><p></p>
+<p>
+The first <em>tab</em> is essential, the second optional. Compare:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? tab = intnuminit(-1,1);
+  time = 4 ms.
+  ? intnum(x=-1,1, intnum(y=-sqrt(1-x^2),sqrt(1-x^2), x^2+y^2));
+  time = 3,092 ms. \\  slow
+  ? intnum(x=-1,1, intnum(y=-sqrt(1-x^2),sqrt(1-x^2), x^2+y^2, tab), tab);
+  time = 252 ms.  \\  faster
+  ? intnum(x=-1,1, intnum(y=-sqrt(1-x^2),sqrt(1-x^2), x^2+y^2, tab));
+  time = 261 ms.  \\  the <em>internal</em> integral matters most
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>intnum</b>(void *E, GEN (*eval)(void*,GEN), GEN a,GEN b,GEN tab, long prec)</code>,
+where an omitted <em>tab</em> is coded as <code>NULL</code>.</p>
+<p>
+
+<hr>
+<div id="se:intnumgauss"></div>
+<div id="intnumgauss"></div>
+<h4>intnumgauss(X = a, b, <em>expr</em>, {<em>tab</em>})</h4>
+<p>
+Numerical integration of <em>expr</em> on the compact interval [a,b] with
+respect to X using Gauss-Legendre quadrature; <code>tab</code> is either omitted
+or precomputed with <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnumgaussinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnumgaussinit</a></code>. As a convenience, it can be an
+integer n in which case we call
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:intnumgaussinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnumgaussinit</a></code>(n) and use n-point quadrature.</p>
+<p>
+</p><pre class="code">  ? test(n, b = 1) = T=intnumgaussinit(n);\
+      intnumgauss(x=-b,b, 1/(1+x^2),T) - 2*atan(b);
+  ? test(0) \\ default
+  %1 = -9.490148553624725335 E-22
+  ? test(40)
+  %2 = -6.186629001816965717 E-31
+  ? test(50)
+  %3 = -1.1754943508222875080 E-38
+  ? test(50, 2) \\ double interval length
+  %4 = -4.891779568527713636 E-21
+  ? test(90, 2) \\ n must almost be doubled as well!
+  %5 = -9.403954806578300064 E-38
+</pre><p>
+On the other hand, we recommend to split the integral
+and change variables rather than increasing n too much:</p>
+<p>
+</p><pre class="code">  ? f(x) = 1/(1+x^2);
+  ? b = 100;
+  ? intnumgauss(x=0,1, f(x)) + intnumgauss(x=1,1/b, f(1/x)*(-1/x^2)) - atan(b)
+  %3 = -1.0579449157400587572 E-37
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>intnumgauss0</b>(GEN X, GEN b, GEN expr, GEN tab = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:intnumgaussinit"></div>
+<div id="intnumgaussinit"></div>
+<h4>intnumgaussinit({n})</h4>
+<p>
+Initialize tables for n-point Gauss-Legendre integration of
+a smooth function f lon a compact
+interval [a,b] at current <code>realprecision</code>. If n is omitted, make a
+default choice n  ~  <code>realprecision</code>, suitable for analytic
+functions on [-1,1]. The error is bounded by</p>
+<p>   ((b-a)<sup>2n+1</sup> (n!)^4)/((2n+1)[(2n)!]^3) f<sup>(2n)</sup> (&xi;) ,
+       a &lt; &xi; &lt; b</p>
+<p>so, if the interval length increases, n should be increased as well.</p>
+<p>
+</p><pre class="code">  ? T = intnumgaussinit();
+  ? intnumgauss(t=-1,1,exp(t), T) - exp(1)+exp(-1)
+  %1 = -5.877471754111437540 E-39
+  ? intnumgauss(t=-10,10,exp(t), T) - exp(10)+exp(-10)
+  %2 = -8.358367809712546836 E-35
+  ? intnumgauss(t=-1,1,1/(1+t^2), T) - Pi/2
+  %3 = -9.490148553624725335 E-22
+  
+  ? T = intnumgaussinit(50);
+  ? intnumgauss(t=-1,1,1/(1+t^2), T) - Pi/2
+  %5 = -1.1754943508222875080 E-38
+  ? intnumgauss(t=-5,5,1/(1+t^2), T) - 2*atan(5)
+  %6 = -1.2[...]E-8
+</pre><p></p>
+<p>
+On the other hand, we recommend to split the integral and change variables
+rather than increasing n too much, see <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnumgauss"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnumgauss</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>intnumgaussinit</b>(long n, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:intnuminit"></div>
+<div id="intnuminit"></div>
+<h4>intnuminit(a, b, {m = 0})</h4>
+<p>
+Initialize tables for integration from
+a to b, where a and b are coded as in <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>. Only the
+compactness, the possible existence of singularities, the speed of decrease
+or the oscillations at infinity are taken into account, and not the values.
+For instance intnuminit(-1,1) is equivalent to intnuminit(0,Pi),
+and intnuminit([0,-1/2],oo) is equivalent to
+intnuminit([-1,-1/2], -oo); on the other hand, the order matters
+and
+intnuminit([0,-1/2], [1,-1/3]) is <em>not</em> equivalent to
+intnuminit([0,-1/3], [1,-1/2]) !</p>
+<p>
+If m is present, it must be non-negative and we multiply the default
+number of sampling points by 2^m (increasing the running time by a
+similar factor).</p>
+<p>
+The result is technical and liable to change in the future, but we document
+it here for completeness. Let x = &phi;(t), t &in;  ]- oo , oo [ be an
+internally chosen change of variable, achieving double exponential decrease of
+the integrand at infinity. The integrator <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code> will compute
+ h &sum;<sub>|n| &lt; N</sub> &phi;'(nh) F(&phi;(nh)) 
+for some integration step h and truncation parameter N.
+In basic use, let</p>
+<p>
+</p><pre class="code">  [h, x0, w0, xp, wp, xm, wm] = intnuminit(a,b);
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> h is the integration step</p>
+<p>
+<b>*</b> x<sub>0</sub> = &phi;(0)  and w<sub>0</sub> = &phi;'(0),</p>
+<p>
+<b>*</b> <em>xp</em> contains the &phi;(nh), 0 &lt; n &lt; N,</p>
+<p>
+<b>*</b> <em>xm</em> contains the &phi;(nh), 0 &lt; -n &lt; N, or is empty.</p>
+<p>
+<b>*</b> <em>wp</em> contains the &phi;'(nh), 0 &lt; n &lt; N,</p>
+<p>
+<b>*</b> <em>wm</em> contains the &phi;'(nh), 0 &lt; -n &lt; N, or is empty.</p>
+<p>
+The arrays <em>xm</em> and <em>wm</em> are left empty when &phi; is an odd
+function. In complicated situations when non-default behavior is specified at
+end points, <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnuminit</a></code> may return up to 3 such arrays, corresponding
+to a splitting of up to 3 integrals of basic type.</p>
+<p>
+If the functions to be integrated later are of the form F = f(t) k(t,z)
+for some kernel k (e.g. Fourier, Laplace, Mellin,...), it is
+useful to also precompute the values of f(&phi;(nh)), which is accomplished
+by <code><a href="Sums__products__integrals_and_similar_functions.html#se:intfuncinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intfuncinit</a></code>. The hard part is to determine the behavior
+of F at endpoints, depending on z.</p>
+<p>
+The library syntax is <code>GEN <b>intnuminit</b>(GEN a, GEN b, long m, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:intnumromb"></div>
+<div id="intnumromb"></div>
+<h4>intnumromb(X = a, b, <em>expr</em>, {<em>flag</em> = 0})</h4>
+<p>
+Numerical integration of <em>expr</em> (smooth in ]a,b[), with respect to
+X. Suitable for low accuracy; if <em>expr</em> is very regular (e.g. analytic
+in a large region) and high accuracy is desired, try <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code> first.</p>
+<p>
+Set <em>flag</em> = 0 (or omit it altogether) when a and b are not too large, the
+function is smooth, and can be evaluated exactly everywhere on the interval
+[a,b].</p>
+<p>
+If <em>flag</em> = 1, uses a general driver routine for doing numerical integration,
+making no particular assumption (slow).</p>
+<p>
+<em>flag</em> = 2 is tailored for being used when a or b are infinite using the
+change of variable t = 1/X. One <em>must</em> have ab &gt; 0, and in fact if
+for example b = + oo , then it is preferable to have a as large as
+possible, at least a &geq; 1.</p>
+<p>
+If <em>flag</em> = 3, the function is allowed to be undefined
+at a (but right continuous) or b (left continuous),
+for example the function sin(x)/x between x = 0 and 1.</p>
+<p>
+The user should not require too much accuracy: <code>realprecision</code> about
+30 decimal digits (<code>realbitprecision</code> about 100 bits) is OK,
+but not much more. In addition, analytical cleanup of the integral must have
+been done: there must be no singularities in the interval or at the
+boundaries. In practice this can be accomplished with a change of
+variable. Furthermore, for improper integrals, where one or both of the
+limits of integration are plus or minus infinity, the function must decrease
+sufficiently rapidly at infinity, which can often be accomplished through
+integration by parts. Finally, the function to be integrated should not be
+very small (compared to the current precision) on the entire interval. This
+can of course be accomplished by just multiplying by an appropriate constant.</p>
+<p>
+Note that infinity can be represented with essentially no loss of
+accuracy by an appropriate huge number. However beware of real underflow
+when dealing with rapidly decreasing functions. For example, in order to
+compute the &int;<sub>0</sub>^ oo e<sup>-x^2</sup>dx to 28 decimal digits, then one can
+set infinity equal to 10 for example, and certainly not to <code>1e1000</code>.</p>
+<p>
+The library syntax is <code><b>intnumromb_bitprec</b>(void *E, GEN (*eval)(void*,GEN), GEN a, GEN b, long flag, long bitprec)</code>,
+where <code><a href="Polynomials_and_power_series.html#se:eval"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">eval</a></code>(x, E) returns the value of the function at x.
+You may store any additional information required by <code><a href="Polynomials_and_power_series.html#se:eval"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">eval</a></code> in E, or set
+it to <code>NULL</code>. The historical variant
+The library syntax is <code><b>intnumromb</b>(..., long prec)</code>, where <code>prec</code> is expressed in words,
+not bits, is obsolete and should no longer be used.</p>
+<p>
+
+<hr>
+<div id="se:laurentseries"></div>
+<div id="laurentseries"></div>
+<h4>laurentseries(f, {M = <em>seriesprecision</em>}, {x = 'x})</h4>
+<p>
+Expand f as a Laurent series around x = 0 to order M. This
+function computes f(x + O(x^n)) until n is large enough so it
+must be possible to evaluate f on a power series with 0 constant term.</p>
+<p>
+</p><pre class="code">  ? laurentseries(t-&gt;sin(t)/(1-cos(t)), 5)
+  %1 = 2*x^-1 - 1/6*x - 1/360*x^3 - 1/15120*x^5 + O(x^6)
+  ? laurentseries(log)
+    ***   at top-level: laurentseries(log)
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; 
+    ***   in function laurentseries: log
+    ***                              ^ &mdash; 
+    *** log: domain error in log: series valuation != 0
+</pre><p></p>
+<p></p>
+<p>
+Note that individual Laurent coefficients of order  &leq; M
+can be retrieved from s = <code><a href="Sums__products__integrals_and_similar_functions.html#se:laurentseries"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">laurentseries</a></code>(f,M) via <code>polcoeff(s,i)</code>
+for any i &leq; M. The series s may occasionally be more precise that
+the required O(x<sup>M+1</sup>).</p>
+<p>
+With respect to successive calls to <code><a href="Sums__products__integrals_and_similar_functions.html#se:derivnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">derivnum</a></code>,
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:laurentseries"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">laurentseries</a></code> is both faster and more precise:</p>
+<p>
+</p><pre class="code">  ? laurentseries(t-&gt;log(3+t),1)
+  %1 = 1.0986122886681096913952452369225257047 + 1/3*x - 1/18*x^2 + O(x^3)
+  ? derivnum(t=0,log(3+t),1)
+  %2 = 0.33333333333333333333333333333333333333
+  ? derivnum(t=0,log(3+t),2)
+  %3 = -0.11111111111111111111111111111111111111
+  
+  ? f = x-&gt;sin(exp(x));
+  ? polcoeff(laurentseries(x-&gt;f(x+2), 1), 1)
+  %5 = 3.3129294231043339804683687620360224365
+  ? exp(2) * cos(exp(2));
+  %6 = 3.3129294231043339804683687620360224365
+  ? derivnum(x = 2, f(x))
+  %7 = 3.3129294231043339804683687620360224364 \\ 1 ulp off
+  
+  ? default(realprecision,115);
+  ? for(i=1,10^4, laurentseries(x-&gt;f(x+2),1))
+  time = 279 ms.
+  ? for(i=1,10^4, derivnum(x=2,f(x)))  \\ ... and slower
+  time = 1,134 ms.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>laurentseries</b>(void *E, GEN (*f)(void*,GEN,long), long M, long v, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:limitnum"></div>
+<div id="limitnum"></div>
+<h4>limitnum(<em>expr</em>, {k = 20}, {<em>alpha</em> = 1})</h4>
+<p>
+Lagrange-Zagier numerical extrapolation of <em>expr</em>, corresponding to a
+sequence
+u<sub>n</sub>, either given by a closure <code>n- &gt; u(n)</code> or by a vector of values
+I.e., assuming that u<sub>n</sub> tends to a finite limit &ell;, try to determine
+&ell;. This routine is purely numerical and heuristic, thus may or may not
+work on your examples; k is ignored if u is given by a vector,
+and otherwise is a multiplier such that we extrapolate from u(kn).</p>
+<p>
+Assume that u<sub>n</sub> has an asymptotic expansion in n<sup>-&alpha;</sup> :
+u<sub>n</sub> = &ell; + &sum;<sub>i &geq; 1</sub> a<sub>i</sub> n<sup>-i&alpha;</sup>
+for some a<sub>i</sub>.</p>
+<p>
+</p><pre class="code">  ? limitnum(n -&gt; n*sin(1/n))
+  %1 = 1.0000000000000000000000000000000000000
+  
+  ? limitnum(n -&gt; (1+1/n)^n) - exp(1)
+  %2 = 0.E-37
+  
+  ? limitnum(n -&gt; 2^(4*n+1)*(n!)^4 / (2*n)! /(2*n+1)! )
+  %3 = 3.1415926535897932384626433832795028842
+  ? Pi
+  %4 = 3.1415926535897932384626433832795028842
+</pre><p></p>
+<p>
+If u<sub>n</sub> is given by a vector, it must be long enough for the extrapolation
+to make sense: at least k times the current <code>realprecision</code>. The
+preferred format is thus a closure, although it becomes inconvenient
+when u<sub>n</sub> cannot be directly computed in time polynomial in log n,
+for instance if it is defined as a sum or by induction. In that case,
+passing a vector of values is the best option. It usually pays off to
+interpolate u(kn) for some k &gt; 1:</p>
+<p>
+</p><pre class="code">  ? limitnum(vector(10,n,(1+1/n)^n))
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** limitnum: non-existent component in limitnum: index &lt; 20
+  \\ at this accuracy, we must have at least 20 values
+  ? limitnum(vector(20,n,(1+1/n)^n)) - exp(1)
+  %5 = -2.05... E-20
+  ? limitnum(vector(20,n, m=10*n;(1+1/m)^m)) - exp(1) \\ better accuracy
+  %6 = 0.E-37
+  
+  ? v = vector(20); s = 0;
+  ? for(i=1,#v, s += 1/i; v[i]= s - log(i));
+  ? limitnum(v) - Euler
+  %9 = -1.6... E-19
+  
+  ? V = vector(200); s = 0;
+  ? for(i=1,#V, s += 1/i; V[i]= s);
+  ? v = vector(#V \ 10, i, V[10*i] - log(10*i));
+  ? limitnum(v) - Euler
+  %13 = 6.43... E-29
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>limitnum</b>(void *E, GEN (*u)(void *,GEN,long), long muli, GEN alpha, long prec)</code>, where <code>u(E, n, prec)</code> must return u(n) in precision <code>prec</code>.
+Also available is
+<code>GEN <b>limitnum0</b>(GEN u, long muli, GEN alpha, long prec)</code>, where u
+must be a vector of sufficient length as above.</p>
+<p>
+
+<hr>
+<div id="se:prod"></div>
+<div id="prod"></div>
+<h4>prod(X = a, b, <em>expr</em>, {x = 1})</h4>
+<p>
+Product of expression
+<em>expr</em>, initialized at x, the formal parameter X going from a to
+b. As for <code><a href="Sums__products__integrals_and_similar_functions.html#se:sum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sum</a></code>, the main purpose of the initialization parameter x
+is to force the type of the operations being performed. For example if it is
+set equal to the integer 1, operations will start being done exactly. If it
+is set equal to the real 1., they will be done using real numbers having
+the default precision. If it is set equal to the power series 1+O(X^k) for
+a certain k, they will be done using power series of precision at most k.
+These are the three most common initializations.</p>
+<p>
+As an extreme example, compare</p>
+<p></p>
+<p>
+</p><pre class="code">  ? prod(i=1, 100, 1 - X^i);  \\  this has degree 5050 !!
+  time = 128 ms.
+  ? prod(i=1, 100, 1 - X^i, 1 + O(X^101))
+  time = 8 ms.
+  %2 = 1 - X - X^2 + X^5 + X^7 - X^12 - X^15 + X^22 + X^26 - X^35 - X^40 + \
+  X^51 + X^57 - X^70 - X^77 + X^92 + X^100 + O(X^101)
+</pre><p></p>
+<p>
+Of course, in  this specific case, it is faster to use <code><a href="Transcendental_functions.html#se:eta"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">eta</a></code>,
+which is computed using Euler's formula.</p>
+<p>
+</p><pre class="code">  ? prod(i=1, 1000, 1 - X^i, 1 + O(X^1001));
+  time = 589 ms.
+  ? \ps1000
+  seriesprecision = 1000 significant terms
+  ? eta(X) - %
+  time = 8ms.
+  %4 = O(X^1001)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>produit</b>(GEN a, GEN b, char *expr, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:prodeuler"></div>
+<div id="prodeuler"></div>
+<h4>prodeuler(X = a, b, <em>expr</em>)</h4>
+<p>
+Product of expression <em>expr</em>,
+initialized at 1. (i.e.&nbsp;to a <em>real</em> number equal to 1 to the current
+<code>realprecision</code>), the formal parameter X ranging over the prime numbers
+between a and b.</p>
+<p>
+The library syntax is <code><b>prodeuler</b>(void *E, GEN (*eval)(void*,GEN), GEN a,GEN b, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:prodeulerrat"></div>
+<div id="prodeulerrat"></div>
+<h4>prodeulerrat(F, {s = 1}, {a = 2})</h4>
+<p>
+&prod;<sub>p &geq; a, p prime</sub>F(p^s), where F is a rational function.</p>
+<p>
+</p><pre class="code">  ? prodeulerrat(1+1/q^3,1)
+  %1 = 1.1815649490102569125693997341604542605
+  ? zeta(3)/zeta(6)
+  %2 = 1.1815649490102569125693997341604542606
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>prodeulerrat</b>(GEN F, GEN s = NULL, long a, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:prodinf"></div>
+<div id="prodinf"></div>
+<h4>prodinf(X = a, <em>expr</em>, {<em>flag</em> = 0})</h4>
+<p>
+infinite product of
+expression <em>expr</em>, the formal parameter X starting at a. The evaluation
+stops when the relative error of the expression minus 1 is less than the
+default precision. In particular, non-convergent products result in infinite
+loops. The expressions must always evaluate to an element of &Copf;.</p>
+<p>
+If <em>flag</em> = 1, do the product of the (1+<em>expr</em>) instead.</p>
+<p>
+The library syntax is <code><b>prodinf</b>(void *E, GEN (*eval)(void*,GEN), GEN a, long prec)</code>
+(<em>flag</em> = 0), or <code>prodinf1</code> with the same arguments (<em>flag</em> = 1).</p>
+<p>
+
+<hr>
+<div id="se:prodnumrat"></div>
+<div id="prodnumrat"></div>
+<h4>prodnumrat(F, a)</h4>
+<p>
+&prod;<sub>n &geq; a</sub>F(n), where F-1 is a rational function of degree less
+than or equal to -2.</p>
+<p>
+</p><pre class="code">  ? prodnumrat(1+1/x^2,1)
+  %1 = 3.6760779103749777206956974920282606665
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>prodnumrat</b>(GEN F, long a, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:solve"></div>
+<div id="solve"></div>
+<h4>solve(X = a, b, <em>expr</em>)</h4>
+<p>
+Find a real root of expression
+<em>expr</em> between a and b, under the condition
+<em>expr</em>(X = a) * <em>expr</em>(X = b) &leq; 0. (You will get an error message
+<code>roots must be bracketed in solve</code> if this does not hold.)
+This routine uses Brent's method and can fail miserably if <em>expr</em> is
+not defined in the whole of [a,b] (try <code>solve(x = 1, 2, tan(x))</code>).</p>
+<p>
+The library syntax is <code><b>zbrent</b>(void *E,GEN (*eval)(void*,GEN),GEN a,GEN b,long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:solvestep"></div>
+<div id="solvestep"></div>
+<h4>solvestep(X = a, b, <em>step</em>, <em>expr</em>, {<em>flag</em> = 0})</h4>
+<p>
+Find zeros of a continuous function in the real interval [a,b] by naive
+interval splitting. This function is heuristic and may or may not find the
+intended zeros. Binary digits of <em>flag</em> mean</p>
+<p>
+<b>*</b> 1: return as soon as one zero is found, otherwise return all
+zeros found;</p>
+<p>
+<b>*</b> 2: refine the splitting until at least one zero is found
+(may loop indefinitely if there are no zeros);</p>
+<p>
+<b>*</b> 4: do a multiplicative search (we must have a &gt; 0 and <em>step</em> &gt; 
+1), otherwise an additive search; <em>step</em> is the multiplicative or
+additive step.</p>
+<p>
+<b>*</b> 8: refine the splitting until at least one zero is very close to an
+integer.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? solvestep(X=0,10,1,sin(X^2),1)
+  %1 = 1.7724538509055160272981674833411451828
+  ? solvestep(X=1,12,2,besselj(4,X),4)
+  %2 = [7.588342434..., 11.064709488...]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>solvestep</b>(void *E, GEN (*eval)(void*,GEN), GEN a,GEN b, GEN step,long flag,long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sum"></div>
+<div id="sum"></div>
+<h4>sum(X = a, b, <em>expr</em>, {x = 0})</h4>
+<p>
+Sum of expression <em>expr</em>,
+initialized at x, the formal parameter going from a to b. As for
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:prod"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">prod</a></code>, the initialization parameter x may be given to force the type
+of the operations being performed.</p>
+<p>
+As an extreme example, compare</p>
+<p></p>
+<p>
+</p><pre class="code">  ? sum(i=1, 10^4, 1/i); \\  rational number: denominator has 4345 digits.
+  time = 236 ms.
+  ? sum(i=1, 5000, 1/i, 0.)
+  time = 8 ms.
+  %2 = 9.787606036044382264178477904
+</pre><p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:sumalt"></div>
+<div id="sumalt"></div>
+<h4>sumalt(X = a, <em>expr</em>, {<em>flag</em> = 0})</h4>
+<p>
+Numerical summation of the series <em>expr</em>, which should be an
+alternating series (-1)^k a<sub>k</sub>, the formal variable X starting at
+a. Use an algorithm of Cohen, Villegas and Zagier (<em>Experiment. Math.</em>
+<b>9</b> (2000), no.&nbsp;1, 3--12).</p>
+<p>
+If <em>flag</em> = 0, assuming that the a<sub>k</sub> are the moments of a positive
+measure on [0,1], the relative error is O(3+sqrt8)<sup>-n</sup> after using
+a<sub>k</sub> for k &leq; n. If <code>realprecision</code> is p, we thus set
+n = log(10)p/log(3+sqrt8) ~  1.3 p; besides the time needed to
+compute the a<sub>k</sub>, k &leq; n, the algorithm overhead is negligible: time
+O(p^2) and space O(p).</p>
+<p>
+If <em>flag</em> = 1, use a variant with more complicated polynomials, see
+<code><a href="Polynomials_and_power_series.html#se:polzagier"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polzagier</a></code>. If the a<sub>k</sub> are the moments of w(x)dx where w
+(or only xw(x^2)) is a smooth function extending analytically to the whole
+complex plane, convergence is in O(14.4<sup>-n</sup>). If xw(x^2) extends
+analytically to a smaller region, we still have exponential convergence,
+with worse constants. Usually faster when the computation of a<sub>k</sub> is
+expensive. If <code>realprecision</code> is p, we thus set
+n = log(10)p/log(14.4) ~  0.86 p; besides the time needed to
+compute the a<sub>k</sub>, k &leq; n, the algorithm overhead is <em>not</em>
+negligible: time O(p^3) and space O(p^2). Thus, even if the analytic
+conditions for rigorous use are met, this variant is only worthwile if the
+a<sub>k</sub> are hard to compute, at least O(p^2) individually on average:
+otherwise we gain a small constant factor (1.5, say) in the number of
+needed a<sub>k</sub> at the expense of a large overhead.</p>
+<p>
+The conditions for rigorous use are hard to check but the routine is best used
+heuristically: even divergent alternating series can sometimes be summed by
+this method, as well as series which are not exactly alternating (see for
+example Section se:user_defined). It should be used to try and guess the
+value of an infinite sum. (However, see the example at the end of
+Section se:userfundef.)</p>
+<p>
+If the series already converges geometrically,
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:suminf"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">suminf</a></code> is often a better choice:</p>
+<p>
+</p><pre class="code">  ? \p28
+  ? sumalt(i = 1, -(-1)^i / i)  - log(2)
+  time = 0 ms.
+  %1 = -2.524354897 E-29
+  ? suminf(i = 1, -(-1)^i / i)   \\  Had to hit <code>C-C</code>
+    ***   at top-level: suminf(i=1,-(-1)^i/i)
+    ***                                ^ &mdash;  &mdash; 
+    *** suminf: user interrupt after 10min, 20,100 ms.
+  ? \p1000
+  ? sumalt(i = 1, -(-1)^i / i)  - log(2)
+  time = 90 ms.
+  %2 = 4.459597722 E-1002
+  
+  ? sumalt(i = 0, (-1)^i / i!) - exp(-1)
+  time = 670 ms.
+  %3 = -4.03698781490633483156497361352190615794353338591897830587 E-944
+  ? suminf(i = 0, (-1)^i / i!) - exp(-1)
+  time = 110 ms.
+  %4 = -8.39147638 E-1000   \\   faster and more accurate
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>sumalt</b>(void *E, GEN (*eval)(void*,GEN),GEN a,long prec)</code>. Also
+available is <code>sumalt2</code> with the same arguments (<em>flag</em> = 1).</p>
+<p>
+
+<hr>
+<div id="se:sumdiv"></div>
+<div id="sumdiv"></div>
+<h4>sumdiv(n, X, <em>expr</em>)</h4>
+<p>
+Sum of expression <em>expr</em> over the positive divisors of n.
+This function is a trivial wrapper essentially equivalent to</p>
+<p>
+</p><pre class="code">    D = divisors(n);
+    for (i = 1, #D, X = D[i]; eval(expr))
+</pre><p>
+(except that <code>X</code> is lexically scoped to the <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumdiv"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumdiv</a></code>
+loop). If <em>expr</em> is a multiplicative function, use <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumdivmult"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumdivmult</a></code>.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:sumdivmult"></div>
+<div id="sumdivmult"></div>
+<h4>sumdivmult(n, d, <em>expr</em>)</h4>
+<p>
+Sum of <em>multiplicative</em> expression <em>expr</em> over the positive
+divisors d of n. Assume that <em>expr</em> evaluates to f(d)
+where f is multiplicative: f(1) = 1 and f(ab) = f(a)f(b) for coprime
+a and b.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:sumeulerrat"></div>
+<div id="sumeulerrat"></div>
+<h4>sumeulerrat(F, {s = 1}, {a = 2})</h4>
+<p>
+&sum;<sub>p &geq; a, p prime</sub>F(p^s), where F is a rational function.</p>
+<p>
+</p><pre class="code">  ? sumeulerrat(1/q)
+  %1 = 0.45224742004106549850654336483224793418
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sumeulerrat</b>(GEN F, GEN s = NULL, long a, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:suminf"></div>
+<div id="suminf"></div>
+<h4>suminf(X = a, <em>expr</em>)</h4>
+<p>
+infinite sum of expression
+<em>expr</em>, the formal parameter X starting at a. The evaluation stops
+when the relative error of the expression is less than the default precision
+for 3 consecutive evaluations. The expressions must always evaluate to a
+complex number.</p>
+<p>
+If the series converges slowly, make sure <code>realprecision</code> is low (even 28
+digits may be too much). In this case, if the series is alternating or the
+terms have a constant sign, <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code> and <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumpos"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumpos</a></code> should be used
+instead.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \p28
+  ? suminf(i = 1, -(-1)^i / i)   \\  Had to hit <code>C-C</code>
+    ***   at top-level: suminf(i=1,-(-1)^i/i)
+    ***                                ^ &mdash;  &mdash; 
+    *** suminf: user interrupt after 10min, 20,100 ms.
+  ? sumalt(i = 1, -(-1)^i / i) - log(2)
+  time = 0 ms.
+  %1 = -2.524354897 E-29
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>suminf</b>(void *E, GEN (*eval)(void*,GEN), GEN a, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnum"></div>
+<div id="sumnum"></div>
+<h4>sumnum(n = a, f, {<em>tab</em>})</h4>
+<p>
+Numerical summation of f(n) at high accuracy using Euler-MacLaurin,
+the variable n taking values from a to + oo , where f is assumed to
+have positive values and is a C^ oo  function; <code>a</code> must be an integer
+and <code>tab</code>, if given, is the output of <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnuminit</a></code>. The latter
+precomputes abscissas and weights, speeding up the computation; it also allows
+to specify the behavior at infinity via <code>sumnuminit([+oo, asymp])</code>.</p>
+<p>
+</p><pre class="code">  ? \p500
+  ? z3 = zeta(3);
+  ? sumpos(n = 1, n^-3) - z3
+  time = 2,332 ms.
+  %2 = 2.438468843 E-501
+  ? sumnum(n = 1, n^-3) - z3 \\ here slower than sumpos
+  time = 2,752 ms.
+  %3 = 0.E-500
+</pre><p></p>
+<p></p>
+<p>
+<b>Complexity.</b>
+The function f will be evaluated at O(D log D) real arguments,
+where D  ~  <code>realprecision</code>.log(10). The routine is geared
+towards slowly decreasing functions: if f decreases exponentially fast,
+then one of <code><a href="Sums__products__integrals_and_similar_functions.html#se:suminf"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">suminf</a></code> or <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumpos"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumpos</a></code> should be preferred.
+If f satisfies the stronger hypotheses required for Monien summation,
+i.e. if f(1/z) is holomorphic in a complex neighbourhood of [0,1],
+then <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnummonien"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnummonien</a></code> will be faster since it only requires O(D/log D)
+evaluations:</p>
+<p>
+</p><pre class="code">  ? sumnummonien(n = 1, 1/n^3) - z3
+  time = 1,985 ms.
+  %3 = 0.E-500
+</pre><p>
+The <code>tab</code> argument precomputes technical data
+not depending on the expression being summed and valid for a given accuracy,
+speeding up immensely later calls:</p>
+<p>
+</p><pre class="code">  ? tab = sumnuminit();
+  time = 2,709 ms.
+  ? sumnum(n = 1, 1/n^3, tab) - z3 \\ now much faster than sumpos
+  time = 40 ms.
+  %5 = 0.E-500
+  
+  ? tabmon = sumnummonieninit(); \\ Monien summation allows precomputations too
+  time = 1,781 ms.
+  ? sumnummonien(n = 1, 1/n^3, tabmon) - z3
+  time = 2 ms.
+  %7 = 0.E-500
+</pre><p>
+The speedup due to precomputations becomes less impressive
+when the function f is expensive to evaluate, though:</p>
+<p>
+</p><pre class="code">  ? sumnum(n = 1, lngamma(1+1/n)/n, tab);
+  time = 14,180 ms.
+  
+  ? sumnummonien(n = 1, lngamma(1+1/n)/n, tabmon); \\ fewer evaluations
+  time = 717 ms.
+</pre><p></p>
+<p></p>
+<p>
+<b>Behaviour at infinity.</b>
+By default, <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnum</a></code> assumes that <em>expr</em> decreases slowly at infinity,
+but at least like O(n<sup>-2</sup>). If the function decreases like n<sup>&alpha;</sup>
+for some -2 &lt; &alpha; &lt; -1, then it must be indicated via</p>
+<p>
+</p><pre class="code">    tab = sumnuminit([+oo, alpha]); /* alpha &lt; 0 slow decrease */
+</pre><p>
+otherwise loss of accuracy is expected.
+If the functions decreases quickly, like exp(-&alpha; n) for some
+&alpha; &gt; 0, then it must be indicated via</p>
+<p>
+</p><pre class="code">    tab = sumnuminit([+oo, alpha]); /* alpha  &gt; 0 exponential decrease */
+</pre><p>
+otherwise exponent overflow will occur.</p>
+<p>
+</p><pre class="code">  ? sumnum(n=1,2^-n)
+   ***   at top-level: sumnum(n=1,2^-n)
+   ***                             ^ &mdash; -
+   *** _^_: overflow in expo().
+  ? tab = sumnuminit([+oo,log(2)]); sumnum(n=1,2^-n, tab)
+  %1 = 1.000[...]
+</pre><p></p>
+<p></p>
+<p>
+As a shortcut, one can also input</p>
+<p>
+</p><pre class="code">    sumnum(n = [a, asymp], f)
+</pre><p>
+instead of</p>
+<p>
+</p><pre class="code">    tab = sumnuminit(asymp);
+    sumnum(n = a, f, tab)
+</pre><p></p>
+<p></p>
+<p>
+<b>Further examples.</b></p>
+<p>
+</p><pre class="code">  ? \p200
+  ? sumnum(n = 1, n^(-2)) - zeta(2) \\ accurate, fast
+  time = 200 ms.
+  %1 = -2.376364457868949779 E-212
+  ? sumpos(n = 1, n^(-2)) - zeta(2)  \\ even faster
+  time = 96 ms.
+  %2 = 0.E-211
+  ? sumpos(n=1,n^(-4/3)) - zeta(4/3)   \\ now much slower
+  time = 13,045 ms.
+  %3 = -9.980730723049589073 E-210
+  ? sumnum(n=1,n^(-4/3)) - zeta(4/3)  \\ fast but inaccurate
+  time = 365 ms.
+  %4 = -9.85[...]E-85
+  ? sumnum(n=[1,-4/3],n^(-4/3)) - zeta(4/3) \\ with decrease rate, now accurate
+  time = 416 ms.
+  %5 = -4.134874156691972616 E-210
+  
+  ? tab = sumnuminit([+oo,-4/3]);
+  time = 196 ms.
+  ? sumnum(n=1, n^(-4/3), tab) - zeta(4/3) \\ faster with precomputations
+  time = 216 ms.
+  %5 = -4.134874156691972616 E-210
+  ? sumnum(n=1,-log(n)*n^(-4/3), tab) - zeta'(4/3)
+  time = 321 ms.
+  %7 = 7.224147951921607329 E-210
+</pre><p></p>
+<p></p>
+<p>
+Note that in the case of slow decrease (&alpha; &lt; 0), the exact
+decrease rate must be indicated, while in the case of exponential decrease,
+a rough value will do. In fact, for exponentially decreasing functions,
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnum</a></code> is given for completeness and comparison purposes only: one
+of <code><a href="Sums__products__integrals_and_similar_functions.html#se:suminf"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">suminf</a></code> or <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumpos"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumpos</a></code> should always be preferred.</p>
+<p>
+</p><pre class="code">  ? sumnum(n=[1, 1], 2^-n) \\ pretend we decrease as exp(-n)
+  time = 240 ms.
+  %8 = 1.000[...] \\ perfect
+  ? sumpos(n=1, 2^-n)
+  %9 = 1.000[...] \\ perfect and instantaneous
+</pre><p></p>
+<p></p>
+<p>
+<b>Beware cancellation.</b> The function f(n) is evaluated for huge
+values of n, so beware of cancellation in the evaluation:</p>
+<p>
+</p><pre class="code">  ? f(n) = 2 - 1/n - 2*n*log(1+1/n); \\ result is O(1/n^2)
+  ? z = -2 + log(2*Pi) - Euler;
+  ? sumnummonien(n=1, f(n)) - z
+  time = 149 ms.
+  %12 = 0.E-212  \\ perfect
+  ? sumnum(n=1, f(n)) - z
+  time = 116 ms.
+  %13 = -948.216[...] \\ junk
+</pre><p>
+As <code>sumnum(n = 1, print(n))</code> shows, we evaluate f(n) for
+n &gt; 1e233 and our implementation of f suffers from massive cancellation
+since we are summing two terms of the order of O(1) for a result in
+O(1/n^2). You can either rewrite your sum so that individual terms are
+evaluated without cancellation or locally replace f(n) by an accurate
+asymptotic expansion:</p>
+<p>
+</p><pre class="code">  ? F = truncate( f(1/x + O(x^30)) );
+  ? sumnum(n=1, if(n &gt; 1e7, subst(F,x,1/n), f(n))) - z
+  %15 = 1.1 E-212 \\ now perfect
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>sumnum</b>((void *E, GEN (*eval)(void*, GEN), GEN a, GEN tab, long prec))</code>
+where an omitted <em>tab</em> is coded as <code>NULL</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnumap"></div>
+<div id="sumnumap"></div>
+<h4>sumnumap(n = a, f, {<em>tab</em>})</h4>
+<p>
+Numerical summation of f(n) at high accuracy using Abel-Plana,
+the variable n taking values from a to + oo , where f is
+holomorphic in the right half-place Re(z) &gt; a; <code>a</code> must be an integer
+and <code>tab</code>, if given, is the output of <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnumapinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnumapinit</a></code>. The latter
+precomputes abscissas and weights, speeding up the computation; it also allows
+to specify the behavior at infinity via <code>sumnumapinit([+oo, asymp])</code>.</p>
+<p>
+</p><pre class="code">  ? \p500
+  ? z3 = zeta(3);
+  ? sumpos(n = 1, n^-3) - z3
+  time = 2,332 ms.
+  %2 = 2.438468843 E-501
+  ? sumnumap(n = 1, n^-3) - z3 \\ here slower than sumpos
+  time = 2,565 ms.
+  %3 = 0.E-500
+</pre><p></p>
+<p></p>
+<p>
+<b>Complexity.</b>
+The function f will be evaluated at O(D log D) real arguments
+and O(D) complex arguments,
+where D  ~  <code>realprecision</code>.log(10). The routine is geared
+towards slowly decreasing functions: if f decreases exponentially fast,
+then one of <code><a href="Sums__products__integrals_and_similar_functions.html#se:suminf"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">suminf</a></code> or <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumpos"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumpos</a></code> should be preferred.
+The default algorithm <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnum</a></code> is usually a little <em>slower</em>
+than <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnumap"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnumap</a></code> but its initialization function <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnuminit</a></code>
+becomes much faster as <code>realprecision</code> increases.</p>
+<p>
+If f satisfies the stronger hypotheses required for Monien summation,
+i.e. if f(1/z) is holomorphic in a complex neighbourhood of [0,1],
+then <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnummonien"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnummonien</a></code> will be faster since it only requires O(D/log D)
+evaluations:</p>
+<p>
+</p><pre class="code">  ? sumnummonien(n = 1, 1/n^3) - z3
+  time = 1,128 ms.
+  %3 = 0.E-500
+</pre><p>
+The <code>tab</code> argument precomputes technical data
+not depending on the expression being summed and valid for a given accuracy,
+speeding up immensely later calls:</p>
+<p>
+</p><pre class="code">  ? tab = sumnumapinit();
+  time = 2,567 ms.
+  ? sumnumap(n = 1, 1/n^3, tab) - z3 \\ now much faster than sumpos
+  time = 39 ms.
+  %5 = 0.E-500
+  
+  ? tabmon = sumnummonieninit(); \\ Monien summation allows precomputations too
+  time = 1,125 ms.
+  ? sumnummonien(n = 1, 1/n^3, tabmon) - z3
+  time = 2 ms.
+  %7 = 0.E-500
+</pre><p>
+The speedup due to precomputations becomes less impressive
+when the function f is expensive to evaluate, though:</p>
+<p>
+</p><pre class="code">  ? sumnumap(n = 1, lngamma(1+1/n)/n, tab);
+  time = 10,762 ms.
+  
+  ? sumnummonien(n = 1, lngamma(1+1/n)/n, tabmon); \\ fewer evaluations
+  time = 205 ms.
+</pre><p></p>
+<p></p>
+<p>
+<b>Behaviour at infinity.</b>
+By default, <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnumap"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnumap</a></code> assumes that <em>expr</em> decreases slowly at
+infinity, but at least like O(n<sup>-2</sup>). If the function decreases
+like n<sup>&alpha;</sup> for some -2 &lt; &alpha; &lt; -1, then it must be indicated via</p>
+<p>
+</p><pre class="code">    tab = sumnumapinit([+oo, alpha]); /* alpha &lt; 0 slow decrease */
+</pre><p>
+otherwise loss of accuracy is expected.
+If the functions decreases quickly, like exp(-&alpha; n) for some
+&alpha; &gt; 0, then it must be indicated via</p>
+<p>
+</p><pre class="code">    tab = sumnumapinit([+oo, alpha]); /* alpha  &gt; 0 exponential decrease */
+</pre><p>
+otherwise exponent overflow will occur.</p>
+<p>
+</p><pre class="code">  ? sumnumap(n=1,2^-n)
+   ***   at top-level: sumnumap(n=1,2^-n)
+   ***                             ^ &mdash; -
+   *** _^_: overflow in expo().
+  ? tab = sumnumapinit([+oo,log(2)]); sumnumap(n=1,2^-n, tab)
+  %1 = 1.000[...]
+</pre><p></p>
+<p></p>
+<p>
+As a shortcut, one can also input</p>
+<p>
+</p><pre class="code">    sumnumap(n = [a, asymp], f)
+</pre><p>
+instead of</p>
+<p>
+</p><pre class="code">    tab = sumnumapinit(asymp);
+    sumnumap(n = a, f, tab)
+</pre><p></p>
+<p></p>
+<p>
+<b>Further examples.</b></p>
+<p>
+</p><pre class="code">  ? \p200
+  ? sumnumap(n = 1, n^(-2)) - zeta(2) \\ accurate, fast
+  time = 169 ms.
+  %1 = -4.752728915737899559 E-212
+  ? sumpos(n = 1, n^(-2)) - zeta(2)  \\ even faster
+  time = 79 ms.
+  %2 = 0.E-211
+  ? sumpos(n=1,n^(-4/3)) - zeta(4/3)   \\ now much slower
+  time = 10,518 ms.
+  %3 = -9.980730723049589073 E-210
+  ? sumnumap(n=1,n^(-4/3)) - zeta(4/3)  \\ fast but inaccurate
+  time = 309 ms.
+  %4 = -2.57[...]E-78
+  ? sumnumap(n=[1,-4/3],n^(-4/3)) - zeta(4/3) \\ decrease rate: now accurate
+  time = 329 ms.
+  %6 = -5.418110963941205497 E-210
+  
+  ? tab = sumnumapinit([+oo,-4/3]);
+  time = 160 ms.
+  ? sumnumap(n=1, n^(-4/3), tab) - zeta(4/3) \\ faster with precomputations
+  time = 175 ms.
+  %5 = -5.418110963941205497 E-210
+  ? sumnumap(n=1,-log(n)*n^(-4/3), tab) - zeta'(4/3)
+  time = 258 ms.
+  %7 = 9.125239518216767153 E-210
+</pre><p></p>
+<p></p>
+<p>
+Note that in the case of slow decrease (&alpha; &lt; 0), the exact
+decrease rate must be indicated, while in the case of exponential decrease,
+a rough value will do. In fact, for exponentially decreasing functions,
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnumap"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnumap</a></code> is given for completeness and comparison purposes only: one
+of <code><a href="Sums__products__integrals_and_similar_functions.html#se:suminf"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">suminf</a></code> or <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumpos"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumpos</a></code> should always be preferred.</p>
+<p>
+</p><pre class="code">  ? sumnumap(n=[1, 1], 2^-n) \\ pretend we decrease as exp(-n)
+  time = 240 ms.
+  %8 = 1.000[...] \\ perfect
+  ? sumpos(n=1, 2^-n)
+  %9 = 1.000[...] \\ perfect and instantaneous
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>sumnumap</b>((void *E, GEN (*eval)(void*,GEN), GEN a, GEN tab, long prec))</code>
+where an omitted <em>tab</em> is coded as <code>NULL</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnumapinit"></div>
+<div id="sumnumapinit"></div>
+<h4>sumnumapinit({<em>asymp</em>})</h4>
+<p>
+Initialize tables for Abel-Plana summation of a series &sum; f(n),
+where f is holomorphic in a right half-plane.
+If given, <code>asymp</code> is of the form [<code>+oo</code>, &alpha;],
+as in <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code> and indicates the decrease rate at infinity of functions
+to be summed. A positive
+&alpha; &gt; 0 encodes an exponential decrease of type exp(-&alpha; n) and
+a negative -2 &lt; &alpha; &lt; -1 encodes a slow polynomial decrease of type
+n<sup>&alpha;</sup>.</p>
+<p>
+</p><pre class="code">  ? \p200
+  ? sumnumap(n=1, n^-2);
+  time = 163 ms.
+  ? tab = sumnumapinit();
+  time = 160 ms.
+  ? sumnum(n=1, n^-2, tab); \\ faster
+  time = 7 ms.
+  
+  ? tab = sumnumapinit([+oo, log(2)]); \\ decrease like 2^-n
+  time = 164 ms.
+  ? sumnumap(n=1, 2^-n, tab) - 1
+  time = 36 ms.
+  %5 = 3.0127431466707723218 E-282
+  
+  ? tab = sumnumapinit([+oo, -4/3]); \\ decrease like n^(-4/3)
+  time = 166 ms.
+  ? sumnumap(n=1, n^(-4/3), tab);
+  time = 181 ms.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sumnumapinit</b>(GEN asymp = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnuminit"></div>
+<div id="sumnuminit"></div>
+<h4>sumnuminit({<em>asymp</em>})</h4>
+<p>
+Initialize tables for Euler-MacLaurin delta summation of a series with
+positive terms. If given, <code>asymp</code> is of the form [<code>+oo</code>, &alpha;],
+as in <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code> and indicates the decrease rate at infinity of functions
+to be summed. A positive
+&alpha; &gt; 0 encodes an exponential decrease of type exp(-&alpha; n) and
+a negative -2 &lt; &alpha; &lt; -1 encodes a slow polynomial decrease of type
+n<sup>&alpha;</sup>.</p>
+<p>
+</p><pre class="code">  ? \p200
+  ? sumnum(n=1, n^-2);
+  time = 200 ms.
+  ? tab = sumnuminit();
+  time = 188 ms.
+  ? sumnum(n=1, n^-2, tab); \\ faster
+  time = 8 ms.
+  
+  ? tab = sumnuminit([+oo, log(2)]); \\ decrease like 2^-n
+  time = 200 ms.
+  ? sumnum(n=1, 2^-n, tab)
+  time = 44 ms.
+  
+  ? tab = sumnuminit([+oo, -4/3]); \\ decrease like n^(-4/3)
+  time = 200 ms.
+  ? sumnum(n=1, n^(-4/3), tab);
+  time = 221 ms.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sumnuminit</b>(GEN asymp = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnumlagrange"></div>
+<div id="sumnumlagrange"></div>
+<h4>sumnumlagrange(n = a, f, {<em>tab</em>})</h4>
+<p>
+Numerical summation of f(n) from n = a to + oo  using Lagrange
+summation; a must be an integer, and the optional argument <code>tab</code> is
+the output of <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnumlagrangeinit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnumlagrangeinit</a></code>. By default, the program assumes that
+the Nth remainder has an asymptotic expansion in integral powers of 1/N.
+If not, initialize <code>tab</code> using <code>sumnumlagrangeinit(al)</code>, where
+the asymptotic expansion of the remainder is integral powers of 1/N<sup>al</sup>;
+al can be equal to 1 (default), 1/2, 1/3, or 1/4, and also
+equal to 2, but in this latter case it is the Nth remainder minus one
+half of the last summand which has an asymptotic expansion in integral
+powers of 1/N^2.</p>
+<p>
+</p><pre class="code">  ? \p1000
+  ? z3 = zeta(3);
+  ? sumpos(n = 1, n^-3) - z3
+  time = 8,088 ms.
+  %2 = -2.08[...] E-1001
+  ? sumnumlagrange(n = 1, n^-3) - z3 \\ much faster than sumpos
+  time = 40 ms.
+  %3 = 0.E-1001
+  ? tab = sumnumlagrangeinit(2);
+  time = 20 ms.
+  ? sumnumlagrange(n = 1, n^-3, tab) - z3
+  time = 4 ms. /* even faster */
+  %5 = 0.E-1001
+  
+  ? \p115
+  ? tab = sumnumlagrangeinit([1/3,1/3]);
+  time = 316 ms.
+  ? sumnumlagrange(n = 1, n^-(7/3), tab) - zeta(7/3)
+  time = 24 ms.
+  %7 = 0.E-115
+  ? sumnumlagrange(n = 1, n^(-2/3) - 3*(n^(1/3)-(n-1)^(1/3)), tab) - zeta(2/3)
+  time = 32 ms.
+  %8 = 1.0151767349262596893 E-115
+</pre><p></p>
+<p></p>
+<p>
+<b>Complexity.</b>
+The function f is evaluated at O(D) integer arguments,
+where D  ~  <code>realprecision</code>.log(10).</p>
+<p>
+The library syntax is <code><b>sumnumlagrange</b>((void *E, GEN (*eval)(void*, GEN), GEN a, GEN tab, long prec))</code>
+where an omitted <em>tab</em> is coded as <code>NULL</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnumlagrangeinit"></div>
+<div id="sumnumlagrangeinit"></div>
+<h4>sumnumlagrangeinit({<em>asymp</em>}, {<em>c1</em>})</h4>
+<p>
+Initialize tables for Lagrange summation of a series. By
+default, assume that the remainder R(n) = &sum;<sub>m &geq; n</sub> f(m)
+has an asymptotic expansion
+R(n) = &sum;<sub>m &geq; n</sub> f(n)  ~  &sum;<sub>i &geq; 1</sub> a<sub>i</sub> / n^i
+at infinity. The argument <code>asymp</code> allows to specify different
+expansions:</p>
+<p>
+<b>*</b> a real number &beta; means
+ R(n) = n<sup>-&beta;</sup> &sum;<sub>i &geq; 1</sub> a<sub>i</sub> / n^i </p>
+<p>
+<b>*</b> a <code>t_CLOSURE</code> g means
+R(n) = g(n) &sum;<sub>i &geq; 1</sub> a<sub>i</sub> / n^i
+(The preceding case corresponds to g(n) = n<sup>-&beta;</sup>.)</p>
+<p>
+<b>*</b> a pair [&alpha;,&beta;] where &beta; is as above and
+&alpha; &in;  {2, 1, 1/2, 1/3, 1/4}. We let R<sub>2</sub>(n) = R(n) - f(n)/2
+and R_&alpha;(n) = R(n) for &alpha; != 2. Then
+R_&alpha;(n) = g(n) &sum;<sub>i &geq; 1</sub> a<sub>i</sub> / n<sup>i&alpha;</sup>
+Note that the initialization times increase considerable for the &alpha;
+is this list (1/4 being the slowest).</p>
+<p>
+The constant c1 is technical and computed by the program, but can be set
+by the user: the number of interpolation steps will be chosen close to
+c1.B, where B is the bit accuracy.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \p2000
+  ? sumnumlagrange(n=1, n^-2);
+  time = 173 ms.
+  ? tab = sumnumlagrangeinit();
+  time = 172 ms.
+  ? sumnumlagrange(n=1, n^-2, tab);
+  time = 4 ms.
+  
+  ? \p115
+  ? sumnumlagrange(n=1, n^(-4/3)) - zeta(4/3);
+  %1 = -0.1093[...] \\ junk: expansion in n^(1/3)
+  time = 84 ms.
+  ? tab = sumnumlagrangeinit([1/3,0]); \\ alpha = 1/3
+  time = 336 ms.
+  ? sumnumlagrange(n=1, n^(-4/3), tab) - zeta(4/3)
+  time = 84 ms.
+  %3 = 1.0151767349262596893 E-115 \\ now OK
+  
+  ? tab = sumnumlagrangeinit(1/3); \\ alpha = 1, beta = 1/3: much faster
+  time = 3ms
+  ? sumnumlagrange(n=1, n^(-4/3), tab) - zeta(4/3) \\ ... but wrong
+  %5 = -0.273825[...]   \\ junk !
+  ? tab = sumnumlagrangeinit(-2/3); \\ alpha = 1, beta = -2/3
+  time = 3ms
+  ? sumnumlagrange(n=1, n^(-4/3), tab) - zeta(4/3)
+  %6 = 2.030353469852519379 E-115 \\ now OK
+</pre><p>
+in The final example with &zeta;(4/3), the remainder
+R<sub>1</sub>(n) is of the form n<sup>-1/3</sup> &sum;<sub>i &geq; 0</sub> a<sub>i</sub> / n^i, i.e.
+n<sup>2/3</sup> &sum;<sub>i &geq; 1</sub> a<sub>i</sub> / n^i. The explains the wrong result
+for &beta; = 1/3 and the correction with &beta; = -2/3.</p>
+<p>
+The library syntax is <code>GEN <b>sumnumlagrangeinit</b>(GEN asymp = NULL, GEN c1 = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnummonien"></div>
+<div id="sumnummonien"></div>
+<h4>sumnummonien(n = a, f, {<em>tab</em>})</h4>
+<p>
+Numerical summation &sum;<sub>n &geq; a</sub> f(n) at high accuracy, the variable
+n taking values from the integer a to + oo  using Monien summation,
+which assumes that f(1/z) has a complex analytic continuation in a (complex)
+neighbourhood of the segment [0,1].</p>
+<p>
+The function f is evaluated at O(D / log D) real arguments,
+where D  ~  <code>realprecision</code>.log(10).
+By default, assume that f(n) = O(n<sup>-2</sup>) and has a non-zero asymptotic
+expansion
+f(n) = &sum;<sub>i &geq; 2</sub> a<sub>i</sub> n<sup>-i</sup>
+at infinity. To handle more complicated behaviors and allow time-saving
+precomputations (for a given <code>realprecision</code>), see <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnummonieninit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnummonieninit</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>sumnummonien0</b>(GEN n, GEN f, GEN tab = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnummonieninit"></div>
+<div id="sumnummonieninit"></div>
+<h4>sumnummonieninit({<em>asymp</em>}, {w}, {<em>n0</em> = 1})</h4>
+<p>
+Initialize tables for Monien summation of a series &sum;<sub>n &geq; n<sub>0</sub></sub>
+f(n) where f(1/z) has a complex analytic continuation in a (complex)
+neighbourhood of the segment [0,1].</p>
+<p>
+By default, assume that f(n) = O(n<sup>-2</sup>) and has a non-zero asymptotic
+expansion
+f(n) = &sum;<sub>i &geq; 2</sub> a<sub>i</sub> / n^i
+at infinity. Note that the sum starts at i = 2! The argument <code>asymp</code>
+allows to specify different expansions:</p>
+<p>
+<b>*</b> a real number &beta; &gt; 0 means
+ f(n) = &sum;<sub>i &geq; 1</sub> a<sub>i</sub> / n<sup>i + &beta;</sup>
+(Now the summation starts at 1.)</p>
+<p>
+<b>*</b> a vector [&alpha;,&beta;] of reals, where we must have &alpha; &gt; 0
+and &alpha; + &beta; &gt; 1 to ensure convergence, means that
+ f(n) = &sum;<sub>i &geq; 1</sub> a<sub>i</sub> / n<sup>&alpha; i + &beta;</sup>
+Note that <code>asymp</code> = [1, &beta;] is equivalent to
+<code>asymp</code> = &beta;.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \p57
+  ? s = sumnum(n = 1, sin(1/sqrt(n)) / n); \\ reference point
+  
+  ? \p38
+  ? sumnummonien(n = 1, sin(1/sqrt(n)) / n) - s
+  %2 = -0.001[...] \\ completely wrong
+  
+  ? t = sumnummonieninit(1/2);  \\ f(n) = sum<sub>i</sub> 1 / n^(i+1/2)
+  ? sumnummonien(n = 1, sin(1/sqrt(n)) / n, t) - s
+  %3 = 0.E-37 \\ now correct
+</pre><p>
+(As a matter of fact, in the above summation, the
+result given by <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnum</a></code> at <code>\p38</code> is slighly incorrect,
+so we had to increase the accuracy to <code>\p57</code>.)</p>
+<p>
+The argument w is used to sum expressions of the form
+ &sum;<sub>n &geq; n<sub>0</sub></sub> f(n) w(n),
+for varying f <em>as above</em>, and fixed weight function w, where we
+further assume that the auxiliary sums
+g<sub>w</sub>(m) = &sum;<sub>n &geq; n<sub>0</sub></sub> w(n) / n<sup>&alpha; m + &beta;</sup> 
+converge for all m &geq; 1. Note that for non-negative integers k,
+and weight w(n) = (log n)^k, the function g<sub>w</sub>(m) = &zeta;<sup>(k)</sup>(&alpha; m +
+&beta;) has a simple expression; for general weights, g<sub>w</sub> is
+computed using <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnum</a></code>. The following variants are available</p>
+<p>
+<b>*</b> an integer k &geq; 0, to code w(n) = (log n)^k;</p>
+<p>
+<b>*</b> a <code>t_CLOSURE</code> computing the values w(n), where we
+assume that w(n) = O(n^&epsilon;) for all &epsilon; &gt; 0;</p>
+<p>
+<b>*</b> a vector [w, <code>fast</code>], where w is a closure as above
+and <code>fast</code> is a scalar;
+we assume that w(n) = O(n<sup><code>fast</code>+&epsilon;</sup>); note that
+<code>w</code> = [w, 0] is equivalent to <code>w</code> = w. Note that if
+w decreases exponentially, <code><a href="Sums__products__integrals_and_similar_functions.html#se:suminf"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">suminf</a></code> should be used instead.</p>
+<p>
+The subsequent calls to <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnummonien"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnummonien</a></code> <em>must</em> use the same value
+of n<sub>0</sub> as was used here.</p>
+<p>
+</p><pre class="code">  ? \p300
+  ? sumnummonien(n = 1, n^-2*log(n)) + zeta'(2)
+  time = 328 ms.
+  %1 = -1.323[...]E-6 \\ completely wrong, f does not satisfy hypotheses !
+  ? tab = sumnummonieninit(, 1); \\ codes w(n) = log(n)
+  time = 3,993 ms.
+  ? sumnummonien(n = 1, n^-2, tab) + zeta'(2)
+  time = 41 ms.
+  %3 = -5.562684646268003458 E-309  \\ now perfect
+  
+  ? tab = sumnummonieninit(, n-&gt;log(n)); \\ generic, slower
+  time = 9,808 ms.
+  ? sumnummonien(n = 1, n^-2, tab) + zeta'(2)
+  time = 40 ms.
+  %5 = -5.562684646268003458 E-309  \\ identical result
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sumnummonieninit</b>(GEN asymp = NULL, GEN w = NULL, GEN n0 = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumnumrat"></div>
+<div id="sumnumrat"></div>
+<h4>sumnumrat(F, a)</h4>
+<p>
+&sum;<sub>n &geq; a</sub>F(n), where F is a rational function of degree less
+than or equal to -2 and where poles of F at integers  &geq; a are
+omitted from the summation. The argument a must be a <code>t_INT</code>
+or <code>-oo</code>.</p>
+<p>
+</p><pre class="code">  ? sumnumrat(1/(x^2+1)^2,0)
+  %1 = 1.3068369754229086939178621382829073480
+  ? sumnumrat(1/x^2, -oo) \\ value at x=0 is discarded
+  %2 = 3.2898681336964528729448303332920503784
+  ? 2*zeta(2)
+  %3 = 3.2898681336964528729448303332920503784
+</pre><p>
+When deg F = -1, we define
+&sum;<sub>- oo </sub><sup> oo </sup> F(n) := &sum;<sub>n &geq; 0</sub> (F(n) + F(-1-n)):</p>
+<p>
+</p><pre class="code">  ? sumnumrat(1/x, -oo)
+  %4 = 0.E-38
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sumnumrat</b>(GEN F, GEN a, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumpos"></div>
+<div id="sumpos"></div>
+<h4>sumpos(X = a, <em>expr</em>, {<em>flag</em> = 0})</h4>
+<p>
+Numerical summation of the series <em>expr</em>, which must be a series of
+terms having the same sign, the formal variable X starting at a. The
+algorithm used is Van Wijngaarden's trick for converting such a series into
+an alternating one, then we use <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code>. For regular functions, the
+function <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnum</a></code> is in general much faster once the initializations
+have been made using <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumnuminit"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumnuminit</a></code>.</p>
+<p>
+The routine is heuristic and assumes that <em>expr</em> is more or less a
+decreasing function of X. In particular, the result will be completely
+wrong if <em>expr</em> is 0 too often. We do not check either that all terms
+have the same sign. As <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code>, this function should be used to
+try and guess the value of an infinite sum.</p>
+<p>
+If <em>flag</em> = 1, use <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code>(,1) instead of <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code>(,0), see
+Section <a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">se:sumalt</a>. Requiring more stringent analytic properties for
+rigorous use, but allowing to compute fewer series terms.</p>
+<p>
+To reach accuracy 10<sup>-p</sup>, both algorithms require O(p^2) space;
+furthermore, assuming the terms decrease polynomially (in O(n<sup>-C</sup>)), both
+need to compute O(p^2) terms. The <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumpos"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumpos</a></code>(,1) variant has a smaller
+implied constant (roughly 1.5 times smaller). Since the <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code>(,1)
+overhead is now small compared to the time needed to compute series terms,
+this last variant should be about 1.5 faster. On the other hand, the
+achieved accuracy may be much worse: as for <code><a href="Sums__products__integrals_and_similar_functions.html#se:sumalt"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">sumalt</a></code>, since
+conditions for rigorous use are hard to check, the routine is best used
+heuristically.</p>
+<p>
+The library syntax is <code><b>sumpos</b>(void *E, GEN (*eval)(void*,GEN),GEN a,long prec)</code>. Also
+available is <code>sumpos2</code> with the same arguments (<em>flag</em> = 1).</p>
+<p>
+
+<hr>
+</body>

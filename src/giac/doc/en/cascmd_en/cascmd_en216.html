@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Repeated function composition: @@
+</title>
+</head>
+<body >
+<a href="cascmd_en215.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en217.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec496" class="subsection">5.16.5  Repeated function composition: <span style="font-family:monospace">@@</span>
+<a id="hevea_default407"></a></h3>
+<p>With <span style="font-family:monospace">Xcas</span>, the repeated composition of a function with itself
+<span style="font-style:italic">n</span> ∈ ℕ times is done with the infixed operator
+<span style="font-family:monospace">@@</span> (see Section <a href="cascmd_en207.html#ssec%3Axcasops">5.14.1</a>).</p><h4 id="sec497" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(sin@@3)(x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">sin<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(sin@@2)(pi/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en215.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en217.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

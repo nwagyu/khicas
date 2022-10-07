@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Quelques compléments</title>
+</head>
+<body >
+<a href="casrouge017.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge019.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec508" class="chapter">Chapitre 18  Quelques compléments</h1>
+<h2 id="sec509" class="section">18.1  Pour réutiliser le graphe d’une fonction utilisateur</h2>
+<p>
+Lorsque <span style="font-family:monospace">Xcas</span> fait le graphe <span style="font-family:monospace">G</span> d’une fonction utilisateur <span style="font-family:monospace">g</span>, 
+dans la réponse, il va figurer l’expression formelle de <span style="font-family:monospace">g(x)</span> et si 
+cette fonction contient des tests, lorsque on va reutiliser <span style="font-family:monospace">G</span> il y aura 
+un message d’erreur car il ne sait pas évaluer les tests contenus dans 
+<span style="font-family:monospace">g(x)</span>. Pour ne pas avoir ce genre d’erreurs, il faut alors commencer 
+l’écriture de la fonction <span style="font-family:monospace">g</span> par un test sur le type de ses
+arguments qui est : si les arguments ne sont pas réels on renvoie la fonction 
+quotée.<br>
+<span style="font-weight:bold">Exemple</span>
+</p><pre class="verbatim">g(x):={
+si type(x)!=DOM_FLOAT alors 
+  retourne 'g'(x); 
+fsi;
+si x&lt;=-1 alors 
+  retourne -1;
+fsi;
+si -1&lt;x  et x&lt;1 alors 
+  retourne sin(pi*x/2);
+fsi;
+si 1&lt;= x alors 
+retourne 1;
+fsi;
+}:;
+f(x,y):={
+si type(x)!=DOM_FLOAT et type(y)!=DOM_FLOAT alors 
+  retourne 'f'(x,y) 
+fsi;
+si x^2+y^2&lt;=2 alors 
+  retourne 2
+fsi;
+si x^2+y^2&gt;2 alors 
+  retourne x^2+y^2 
+fsi;
+}
+:;
+</pre><p>
+On tape par exempple :<br>
+<span style="font-family:monospace">G:=plotfunc(g(x))</span> ou <br>
+<span style="font-family:monospace">F:=plotfunc(f(x,y),[x=-4..4,y=-4..4]);</span>
+et pour voir le cercle <span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup>=2 :<br>
+<span style="font-family:monospace">plotparam([x,sqrt(2-x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2),2],[x,y],affichage=1);</span><br>
+<span style="font-family:monospace">plotparam([x,-sqrt(2-x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2),2],[x,y],affichage=1)</span>
+</p>
+<h2 id="sec510" class="section">18.2  Les programmes de quadrillage</h2>
+<p>
+Voici les programmes qui permettent de paire du papier quadrillé 
+(<span style="font-family:monospace">papierq</span>), du papier triangulé (<span style="font-family:monospace">papiert</span>), du papier pointé 
+(<span style="font-family:monospace">papierp</span>).</p><p><span style="font-family:monospace">u</span> est le pas en <span style="font-family:monospace">x</span>,<br>
+<span style="font-family:monospace">v</span> est le pas en <span style="font-family:monospace">y</span>,<br>
+les lignes sont parallèles à <span style="font-family:monospace">y=x*tan(t)</span> avec <span style="font-family:monospace">0&lt;t&lt;pi</span> 
+et à <span style="font-family:monospace">y=cste</span> 
+dans le rectangle <span style="font-family:monospace">[x1,x2]*[y1,y2]</span>
+</p><pre class="verbatim">papierq(u,v,t,x1,x2,y1,y2):={
+  local x3,y3,y4,L,k,q,j,j0;
+  si normal(t-pi)&gt;=0 ou normal(t)&lt;=0  alors return "0&lt;=t&lt;=pi";fsi;
+  si x2&lt;x1 alors j:=x1;x1:=x2;x2:=j;fsi;
+  si y2&lt;y1 alors j:=y1;y1:=y2;y2:=j;fsi;
+  L:=polygone(x1+i*y1,x1+i*y2,x2+i*y2,x2+i*y1);
+  pour k de y1 jusque y2 pas v faire 
+    L:=L,segment(x1+i*k,x2+i*k);
+  fpour;
+  si normal(t-pi/2)==0 alors
+    pour j de x1 jusque x2 pas u faire 
+      L:=L,segment(j+i*y1,j+i*y2);
+    fpour;
+    return L;
+  fsi;
+  k:=evalf((y2-y1)/tan(t));
+  si normal(t-pi/2)&lt;0 alors
+    q:=floor(k/u+1e-12);
+    pour j de x1-q*u jusque x1 pas u faire
+      y3:=tan(t)*(x2-j)+y1;
+      y4:=tan(t)*(x1-j)+y1;
+      x3:=(y2-y1)/tan(t)+j;
+      si y3&lt;y2 alors L:=L,segment (x1+i*y4,x2+i*y3); fsi;
+      si x3&lt;x2 alors L:=L,segment (x1+i*y4,x3+i*y2); fsi;
+    fpour;
+    pour j de x1 jusque x2 pas u faire
+      y3:=tan(t)*(x2-j)+y1;
+      x3:=(y2-y1)/tan(t)+j;
+      si y3&lt;y2 alors L:=L,segment (j+i*y1,x2+i*y3); fsi;
+      si x3&lt;x2 alors L:=L,segment (j+i*y1,x3+i*y2); fsi;
+    fpour;
+    return L;
+  fsi;
+  si normal(t-pi/2)&gt;0 alors
+    j:=x1; tantque j&lt;=x2 faire
+      y3:=tan(t)*(x1-j)+y1;
+      x3:=(y2-y1)/tan(t)+j;
+      si y3&lt;y2 alors L:=L,segment (j+i*y1,x1+i*y3); fsi;
+      si x3&gt;x1 alors L:=L,segment (j+i*y1,x3+i*y2); fsi;
+      j:=j+u;
+    ftantque;
+    q:=ceil(k/u-1e-12);
+    tantque j&lt;=x2-q*u faire
+      y3:=tan(t)*(x1-j)+y1;
+      y4:=tan(t)*(x2-j)+y1;
+      x3:=(y2-y1)/tan(t)+j;
+      si normal(y3-y2)&lt;0 alors L:=L,segment (x2+i*y4,x1+i*y3); fsi;
+      si normal(x3-x1)&gt;0 alors L:=L,segment (x2+i*y4,x3+i*y2); fsi;
+      j:=j+u;
+    ftantque;
+    return L;
+  fsi;
+}
+:;
+papiert(u,v,t,x1,x2,y1,y2):={
+  local x3,y3,y4,L,k,q,j,u1,t1,L;
+  //si normal(t-pi/2)==0 alors retourne -atan(v/u)+pi; fsi;
+  u1:=v/tan(t);
+  si normal(u1-u)==0 alors t1:=pi/2; fsi;
+  si normal(u1-u)&gt;0 alors t1:=atan(v/(u1-u)); fsi;
+  si normal(u1-u)&lt;0 alors t1:=atan(v/(u1-u))+pi; fsi;
+  L:=papierq(u,v,t,x1,x2,y1,y2);
+  L:=L,papierq(u,v,t1,x1,x2,y1,y2);
+  retourne L;
+}:;
+papierp(u,v,t,x1,x2,y1,y2):={
+  local j,k,L,q,q2,x3;
+  si normal(t-pi)&gt;=0 ou normal(t)&lt;=0  alors return "0&lt;t&lt;pi";fsi;
+  L:=NULL;
+  L:=L,polygone(x1+i*y1,x2+i*y1,x2+i*y2,x1+i*y2);
+  si x2&lt;x1 alors j:=x1;x1:=x2;x2:=j;fsi;
+  si y2&lt;y1 alors j:=y1;y1:=y2;y2:=j;fsi;
+  pour j de y1 jusque y2 pas v faire 
+    x3:=evalf((j-y1)/tan(t));
+    q:=floor(x3/u+1e-12);
+    pour k de x1-q*u+x3 jusque x2 pas u faire 
+      L:=L,point(k+i*j);
+    fpour;
+  fpour;
+  retourne L;
+}:;
+</pre>
+<hr>
+<a href="casrouge017.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge019.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Modular forms</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h3 class="center">Index: Modular forms</h3>
+<div style="font-size: 80%; text-align: justify;"><A href="Modular_forms.html#Modular_form_spaces" target="entryFrame">Modular form spaces</A>,
+<A href="Modular_forms.html#Generalized_modular_forms" target="entryFrame">Generalized modular forms</A>,
+<A href="Modular_forms.html#getcache" target="entryFrame">getcache</A>,
+<A href="Modular_forms.html#lfunmf" target="entryFrame">lfunmf</A>,
+<A href="Modular_forms.html#mfDelta" target="entryFrame">mfDelta</A>,
+<A href="Modular_forms.html#mfEH" target="entryFrame">mfEH</A>,
+<A href="Modular_forms.html#mfEk" target="entryFrame">mfEk</A>,
+<A href="Modular_forms.html#mfTheta" target="entryFrame">mfTheta</A>,
+<A href="Modular_forms.html#mfatkin" target="entryFrame">mfatkin</A>,
+<A href="Modular_forms.html#mfatkineigenvalues" target="entryFrame">mfatkineigenvalues</A>,
+<A href="Modular_forms.html#mfatkininit" target="entryFrame">mfatkininit</A>,
+<A href="Modular_forms.html#mfbasis" target="entryFrame">mfbasis</A>,
+<A href="Modular_forms.html#mfbd" target="entryFrame">mfbd</A>,
+<A href="Modular_forms.html#mfbracket" target="entryFrame">mfbracket</A>,
+<A href="Modular_forms.html#mfcoef" target="entryFrame">mfcoef</A>,
+<A href="Modular_forms.html#mfcoefs" target="entryFrame">mfcoefs</A>,
+<A href="Modular_forms.html#mfconductor" target="entryFrame">mfconductor</A>,
+<A href="Modular_forms.html#mfcosets" target="entryFrame">mfcosets</A>,
+<A href="Modular_forms.html#mfcuspisregular" target="entryFrame">mfcuspisregular</A>,
+<A href="Modular_forms.html#mfcusps" target="entryFrame">mfcusps</A>,
+<A href="Modular_forms.html#mfcuspval" target="entryFrame">mfcuspval</A>,
+<A href="Modular_forms.html#mfcuspwidth" target="entryFrame">mfcuspwidth</A>,
+<A href="Modular_forms.html#mfderiv" target="entryFrame">mfderiv</A>,
+<A href="Modular_forms.html#mfderivE2" target="entryFrame">mfderivE2</A>,
+<A href="Modular_forms.html#mfdescribe" target="entryFrame">mfdescribe</A>,
+<A href="Modular_forms.html#mfdim" target="entryFrame">mfdim</A>,
+<A href="Modular_forms.html#mfdiv" target="entryFrame">mfdiv</A>,
+<A href="Modular_forms.html#mfeigenbasis" target="entryFrame">mfeigenbasis</A>,
+<A href="Modular_forms.html#mfeigensearch" target="entryFrame">mfeigensearch</A>,
+<A href="Modular_forms.html#mfeisenstein" target="entryFrame">mfeisenstein</A>,
+<A href="Modular_forms.html#mfembed" target="entryFrame">mfembed</A>,
+<A href="Modular_forms.html#mfeval" target="entryFrame">mfeval</A>,
+<A href="Modular_forms.html#mffields" target="entryFrame">mffields</A>,
+<A href="Modular_forms.html#mffromell" target="entryFrame">mffromell</A>,
+<A href="Modular_forms.html#mffrometaquo" target="entryFrame">mffrometaquo</A>,
+<A href="Modular_forms.html#mffromlfun" target="entryFrame">mffromlfun</A>,
+<A href="Modular_forms.html#mffromqf" target="entryFrame">mffromqf</A>,
+<A href="Modular_forms.html#mfgaloistype" target="entryFrame">mfgaloistype</A>,
+<A href="Modular_forms.html#mfhecke" target="entryFrame">mfhecke</A>,
+<A href="Modular_forms.html#mfheckemat" target="entryFrame">mfheckemat</A>,
+<A href="Modular_forms.html#mfinit" target="entryFrame">mfinit</A>,
+<A href="Modular_forms.html#mfisCM" target="entryFrame">mfisCM</A>,
+<A href="Modular_forms.html#mfisequal" target="entryFrame">mfisequal</A>,
+<A href="Modular_forms.html#mfkohnenbasis" target="entryFrame">mfkohnenbasis</A>,
+<A href="Modular_forms.html#mfkohnenbijection" target="entryFrame">mfkohnenbijection</A>,
+<A href="Modular_forms.html#mfkohneneigenbasis" target="entryFrame">mfkohneneigenbasis</A>,
+<A href="Modular_forms.html#mflinear" target="entryFrame">mflinear</A>,
+<A href="Modular_forms.html#mfmanin" target="entryFrame">mfmanin</A>,
+<A href="Modular_forms.html#mfmul" target="entryFrame">mfmul</A>,
+<A href="Modular_forms.html#mfnumcusps" target="entryFrame">mfnumcusps</A>,
+<A href="Modular_forms.html#mfparams" target="entryFrame">mfparams</A>,
+<A href="Modular_forms.html#mfperiodpol" target="entryFrame">mfperiodpol</A>,
+<A href="Modular_forms.html#mfperiodpolbasis" target="entryFrame">mfperiodpolbasis</A>,
+<A href="Modular_forms.html#mfpetersson" target="entryFrame">mfpetersson</A>,
+<A href="Modular_forms.html#mfpow" target="entryFrame">mfpow</A>,
+<A href="Modular_forms.html#mfsearch" target="entryFrame">mfsearch</A>,
+<A href="Modular_forms.html#mfshift" target="entryFrame">mfshift</A>,
+<A href="Modular_forms.html#mfshimura" target="entryFrame">mfshimura</A>,
+<A href="Modular_forms.html#mfslashexpansion" target="entryFrame">mfslashexpansion</A>,
+<A href="Modular_forms.html#mfspace" target="entryFrame">mfspace</A>,
+<A href="Modular_forms.html#mfsplit" target="entryFrame">mfsplit</A>,
+<A href="Modular_forms.html#mfsturm" target="entryFrame">mfsturm</A>,
+<A href="Modular_forms.html#mfsymbol" target="entryFrame">mfsymbol</A>,
+<A href="Modular_forms.html#mfsymboleval" target="entryFrame">mfsymboleval</A>,
+<A href="Modular_forms.html#mftaylor" target="entryFrame">mftaylor</A>,
+<A href="Modular_forms.html#mftobasis" target="entryFrame">mftobasis</A>,
+<A href="Modular_forms.html#mftocoset" target="entryFrame">mftocoset</A>,
+<A href="Modular_forms.html#mftonew" target="entryFrame">mftonew</A>,
+<A href="Modular_forms.html#mftraceform" target="entryFrame">mftraceform</A>,
+<A href="Modular_forms.html#mftwist" target="entryFrame">mftwist</A>
+</div></body>

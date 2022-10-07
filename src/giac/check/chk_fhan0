@@ -1,0 +1,4 @@
+#! /bin/sh
+unset LANG
+../src/icas TP00-sol.cas > TP00.tst
+diff TP00.tst TP00-sol.cas.out1 || diff TP00.tst TP00-sol.cas.out2 || diff TP00.tst TP00-sol.cas.out3

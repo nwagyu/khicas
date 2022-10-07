@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Squares in space: square
+</title>
+</head>
+<body >
+<a href="cascmd_en915.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en917.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dsquares" class="subsection">14.8.1  Squares in space: <span style="font-family:monospace">square</span>
+<a id="hevea_default1622"></a></h3>
+<p>See Section <a href="cascmd_en818.html#ssec%3A2dsquares">13.9.1</a> for squares in the plane.</p><p>The <span style="font-family:monospace">square</span> command creates squares.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">square</span> takes three mandatory arguments and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">P</span>, three points.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">var1,var2</span>, two variable names.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">square(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">P</span> ⟨,<span style="font-style:italic">var1,var2</span>⟩<span style="font-family:monospace">)</span>
+returns and draws the square with one side <span style="font-style:italic">AB</span> and the remaining
+sides in the same half-plane as <span style="font-style:italic">P</span>.<br>
+ If the arguments <span style="font-style:italic">var1</span> and <span style="font-family:monospace">var2</span> are given, they
+will be assigned to the new vertices.
+</li></ul><h4 id="sec2329" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:= point(0,0,0);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">B:= point(3,3,3);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">P:= point(0,0,3);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">square(A,B,P)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en325.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:= point(0,0,0);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">B:= point(3,3,3);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">P:= point(0,0,3);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">square(A,B,P,C,D)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">coordinates(C), coordinates(D)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−3 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">+6</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−3 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">+6</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,3 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">+3</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,3 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en915.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en917.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

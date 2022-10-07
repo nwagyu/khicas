@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Hessenberg matrix reduction: hessenberg SCHUR
+
+</title>
+</head>
+<body >
+<a href="cascmd_en523.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en525.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1290" class="subsection">5.48.12  Hessenberg matrix reduction: <span style="font-family:monospace">hessenberg</span> <span style="font-family:monospace">SCHUR</span>
+<a id="hevea_default904"></a>
+<a id="hevea_default905"></a></h3>
+<p>A <em>Hessenberg</em> matrix is a square matrix where the coefficients
+below the sub-principal diagonal are all 0s. The <span style="font-family:monospace">hessenberg</span>
+command finds a Hessenberg matrix equivalent to a given square matrix.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">hessenberg</span> takes one mandatory argument and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, an integer, either 0, −1, −2 or a prime number
+greater than 1 (by default <span style="font-style:italic">n</span>=0).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">hessenberg(</span><span style="font-style:italic">A</span> ⟨ <span style="font-style:italic">n</span> ⟩<span style="font-family:monospace">)</span> returns a list
+[<span style="font-style:italic">P</span>,<span style="font-style:italic">B</span>] with <span style="font-style:italic">B</span>=<span style="font-style:italic">P</span><sup>−1</sup><span style="font-style:italic">AP</span> and: 
+<ul class="itemize"><li class="li-itemize">
+if <span style="font-style:italic">n</span>=0, <span style="font-style:italic">B</span> is a Hessenberg matrix.
+</li><li class="li-itemize">if <span style="font-style:italic">n</span>=−1, the calculations are approximate and <span style="font-style:italic">B</span> is upper
+triangular.
+</li><li class="li-itemize">if <span style="font-style:italic">n</span>=−2, the calculations are approximate, <span style="font-style:italic">P</span> is
+orthogonal and <span style="font-style:italic">B</span> has zero sub-subdiagonal elements. 
+</li></ul>
+</li></ul><p>
+<span style="font-family:monospace">SCHUR(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> is equivalent to <span style="font-family:monospace">hessenberg(</span><span style="font-style:italic">A</span><span style="font-family:monospace">,-1)</span>,
+which is compatible with HP calculators. </p><h4 id="sec1291" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">A:=[[3,2,2,2,2],[2,1,2,-1,-1],[2,2,1,-1,1],[2,-1,-1,3,1],[2,-1,1,1,2]];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">[P,B]:=hessenberg(A)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">[P,B]:= hessenberg(A,0);</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >−1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">13</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">8</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">7</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+Indeed:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pcar(A)</span>
+</div>
+<span style="font-family:monospace">and:</span>
+<div class="center">
+<span style="font-family:monospace">pcar(B)</span>
+</div>
+both return:<br>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,−10,13,71,−50,−113</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+and it is easily verified that <span style="font-family:monospace">B=inv(P)*A*P</span>.
+</li><li class="li-itemize">With <span style="font-family:monospace">A</span> as above:
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">B:= hessenberg(A,-1);</span>
+</div>
+<span style="font-style:italic">Output (to 2 digits):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0.73</td><td style="text-align:center;white-space:nowrap" >−0.057</td><td style="text-align:center;white-space:nowrap" >−0.42</td><td style="text-align:center;white-space:nowrap" >−0.17</td><td style="text-align:center;white-space:nowrap" >−0.51</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.25</td><td style="text-align:center;white-space:nowrap" >−0.53</td><td style="text-align:center;white-space:nowrap" >0.72</td><td style="text-align:center;white-space:nowrap" >−0.38</td><td style="text-align:center;white-space:nowrap" >−0.048</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.35</td><td style="text-align:center;white-space:nowrap" >−0.44</td><td style="text-align:center;white-space:nowrap" >−0.3</td><td style="text-align:center;white-space:nowrap" >0.19</td><td style="text-align:center;white-space:nowrap" >0.74</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.34</td><td style="text-align:center;white-space:nowrap" >0.68</td><td style="text-align:center;white-space:nowrap" >0.17</td><td style="text-align:center;white-space:nowrap" >−0.46</td><td style="text-align:center;white-space:nowrap" >0.43</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.41</td><td style="text-align:center;white-space:nowrap" >0.25</td><td style="text-align:center;white-space:nowrap" >0.44</td><td style="text-align:center;white-space:nowrap" >0.76</td><td style="text-align:center;white-space:nowrap" >−0.063
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">
+</td><td class="dcell">,
+</td></tr>
+</table>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >6.7</td><td style="text-align:center;white-space:nowrap" >8.7<span style="font-style:italic">e</span>−15</td><td style="text-align:center;white-space:nowrap" >−2<span style="font-style:italic">e</span>−13</td><td style="text-align:center;white-space:nowrap" >2.7<span style="font-style:italic">e</span>−14</td><td style="text-align:center;white-space:nowrap" >−1.4<span style="font-style:italic">e</span>−13</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >4.6</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >−1.9</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >1.7</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >−0.0</td><td style="text-align:center;white-space:nowrap" >−1.2
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en523.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en525.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

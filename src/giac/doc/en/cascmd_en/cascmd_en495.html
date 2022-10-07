@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Defining sparse matrices
+</title>
+</head>
+<body >
+<a href="cascmd_en494.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en496.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:spmatrices" class="subsection">5.46.1  Defining sparse matrices
+</h3>
+<p>A matrix is <em>sparse</em> if most of its elements are 0. To specify a
+sparse matrix, it is easier to define the non-zero elements.
+This can be done with a table (see Section <a href="index.html#sec%3Atable">5.43</a>).
+The <span style="font-family:monospace">matrix</span> command (see Section <a href="cascmd_en473.html#ssec%3Amatrixcommand">5.44.4</a>) or the
+<span style="font-family:monospace">convert</span> command (see Section <a href="cascmd_en273.html#ssec%3Aconvert">5.23.26</a>) can then
+turn the table into a matrix.</p><h4 id="sec1229" class="subsubsection">Example</h4>
+<p>
+First, define the non-zero elements.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= table((0,0)=1, (1,1)=2, (2,2)=3, (3,3) = 4, (4,4) = 5)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">purge(A)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A[0..4,0..4]:=[1,2,3,4,5]</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table border=1  style="border-spacing:0;" class="cellpadding1"><tr><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold"><span style="font-style:italic">Key</span></span></td><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold"><span style="font-style:italic">Value</span></span></td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0,0</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1,1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2,2</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">3,3</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">4,4</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >5</td></tr>
+</table></td></tr>
+</table><p>
+This table can be converted to a matrix with either the
+<span style="font-family:monospace">convert</span> command or the <span style="font-family:monospace">matrix</span> command.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">a:= convert(A,array)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">a:= matrix(A)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en494.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en496.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

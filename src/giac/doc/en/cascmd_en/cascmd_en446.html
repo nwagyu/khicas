@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sum of list (or matrix) elements transformed by a function: count
+</title>
+</head>
+<body >
+<a href="cascmd_en445.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en447.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1032" class="subsection">5.40.26  Sum of list (or matrix) elements transformed by a function: <span style="font-family:monospace">count</span>
+<a id="hevea_default732"></a></h3>
+<p>The <span style="font-family:monospace">count</span> command adds the values of a function applied to
+the elements of a list or matrix.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">count</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>, a real-valued or boolean-valued function.
+</li><li class="li-itemize"><span style="font-style:italic">L</span>, a list or a matrix.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">count(</span><span style="font-style:italic">f</span>,<span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns the sum of <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) for all
+elements <span style="font-style:italic">x</span> in <span style="font-style:italic">L</span>.<br>
+ If <span style="font-style:italic">f</span> is a boolean-valued function, this is just the number of
+elements for which the boolean is true.
+</li></ul><h4 id="sec1033" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">count((x)-&gt;x,[2,12,45,3,7,78])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">147
+</td></tr>
+</table>
+because: 2+12+45+3+7+78=147.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">count((x)-&gt;x&lt;12,[2,12,45,3,7,78])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">count((x)-&gt;x==12,[2,12,45,3,7,78])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">count((x)-&gt;x&gt;12,[2,12,45,3,7,78])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">count(x-&gt;x^2,[3,5,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">35
+</td></tr>
+</table>
+Indeed 3<sup>2</sup>+5<sup>2</sup>+1<sup>1</sup>=35.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">count(id,[3,5,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">9
+</td></tr>
+</table>
+Indeed, <span style="font-family:monospace">id</span> is the identity functions and 3+5+1=9.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">count(1,[3,5,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3
+</td></tr>
+</table>
+Indeed, <span style="font-family:monospace">1</span> is the constant function equal to 1 and 1+1+1=3.
+</li></ul>
+<hr>
+<a href="cascmd_en445.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en447.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

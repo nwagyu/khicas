@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>fsolve with the option brent_solver
+</title>
+</head>
+<body >
+<a href="cascmd_en715.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en717.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1845" class="subsection">10.4.2  <span style="font-family:monospace">fsolve</span> with the option <span style="font-family:monospace">brent_solver</span>
+<a id="hevea_default1304"></a><a id="hevea_default1305"></a></h3>
+<p>The Brent method interpolates of <span style="font-style:italic">f</span> at three points, finds the
+intersection of the interpolation with the <span style="font-style:italic">x</span> axis, computes the sign
+of <span style="font-style:italic">f</span> at this point and chooses the interval where the sign changes.
+It is generically faster than bisection.</p><h4 id="sec1846" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">fsolve((cos(x))=x,x,-1..1,brent_solver)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.739085133215</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en715.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en717.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title></title>
+</head>
+<body >
+<a href="cascmd_en366.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en368.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h4 id="sec852" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+An integer <span style="font-family:monospace">n</span> in ℤ/13ℤ<br>
+<span style="font-family:monospace">n:=12%13</span>.
+</li><li class="li-itemize">a vector <span style="font-family:monospace">V</span> in ℤ/13ℤ <br>
+<span style="font-family:monospace">V:=[1,2,3]%13</span> or
+<span style="font-family:monospace">V:=[1%13,2%13,3%13]</span>.
+</li><li class="li-itemize">a matrix <span style="font-family:monospace">A</span> in ℤ/13ℤ <br>
+<span style="font-family:monospace">A:=[[1,2,3],[2,3,4]]%13</span> or <br>
+<span style="font-family:monospace">A:=[[1%13,2%13,3%13],[[2%13,3%13,4%13]]</span>.
+</li><li class="li-itemize">a polynomial <span style="font-family:monospace">A</span> in ℤ/13ℤ[<span style="font-style:italic">x</span>] in symbolic representation<br>
+<span style="font-family:monospace">A:=(2*x^2+3*x-1)%13</span> or <br>
+<span style="font-family:monospace">A:=2%13*x^2+3%13*x-1%13</span>.
+</li><li class="li-itemize">a polynomial <span style="font-family:monospace">A</span> in ℤ/13ℤ[<span style="font-style:italic">x</span>] in list representation<br>
+<span style="font-family:monospace">A:=poly1[1,2,3]%13</span> or
+<span style="font-family:monospace">A:=poly1[1%13,2%13,3%13]</span>.
+</li></ul><p>
+To recover an object <span style="font-family:monospace">o</span> with integer coefficients instead of modular
+coefficients, input <span style="font-family:monospace">o % 0</span>. For example:<br>
+<span style="font-style:italic">Input:</span>
+</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">o:=4%7;:</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">o%0</span>
+</td></tr>
+</table><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−3
+</td></tr>
+</table><p><br>
+</p><p><span style="font-weight:bold">Remark.</span>
+Most <span style="font-family:monospace">Xcas</span> functions that work on integers or polynomials with
+integer coefficients will often work the same on 
+ℤ/<span style="font-style:italic">p</span>ℤ or ℤ/<span style="font-style:italic">p</span>ℤ[<span style="font-style:italic">x</span>], with the
+obvious exception that the input and output will be modular. They
+will be listed in the remaining subsections.
+For some commands in ℤ/<span style="font-style:italic">p</span>ℤ or in ℤ/<span style="font-style:italic">p</span>ℤ[<span style="font-style:italic">x</span>], 
+<span style="font-family:monospace">p</span> must be a prime integer.</p></li><li class="li-itemize">In <span style="font-family:monospace">Maple</span> mode, integers modulo <span style="font-style:italic">p</span> are represented like
+usual integers instead of using specific modular integers.
+To avoid confusion with normal commands, modular
+commands are written with a capital letter (inert form) and followed
+by the mod command.<p>The Maple commands will be discussed in Section <a href="index.html#sec%3Amodulmap">5.35</a>.
+</p></li></ul>
+<hr>
+<a href="cascmd_en366.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en368.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

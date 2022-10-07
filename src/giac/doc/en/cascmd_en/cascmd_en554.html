@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Simulated annealing minimization: simulated_annealing</title>
+</head>
+<body >
+<a href="cascmd_en553.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en555.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1387" class="subsection">5.53.5  Simulated annealing minimization: <span style="font-family:monospace">simulated_annealing</span><a id="hevea_default946"></a></h3>
+<p>The <span style="font-family:monospace">simulated_annealing</span> command attempts to find a point in a search space for which
+a real-valued cost function is minimized, by using the method of simulated annealing.</p><p><br>
+<span style="font-weight:bold">Note:</span> this function requires that <span style="font-family:monospace">giac</span> is linked to GNU Scientific Library.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">simulated_annealing</span> takes five mandatory arguments and one or two optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">x</span><sub>0</sub>, an initial configuration, which may be any object.
+</li><li class="li-itemize"><span style="font-style:italic">costfunc</span>, the <span style="font-weight:bold">cost function</span> which takes a configuration and returns a real number.
+</li><li class="li-itemize"><span style="font-style:italic">distfunc</span>, the <span style="font-weight:bold">distance function</span> which takes two configurations and returns the
+distance between them as a real number.
+</li><li class="li-itemize"><span style="font-style:italic">stepfunc</span>, the <span style="font-weight:bold">step function</span> which takes a configuration <span style="font-style:italic">c</span>
+and optionally a real number
+<span style="font-style:italic">maxstep</span> and returns a random configuration <span style="font-style:italic">c</span>′ which is a neighbor of <span style="font-style:italic">c</span>.
+If <span style="font-style:italic">stepfunc</span> accepts the <span style="font-style:italic">maxstep</span> argument, it can be used to limit the distance between
+<span style="font-style:italic">c</span> and <span style="font-style:italic">c</span>′.
+</li><li class="li-itemize"><span style="font-style:italic">csparam</span>, a vector [<span style="font-style:italic">k</span>,<span style="font-style:italic">T</span><sub>0</sub>,µ,<span style="font-style:italic">T</span><sub><span style="font-style:italic">min</span></sub>] which defines the <span style="font-weight:bold">cooling schedule</span>
+parameters, where <span style="font-style:italic">k</span> is a Boltzmann constant, <span style="font-style:italic">T</span><sub>0</sub> is the initial temperature, µ is the damping
+factor for temperature and <span style="font-style:italic">T</span><sub><span style="font-style:italic">min</span></sub> is the minimal temperature.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">iterparam</span>, a vector [<span style="font-style:italic">n</span>,<span style="font-style:italic">N</span>] of positive integers where <span style="font-style:italic">n</span> is the
+number of points tried before stepping and <span style="font-style:italic">N</span> is the number of iterations for each value of <span style="font-style:italic">T</span>.
+By default, <span style="font-style:italic">n</span>=10 and <span style="font-style:italic">N</span>=100.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">maxstep</span>, a real number which limits the step size from above.
+If this parameter is set, then <span style="font-style:italic">stepfunc</span> must accept two arguments and <span style="font-style:italic">maxstep</span>
+will be passed as the second argument whenever calling <span style="font-style:italic">stepfunc</span>.
+By default, this parameter is unset.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">simulated_annealing</span> returns the best configuration found in the context of cost function
+minimization. The method of simulated annealing gives good results in avoiding local minima, so
+the result is usually (close to) the global cost minimum.
+</li><li class="li-itemize">Simulated annealing is essentially a random walk in the search space.
+The probability of taking a step is determined by the Boltzmann distribution
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">p</span>=<span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span>+1</sub>−<span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span></sub></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span> <span style="font-style:italic">T</span></td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table>
+if <span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span>+1</sub>&gt;<span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span></sub>, and <span style="font-style:italic">p</span>=1 when <span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span>+1</sub>≤ <span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span></sub>. Here, <span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span></sub> and <span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span>+1</sub> are the configuration
+energies (costs). If the new energy is higher, a step is always taken, but it may also be taken if
+the new energy is lower then <span style="font-style:italic">E</span><sub><span style="font-style:italic">i</span></sub> (the probability of that event drops with <span style="font-style:italic">T</span>).
+The temperature <span style="font-style:italic">T</span> is initally set to a high value and lowered very slightly
+after the prescribed number of iterations <span style="font-style:italic">N</span> by using the formula <span style="font-style:italic">T</span>← <span style="font-style:italic">T</span>/µ. Here µ is
+usually slightly larger than 1.
+The cooling process stops when <span style="font-style:italic">T</span> reaches its minimum <span style="font-style:italic">T</span><sub><span style="font-style:italic">min</span></sub>.
+</li><li class="li-itemize">The functions <span style="font-style:italic">costfunc</span>, <span style="font-style:italic">distfunc</span> and <span style="font-style:italic">stepfunc</span> should return
+<span style="font-family:monospace">undef</span> to raise an error. In that case, <span style="font-family:monospace">simulated_annealing</span> will terminate
+immediately with an error message.
+</li><li class="li-itemize">Simulated annealing is frequently used to solve combinatorial optimization problems.
+</li></ul><h4 id="sec1388" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+In the first example, we find the global minimum of a damped sine wave function<sup><a id="text6" href="cascmd_en593.html#note6">3</a></sup>:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">e</span><sup>−(<span style="font-style:italic">x</span>−1)<sup>2</sup></sup>sin(8<span style="font-style:italic">x</span>). </td></tr>
+</table>
+This function has many local minima but only a single global minimum in the interval [1.0,1.5].
+We start from the point <span style="font-style:italic">x</span><sub>0</sub>=15.5, which is several local minima away from the solution.
+The following parameter values are used:
+<span style="font-style:italic">k</span>=1, <span style="font-style:italic">T</span><sub>0</sub>=0.008, µ=1.003, <span style="font-style:italic">T</span><sub><span style="font-style:italic">min</span></sub>=2× 10<sup>−6</sup>,
+<span style="font-style:italic">n</span>=20, <span style="font-style:italic">N</span>=100 and <span style="font-style:italic">maxstep</span>=1.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">simulated_annealing(15.5,x-&gt;exp(-(x-1)^2)*sin(8x),</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">                    (x,y)-&gt;abs(x-y),(x,m)-&gt;rand(x-m,x+m),</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">                    [1.0,0.008,1.003,2.0e-6],[20,100],1.0)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Possible output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.36313090008 </td></tr>
+</table>
+</li><li class="li-itemize">In the second example, we solve an instance of traveling salesman problem with 12 cities<sup><a id="text7" href="cascmd_en593.html#note7">4</a></sup>.
+We enter the cities alongside their latitude and longitude coordinates in an <span style="font-family:monospace">Xcas</span> table cell
+which we associate with the variable <span style="font-family:monospace">cities</span> (see Figure <a href="#fig%3Acities">5.1</a>).
+<blockquote class="figure"><div class="center"><div class="center"><hr style="width:80%;height:2"></div>
+<img src="cascmd_en018.png">
+<div class="caption"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="vertical-align:top;text-align:left;" >Figure 5.1: Cities used in the TSP example<a id="fig:cities"></a></td></tr>
+</table></div>
+<div class="center"><hr style="width:80%;height:2"></div></div></blockquote><p>We attempt to find the shortest tour which visits each city exactly once. A tour is represented by a
+permutation of cities. In total, there are 12!=479001600 possible configurations.</p><p>First we need to create a distance matrix which stores the distances between each two cities
+because each distance may be called for multiple times.
+We do so by applying the function <span style="font-family:monospace">dist_km</span> which computes the shortest distance
+(in kilometres) between two cities on a spherical model of Earth of radius <span style="font-style:italic">R</span>=6375 km.<br>
+ <span style="font-style:italic">Input:</span>
+</p><blockquote class="quote">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">dist_km:=proc(latitude1,longitude1,latitude2,longitude2)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  local R,sla1,cla1,slo1,clo1,sla2,cla2,slo2,clo2,x1,x2,y1,y2,z1,z2,p,a;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  R:=6375.0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  sla1:=sin(latitude1*pi/180); cla1:=cos(latitude1*pi/180);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  slo1:=sin(longitude1*pi/180); clo1:=cos(longitude1*pi/180);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  sla2:=sin(latitude2*pi/180); cla2:=cos(latitude2*pi/180);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  slo2:=sin(longitude2*pi/180); clo2:=cos(longitude2*pi/180);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  x1:=cla1*clo1; y1:=cla1*slo1; z1:=sla1;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  x2:=cla2*clo2; y2:=cla2*slo2; z2:=sla2;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  p:=x1*x2+y1*y2+z1*z2;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  a:=acos(p);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  return R*a;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">end:;</span>
+</td></tr>
+</table>
+</blockquote><p>
+Now we create the distance matrix by using the following commands.<br>
+ <span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">nc:=length(cities):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">dist_mat:=matrix(nc,nc,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  (j,k)-&gt;dist_km(cities[j,1],cities[j,2],cities[k,1],cities[k,2])):;</span>
+</td></tr>
+</table>
+</div><p>
+We generate a neighbor of a given tour by exchanging two random consecutive cities.
+The distance between two tours (configurations) is simply the Hamming distance.
+The cost of a tour is equal to its length (in kilometres).
+The three functions we require are thus entered as follows:
+</p><blockquote class="quote">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">distf:=proc(xp,yp)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  return hamdist(xp,yp);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">end:;</span>
+</td></tr>
+</table><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">costf:=proc(xp)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  local j,d;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  assume(j,symbol);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  d:=0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  for j from 0 to nc-1 do</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">    d+=dist_mat[xp[j],xp[irem(j+1,nc)]];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  od;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  return d;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">end:;</span>
+</td></tr>
+</table><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">stepf:=proc(xp)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  local j,jnext,tmp,xpmod;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  j:=rand(nc);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  jnext:=irem(j+1,nc);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  tmp:=xp[j];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  xpmod:=xp;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  xpmod[j]:=xpmod[jnext];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  xpmod[jnext]:=tmp;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  return xpmod;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">end:;</span>
+</td></tr>
+</table></blockquote><p>
+The initial tour is a random permutation of cities.<br>
+ <span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">x0:=randperm(nc):;</span>
+</div><p>
+The best tour may be found by entering the following command (note that we use the default values
+of <span style="font-style:italic">n</span> and <span style="font-style:italic">N</span>).<br>
+ <span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">best:=simulated_annealing(x0,costf,distf,stepf,[1.0,5000.0,1.005,5.0e-1])</span>
+</div><p>
+<span style="font-style:italic">Possible output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">7,2,8,6,0,3,5,9,1,11,10,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+The easiest way to visualize the result is to draw the tour as a directed graph.<br>
+ <span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">G:=graph(col(cities,0),best)</span><br>
+ </div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"a directed unweighted graph with 12 vertices and 12 arcs" </td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">draw_graph(set_vertex_positions(G,colswap(subMat(cities,0,1,11,2),0,1)),labels=false)</span>
+</div><p>
+Observe that we are swapping latitudes and longitudes to obtain a more appropriate layout.<br>
+ <span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en019.png">
+</div><p>
+(<span style="font-weight:bold">Note:</span> To display city names, set <span style="font-family:monospace">labels</span> to <span style="font-family:monospace">true</span>.)
+</p></li></ul>
+<hr>
+<a href="cascmd_en553.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en555.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

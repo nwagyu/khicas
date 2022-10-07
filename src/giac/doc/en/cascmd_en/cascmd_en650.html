@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Producing uniformly distributed random numbers: rand random alea hasard sample
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en649.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en651.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:rand" class="subsection">8.3.1  Producing uniformly distributed random numbers: <span style="font-family:monospace">rand</span> <span style="font-family:monospace">random</span> <span style="font-family:monospace">alea</span> <span style="font-family:monospace">hasard</span> <span style="font-family:monospace">sample</span>
+
+<a id="hevea_default1173"></a>
+<a id="hevea_default1174"></a>
+<a id="hevea_default1175"></a>
+<a id="hevea_default1176"></a>
+<a id="hevea_default1177"></a></h3>
+<p>The <span style="font-family:monospace">rand</span> command produces random numbers, chooses random
+elements from a list, or creates functions that produce random
+numbers.<br>
+<span style="font-family:monospace">random</span> and <span style="font-family:monospace">hasard</span> are synonyms for <span style="font-family:monospace">rand</span>.</p><p>To produce random real numbers:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rand</span> takes two optional arguments.
+<ul class="itemize"><li class="li-itemize">
+Optionally, <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, two real numbers. By default,
+<span style="font-style:italic">a</span>=0 and <span style="font-style:italic">b</span>=1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">rand([a,b])</span> returns a number in [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>) randomly and
+with equal probability.
+</li></ul><h4 id="sec1627" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rand()</span>
+</div>
+(to produce a random number in [0,1)).
+<span style="font-family:monospace">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.528489416465
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rand(1,1.5)</span>
+</div>
+(to produce a random number in [1,1.5)).
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.0012010464
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>To produce random integers:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rand</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, an integer.
+</li><li class="li-itemize"><span style="font-family:monospace">rand(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns a random integer in [0,<span style="font-style:italic">n</span>) (or (<span style="font-style:italic">n</span>,0] if
+<span style="font-style:italic">n</span> is negative).
+</li></ul><h4 id="sec1628" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">rand(5)</span>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3
+</td></tr>
+</table><p>You can then use <span style="font-family:monospace">rand</span> to find a random integer in a specified
+interval; if you want an random integer between 6 and 10, inclusive,
+for example, you can enter:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">6 + rand(11-6)</span>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">7
+</td></tr>
+</table><p><br>
+</p><p>Another way to get a random integer in a specified interval is with
+the <span style="font-family:monospace">randint</span> command.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">randint</span> takes two arguments:<br>
+ <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, two integers.
+</li><li class="li-itemize"><span style="font-family:monospace">randint(</span><span style="font-style:italic">n</span><sub>1</sub><span style="font-family:monospace">,</span><span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns a random
+integer between <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, inclusive.
+</li></ul><h4 id="sec1629" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">randint(6,10)</span>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">8
+</td></tr>
+</table><p><br>
+</p><p>To make a function which produces random numbers:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rand</span> takes one argument:<br>
+ <span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>, a range with real numbers <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">rand(</span><span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns a function 
+which will generate a random number in the interval from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>.
+</li></ul><h4 id="sec1630" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">r:=rand(1.0..2.5):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">r()</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.68151313369
+</td></tr>
+</table><p><br>
+</p><p>To choose elements without replacement:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rand</span> takes two or three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">p</span>, a positive integer.
+</li><li class="li-itemize">Either: <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, two integers.
+</li><li class="li-itemize">or: <span style="font-style:italic">L</span>, a list.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">rand(</span><span style="font-style:italic">p</span>,<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns a list of <span style="font-style:italic">p</span> distinct
+random integers from <span style="font-style:italic">n</span><sub>1</sub> to <span style="font-style:italic">n</span><sub>2</sub>.
+</li><li class="li-itemize"><span style="font-family:monospace">rand(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">p</span> elements without replacement from the list <span style="font-style:italic">L</span>.
+</li></ul><h4 id="sec1631" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rand(2,1,10)</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,9</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rand(3,["a","b","c","d","e","f","g","h"])</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"e","g","a"</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">The list can have repeated elements.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rand(4,["r","r","r","r","v","v","v"])</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"r","v","v","r"</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">sample</span> command will also randomly select items from a
+list without replacement.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sample</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-style:italic">p</span>, an integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">sample(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns a list of <span style="font-style:italic">p</span> items chosen
+randomly from <span style="font-style:italic">L</span>, without replacement.
+</li></ul><p>
+Note that with the <span style="font-family:monospace">sample</span> command, the list
+comes first and then the integer.</p><h4 id="sec1632" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sample(["r","r","r","r","v","v","v"],4)</span>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"v","v","v","r"</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en649.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en651.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

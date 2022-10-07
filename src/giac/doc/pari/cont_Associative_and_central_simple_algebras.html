@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Associative and central simple algebras</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h3 class="center">Index: Associative and central simple algebras</h3>
+<div style="font-size: 80%; text-align: justify;"><A href="Associative_and_central_simple_algebras.html#Basic_definitions" target="entryFrame">Basic definitions</A>,
+<A href="Associative_and_central_simple_algebras.html#Orders" target="entryFrame">Orders</A>,
+<A href="Associative_and_central_simple_algebras.html#Lattices" target="entryFrame">Lattices</A>,
+<A href="Associative_and_central_simple_algebras.html#GP_conventions" target="entryFrame">GP conventions</A>,
+<A href="Associative_and_central_simple_algebras.html#algadd" target="entryFrame">algadd</A>,
+<A href="Associative_and_central_simple_algebras.html#algalgtobasis" target="entryFrame">algalgtobasis</A>,
+<A href="Associative_and_central_simple_algebras.html#algaut" target="entryFrame">algaut</A>,
+<A href="Associative_and_central_simple_algebras.html#algb" target="entryFrame">algb</A>,
+<A href="Associative_and_central_simple_algebras.html#algbasis" target="entryFrame">algbasis</A>,
+<A href="Associative_and_central_simple_algebras.html#algbasistoalg" target="entryFrame">algbasistoalg</A>,
+<A href="Associative_and_central_simple_algebras.html#algcenter" target="entryFrame">algcenter</A>,
+<A href="Associative_and_central_simple_algebras.html#algcentralproj" target="entryFrame">algcentralproj</A>,
+<A href="Associative_and_central_simple_algebras.html#algchar" target="entryFrame">algchar</A>,
+<A href="Associative_and_central_simple_algebras.html#algcharpoly" target="entryFrame">algcharpoly</A>,
+<A href="Associative_and_central_simple_algebras.html#algdegree" target="entryFrame">algdegree</A>,
+<A href="Associative_and_central_simple_algebras.html#algdim" target="entryFrame">algdim</A>,
+<A href="Associative_and_central_simple_algebras.html#algdisc" target="entryFrame">algdisc</A>,
+<A href="Associative_and_central_simple_algebras.html#algdivl" target="entryFrame">algdivl</A>,
+<A href="Associative_and_central_simple_algebras.html#algdivr" target="entryFrame">algdivr</A>,
+<A href="Associative_and_central_simple_algebras.html#alggroup" target="entryFrame">alggroup</A>,
+<A href="Associative_and_central_simple_algebras.html#alggroupcenter" target="entryFrame">alggroupcenter</A>,
+<A href="Associative_and_central_simple_algebras.html#alghasse" target="entryFrame">alghasse</A>,
+<A href="Associative_and_central_simple_algebras.html#alghassef" target="entryFrame">alghassef</A>,
+<A href="Associative_and_central_simple_algebras.html#alghassei" target="entryFrame">alghassei</A>,
+<A href="Associative_and_central_simple_algebras.html#algindex" target="entryFrame">algindex</A>,
+<A href="Associative_and_central_simple_algebras.html#alginit" target="entryFrame">alginit</A>,
+<A href="Associative_and_central_simple_algebras.html#alginv" target="entryFrame">alginv</A>,
+<A href="Associative_and_central_simple_algebras.html#alginvbasis" target="entryFrame">alginvbasis</A>,
+<A href="Associative_and_central_simple_algebras.html#algisassociative" target="entryFrame">algisassociative</A>,
+<A href="Associative_and_central_simple_algebras.html#algiscommutative" target="entryFrame">algiscommutative</A>,
+<A href="Associative_and_central_simple_algebras.html#algisdivision" target="entryFrame">algisdivision</A>,
+<A href="Associative_and_central_simple_algebras.html#algisdivl" target="entryFrame">algisdivl</A>,
+<A href="Associative_and_central_simple_algebras.html#algisinv" target="entryFrame">algisinv</A>,
+<A href="Associative_and_central_simple_algebras.html#algisramified" target="entryFrame">algisramified</A>,
+<A href="Associative_and_central_simple_algebras.html#algissemisimple" target="entryFrame">algissemisimple</A>,
+<A href="Associative_and_central_simple_algebras.html#algissimple" target="entryFrame">algissimple</A>,
+<A href="Associative_and_central_simple_algebras.html#algissplit" target="entryFrame">algissplit</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatadd" target="entryFrame">alglatadd</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatcontains" target="entryFrame">alglatcontains</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatelement" target="entryFrame">alglatelement</A>,
+<A href="Associative_and_central_simple_algebras.html#alglathnf" target="entryFrame">alglathnf</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatindex" target="entryFrame">alglatindex</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatinter" target="entryFrame">alglatinter</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatlefttransporter" target="entryFrame">alglatlefttransporter</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatmul" target="entryFrame">alglatmul</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatrighttransporter" target="entryFrame">alglatrighttransporter</A>,
+<A href="Associative_and_central_simple_algebras.html#alglatsubset" target="entryFrame">alglatsubset</A>,
+<A href="Associative_and_central_simple_algebras.html#algmakeintegral" target="entryFrame">algmakeintegral</A>,
+<A href="Associative_and_central_simple_algebras.html#algmul" target="entryFrame">algmul</A>,
+<A href="Associative_and_central_simple_algebras.html#algmultable" target="entryFrame">algmultable</A>,
+<A href="Associative_and_central_simple_algebras.html#algneg" target="entryFrame">algneg</A>,
+<A href="Associative_and_central_simple_algebras.html#algnorm" target="entryFrame">algnorm</A>,
+<A href="Associative_and_central_simple_algebras.html#algpoleval" target="entryFrame">algpoleval</A>,
+<A href="Associative_and_central_simple_algebras.html#algpow" target="entryFrame">algpow</A>,
+<A href="Associative_and_central_simple_algebras.html#algprimesubalg" target="entryFrame">algprimesubalg</A>,
+<A href="Associative_and_central_simple_algebras.html#algquotient" target="entryFrame">algquotient</A>,
+<A href="Associative_and_central_simple_algebras.html#algradical" target="entryFrame">algradical</A>,
+<A href="Associative_and_central_simple_algebras.html#algramifiedplaces" target="entryFrame">algramifiedplaces</A>,
+<A href="Associative_and_central_simple_algebras.html#algrandom" target="entryFrame">algrandom</A>,
+<A href="Associative_and_central_simple_algebras.html#algrelmultable" target="entryFrame">algrelmultable</A>,
+<A href="Associative_and_central_simple_algebras.html#algsimpledec" target="entryFrame">algsimpledec</A>,
+<A href="Associative_and_central_simple_algebras.html#algsplit" target="entryFrame">algsplit</A>,
+<A href="Associative_and_central_simple_algebras.html#algsplittingdata" target="entryFrame">algsplittingdata</A>,
+<A href="Associative_and_central_simple_algebras.html#algsplittingfield" target="entryFrame">algsplittingfield</A>,
+<A href="Associative_and_central_simple_algebras.html#algsqr" target="entryFrame">algsqr</A>,
+<A href="Associative_and_central_simple_algebras.html#algsub" target="entryFrame">algsub</A>,
+<A href="Associative_and_central_simple_algebras.html#algsubalg" target="entryFrame">algsubalg</A>,
+<A href="Associative_and_central_simple_algebras.html#algtableinit" target="entryFrame">algtableinit</A>,
+<A href="Associative_and_central_simple_algebras.html#algtensor" target="entryFrame">algtensor</A>,
+<A href="Associative_and_central_simple_algebras.html#algtomatrix" target="entryFrame">algtomatrix</A>,
+<A href="Associative_and_central_simple_algebras.html#algtrace" target="entryFrame">algtrace</A>,
+<A href="Associative_and_central_simple_algebras.html#algtype" target="entryFrame">algtype</A>
+</div></body>

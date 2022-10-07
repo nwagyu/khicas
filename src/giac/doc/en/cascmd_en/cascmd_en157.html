@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Decomposing a permuation into a product of disjoint cycles: permu2cycles
+</title>
+</head>
+<body >
+<a href="cascmd_en156.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en158.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec324" class="subsection">5.9.3  Decomposing a permuation into a product of disjoint cycles: <span style="font-family:monospace">permu2cycles</span>
+<a id="hevea_default269"></a></h3>
+<p>Any permutation can be decomposed as a sequence of cycles which have
+no elements in common. For example, the permutation [1,3,4,0,2] can
+be written as a combination of the cycles [0,1,3] and [2,4].</p><p>The <span style="font-family:monospace">permu2cycles</span> command decomposes a permutation into a
+combination of cycles.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">permu2cycles</span> takes one argument:<br>
+ <span style="font-style:italic">p</span>, a permutation.
+</li><li class="li-itemize"><span style="font-family:monospace">permu2cycles(</span><span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns the decomposition of <span style="font-style:italic">p</span> as a product of
+disjoint cycles. A cycle is represented by a list, a cyclic decomposition is
+represented by a list of lists.
+</li></ul><h4 id="sec325" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">permu2cycles([1,3,4,5,2,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,3,5</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,4</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+In the answer the cycles of size 1 are omitted, except if <span style="font-style:italic">n</span>−1 is a
+fixed point of the permutation (this is required to find the value of
+<span style="font-style:italic">n</span> from the cycle decomposition).
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">permu2cycles([0,1,2,4,3,5])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,4</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">permu2cycles([0,1,2,3,5,4])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,5</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en156.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en158.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Making a sequence or a list: seq $
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en411.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en413.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:makeseq" class="subsection">5.39.2  Making a sequence or a list: <span style="font-family:monospace">seq</span> <span style="font-family:monospace">$</span>
+<a id="hevea_default683"></a>
+<a id="hevea_default684"></a>
+</h3>
+<p>The <span style="font-family:monospace">seq</span> command or <span style="font-family:monospace">$</span> operator can create a sequence or a list.</p><p>To create a sequence:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">seq</span> takes three mandatory arguments and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression depending on a parameter.
+</li><li class="li-itemize"><span style="font-style:italic">k</span>, the parameter.
+</li><li class="li-itemize"><span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span>, a range of values.
+The range can be combined with the parameter into one argument of
+<span style="font-style:italic">k</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>.
+</li><li class="li-itemize">Optionally <span style="font-style:italic">p</span>, a step size (by default 1 or -1, depending
+on whether <span style="font-style:italic">b</span>&gt;<span style="font-style:italic">a</span> or <span style="font-style:italic">b</span>&lt;<span style="font-style:italic">a</span>). This is only allowed
+if the previous two arguments are combined into one, <span style="font-style:italic">k</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>
+</li></ul>
+This is <span style="font-family:monospace">Maple</span>-like syntax.
+</li><li class="li-itemize"><span style="font-family:monospace">seq(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">k</span>,<span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> (or
+<span style="font-family:monospace">seq(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">k</span><span style="font-family:monospace">=</span><span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span>  ⟨ ,<span style="font-style:italic">p</span>⟩<span style="font-family:monospace">)</span>)
+returns the sequence formed by the values of <span style="font-family:monospace">expr</span>, as <span style="font-style:italic">k</span>
+changes from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span> in steps of <span style="font-style:italic">p</span>.
+</li></ul><p>Alternatively, a sequence can be created with the infixed <span style="font-family:monospace">$</span> operator.
+Namely, <span style="font-style:italic">expr</span><span style="font-family:monospace">$ </span><span style="font-style:italic">k</span><span style="font-family:monospace">=</span><span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span>
+returns the sequence formed by the values of <span style="font-family:monospace">expr</span> as <span style="font-style:italic">k</span>
+changes from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>. As a special case, <span style="font-style:italic">expr</span><span style="font-family:monospace">$
+</span><span style="font-style:italic">n</span> creates a sequence consisting of <span style="font-style:italic">n</span> copies of <span style="font-style:italic">expr</span>.</p><p>There are two ways to create a list with <span style="font-family:monospace">seq</span>.</p><p>First:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">seq</span> takes four mandatory arguments and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression depending on a parameter.
+</li><li class="li-itemize"><span style="font-style:italic">k</span>, the parameter.
+</li><li class="li-itemize"><span style="font-style:italic">a</span>, the beginning value of the parameter.
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, the ending value of the parameter.
+</li><li class="li-itemize">Optionally <span style="font-style:italic">p</span>, a step size (by default 1 or -1, depending
+on whether <span style="font-style:italic">b</span>&gt;<span style="font-style:italic">a</span> or <span style="font-style:italic">b</span>&lt;<span style="font-style:italic">a</span>).
+</li></ul>
+This is <span style="font-family:monospace">TI</span>-like syntax.
+</li><li class="li-itemize"><span style="font-family:monospace">seq(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">k</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>  ⟨,<span style="font-style:italic">p</span>⟩<span style="font-family:monospace">)</span>
+returns the list consisting of the values of <span style="font-family:monospace">expr</span>, as <span style="font-style:italic">k</span>
+changes from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span> in steps of <span style="font-style:italic">p</span>.
+</li><li class="li-itemize">As a special case, <span style="font-family:monospace">seq(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span>
+creates a list consisting of <span style="font-style:italic">n</span> copies of <span style="font-style:italic">expr</span>.
+</li></ul><p><br>
+</p><p>Second:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">seq</span> takes two arguments:
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, a positive integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">seq(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span>
+returns the list consisting of <span style="font-style:italic">n</span> copies of <span style="font-family:monospace">expr</span>.
+</li></ul><p><span style="font-weight:bold">Remark.</span>
+</p><ul class="itemize"><li class="li-itemize">
+In <span style="font-family:monospace">Xcas</span> mode, the precedence of <span style="font-family:monospace">$</span> is not the
+same as it is, for example, in <span style="font-family:monospace">Maple</span>. In case of doubt,
+put the arguments of <span style="font-family:monospace">$</span> in parenthesis.
+For example, the equivalent of <span style="font-family:monospace">seq(j^2,j=-1..3)</span> is
+<span style="font-family:monospace">(j^2)$(j=-1..3)</span> and returns <span style="font-family:monospace">(1,0,1,4,9)</span>.
+</li><li class="li-itemize">With <span style="font-family:monospace">Maple</span> syntax, <span style="font-family:monospace">j,a..b,p</span> is not valid.
+To specify a step <span style="font-style:italic">p</span> for the variation of
+<span style="font-style:italic">j</span> from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>, use <span style="font-family:monospace">j=a..b,p</span> or use the <span style="font-family:monospace">TI</span> syntax
+<span style="font-family:monospace">j,a,b,p</span> and get the sequence from the list with
+<span style="font-family:monospace">op(…)</span>.
+</li></ul><h4 id="sec957" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+To create a sequence:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,1..4)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j=1..4)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">(j^3)$(j=1..4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1,8,27,64
+</td></tr>
+</table>
+</li><li class="li-itemize">To create a list:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,1,4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,8,27,64</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">To create a sequence:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j=-1..4,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−1,1,27
+</td></tr>
+</table>
+To create a list:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,-1,4,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1,1,27</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,0,5,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,8,64</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,5,0,-2)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,5,0,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">125,27,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,1,3,0.5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,3.375,8.0,15.625,27.0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(j^3,j,1,3,1/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">1,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">27</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">8</td></tr>
+</table></td><td class="dcell">,8,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">125</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">8</td></tr>
+</table></td><td class="dcell">,27</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">To create a list with several copies of the same element:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(t,4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">t</span>,<span style="font-style:italic">t</span>,<span style="font-style:italic">t</span>,<span style="font-style:italic">t</span></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">To create a sequence with several copies of the same element:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">seq(t,k=1..4)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">t$4</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">t</span>,<span style="font-style:italic">t</span>,<span style="font-style:italic">t</span>,<span style="font-style:italic">t</span>
+</td></tr>
+</table>
+</li></ul><h4 id="sec958" class="subsubsection">Examples of sequences being used.</h4>
+<ul class="itemize"><li class="li-itemize">
+Find the third derivative of ln(<span style="font-style:italic">t</span>):<br>
+(See Section <a href="cascmd_en224.html#ssec%3Adiff">5.19.4</a>).)<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">diff(log(t),t$3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">t</span><sup>3</sup></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">l:=[[2,3],[5,1],[7,2]]</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">seq((l[k][0])$(l[k][1]),k=0 .. size(l)-1)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2,2,2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">5</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">7,7</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+then:
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">eval(ans())</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2,2,2,5,7,7
+</td></tr>
+</table>
+</li><li class="li-itemize">Transform a string into a list of its characters:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">chn := "abracadbra"</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-style:italic">seq(chn[j],j,0,size(chn)-1)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<span style="font-family:monospace">["a","b","r","a","c","a","d","a","b","r","a"]</span>
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en411.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en413.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

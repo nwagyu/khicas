@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The standard infixed operators on real numbers: + - * / ^
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en136.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en138.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:usualinfix" class="subsection">5.8.2  The standard infixed operators on real numbers: <span style="font-family:monospace">+</span> <span style="font-family:monospace">-</span> <span style="font-family:monospace">*</span> <span style="font-family:monospace">/</span> <span style="font-family:monospace">^</span>
+<a id="hevea_default242"></a>
+<a id="hevea_default243"></a>
+<a id="hevea_default244"></a>
+<a id="hevea_default245"></a>
+<a id="hevea_default246"></a>
+</h3>
+<p>The <span style="font-family:monospace">+</span>, <span style="font-family:monospace">-</span>, <span style="font-family:monospace">*</span>, <span style="font-family:monospace">/</span>, and <span style="font-family:monospace">^</span>
+operators are the usual infixed operators to do addition, subtraction,
+multiplication, division and raising to a power.</p><h4 id="sec281" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">3+2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">3-2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">3*2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  6
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">3/2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">3.2/2.1</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1.52380952381
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">3^2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  9
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">3.2^2.1</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  11.5031015682
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+You can use the square key or the cube key if your keyboard has one;
+for example: 3<sup>2</sup> returns 9.</p><p><br>
+</p><p><span style="font-weight:bold">Remarks on non integral powers.</span><br>
+If <span style="font-style:italic">x</span> is not an integer, then <span style="font-style:italic">a</span><sup><span style="font-style:italic">x</span></sup>=exp(<span style="font-style:italic">x</span>  ln(<span style="font-style:italic">a</span>)), hence if <span style="font-style:italic">x</span>
+is not rational, then <span style="font-style:italic">a</span><sup><span style="font-style:italic">x</span></sup> is well-defined only for <span style="font-style:italic">a</span>&gt;0. If <span style="font-style:italic">x</span> is
+rational and <span style="font-style:italic">a</span>&lt;0, the principal branch of the logarithm is used,
+leading to a complex number. Note the difference between
+(<span style="font-style:italic">a</span>)<sup>1/<span style="font-style:italic">n</span></sup> and <span style="font-style:italic">a</span><sup>1/<span style="font-style:italic">n</span></sup> when <span style="font-style:italic">n</span> is an odd integer.</p><h4 id="sec282" class="subsubsection">Example</h4>
+<p>
+To draw the graph of <span style="font-style:italic">y</span>=∛<span style="text-decoration:overline"><span style="font-style:italic">x</span></span><sup><span style="text-decoration:overline">3</span></sup><span style="text-decoration:overline">−</span><span style="text-decoration:overline"><span style="font-style:italic">x</span></span><sup><span style="text-decoration:overline">2</span></sup>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">plotfunc(ifte(x&gt;0,(x^3-x^2)^(1/3),</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">-(x^2-x^3)^(1/3)),x,xstep=0.01)</span>
+</td></tr>
+</table>
+</div><p>
+You might also input:
+</p><div class="center">
+<span style="font-family:monospace">plotimplicit(y^3=x^3-x^2)</span>
+</div><p>
+but this is much slower and much less accurate.</p>
+<hr>
+<a href="cascmd_en136.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en138.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

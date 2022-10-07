@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Combining matrices</title>
+</head>
+<body >
+<a href="cascmd_en471.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en473.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1120" class="subsection">5.44.3  Combining matrices</h3>
+<h4 id="sec1121" class="subsubsection">Making a matrix with a list of matrices: <span style="font-family:monospace">blockmatrix</span>
+<a id="hevea_default793"></a></h4>
+<p>The <span style="font-family:monospace">blockmatrix</span> combines several matrices into one larger
+matrix.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">blockmatrix</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">m</span> and <span style="font-style:italic">n</span>, two positive integers.
+</li><li class="li-itemize"><span style="font-style:italic">L</span>, a list of <span style="font-style:italic">m</span>· <span style="font-style:italic">n</span> matrices such that the first <span style="font-style:italic">m</span>
+matrices have the same number of rows; the next <span style="font-style:italic">m</span> matrices have
+the same number of rows, etc; and the number of columns in each
+group of <span style="font-style:italic">m</span> matrices is the same (for example, all the matrices in
+<span style="font-style:italic">L</span> could have the same dimension), so that the <span style="font-style:italic">n</span> groups of <span style="font-style:italic">m</span>
+matrices can be stacked above each other to form a larger matrix.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">blockmatrix(</span><span style="font-style:italic">m</span>,<span style="font-style:italic">n</span>,<span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns the larger matrix formed
+by the matrices in <span style="font-style:italic">L</span> by putting each group of <span style="font-style:italic">m</span> matrices next to
+each other, and stacking the resulting <span style="font-style:italic">n</span> matrices on top of each
+other.<p>If the matrices in <span style="font-style:italic">L</span> each have the same dimension <span style="font-style:italic">p</span> × <span style="font-style:italic">q</span>,
+the result will be a matrix with dimension <span style="font-style:italic">p</span>*<span style="font-style:italic">n</span> × <span style="font-style:italic">q</span>*<span style="font-style:italic">m</span>.
+</p></li></ul><h4 id="sec1122" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">blockmatrix(2,3,[idn(2),idn(2),idn(2), idn(2),idn(2),idn(2)])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">blockmatrix(3,2,[idn(2),idn(2), idn(2),idn(2),idn(2),idn(2)])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">blockmatrix(2,2,[idn(2),newMat(2,3), newMat(3,2),idn(3)])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">blockmatrix(3,2,[idn(1),newMat(1,4), newMat(2,3),idn(2),newMat(1,2),[[1,1,1]]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:=[[1,1],[1,1]];B:=[[1],[1]]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">blockmatrix(2,3,[2*A,3*A,4*A,5*B,newMat(2,4),6*B])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1123" class="subsubsection">Making a matrix from two matrices: <span style="font-family:monospace">semi_augment</span>
+<a id="hevea_default794"></a></h4>
+<p>The <span style="font-family:monospace">semi_augment</span> command concatenates two matrices with the
+same number of columns.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">semi_augment</span> takes two arguments:<br>
+ <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span>, two matrices with the same number of columns.
+</li><li class="li-itemize"><span style="font-family:monospace">semi_augment(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span><span style="font-family:monospace">)</span> returns the matrix which has the
+rows of <span style="font-style:italic">A</span> followed by the rows of <span style="font-style:italic">B</span>.
+</li></ul><h4 id="sec1124" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">semi_augment([[3,4],[2,1],[0,1]],[[1,2],[4,5]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<div class="center"><span style="font-family:monospace">[[3,4],[2,1],[0,1],[1,2],[4,5]]</span></div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">semi_augment([[3,4,2]],[[1,2,4]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+Note the difference with <span style="font-family:monospace">concat</span>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">concat([[3,4,2]],[[1,2,4]]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+Indeed, when the two matrices <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> have the same dimension, <span style="font-family:monospace">concat</span>
+makes a matrix with the same number of rows as <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> by
+gluing them side by side.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">concat([[3,4],[2,1],[0,1]],[[1,2],[4,5]]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">but input:</span>
+<div class="center">
+<span style="font-family:monospace">concat([[3,4],[2,1]],[[1,2],[4,5]]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1125" class="subsubsection">Making a matrix from two matrices: <span style="font-family:monospace">augment</span> <span style="font-family:monospace">concat</span>
+<a id="hevea_default795"></a>
+<a id="hevea_default796"></a></h4>
+<p>The <span style="font-family:monospace">augment</span> command glues two matrices, either side by side
+or one on top of the other.<br>
+Here, <span style="font-family:monospace">concat</span> can be used as a synonym for <span style="font-family:monospace">augment</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">augment</span> has two arguments:<br>
+ <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span>, two matrices with the same number of rows or the same
+number of columns.
+</li><li class="li-itemize"><span style="font-family:monospace">augment(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span><span style="font-family:monospace">)</span> returns the matrix consisting of:
+<ul class="itemize"><li class="li-itemize">
+if <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> have the same number of rows, then the matrix
+being returned consists of the columns of <span style="font-style:italic">A</span> followed by the
+columns of <span style="font-style:italic">B</span>; in other words, <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> are glued side by side.
+</li><li class="li-itemize">if <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> do not have the same number of rows but have
+the same number of columns, then the matrix being returned
+consists of the rows of <span style="font-style:italic">A</span> followed by the rows of <span style="font-style:italic">B</span>; in other
+words, <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> are glued one on top of the other.
+</li></ul>
+</li></ul><h4 id="sec1126" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">augment([[3,4,5],[2,1,0]],[[1,2],[4,5]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">augment([[3,4],[2,1],[0,1]],[[1,2],[4,5]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">augment([[3,4,2]],[[1,2,4]]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p>Note that if <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> have the same dimension, then
+<span style="font-family:monospace">augment(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span><span style="font-family:monospace">)</span> will return a matrix with the same number of
+rows as <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> by horizontal gluing. In that case, if you want
+to combine them by vertical gluing, you must use
+<span style="font-family:monospace">semi_augment(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span><span style="font-family:monospace">)</span>.
+</p>
+<h4 id="sec1127" class="subsubsection">Appending a column to a matrix: <span style="font-family:monospace">border</span>
+<a id="hevea_default797"></a></h4>
+<p>The <span style="font-family:monospace">border</span> command adds a column to a matrix.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">border</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, a list whose length equals the number of rows of <span style="font-style:italic">A</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">border(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns a matrix equal to <span style="font-style:italic">A</span> with the
+transpose of <span style="font-style:italic">L</span> forming an additional column to the right; so
+<div class="center">
+<span style="font-family:monospace">border(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)=tran([op(tran(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)),</span><span style="font-style:italic">b</span><span style="font-family:monospace">])=tran(append(tran(</span><span style="font-style:italic">A</span><span style="font-family:monospace">),</span><span style="font-style:italic">b</span><span style="font-family:monospace">))</span> 
+</div>
+</li></ul><h4 id="sec1128" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">border([[1,2,4],[3,4,5]],[6,7])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">border([[1,2,3,4],[4,5,6,8],[7,8,9,10]],[1,3,5])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >9</td><td style="text-align:center;white-space:nowrap" >10</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en471.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en473.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

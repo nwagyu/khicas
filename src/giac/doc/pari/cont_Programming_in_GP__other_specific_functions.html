@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Programming in GP: other specific functions</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h3 class="center">Index: Programming in GP: other specific functions</h3>
+<div style="font-size: 80%; text-align: justify;"><A href="Programming_in_GP__other_specific_functions.html#Strprintf" target="entryFrame">Strprintf</A>,
+<A href="Programming_in_GP__other_specific_functions.html#addhelp" target="entryFrame">addhelp</A>,
+<A href="Programming_in_GP__other_specific_functions.html#alarm" target="entryFrame">alarm</A>,
+<A href="Programming_in_GP__other_specific_functions.html#alias" target="entryFrame">alias</A>,
+<A href="Programming_in_GP__other_specific_functions.html#allocatemem" target="entryFrame">allocatemem</A>,
+<A href="Programming_in_GP__other_specific_functions.html#apply" target="entryFrame">apply</A>,
+<A href="Programming_in_GP__other_specific_functions.html#call" target="entryFrame">call</A>,
+<A href="Programming_in_GP__other_specific_functions.html#default" target="entryFrame">default</A>,
+<A href="Programming_in_GP__other_specific_functions.html#errname" target="entryFrame">errname</A>,
+<A href="Programming_in_GP__other_specific_functions.html#error" target="entryFrame">error</A>,
+<A href="Programming_in_GP__other_specific_functions.html#extern" target="entryFrame">extern</A>,
+<A href="Programming_in_GP__other_specific_functions.html#externstr" target="entryFrame">externstr</A>,
+<A href="Programming_in_GP__other_specific_functions.html#fileclose" target="entryFrame">fileclose</A>,
+<A href="Programming_in_GP__other_specific_functions.html#fileextern" target="entryFrame">fileextern</A>,
+<A href="Programming_in_GP__other_specific_functions.html#fileflush" target="entryFrame">fileflush</A>,
+<A href="Programming_in_GP__other_specific_functions.html#fileopen" target="entryFrame">fileopen</A>,
+<A href="Programming_in_GP__other_specific_functions.html#fileread" target="entryFrame">fileread</A>,
+<A href="Programming_in_GP__other_specific_functions.html#filereadstr" target="entryFrame">filereadstr</A>,
+<A href="Programming_in_GP__other_specific_functions.html#filewrite" target="entryFrame">filewrite</A>,
+<A href="Programming_in_GP__other_specific_functions.html#filewrite1" target="entryFrame">filewrite1</A>,
+<A href="Programming_in_GP__other_specific_functions.html#fold" target="entryFrame">fold</A>,
+<A href="Programming_in_GP__other_specific_functions.html#getabstime" target="entryFrame">getabstime</A>,
+<A href="Programming_in_GP__other_specific_functions.html#getenv" target="entryFrame">getenv</A>,
+<A href="Programming_in_GP__other_specific_functions.html#getheap" target="entryFrame">getheap</A>,
+<A href="Programming_in_GP__other_specific_functions.html#getrand" target="entryFrame">getrand</A>,
+<A href="Programming_in_GP__other_specific_functions.html#getstack" target="entryFrame">getstack</A>,
+<A href="Programming_in_GP__other_specific_functions.html#gettime" target="entryFrame">gettime</A>,
+<A href="Programming_in_GP__other_specific_functions.html#getwalltime" target="entryFrame">getwalltime</A>,
+<A href="Programming_in_GP__other_specific_functions.html#global" target="entryFrame">global</A>,
+<A href="Programming_in_GP__other_specific_functions.html#inline" target="entryFrame">inline</A>,
+<A href="Programming_in_GP__other_specific_functions.html#input" target="entryFrame">input</A>,
+<A href="Programming_in_GP__other_specific_functions.html#install" target="entryFrame">install</A>,
+<A href="Programming_in_GP__other_specific_functions.html#kill" target="entryFrame">kill</A>,
+<A href="Programming_in_GP__other_specific_functions.html#listcreate" target="entryFrame">listcreate</A>,
+<A href="Programming_in_GP__other_specific_functions.html#listinsert" target="entryFrame">listinsert</A>,
+<A href="Programming_in_GP__other_specific_functions.html#listkill" target="entryFrame">listkill</A>,
+<A href="Programming_in_GP__other_specific_functions.html#listpop" target="entryFrame">listpop</A>,
+<A href="Programming_in_GP__other_specific_functions.html#listput" target="entryFrame">listput</A>,
+<A href="Programming_in_GP__other_specific_functions.html#listsort" target="entryFrame">listsort</A>,
+<A href="Programming_in_GP__other_specific_functions.html#localbitprec" target="entryFrame">localbitprec</A>,
+<A href="Programming_in_GP__other_specific_functions.html#localprec" target="entryFrame">localprec</A>,
+<A href="Programming_in_GP__other_specific_functions.html#mapdelete" target="entryFrame">mapdelete</A>,
+<A href="Programming_in_GP__other_specific_functions.html#mapget" target="entryFrame">mapget</A>,
+<A href="Programming_in_GP__other_specific_functions.html#mapisdefined" target="entryFrame">mapisdefined</A>,
+<A href="Programming_in_GP__other_specific_functions.html#mapput" target="entryFrame">mapput</A>,
+<A href="Programming_in_GP__other_specific_functions.html#print" target="entryFrame">print</A>,
+<A href="Programming_in_GP__other_specific_functions.html#print1" target="entryFrame">print1</A>,
+<A href="Programming_in_GP__other_specific_functions.html#printf" target="entryFrame">printf</A>,
+<A href="Programming_in_GP__other_specific_functions.html#printp" target="entryFrame">printp</A>,
+<A href="Programming_in_GP__other_specific_functions.html#printsep" target="entryFrame">printsep</A>,
+<A href="Programming_in_GP__other_specific_functions.html#printsep1" target="entryFrame">printsep1</A>,
+<A href="Programming_in_GP__other_specific_functions.html#printtex" target="entryFrame">printtex</A>,
+<A href="Programming_in_GP__other_specific_functions.html#quit" target="entryFrame">quit</A>,
+<A href="Programming_in_GP__other_specific_functions.html#read" target="entryFrame">read</A>,
+<A href="Programming_in_GP__other_specific_functions.html#readstr" target="entryFrame">readstr</A>,
+<A href="Programming_in_GP__other_specific_functions.html#readvec" target="entryFrame">readvec</A>,
+<A href="Programming_in_GP__other_specific_functions.html#select" target="entryFrame">select</A>,
+<A href="Programming_in_GP__other_specific_functions.html#self" target="entryFrame">self</A>,
+<A href="Programming_in_GP__other_specific_functions.html#setrand" target="entryFrame">setrand</A>,
+<A href="Programming_in_GP__other_specific_functions.html#system" target="entryFrame">system</A>,
+<A href="Programming_in_GP__other_specific_functions.html#trap" target="entryFrame">trap</A>,
+<A href="Programming_in_GP__other_specific_functions.html#type" target="entryFrame">type</A>,
+<A href="Programming_in_GP__other_specific_functions.html#uninline" target="entryFrame">uninline</A>,
+<A href="Programming_in_GP__other_specific_functions.html#version" target="entryFrame">version</A>,
+<A href="Programming_in_GP__other_specific_functions.html#warning" target="entryFrame">warning</A>,
+<A href="Programming_in_GP__other_specific_functions.html#whatnow" target="entryFrame">whatnow</A>,
+<A href="Programming_in_GP__other_specific_functions.html#write" target="entryFrame">write</A>,
+<A href="Programming_in_GP__other_specific_functions.html#write1" target="entryFrame">write1</A>,
+<A href="Programming_in_GP__other_specific_functions.html#writebin" target="entryFrame">writebin</A>,
+<A href="Programming_in_GP__other_specific_functions.html#writetex" target="entryFrame">writetex</A>
+</div></body>

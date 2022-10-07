@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The Cauchy distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en678.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en680.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:cauchy" class="subsection">8.4.14  The Cauchy distribution
+</h3>
+<h4 id="sec1753" class="subsubsection">The probability density function for the Cauchy distribution: <span style="font-family:monospace">cauchy</span> <span style="font-family:monospace">cauchyd</span>
+<a id="hevea_default1249"></a>
+<a id="hevea_default1250"></a></h4>
+<p>The <span style="font-family:monospace">cauchy</span> (or <span style="font-family:monospace">cauchyd</span>) command computes the
+probability density function for the Cauchy distribution (sometimes
+called the Lorentz distribution).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">cauchy</span> takes two optionaly arguments and one
+mandatory argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, real numbers (the parameters; by
+default <span style="font-style:italic">a</span>=0 and <span style="font-style:italic">b</span>=1).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">cauchy(</span>[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,]<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns
+the value of the density function at <span style="font-style:italic">x</span>; namely,
+<span style="font-family:monospace">cauchy</span>(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span>) = <span style="font-style:italic">b</span>/(π ((<span style="font-style:italic">x</span>−<span style="font-style:italic">a</span>)<sup>2</sup> + <span style="font-style:italic">b</span><sup>2</sup>)).
+</li></ul><h4 id="sec1754" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cauchy(2.2,1.5,0.8)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.113412073462
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cauchy(0.3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.292027418517
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1755" class="subsubsection">The cumulative distribution function for the Cauchy distribution: <span style="font-family:monospace">cauchy_cdf</span> <span style="font-family:monospace">cauchyd_cdf</span>
+<a id="hevea_default1251"></a>
+<a id="hevea_default1252"></a></h4>
+<p>The <span style="font-family:monospace">cauchy_cdf</span> (or <span style="font-family:monospace">cauchyd_cdf</span>) command computes
+the cumulative distribution function for the Cauchy distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">cauchy_cdf</span> (or <span style="font-family:monospace">cauchyd_cdf</span>) takes three
+optional arguments and one mandatory argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, the parameters
+(by default, <span style="font-style:italic">a</span>=0 and <span style="font-style:italic">b</span> = 1).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">y</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">cauchy_cdf(</span>[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,] <span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) for the Cauchy distribution with parameters
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">cauchy_cdf(</span>[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,]<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> ≤ <span style="font-style:italic">y</span>).
+</li></ul><p>
+It turns out that <span style="font-family:monospace">cauchy_cdf</span>(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span>) = 1/2 + arctan((<span style="font-style:italic">x</span>−<span style="font-style:italic">a</span>)/<span style="font-style:italic">b</span>)/π.</p><h4 id="sec1756" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cauchy_cdf(2,3,1.4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.437167041811
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cauchy_cdf(1.4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.802568456711
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cauchy_cdf(2,3,-1.9,1.4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.228452641651
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1757" class="subsubsection">The inverse distribution function for the Cauchy distribution: <span style="font-family:monospace">cauchy_icdf</span> <span style="font-family:monospace">cauchyd_icdf</span>
+<a id="hevea_default1253"></a>
+<a id="hevea_default1254"></a></h4>
+<p>The <span style="font-family:monospace">cauchy_icdf</span> (or <span style="font-family:monospace">cauchyd_icdf</span>) command computes
+the inverse distribution for the Cauchy distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">cauchy_icdf</span> (or <span style="font-family:monospace">cauchyd_icdf</span>) takes two
+optional arguments and one mandatory argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, parameters
+(by default, <span style="font-style:italic">a</span>=0 and <span style="font-style:italic">b</span>= 1).
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number between 0 and 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">cauchy_icdf([</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">,] </span><span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for the Cauchy distribution with parameters <span style="font-style:italic">a</span> and
+<span style="font-style:italic">b</span>; namely, the value of <span style="font-style:italic">x</span> for which 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) = <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1758" class="subsubsection">Example</h4>
+<div class="center">
+<span style="font-family:monospace">cauchy_icdf(2,3,0.23)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−1.40283204777
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en678.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en680.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

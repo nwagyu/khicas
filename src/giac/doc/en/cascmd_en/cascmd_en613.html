@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>2D implicit curve</title>
+</head>
+<body >
+<a href="cascmd_en612.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en614.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:implicitplot" class="subsection">7.13.1  2D implicit curve</h3>
+<p>For an implicit plot in ℝ<sup>2</sup>:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">plotimplicit</span> takes three mandatory arguments and
+three optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression of two variables implicitly
+defining a curve by <span style="font-style:italic">expr=0</span>.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of the two variables, optionally with
+their ranges <span style="font-style:italic">var=a..b</span>. If a range is not given, the
+ranges are determined by <span style="font-family:monospace">WX-, WX+</span> and <span style="font-family:monospace">WY-, WY+</span>
+in the graphical configuration (see Section <a href="cascmd_en028.html#ssec%3Aconfgraph">2.5.8</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">xstep</span>, which can be
+<span style="font-family:monospace">xstep=</span><span style="font-style:italic">n</span> to specify the discretization
+step in the <span style="font-style:italic">x</span> direction.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">ystep</span>, which can be
+<span style="font-family:monospace">ystep=</span><span style="font-style:italic">m</span> to specify the discretization
+step in the <span style="font-style:italic">y</span> direction.
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">unfactored</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">plotimplicity(</span><span style="font-style:italic">expr,vars</span> ⟨<span style="font-style:italic">xstep,ystep,</span><span style="font-family:monospace">unfactored</span>⟩<span style="font-family:monospace">)</span>
+draws the graphic representation of the curve defined by the implicit equation 
+<span style="font-style:italic">expr=0</span> over the given ranges of the variables.
+</li></ul><h4 id="sec1533" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotimplicit(x^2+y^2-1,x,y)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">plotimplicit(x^2+y^2-1,x,y,unfactored)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en069.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotimplicit(x^2+y^2-1,x,y,xstep=0.2,ystep=0.3)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">plotimplicit(x^2+y^2-1,[x,y],xstep=0.2,ystep=0.3)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">plotimplicit(x^2+y^2-1,[x,y], xstep=0.2,ystep=0.3,unfactored)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en070.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotimplicit(x^2+y^2-1,x=-2..2,y=-2..2, xstep=0.2,ystep=0.3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en071.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en612.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en614.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Rewriting trigonometric functions in terms of tan(x/2) and hyperbolic functions in terms of exp(x): halftan_hyp2exp
+</title>
+</head>
+<body >
+<a href="cascmd_en266.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en268.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec620" class="subsection">5.23.20  Rewriting trigonometric functions in terms of tan(x/2) and hyperbolic functions in terms of exp(x): <span style="font-family:monospace">halftan_hyp2exp</span>
+<a id="hevea_default466"></a></h3>
+<p>The <span style="font-family:monospace">halftan_hyp2exp</span> command rewrites the trigonometric
+function in terms of tan(<span style="font-style:italic">x</span>/2) (like <span style="font-family:monospace">halftan</span>, see
+Section <a href="cascmd_en266.html#ssec%3Ahalftan">5.23.19</a>) and rewrites the hyperbolic functions in terms
+of their definitions using exponentials, namely:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >  sinh(<span style="font-style:italic">x</span>)</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">= </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup>−<span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+cosh(<span style="font-style:italic">x</span>)</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">= </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup>+<span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+tanh(<span style="font-style:italic">x</span>)</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">= </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup>−<span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup>+<span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup></td></tr>
+</table></td><td class="dcell"> =
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup>2<span style="font-style:italic">x</span></sup>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup>2<span style="font-style:italic">x</span></sup>+1</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">halftan_hyp2exp</span> takes one argument:<br>
+ <span style="font-style:italic">expr</span>, a trigonometric and hyperbolic expression.
+</li><li class="li-itemize"><span style="font-family:monospace">halftan_hyp2exp(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> returns
+<span style="font-style:italic">expr</span> with any trigonometric functions replaced by the
+appropriate expression in <span style="font-family:monospace">tan(</span><span style="font-style:italic">x</span><span style="font-family:monospace">/2)</span> and any hyperbolic
+functions replaced by the appropriate exponentials.
+</li></ul><h4 id="sec621" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">halftan_hyp2exp(tan(x)+tanh(x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2tan</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">1−tan<sup>2</sup></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">
++</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup>2 <span style="font-style:italic">x</span></sup>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup>2 <span style="font-style:italic">x</span></sup>+1</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">halftan_hyp2exp(sin(x)^2+cos(x)^2-sinh(x)^2+cosh(x)^2)</span>
+</div>
+<span style="font-style:italic">Output (after simplification with </span><span style="font-style:italic"><span style="font-family:monospace">normal(ans())</span></span><span style="font-style:italic">):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en266.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en268.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

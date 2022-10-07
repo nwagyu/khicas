@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Testing the mean with the Z test: normalt
+</title>
+</head>
+<body >
+<a href="cascmd_en691.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en693.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1799" class="subsection">8.5.2  Testing the mean with the Z test: <span style="font-family:monospace">normalt</span>
+<a id="hevea_default1279"></a></h3>
+<p>The <span style="font-family:monospace">normalt</span> command uses the Z test to test the mean of
+data.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">normalt</span> takes three mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list, which can be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>=[<span style="font-style:italic">n</span><sub><span style="font-style:italic">s</span></sub>,<span style="font-style:italic">n</span><sub><span style="font-style:italic">e</span></sub>] for the sample data information, where
+<span style="font-style:italic">n</span><sub><span style="font-style:italic">s</span></sub> is the the number of successes and <span style="font-style:italic">n</span><sub><span style="font-style:italic">e</span></sub> is the number of trials
+<span style="font-style:italic">n</span><sub><span style="font-style:italic">e</span></sub>.
+</li><li class="li-itemize"><span style="font-style:italic">L</span>=[<span style="font-style:italic">m</span>,<span style="font-style:italic">t</span>], where <span style="font-style:italic">m</span> is the mean and <span style="font-style:italic">t</span> is the sample size.
+</li><li class="li-itemize"><span style="font-style:italic">L</span>, a data list from a control sample.
+</li></ul>
+</li><li class="li-itemize">σ, the standard deviation of the population. If the
+data list from a control sample is provided, then this argument is unnecessary.
+</li><li class="li-itemize"><span style="font-style:italic">test</span>, the type of test, one of <span style="font-family:monospace">!=</span>,<span style="font-family:monospace">&lt;</span>
+or <span style="font-family:monospace">&gt;</span>.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">c</span>, the confidence level (by default 0.05).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">normalt(</span><span style="font-style:italic">L</span>,σ,<span style="font-style:italic">test</span> ⟨, <span style="font-style:italic">c</span>
+⟩<span style="font-family:monospace">)</span> returns the result of a Z test. It
+will return 0 if the test fails, 1 if the test succeeds, and it will
+display a summary of the test.
+</li></ul><h4 id="sec1800" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normalt([10,30], 0.5, 0.02, ’!=’, 0.1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>*** TEST RESULT 0 ***</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Summary Z-Test null hypothesis H0 mu1=mu2, alt. hyp. H1 mu1!=mu2.</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Test returns 0 if probability to observe data is less than 0.1</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>(null hyp. mu1=mu2 rejected with less than alpha probability error)</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Test returns 1 otherwise (can not reject null hypothesis)</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Data mean mu1=10, population mean mu2=0.5</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>alpha level 0.1, multiplier*stddev/sqrt(sample size)= 1.64485*0.02/5.47723</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>0</code>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normalt([0.48,50],0.5,0.1,’&lt;’)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>*** TEST RESULT 1 ***</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Summary Z-Test null hypothesis H0 mu1=mu2, alt. hyp. H1 mu1&lt;mu2.</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Test returns 0 if probability to observe data is less than 0.05</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>(null hyp. mu1=mu2 rejected with less than alpha probability error)</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Test returns 1 otherwise (can not reject null hypothesis)</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Data mean mu1=0.48, population mean mu2=0.5</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>alpha level 0.05, multiplier*stddev/sqrt(sample size)= 1.64485*0.1/7.07107</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>1</code>
+</td></tr>
+</table>
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en691.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en693.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

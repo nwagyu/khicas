@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Exercices sur trigonométrie et complexes</title>
+</head>
+<body >
+<a href="casrouge010.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge012.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec321" class="chapter">Chapitre 11  Exercices sur trigonométrie et complexes</h1>
+<h2 id="sec322" class="section">11.1  Les polynômes de Tchebychev</h2>
+<h3 id="sec323" class="subsection">11.1.1  L’énoncé</h3>
+<p>
+Les polynômes de Tchebychev <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span></sub> sont tels que cos(<span style="font-style:italic">nx</span>)=<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span></sub>(cos(<span style="font-style:italic">x</span>)).<br>
+On a ainsi :<br>
+<span style="font-style:italic">T</span><sub>0</sub>(<span style="font-style:italic">x</span>)=1<br>
+<span style="font-style:italic">T</span><sub>1</sub>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">x</span><br>
+<span style="font-style:italic">T</span><sub>2</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">x</span><sup>2</sup>−1<br>
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+Montrer que pour <span style="font-style:italic">n</span>≥ 1 on a :<br>
+<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>+1</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">xT</span><sub><span style="font-style:italic">n</span></sub>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>−1</sub>(<span style="font-style:italic">x</span>).
+</li><li class="li-enumerate">Écrire une fonction de <span style="font-style:italic">n</span> qui renvoie le polynôme <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span></sub>, en utilisant
+la relation <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>+1</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">xT</span><sub><span style="font-style:italic">n</span></sub>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>−1</sub>(<span style="font-style:italic">x</span>).
+</li><li class="li-enumerate">Écrire une fonction de <span style="font-style:italic">n</span> qui renvoie le polynôme <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span></sub>, en utilisant
+les nombres complexes et la formule de Moivre.
+</li></ol>
+<h3 id="sec324" class="subsection">11.1.2  La solution avec <span style="font-family:monospace">Xcas</span></h3>
+<p>
+Dans <span style="font-family:monospace">Xcas</span>, la fonction <span style="font-family:monospace">tchebyshev1</span> qui renvoie le nième 
+polynôme de Tchebyshev de 1ière espèce existe. Cela va pouvoir permettre 
+la vérification de vos programmes
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+La relation <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>+1</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">xT</span><sub><span style="font-style:italic">n</span></sub>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>−1</sub>(<span style="font-style:italic">x</span>) est vraie pour <span style="font-style:italic">n</span>=1
+car <span style="font-style:italic">T</span><sub>2</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">xT</span><sub>1</sub>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">T</span><sub>0</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">x</span>*<span style="font-style:italic">x</span>−2
+On a :
+cos((<span style="font-style:italic">n</span>+1)<span style="font-style:italic">x</span>)=cos(<span style="font-style:italic">x</span>)*cos(<span style="font-style:italic">nx</span>)−sin(<span style="font-style:italic">x</span>)*sin(<span style="font-style:italic">nx</span>) et<br>
+cos((<span style="font-style:italic">n</span>−1)<span style="font-style:italic">x</span>)=cos(<span style="font-style:italic">x</span>)*cos(<span style="font-style:italic">nx</span>)+sin(<span style="font-style:italic">x</span>)*sin(<span style="font-style:italic">nx</span>)<br>
+donc cos((<span style="font-style:italic">n</span>+1)<span style="font-style:italic">x</span>)+cos((<span style="font-style:italic">n</span>−1)<span style="font-style:italic">x</span>)=2cos(<span style="font-style:italic">x</span>)*cos(<span style="font-style:italic">nx</span>)<br>
+ou encore cos((<span style="font-style:italic">n</span>+1)<span style="font-style:italic">x</span>)=2cos(<span style="font-style:italic">x</span>)*cos(<span style="font-style:italic">nx</span>)−cos((<span style="font-style:italic">n</span>−1)<span style="font-style:italic">x</span>)
+c’est à dire :<br>
+<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>+1</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">xT</span><sub><span style="font-style:italic">n</span></sub>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>−1</sub>(<span style="font-style:italic">x</span>)
+</li><li class="li-enumerate">On écrit une fonction <span style="font-family:monospace">Tcheb(n)</span> qui renvoie le polynôme <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span></sub>, 
+en utilisant la relation <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>+1</sub>(<span style="font-style:italic">x</span>)=2<span style="font-style:italic">xT</span><sub><span style="font-style:italic">n</span></sub>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span>−1</sub>(<span style="font-style:italic">x</span>). :
+<pre class="verbatim">Tcheb(n):={
+local j,T0,T1,Tj;
+T0:=1;
+T1:=x;
+pour j de 2 jusque n faire
+Tj:=2*x*T1-T0;
+T0:=T1;
+T1:=Tj;
+fpour;
+return T1;
+}:;
+</pre>
+On tape : <span style="font-family:monospace">Tcheb(7)</span><br>
+On obtient :<span style="font-family:monospace">64*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">7-112*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">5+56*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">3-7*x</span></li><li class="li-enumerate">On écrit une fonction <span style="font-family:monospace">Tchebich(n)</span> qui renvoie le polynôme <span style="font-style:italic">T</span><sub><span style="font-style:italic">n</span></sub>,
+en utilisant la formule de Moivre (cos(<span style="font-style:italic">nx</span>)=<span style="font-style:italic">re</span>((cos(<span style="font-style:italic">x</span>)+<span style="font-style:italic">i</span>sin(<span style="font-style:italic">x</span>))<sup><span style="font-style:italic">n</span></sup>)) et 
+l’égalité sin(<span style="font-style:italic">x</span>)<sup>2</sup>=1−cos(<span style="font-style:italic">x</span>)<sup>2</sup> :
+<pre class="verbatim">Tchebich(n):={
+local f;
+f(x,y):=normal(re((x+i*y)^n));
+return f(x,sqrt(1-x^2));
+}:;
+</pre>
+On tape : <span style="font-family:monospace">Tchebich(7)</span><br>
+On obtient :<span style="font-family:monospace">64*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">7-112*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">5+56*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">3-7*x</span><br>
+
+<span style="font-weight:bold">Remarque</span><br>
+On peut vérifier car cette fontion existe dans <span style="font-family:monospace">Xcas</span>, on tape 
+On tape : <span style="font-family:monospace">tchebyshev1(7)</span><br>
+On obtient :<span style="font-family:monospace">64*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">7-112*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">5+56*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">3-7*x</span>
+</li></ol>
+<hr>
+<a href="casrouge010.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge012.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

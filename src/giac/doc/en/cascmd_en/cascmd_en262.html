@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Transforming sin(x) into cos(x)*tan(x): sin2costan
+</title>
+</head>
+<body >
+<a href="cascmd_en261.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en263.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec610" class="subsection">5.23.15  Transforming sin(x) into cos(x)*tan(x): <span style="font-family:monospace">sin2costan</span>
+<a id="hevea_default461"></a></h3>
+<p>The <span style="font-family:monospace">sin2costan</span> command replaces sin(<span style="font-style:italic">x</span>) by cos(<span style="font-style:italic">x</span>)tan(<span style="font-style:italic">x</span>)
+in an expression.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sin2costan</span> takes one argument:<br>
+ <span style="font-style:italic">expr</span>, an expression containing trigonometric functions.
+</li><li class="li-itemize"><span style="font-family:monospace">sin2costan(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> returns
+<span style="font-style:italic">expr</span> with anything of the form sin(<span style="font-style:italic">x</span>) replaced by
+cos(<span style="font-style:italic">x</span>)tan(<span style="font-style:italic">x</span>).
+</li></ul><h4 id="sec611" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sin2costan(sin(2*x))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">tan</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">cos</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+<hr>
+<a href="cascmd_en261.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en263.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

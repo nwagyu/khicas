@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Singular value decomposition: svd
+</title>
+</head>
+<body >
+<a href="cascmd_en534.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en536.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1315" class="subsection">5.49.8  Singular value decomposition: <span style="font-family:monospace">svd</span>
+<a id="hevea_default917"></a></h3>
+<p>The <em>singular value decomposition</em> of a matrix <span style="font-style:italic">A</span> is a
+factorization <span style="font-style:italic">A</span>=<span style="font-style:italic">USQ</span><sup><span style="font-style:italic">T</span></sup>, where <span style="font-style:italic">U</span> and <span style="font-style:italic">Q</span> are orthogonal and <span style="font-style:italic">S</span> is
+a diagonal matrix. The <span style="font-family:monospace">svd</span> command finds the singular value
+decomposition of a matrix.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">svd</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a numeric square matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">svd(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns a list [<span style="font-style:italic">U</span>,<span style="font-style:italic">s</span>,<span style="font-style:italic">Q</span>] where <span style="font-style:italic">U</span> and <span style="font-style:italic">Q</span>
+are the orthogonal matrices of the singular value decomposition and
+<span style="font-style:italic">s</span> is the diagonal of the matrix <span style="font-style:italic">S</span>.
+</li></ul><p>
+You can get the diagonal matrix <span style="font-style:italic">S</span> from <span style="font-style:italic">s</span> with <span style="font-style:italic">S</span><span style="font-family:monospace">=diag(</span><span style="font-style:italic">s</span><span style="font-family:monospace">)</span>
+(see Section <a href="cascmd_en471.html#ssec%3Adiag">5.44.2</a>).</p><h4 id="sec1316" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">svd([[1,2],[3,4]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−0.404553584834</td><td style="text-align:center;white-space:nowrap" >−0.914514295677</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−0.914514295677</td><td style="text-align:center;white-space:nowrap" >0.404553584834</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5.46498570422,0.365966190626</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−0.576048436766</td><td style="text-align:center;white-space:nowrap" >0.81741556047</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−0.81741556047</td><td style="text-align:center;white-space:nowrap" >−0.576048436766</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(U,s,Q):=svd([[3,5],[4,5]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−0.672988041811</td><td style="text-align:center;white-space:nowrap" >−0.739653361771</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−0.739653361771</td><td style="text-align:center;white-space:nowrap" >0.672988041811</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">8.6409011028,0.578643354497</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−0.576048436766</td><td style="text-align:center;white-space:nowrap" >0.81741556047</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−0.81741556047</td><td style="text-align:center;white-space:nowrap" >−0.576048436766</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+Verification:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">U*diag(s)*tran(Q)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3.0</td><td style="text-align:center;white-space:nowrap" >5.0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4.0</td><td style="text-align:center;white-space:nowrap" >5.0</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en534.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en536.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Creating or recreating images: writergb
+</title>
+</head>
+<body >
+<a href="cascmd_en1023.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<hr>
+<h3 id="sec2551" class="subsection">15.3.4  Creating or recreating images: <span style="font-family:monospace">writergb</span>
+<a id="hevea_default1732"></a></h3>
+<p>The <span style="font-family:monospace">writergb</span> command writes images to <span style="font-family:monospace">png</span> files; the
+image can be given by the <span style="font-family:monospace">Xcas</span> image structure 
+(see Section <a href="cascmd_en1021.html#sec%3Aimagestruct">15.3.1</a>, this is what is read in with
+<span style="font-family:monospace">readrgb</span>) or a simplified version of this structure.</p><p>To write an image given by the <span style="font-family:monospace">Xcas</span> image structure to a file:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">writergb</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">filename</span>, a file name.
+</li><li class="li-itemize"><span style="font-style:italic">image</span>, an image in <span style="font-family:monospace">Xcas</span> format.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">writergb(</span><span style="font-style:italic">filename,image</span><span style="font-family:monospace">)</span> writes the
+image <span style="font-style:italic">image</span> to the file <span style="font-style:italic">filename</span>.
+</li></ul><h4 id="sec2552" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Assume the the following image is stored in file
+<span style="font-family:monospace">image1234.jpg</span>.
+<div class="center">
+<img src="cascmd_en424.png">
+</div>
+After reading it into a variable name with <span style="font-family:monospace">readrgb</span>:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">a:= readrgb("image1234.jpg")</span>
+</div>
+the variable <span style="font-family:monospace">a</span> will contain a list,
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">a[0]</span> will be <span style="font-family:monospace">[4,250,500]</span>, the number of
+channels, the height and the width of the image.
+</li><li class="li-itemize"><span style="font-family:monospace">a[1]</span>, the red channel,
+</li><li class="li-itemize"><span style="font-family:monospace">a[2]</span>, the green channel,
+</li><li class="li-itemize"><span style="font-family:monospace">a[3]</span>, the transparency channel,
+</li><li class="li-itemize"><span style="font-family:monospace">a[4]</span>, the blue channel.
+</li></ul>
+Then:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">writergb("image2134.png",[a[0],a[2],a[1],a[3],a[4]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en425.png">
+</div>
+and the image file <span style="font-family:monospace">image2134.png</span> will be created.
+This image is simply <span style="font-family:monospace">image1234.png</span> with the green and red
+colors switched.
+</li><li class="li-itemize">For simple cases, you can type the <span style="font-family:monospace">Xcas</span> image format in by
+hand.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">writergb("image1.png",[[4,2,2],[[255,0],[0,0]],[[0,255],[0,0]],</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >        <span style="font-family:monospace">[[255,125],[255,255]],[[0,0],[255,0]]])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en426.png">
+</div>
+The transparency value of <span style="font-family:monospace">125</span> for the upper right point makes
+it partially transparent and mutes the color.
+</li><li class="li-itemize">For larger images, in some cases the matrix operations of
+<span style="font-family:monospace">Xcas</span> can be used to create the channels.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">writergb("image2.png",[[4,300,300],makemat(0,300,300),makemat(0,300,300),</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >       <span style="font-family:monospace">makemat(255,300,300),makemat(0,300,300)+idn(300)*255])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en427.png">
+</div>
+</li></ul><p><br>
+</p><p>The simplified version of the <span style="font-family:monospace">Xcas</span> image description doesn’t
+involve stating the number of channels, the size of the image, or the
+transparency. There is a full color version of this simplified form
+and a grayscale version.</p><p>To create a full color image using the simple description:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">writergb</span> command takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">filename</span>, the name of the file to store the image.
+</li><li class="li-itemize"><span style="font-style:italic">R</span>, a matrix for the red channel.
+</li><li class="li-itemize"><span style="font-style:italic">G</span>, a matrix for the green channel.
+</li><li class="li-itemize"><span style="font-style:italic">B</span>, a matrix for the blue channel. 
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">writergb(</span><span style="font-style:italic">filename</span>,<span style="font-style:italic">R</span>,<span style="font-style:italic">G</span>,<span style="font-style:italic">B</span><span style="font-family:monospace">)</span>
+draws the image given by the matrices to the file <span style="font-family:monospace">filename</span>.
+</li></ul><h4 id="sec2553" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">writergb("image2.png",[[255,250],[0,120]],[[0,255],[0,0]],[[0,0],[255,100]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en428.png">
+</div><p>
+This image will be in the file <span style="font-family:monospace">image2.png</span>.</p><p><br>
+</p><p>To create a grayscale image using the simple description:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">writergb</span> command takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">filename</span>, the name of the file to store the image.
+</li><li class="li-itemize"><span style="font-style:italic">M</span>, a matrix representing how dark each point is (where
+<span style="font-family:monospace">0</span> is black and <span style="font-family:monospace">255</span> is white).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">writergb(</span><span style="font-style:italic">filename</span>,<span style="font-style:italic">M</span><span style="font-family:monospace">)</span>
+draws the image given by <span style="font-style:italic">M</span> to the file <span style="font-family:monospace">filename</span>.
+</li></ul><h4 id="sec2554" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">writergb("image3.png",[[65,125],[185,200]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en429.png">
+</div><p>
+This image will be in the file <span style="font-family:monospace">image3.png</span>.</p>
+<hr>
+<a href="cascmd_en1023.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+</body>
+</html>

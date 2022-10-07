@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Normal distributions
+</title>
+</head>
+<body >
+<a href="cascmd_en671.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en673.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:normald" class="subsection">8.4.7  Normal distributions
+</h3>
+<h4 id="sec1696" class="subsubsection">The probability density function for a normal distribution: <span style="font-family:monospace">normald</span> <span style="font-family:monospace">loi_normal</span>
+<a id="hevea_default1215"></a>
+<a id="hevea_default1216"></a></h4>
+<p>The density function of the normal distribution with mean µ and
+standard deviation σ at the point <span style="font-style:italic">x</span> is
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:normald"></a>
+<span style="font-family:monospace">normald</span>(µ,σ,<span style="font-style:italic">x</span>) = </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2π</td></tr>
+</table></td><td class="dcell"> σ</td></tr>
+</table></td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">e</span><sup>(<span style="font-style:italic">x</span>−µ)<sup>2</sup>/2</sup> 
+    (4)</td></tr>
+</table><p>
+The <span style="font-family:monospace">normald</span> (or <span style="font-family:monospace">loi_normal</span>) command finds the 
+value of this density function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">normald</span> (or <span style="font-family:monospace">loi_normal</span>) command takes two
+optional arguments and one mandatory argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, µ and σ, the mean and standard
+deviation. (By default, µ=0 and σ = 1, giving the
+standard normal distribution.)
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">normald([</span>µ,σ<span style="font-family:monospace">,] </span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the
+normal density function with parameter µ and standard deviation
+σ at the value <span style="font-style:italic">x</span>, given in (<a href="#eq%3Anormald">4</a>).
+</li></ul><h4 id="sec1697" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normald(2,1,3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2 π </td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normald(2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2 π </td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">e</span><sup>2</sup></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<h4 id="sssec:normalcdf" class="subsubsection">The cumulative distribution function for normal distributions: <span style="font-family:monospace">normal_cdf</span> <span style="font-family:monospace">normald_cdf</span>
+<a id="hevea_default1217"></a>
+<a id="hevea_default1218"></a>
+</h4>
+<p>The <span style="font-family:monospace">normal_cdf</span> (or <span style="font-family:monospace">normald_cdf</span>) command computes
+the cumulative distribution function for the normal distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">normal_cdf</span> (or <span style="font-family:monospace">normald_cdf</span>) takes three
+optional arguments and one mandatory argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, µ and σ, the mean and standard
+deviation. (By default, µ=0 and σ = 1, giving the
+standard normal distribution.)
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">y</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">normal_cdf([</span>µ,σ<span style="font-family:monospace">,] </span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) for the normal distribution with mean µ
+and standard deviation σ.
+</li><li class="li-itemize"><span style="font-family:monospace">normal_cdf([</span>µ,σ<span style="font-family:monospace">,]</span><span style="font-style:italic">x</span><span style="font-family:monospace">,</span><span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> ≤ <span style="font-style:italic">y</span>).
+</li></ul><h4 id="sec1699" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal_cdf(1,2,1.96)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.684386303484
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal_cdf(1,2.1,1.2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.537937144066
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal_cdf(1,2.1,1.2,9)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.461993238584
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1700" class="subsubsection">The inverse distribution function for normal distributions: <span style="font-family:monospace">normal_icdf</span> <span style="font-family:monospace">normald_icdf</span>
+<a id="hevea_default1219"></a>
+<a id="hevea_default1220"></a></h4>
+<p>The <span style="font-family:monospace">normal_icdf</span> (or <span style="font-family:monospace">normald_icdf</span>) command computes
+the inverse distribution for the normal distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">normal_icdf</span> (or <span style="font-family:monospace">normald_icdf</span>) takes two
+optional arguments and one mandatory argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, µ and σ, the mean and standard
+deviation. (By default, µ=0 and σ = 1, giving the
+standard normal distribution.)
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">normal_icdf([</span>µ,σ<span style="font-family:monospace">,] </span><span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for the normal distribution with mean µ and
+standard deviation σ; namely, the value of <span style="font-style:italic">x</span> for which 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) = <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1701" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal_icdf(0.975)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.95996398454
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal_icdf(1,2,0.495)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.974933060984
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1702" class="subsubsection">The upper tail cumulative function for normal distributions: <span style="font-family:monospace">UTPN</span>
+<a id="hevea_default1221"></a></h4>
+<p>The <span style="font-family:monospace">UTPN</span> (the Upper Tail Probability - Normal distribution)
+computes Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>) for a normal distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">UTPN</span> takes two
+optional arguments and one mandatory argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, µ and σ<sup>2</sup>, the mean variance
+deviation. (By default, µ=0 and σ<sup>2</sup> = 1, giving the
+standard normal distribution.)<br>
+ <span style="font-weight:bold">Note:</span> Unlike <span style="font-family:monospace">normald</span> and <span style="font-family:monospace">normal_cdf</span>,
+the <span style="font-family:monospace">UTPN</span> takes the variance and not the standard deviation.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">UTPN([</span>µ,σ<sup>2</sup><span style="font-family:monospace">,] </span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns
+Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>), for the normal distribution with mean
+µ and variance σ<sup>2</sup>.
+</li></ul><h4 id="sec1703" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">UTPN(1.96)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.0249978951482
+</td></tr>
+</table>
+</li><li class="li-itemize"></li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">UTPN(1,4,1.96)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.315613696516
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en671.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en673.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

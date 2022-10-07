@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Associative and central simple algebras</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">Associative and central simple algebras</h2>
+
+<p></p>
+<p></p>
+<p>This section collects functions related to associative algebras and central
+simple algebras (CSA) over number fields.</p>
+<p>
+<hr>
+<div id="se:ZKmodules"></div>
+<div id="Basic_definitions"></div>
+<h4>Basic definitions</h4>
+<p> </p>
+<p>
+<b>*</b> <em>rnf</em> denotes a relative number field, i.e.&nbsp;a data structure
+output by <code><a href="General_number_fields.html#se:rnfinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">rnfinit</a></code>, attached to the extension L/K. The <em>nf</em>
+attached to be base field K is <code>rnf.nf</code>.</p>
+<p>
+<b>*</b> A <em>relative matrix</em> is an m x n matrix whose entries are
+elements of K, in any form. Its m columns A<sub>j</sub> represent elements
+in K^n.</p>
+<p>
+<b>*</b> An <em>ideal list</em> is a row vector of fractional ideals of the number
+field <em>nf</em>.</p>
+<p>
+<b>*</b> A <em>pseudo-matrix</em> is a 2-component row vector (A,I) where A
+is a relative m x n matrix and I an ideal list of length n. If I = 
+{&afr;<sub>1</sub>,..., &afr;<sub>n</sub>} and the columns of A are (A<sub>1</sub>,...,
+A<sub>n</sub>), this data defines the torsion-free (projective) &Zopf;<sub>K</sub>-module
+&afr;<sub>1</sub> A<sub>1</sub>&bigoplus;  &afr;<sub>n</sub> A<sub>n</sub>.</p>
+<p>
+<b>*</b> An <em>integral pseudo-matrix</em> is a 3-component row vector w(A,I,J)
+where A = (a<sub>i,j</sub>) is an m x n relative matrix and I = 
+(&bfr;<sub>1</sub>,..., &bfr;<sub>m</sub>), J = (&afr;<sub>1</sub>,..., &afr;<sub>n</sub>) are ideal
+lists, such that a<sub>i,j</sub>  &in;  &bfr;<sub>i</sub> &afr;<sub>j</sub><sup>-1</sup> for all i,j. This
+data defines two abstract projective &Zopf;<sub>K</sub>-modules
+N = &afr;<sub>1</sub>&omega;<sub>1</sub>&bigoplus; ...&bigoplus;  &afr;<sub>n</sub>&omega;<sub>n</sub>  in K^n,
+P = &bfr;<sub>1</sub>&eta;<sub>1</sub>&bigoplus; ...&bigoplus;  &bfr;<sub>m</sub>&eta;<sub>m</sub> in K^m, and a
+&Zopf;<sub>K</sub>-linear map f:N &rightarrow;  P given by
+ f(&sum; &alpha;<sub>j</sub>&omega;<sub>j</sub>) = &sum;<sub>i</sub> (a<sub>i,j</sub>&alpha;<sub>j</sub>) &eta;<sub>i</sub>.
+This data defines the &Zopf;<sub>K</sub>-module M = P/f(N).</p>
+<p>
+<b>*</b> Any <em>projective</em> &Zopf;<sub>K</sub>-moduleprojective module M
+of finite type in K^m can be given by a pseudo matrix (A,I).</p>
+<p>
+<b>*</b> An arbitrary &Zopf;<sub>K</sub> modules of finite type in K^m, with non-trivial
+torsion, is given by an integral pseudo-matrix (A,I,J)</p>
+<p>
+
+<hr>
+<div id="se:DLfun"></div>
+<div id="Orders"></div>
+<h4>Orders in finite groups and Discrete Logarithm functions</h4>
+<p></p>
+<p></p>
+<p>
+The following functions compute the order of an element in a finite group:
+<code><a href="Elliptic_curves.html#se:ellorder"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellorder</a></code> (the rational points on an elliptic curve defined over a
+finite field), <code><a href="Arithmetic_functions.html#se:fforder"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">fforder</a></code> (the multiplicative group of a finite field),
+<code><a href="Arithmetic_functions.html#se:znorder"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znorder</a></code> (the invertible elements in &Zopf;/n&Zopf;). The following functions
+compute discrete logarithms in the same groups (whenever this is meaningful)
+<code><a href="Elliptic_curves.html#se:elllog"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">elllog</a></code>, <code><a href="Arithmetic_functions.html#se:fflog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">fflog</a></code>, <code><a href="Arithmetic_functions.html#se:znlog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znlog</a></code>.</p>
+<p>
+All such functions allow an optional argument specifying an integer
+N, representing the order of the group. (The <em>order</em> functions also
+allows any non-zero multiple of the order, with a minor loss of efficiency.)
+That optional argument follows the same format as given above:</p>
+<p>
+<b>*</b> <code>t_INT</code>: the integer N,</p>
+<p>
+<b>*</b> <code>t_MAT</code>: the factorization <code>fa = factor(N)</code>,</p>
+<p>
+<b>*</b> <code>t_VEC</code>: this is the preferred format and provides both the
+integer N and its factorization in a two-component vector
+<code>[N, fa]</code>.</p>
+<p>
+When the group is fixed and many orders or discrete logarithms will be
+computed, it is much more efficient to initialize this data once and for all
+and pass it to the relevant functions, as in</p>
+<p>
+</p><pre class="code">  ? p = nextprime(10^40);
+  ? v = [p-1, factor(p-1)]; \\ data for discrete log & order computations
+  ? znorder(Mod(2,p), v)
+  %3 = 500000000000000000000000000028
+  ? g = znprimroot(p);
+  ? znlog(2, g, v)
+  %5 = 543038070904014908801878611374
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="Lattices"></div>
+<h4>Lattices</h4>
+<p></p>
+<p></p>
+<p>We also provide functions to handle full lattices in algebras over&nbsp;&Qopf;. A
+full lattice&nbsp;J &subset;  A is represented by a 2-component <code>t_VEC</code>&nbsp;[I,t]
+representing&nbsp;J = tI, where</p>
+<p>
+<b>*</b> I is an integral nonsingular upper-triangular matrix representing a
+sublattice of&nbsp;&Oscr;<sub>0</sub> expressed on the integral basis, and</p>
+<p>
+<b>*</b> t &in; &Qopf;<sub> &gt; 0</sub> is a <code>t_INT</code> or <code>t_FRAC</code>.</p>
+<p>
+For the sake of efficiency you should use matrices&nbsp;I that are primitive and
+in Hermite Normal Form; this makes the representation unique. No GP function
+uses this property, but all GP functions return lattices in this form. The
+prefix for lattice functions is <code>alglat</code>.</p>
+<p>
+
+<hr>
+<div id="GP_conventions"></div>
+<h4>GP conventions</h4>
+<p></p>
+<p></p>
+<p>As with number fields, we represent elements of central simple algebras
+in two ways, called the <em>algebraic representation</em> and the <em>basis
+representation</em>, and you can convert betweeen the two with the functions
+<code><a href="Associative_and_central_simple_algebras.html#se:algalgtobasis"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algalgtobasis</a></code> and <code><a href="Associative_and_central_simple_algebras.html#se:algbasistoalg"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algbasistoalg</a></code>. In every central simple algebra
+object, we store a&nbsp;&Zopf;-basis of an order&nbsp;&Oscr;<sub>0</sub>, and the basis
+representation is simply a <code>t_COL</code> with coefficients in&nbsp;&Qopf; expressing the
+element in that basis. If no maximal order was computed by&nbsp;<code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>,
+then&nbsp;&Oscr;<sub>0</sub> is the natural order. If a maximal order was computed,
+then&nbsp;&Oscr;<sub>0</sub> is a maximal order containing the natural order. For a cyclic
+algebra&nbsp;A = (L/K,&sigma;,b), the algebraic representation is a <code>t_COL</code> with
+coefficients in&nbsp;L representing the element in the decomposition&nbsp;A = 
+ &bigoplus; <sub>i = 0</sub><sup>d-1</sup>x^iL. For a central simple algebra defined by a
+multiplication table over its center&nbsp;K on a basis&nbsp;(e<sub>i</sub>), the algebraic
+representation is a <code>t_COL</code> with coefficients in&nbsp;K representing the element
+on the basis&nbsp;(e<sub>i</sub>).</p>
+<p>
+<b>Warning.</b> The coefficients in the decomposition&nbsp;A = 
+ &bigoplus; <sub>i = 0</sub><sup>d-1</sup>x^iL are not the same as those in the decomposition&nbsp;A
+ =  &bigoplus; <sub>i = 0</sub><sup>d-1</sup>Lx^i! The i-th coefficients are related by
+conjugating by&nbsp;x^i, which on&nbsp;L amounts to acting by&nbsp;&sigma;^i.</p>
+<p>
+<b>Warning.</b> For a central simple algebra over &Qopf; defined by a
+multiplication table, we cannot distinguish between the basis and the algebraic
+representations from the size of the vectors. The behavior is then to always
+interpret the column vector as a basis representation if the coefficients are
+<code>t_INT</code> or <code>t_FRAC</code>, and as an algebraic representation if the coefficients
+are <code>t_POL</code> or <code>t_POLMOD</code>.</p>
+<p>
+
+<hr>
+<div id="se:algadd"></div>
+<div id="algadd"></div>
+<h4>algadd(<em>al</em>, x, y)</h4>
+<p>
+Given two elements x and y in <em>al</em>, computes their sum x+y in
+the algebra&nbsp;<em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y),[-1,1]);
+  ? algadd(A,[1,0]~,[1,2]~)
+  %2 = [2, 2]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algadd</b>(GEN al, GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algalgtobasis"></div>
+<div id="algalgtobasis"></div>
+<h4>algalgtobasis(<em>al</em>, x)</h4>
+<p>
+Given an element <em>x</em> in the central simple algebra <em>al</em> output
+by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, transforms it to a column vector on the integral basis of
+<em>al</em>. This is the inverse function of <code><a href="Associative_and_central_simple_algebras.html#se:algbasistoalg"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algbasistoalg</a></code>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y^2-5),[2,y]);
+  ? algalgtobasis(A,[y,1]~)
+  %2 = [0, 2, 0, -1, 2, 0, 0, 0]~
+  ? algbasistoalg(A,algalgtobasis(A,[y,1]~))
+  %3 = [Mod(Mod(y, y^2 - 5), x^2 - 2), 1]~
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algalgtobasis</b>(GEN al, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algaut"></div>
+<div id="algaut"></div>
+<h4>algaut(<em>al</em>)</h4>
+<p>
+Given a cyclic algebra <em>al</em> = (L/K,&sigma;,b) output by
+<code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns the automorphism &sigma;.</p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y);
+  ? p = idealprimedec(nf,7)[1];
+  ? p2 = idealprimedec(nf,11)[1];
+  ? A = alginit(nf,[3,[[p,p2],[1/3,2/3]],[0]]);
+  ? algaut(A)
+  %5 = -1/3*x^2 + 1/3*x + 26/3
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algaut</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algb"></div>
+<div id="algb"></div>
+<h4>algb(<em>al</em>)</h4>
+<p>
+Given a cyclic algebra <em>al</em> = (L/K,&sigma;,b) output by
+<code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns the element b &in;  K.</p>
+<p>
+</p><pre class="code">  nf = nfinit(y);
+  ? p = idealprimedec(nf,7)[1];
+  ? p2 = idealprimedec(nf,11)[1];
+  ? A = alginit(nf,[3,[[p,p2],[1/3,2/3]],[0]]);
+  ? algb(A)
+  %5 = Mod(-77, y)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algb</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algbasis"></div>
+<div id="algbasis"></div>
+<h4>algbasis(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns
+a &Zopf;-basis of the order&nbsp;&Oscr;<sub>0</sub> stored in <em>al</em> with respect to the
+natural order in <em>al</em>. It is a maximal order if one has been computed.</p>
+<p>
+</p><pre class="code">  A = alginit(nfinit(y), [-1,-1]);
+  ? algbasis(A)
+  %2 =
+  [1 0 0 1/2]
+  
+  [0 1 0 1/2]
+  
+  [0 0 1 1/2]
+  
+  [0 0 0 1/2]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algbasis</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algbasistoalg"></div>
+<div id="algbasistoalg"></div>
+<h4>algbasistoalg(<em>al</em>, x)</h4>
+<p>
+Given an element <em>x</em> in the central simple algebra <em>al</em> output
+by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, transforms it to its algebraic representation in <em>al</em>.
+This is the inverse function of <code><a href="Associative_and_central_simple_algebras.html#se:algalgtobasis"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algalgtobasis</a></code>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y^2-5),[2,y]);
+  ? z = algbasistoalg(A,[0,1,0,0,2,-3,0,0]~);
+  ? liftall(z)
+  %3 = [(-1/2*y - 2)*x + (-1/4*y + 5/4), -3/4*y + 7/4]~
+  ? algalgtobasis(A,z)
+  %4 = [0, 1, 0, 0, 2, -3, 0, 0]~
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algbasistoalg</b>(GEN al, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algcenter"></div>
+<div id="algcenter"></div>
+<h4>algcenter(<em>al</em>)</h4>
+<p>
+If <em>al</em> is a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>, returns a
+basis of the center of the algebra&nbsp;<em>al</em> over its prime field (&Qopf; or
+&Fopf;<sub>p</sub>). If <em>al</em> is a central simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>,
+returns the center of&nbsp;<em>al</em>, which is stored in <em>al</em>.</p>
+<p>
+A simple example: the 2 x 2 upper triangular matrices over &Qopf;,
+generated by I<sub>2</sub>, a = <code>[0,1;0,0]</code> and b = <code>[0,0;0,1]</code>,
+such that a^2 = 0, ab = a, ba = 0, b^2 = b: the diagonal matrices
+form the center.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3),[0,0,0;1,0,1;0,0,0],[0,0,0;0,0,0;1,0,1]];
+  ? A = algtableinit(mt);
+  ? algcenter(A) \\ = (I<sub>2</sub>)
+  %3 =
+  [1]
+  
+  [0]
+  
+  [0]
+</pre><p></p>
+<p></p>
+<p>
+An example in the central simple case:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^3-y+1);
+  ? A = alginit(nf, [-1,-1]);
+  ? algcenter(A).pol
+  %3 = y^3 - y + 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algcenter</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algcentralproj"></div>
+<div id="algcentralproj"></div>
+<h4>algcentralproj(<em>al</em>, z, {<em>maps</em> = 0})</h4>
+<p>
+Given a table algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> and a
+<code>t_VEC</code> <em>z</em> = [z<sub>1</sub>,...,z<sub>n</sub>] of orthogonal central idempotents,
+returns a <code>t_VEC</code> [al<sub>1</sub>,...,al<sub>n</sub>] of algebras such that
+al<sub>i</sub> = z<sub>i</sub> al. If <em>maps</em> = 1, each al<sub>i</sub> is a <code>t_VEC</code>
+[quo,proj,lift] where <em>quo</em> is the quotient algebra, <em>proj</em> is a
+<code>t_MAT</code> representing the projection onto this quotient and <em>lift</em> is a
+<code>t_MAT</code> representing a lift.</p>
+<p>
+A simple example: &Fopf;<sub>2</sub> x &Fopf;<sub>4</sub>, generated by&nbsp;1 = (1,1), e = (1,0)
+and&nbsp;x such that&nbsp;x^2+x+1 = 0. We have&nbsp;e^2 = e, x^2 = x+1 and&nbsp;ex = 0.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,2);
+  ? e = [0,1,0]~;
+  ? e2 = algsub(A,[1,0,0]~,e);
+  ? [a,a2] = algcentralproj(A,[e,e2]);
+  ? algdim(a)
+  %6 = 1
+  ? algdim(a2)
+  %7 = 2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alg_centralproj</b>(GEN al, GEN z, long maps)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algchar"></div>
+<div id="algchar"></div>
+<h4>algchar(<em>al</em>)</h4>
+<p>
+Given an algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> or <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>,
+returns the characteristic of <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,13);
+  ? algchar(A)
+  %3 = 13
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algchar</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algcharpoly"></div>
+<div id="algcharpoly"></div>
+<h4>algcharpoly(<em>al</em>, b, {v = 'x}, {<em>abs</em> = 0})</h4>
+<p>
+Given an element b in <em>al</em>, returns its characteristic polynomial
+as a polynomial in the variable v. If <em>al</em> is a table algebra output
+by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or if abs = 1, returns the absolute characteristic
+polynomial of <em>b</em>, which is an element of &Fopf;<sub>p</sub>[v] or&nbsp;&Qopf;[v]; if <em>al</em>
+is a central simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> and abs = 0, returns the
+reduced characteristic polynomial of <em>b</em>, which is an element of&nbsp;K[v]
+where&nbsp;K is the center of <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y), [-1,-1]); \\ (-1,-1)<sub>Q</sub>
+  ? algcharpoly(al, [0,1]~)
+  %2 = x^2 + 1
+  ? algcharpoly(al, [0,1]~,,1)
+  %3 = x^4 + 2*x^2 + 1
+  ? nf = nfinit(y^2-5);
+  ? al = alginit(nf,[-1,y]);
+  ? a = [y,1+x]~*Mod(1,y^2-5)*Mod(1,x^2+1);
+  ? P = lift(algcharpoly(al,a))
+  %7 = x^2 - 2*y*x + (-2*y + 5)
+  ? algcharpoly(al,a,,1)
+  %8 = x^8 - 20*x^6 - 80*x^5 + 110*x^4 + 800*x^3 + 1500*x^2 - 400*x + 25
+  ? lift(P*subst(P,y,-y)*Mod(1,y^2-5))^2
+  %9 = x^8 - 20*x^6 - 80*x^5 + 110*x^4 + 800*x^3 + 1500*x^2 - 400*x + 25
+</pre><p></p>
+<p></p>
+<p>
+Also accepts a square matrix with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algcharpoly</b>(GEN al, GEN b, long v = -1, long abs)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:algdegree"></div>
+<div id="algdegree"></div>
+<h4>algdegree(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns
+the degree of <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^3-y+1);
+  ? A = alginit(nf, [-1,-1]);
+  ? algdegree(A)
+  %3 = 2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>algdegree</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algdim"></div>
+<div id="algdim"></div>
+<h4>algdim(<em>al</em>, {<em>abs</em> = 0})</h4>
+<p>
+If <em>al</em> is a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or if&nbsp;abs = 1,
+returns the dimension of <em>al</em> over its prime subfield (&Qopf; or &Fopf;<sub>p</sub>).
+If&nbsp;<em>al</em> is a central simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> and&nbsp;abs = 0,
+returns the dimension of <em>al</em> over its center.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^3-y+1);
+  ? A = alginit(nf, [-1,-1]);
+  ? algdim(A)
+  %3 = 4
+  ? algdim(A,1)
+  %4 = 12
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>algdim</b>(GEN al, long abs)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algdisc"></div>
+<div id="algdisc"></div>
+<h4>algdisc(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, computes
+the discriminant of the order &Oscr;<sub>0</sub> stored in <em>al</em>, that is the
+determinant of the trace form \rm{Tr} : &Oscr;<sub>0</sub> x &Oscr;<sub>0</sub>  &rightarrow;  &Zopf;.</p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-3,1-y]);
+  ? [PR,h] = alghassef(A)
+  %3 = [[[2, [2, 0]~, 1, 2, 1], [3, [3, 0]~, 1, 2, 1]], Vecsmall([0, 1])]
+  ? n = algdegree(A);
+  ? D = algdim(A,1);
+  ? h = vector(#h, i, n - gcd(n,h[i]));
+  ? n^D * nf.disc^(n^2) * idealnorm(nf, idealfactorback(nf,PR,h))^n
+  %4 = 12960000
+  ? algdisc(A)
+  %5 = 12960000
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algdisc</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algdivl"></div>
+<div id="algdivl"></div>
+<h4>algdivl(<em>al</em>, x, y)</h4>
+<p>
+Given two elements x and y in <em>al</em>, computes their left quotient
+x\y in the algebra <em>al</em>: an element z such that xz = y (such
+an element is not unique when x is a zerodivisor). If&nbsp;x is invertible, this
+is the same as x<sup>-1</sup>y. Assumes that y is left divisible by x (i.e. that
+z exists). Also accepts matrices with coefficients in&nbsp;<em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algdivl</b>(GEN al, GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algdivr"></div>
+<div id="algdivr"></div>
+<h4>algdivr(<em>al</em>, x, y)</h4>
+<p>
+Given two elements x and y in <em>al</em>, returns xy<sup>-1</sup>. Also accepts
+matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algdivr</b>(GEN al, GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alggroup"></div>
+<div id="alggroup"></div>
+<h4>alggroup(<em>gal</em>, {p = 0})</h4>
+<p>
+Initializes the group algebra&nbsp;K[G] over&nbsp;K = &Qopf; (p omitted) or&nbsp;&Fopf;<sub>p</sub>
+where&nbsp;G is the underlying group of the <code><a href="General_number_fields.html#se:galoisinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoisinit</a></code> structure&nbsp;<em>gal</em>.
+The input&nbsp;<em>gal</em> is also allowed to be a <code>t_VEC</code> of permutations that is
+closed under products.</p>
+<p>
+Example:</p>
+<p>
+</p><pre class="code">  ? K = nfsplitting(x^3-x+1);
+  ? gal = galoisinit(K);
+  ? al = alggroup(gal);
+  ? algissemisimple(al)
+  %4 = 1
+  ? G = [Vecsmall([1,2,3]), Vecsmall([1,3,2])];
+  ? al2 = alggroup(G, 2);
+  ? algissemisimple(al2)
+  %8 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alggroup</b>(GEN gal, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alggroupcenter"></div>
+<div id="alggroupcenter"></div>
+<h4>alggroupcenter(<em>gal</em>, {p = 0}, {&<em>cc</em>})</h4>
+<p>
+Initializes the center&nbsp;Z(K[G]) of the group algebra&nbsp;K[G] over&nbsp;K = &Qopf;
+(p = 0 or omitted) or&nbsp;&Fopf;<sub>p</sub> where&nbsp;G is the underlying group of the
+<code><a href="General_number_fields.html#se:galoisinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoisinit</a></code> structure&nbsp;<em>gal</em>. The input&nbsp;<em>gal</em> is also allowed to
+be a <code>t_VEC</code> of permutations that is closed under products.
+Sets&nbsp;<em>cc</em> to a <code>t_VEC</code>&nbsp;[<em>elts</em>,<em>conjclass</em>,<em>rep</em>,<em>flag</em>]
+where&nbsp;<em>elts</em> is a sorted <code>t_VEC</code> containing the list of elements
+of&nbsp;G, <em>conjclass</em> is a <code>t_VECSMALL</code> of the same length as&nbsp;<em>elts</em>
+containing the index of the conjugacy class of the corresponding element (an
+integer between 1 and the number of conjugacy classes), and&nbsp;<em>rep</em> is a
+<code>t_VECSMALL</code> of length the number of conjugacy classes giving for each
+conjugacy class the index in&nbsp;<em>elts</em> of a representative of this conjugacy
+class. Finally <em>flag</em> is 1 if and only if the permutation
+representation of G is transitive, in which case the i-th element
+of <em>elts</em> is characterized by g[1] = i; this is always the case
+when <em>gal</em> is a <code><a href="General_number_fields.html#se:galoisinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoisinit</a></code> structure. The basis of&nbsp;Z(K[G]) as
+output consists of the indicator functions of the conjugacy classes in the
+ordering given by&nbsp;<em>cc</em>. Example:</p>
+<p>
+</p><pre class="code">  ? K = nfsplitting(x^4+x+1);
+  ? gal = galoisinit(K); \\ S4
+  ? al = alggroupcenter(gal,,&cc);
+  ? algiscommutative(al)
+  %4 = 1
+  ? #cc[3] \\ number of conjugacy classes of S4
+  %5 = 5
+  ? gal = [Vecsmall([1,2,3]),Vecsmall([1,3,2])]; \\ C2
+  ? al = alggroupcenter(gal,,&cc);
+  ? cc[3]
+  %8 = Vecsmall([1, 2])
+  ? cc[4]
+  %9 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alggroupcenter</b>(GEN gal, GEN p = NULL, GEN *cc = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alghasse"></div>
+<div id="alghasse"></div>
+<h4>alghasse(<em>al</em>, <em>pl</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> and a prime
+ideal or an integer between 1 and r<sub>1</sub>+r<sub>2</sub>, returns a <code>t_FRAC</code> h : the
+local Hasse invariant of <em>al</em> at the place specified by <em>pl</em>.</p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,y]);
+  ? alghasse(A, 1)
+  %3 = 1/2
+  ? alghasse(A, 2)
+  %4 = 0
+  ? alghasse(A, idealprimedec(nf,2)[1])
+  %5 = 1/2
+  ? alghasse(A, idealprimedec(nf,5)[1])
+  %6 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alghasse</b>(GEN al, GEN pl)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alghassef"></div>
+<div id="alghassef"></div>
+<h4>alghassef(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns
+a <code>t_VEC</code> [<code>PR</code>, h<sub>f</sub>] describing the local Hasse invariants at the
+finite places of the center: <code>PR</code> is a <code>t_VEC</code> of primes and h<sub>f</sub> is a
+<code>t_VECSMALL</code> of integers modulo the degree d of <em>al</em>. The Hasse
+invariant of&nbsp;<em>al</em> at the primes outside&nbsp;<code>PR</code> is&nbsp;0, but&nbsp;<code>PR</code> can
+include primes at which the Hasse invariant is&nbsp;0.</p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,2*y-1]);
+  ? [PR,hf] = alghassef(A);
+  ? PR
+  %4 = [[19, [10, 2]~, 1, 1, [-8, 2; 2, -10]], [2, [2, 0]~, 1, 2, 1]]
+  ? hf
+  %5 = Vecsmall([1, 0])
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alghassef</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alghassei"></div>
+<div id="alghassei"></div>
+<h4>alghassei(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns
+a <code>t_VECSMALL</code> h<sub>i</sub> of r<sub>1</sub> integers modulo the degree d of <em>al</em>,
+where r<sub>1</sub> is the number of real places of the center: the local Hasse
+invariants of <em>al</em> at infinite places.</p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,y]);
+  ? alghassei(A)
+  %3 = Vecsmall([1, 0])
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alghassei</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algindex"></div>
+<div id="algindex"></div>
+<h4>algindex(<em>al</em>, {<em>pl</em>})</h4>
+<p>
+Returns the index of the central simple algebra&nbsp;A over&nbsp;K (as output by
+alginit), that is the degree&nbsp;e of the unique central division algebra&nbsp;D
+over K such that&nbsp;A is isomorphic to some matrix algebra&nbsp;M<sub>k</sub>(D). If
+<em>pl</em> is set, it should be a prime ideal of&nbsp;K or an integer between&nbsp;1
+and&nbsp;r<sub>1</sub>+r<sub>2</sub>, and in that case return the local index at the place <em>pl</em>
+instead.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,y]);
+  ? algindex(A, 1)
+  %3 = 2
+  ? algindex(A, 2)
+  %4 = 1
+  ? algindex(A, idealprimedec(nf,2)[1])
+  %5 = 2
+  ? algindex(A, idealprimedec(nf,5)[1])
+  %6 = 1
+  ? algindex(A)
+  %7 = 2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>algindex</b>(GEN al, GEN pl = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alginit"></div>
+<div id="alginit"></div>
+<h4>alginit(B, C, {v}, {<em>maxord</em> = 1})</h4>
+<p>
+Initializes the central simple algebra defined by data B, C and
+variable v, as follows.</p>
+<p>
+<b>*</b> (multiplication table) B is the base number field K in <code><a href="General_number_fields.html#se:nfinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">nfinit</a></code>
+form, C is a "multiplication table" over K.
+As a K-vector space, the algebra is generated by a basis
+(e<sub>1</sub> = 1,..., e<sub>n</sub>); the table is given as a <code>t_VEC</code> of n matrices in
+M<sub>n</sub>(K), giving the left multiplication by the basis elements&nbsp;e<sub>i</sub>, in the
+given basis.
+Assumes that e<sub>1</sub> = 1, that the multiplication table is integral, and that
+( &bigoplus; <sub>i = 1</sub>^nK e<sub>i</sub>,C) describes a central simple algebra over K.</p>
+<p>
+</p><pre class="code">  { mi = [0,-1,0, 0;
+           1, 0,0, 0;
+           0, 0,0,-1;
+           0, 0,1, 0];
+    mj = [0, 0,-1,0;
+           0, 0, 0,1;
+           1, 0, 0,0;
+           0,-1, 0,0];
+    mk = [0, 0, 0, 0;
+           0, 0,-1, 0;
+           0, 1, 0, 0;
+           1, 0, 0,-1];
+    A = alginit(nfinit(y), [matid(4), mi,mj,mk],  0); }
+</pre><p>
+represents (in a complicated way) the quaternion algebra (-1,-1)_&Qopf;.
+See below for a simpler solution.</p>
+<p>
+<b>*</b> (cyclic algebra) B is an <code>rnf</code> structure attached to a cyclic
+number field extension L/K of degree d, C is a <code>t_VEC</code>
+<code>[sigma,b]</code> with 2 components: <code><a href="Arithmetic_functions.html#se:sigma"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">sigma</a></code> is a <code>t_POLMOD</code> representing
+an automorphism generating Gal(L/K), b is an element in K<sup>*</sup>. This
+represents the cyclic algebra&nbsp;(L/K,&sigma;,b). Currently the element b has
+to be integral.</p>
+<p>
+</p><pre class="code">   ? Q = nfinit(y); T = polcyclo(5, 'x); F = rnfinit(Q, T);
+   ? A = alginit(F, [Mod(x^2,T), 3]);
+</pre><p>
+defines the cyclic algebra (L/&Qopf;, &sigma;, 3), where
+L = &Qopf;(&zeta;<sub>5</sub>) and &sigma;:&zeta;<code> &longmapsto; </code>&zeta;^2 generates
+Gal(L/&Qopf;).</p>
+<p>
+<b>*</b> (quaternion algebra, special case of the above) B is an <code>nf</code>
+structure attached to a number field K, C = [a,b] is a vector
+containing two elements of K<sup>*</sup> with a not a square in K, returns the quaternion algebra (a,b)<sub>K</sub>.
+The variable v (<code>'x</code> by default) must have higher priority than the
+variable of K<code>.pol</code> and is used to represent elements in the splitting
+field L = K[x]/(x^2-a).</p>
+<p>
+</p><pre class="code">   ? Q = nfinit(y); A = alginit(Q, [-1,-1]);  \\  (-1,-1)_&Qopf;
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> (algebra/K defined by local Hasse invariants)
+B is an <code>nf</code> structure attached to a number field K,
+C = [d, [<code>PR</code>,h<sub>f</sub>], h<sub>i</sub>] is a triple
+containing an integer d &gt; 1, a pair [<code>PR</code>, h<sub>f</sub>] describing the
+Hasse invariants at finite places, and h<sub>i</sub> the Hasse invariants
+at archimedean (real) places. A local Hasse invariant belongs to (1/d)&Zopf;/&Zopf;
+ &subset;  &Qopf;/&Zopf;, and is given either as a <code>t_FRAC</code> (lift to (1/d)&Zopf;),
+a <code>t_INT</code> or <code>t_INTMOD</code> modulo d (lift to &Zopf;/d&Zopf;); a whole vector
+of local invariants can also be given as a <code>t_VECSMALL</code>, whose
+entries are handled as <code>t_INT</code>s. <code>PR</code> is a list of prime ideals
+(<code>prid</code> structures), and h<sub>f</sub> is a vector of the same length giving the
+local invariants at those maximal ideals. The invariants at infinite real
+places are indexed by the real roots K<code>.roots</code>: if the Archimedean
+place v is attached to the j-th root, the value of
+h<sub>v</sub> is given by h<sub>i</sub>[j], must be 0 or 1/2 (or&nbsp;d/2 modulo&nbsp;d), and
+can be nonzero only if&nbsp;d is even.</p>
+<p>
+By class field theory, provided the local invariants h<sub>v</sub> sum to 0, up
+to Brauer equivalence, there is a unique central simple algebra over K
+with given local invariants and trivial invariant elsewhere. In particular,
+up to isomorphism, there is a unique such algebra A of degree d.</p>
+<p>
+We realize A as a cyclic algebra through class field theory. The variable v
+(<code>'x</code> by default) must have higher priority than the variable of
+K<code>.pol</code> and is used to represent elements in the (cyclic) splitting
+field extension L/K for A.</p>
+<p></p>
+<p>
+</p><pre class="code">   ? nf = nfinit(y^2+1);
+   ? PR = idealprimedec(nf,5); #PR
+   %2 = 2
+   ? hi = [];
+   ? hf = [PR, [1/3,-1/3]];
+   ? A = alginit(nf, [3,hf,hi]);
+   ? algsplittingfield(A).pol
+   %6 = x^3 - 21*x + 7
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> (matrix algebra, toy example) B is an <code>nf</code> structure attached
+to a number field K, C = d is a positive integer. Returns a cyclic
+algebra isomorphic to the matrix algebra M<sub>d</sub>(K).</p>
+<p>
+In all cases, this function computes a maximal order for the algebra by default,
+which may require a lot of time. Setting maxord = 0 prevents this computation.</p>
+<p>
+The pari object representing such an algebra A is a <code>t_VEC</code> with the
+following data:</p>
+<p>
+<b>*</b> A splitting field L of A of the same degree over K as A, in
+<code><a href="General_number_fields.html#se:rnfinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">rnfinit</a></code> format, accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algsplittingfield"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algsplittingfield</a></code>.</p>
+<p>
+<b>*</b> The Hasse invariants at the real places of K, accessed with
+<code><a href="Associative_and_central_simple_algebras.html#se:alghassei"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alghassei</a></code>.</p>
+<p>
+<b>*</b> The Hasse invariants of A at the finite primes of K that ramify in
+the natural order of A, accessed with <code><a href="Associative_and_central_simple_algebras.html#se:alghassef"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alghassef</a></code>.</p>
+<p>
+<b>*</b> A basis of an order &Oscr;<sub>0</sub> expressed on the basis of the natural
+order, accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algbasis"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algbasis</a></code>.</p>
+<p>
+<b>*</b> A basis of the natural order expressed on the basis of &Oscr;<sub>0</sub>,
+accessed with <code><a href="Associative_and_central_simple_algebras.html#se:alginvbasis"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginvbasis</a></code>.</p>
+<p>
+<b>*</b> The left multiplication table of &Oscr;<sub>0</sub> on the previous basis,
+accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algmultable"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algmultable</a></code>.</p>
+<p>
+<b>*</b> The characteristic of A (always 0), accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algchar"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algchar</a></code>.</p>
+<p>
+<b>*</b> The absolute traces of the elements of the basis of &Oscr;<sub>0</sub>.</p>
+<p>
+<b>*</b> If A was constructed as a cyclic algebra&nbsp;(L/K,&sigma;,b) of degree
+d, a <code>t_VEC</code> [&sigma;,&sigma;^2,...,&sigma;<sup>d-1</sup>]. The function
+<code><a href="Associative_and_central_simple_algebras.html#se:algaut"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algaut</a></code> returns &sigma;.</p>
+<p>
+<b>*</b> If A was constructed as a cyclic algebra&nbsp;(L/K,&sigma;,b), the
+element b, accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algb"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algb</a></code>.</p>
+<p>
+<b>*</b> If A was constructed with its multiplication table mt over K,
+the <code>t_VEC</code> of <code>t_MAT</code> mt, accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algrelmultable"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algrelmultable</a></code>.</p>
+<p>
+<b>*</b> If A was constructed with its multiplication table mt over K,
+a <code>t_VEC</code> with three components: a <code>t_COL</code> representing an element of A
+generating the splitting field L as a maximal subfield of A, a <code>t_MAT</code>
+representing an L-basis &Bscr; of A expressed on the &Zopf;-basis of
+&Oscr;<sub>0</sub>, and a <code>t_MAT</code> representing the &Zopf;-basis of &Oscr;<sub>0</sub>
+expressed on &Bscr;. This data is accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algsplittingdata"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algsplittingdata</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>alginit</b>(GEN B, GEN C, long v = -1, long maxord)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:alginv"></div>
+<div id="alginv"></div>
+<h4>alginv(<em>al</em>, x)</h4>
+<p>
+Given an element x in <em>al</em>, computes its inverse x<sup>-1</sup> in the
+algebra <em>al</em>. Assumes that x is invertible.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? alginv(A,[1,1,0,0]~)
+  %2 = [1/2, 1/2, 0, 0]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>alginv</b>(GEN al, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alginvbasis"></div>
+<div id="alginvbasis"></div>
+<h4>alginvbasis(<em>al</em>)</h4>
+<p>
+Given an central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns
+a &Zopf;-basis of the natural order in <em>al</em> with respect to the
+order&nbsp;&Oscr;<sub>0</sub> stored in <em>al</em>.</p>
+<p>
+</p><pre class="code">  A = alginit(nfinit(y), [-1,-1]);
+  ? alginvbasis(A)
+  %2 =
+  [1 0 0 -1]
+  
+  [0 1 0 -1]
+  
+  [0 0 1 -1]
+  
+  [0 0 0  2]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alginvbasis</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algisassociative"></div>
+<div id="algisassociative"></div>
+<h4>algisassociative(<em>mt</em>, p = 0)</h4>
+<p>
+Returns 1 if the multiplication table <code>mt</code> is suitable for
+<code>algtableinit(mt,p)</code>, 0 otherwise. More precisely, <code>mt</code> should be
+a <code>t_VEC</code> of n matrices in M<sub>n</sub>(K), giving the left multiplications
+by the basis elements e<sub>1</sub>,..., e<sub>n</sub> (structure constants).
+We check whether the first basis element e<sub>1</sub> is 1 and e<sub>i</sub>(e_je<sub>k</sub>) = 
+(e_ie<sub>j</sub>)e<sub>k</sub> for all i,j,k.</p>
+<p>
+</p><pre class="code">   ? mt = [matid(3),[0,0,0;1,0,1;0,0,0],[0,0,0;0,0,0;1,0,1]];
+   ? algisassociative(mt)
+   %2 = 1
+</pre><p></p>
+<p></p>
+<p>
+May be used to check a posteriori an algebra: we also allow <code>mt</code> as
+output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> (p is ignored in this case).</p>
+<p>
+The library syntax is <code>GEN <b>algisassociative</b>(GEN mt, GEN p)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algiscommutative"></div>
+<div id="algiscommutative"></div>
+<h4>algiscommutative(<em>al</em>)</h4>
+<p>
+<em>al</em> being a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or a central
+simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, tests whether the algebra <em>al</em> is
+commutative.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3),[0,0,0;1,0,1;0,0,0],[0,0,0;0,0,0;1,0,1]];
+  ? A = algtableinit(mt);
+  ? algiscommutative(A)
+  %3 = 0
+  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,2);
+  ? algiscommutative(A)
+  %6 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algiscommutative</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algisdivision"></div>
+<div id="algisdivision"></div>
+<h4>algisdivision(<em>al</em>, {<em>pl</em>})</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, tests
+whether <em>al</em> is a division algebra. If <em>pl</em> is set, it should be a
+prime ideal of&nbsp;K or an integer between&nbsp;1 and&nbsp;r<sub>1</sub>+r<sub>2</sub>, and in that case
+tests whether <em>al</em> is locally a division algebra at the place <em>pl</em>
+instead.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,y]);
+  ? algisdivision(A, 1)
+  %3 = 1
+  ? algisdivision(A, 2)
+  %4 = 0
+  ? algisdivision(A, idealprimedec(nf,2)[1])
+  %5 = 1
+  ? algisdivision(A, idealprimedec(nf,5)[1])
+  %6 = 0
+  ? algisdivision(A)
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algisdivision</b>(GEN al, GEN pl = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algisdivl"></div>
+<div id="algisdivl"></div>
+<h4>algisdivl(<em>al</em>, x, y, {&z})</h4>
+<p>
+Given two elements x and y in <em>al</em>, tests whether y is left
+divisible by x, that is whether there exists&nbsp;z in <em>al</em> such
+that&nbsp;xz = y, and sets z to this element if it exists.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,1]);
+  ? algisdivl(A,[x+2,-x-2]~,[x,1]~)
+  %2 = 0
+  ? algisdivl(A,[x+2,-x-2]~,[-x,x]~,&z)
+  %3 = 1
+  ? z
+  %4 = [Mod(-2/5*x - 1/5, x^2 + 1), 0]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algisdivl</b>(GEN al, GEN x, GEN y, GEN *z = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algisinv"></div>
+<div id="algisinv"></div>
+<h4>algisinv(<em>al</em>, x, {&<em>ix</em>})</h4>
+<p>
+Given an element x in <em>al</em>, tests whether x is invertible, and sets
+ix to the inverse of x.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,1]);
+  ? algisinv(A,[-1,1]~)
+  %2 = 0
+  ? algisinv(A,[1,2]~,&ix)
+  %3 = 1
+  ? ix
+  %4 = [Mod(Mod(-1/3, y), x^2 + 1), Mod(Mod(2/3, y), x^2 + 1)]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algisinv</b>(GEN al, GEN x, GEN *ix = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algisramified"></div>
+<div id="algisramified"></div>
+<h4>algisramified(<em>al</em>, {<em>pl</em>})</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, tests
+whether <em>al</em> is ramified, i.e. not isomorphic to a matrix algebra over its
+center. If <em>pl</em> is set, it should be a prime ideal of&nbsp;K or an integer
+between&nbsp;1 and&nbsp;r<sub>1</sub>+r<sub>2</sub>, and in that case tests whether <em>al</em> is locally
+ramified at the place <em>pl</em> instead.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,y]);
+  ? algisramified(A, 1)
+  %3 = 1
+  ? algisramified(A, 2)
+  %4 = 0
+  ? algisramified(A, idealprimedec(nf,2)[1])
+  %5 = 1
+  ? algisramified(A, idealprimedec(nf,5)[1])
+  %6 = 0
+  ? algisramified(A)
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algisramified</b>(GEN al, GEN pl = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algissemisimple"></div>
+<div id="algissemisimple"></div>
+<h4>algissemisimple(<em>al</em>)</h4>
+<p>
+<em>al</em> being a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or a central
+simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, tests whether the algebra <em>al</em> is
+semisimple.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3),[0,0,0;1,0,1;0,0,0],[0,0,0;0,0,0;1,0,1]];
+  ? A = algtableinit(mt);
+  ? algissemisimple(A)
+  %3 = 0
+  ? m<sub>i</sub>=[0,-1,0,0;1,0,0,0;0,0,0,-1;0,0,1,0]; \\ quaternion algebra (-1,-1)
+  ? m<sub>j</sub>=[0,0,-1,0;0,0,0,1;1,0,0,0;0,-1,0,0];
+  ? m<sub>k</sub>=[0,0,0,-1;0,0,-1,0;0,1,0,0;1,0,0,0];
+  ? mt = [matid(4), m<sub>i</sub>, m<sub>j</sub>, m<sub>k</sub>];
+  ? A = algtableinit(mt);
+  ? algissemisimple(A)
+  %9 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algissemisimple</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algissimple"></div>
+<div id="algissimple"></div>
+<h4>algissimple(<em>al</em>, {<em>ss</em> = 0})</h4>
+<p>
+<em>al</em> being a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or a central
+simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, tests whether the algebra <em>al</em> is
+simple. If <em>ss</em> = 1, assumes that the algebra&nbsp;<em>al</em> is semisimple
+without testing it.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3),[0,0,0;1,0,1;0,0,0],[0,0,0;0,0,0;1,0,1]];
+  ? A = algtableinit(mt); \\ matrices [*,*; 0,*]
+  ? algissimple(A)
+  %3 = 0
+  ? algissimple(A,1) \\ incorrectly assume that A is semisimple
+  %4 = 1
+  ? m<sub>i</sub>=[0,-1,0,0;1,0,0,0;0,0,0,-1;0,0,1,0];
+  ? m<sub>j</sub>=[0,0,-1,0;0,0,0,1;1,0,0,0;0,-1,0,0];
+  ? m<sub>k</sub>=[0,0,0,-1;0,0,b,0;0,1,0,0;1,0,0,0];
+  ? mt = [matid(4), m<sub>i</sub>, m<sub>j</sub>, m<sub>k</sub>];
+  ? A = algtableinit(mt); \\ quaternion algebra (-1,-1)
+  ? algissimple(A)
+  %10 = 1
+  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,2); \\ direct product F<sub>4</sub> x F<sub>2</sub>
+  ? algissimple(A)
+  %13 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algissimple</b>(GEN al, long ss)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algissplit"></div>
+<div id="algissplit"></div>
+<h4>algissplit(<em>al</em>, {<em>pl</em>})</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, tests
+whether&nbsp;<em>al</em> is split, i.e. isomorphic to a matrix algebra over its center.
+If <em>pl</em> is set, it should be a prime ideal of&nbsp;K or an integer between&nbsp;1
+and&nbsp;r<sub>1</sub>+r<sub>2</sub>, and in that case tests whether <em>al</em> is locally split at the
+place <em>pl</em> instead.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,y]);
+  ? algissplit(A, 1)
+  %3 = 0
+  ? algissplit(A, 2)
+  %4 = 1
+  ? algissplit(A, idealprimedec(nf,2)[1])
+  %5 = 0
+  ? algissplit(A, idealprimedec(nf,5)[1])
+  %6 = 1
+  ? algissplit(A)
+  %7 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algissplit</b>(GEN al, GEN pl = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatadd"></div>
+<div id="alglatadd"></div>
+<h4>alglatadd(<em>al</em>, <em>lat1</em>, <em>lat2</em>, {&<em>ptinter</em>})</h4>
+<p>
+Given an algebra <em>al</em> and two lattices <em>lat1</em> and <em>lat2</em>
+in&nbsp;<em>al</em>, computes the sum&nbsp;lat1 + lat2. If <em>ptinter</em> is
+present, set it to the intersection&nbsp;lat1 &cap; lat2.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? lat1 = alglathnf(al,[1,1,0,0,0,0,0,0]~);
+  ? lat2 = alglathnf(al,[1,0,1,0,0,0,0,0]~);
+  ? latsum = alglatadd(al,lat1,lat2,&latinter);
+  ? matdet(latsum[1])
+  %5 = 4
+  ? matdet(latinter[1])
+  %6 = 64
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatadd</b>(GEN al, GEN lat1, GEN lat2, GEN *ptinter = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatcontains"></div>
+<div id="alglatcontains"></div>
+<h4>alglatcontains(<em>al</em>, <em>lat</em>, x, {&<em>ptc</em>})</h4>
+<p>
+Given an algebra <em>al</em>, a lattice <em>lat</em> and <em>x</em> in&nbsp;<em>al</em>,
+tests whether&nbsp;x &in;  lat. If&nbsp;<em>ptc</em> is present, sets it to the&nbsp;<code>t_COL</code> of
+coordinates of&nbsp;x in the basis of&nbsp;<em>lat</em>.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? a1 = [1,-1,0,1,2,0,1,2]~;
+  ? lat1 = alglathnf(al,a1);
+  ? alglatcontains(al,lat1,a1,&c)
+  %4 = 1
+  ? c
+  %5 = [-1, -2, -1, 1, 2, 0, 1, 1]~
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatcontains</b>(GEN al, GEN lat, GEN x, GEN *ptc = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatelement"></div>
+<div id="alglatelement"></div>
+<h4>alglatelement(<em>al</em>, <em>lat</em>, c)</h4>
+<p>
+Given an algebra <em>al</em>, a lattice <em>lat</em> and a&nbsp;<code>t_COL</code>&nbsp;<em>c</em>,
+returns the element of&nbsp;<em>al</em> whose coordinates on the &Zopf;-basis of&nbsp;<em>lat</em>
+are given by&nbsp;<em>c</em>.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? a1 = [1,-1,0,1,2,0,1,2]~;
+  ? lat1 = alglathnf(al,a1);
+  ? c = [1..8]~;
+  ? elt = alglatelement(al,lat1,c);
+  ? alglatcontains(al,lat1,elt,&c2)
+  %6 = 1
+  ? c==c2
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatelement</b>(GEN al, GEN lat, GEN c)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglathnf"></div>
+<div id="alglathnf"></div>
+<h4>alglathnf(<em>al</em>, m, {d = 0})</h4>
+<p>
+Given an algebra <em>al</em> and a matrix <em>m</em> with columns representing
+elements of <em>al</em>, returns the lattice L generated by the columns of
+<em>m</em>. If provided, <em>d</em> must be a rational number such that L contains
+<em>d</em> times the natural basis of&nbsp;<em>al</em>. The argument <em>m</em> is also
+allowed to be a <code>t_VEC</code> of <code>t_MAT</code>, in which case <em>m</em> is replaced by
+the concatenation of the matrices, or a <code>t_COL</code>, in which case <em>m</em> is
+replaced by its left multiplication table as an element of <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? a = [1,1,-1/2,1,1/3,-1,1,1]~;
+  ? mt = algtomatrix(al,a,1);
+  ? lat = alglathnf(al,mt);
+  ? lat[2]
+  %5 = 1/6
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglathnf</b>(GEN al, GEN m, GEN d)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatindex"></div>
+<div id="alglatindex"></div>
+<h4>alglatindex(<em>al</em>, <em>lat1</em>, <em>lat2</em>)</h4>
+<p>
+Given an algebra&nbsp;<em>al</em> and two lattices&nbsp;<em>lat1</em> and&nbsp;<em>lat2</em>
+in&nbsp;<em>al</em>, computes the generalized index of&nbsp;<em>lat1</em> relative
+to&nbsp;<em>lat2</em>, i.e.&nbsp;|lat2/lat1&cap; lat2|/|lat1/lat1&cap; lat2|.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? lat1 = alglathnf(al,[1,1,0,0,0,0,0,0]~);
+  ? lat2 = alglathnf(al,[1,0,1,0,0,0,0,0]~);
+  ? alglatindex(al,lat1,lat2)
+  %4 = 1
+  ? lat1==lat2
+  %5 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatindex</b>(GEN al, GEN lat1, GEN lat2)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatinter"></div>
+<div id="alglatinter"></div>
+<h4>alglatinter(<em>al</em>, <em>lat1</em>, <em>lat2</em>, {&<em>ptsum</em>})</h4>
+<p>
+Given an algebra <em>al</em> and two lattices <em>lat1</em> and <em>lat2</em>
+in&nbsp;<em>al</em>, computes the intersection&nbsp;lat1&cap; lat2. If <em>ptsum</em> is
+present, sets it to the sum&nbsp;lat1 + lat2.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? lat1 = alglathnf(al,[1,1,0,0,0,0,0,0]~);
+  ? lat2 = alglathnf(al,[1,0,1,0,0,0,0,0]~);
+  ? latinter = alglatinter(al,lat1,lat2,&latsum);
+  ? matdet(latsum[1])
+  %5 = 4
+  ? matdet(latinter[1])
+  %6 = 64
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatinter</b>(GEN al, GEN lat1, GEN lat2, GEN *ptsum = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatlefttransporter"></div>
+<div id="alglatlefttransporter"></div>
+<h4>alglatlefttransporter(<em>al</em>, <em>lat1</em>, <em>lat2</em>)</h4>
+<p>
+Given an algebra <em>al</em> and two lattices <em>lat1</em> and <em>lat2</em>
+in&nbsp;<em>al</em>, computes the left transporter from <em>lat1</em> to&nbsp;<em>lat2</em>, i.e.
+the set of&nbsp;x &in;  al such that&nbsp;x.lat1  &subset;  lat2.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? lat1 = alglathnf(al,[1,-1,0,1,2,0,5,2]~);
+  ? lat2 = alglathnf(al,[0,1,-2,-1,0,0,3,1]~);
+  ? tr = alglatlefttransporter(al,lat1,lat2);
+  ? a = alglatelement(al,tr,[0,0,0,0,0,0,1,0]~);
+  ? alglatsubset(al,alglatmul(al,a,lat1),lat2)
+  %6 = 1
+  ? alglatsubset(al,alglatmul(al,lat1,a),lat2)
+  %7 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatlefttransporter</b>(GEN al, GEN lat1, GEN lat2)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatmul"></div>
+<div id="alglatmul"></div>
+<h4>alglatmul(<em>al</em>, <em>lat1</em>, <em>lat2</em>)</h4>
+<p>
+Given an algebra <em>al</em> and two lattices <em>lat1</em> and <em>lat2</em>
+in&nbsp;<em>al</em>, computes the lattice generated by the products of elements
+of&nbsp;<em>lat1</em> and&nbsp;<em>lat2</em>.
+One of <em>lat1</em> and <em>lat2</em> is also allowed to be an element of&nbsp;<em>al</em>;
+in this case, computes the product of the element and the lattice.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? a1 = [1,-1,0,1,2,0,1,2]~;
+  ? a2 = [0,1,2,-1,0,0,3,1]~;
+  ? lat1 = alglathnf(al,a1);
+  ? lat2 = alglathnf(al,a2);
+  ? lat3 = alglatmul(al,lat1,lat2);
+  ? matdet(lat3[1])
+  %7 = 29584
+  ? lat3 == alglathnf(al, algmul(al,a1,a2))
+  %8 = 0
+  ? lat3 == alglatmul(al, lat1, a2)
+  %9 = 0
+  ? lat3 == alglatmul(al, a1, lat2)
+  %10 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatmul</b>(GEN al, GEN lat1, GEN lat2)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatrighttransporter"></div>
+<div id="alglatrighttransporter"></div>
+<h4>alglatrighttransporter(<em>al</em>, <em>lat1</em>, <em>lat2</em>)</h4>
+<p>
+Given an algebra <em>al</em> and two lattices <em>lat1</em> and <em>lat2</em>
+in&nbsp;<em>al</em>, computes the right transporter from <em>lat1</em> to&nbsp;<em>lat2</em>, i.e.
+the set of&nbsp;x &in;  al such that&nbsp;lat1.x  &subset;  lat2.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? lat1 = alglathnf(al,matdiagonal([1,3,7,1,2,8,5,2]));
+  ? lat2 = alglathnf(al,matdiagonal([5,3,8,1,9,8,7,1]));
+  ? tr = alglatrighttransporter(al,lat1,lat2);
+  ? a = alglatelement(al,tr,[0,0,0,0,0,0,0,1]~);
+  ? alglatsubset(al,alglatmul(al,lat1,a),lat2)
+  %6 = 1
+  ? alglatsubset(al,alglatmul(al,a,lat1),lat2)
+  %7 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatrighttransporter</b>(GEN al, GEN lat1, GEN lat2)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alglatsubset"></div>
+<div id="alglatsubset"></div>
+<h4>alglatsubset(<em>al</em>, <em>lat1</em>, <em>lat2</em>, {&<em>ptindex</em>})</h4>
+<p>
+Given an algebra&nbsp;<em>al</em> and two lattices&nbsp;<em>lat1</em> and&nbsp;<em>lat2</em>
+in&nbsp;<em>al</em>, tests whether&nbsp;lat1 &subset;  lat2. If it is true and <em>ptindex</em>
+is present, sets it to the index of&nbsp;<em>lat1</em> in&nbsp;<em>lat2</em>.</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y^2+7), [-1,-1]);
+  ? lat1 = alglathnf(al,[1,1,0,0,0,0,0,0]~);
+  ? lat2 = alglathnf(al,[1,0,1,0,0,0,0,0]~);
+  ? alglatsubset(al,lat1,lat2)
+  %4 = 0
+  ? latsum = alglatadd(al,lat1,lat2);
+  ? alglatsubset(al,lat1,latsum,&index)
+  %6 = 1
+  ? index
+  %7 = 4
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alglatsubset</b>(GEN al, GEN lat1, GEN lat2, GEN *ptindex = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algmakeintegral"></div>
+<div id="algmakeintegral"></div>
+<h4>algmakeintegral(<em>mt</em>, {<em>maps</em> = 0})</h4>
+<p>
+<em>mt</em> being a multiplication table over &Qopf; in the same format as the
+input of <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>, computes an integral multiplication table for an
+isomorphic algebra. When <em>maps</em> = 1, returns a <code>t_VEC</code>
+[<em>mt2</em>,<em>S</em>,<em>T</em>] where <em>S</em> and <em>T</em> are matrices
+respectively representing the map from the algebra defined by <em>mt</em> to the
+one defined by <em>mt2</em> and its inverse.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(2),[0,-1/4;1,0]];
+  ? algtableinit(mt);
+    ***   at top-level: algtableinit(mt)
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; -
+    *** algtableinit: domain error in algtableinit: denominator(mt) != 1
+  ? mt2 = algmakeintegral(mt);
+  ? al = algtableinit(mt2);
+  ? algisassociative(al)
+  %4 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algmakeintegral</b>(GEN mt, long maps)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algmul"></div>
+<div id="algmul"></div>
+<h4>algmul(<em>al</em>, x, y)</h4>
+<p>
+Given two elements x and y in <em>al</em>, computes their product xy
+in the algebra&nbsp;<em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algmul(A,[1,1,0,0]~,[0,0,2,1]~)
+  %2 = [2, 3, 5, -4]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algmul</b>(GEN al, GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algmultable"></div>
+<div id="algmultable"></div>
+<h4>algmultable(<em>al</em>)</h4>
+<p>
+Returns a multiplication table of <em>al</em> over its
+prime subfield (&Qopf; or &Fopf;<sub>p</sub>), as a <code>t_VEC</code> of <code>t_MAT</code>: the left
+multiplication tables of basis elements. If <em>al</em> was output by
+<code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>, returns the multiplication table used to define <em>al</em>.
+If <em>al</em> was output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns the multiplication table of
+the order&nbsp;&Oscr;<sub>0</sub> stored in <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? M = algmultable(A);
+  ? #M
+  %3 = 4
+  ? M[1]  \\ multiplication by e<sub>1</sub> = 1
+  %4 =
+  [1 0 0 0]
+  
+  [0 1 0 0]
+  
+  [0 0 1 0]
+  
+  [0 0 0 1]
+  
+  ? M[2]
+  %5 =
+  [0 -1  1  0]
+  
+  [1  0  1  1]
+  
+  [0  0  1  1]
+  
+  [0  0 -2 -1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algmultable</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algneg"></div>
+<div id="algneg"></div>
+<h4>algneg(<em>al</em>, x)</h4>
+<p>
+Given an element x in <em>al</em>, computes its opposite -x in the
+algebra <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algneg(A,[1,1,0,0]~)
+  %2 = [-1, -1, 0, 0]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algneg</b>(GEN al, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algnorm"></div>
+<div id="algnorm"></div>
+<h4>algnorm(<em>al</em>, x, {<em>abs</em> = 0})</h4>
+<p>
+Given an element <em>x</em> in <em>al</em>, computes its norm. If <em>al</em> is
+a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or if abs = 1, returns the
+absolute norm of <em>x</em>, which is an element of &Fopf;<sub>p</sub> of&nbsp;&Qopf;; if <em>al</em> is
+a central simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> and abs = 0 (default), returns
+the reduced norm of <em>x</em>, which is an element of the center of <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,19);
+  ? algnorm(A,[0,-2,3]~)
+  %3 = 18
+  ? nf = nfinit(y^2-5);
+  ? B = alginit(nf,[-1,y]);
+  ? b = [x,1]~;
+  ? n = algnorm(B,b)
+  %7 = Mod(-y + 1, y^2 - 5)
+  ? algnorm(B,b,1)
+  %8 = 16
+  ? nfeltnorm(nf,n)^algdegree(B)
+  %9 = 16
+</pre><p></p>
+<p></p>
+<p>
+Also accepts a square matrix with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algnorm</b>(GEN al, GEN x, long abs)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algpoleval"></div>
+<div id="algpoleval"></div>
+<h4>algpoleval(<em>al</em>, T, b)</h4>
+<p>
+Given an element b in <em>al</em> and a polynomial T in K[X],
+computes&nbsp;T(b) in&nbsp;<em>al</em>. Also accepts as input a <code>t_VEC</code>&nbsp;[b,mb]
+where&nbsp;mb is the left multiplication table of&nbsp;b.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? al = alginit(nf,[y,-1]);
+  ? b = [1..8]~;
+  ? pol = algcharpoly(al,b,,1);
+  ? algpoleval(al,pol,b)==0
+  %5 = 1
+  ? mb = algtomatrix(al,b,1);
+  ? algpoleval(al,pol,[b,mb])==0
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algpoleval</b>(GEN al, GEN T, GEN b)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algpow"></div>
+<div id="algpow"></div>
+<h4>algpow(<em>al</em>, x, n)</h4>
+<p>
+Given an element x in <em>al</em> and an integer n, computes the
+power x^n in the algebra <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algpow(A,[1,1,0,0]~,7)
+  %2 = [8, -8, 0, 0]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts a square matrix with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algpow</b>(GEN al, GEN x, GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algprimesubalg"></div>
+<div id="algprimesubalg"></div>
+<h4>algprimesubalg(<em>al</em>)</h4>
+<p>
+<em>al</em> being the output of <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> representing a semisimple
+algebra of positive characteristic, returns a basis of the prime subalgebra
+of&nbsp;<em>al</em>. The prime subalgebra of&nbsp;<em>al</em> is the subalgebra fixed by the
+Frobenius automorphism of the center of <em>al</em>. It is abstractly isomorphic
+to a product of copies of &Fopf;<sub>p</sub>.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,2);
+  ? algprimesubalg(A)
+  %3 =
+  [1 0]
+  
+  [0 1]
+  
+  [0 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algprimesubalg</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algquotient"></div>
+<div id="algquotient"></div>
+<h4>algquotient(<em>al</em>, I, {<em>maps</em> = 0})</h4>
+<p>
+<em>al</em> being a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> and <em>I</em>
+being a basis of a two-sided ideal of <em>al</em> represented by a matrix,
+returns the quotient <em>al</em>/<em>I</em>. When <em>maps</em> = 1, returns a
+<code>t_VEC</code> [<em>al</em>/<em>I</em>,<em>proj</em>,<em>lift</em>] where <em>proj</em> and
+<em>lift</em> are matrices respectively representing the projection map and a
+section of it.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,2);
+  ? AQ = algquotient(A,[0;1;0]);
+  ? algdim(AQ)
+  %4 = 2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>alg_quotient</b>(GEN al, GEN I, long maps)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algradical"></div>
+<div id="algradical"></div>
+<h4>algradical(<em>al</em>)</h4>
+<p>
+<em>al</em> being a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>, returns a
+basis of the Jacobson radical of the algebra <em>al</em> over its prime field
+(&Qopf; or &Fopf;<sub>p</sub>).</p>
+<p>
+Here is an example with A = &Qopf;[x]/(x^2), with the basis&nbsp;(1,x):</p>
+<p>
+</p><pre class="code">  ? mt = [matid(2),[0,0;1,0]];
+  ? A = algtableinit(mt);
+  ? algradical(A) \\ = (x)
+  %3 =
+  [0]
+  
+  [1]
+</pre><p></p>
+<p></p>
+<p>
+Another one with 2 x 2 upper triangular matrices over &Qopf;, with basis
+I<sub>2</sub>, a = <code>[0,1;0,0]</code> and b = <code>[0,0;0,1]</code>, such that a^2 = 
+0, ab = a, ba = 0, b^2 = b:</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3),[0,0,0;1,0,1;0,0,0],[0,0,0;0,0,0;1,0,1]];
+  ? A = algtableinit(mt);
+  ? algradical(A) \\ = (a)
+  %6 =
+  [0]
+  
+  [1]
+  
+  [0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algradical</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algramifiedplaces"></div>
+<div id="algramifiedplaces"></div>
+<h4>algramifiedplaces(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns a
+<code>t_VEC</code> containing the list of places of the center of <em>al</em> that are
+ramified in <em>al</em>. Each place is described as an integer between&nbsp;1
+and&nbsp;r<sub>1</sub> or as a prime ideal.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf, [-1,y]);
+  ? algramifiedplaces(A)
+  %3 = [1, [2, [2, 0]~, 1, 2, 1]]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algramifiedplaces</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algrandom"></div>
+<div id="algrandom"></div>
+<h4>algrandom(<em>al</em>, b)</h4>
+<p>
+Given an algebra <em>al</em> and an integer <em>b</em>, returns a random
+element in <em>al</em> with coefficients in&nbsp;[-b,b].</p>
+<p>
+The library syntax is <code>GEN <b>algrandom</b>(GEN al, GEN b)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algrelmultable"></div>
+<div id="algrelmultable"></div>
+<h4>algrelmultable(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> defined by a multiplication table over its center (a number field), returns this multiplication table.</p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^3-5); a = y; b = y^2;
+  ? {m<sub>i</sub> = [0,a,0,0;
+            1,0,0,0;
+            0,0,0,a;
+            0,0,1,0];}
+  ? {m<sub>j</sub> = [0, 0,b, 0;
+            0, 0,0,-b;
+            1, 0,0, 0;
+            0,-1,0, 0];}
+  ? {m<sub>k</sub> = [0, 0,0,-a*b;
+            0, 0,b,   0;
+            0,-a,0,   0;
+            1, 0,0,   0];}
+  ? mt = [matid(4), m<sub>i</sub>, m<sub>j</sub>, m<sub>k</sub>];
+  ? A = alginit(nf,mt,'x);
+  ? M = algrelmultable(A);
+  ? M[2] == m<sub>i</sub>
+  %8 = 1
+  ? M[3] == m<sub>j</sub>
+  %9 = 1
+  ? M[4] == m<sub>k</sub>
+  %10 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algrelmultable</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algsimpledec"></div>
+<div id="algsimpledec"></div>
+<h4>algsimpledec(<em>al</em>, {<em>maps</em> = 0})</h4>
+<p>
+<em>al</em> being the output of <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>, returns a <code>t_VEC</code>
+[J,[<em>al</em><sub>1</sub>,<em>al</em><sub>2</sub>,...,<em>al</em><sub>n</sub>]] where J is a basis of the
+Jacobson radical of <em>al</em> and&nbsp;<em>al</em>/J is isomorphic to the direct
+product of the simple algebras&nbsp;<em>al</em><sub>i</sub>. When <em>maps</em> = 1,
+each&nbsp;<em>al</em><sub>i</sub> is replaced with a <code>t_VEC</code>
+[<em>al</em><sub>i</sub>,<em>proj</em><sub>i</sub>,<em>lift</em><sub>i</sub>] where <em>proj</em><sub>i</sub> and&nbsp;<em>lift</em><sub>i</sub>
+are matrices respectively representing the projection map&nbsp;<em>al</em>  &rightarrow; 
+<em>al</em><sub>i</sub> and a section of it. Modulo&nbsp;J, the images of the <em>lift</em><sub>i</sub>
+form a direct sum in&nbsp;<em>al</em>/J, so that the images of&nbsp;1 &in; <em>al</em><sub>i</sub>
+under&nbsp;<em>lift</em><sub>i</sub> are central primitive idempotents of&nbsp;<em>al</em>/J. The
+factors are sorted by increasing dimension, then increasing dimension of the
+center. This ensures that the ordering of the isomorphism classes of the
+factors is deterministic over finite fields, but not necessarily over&nbsp;&Qopf;.</p>
+<p>
+The library syntax is <code>GEN <b>algsimpledec</b>(GEN al, long maps)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algsplit"></div>
+<div id="algsplit"></div>
+<h4>algsplit(<em>al</em>, {v = 'x})</h4>
+<p>
+If <em>al</em> is a table algebra over&nbsp;&Fopf;<sub>p</sub> output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>
+that represents a simple algebra, computes an isomorphism between <em>al</em> and
+a matrix algebra&nbsp;M<sub>d</sub>(&Fopf;<sub>p^n</sub>) where&nbsp;N = nd^2 is the dimension of&nbsp;<em>al</em>.
+Returns a <code>t_VEC</code>&nbsp;[map,mapi], where:</p>
+<p>
+<b>*</b> <em>map</em> is a <code>t_VEC</code> of&nbsp;N matrices of size&nbsp;d x d with
+<code>t_FFELT</code> coefficients using the variable&nbsp;<em>v</em>, representing the image of
+the basis of&nbsp;<em>al</em> under the isomorphism.</p>
+<p>
+<b>*</b> <em>mapi</em> is an&nbsp;N x N matrix with <code>t_INT</code> coefficients,
+ representing the image in <em>al</em> by the inverse isomorphism of the
+ basis&nbsp;(b<sub>i</sub>) of&nbsp;M<sub>d</sub>(&Fopf;<sub>p</sub>[&alpha;]) (where&nbsp;&alpha; has degree&nbsp;n
+ over&nbsp;&Fopf;<sub>p</sub>) defined as follows:
+ let&nbsp;E<sub>i,j</sub> be the matrix having all coefficients&nbsp;0 except the&nbsp;(i,j)-th
+ coefficient equal to&nbsp;1, and define
+ b<sub>i</sub> = E<sub>((i-1)/nd)+1, ((i-1)/n mod d)+1</sub> &alpha;<sup>(i-1) mod n</sup>.</p>
+<p>
+Example:</p>
+<p>
+</p><pre class="code">  ? al0 = alginit(nfinit(y^2+7), [-1,-1]);
+  ? al = algtableinit(algmultable(al0), 3); \\ isomorphic to M<sub>2</sub>(F<sub>9</sub>)
+  ? [map,mapi] = algsplit(al, 'a);
+  ? x = [1,2,1,0,0,0,0,0]~; fx = map*x
+  %4 =
+  [2*a 0]
+  
+  [  0 2]
+  ? y = [0,0,0,0,1,0,0,1]~; fy = map*y
+  %5 =
+  [1   2*a]
+  
+  [2 a + 2]
+  ? map*algmul(al,x,y) == fx*fy
+  %6 = 1
+  ? map*mapi[,6]
+  %7 =
+  [0 0]
+  
+  [a 0]
+</pre><p></p>
+<p></p>
+<p>
+<b>Warning.</b> If&nbsp;<em>al</em> is not simple, <code>algsplit(al)</code> can trigger
+an error, but can also run into an infinite loop. Example:</p>
+<p>
+</p><pre class="code">  ? al = alginit(nfinit(y),[-1,-1]); \\ ramified at 2
+  ? al2 = algtableinit(algmultable(al),2); \\ maximal order modulo 2
+  ? algsplit(al2); \\ not semisimple, infinite loop
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algsplit</b>(GEN al, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:algsplittingdata"></div>
+<div id="algsplittingdata"></div>
+<h4>algsplittingdata(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> defined
+by a multiplication table over its center&nbsp;K (a number field), returns data
+stored to compute a splitting of <em>al</em> over an extension. This data is a
+<code>t_VEC</code> <code>[t,Lbas,Lbasinv]</code> with 3 components:</p>
+<p>
+<b>*</b> an element t of <em>al</em> such that L = K(t) is a maximal subfield
+of <em>al</em>;</p>
+<p>
+<b>*</b> a matrix <code>Lbas</code> expressing a L-basis of <em>al</em> (given an
+L-vector space structure by multiplication on the right) on the integral
+basis of <em>al</em>;</p>
+<p>
+<b>*</b> a matrix <code>Lbasinv</code> expressing the integral basis of <em>al</em> on
+the previous L-basis.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? nf = nfinit(y^3-5); a = y; b = y^2;
+  ? {m<sub>i</sub> = [0,a,0,0;
+            1,0,0,0;
+            0,0,0,a;
+            0,0,1,0];}
+  ? {m<sub>j</sub> = [0, 0,b, 0;
+            0, 0,0,-b;
+            1, 0,0, 0;
+            0,-1,0, 0];}
+  ? {m<sub>k</sub> = [0, 0,0,-a*b;
+            0, 0,b,   0;
+            0,-a,0,   0;
+            1, 0,0,   0];}
+  ? mt = [matid(4), m<sub>i</sub>, m<sub>j</sub>, m<sub>k</sub>];
+  ? A = alginit(nf,mt,'x);
+  ? [t,Lb,Lbi] = algsplittingdata(A);
+  ? t
+  %8 = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]~;
+  ? matsize(Lb)
+  %9 = [12, 2]
+  ? matsize(Lbi)
+  %10 = [2, 12]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algsplittingdata</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algsplittingfield"></div>
+<div id="algsplittingfield"></div>
+<h4>algsplittingfield(<em>al</em>)</h4>
+<p>
+Given a central simple algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code>, returns
+an <code>rnf</code> structure: the splitting field of <em>al</em> that is stored in
+<em>al</em>, as a relative extension of the center.</p>
+<p>
+</p><pre class="code">  nf = nfinit(y^3-5);
+  a = y; b = y^2;
+  {m<sub>i</sub> = [0,a,0,0;
+         1,0,0,0;
+         0,0,0,a;
+         0,0,1,0];}
+  {m<sub>j</sub> = [0, 0,b, 0;
+         0, 0,0,-b;
+         1, 0,0, 0;
+         0,-1,0, 0];}
+  {m<sub>k</sub> = [0, 0,0,-a*b;
+         0, 0,b,   0;
+         0,-a,0,   0;
+         1, 0,0,   0];}
+  mt = [matid(4), m<sub>i</sub>, m<sub>j</sub>, m<sub>k</sub>];
+  A = alginit(nf,mt,'x);
+  algsplittingfield(A).pol
+  %8 = x^2 - y
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algsplittingfield</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algsqr"></div>
+<div id="algsqr"></div>
+<h4>algsqr(<em>al</em>, x)</h4>
+<p>
+Given an element x in <em>al</em>, computes its square x^2 in the
+algebra <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algsqr(A,[1,0,2,0]~)
+  %2 = [-3, 0, 4, 0]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts a square matrix with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algsqr</b>(GEN al, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algsub"></div>
+<div id="algsub"></div>
+<h4>algsub(<em>al</em>, x, y)</h4>
+<p>
+Given two elements x and y in <em>al</em>, computes their difference
+x-y in the algebra <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algsub(A,[1,1,0,0]~,[1,0,1,0]~)
+  %2 = [0, 1, -1, 0]~
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algsub</b>(GEN al, GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algsubalg"></div>
+<div id="algsubalg"></div>
+<h4>algsubalg(<em>al</em>, B)</h4>
+<p>
+<em>al</em> being a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> and <em>B</em>
+being a basis of a subalgebra of&nbsp;<em>al</em> represented by a matrix, computes an
+algebra&nbsp;<em>al2</em> isomorphic to <em>B</em>.</p>
+<p>
+Returns [<em>al2</em>,<em>B2</em>] where <em>B2</em> is a possibly different basis of
+the subalgebra <em>al2</em>, with respect to which the multiplication table of
+<em>al2</em> is defined.</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,2);
+  ? B = algsubalg(A,[1,0; 0,0; 0,1]);
+  ? algdim(A)
+  %4 = 3
+  ? algdim(B[1])
+  %5 = 2
+  ? m = matcompanion(x^4+1);
+  ? mt = [m^i | i &lt;- [0..3]];
+  ? al = algtableinit(mt);
+  ? B = [1,0;0,0;0,1/2;0,0];
+  ? al2 = algsubalg(al,B);
+  ? algdim(al2[1])
+  ? al2[2]
+  %13 =
+  [1 0]
+  
+  [0 0]
+  
+  [0 1]
+  
+  [0 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algsubalg</b>(GEN al, GEN B)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algtableinit"></div>
+<div id="algtableinit"></div>
+<h4>algtableinit(<em>mt</em>, {p = 0})</h4>
+<p>
+Initializes the associative algebra over K = &Qopf; (p omitted) or &Fopf;<sub>p</sub>
+defined by the multiplication table <em>mt</em>.
+As a K-vector space, the algebra is generated by a basis
+(e<sub>1</sub> = 1, e<sub>2</sub>,..., e<sub>n</sub>); the table is given as a <code>t_VEC</code> of n matrices in
+M<sub>n</sub>(K), giving the left multiplication by the basis elements e<sub>i</sub>, in the
+given basis.
+Assumes that e<sub>1</sub> = 1, that K e<sub>1</sub>&bigoplus; ...&bigoplus;  K e<sub>n</sub>] describes an
+associative algebra over K, and in the case K = &Qopf; that the multiplication
+table is integral. If the algebra is already known to be central
+and simple, then the case K = &Fopf;<sub>p</sub> is useless, and one should use
+<code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> directly.</p>
+<p>
+The point of this function is to input a finite dimensional K-algebra, so
+as to later compute its radical, then to split the quotient algebra as a
+product of simple algebras over K.</p>
+<p>
+The pari object representing such an algebra A is a <code>t_VEC</code> with the
+following data:</p>
+<p>
+<b>*</b> The characteristic of A, accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algchar"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algchar</a></code>.</p>
+<p>
+<b>*</b> The multiplication table of A, accessed with <code><a href="Associative_and_central_simple_algebras.html#se:algmultable"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algmultable</a></code>.</p>
+<p>
+<b>*</b> The traces of the elements of the basis.</p>
+<p>
+A simple example: the 2 x 2 upper triangular matrices over &Qopf;,
+generated by I<sub>2</sub>, a = <code>[0,1;0,0]</code> and b = <code>[0,0;0,1]</code>,
+such that a^2 = 0, ab = a, ba = 0, b^2 = b:</p>
+<p>
+</p><pre class="code">  ? mt = [matid(3),[0,0,0;1,0,1;0,0,0],[0,0,0;0,0,0;1,0,1]];
+  ? A = algtableinit(mt);
+  ? algradical(A) \\ = (a)
+  %6 =
+  [0]
+  
+  [1]
+  
+  [0]
+  ? algcenter(A) \\ = (I<sub>2</sub>)
+  %7 =
+  [1]
+  
+  [0]
+  
+  [0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>algtableinit</b>(GEN mt, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algtensor"></div>
+<div id="algtensor"></div>
+<h4>algtensor(<em>al1</em>, <em>al2</em>, {<em>maxord</em> = 1})</h4>
+<p>
+Given two algebras <em>al1</em> and <em>al2</em>, computes their tensor
+product. Computes a maximal order by default. Prevent this computation by
+setting <em>maxord</em> = 0.</p>
+<p>
+Currently only implemented for cyclic algebras of coprime degree over the same
+center&nbsp;K, and the tensor product is over&nbsp;K.</p>
+<p>
+The library syntax is <code>GEN <b>algtensor</b>(GEN al1, GEN al2, long maxord)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algtomatrix"></div>
+<div id="algtomatrix"></div>
+<h4>algtomatrix(<em>al</em>, x, {<em>abs</em> = 1})</h4>
+<p>
+Given an element <em>x</em> in <em>al</em>, returns the image of <em>x</em> under a
+homomorphism to a matrix algebra. If <em>al</em> is a table algebra output by
+<code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or if&nbsp;abs = 1, returns the left multiplication table on the
+integral basis; if <em>al</em> is a central simple algebra and&nbsp;abs = 0,
+returns&nbsp;&phi;(x) where&nbsp;&phi; : A &bigotimes; <sub>K</sub> L  &rightarrow;  M<sub>d</sub>(L) (where d is the
+degree of the algebra and L is an extension of L with&nbsp;[L:K] = d) is an
+isomorphism stored in&nbsp;<em>al</em>. Also accepts a square matrix with coefficients
+in&nbsp;<em>al</em>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algtomatrix(A,[0,0,0,2]~)
+  %2 =
+  [Mod(x + 1, x^2 + 1) Mod(Mod(1, y)*x + Mod(-1, y), x^2 + 1)]
+  
+  [Mod(x + 1, x^2 + 1)                   Mod(-x + 1, x^2 + 1)]
+  ? algtomatrix(A,[0,1,0,0]~,1)
+  %2 =
+  [0 -1  1  0]
+  
+  [1  0  1  1]
+  
+  [0  0  1  1]
+  
+  [0  0 -2 -1]
+  ? algtomatrix(A,[0,x]~,1)
+  %3 =
+  [-1  0 0 -1]
+  
+  [-1  0 1  0]
+  
+  [-1 -1 0 -1]
+  
+  [ 2  0 0  1]
+</pre><p></p>
+<p></p>
+<p>
+Also accepts matrices with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algtomatrix</b>(GEN al, GEN x, long abs)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algtrace"></div>
+<div id="algtrace"></div>
+<h4>algtrace(<em>al</em>, x, {<em>abs</em> = 0})</h4>
+<p>
+Given an element <em>x</em> in <em>al</em>, computes its trace. If <em>al</em> is
+a table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code> or if abs = 1, returns the
+absolute trace of <em>x</em>, which is an element of &Fopf;<sub>p</sub> or&nbsp;&Qopf;; if <em>al</em>
+is the output of <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> and abs = 0 (default), returns the reduced trace
+of <em>x</em>, which is an element of the center of <em>al</em>.</p>
+<p>
+</p><pre class="code">  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algtrace(A,[5,0,0,1]~)
+  %2 = 11
+  ? algtrace(A,[5,0,0,1]~,1)
+  %3 = 22
+  ? nf = nfinit(y^2-5);
+  ? A = alginit(nf,[-1,y]);
+  ? a = [1+x+y,2*y]~*Mod(1,y^2-5)*Mod(1,x^2+1);
+  ? t = algtrace(A,a)
+  %7 = Mod(2*y + 2, y^2 - 5)
+  ? algtrace(A,a,1)
+  %8 = 8
+  ? algdegree(A)*nfelttrace(nf,t)
+  %9 = 8
+</pre><p></p>
+<p></p>
+<p>
+Also accepts a square matrix with coefficients in <em>al</em>.</p>
+<p>
+The library syntax is <code>GEN <b>algtrace</b>(GEN al, GEN x, long abs)</code>.</p>
+<p>
+
+<hr>
+<div id="se:algtype"></div>
+<div id="algtype"></div>
+<h4>algtype(<em>al</em>)</h4>
+<p>
+Given an algebra <em>al</em> output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> or by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>, returns an integer indicating the type of algebra:</p>
+<p>
+<b>*</b> 0: not a valid algebra.</p>
+<p>
+<b>*</b> 1: table algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:algtableinit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">algtableinit</a></code>.</p>
+<p>
+<b>*</b> 2: central simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> and represented by
+a multiplication table over its center.</p>
+<p>
+<b>*</b> 3: central simple algebra output by <code><a href="Associative_and_central_simple_algebras.html#se:alginit"
+    onClick="parent.itemFrame.location='cont_Associative_and_central_simple_algebras.html'">alginit</a></code> and represented by
+a cyclic algebra.</p>
+<p>
+</p><pre class="code">  ? algtype([])
+  %1 = 0
+  ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+  ? A = algtableinit(mt,2);
+  ? algtype(A)
+  %4 = 1
+  ? nf = nfinit(y^3-5);
+  ?  a = y; b = y^2;
+  ?  {m<sub>i</sub> = [0,a,0,0;
+             1,0,0,0;
+             0,0,0,a;
+             0,0,1,0];}
+  ?  {m<sub>j</sub> = [0, 0,b, 0;
+             0, 0,0,-b;
+             1, 0,0, 0;
+             0,-1,0, 0];}
+  ?  {m<sub>k</sub> = [0, 0,0,-a*b;
+             0, 0,b,   0;
+             0,-a,0,   0;
+             1, 0,0,   0];}
+  ?  mt = [matid(4), m<sub>i</sub>, m<sub>j</sub>, m<sub>k</sub>];
+  ?  A = alginit(nf,mt,'x);
+  ? algtype(A)
+  %12 = 2
+  ? A = alginit(nfinit(y), [-1,-1]);
+  ? algtype(A)
+  %14 = 3
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>algtype</b>(GEN al)</code>.</p>
+<p>
+
+<hr>
+</body>

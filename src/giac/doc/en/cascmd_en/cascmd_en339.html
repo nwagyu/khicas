@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Exact bounds for real roots of a polynomial: realroot
+</title>
+</head>
+<body >
+<a href="cascmd_en338.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en340.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec789" class="subsection">5.29.1  Exact bounds for real roots of a polynomial: <span style="font-family:monospace">realroot</span>
+<a id="hevea_default590"></a></h3>
+<p>The <span style="font-family:monospace">realroot</span> command finds bounds for the real roots of
+a polynomial.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">realroot</span> takes two mandatory arguments and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a polynomial.
+</li><li class="li-itemize">є, a postive real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">a</span>, <span style="font-style:italic">b</span>, two complex numbers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">realroot(</span><span style="font-style:italic">P</span>,є<span style="font-family:monospace">)</span>
+returns a list of vectors, where the elements of each vector are a
+list containing one of:
+<ul class="itemize"><li class="li-itemize">
+an interval of length less than є containing a real
+root of the polynomial and the multiplicity of this root.
+</li><li class="li-itemize">the value of an exact real root of the polynomial and the
+multiplicity of this root.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">realroot(</span><span style="font-style:italic">P</span>,є,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> 
+returns a list of vectors as above, but only for the roots lying in
+the interval [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>].
+</li></ul><h4 id="sec790" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Find the real roots of <span style="font-style:italic">x</span><sup>3</sup>+1.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">realroot(x^3+1, 0.1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−1</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the real roots of <span style="font-style:italic">x</span><sup>3</sup>−<span style="font-style:italic">x</span><sup>2</sup>−2<span style="font-style:italic">x</span>+2.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">realroot(x^3-x^2-2*x+2, 0.1)</span>
+</div>
+Output:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−[1.40624999999999..1.50000000000001]</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >[1.37499999999999..1.43750000000001]</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the real roots of <span style="font-style:italic">x</span><sup>3</sup>−<span style="font-style:italic">x</span><sup>2</sup>−2<span style="font-style:italic">x</span>+2 in the interval [0;2].<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">realroot(x^3-x^2-2*x+2, 0.1,0,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >[1.37499999999999..1.43750000000001]</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en338.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en340.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

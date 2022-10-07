@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The coordinates of a point, vector or line in space: coordinates
+</title>
+</head>
+<body >
+<a href="cascmd_en931.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en933.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dcoordinates" class="subsection">14.12.4  The coordinates of a point, vector or line in space: <span style="font-family:monospace">coordinates</span>
+<a id="hevea_default1638"></a></h3>
+<p>See Section <a href="cascmd_en842.html#ssec%3A2dcoordinates">13.13.4</a> for coordinates in two-dimensional
+geometry.</p><p>The <span style="font-family:monospace">coordinates</span> command takes finds the coordinates of a point.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">coordinates</span> takes one argument:<br>
+ <span style="font-style:italic">P</span>, which can be a point (or a sequence or list of points), a
+vector, or a line.
+</li><li class="li-itemize">If <span style="font-style:italic">P</span> is a point, then <span style="font-family:monospace">coordinates(</span><span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns a list
+consisting of the abscissa, ordinate and cote. If <span style="font-style:italic">P</span> is a list or
+sequence of points, then the command returns a list or sequence of
+such lists.
+</li><li class="li-itemize">If <span style="font-style:italic">P</span> is a vector, for example from <span style="font-style:italic">A</span> to <span style="font-style:italic">B</span>, then
+<span style="font-family:monospace">coordinates(</span><span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns a list of the coordinates of <span style="font-style:italic">B</span>−<span style="font-style:italic">A</span>.
+</li><li class="li-itemize">If <span style="font-style:italic">P</span> is a line, then <span style="font-family:monospace">coordinates(</span><span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns a
+list of two points on the line, in the order determined by the
+direction of the line.
+</li></ul><h4 id="sec2367" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates(point(1,2,3))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates(point(0,1,2),point(1,2,4))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Note that if the argument is a list of real numbers, it is
+interpreted as a list of points on the real axis of the plane.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates([1,2,4])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates(vector(point(1,2,3),point(2,4,7)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates(line(point(-1,1,0),point(1,2,3)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1,1,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,3</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates(line(x-2*y+3=0, 6*x + 3*y - 5*z + 3 = 0))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1,1,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">9,6,15</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en931.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en933.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

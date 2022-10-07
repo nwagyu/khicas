@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The cosine integral function: Ci
+</title>
+</head>
+<body >
+<a href="cascmd_en141.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en143.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec292" class="subsection">5.8.7  The cosine integral function: <span style="font-family:monospace">Ci</span>
+<a id="hevea_default251"></a></h3>
+<p>The cosine integral function is defined by
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >  Ci(<span style="font-style:italic">x</span>)</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">= </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">+∞</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">cos(<span style="font-style:italic">t</span>)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">t</span></td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">dt</span></td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> =ln(<span style="font-style:italic">t</span>) + γ + </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left"><span style="font-style:italic">t</span>=0</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">cos(<span style="font-style:italic">t</span>) − 1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">t</span></td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">dt</span>
+</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+and Ci(0) = −∞, Ci(−∞) = <span style="font-style:italic">i</span>π and
+Ci(+∞) = 0.</p><p>The <span style="font-family:monospace">Ci</span> command computes the cosine integral function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">Ci</span> takes one argument:<br>
+ <span style="font-style:italic">z</span>, a complex number.
+</li><li class="li-itemize"><span style="font-family:monospace">Ci(</span><span style="font-style:italic">z</span><span style="font-family:monospace">)</span> returns the value of the cosine integral function
+Ci(<span style="font-style:italic">z</span>).
+</li></ul><h4 id="sec293" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Ci(1.0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0.337403922901
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Ci(-1.0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0.337403922901+3.14159265359 <span style="font-style:italic">i</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Ci(1.0) - Ci(-1.0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −3.14159265359 <span style="font-style:italic">i</span>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en141.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en143.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Right triangles in the plane: right_triangle
+</title>
+</head>
+<body >
+<a href="cascmd_en815.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en817.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dright" class="subsection">13.8.3  Right triangles in the plane: <span style="font-family:monospace">right_triangle</span>
+<a id="hevea_default1507"></a></h3>
+<p>See Section <a href="cascmd_en914.html#ssec%3A3dright">14.7.3</a> for right triangles in space.</p><p>The <span style="font-family:monospace">right_triangle</span> command creates right triangles.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">right_triangle</span> takes three mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>, two points.
+</li><li class="li-itemize"><span style="font-style:italic">k</span>, a nonzero real number.
+</li><li class="li-itemize">Optionally <span style="font-style:italic">var</span>, a variable name.
+</li></ul>
+</li><li class="li-itemize"><span style="font-style:italic">right_triangle(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">k</span> ⟨<span style="font-style:italic">var</span>⟩<span style="font-family:monospace">)</span>
+returns and draws the right triangle <span style="font-style:italic">ABC</span>, with the right angle
+at <span style="font-style:italic">A</span> and with length(<span style="font-style:italic">AC</span>)=|<span style="font-style:italic">k</span>|·length(<span style="font-style:italic">AB</span>).
+If <span style="font-style:italic">k</span> &gt; 0, then <span style="font-style:italic">AB</span> to <span style="font-style:italic">AC</span> is counterclockwise; if <span style="font-style:italic">k</span> &lt; 0 then
+<span style="font-style:italic">AB</span> to <span style="font-style:italic">AC</span> is clockwise.<br>
+ With the argument <span style="font-style:italic">var</span>, <span style="font-style:italic">c</span> will be assigned to
+<span style="font-style:italic">var</span>.
+</li></ul><h4 id="sec2083" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">right_triangle(i,-i,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en197.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">right_triangle(i,-i,-2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en198.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">right_triangle(i, -i, 2, C)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en199.png">
+</div>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">affix(C)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  4 + <span style="font-style:italic">i</span>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en815.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en817.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

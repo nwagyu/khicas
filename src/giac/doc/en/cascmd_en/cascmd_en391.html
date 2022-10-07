@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Determinant of a matrix with coefficients in ℤ/pℤ: Det
+</title>
+</head>
+<body >
+<a href="cascmd_en390.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en392.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec903" class="subsection">5.35.5  Determinant of a matrix with coefficients in ℤ/<span style="font-style:italic">p</span>ℤ: <span style="font-family:monospace">Det</span>
+<a id="hevea_default655"></a></h3>
+<p>In <span style="font-family:monospace">Xcas</span> mode, <span style="font-family:monospace">Det</span> is simply the inert form of
+<span style="font-family:monospace">det</span>; namely, it gives the determinant of a matrix without
+evaluating it. (See Section <a href="cascmd_en500.html#ssec%3Adet">5.47.4</a>.)
+In <span style="font-family:monospace">Maple</span> mode, the <span style="font-family:monospace">Det</span> command
+can additionally be used in conjunction with <span style="font-family:monospace">mod</span> to
+find the determinant of a matrix whose elements are in
+ℤ/<span style="font-style:italic">p</span>ℤ.
+</p><ul class="itemize"><li class="li-itemize">
+(In <span style="font-family:monospace">Maple</span> mode.)<br>
+ <span style="font-family:monospace">Det</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a matrix with elements in ℤ/<span style="font-style:italic">p</span>ℤ.
+</li><li class="li-itemize"><span style="font-family:monospace">Det(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns the determinant of <span style="font-style:italic">A</span>.
+</li></ul><h4 id="sec904" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Xcas</span></span><span style="font-style:italic"> mode):</span>
+</p><div class="center">
+<span style="font-family:monospace">Det([[1,2,9] mod 13,[3,10,0] mod 13,[3,11,1] mod 13])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">det</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1%13</td><td style="text-align:center;white-space:nowrap" >2%13</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−4</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%13</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3%13</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%13</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0%13</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3%13</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%13</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >1%13</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table><p>
+To find the value of the determinant, you can enter:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">eval(ans())</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">5%13
+</td></tr>
+</table><p>
+Hence, in ℤ/13ℤ, the determinant of
+<span style="font-style:italic">A</span>=[[1, 2, 9],[3,10,0],[3,11,1]] is <span style="font-family:monospace">5%13</span> (in ℤ, <span style="font-family:monospace">det(A)=31</span>).<br>
+<span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Maple</span></span><span style="font-style:italic"> mode):</span>
+</p><div class="center">
+<span style="font-family:monospace">Det([[1,2,9],[3,10,0],[3,11,1]]) mod 13</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">5
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en390.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en392.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The switch statement: switch case default
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en754.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en756.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1931" class="subsection">12.3.2  The switch statement: <span style="font-family:monospace">switch</span> <span style="font-family:monospace">case</span> <span style="font-family:monospace">default</span>
+<a id="hevea_default1395"></a>
+<a id="hevea_default1396"></a>
+<a id="hevea_default1397"></a></h3>
+<p>The <span style="font-family:monospace">switch</span> statement can be used when you want the value of a
+block to depend on an integer. It takes one argument, an expression
+which evaluates to an integer. It should be followed by a sequence of
+<span style="font-family:monospace">case</span> statements, which takes the form <span style="font-family:monospace">case</span> followed
+by an integer and then a colon, which is followed by a code block to
+be executed if the expression equals the integer. At the end is an
+optional <span style="font-family:monospace">default:</span> statement, which is followed by a code
+block to be executed if the expression doesn’t equal any of the given
+integers:
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">switch(</span><span style="font-style:italic">n</span><span style="font-family:monospace">) {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  case </span><span style="font-style:italic">n</span><sub>1</sub><span style="font-family:monospace">: </span><span style="font-style:italic">block </span><span style="font-style:italic">n</span><sub>1</sub></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  case </span><span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">: </span><span style="font-style:italic">block </span><span style="font-style:italic">n</span><sub>2</sub></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >    …</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  case </span><span style="font-style:italic">n</span><sub><span style="font-style:italic">k</span></sub><span style="font-family:monospace">: </span><span style="font-style:italic">block </span><span style="font-style:italic">n</span><sub><span style="font-style:italic">k</span></sub></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  default: </span><span style="font-style:italic">default_block</span>
+</td></tr>
+</table>
+</div><p>
+(where recall the blocks need to be delimited by braces or by
+begin and <span style="font-family:monospace">end</span>).</p><h4 id="sec1932" class="subsubsection">Example</h4>
+<p>
+As an example of a program which performs an operation on the first
+two variables depending on the third, you could enter (see
+Section <a href="cascmd_en737.html#ssec%3Aproged">12.1.1</a>):
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">oper(a,b,c):= {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">switch (c) {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  case 1: {a:= a + b; break;}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  case 2: {a:= a - b; break;}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  case 3: {a:= a * b; break;}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  default: {a:= a ^ b;}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">return a;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">}</span>
+</td></tr>
+</table>
+</div><p>
+Then:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">oper(2,3,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">5
+</td></tr>
+</table><p>
+since the third argument is <span style="font-family:monospace">1</span>, and so <span style="font-family:monospace">oper(a,b,c)</span>
+will return <span style="font-style:italic">a</span>+<span style="font-style:italic">b</span>, and:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">oper(2,3,2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−1
+</td></tr>
+</table><p>
+since the third argument is <span style="font-family:monospace">2</span> and so <span style="font-family:monospace">oper(a,b,c)</span>
+will return <span style="font-family:monospace">a-b</span>.</p>
+<hr>
+<a href="cascmd_en754.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en756.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The inverse Z-transform of a rational function: invztrans
+</title>
+</head>
+<body >
+<a href="cascmd_en583.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en585.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1458" class="subsection">5.58.2  The inverse Z-transform of a rational function: <span style="font-family:monospace">invztrans</span>
+<a id="hevea_default987"></a></h3>
+<p>The inverse Z-transform of a rational expression is
+a formula for the general term of a sequence with the given rational
+expression as its Z-transform. The <span style="font-family:monospace">invztrans</span> command finds
+the inverse Z-transform of a rational expression.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">invztrans</span> command takes one mandatory and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">rat</span>, a rational expression.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span> the variable (by default <span style="font-family:monospace">x</span>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">n</span>, a variable to be used by the result (by
+default <span style="font-style:italic">x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">ztrans(</span><span style="font-family:monospace">rat</span> ⟨ <span style="font-style:italic">x</span>,<span style="font-style:italic">n</span>⟩<span style="font-family:monospace">)</span>
+returns the inverse Z-transform of <span style="font-style:italic">rat</span>.
+</li></ul><h4 id="sec1459" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">invztrans(x/(x-1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+(since <span style="font-family:monospace">ztrans(1)=x/(x-1)</span>)
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">invztrans(z/(z-1),z,n)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">invztrans(x/(x-1)^2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">invztrans(z/(z-1)^2,z,n)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">n</span>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en583.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en585.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

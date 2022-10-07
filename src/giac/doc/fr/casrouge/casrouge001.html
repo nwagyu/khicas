@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Vue d’ensemble de Xcas pour le programmeur</title>
+</head>
+<body >
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge002.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec1" class="chapter">Chapitre 1  Vue d’ensemble de <span style="font-family:monospace">Xcas</span> pour le programmeur</h1>
+<h2 id="sec2" class="section">1.1  Installation de <span style="font-family:monospace">Xcas</span></h2>
+<p>
+Le programme <code>Xcas</code> est un logiciel libre écrit en C++,
+(disponible sous licence GPL). La version à jour se récupère sur :<br>
+<span style="font-family:monospace"><span style="font-style:italic">http</span></span><span style="font-family:monospace">://</span><span style="font-family:monospace"><span style="font-style:italic">www</span></span><span style="font-family:monospace">-</span><span style="font-family:monospace"><span style="font-style:italic">fourier</span></span><span style="font-family:monospace">.</span><span style="font-family:monospace"><span style="font-style:italic">ujf</span></span><span style="font-family:monospace">-</span><span style="font-family:monospace"><span style="font-style:italic">grenoble</span></span><span style="font-family:monospace">.</span><span style="font-family:monospace"><span style="font-style:italic">fr</span></span><span style="font-family:monospace">/ </span><span style="font-family:monospace"><span style="font-style:italic">parisse</span></span><span style="font-family:monospace">/</span><span style="font-family:monospace"><span style="font-style:italic">giac</span></span><span style="font-family:monospace">_</span><span style="font-family:monospace"><span style="font-style:italic">fr</span></span><span style="font-family:monospace">.</span><span style="font-family:monospace"><span style="font-style:italic">html</span></span> ou<br>
+ <span style="font-family:monospace">ftp://fourier.ujf-grenoble.fr/xcas</span><br>
+où l’on trouve le code source (<code>giac.tgz</code>) ou des versions 
+précompilées pour Linux (PC ou ARM), Windows, Mac OS.</p>
+<h2 id="sec3" class="section">1.2  Les différents modes</h2>
+<p>
+<span style="font-family:monospace">Xcas</span> propose un mode de compatibilité avec <span style="font-family:monospace">Maple</span>, <span style="font-family:monospace">MuPAD</span> et 
+la <span style="font-family:monospace">TI89/92</span> :<br>
+pour cela, il suffit de le spécifier dans <span style="font-family:monospace">Prog style</span> du menu de 
+configuration du <span style="font-family:monospace">cas</span> (bouton <span style="font-family:monospace">Config</span> ou menu
+<span style="font-family:monospace">Cfg-&gt;Configuration du CAS</span>) ou avec le menu 
+<span style="font-family:monospace">Cfg-&gt;Mode (syntax)</span>. On peut choisir, en 
+cliquant sur la flèche située à coté de <span style="font-family:monospace">Prog style</span> : <span style="font-family:monospace">Xcas</span>
+ou <span style="font-family:monospace">Maple</span> ou <span style="font-family:monospace">MuPAD</span> ou <span style="font-family:monospace">TI89/92</span>.<br>
+On a aussi la possibilité d’importer une session <span style="font-family:monospace">Maple</span>
+ou une archive <span style="font-family:monospace">TI89/92</span> en choisissant 
+<span style="font-family:monospace">Importer</span> du menu <span style="font-family:monospace">Fich</span>, ou importer dans
+un niveau éditeur de programmes un fichier écrit
+en syntaxe <span style="font-family:monospace">Maple</span>, <span style="font-family:monospace">Mupad</span> ou <span style="font-family:monospace">TI89/92</span>
+par le menu <span style="font-family:monospace">Prog-&gt;Inserer</span>.</p><p>On présente ici le mode <span style="font-family:monospace">Xcas</span> qui est proche de la syntaxe <span style="font-family:monospace">C</span>.
+On a aussi la possibilité d’avoir toutes les instructions en français de
+façon à être proche du langage Algorithmique.</p>
+<h2 id="sec4" class="section">1.3  Éditer, sauver, exécuter un programme avec la syntaxe <span style="font-family:monospace">Xcas</span></h2>
+<p><a id="hevea_default0"></a>
+On édite un programme ou un script (i.e. une suite de commandes séparées
+par des <span style="font-family:monospace">;</span>) avec son éditeur préféré : on peut écrire, dans un 
+même fichier, la définition de plusieurs 
+fonctions séparées par des points virgules (<span style="font-family:monospace">;</span>) (que l’on
+sauve par exemple sous le nom de <span style="font-family:monospace">bidon</span>), puis dans <span style="font-family:monospace">Xcas</span> 
+on tape :<span style="font-family:monospace">read("bidon");</span> et
+cela a pour effet, de compiler les différentes fonctions de <span style="font-family:monospace">bidon</span>, 
+de les mettre comme réponse (avec <span style="font-family:monospace">Success..</span> dans la zone des 
+résultats intermédiaires pour indiquer les fonctions valides).<br>
+En reéditant le programme, ou le script, avec son éditeur préféré, 
+on peut le corriger, le sauver sous un autre nom etc..., mais il est 
+préférable de le recopier dans un niveau éditeur de programmes (que l’on
+ouvre avec <span style="font-family:monospace">Alt+p</span>) pour cela on peut :
+</p><ul class="itemize"><li class="li-itemize"> 
+soit écrire directement le programme (ou le script), dans un niveau 
+éditeur de programmes,
+</li><li class="li-itemize">soit utiliser le menu <span style="font-family:monospace">Fich</span> sous-menu <span style="font-family:monospace">Charger</span> de l’éditeur 
+de programmes, si le programme est dans un fichier,
+</li><li class="li-itemize">soit le recopier avec la souris, si le programme est dans la ligne de 
+commande (par exemple après avoir fait <span style="font-family:monospace">Charger</span> du menu <span style="font-family:monospace">Fich</span> de la
+session) ou si le programme est dans son éditeur préféré,
+</li></ul><p>
+En effet, depuis un niveau éditeur de programmes, on peut :
+</p><ul class="itemize"><li class="li-itemize">
+avoir de l’aide sur les commandes de <span style="font-family:monospace">Xcas</span> : il suffit d’écrire la
+commande et d’appuyer sur la touche <span class="textboxed">F1</span> de vôtre ordinateur,
+</li><li class="li-itemize">indenter facilement : il suffit d’appuyer sur la touche de tabulation de 
+vôtre ordinateur,
+</li><li class="li-itemize">tester facilement si le programme est syntaxiquement correct : il suffit 
+d’appuyer sur le bouton <span style="font-family:monospace">OK</span> de la barre des menus
+ou sur la touche <span class="textboxed">F9</span> de vôtre ordinateur: la 
+ligne où se trouve la faute de syntaxe est indiquée en bleu 
+dans la zone intermédiaire. 
+</li></ul><p>
+On corrige les fautes si il y en a... <br>
+</p><ul class="itemize"><li class="li-itemize">
+Quand le script est syntaxiquement correct, en appuyant sur le bouton 
+<span style="font-family:monospace">OK</span> ou la touche <span class="textboxed">F9</span> le script s’exécute et on obtient 
+le résultat de l’exécution si on n’a pas terminé son écriture par 
+<span style="font-family:monospace">:;</span> ou <span style="font-family:monospace">Done</span> si on a terminé l’écriture du programme par <span style="font-family:monospace">:;</span><br>
+<span style="font-weight:bold">Exemple</span>
+On tape dans l’éditeur :<br>
+<span style="font-family:monospace">S:=0;for (j:=1;j&lt;5;j++) {print(S);S:=S+1/j;}</span>
+On obtient dans la zone intermédiaire :<br>
+<span style="font-family:monospace">S:0<br>
+S:1<br>
+S:3/2<br>
+S:11/6</span><br>
+et en réponse : <span style="font-family:monospace">(0,25/12)</span>
+</li><li class="li-itemize">Quand le programme est 
+syntaxiquement correct, en appuyant sur le bouton <span style="font-family:monospace">OK</span> ou la touche 
+<span class="textboxed">F9</span> il y a <span style="font-family:monospace">Success compilling ...</span> dans la zone 
+intermédiaire et on a le programme en réponse ou <span style="font-family:monospace">Done</span> si on a 
+terminé l’écriture du programme par <span style="font-family:monospace">:;</span>. 
+On peut alors exécuter le programme dans une ligne de commande.<br>
+</li></ul><p>
+Vous sauvez le programme (ou le script) avec le bouton <span style="font-family:monospace">Save</span> du niveau 
+éditeur de programmes sous le nom que vous voulez lui donner en le terminant 
+par le suffixe <span style="font-family:monospace">.cxx</span> (ce nom s’inscrit alors à 
+côté du bouton <span style="font-family:monospace">Save</span> du niveau éditeur de programmes). Si ensuite, 
+vous voulez lui donner un autre nom il faut le faire avec le menu <span style="font-family:monospace">Prog</span> 
+sous-menu <span style="font-family:monospace">Sauver comme</span> de l’éditeur de programmes.<br>
+</p>
+<h2 id="sec5" class="section">1.4  Débugger un programme avec la syntaxe <span style="font-family:monospace">Xcas</span></h2>
+<p><a id="hevea_default1"></a><a id="hevea_default2"></a><a id="hevea_default3"></a><a id="hevea_default4"></a><a id="hevea_default5"></a><a id="hevea_default6"></a><a id="hevea_default7"></a><a id="hevea_default8"></a><a id="hevea_default9"></a>
+Pour utiliser le débuggeur, il faut que ce programme soit syntaxiquement 
+correct : vous avez par exemple un programme syntaxiquement correct, mais qui 
+ne fait pas ce qu’il devrait faire, il faut donc le corriger.</p><p>Avec le débuggeur, on a la possibilité d’exécuter le programme au pas
+à pas (<span style="font-family:monospace">sst</span>), ou d’aller directement (<span style="font-family:monospace">cont</span>) à une ligne 
+précise marquée par un point d’arrêt (<span style="font-family:monospace">break</span>), de voir 
+(<span style="font-family:monospace">voir</span> ou <span style="font-family:monospace">watch</span>) les variables que l’on désire surveiller, 
+d’exécuter au pas à pas les instructions d’une fonction utilisateur utilisée dans le programme (<span style="font-family:monospace">dans</span> ou <span style="font-family:monospace">sst_in</span>), 
+ou de sortir brutalement du débuggeur (<span style="font-family:monospace">tuer</span> ou <span style="font-family:monospace">kill</span>).<br>
+On tape : <span style="font-family:monospace">debug(nom _du_programme(valeur_des_ arguments))</span>.<br>
+Il faut bien sûr que le programme soit validé :
+</p><ul class="itemize"><li class="li-itemize">
+si le programme est dans un niveau éditeur de programme, on appuie sur 
+<span style="font-family:monospace">OK</span> pour le compiler, on corrige les fautes de syntaxe éventuelles et
+on appuie sur <span style="font-family:monospace">OK</span> jusqu’à obtenir <span style="font-family:monospace">Success compiling...</span>
+</li><li class="li-itemize">si le programme qui est syntaxiquement correct se trouve dans un fichier,
+on tape :
+<span style="font-family:monospace">read("toto")</span> si <span style="font-family:monospace">toto</span> est le nom du fichier où se trouve ce 
+programme. 
+</li></ul><p>
+Par exemple, si <span style="font-family:monospace">pgcd</span> a été validé, on tape : <br>
+<span style="font-family:monospace">debug(pgcd(15,25))</span> <br>
+L’écran du débugger s’ouvre : il est formé par trois écrans séparés
+par une ligne <span style="font-family:monospace">eval</span> et une barre de boutons <span style="font-family:monospace">sst,dans,cont...</span> :
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+dans l’écran du haut, le programme source est écrit et la ligne en 
+surbrillance sera exécutée grâce au bouton <span style="font-family:monospace">sst</span>.<br>
+</li><li class="li-enumerate">dans la ligne <span style="font-family:monospace">eval</span>, <span style="font-family:monospace">Xcas</span> marque automatiquement l’action en
+cours par exemple <span style="font-family:monospace">sst</span>. Cette ligne permet aussi de faire des calculs dans
+l’environnement du programme ou de modifier une variable, par exemple on peut y
+écrire <span style="font-family:monospace">a:=25</span> pour modifier la valeur de <span style="font-family:monospace">a</span> en cours de programme,
+</li><li class="li-enumerate">dans l’écran du milieu,
+on trouve, le programme, les points d’arrêts, le numéro de la ligne du 
+curseur.
+</li><li class="li-enumerate">une barre de boutons <span style="font-family:monospace">sst,dans,cont...</span> 
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sst</span> exécute la ligne courante (celle qui est en surbrillance)
+sans entrer dans les fonctions et met en surbrillance l’instruction suivante,
+</li><li class="li-itemize"><span style="font-family:monospace">dans</span> ou <span style="font-family:monospace">sst_in</span> exécute la ligne courante (celle qui est en
+surbrillance) en entrant dans les fonctions utilisées dans le programme et
+qui ont été définies précédemment par l’utilisateur, puis 
+met en surbrillance l’instruction suivante du programme en incluant les 
+instructions de la fonction. Cela permet ainsi d’exécuter pas à pas 
+les instructions de cette fonction.
+</li><li class="li-itemize"><span style="font-family:monospace">cont</span> exécute les instructions du programme situées entre la
+ligne courante et la ligne d’un point d’arrêt et met en 
+surbrillance cette ligne,
+</li><li class="li-itemize"><span style="font-family:monospace">tuer</span> ou <span style="font-family:monospace">kill</span> ferme brutalement l’écran du débuggeur.<br>
+<span style="font-weight:bold">Attention</span> il faut fermer l’écran du débuggeur pour pouvoir utiliser 
+<span style="font-family:monospace">Xcas</span>. </li><li class="li-itemize"><span style="font-family:monospace">break</span> ajoute un point d’arrêt. Les points d’arrêts permettent 
+d’aller directement à un point précis avec le bouton <span style="font-family:monospace">cont</span>. On marque 
+les points d’arrêts grâce au bouton <span style="font-family:monospace">break</span> ou à la commande 
+<span style="font-family:monospace">breakpoint</span> d’arguments le nom 
+du programme et le numéro de la ligne où l’on veut un point d’arrêt : 
+par exemple <span style="font-family:monospace">breakpoint(pgcd,3)</span>. Pour faciliter son utilisation, il 
+suffit de cliquer dans l’écran du haut sur la ligne où l’on veut le point 
+d’arrêt pour avoir :
+<span style="font-family:monospace">breakpoint</span> dans la ligne <span style="font-family:monospace">eval</span>, avec le nom du programme et 
+le bon numéro de ligne, puis de valider la commande. 
+Il suffit donc de cliquer et de valider !
+</li><li class="li-itemize"><span style="font-family:monospace">rmbrk</span> enlève un point d’arrêt. On doit, pour 
+réutiliser d’autres points d’arrêts,
+d’effacer les points d’arrêts utilisés précédemment avec la commande 
+<span style="font-family:monospace">rmbreakpoint</span> qui a les mêmes arguments que <span style="font-family:monospace">breakpoint</span>. Là 
+encore, pour faciliter son utilisation, il suffit de cliquer sur la ligne où 
+l’on veut enlever le point d’arrêt pour avoir :
+<span style="font-family:monospace">rmbreakpoint</span> dans la ligne de commande, avec le nom du programme et 
+le bon numéro de ligne. <span style="font-weight:bold">Attention</span> si il n’y a pas de point d’arrêt 
+à cet endroit <span style="font-family:monospace">Xcas</span> en mettra un !
+</li><li class="li-itemize"><span style="font-family:monospace">voir</span> ou <span style="font-family:monospace">watch</span> ajoute la variable que l’on veut voir 
+évoluer. Si on ne se sert pas de <span style="font-family:monospace">voir</span> ou <span style="font-family:monospace">watch</span> toutes les 
+variables locales et tous les arguments du programme sont 
+montrées. Si on se sert de <span style="font-family:monospace">voir</span> ou <span style="font-family:monospace">watch</span> seules les variables
+designées seront montrées : on appuie sur le bouton <span style="font-family:monospace">voir</span> ou 
+<span style="font-family:monospace">watch</span> et la commande <span style="font-family:monospace">watch</span> s’écrit dans la ligne d’évaluation 
+<span style="font-family:monospace">eval</span>. On tape alors, les arguments de <span style="font-family:monospace">watch</span> qui sont les noms des 
+variables que l’on veut surveiller, par exemple : <span style="font-family:monospace">watch(b,r)</span> et 
+on valide la commande.
+</li><li class="li-itemize"><span style="font-family:monospace">rmwtch</span> efface les variables désignées précédemment avec 
+<span style="font-family:monospace">watch</span> et que l’on ne veut plus voir, par exemple : <span style="font-family:monospace">rmwatch(r)</span>.
+</li></ul>
+</li><li class="li-enumerate">dans l’écran du bas, on voit 
+soit l’évolution de toutes les variables locales et de tous les arguments du
+programme, soit l’évolution des variables désignées par <span style="font-family:monospace">watch</span>. 
+</li></ol>
+<h2 id="sec6" class="section">1.5  Présentation générale des instructions avec la syntaxe <span style="font-family:monospace">Xcas</span></h2>
+<h3 id="sec7" class="subsection">1.5.1  Les commentaires</h3>
+<p>
+Les commentaires sont des chaînes de caractères, ils sont précédés
+de <code><span style="font-family:monospace">//</span></code> ou sont
+parenthésés par <span style="font-family:monospace">/*</span> <span style="font-family:monospace">*/</span>
+</p>
+<h3 id="sec8" class="subsection">1.5.2  Le bloc</h3>
+<p>
+Une <span style="font-family:monospace">action</span> ou <span style="font-family:monospace">bloc</span> est une séquence d’une ou plusieurs 
+instructions. <br>
+Quand il y a plusieurs instructions il faut les parenthéser avec <span style="font-family:monospace">{ }</span> 
+et séparer les instructions par un point virgule (<span style="font-family:monospace">;</span>)<br>
+Un <span style="font-family:monospace">bloc</span> est donc parenthésé par <span style="font-family:monospace">{</span> <span style="font-family:monospace">}</span> et commence 
+éventuellement par la déclaration des variables locales (<span style="font-family:monospace">local...</span>).
+</p>
+<h3 id="sec9" class="subsection">1.5.3  Les variables globales et les variables locales</h3>
+<p><a id="sec:var1"></a>
+Voir aussi <a href="casrouge002.html#sec%3Avar2">2.2</a>
+Les variables sont les endroits où l’on peut stocker des valeurs, des 
+nombres, des expressions, des objets.<br>
+Le nom des variables est formé par une suite de caractères et commence par 
+une lettre : attention on n’a pas droit aux
+mots réservés ...ne pas utiliser par exemple la variable <span style="font-family:monospace">i</span> dans un
+<span style="font-family:monospace">for</span> si vous avez coché <span style="font-family:monospace">pas de test de i</span> dans la
+<span style="font-family:monospace">configuration generale</span> car <span style="font-family:monospace">i</span> représente le nombre complexe de 
+module 1 et d’argument π/2.<br>
+L’affectation se fait avec <span style="font-family:monospace">:=</span> (par exemple <span style="font-family:monospace">a:=2; b:=a;</span>) ou avec 
+<span style="font-family:monospace">=&gt;</span> (par exemple <span style="font-family:monospace">2=&gt;a; a=&gt;b;</span>) . 
+</p>
+<h4 id="sec10" class="subsubsection">Les variables locales non symboliques</h4>
+<p>
+Une variable utilisée uniquement à l’intérieur d’une fonction (resp d’un 
+bloc) pour contenir des résultats intermédiaires est une variable
+locale à la fonction (resp au bloc).
+Les variables locales doivent être déclarées au début
+de la fonction (resp au début d’un bloc) par le mot réservé <span style="font-family:monospace">local</span> 
+puis on met les noms des variables séparés par des virgules (<span style="font-family:monospace">,</span>).<br>
+<span style="font-weight:bold">Attention</span><br>
+Cette déclaration n’initialise pas ces variables locales à <span style="font-family:monospace">0</span>.</p><p>Les variables locales peuvent être initialisées lors de leur déclaration 
+à une valeur en mettant les affectations entre parenthèses et
+separées par des virgules. Mais attention l’initialisation
+des variables locales faites dans la ligne de <span style="font-family:monospace">local</span> se fait en utilisant
+le contexte global d’évaluation , par exemple :
+</p><pre class="verbatim">n:=5;
+f():={
+  local (n:=1),(d:=n+1);
+  return d;
+}
+</pre><p>
+<span style="font-family:monospace">f()</span> renvoie <span style="font-family:monospace">6</span> et non <span style="font-family:monospace">2</span> : c’est la valeur de <span style="font-family:monospace">n+1</span> ou 
+<span style="font-family:monospace">n</span> est global. 
+Il faut initialiser <span style="font-family:monospace">d</span> après la déclaration locale 
+pour utiliser le contexte local en tapant :
+</p><pre class="verbatim">f():={
+  local (n:=1),d;
+  d:=n+1;
+  return d;
+}
+</pre><p>
+et alors <span style="font-family:monospace">f()</span> renvoie 2.</p>
+<h4 id="sec11" class="subsubsection">Les variables locales symboliques</h4>
+<p>
+<span style="font-weight:bold">Attention</span> Les variables locales ne sont pas affectèes lors de leur 
+déclaration MAIS ce ne sont pas des variables formelles : il faut les 
+obligatoirement les initialiser dans le corps du programme.<br>
+Si on veut utiliser dans un programme des variables formelles, on a 2 
+solutions :
+</p><ul class="itemize"><li class="li-itemize">
+On considère les variables formelles du programme comme globales, MAIS 
+alors il faut s’assurer que ces variables sont purgées avant l’exécution 
+du programme...ce qui contraignant !</li><li class="li-itemize">On déclare les variables formelles du programme avec <span style="font-family:monospace">local</span>
+(par exemple <span style="font-family:monospace">local x;</span>), PUIS on utilise <span style="font-family:monospace">assume(x,symbol);</span> pour 
+spécifier que la variable <span style="font-family:monospace">x</span> devient symmbolique ou on utilise 
+<span style="font-family:monospace">purge(x)</span> pour purger la variable <span style="font-family:monospace">x</span> qui devient symmbolique. 
+Ainsi au cours du programme, <span style="font-family:monospace">x</span> pourra devenir non symbolique si on 
+l’affecte, puis, redevenir symbolique après l’instruction 
+<span style="font-family:monospace">assume(x,symbol);</span> ou l’instruction <span style="font-family:monospace">purge(x)</span>.
+</li></ul><p> 
+Il est donc préférable de définir la variable formelle <span style="font-family:monospace">var</span>, avec 
+<span style="font-family:monospace">local var;</span> suivi de <span style="font-family:monospace">assume(var,symbol);</span> ou de <span style="font-family:monospace">purge(var)</span>.<br>
+<span style="font-weight:bold">Exemple</span><br>
+Voici le programme qui donne la valeur de la suite de Fibonnacci <span style="font-style:italic">u</span>
+définie par <span style="font-style:italic">u</span><sub>0</sub>=<span style="font-style:italic">u</span>0,<span style="font-style:italic">u</span><sub>1</sub>=<span style="font-style:italic">u</span>1,<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+2</sub>=<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub>+<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>. <br>
+On sait que si <span style="font-style:italic">a</span> et <span style="font-style:italic">b</span> 
+sont les racines de <span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">x</span>−1, les suites vérifiant la relation de 
+récurrence <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+2</sub>=<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span>+1</sub>+<span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub> sont des combinaisons linéaires des suites
+géométriques <span style="font-style:italic">a</span><sup><span style="font-style:italic">n</span></sup> et <span style="font-style:italic">b</span><sup><span style="font-style:italic">n</span></sup>, c’est-à-dire que l’on a :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>=<span style="font-style:italic">Aa</span><sup><span style="font-style:italic">n</span></sup>+<span style="font-style:italic">Bb</span><sup><span style="font-style:italic">n</span></sup></td></tr>
+</table><p>
+pour <span style="font-style:italic">A</span> et <span style="font-style:italic">B</span> solutions du système [<span style="font-style:italic">u</span><sub>0</sub>=<span style="font-style:italic">A</span>+<span style="font-style:italic">B</span>, <span style="font-style:italic">u</span><sub>1</sub>=<span style="font-style:italic">Aa</span>+<span style="font-style:italic">Bb</span>].</p><p>Voici les deux façons de faire :
+</p><ul class="itemize"><li class="li-itemize">
+les variables formelles sont globales,<br>
+Dans le programme qui suit,
+on utilise les variables formelles <span style="font-family:monospace">x,A,B</span> qui doivent être purgées et 
+qui seront des variables globales.<br>
+On tape :
+<pre class="verbatim">u(n,uo,u1):={
+local L,a,b;
+//verifier que A,B,x ne sont pas affect\'ees
+[a,b]:=solve(x^2-x-1,x);
+L:=linsolve([A+B=uo,A*a+B*b=u1],[A,B]);
+return normal(L[0]*a^n+L[1]*b^n);
+};
+</pre>
+Lors de la compliation, <span style="font-family:monospace">Xcas</span> dit :<br>
+<span style="font-family:monospace">//Warning: x A B declared as global variable(s) <br>
+compiling u</span><br>
+On tape :<br>
+<span style="font-family:monospace">u(3,0,1)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">2</span><br>
+</li><li class="li-itemize">les variables formelles sont declarées locales,<br>
+Dans le programme qui suit,
+on utilise les variables formelles <span style="font-family:monospace">A,B,x</span> qui seront symboliques ou 
+formelles grâce aux commandes :
+<pre class="verbatim">assume(A,symbol);
+assume(B,symbol);
+assume(x,symbol);
+</pre>
+ou à la commande <span style="font-family:monospace">purge(A,B,x)</span>.<p><span style="font-weight:bold">Remarque</span> : pour retrouver des variables non formelles il suffira de les 
+affecter.<br>
+On tape :
+</p><pre class="verbatim">u(n,uo,u1):={
+local L,a,b,A,B,x;
+assume(A,symbol);
+assume(B,symbol);
+assume(x,symbol);
+[a,b]:=solve(x^2-x-1,x);
+L:=linsolve([A+B=uo,A*a+B*b=u1],[A,B]);
+return normal(L[0]*a^n+L[1]*b^n);
+};
+</pre><p>
+Ou on tape :
+</p><pre class="verbatim">u(n,uo,u1):={
+local L,a,b,A,B,x;
+purge(A,B,x);
+[a,b]:=solve(x^2-x-1,x);
+L:=linsolve([A+B=uo,A*a+B*b=u1],[A,B]);
+return normal(L[0]*a^n+L[1]*b^n);
+};
+</pre><p>
+Lors de la compliation, <span style="font-family:monospace">Xcas</span> dit :<br>
+<span style="font-family:monospace">// Success compiling u</span><br>
+On tape :<br>
+<span style="font-family:monospace">u(3,0,1)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">2</span><br>
+Pour bien comprendre ce qui se passe, on rajoute des <span style="font-family:monospace">print</span> :
+</p><pre class="verbatim">u(n,uo,u1):={
+local L,a,b,A,B,x;
+print(A);
+assume(A,symbol);
+print(A);
+assume(B,symbol);
+assume(x,symbol);
+[a,b]:=solve(x^2-x-1,x);
+L:=linsolve([A+B=uo,A*a+B*b=u1],[A,B]);
+A:=5;
+print(A);
+return normal(L[0]*a^n+L[1]*b^n);
+};
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">A:=30</span><br>
+<span style="font-family:monospace">u(3,0,1)</span><br>
+On obtient écrit en bleu :<br>
+<span style="font-family:monospace">A:0</span> (<span style="font-family:monospace">A</span> est locale et n’est pas symbolique et vaut <span style="font-family:monospace">0</span>)<br>
+<span style="font-family:monospace">A:A</span> (<span style="font-family:monospace">A</span> est locale et symbolique)<br>
+<span style="font-family:monospace">A:5</span> (<span style="font-family:monospace">A</span> est locale etn’est pas symbolique et vaut <span style="font-family:monospace">5</span>)<br>
+puis la réponse :<br>
+<span style="font-family:monospace">2</span><br>
+On tape :<br>
+<span style="font-family:monospace">A</span><br>
+On obtient :<br>
+<span style="font-family:monospace">30</span> (la variable globale <span style="font-family:monospace">A</span> n’est pas symbolique et vaut <span style="font-family:monospace">30</span>)
+</p></li></ul>
+<h4 id="sec12" class="subsubsection">Variables locales internes à un bloc</h4>
+<p>
+Voici comme exemple le programme de la fonction qui donne le quotient et le 
+reste de la division euclidienne de 2 entiers (c’est la fonction <span style="font-family:monospace">iquorem</span>
+de <span style="font-family:monospace">Xcas</span>) : 
+</p><pre class="verbatim">  idiv2(a,b):={ 
+    local (q:=0),(r:=a);
+    if (b!=0) {
+      q:=iquo(a,b);
+      r:=irem(a,b);
+    }
+    return [q,r];
+  };
+</pre><p>Voici le programme de la même fonction mais avec les variables locales 
+internes au bloc du <span style="font-family:monospace">if</span> : 
+</p><pre class="verbatim">  idiv2(a,b):={ 
+    if (b==0) {return [b,a];}  
+    if (b!=0) {
+      local q,r;
+      q:=iquo(a,b);
+      r:=irem(a,b);
+      return [q,r];
+    }
+  };
+</pre><p>
+ou encore avec les variables locales internes au bloc du <span style="font-family:monospace">else</span> :
+</p><pre class="verbatim">  idiv2(a,b):={ 
+    if (b==0) {return [b,a];}  
+    else {
+      local q,r;
+      q:=iquo(a,b);
+      r:=irem(a,b);
+      return [q,r];
+    }
+  };
+</pre>
+<h3 id="sec13" class="subsection">1.5.4  Les programmes et les fonctions</h3>
+<p>
+Les paramètres sont mis après le nom du programme ou de la fonction entre 
+parenthèses (par exemple <span style="font-family:monospace">f(a,b):=...</span>).<br>
+Ces paramètres sont initialisés lors de l’appel du programme ou de la 
+fonction et se comportent comme des variables locales.</p><p>L’affectation se fait avec <span style="font-family:monospace">:=</span> (par exemple <span style="font-family:monospace">a:=2; b:=a;</span>) ou
+se fait avec <span style="font-family:monospace">=&gt;</span> (par exemple <span style="font-family:monospace">2=&gt;a; a=&gt;b;</span>).</p><p>Les entrées se font par passage de paramètres ou avec <span style="font-family:monospace">input</span>.<br>
+Les sorties se font en mettant le nom de la variable à afficher (ou la 
+séquence des variables à afficher ou entre crochets les variables à 
+afficher séparées par une virgule) précedé du mot réservé 
+<span style="font-family:monospace">print</span>.<br>
+Il n’y a pas de distinction entre programme et fonction : la valeur d’une 
+fonction est précedée du mot réservé <span style="font-family:monospace">return</span>.<br>
+<span style="font-weight:bold">Remarque</span>
+<span style="font-family:monospace">return</span> n’est pas obligatoire car <span style="font-family:monospace">Xcas</span> renvoie toujours la valeur 
+de la dernière instruction, mais <span style="font-family:monospace">return</span> est très utile car il fait 
+sortir de la fonction : les instructions situèes après <span style="font-family:monospace">return</span> ne 
+sont jamais effectuées.
+</p>
+<h3 id="sec14" class="subsection">1.5.5  Les tests</h3>
+<p>
+Avec le langage <span style="font-family:monospace">Xcas</span> les tests ont soit une syntaxe similaire au langage 
+<span style="font-family:monospace">C++</span> soit une version française proche du langage algorithmique.<br>
+Pour les tests, les syntaxes admises sont :<br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">if </span><span style="font-family:monospace"><em>(condition)</em></span><span style="font-family:monospace"> </span><span style="font-family:monospace"><em>instruction</em></span><span style="font-family:monospace">;</span><br>
+on met {..} lorsqu’il faut faire plusieurs instructions :<br>
+<span style="font-family:monospace">if </span><span style="font-family:monospace"><em>(condition)</em></span><span style="font-family:monospace"> {</span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace">}</span><br>
+ou<br>
+<span style="font-family:monospace">si </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> alors </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> fsi</span><br>
+on teste la condition : si elle est vraie, on fait les instructions et si elle 
+est fausse on ne fait rien c’est à dire on passe aux 
+instructions qui suivent le <span style="font-family:monospace">if</span> ou le <span style="font-family:monospace">si</span>.<br>
+Par exemple :
+<pre class="verbatim">testif1(a,b):={
+if  (a&lt;b)
+    b:=b-a;
+return [a,b];
+};
+</pre>
+ou
+<pre class="verbatim">testsi1(a,b):={
+si a&lt;b alors
+    b:=b-a;
+fsi;
+return [a,b];
+};
+</pre>
+et on a :<br>
+<span style="font-family:monospace">testif1(3,13)=testsi1(3,13)=[3,10]</span><br>
+<span style="font-family:monospace">testif1(13,3)=testsi1(13,3)=[13,3]</span></li><li class="li-itemize"><span style="font-family:monospace">if </span><span style="font-family:monospace"><em>(condition)</em></span><span style="font-family:monospace"> </span><span style="font-family:monospace"><em>instruction1</em></span><span style="font-family:monospace">; else </span><span style="font-family:monospace"><em>instruction2</em></span><span style="font-family:monospace">;</span><br>
+on met {..} lorsqu’il faut faire plusieurs instructions :<br>
+<span style="font-family:monospace">if </span><span style="font-family:monospace"><em>(condition)</em></span><span style="font-family:monospace"> {</span><span style="font-family:monospace"><em>instructions1</em></span><span style="font-family:monospace">} else {</span><span style="font-family:monospace"><em>instructions2</em></span><span style="font-family:monospace">}</span><br>
+ou<br>
+<span style="font-family:monospace">si </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> alors </span><span style="font-family:monospace"><em>instructions1</em></span><span style="font-family:monospace"> sinon </span><span style="font-family:monospace"><em>instructions2</em></span><span style="font-family:monospace"> fsi</span><br>
+on teste la condition : si elle est vraie, on fait les instructions1 et si elle
+est fausse on fait les instructions2.<br>
+Par exemple :
+<pre class="verbatim">testif(a,b):={
+if (a==10 or a&lt;b)
+    b:=b-a;
+else 
+    a:=a-b;
+return [a,b];
+};
+</pre>
+ou
+<pre class="verbatim">testsi(a,b):={
+si a==10 or a&lt;b alors
+    b:=b-a;
+sinon 
+    a:=a-b;
+fsi;
+return [a,b];
+};
+</pre>
+et on a :<br>
+<span style="font-family:monospace">testif(3,13)=testsi(3,13)=[3,10]</span><br>
+<span style="font-family:monospace">testif(13,3)=testsi(13,3)=[10,3]</span><br>
+<span style="font-family:monospace">testif(10,3)=testsi(10,3)=[10,-7]</span>
+</li></ul>
+<h3 id="sec15" class="subsection">1.5.6  Les boucles</h3>
+<p>
+Avec le langage <span style="font-family:monospace">Xcas</span> les boucles ont soit une syntaxe similaire au 
+langage <span style="font-family:monospace">C++</span> soit une version française proche du langage 
+algorithmique.<br>
+La commande <span style="font-family:monospace">break</span> <a id="hevea_default10"></a> permet de sortir d’une boucle.<br>
+Si vous avez fait une boucle infinie, il faut appuyer sur <span style="font-family:monospace">STOP</span> pour
+arrêter votre programme (ou sur <span style="font-family:monospace">Shift+STOP</span> si plusieurs sessions 
+travaillent en parallèle).<br>
+Pour les boucles, les syntaxes admises sont :
+</p><ul class="itemize"><li class="li-itemize">
+la boucle <span style="font-family:monospace">for</span> ou <span style="font-family:monospace">pour</span> qui permet de faire des instructions 
+un nombre de fois qui est connu :<br>
+<span style="font-family:monospace">for (</span><span style="font-family:monospace"><em>init;condition;increment</em></span><span style="font-family:monospace">) </span><span style="font-family:monospace"><em>instruction</em></span><span style="font-family:monospace">;</span><br>
+on met {..} lorsqu’il faut faire plusieurs instructions :<br>
+<span style="font-family:monospace">for (</span><span style="font-family:monospace"><em>init;condition;increment</em></span><span style="font-family:monospace">) {</span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace">}</span><br>
+Le plus souvent (<em>init;condition;increment</em>) s’écrit en utilisant une 
+variable (par exemple <span style="font-family:monospace">j</span> ou <span style="font-family:monospace">k</span>...mais pas <span style="font-family:monospace">i</span> qui désigne un 
+nombre complexe, si vous avez coché <span style="font-family:monospace">pas de test de i</span> dans la 
+<span style="font-family:monospace">configuration generale</span>). Cette variable sera initialisée dans 
+<em>init</em>, utilisée dans <em>condition</em> et 
+incrementée dans <em>increment</em>, on écrit par exemple :<br>
+(<em>j:=1;j&lt;=10;j++</em>) (l’increment ou le pas est de 1) ou <br>
+(<em>j:=10;j&gt;=1;j–</em>) (l’increment ou le pas est de -1) ou<br>
+(<em>j:=1;j&lt;=10;j:=j+2</em>) (l’increment ou le pas est de 2)<br>
+ou<br>
+<span style="font-family:monospace">pour j de 1 jusque 10 faire </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> fpour;</span><br>
+ou<br>
+<span style="font-family:monospace">pour j de 10 jusque 1 pas -1 faire </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> fpour;</span><br>
+ou<br>
+<span style="font-family:monospace">pour j de 1 jusque 10 pas 2 faire </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> fpour;</span><br>
+On initialise <span style="font-family:monospace">j</span> puis on teste la condition : 
+<ul class="itemize"><li class="li-itemize">
+si elle est vraie, on fait les instructions puis on incrémente <span style="font-family:monospace">j</span>,
+puis, on teste la condition : si elle est vraie, on fait les 
+instructions etc...
+</li><li class="li-itemize">si elle est fausse on ne fait rien c’est à dire on passe aux 
+instructions qui suivent le <span style="font-family:monospace">for</span> ou le <span style="font-family:monospace">pour</span>.
+</li></ul>
+Par exemple :
+<pre class="verbatim">testfor1(a,b):={
+local j,s:=0;
+for (j:=a;j&lt;=b;j++)
+   s:=s+1/j^2;
+return s;
+};
+</pre>
+ou 
+<pre class="verbatim">testpour1(a,b):={
+local j,s:=0;
+pour j de a jusque b faire
+   s:=s+1/j^2;
+fpour;
+return s;
+};
+</pre>
+Si <span style="font-family:monospace">a&gt;b</span>, l’instruction ou le bloc d’instructions du <span style="font-family:monospace">for</span> ou du 
+<span style="font-family:monospace">pour</span> ne se fera pas et la fonction retournera <span style="font-family:monospace">0</span>,<br>
+Si <span style="font-family:monospace">a&lt;=b</span> la variable <span style="font-family:monospace">j</span> va prendre successivement les valeurs 
+<span style="font-family:monospace">a, a+1,...b</span> (on dit que le pas est de 1) et pour chacune
+de ces valeurs l’instruction ou le bloc d’instructions qui suit sera 
+exécuté. Par exemple <span style="font-family:monospace">testfor1(1,2)</span> renverra <span style="font-family:monospace">1+1/4=5/4</span>.
+<pre class="verbatim">testfor2(a,b):={
+local j,s:=0;
+for (j:=b;j&gt;=a;j--)
+    s:=s+1/j^2;
+return s;
+};
+</pre>
+ou 
+<pre class="verbatim">testpour2(a,b):={
+local j,s:=0;
+pour j de b jusque a pas -1 faire
+   s:=s+1/j^2;
+fpour;
+return s;
+};
+</pre>
+Dans ce cas, si <span style="font-family:monospace">a&lt;=b</span> la variable <span style="font-family:monospace">j</span> va prendre successivement les 
+valeurs <span style="font-family:monospace">b, b-1,...a</span> (on dit que le pas est de -1) et pour chacune
+de ces valeurs l’instruction ou le bloc d’instructions qui suit sera 
+exécuté. Par exemple <span style="font-family:monospace">testfor2(1,2)</span> renverra <span style="font-family:monospace">1/4+1=5/4</span>.
+<pre class="verbatim">testfor3(a,b):={
+local j,s:=0;
+for (j:=a;j&lt;=b;j:=j+3)
+    s:=s+1/j^2;
+return s;
+};
+</pre>
+ou 
+<pre class="verbatim">testpour3(a,b):={
+local j,s:=0;
+pour j de a jusque b pas 3 faire
+   s:=s+1/j^2;
+fpour;
+return s;
+};
+</pre>
+Dans ce cas, si <span style="font-family:monospace">a&lt;=b</span> la variable <span style="font-family:monospace">j</span> va prendre successivement les 
+valeurs <span style="font-family:monospace">a, a+3,...a+3k</span> avec <span style="font-family:monospace">k</span> le quotient de <span style="font-family:monospace">b-a</span> par <span style="font-family:monospace">3</span>
+(<span style="font-family:monospace">3k&lt;=b-a&lt;3(k+1)</span>) (on dit que le pas est de 3) et pour chacune
+de ces valeurs l’instruction ou le bloc d’instructions qui suit sera 
+exécuté. Par exemple <span style="font-family:monospace">testfor3(1,5)</span> renverra <span style="font-family:monospace">1+1/16=17/16</span>.<br>
+<span style="font-weight:bold">Attention</span><br>
+Le pas doit être numérique et non une expression car il faut que le
+compilateur puisse transformer le <span style="font-family:monospace">pour</span> en <span style="font-family:monospace">for</span> avec le bon test.<br>
+Par exemple:
+<pre class="verbatim">testpour4(a,b,p):={
+local j,s:=0;
+pour j de a jusque b pas p faire
+   afficher(j);
+   s:=s+j;
+fpour;
+return s;
+};
+</pre>
+Selon le signe de <span style="font-family:monospace">p</span> le <span style="font-family:monospace">pour</span> peut se traduire :
+<ul class="itemize"><li class="li-itemize">
+si <span style="font-family:monospace">p&gt;0 </span> en
+<pre class="verbatim">testpour41(a,b,p):={
+local j,s:=0;
+for (j:=a;j&lt;=b;j:=j+p){ 
+   afficher(j);
+   s:=s+j;
+};
+return s;
+};
+</pre>
+</li><li class="li-itemize">si <span style="font-family:monospace">p&lt;0 </span> en
+<pre class="verbatim">testpour42(a,b,p):={
+local j,s:=0;
+for (j:=a;j&gt;=b;j:=j+p){ 
+   afficher(j);
+   s:=s+j;
+};
+return s;
+}; 
+</pre>
+</li><li class="li-itemize">lorsque le compilateur ne connait pas le signe du pas, il suppose alors 
+le pas positif et il le remplace par sa valeur absolue.
+<pre class="verbatim">testpour43(a,b,p):={
+local j,s:=0;
+for (j:=a;j&lt;=b;j:=j+abs(p)){ 
+   afficher(j);
+   s:=s+j;
+};
+return s;
+}; 
+</pre>
+</li></ul></li><li class="li-itemize">la boucle <span style="font-family:monospace">while</span> ou <span style="font-family:monospace">tantque</span> permet de faire plusieurs fois
+des instructions avec une condition d’arrêt au début de la boucle :
+<span style="font-family:monospace">while (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) </span><span style="font-family:monospace"><em>instruction</em></span><span style="font-family:monospace">;</span><br>
+on met {..} lorsqu’il faut faire plusieurs instructions :<br>
+<span style="font-family:monospace">while (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) {</span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace">}</span><br>
+ou<br>
+<span style="font-family:monospace">tantque </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> faire </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> ftantque;</span><br>
+On teste la condition : 
+<ul class="itemize"><li class="li-itemize">
+si elle est vraie, on fait les instructions puis, on 
+teste la condition : si elle est vraie, on fait les instructions etc...
+</li><li class="li-itemize">si elle est fausse on ne fait rien c’est à dire on passe aux 
+instructions qui suivent le <span style="font-family:monospace">while</span> ou le <span style="font-family:monospace">tantque</span>.
+</li></ul>
+Par exemple :
+<pre class="verbatim">testwhile(a,b):={
+while (a==10 or a&lt;b)
+   b:=b-a;
+return [a,b];
+};
+</pre>
+ou
+<pre class="verbatim">testtantque(a,b):={
+tantque a==10 or a&lt;b faire
+   b:=b-a;
+ftantque;
+return [a,b];
+};
+</pre><p><span style="font-weight:bold">Un exemple : le PGCD d’entiers</span><br>
+- Version itérative
+</p><pre class="verbatim">pgcd(a,b):={
+ local r;
+ while (b!=0) {
+    r:=irem(a,b);
+    a:=b;
+    b:=r;
+ }
+ return a;
+};
+</pre><p>
+ou
+</p><pre class="verbatim">pgcd(a,b):={
+ local r;
+ tantque b!=0 faire
+    r:=irem(a,b);
+    a:=b;
+    b:=r;
+ ftantque; 
+ return a;
+};
+</pre><p>
+-Version récursive
+</p><pre class="verbatim">pgcdr(a,b):={
+ if (b==0) return a;
+ return pgcdr(b,irem(a,b));
+};
+</pre><p>
+ou
+</p><pre class="verbatim">pgcdr(a,b):=if (b==0) 
+               return a;
+             else 
+               return pgcdr(b,irem(a,b));
+</pre></li><li class="li-itemize">La boucle <span style="font-family:monospace">repeat</span> ou <span style="font-family:monospace">repeter</span> permet de faire plusieurs fois
+des instructions avec une condition d’arrêt à la fin de la boucle :<br>
+<span style="font-family:monospace">repeat </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> until </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">;</span><br>
+ou<br>
+<span style="font-family:monospace">repeter </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> jusqua </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">;</span><br>
+ou<br>
+<span style="font-family:monospace">repeter </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> jusqu_a </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">;</span><br>
+On fait les instructions, puis on teste la condition : 
+<ul class="itemize"><li class="li-itemize">
+si elle est vraie, on fait les instructions puis, on 
+teste la condition etc...
+</li><li class="li-itemize">si elle est fausse on passe aux 
+instructions qui suivent le <span style="font-family:monospace">repeat</span> ou le <span style="font-family:monospace">repeter</span>.
+</li></ul>
+Par exemple :
+<pre class="verbatim">f():={
+  local a;
+  repeat 
+     saisir("entrez un reel entre 1 et 10",a);
+   until a&gt;=1 &amp;&amp; a&lt;=10;
+  return a;
+}:;
+</pre>
+ou 
+<pre class="verbatim">f():={
+  local a;
+  repeter 
+    saisir("entrez un reel entre 1 et 10",a); 
+  jusqua a&gt;=1 et a&lt;=10;
+  return a;
+}:;
+</pre>
+Voici la fonction qui renvoie un point fixe de <span style="font-family:monospace">f</span> en utilisant 
+<span style="font-family:monospace">repeat</span>. Cette fonction donne la solution à <span style="font-family:monospace">eps</span> 
+près de <span style="font-family:monospace">f(x)=x</span> en utilisant au plus <span style="font-family:monospace">n</span> itérations et <span style="font-family:monospace">x0</span> 
+comme début de l’itération donné par le théorème du point fixe.
+<pre class="verbatim">point_fixe(f,n,x0,eps):={
+ local j,x1,x00;
+ j:=0;
+ repeat
+   x1:=evalf(f(x0));
+   j:=j+1;
+   x00:=x0;
+   x0:=x1;
+ until (abs(x00-x0)&lt;eps) or (j&gt;=n);
+ return j,x0;
+}:;
+</pre>
+ou
+<pre class="verbatim">point_fixe(f,n,x0,eps):={
+ local j,x1,x00;
+ j:=0;
+ repeter
+   x1:=evalf(f(x0));
+   j:=j+1;
+   x00:=x0;
+   x0:=x1;
+ jusqua (abs(x00-x0)&lt;eps) or (j&gt;=n);
+ return j,x0;
+}:;
+</pre>
+</li><li class="li-itemize">La boucle <span style="font-family:monospace">do </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> od</span> ou 
+<span style="font-family:monospace">faire </span><span style="font-family:monospace"><em>instructions</em></span><span style="font-family:monospace"> ffaire</span> est une boucle infinie il faut donc
+mettre une condition d’arrêt avec un <span style="font-family:monospace">break</span> ou un <span style="font-family:monospace">return</span>
+dans le corps de la boucle.<br>
+Par exemple la fonction précédente en utilisant <span style="font-family:monospace">do</span> :
+<pre class="verbatim">point_fixe(f,n,x0,eps):={
+ local j,x1;
+ j:=0;
+ do
+   x1:=evalf(f(x0));
+   if (abs(x1-x0)&lt;eps) return x1;
+   x0:=x1;
+   j:=j+1;
+   if (j&gt;=n) break;
+ od;
+ return "non trouve au bout de ", n," iterations";
+}:;
+</pre>
+ou en utilisant <span style="font-family:monospace">faire</span>
+<pre class="verbatim">point_fixe(f,n,x0,eps):={
+ local j,x1;
+ j:=0;
+ faire
+   x1:=evalf(f(x0));
+   if (abs(x1-x0)&lt;eps) return x1;
+   x0:=x1;
+   j:=j+1;
+   if (j&gt;=n) break;
+ ffaire;
+ return "non trouve au bout de ", n," iterations";
+}:;
+</pre>
+On peut aussi écrire cela avec un <span style="font-family:monospace">for</span>
+<pre class="verbatim">point_fixe(f,n,x0,eps):={
+ local j,x1;
+ for (j:=0;j&lt;n;j++){
+   x1:=evalf(f(x0));
+   if (abs(x1-x0)&lt;eps) return x1;
+   x0:=x1;
+ }
+ return "non trouve au bout de ", n," iteration";
+}:;
+</pre>
+<span style="font-family:monospace">point_fixe(x-&gt;cos(x),100,1.0,1e-12)=0.739085133215</span><br>
+On vérifie : <span style="font-family:monospace">cos(0.739085133215)=0.739085133215</span><br>
+<span style="font-weight:bold">Remarque</span> <br>
+Le <span style="font-family:monospace">for</span> permet de faire tous les types de boucle à 
+condition de mettre, soit 
+<span style="font-family:monospace">for (</span><span style="font-family:monospace"><em>;test_arrêt;</em></span><span style="font-family:monospace">)...</span> soit et <span style="font-family:monospace">for (</span><span style="font-family:monospace"><em>;;</em></span><span style="font-family:monospace">)...</span> et
+une instruction <span style="font-family:monospace">break</span> dans le corps du <span style="font-family:monospace">for</span>, par exemple :
+<pre class="verbatim">pgcd(a,b):={
+local r;
+for (;b!=0;) {
+r:=irem(a,b);
+a:=b;
+b:=r;
+}
+return a;
+}
+:;
+</pre>
+ou
+<pre class="verbatim">pgcd(a,b):={
+local r;
+for (;;) {
+if (b==0) break;
+r:=irem(a,b);
+a:=b;
+b:=r;
+}
+return a;
+}
+:;
+</pre>
+</li></ul>
+<hr>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge002.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

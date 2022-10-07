@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Similarity in the plane: similarity
+</title>
+</head>
+<body >
+<a href="cascmd_en863.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en865.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dsimilarity" class="subsection">13.15.6  Similarity in the plane: <span style="font-family:monospace">similarity</span>
+<a id="hevea_default1565"></a></h3>
+<p>See Section <a href="cascmd_en957.html#ssec%3A3dsimilarity">14.14.6</a> for similarities in space.</p><p>The <span style="font-family:monospace">similarity</span> command creates a command to rotate and
+scale about a given point.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">similarity</span> takes three mandatory arguments and
+one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point (the center of the rotation).
+</li><li class="li-itemize"><span style="font-style:italic">r</span>, a real number (the scaling ratio).
+</li><li class="li-itemize">θ, a real number (the angle of rotation).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">G</span>, a geometric object.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">similarity(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">r</span>,θ<span style="font-family:monospace">)</span> returns a new command which
+rotates about <span style="font-style:italic">P</span> through an angle of θ and scales about <span style="font-style:italic">P</span>
+by a factor of <span style="font-style:italic">r</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">similarity(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">r</span>,θ,<span style="font-style:italic">G</span><span style="font-family:monospace">)</span> returns and draws the
+transformation of <span style="font-style:italic">G</span>.
+</li></ul><h4 id="sec2196" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">s:= similarity(i, 2, -pi/2)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">s(1+i)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en264.png">
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">s(circle(1+i,1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en265.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">similarity(i, 2, -pi/2, 1 + i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en266.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">similarity(i, 2, -pi/2, circle(1+i,1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en267.png">
+</div>
+</li></ul><p>Note that for a point <span style="font-style:italic">P</span> and real numbers <span style="font-style:italic">r</span> and θ,
+the command <span style="font-family:monospace">similarity(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">r</span>,θ<span style="font-family:monospace">)</span> is the same as
+<span style="font-family:monospace">homothety(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">k</span><span style="font-family:monospace">*exp(i*</span><span style="font-style:italic">a</span><span style="font-family:monospace">))</span>.</p>
+<hr>
+<a href="cascmd_en863.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en865.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

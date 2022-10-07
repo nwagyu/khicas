@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The Fisher-Snédécor distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en674.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en676.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:fishersnedecor" class="subsection">8.4.10  The Fisher-Snédécor distribution
+</h3>
+<h4 id="sec1723" class="subsubsection">The probability density function for the Fisher-Snédécor distribution: <span style="font-family:monospace">fisher</span> <span style="font-family:monospace">fisherd</span> <span style="font-family:monospace">snedecor</span> <span style="font-family:monospace">snedecord</span>
+<a id="hevea_default1231"></a>
+<a id="hevea_default1232"></a>
+<a id="hevea_default1233"></a>
+<a id="hevea_default1234"></a></h4>
+<p>The Fisher-Snédécor distribution (also called the
+F-distribution) with <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub> degrees of freedom has density
+function given by, for <span style="font-style:italic">x</span> ≥ 0, 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:fisher"></a>
+<span style="font-family:monospace">fisher</span>(<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,<span style="font-style:italic">x</span>) =
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">(<span style="font-style:italic">n</span><sub>1</sub>/<span style="font-style:italic">n</span><sub>2</sub>)<sup><span style="font-style:italic">n</span><sub>1</sub>/2</sup>Γ((<span style="font-style:italic">n</span><sub>1</sub>+<span style="font-style:italic">n</span><sub>2</sub>)/2)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">Γ(<span style="font-style:italic">n</span><sub>1</sub>/2)Γ(<span style="font-style:italic">n</span><sub>2</sub>/2)</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>(<span style="font-style:italic">n</span><sub>1</sub>−2)/2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">(1+(<span style="font-style:italic">n</span><sub>1</sub>/<span style="font-style:italic">n</span><sub>2</sub>)<span style="font-style:italic">x</span>)<sup>(<span style="font-style:italic">n</span><sub>1</sub>+<span style="font-style:italic">n</span><sub>2</sub>)/2</sup></td></tr>
+</table></td><td class="dcell"> 
+    (7)</td></tr>
+</table><p>
+The <span style="font-family:monospace">fisher</span> command computes this
+density function.<br>
+<span style="font-family:monospace">fisherd</span>, <span style="font-family:monospace">snedecor</span> and <span style="font-family:monospace">snedecord</span> are
+synonyms for <span style="font-family:monospace">fisher</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">fisher</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, integers (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a non-negative real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">fisher(</span><span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the
+Fisher-Snédécor density function with <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>
+degrees of freedom, given in (<a href="#eq%3Afisher">7</a>).
+</li></ul><h4 id="sec1724" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">fisher(5,3,2.5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.10131184472
+</td></tr>
+</table>
+<h4 id="sec1725" class="subsubsection">The cumulative distribution function for the Fisher-Snédécor distribution: <span style="font-family:monospace">fisher_cdf</span> <span style="font-family:monospace">snedecor_cdf</span>
+<a id="hevea_default1235"></a>
+<a id="hevea_default1236"></a></h4>
+<p>The <span style="font-family:monospace">fisher_cdf</span> (or <span style="font-family:monospace">snedecor_cdf</span>) command computes 
+the cumulative distribution function for the Fisher-Snédécor
+distribution. 
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">fisher_cdf</span> takes three mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, integers (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">y</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">fisher_cdf(</span><span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) for the 
+Fisher-Snédécor distribution with <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>
+degrees of freedom
+</li><li class="li-itemize"><span style="font-family:monospace">fisher_cdf(</span><span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> &lt; <span style="font-style:italic">y</span>).
+</li></ul><h4 id="sec1726" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fisher_cdf(5,3,9)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">β</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">15</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">16</td></tr>
+</table></td><td class="dcell">,1</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+(See Section <a href="cascmd_en151.html#ssec%3Abeta">5.8.16</a>.)<br>
+This can be numerically approximated with:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">evalf(fisher_cdf(5,3,9))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.949898927032
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">evalf(fisher_cdf(5,3,9,10))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.0066824173023
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1727" class="subsubsection">The inverse distribution function for the Fisher-Snédécor distribution: <span style="font-family:monospace">fisher_icdf</span> <span style="font-family:monospace">snedecor_icdf</span>
+<a id="hevea_default1237"></a>
+<a id="hevea_default1238"></a></h4>
+<p>The <span style="font-family:monospace">fisher_icdf</span> (or <span style="font-family:monospace">snedecor_icdf</span>) command
+computes the inverse distribution for the Fisher-Snédécor
+distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">fisher_icdf</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, integers (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number between 0 and 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">fisher_icdf(</span><span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,<span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for the Fisher-Snédécor distribution with
+<span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub> degrees of freedom; namely, the value of <span style="font-style:italic">x</span> for
+which Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) = <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1728" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">fisher_icdf(5,3,0.95)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">9.01345516752
+</td></tr>
+</table>
+<h4 id="sec1729" class="subsubsection">The upper tail cumulative function for the Fisher-Snédécor distribution: <span style="font-family:monospace">UTPF</span>
+<a id="hevea_default1239"></a></h4>
+<p>The <span style="font-family:monospace">UTPF</span> (the Upper Tail Probability - Fisher-Snédécor distribution)
+computes Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>) for the Fisher-Snédécor
+distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">UTPF</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, integers (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">UTPF(</span><span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns
+Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>) for the Fisher-Snédécor
+distribution with <span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub> degrees of freedom.
+</li></ul><h4 id="sec1730" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">UTPF(5,3,9)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.050101072968
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en674.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en676.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

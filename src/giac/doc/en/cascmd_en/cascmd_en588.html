@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>List of variables of an algebraic expressions: algvar
+</title>
+</head>
+<body >
+<a href="cascmd_en587.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en589.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1467" class="subsection">5.59.4  List of variables of an algebraic expressions: <span style="font-family:monospace">algvar</span>
+<a id="hevea_default993"></a></h3>
+<p>The <span style="font-family:monospace">algvar</span> command finds the symbolic variable names in an
+expression, but orders them.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">algvar</span> takes one argument:<br>
+ <span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-family:monospace">algvar(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> returns the list of
+the symbolic variable names used in <span style="font-style:italic">expr</span>, ordered by the
+algebraic extensions required to build <span style="font-style:italic">expr</span>.
+</li></ul><h4 id="sec1468" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input: </span>
+<div class="center">
+<span style="font-family:monospace">algvar(y+x*sqrt(z))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">y</span>,<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">z</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">algvar(y*sqrt(x)*sqrt(z))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">z</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">algvar(y*sqrt(x*z))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">y</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>,<span style="font-style:italic">z</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">algvar(y+x*sqrt(z)+y*sin(x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">y</span>,<span style="font-style:italic">x</span>,sin<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">z</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en587.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en589.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

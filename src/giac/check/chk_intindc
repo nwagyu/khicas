@@ -1,0 +1,4 @@
+#! /bin/sh
+export LANG=en_US.UTF8
+../src/icas intindc
+diff intindc.tst intindc.out

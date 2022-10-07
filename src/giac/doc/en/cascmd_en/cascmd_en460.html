@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Norms of a vector: maxnorm l1norm l2norm norm
+</title>
+</head>
+<body >
+<a href="cascmd_en459.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en461.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:vectornorms" class="subsection">5.42.1  Norms of a vector: <span style="font-family:monospace">maxnorm</span> <span style="font-family:monospace">l1norm</span> <span style="font-family:monospace">l2norm</span> <span style="font-family:monospace">norm</span>
+<a id="hevea_default754"></a></h3>
+<p>There are different norms for vectors in ℝ<sup><span style="font-style:italic">n</span></sup>, and
+<span style="font-family:monospace">Xcas</span> has different commands for them.</p><p>Given a list <span style="font-style:italic">L</span>=[<span style="font-style:italic">a</span><sub>1</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>],
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">maxnorm(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span><a id="hevea_default755"></a> returns the
+<span style="font-style:italic">l</span><sup>∞</sup> norm of <span style="font-style:italic">L</span>, namely 
+max(|<span style="font-style:italic">a</span><sub>1</sub>|,|<span style="font-style:italic">a</span><sub>2</sub>|,…,|<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>|)<h4 id="sec1075" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">maxnorm([3,-4,2])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4
+</td></tr>
+</table><p>
+Indeed, 4=max(|3|,|−4|,|2|).
+</p></li><li class="li-itemize"><span style="font-family:monospace">l1norm(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span><a id="hevea_default756"></a> returns the <span style="font-style:italic">l</span><sup>1</sup> norm of <span style="font-style:italic">L</span>,
+namely |<span style="font-style:italic">a</span><sub>1</sub>|+|<span style="font-style:italic">a</span><sub>2</sub>|+⋯+|<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>|.
+coordinates.<h4 id="sec1076" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">l1norm([3,-4,2])</span>
+</div><p>
+Output:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">9
+</td></tr>
+</table><p>
+Indeed, 9=|3|+|−4|+|2|.
+</p></li><li class="li-itemize"><span style="font-family:monospace">norm(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span><a id="hevea_default757"></a> or
+<span style="font-family:monospace">l2norm(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span><a id="hevea_default758"></a> returns the
+ℓ<sup>2</sup> norm of <span style="font-style:italic">L</span>; namely
+√<span style="text-decoration:overline">|</span><span style="text-decoration:overline"><span style="font-style:italic">a</span></span><sub><span style="text-decoration:overline">1</span></sub><span style="text-decoration:overline">|</span><sup><span style="text-decoration:overline">2</span></sup><span style="text-decoration:overline">+|</span><span style="text-decoration:overline"><span style="font-style:italic">a</span></span><sub><span style="text-decoration:overline">2</span></sub><span style="text-decoration:overline">|</span><sup><span style="text-decoration:overline">2</span></sup><span style="text-decoration:overline">+⋯+|</span><span style="text-decoration:overline"><span style="font-style:italic">a</span></span><sub><span style="text-decoration:overline"><span style="font-style:italic">n</span></span></sub><span style="text-decoration:overline">|</span><sup><span style="text-decoration:overline">2</span></sup>.<h4 id="sec1077" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">norm([3,-4,2])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >29</td></tr>
+</table></td></tr>
+</table><p>
+Indeed, 29=|3|<sup>2</sup>+|−4|<sup>2</sup>+|2|<sup>2</sup>.
+</p></li></ul>
+<hr>
+<a href="cascmd_en459.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en461.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

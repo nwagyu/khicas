@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Storing and recalling variables and their values: archive unarchive
+
+</title>
+</head>
+<body >
+<a href="cascmd_en058.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en060.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec94" class="subsection">4.4.6  Storing and recalling variables and their values: <span style="font-family:monospace">archive</span> <span style="font-family:monospace">unarchive</span>
+<a id="hevea_default77"></a>
+<a id="hevea_default78"></a></h3>
+<p>The <span style="font-family:monospace">archive</span> command stores the values of variables for later
+use in a file of your choosing.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">archive</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">filename</span>, a filename in which to store values.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a variable or list of variables.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">archive("</span><span style="font-style:italic">filename</span><span style="font-family:monospace">",</span><span style="font-style:italic">vars</span><span style="font-family:monospace">)</span>
+saves the values of <span style="font-style:italic">vars</span> (or the values of the variables in
+the list) in file <span style="font-style:italic">filename</span>.
+</li></ul><p>
+For example, if the variable <span style="font-family:monospace">a</span> has the value <span style="font-family:monospace">2</span> and the variable
+<span style="font-family:monospace">bee</span> has the value <span style="font-family:monospace">"letter"</span> (a string), then entering
+</p><div class="center">
+<span style="font-family:monospace">archive("foo",[a,bee])</span>
+</div><p>
+will create a file named “<span style="font-family:monospace">foo</span>” which contains the values
+<span style="font-family:monospace">2</span> and <span style="font-family:monospace">"letter"</span> in a format meant to be efficiently
+read by <span style="font-family:monospace">Xcas</span>.</p><p>The <span style="font-family:monospace">unarchive</span> command will read the values from a file
+created with <span style="font-family:monospace">archive</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">unarchive</span> takes one argument:<br>
+<span style="font-style:italic">filename</span>, the filename.
+</li><li class="li-itemize"><span style="font-family:monospace">unarchive("</span><span style="font-style:italic">filename</span><span style="font-family:monospace">")</span> returns the value
+or list of values stored in <span style="font-style:italic">filename</span>.
+</li></ul><h4 id="sec95" class="subsubsection">Example</h4>
+<p>
+With the file “<span style="font-family:monospace">foo</span>” as above:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">unarchive("foo")</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,"letter"</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+If you want to reassign these values to <span style="font-family:monospace">a</span> and <span style="font-family:monospace">bee</span>,
+you can enter
+</p><div class="center">
+<span style="font-family:monospace">[a,bee]:= unarchive("foo")</span>
+</div>
+<hr>
+<a href="cascmd_en058.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en060.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

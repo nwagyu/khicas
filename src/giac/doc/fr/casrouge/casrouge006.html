@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Des programmes tres simples pour les Mathématiques</title>
+</head>
+<body >
+<a href="casrouge005.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge007.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec145" class="chapter">Chapitre 6  Des programmes tres simples pour les Mathématiques</h1>
+<h2 id="sec146" class="section">6.1  Définir le minimum</h2>
+<h3 id="sec147" class="subsection">6.1.1  Minimum de 2 nombres</h3>
+<p>
+Pour trouver le minimum de <span style="font-style:italic">a</span> et <span style="font-style:italic">b</span> et on compare <span style="font-style:italic">a</span> et <span style="font-style:italic">b</span>.
+Le minimum vaut <span style="font-style:italic">a</span> si <span style="font-style:italic">a</span>&lt;=<span style="font-style:italic">b</span> et sinon il vaut <span style="font-style:italic">b</span>.<br>
+On remarquera que puisque l’instruction <span style="font-family:monospace">retourne</span> fait sortir du programme,
+on peut écrire le programme sans utiliser de <span style="font-family:monospace">sinon</span>. 
+</p><pre class="verbatim">Mini(a,b):={
+  si a&lt;=b alors retourne a;fsi;
+  retourne b;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Mini(23,4*6)</span><br>
+On obtient : <span style="font-family:monospace">23</span><br>
+On tape :<br>
+<span style="font-family:monospace">Mini(1.5,sqrt(2))</span><br>
+On obtient : <span style="font-family:monospace">sqrt(2)</span></p>
+<h3 id="sec148" class="subsection">6.1.2  Minimum de 3 nombres</h3>
+<p>
+On utilise le fait que :<br>
+Min(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">c</span>)=Min(Min(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>),<span style="font-style:italic">c</span>)<br>
+et on utilise le programme précédent.
+</p><pre class="verbatim">Mini3(a,b,c):={
+  local m;
+  m:=Mini(a,b);
+  m:=Mini(m,c);
+  retourne m;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Mini3(3</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">3,4*6,5</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2)</span><br>
+On obtient : <span style="font-family:monospace">24</span><br>
+On tape :<br>
+<span style="font-family:monospace">Mini3(1.5,sqrt(2),1.41)</span><br>
+On obtient : <span style="font-family:monospace">1.41</span></p>
+<h3 id="sec149" class="subsection">6.1.3  Minimum d’une liste de nombres</h3>
+<p>
+Pour trouver le minimum de la liste <span style="font-style:italic">L</span>, on parcourt la liste <span style="font-style:italic">L</span> en utilisant
+une variable <span style="font-style:italic">m</span> qui sera le minimum de ce que l’on vient de parcourir et qui 
+sera mis à jour au fur et à mesure que l’on parcourt la liste <span style="font-style:italic">L</span>.<br>
+On renvoie <span style="font-style:italic">m</span> et l’indice <span style="font-style:italic">jm</span> qu’il a dans <span style="font-style:italic">L</span>.
+</p><pre class="verbatim">MiniL(L):={
+  local m,j,d,a,jm;
+  d:=dim(L)-1;
+  m:=L[0];
+  jm:=0;
+  pour j de 1 jusque d faire
+    a:=L[j];
+    si a&lt;m alors 
+      m:=a;
+      jm:=j;
+    fsi;
+  fpour;
+  retourne m,jm;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">MiniL([12,32,3,23,5,2,45])</span><br>
+On obtient : <span style="font-family:monospace">2</span><br>
+</p>
+<h2 id="sec150" class="section">6.2  Trier</h2>
+<h3 id="sec151" class="subsection">6.2.1  Ordonner 2 nombres par ordre croissant</h3>
+<pre class="verbatim">Trier(a,b):={
+  si a&lt;=b alors retourne a,b;fsi;
+  retourne b,a;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Trier(125/3,163/4)</span><br>
+On obtient : <span style="font-family:monospace">163/4,125/3</span><br>
+</p>
+<h3 id="sec152" class="subsection">6.2.2  Ordonner 3 nombres par ordre croissant</h3>
+<pre class="verbatim">Trier3(a,b,c):={
+  si a&gt;b alors a,b:=b,a;fsi;
+  si c&lt;=a alors retourne c,a,b;fsi;
+  si c&lt;=b alors retourne a,c,b; fsi;
+  retourne a,b,c;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Trier3(12,1,23)</span><br>
+On obtient : <span style="font-family:monospace">1,12,23</span>
+</p>
+<h3 id="sec153" class="subsection">6.2.3  Ordonner une séquence de nombres par ordre croissant</h3>
+<h4 id="sec154" class="subsubsection">Tri par recherche du minimum</h4>
+<p>
+On utilise une liste <span style="font-style:italic">Lrep</span> pour mettre la liste triée.
+On parcourt la liste <span style="font-style:italic">L</span> pour chercher l’indice <span style="font-style:italic">jm</span> du plus 
+petit élément <span style="font-style:italic">m</span>, puis on le met dans la liste <span style="font-style:italic">Lrep</span> et et on enlève 
+cet élément de <span style="font-style:italic">L</span> on enlève cet élément de <span style="font-style:italic">L</span>
+Puis on refait la même chose avec la liste privée de son premier 
+élément etc..<br>
+On va utiliser <span style="font-family:monospace">mid(L,j,k)</span> qui renvoie la sous liste de <span style="font-family:monospace">L</span> de
+longueur <span style="font-family:monospace">k</span> qui commence à l’indice <span style="font-family:monospace">j</span> ou <span style="font-family:monospace">mid(S,j)</span> qui 
+renvoie la liste fin de <span style="font-family:monospace">L</span> commençant à l’indice <span style="font-family:monospace">j</span> .<br>
+<span style="font-weight:bold">Remarque</span> À la place de <span style="font-family:monospace">mid(L,j,k)</span> on peut aussi utiliser 
+<span style="font-family:monospace">L[j..j+k-1]</span> (on met les indices de début et de fin de la sous liste) et
+à la place de <span style="font-family:monospace">mid(L,j)</span> on peut aussi utiliser 
+<span style="font-family:monospace">L[j..dim(L)-1]</span>.<br>
+</p><pre class="verbatim">TrierLr(L):={
+  local j,k,m,jm,d,Lrep;
+  d:=dim(L)-1;
+  Lrep:=[];
+  pour j de 0 jusque d faire 
+    m,jm:=MiniL(L);
+    Lrep:=append(Lrep,m);
+    L:=concat(mid(L,0,jm),mid(L,jm+1));
+  fpour
+ retourne Lrep;
+}:;
+</pre><p>
+On utilise la même liste <span style="font-style:italic">L</span> pour mettre la liste triée.
+On parcourt la liste <span style="font-style:italic">L</span> pour chercher l’indice <span style="font-style:italic">jm</span> du plus 
+petit élément <span style="font-style:italic">m</span>, puis on l’échange avec le premier élémment de <span style="font-style:italic">L</span>.
+Puis on refait la même chose avec la liste privée de son premier 
+élément etc...C’est le tri par recherche du minimum.
+</p><pre class="verbatim">TrierL(L):={
+  local j,k,m,jm,d;
+  d:=dim(L)-1;
+  pour k de 0 jusque d-1 faire
+    jm:=k;
+    m:=L[k];
+    pour j de k+1 jusque d faire
+      si m&gt;L[j] alors m:=L[j];jm:=j; fsi;
+    fpour;
+  L[jm]:=L[k];
+  L[k]:=m;
+  fpour
+ retourne L;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">TrierLr([23,12,1,14,21,4,45,11])</span><br>
+Ou on tape :<br>
+<span style="font-family:monospace">TrierL([23,12,1,14,21,4,45,11])</span><br>
+On obtient : <span style="font-family:monospace">[1,4,11,12,14,21,23,45]</span><br>
+</p>
+<h4 id="sec155" class="subsubsection">Tri par insertion</h4>
+<p>
+On utilise une liste la même lisre <span style="font-style:italic">L</span> pour mettre la liste triée.
+À chaque étape on insère l’élément suivant <span style="font-family:monospace">a=L[k]</span> dans 
+le début de la liste qui est déjà triée. Quand on a trouvé où» il 
+fallait insérer <span style="font-style:italic">a</span> par exemple entre <span style="font-family:monospace">L[j-1]</span> et <span style="font-family:monospace">L[j]</span> il faut lui 
+faire de la place en décalant d’un cran vers la droite les éléments de 
+<span style="font-family:monospace">L</span> de <span style="font-style:italic">j</span> jusque <span style="font-style:italic">k</span>. C’est le tri par insertion.
+</p><pre class="verbatim">TrieL(L):={
+  local j,k,d,a,p;
+  d:=dim(L)-1;
+  pour k de 1 jusque d faire
+    j:=0;
+    a:=L[k];
+    tantque a&gt;L[j] faire j:=j+1; ftantque
+    si j&lt;k alors 
+      // on d\'ecale d'un cran vers la droite
+      pour p de k jusque j+1 pas -1 faire
+        L[p]:=L[p-1]
+      fpour;
+      L[j]:=a;
+    fsi
+  fpour
+  retourne L;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">TrieL([23,12,1,14,21,4,45,11])</span><br>
+On obtient : <span style="font-family:monospace">[1,4,11,12,14,21,23,45]</span>
+</p>
+<h4 id="sec156" class="subsubsection">Tri par fusion</h4>
+<p>
+À chaque étape on partage la liste <span style="font-style:italic">L</span> en deux listes <span style="font-style:italic">L</span><sub>1</sub> er <span style="font-style:italic">L</span><sub>2</sub>
+de même longueur. On trie ces 2 listes grâce à 2 appels récursifs, 
+puis on les fusionnne. Pour cela on écrit la fonction <span style="font-family:monospace">fusion</span>
+qui fusionne 2 listes triées : à chaque étape on compare un élément
+de <span style="font-style:italic">L</span><sub>1</sub> avec un élément de <span style="font-style:italic">L</span><sub>2</sub>, on met le plus petit des 2 dans la liste
+réponse et on avance l’indice correspondant au plus petit d’un cran et on 
+recommence...<br>
+On tape :
+</p><pre class="verbatim">fusion(L1,L2):={
+local d1,d2,j1,j2,L;
+ d1:=dim(L1)-1;
+ d2:=dim(L2)-1;
+ L:=[];
+ j1:=0;
+ j2:=0;
+tantque j1&lt;=d1 et j2&lt;=d2 faire
+ si L1[j1]&lt;L2[j2] alors L:=append(L,L1[j1]); j1:=j1+1;
+   sinon  L:=append(L,L2[j2]); j2:=j2+1;
+ fsi;
+ftantque;
+si j1&lt;=d1 alors L:=concat(L,mid(L1,j1);
+ sinon   L:=concat(L,mid(L2,j2);
+fsi;
+retourne L;
+}:;
+
+Trifusion(L):={
+  local d,d1,L1,L2;
+  d:=dim(L);
+  si d==1 ou d==0 alors retourne L;fsi;
+  d1:=iquo(d,2);
+  L1:=mid(L,0,d1);
+  L2:=mid(L,d1);
+  L1:=Trifusion(L1);
+  L2:=Trifusion(L2);
+  retourne fusion(L1,L2);
+}:;
+</pre><p>On peut améliorer le programme précédent en utilisant une liste que l’on modifie
+en place (avec l’opérateur <code>=&lt;</code>) afin de ne pas recopier la liste <code>L</code>
+à chaque affectation par <code>:=</code>. 
+Attention, cela nécessite de faire
+une copie de la liste vide initiale par <code>copy</code> 
+sinon c’est la liste du programme
+lui-même qui sera modifiée et ne sera donc plus initialisée à une liste vide.
+</p><pre class="verbatim">fusionenplace(L1,L2):={
+local d1,d2,j1,j2,k,j,L;
+ d1:=dim(L1)-1;
+ d2:=dim(L2)-1;
+ L:=copy([]);
+ j1:=0;
+ j2:=0;
+ k:=0;
+ tantque j1&lt;=d1 et j2&lt;=d2 faire
+   si L1[j1]&lt;L2[j2] alors L[k]=&lt;L1[j1]; j1:=j1+1;
+   sinon  L[k]=&lt;L2[j2]; j2:=j2+1;
+   fsi;
+   k:=k+1;
+ ftantque;
+ pour j de j1 jusque d1 faire
+   L[k]=&lt;L1[j];
+   k:=k+1;
+ fpour;
+ pour j de j2 jusque d2 faire
+   L[k]=&lt;L2[j];
+   k:=k+1;
+ fpour;
+ retourne L;
+}
+:;
+Trifusionenplace(L):={
+  local L1,L2,d1,d;
+  d:=dim(L);
+  si d==1 ou d==0 alors retourne L;fsi;
+  d1:=iquo(d,2);
+  L1:=mid(L,0,d1);
+  L2:=mid(L,d1);
+  L1:=Trifusionenplace(L1);
+  L2:=Trifusionenplace(L2);
+  retourne fusionenplace(L1,L2);
+}
+:;
+</pre>
+<h2 id="sec157" class="section">6.3  Définir une fonction par morceaux</h2>
+<p>
+On peut utiliser l’instruction <span style="font-family:monospace">si...sinon</span> ou l’instruction <span style="font-family:monospace">ifte</span> ou 
+mieux l’instruction <span style="font-family:monospace">when</span> (ou avec la version infixée de <span style="font-family:monospace">when</span> qui 
+est <span style="font-family:monospace">?</span>).<br>
+ Soit la fonction <span style="font-style:italic">f</span> définie par :<br>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=</td><td class="dcell">⎧<br>
+⎪<br>
+⎨<br>
+⎪<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" > −1</td><td style="text-align:left;white-space:nowrap" >si <span style="font-style:italic">x</span>&lt;0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > 0</td><td style="text-align:left;white-space:nowrap" >si <span style="font-style:italic">x</span>=0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > +1</td><td style="text-align:left;white-space:nowrap" >si <span style="font-style:italic">x</span>&gt;0
+</td></tr>
+</table></td><td class="dcell">
+</td></tr>
+</table><p>
+On tape
+</p><pre class="verbatim"> f(x):={
+  si x&lt;0 alors retourne -1;fsi;
+  si x==0  alors retourne 0 fsi;
+  si x&gt;0 alors retourne 1;fsi;
+}:;
+</pre><p>
+mais on peut aussi écrire la même chose avec l’instruction <span style="font-family:monospace">ifte</span> :<br>
+ <span style="font-family:monospace">f(x):=ifte(x&lt;0,1,ifte(x==0,0,1)</span><br>
+Mais il faut alors savoir que pour que <span style="font-family:monospace">f(a)</span> soit valable il faut que 
+<span style="font-family:monospace">a</span> contienne une valeur.<br>
+Par contre si on tape :<br>
+<span style="font-family:monospace">g(x):=when(x&lt;0,1,when(x==0,0,1)</span><br>
+ou<br>
+<span style="font-family:monospace">g(x):=(x&gt;0)? 1 : ((x==0)? 0 : -1)</span><br>
+<span style="font-family:monospace">g(a)</span> est valable même si <span style="font-family:monospace">a</span> est symbolique i.e. ne contient pas
+de valeur.
+</p>
+<h2 id="sec158" class="section">6.4  Convertir</h2>
+<h3 id="sec159" class="subsection">6.4.1  Des secondes en jours, heures, minutes et secondes</h3>
+<p>
+On se donne un nombre <span style="font-style:italic">ns</span> de secondes que l’on veut convertir en heures <span style="font-style:italic">h</span>, 
+minutes <span style="font-style:italic">mn</span> et secondes <span style="font-style:italic">s</span>. On a : </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">ns</span>=3600<span style="font-style:italic">h</span>+60<span style="font-style:italic">mn</span>+<span style="font-style:italic">s</span>=<span style="font-style:italic">s</span>+60(<span style="font-style:italic">mn</span>+60<span style="font-style:italic">h</span>)</td></tr>
+</table><p>
+On tape :
+</p><pre class="verbatim">converth(ns):={
+  local h,mn,s;
+  s:=irem(ns,60);
+  ns:=iquo(ns,60);
+  mn:=irem(ns,60);
+  h:=iquo(ns,60);
+retourne h,mn,s;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">converth(123456789)</span><br>
+On obtient : <span style="font-family:monospace">34293,33,9</span><br>
+Si on veut aussi convertir en jours <span style="font-style:italic">j</span>, heures <span style="font-style:italic">h</span>, 
+minutes <span style="font-style:italic">mn</span> et secondes <span style="font-style:italic">s</span>. On a : 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">ns</span>=24*3600<span style="font-style:italic">j</span>+3600<span style="font-style:italic">h</span>+60<span style="font-style:italic">mn</span>+<span style="font-style:italic">s</span>=<span style="font-style:italic">s</span>+60(<span style="font-style:italic">mn</span>+60(<span style="font-style:italic">h</span>+24<span style="font-style:italic">j</span>))</td></tr>
+</table><p>
+Ou bien, on tape :
+</p><pre class="verbatim">convertj(ns):={
+  local j,h,mn,s;
+  s:=irem(ns,60);
+  ns:=iquo(ns,60);
+  mn:=irem(ns,60);
+  ns:=iquo(ns,60);
+  h:=irem(ns,24);
+  j:=iquo(ns,24);
+retourne j,h,mn,s;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">convertj(123456789)</span><br>
+On obtient : <span style="font-family:monospace">1428,21,33,9</span></p>
+<h3 id="sec160" class="subsection">6.4.2  Des degrés en radians</h3>
+<p>
+Si la mesure d’un angle est <span style="font-style:italic">rad</span> en radians et <span style="font-style:italic">deg</span> en degrés, on a :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">rad</span>=<span style="font-style:italic">deg</span>*π/180</td></tr>
+</table><pre class="verbatim">deg2rad(deg):=deg*pi/180;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">deg2rad(48.2384062423)</span><br>
+On obtient : <span style="font-family:monospace">0.841919014843</span>
+</p>
+<h3 id="sec161" class="subsection">6.4.3  Des radians en degrés</h3>
+<p>
+Si la mesure d’un angle est <span style="font-style:italic">rad</span> en radians et <span style="font-style:italic">deg</span> en degrés, on a :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">deg</span>=<span style="font-style:italic">rad</span>*180/π</td></tr>
+</table><pre class="verbatim">rad2deg(rad):=rad*180/pi;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">rad2deg(0.841919014843)</span><br>
+On obtient : <span style="font-family:monospace">48.2384062423</span></p>
+<h2 id="sec162" class="section">6.5  Les fractions</h2>
+<h3 id="sec163" class="subsection">6.5.1  Simplifier une fraction</h3>
+<p>
+On suppose que l’on donne la fraction <span style="font-style:italic">F</span> sous la forme de la liste [<span style="font-style:italic">N</span>,<span style="font-style:italic">D</span>] de 
+son numérateur et de son dénominateur. Pour la simplifier il suffit de 
+diviser le numérateur et le dénominateur par leur pgcd.<br>
+On utilise ici la fonction <span style="font-family:monospace">gcd</span> de <span style="font-family:monospace">Xcas</span> pour le calcul du pgcd.
+On tape :
+</p><pre class="verbatim">Simplifie(F):={
+ local pgcd,N,D;
+ N:=F[0];
+ D:=F[1];
+ pgcd:=gcd(N,D);
+ retourne [N/pgcd,D/pgcd];
+}:;  
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Simplifie([5544,55]);</span><br>
+On obtient : <span style="font-family:monospace">[504,5]</span>
+</p>
+<h3 id="sec164" class="subsection">6.5.2  Additionner 2 fractions</h3>
+<p>
+On commence par simplifier les 2 fractions, puis on cherche leur dénominateur
+commun qui est le ppcm de leur dénominateurs, On réduit ces fractions à 
+ce dénominateur commun et on ajoute les numérateurs. <br>
+On suppose que l’on donne les fraction <span style="font-style:italic">F</span>1 et <span style="font-style:italic">F</span>2 sous la forme de la liste 
+[<span style="font-style:italic">N</span>,<span style="font-style:italic">D</span>]. Puis on simplifie le résultat.<br>
+On utilise ici la fonction <span style="font-family:monospace">lcm</span> de <span style="font-family:monospace">Xcas</span> pour le calcul du ppcm.
+</p><pre class="verbatim">Ajoute(F1,F2):={
+ local ppcm,N1,D1,N2,D2,N,D;
+ F1:=Simplifie(F1);
+ F2:=Simplifie(F2);
+ N1:=F1[0];
+ D1:=F1[1];
+ N2:=F2[0];
+ D2:=F2[1];
+ D:=lcm(D1,D2);
+ N1:=N1*D/D1;
+ N2:=N2*D/D2;
+ retourne Simplifie([N1+N2,D]);
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Ajoute([1234,22],[5549,55])</span><br>
+On obtient : <span style="font-family:monospace">[8634,55]</span>
+</p>
+<h3 id="sec165" class="subsection">6.5.3  Multiplier 2 fractions</h3>
+<p>
+On commence par simplifier les 2 fractions, puis on multiplie les numérateurs
+entre eux et les dénominateurs entre eux. Puis on simplifie le résultat.
+</p><pre class="verbatim">Multiple(F1,F2):={
+ local N1,D1,N2,D2;
+ F1:=Simplifie(F1);
+ F2:=Simplifie(F2);
+ N1:=F1[0];
+ D1:=F1[1];
+ N2:=F2[0];
+ D2:=F2[1];
+ retourne Simplifie([N1*N2,D1*D2]);
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Multiple([1234,22],[5549,55])</span><br>
+On obtient : <span style="font-family:monospace">[3423733,605]</span>
+</p>
+<hr>
+<a href="casrouge005.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge007.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

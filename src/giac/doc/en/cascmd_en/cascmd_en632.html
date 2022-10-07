@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Quantiles: quantile
+</title>
+</head>
+<body >
+<a href="cascmd_en631.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en633.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1576" class="subsection">8.1.7  Quantiles: <span style="font-family:monospace">quantile</span>
+<a id="hevea_default1137"></a></h3>
+<p>Similar to quartiles, a quantile of a list is the number <span style="font-style:italic">q</span> such that
+a given fraction of the list numbers fall at or below <span style="font-style:italic">q</span>. The first
+quartile, for example, is the quantile with the fraction 0.25.</p><p>The <span style="font-family:monospace">quantile</span> command finds quantiles.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">quantile</span> takes two mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list of numbers.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">W</span>, a list of weights.
+</li><li class="li-itemize"><span style="font-style:italic">p</span>, a number between 0 and 1.
+</li></ul>
+<span style="font-family:monospace">quantile(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">p</span>th quantile of <span style="font-style:italic">L</span>.
+</li></ul><h4 id="sec1577" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">A:= [0,1,2,3,4,5,6,7,8,9,10,11]</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">quantile(A,0.1)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.0
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">quantile(A,A,0.25)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">6
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en631.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en633.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

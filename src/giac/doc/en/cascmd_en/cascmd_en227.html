@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Antiderivative and definite integral: integrate int Int
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en226.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en228.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:integrate" class="subsection">5.20.1  Antiderivative and definite integral: <span style="font-family:monospace">integrate</span> <span style="font-family:monospace">int</span> <span style="font-family:monospace">Int</span>
+<a id="hevea_default421"></a>
+<a id="hevea_default422"></a>
+<a id="hevea_default423"></a>
+</h3>
+<p>The <span style="font-family:monospace">int</span> and <span style="font-family:monospace">integrate</span> commands compute a primitive
+or a definite integral. A difference between the two commands is that if
+you input <span style="font-family:monospace">quest()</span> just after the evaluation of
+<span style="font-family:monospace">integrate</span>, the answer is written with the ∫ symbol.</p><p><span style="font-family:monospace">Int</span> is the inert form of <span style="font-style:italic">integrate</span>; namely, it
+evaluates to <span style="font-style:italic">integrate</span> for later evaluation.</p><p><br>
+</p><p>To find a primitive (an antiderivative):
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">int</span> (or <span style="font-family:monospace">integrate</span>) takes one mandatory
+argument and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the name of a
+variable (by default the value is <span style="font-family:monospace">x</span>, so if the variable is
+<span style="font-family:monospace">x</span> the second argument is unnecessary).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">int(</span><span style="font-style:italic">expr</span> ⟨,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span>
+(or <span style="font-family:monospace">integrate(</span><span style="font-style:italic">expr</span> ⟨,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span>) returns a
+primitive of <span style="font-style:italic">expr</span> with respect to <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec530" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">integrate(x^2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>3</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">integrate(t^2,t)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">t</span><sup>3</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p>To evaluate a definite integral:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">int</span> (or <span style="font-family:monospace">integrate</span>)
+takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, the variable.
+</li><li class="li-itemize"><span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, the bounds of the definite integral.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">int(</span><span style="font-style:italic">expr,</span><span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span>
+(or <span style="font-family:monospace">integrate(</span><span style="font-style:italic">expr,</span><span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span>) returns
+the exact value of the definite integral if the computation was
+successful or an unevaluated integral otherwise.
+</li></ul><h4 id="sec531" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">integrate(x^2,x,1,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">7</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">integrate(1/(sin(x)+2),x,0,2*pi)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> π  </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p><span style="font-family:monospace">Int</span> is the inert form of <span style="font-family:monospace">integrate</span>, it prevents
+evaluation, for example to avoid a symbolic computation that might not
+be successful if you just want a numeric evaluation.</p><h4 id="sec532" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">evalf(Int(exp(x^2),x,0,1))</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">evalf(int(exp(x^2),x,0,1))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.46265174591
+</td></tr>
+</table><p><br>
+</p><p><span style="font-weight:bold">Exercises.</span>
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+Let
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>−1</td></tr>
+</table></td><td class="dcell">+ln(</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>+1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−1</td></tr>
+</table></td><td class="dcell">)
+</td></tr>
+</table>
+Find a primitive of <span style="font-style:italic">f</span>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">int(x/(x^2-1)+ln((x+1)/(x-1)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span> ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>+1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−1</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> ln</td><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>−1</td><td class="dcell">⎪<br>
+⎪</td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>−1</td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+Alternatively, define the function <span style="font-family:monospace">f</span>,<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">f(x):=x/(x^2-1)+ln((x+1)/(x-1))</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">int(f(x))</span>
+</div>
+The output, of course, will be the same.<p><br>
+</p><p><span style="font-weight:bold">Warning.</span><br>
+For <span style="font-family:monospace">Xcas</span>, <span style="font-family:monospace">log</span> is the natural logarithm (like
+<span style="font-family:monospace">ln</span>); <span style="font-family:monospace">log10</span> is the base-10 logarithm.</p></li><li class="li-enumerate">Compute:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>6</sup>+2 · <span style="font-style:italic">x</span><sup>4</sup>+<span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">  <span style="font-style:italic">dx</span>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">int(2/(x^6+2*x^4+x^2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">−3 <span style="font-style:italic">x</span><sup>2</sup>−2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> arctan<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-enumerate">Compute:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">sin(<span style="font-style:italic">x</span>)+sin(2 · <span style="font-style:italic">x</span> )</td></tr>
+</table></td><td class="dcell">  <span style="font-style:italic">dx</span>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">integrate(1/(sin(x)+sin(2*x )))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1−cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+cos<span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">12</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎪<br>
+⎪<br>
+⎪<br>
+⎪</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1−cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+cos<span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">−3</td><td class="dcell">⎪<br>
+⎪<br>
+⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li></ol>
+<hr>
+<a href="cascmd_en226.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en228.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

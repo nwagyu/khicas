@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Integer and fractional part: propfrac propFrac
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en126.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en128.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:ipropfrac" class="subsection">5.7.2  Integer and fractional part: <span style="font-family:monospace">propfrac</span> <span style="font-family:monospace">propFrac</span>
+<a id="hevea_default225"></a>
+<a id="hevea_default226"></a>
+</h3>
+<p>Rational numbers are often broken up into integer and fractional
+parts, where the fractional part has absolute value less than 1; i.e.,
+the absolute value of the top integer is smaller than that of the
+bottom integer. Such a fraction is called a <em>proper</em> fraction.
+The <span style="font-family:monospace">propfrac</span> command writes a fraction
+as an integer plus a proper fraction.<br>
+<span style="font-family:monospace">propFrac</span> is a synonym for <span style="font-family:monospace">propfrac</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">propfrac</span> takes one argument:<br>
+ <span style="font-style:italic">r</span>, a rational number.
+</li><li class="li-itemize"><span style="font-family:monospace">propfrac(</span><span style="font-style:italic">r</span><span style="font-family:monospace">)</span> returns
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">q</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">r</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">b</span></td></tr>
+</table></td><td class="dcell">  with   0≤ <span style="font-style:italic">r</span>&lt;<span style="font-style:italic">b</span>
+</td></tr>
+</table>
+where  <span style="font-style:italic">r</span>=<span style="font-style:italic">a</span>/<span style="font-style:italic">b</span> is in lowest terms and
+and <span style="font-style:italic">a</span>=<span style="font-style:italic">bq</span>+<span style="font-style:italic">r</span>.
+</li></ul><p>
+(For rational expressions, see Section <a href="cascmd_en363.html#ssec%3Apropfrac">5.32.8</a>.)</p><h4 id="sec261" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">propfrac(42/15)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  2+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">4</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">propfrac(43/12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">7</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">12</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en126.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en128.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

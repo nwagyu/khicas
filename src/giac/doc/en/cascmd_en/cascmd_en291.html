@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Apply a function to the internal sparse format of a polynomial: map
+</title>
+</head>
+<body >
+<a href="cascmd_en290.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en292.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:mappoly" class="subsection">5.27.3  Apply a function to the internal sparse format of a polynomial: <span style="font-family:monospace">map</span>
+</h3>
+<p>The <span style="font-family:monospace">map</span> command can apply a function to the coefficients of a
+polynomial written in internal sparse format. (See
+Section <a href="cascmd_en449.html#ssec%3Aapplymap">5.40.29</a> for other uses of <span style="font-family:monospace">map</span>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">map</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a polynomial of <span style="font-style:italic">k</span> variables in internal sparse format.
+</li><li class="li-itemize"><span style="font-style:italic">f</span>, a function of <span style="font-style:italic">k</span>+1 variables.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">map(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">f</span><span style="font-family:monospace">)</span> applies <span style="font-style:italic">f</span> to the coefficients of <span style="font-style:italic">P</span>;
+namely, it returns a polynomial which replaces each term
+<span style="font-family:monospace">%%%{</span><span style="font-style:italic">a</span><span style="font-family:monospace">,[</span><span style="font-style:italic">n</span><sub>1</sub>,…, <span style="font-style:italic">n</span><sub><span style="font-style:italic">k</span></sub><span style="font-family:monospace">] %%%}</span> in <span style="font-style:italic">P</span> by
+<span style="font-family:monospace">%%%{</span><span style="font-style:italic">f</span>(<span style="font-style:italic">a</span>,<span style="font-style:italic">n</span><sub>1</sub>,…,<span style="font-style:italic">n</span><sub><span style="font-style:italic">k</span></sub>)<span style="font-family:monospace">,[</span><span style="font-style:italic">n</span><sub>1</sub>,…, <span style="font-style:italic">n</span><sub><span style="font-style:italic">k</span></sub><span style="font-family:monospace">] %%%}</span>
+</li></ul><h4 id="sec683" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">map(%%%{2,[2,1]%%%} + %%%{3,[1,4]%%%},(a,b,c)-&gt;a*b*c)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">%%%{4,[2,1]%%%}+%%%{12,[1,4]%%%}
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en290.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en292.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

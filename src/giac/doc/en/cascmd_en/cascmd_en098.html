@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Decomposition into prime factors: ifactor
+</title>
+</head>
+<body >
+<a href="cascmd_en097.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en099.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec192" class="subsection">5.5.4  Decomposition into prime factors: <span style="font-family:monospace">ifactor</span>
+<a id="hevea_default176"></a></h3>
+<p>The <span style="font-family:monospace">ifactor</span> command factors an integer into its prime
+factors. (Note that a prime factor of a Gaussian integer is only
+determined up to a factor of ±1 or ± <span style="font-style:italic">i</span>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ifactor</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, an integer or a list of integers.
+</li><li class="li-itemize"><span style="font-family:monospace">ifactor(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">n</span> in factored form (or a list of the
+integers in factored form).
+</li></ul><h4 id="sec193" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactor(90)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5· 2· 3<sup>2</sup>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactor(-90)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −5· 2· 3<sup>2</sup>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactor(14+23*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">i</span> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">5+2 <span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifactor([36,52])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2<sup>2</sup>· 3<sup>2</sup>,13· 2<sup>2</sup></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en097.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en099.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

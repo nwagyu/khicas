@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Riemann sum: sum_riemann
+</title>
+</head>
+<body >
+<a href="cascmd_en229.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en231.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec539" class="subsection">5.20.4  Riemann sum: <span style="font-family:monospace">sum_riemann</span>
+<a id="hevea_default426"></a></h3>
+<p>Given a function <span style="font-style:italic">f</span> on [0,1], the Riemann sum corresponding to
+dividing the interval into <span style="font-style:italic">n</span> equal parts and using the right
+endpoints is 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span>=1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">f</span>(</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+</table></td><td class="dcell">)</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+</table></td><td class="dcell">.
+</td></tr>
+</table><p>The <span style="font-family:monospace">sum_riemann</span> command determines if a sum is such a
+Riemann sum, and if it is, evaluates the integral.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sum_riemann</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression depending on two variables.
+</li><li class="li-itemize"><span style="font-family:monospace">[</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">k</span><span style="font-family:monospace">]</span>, the list of those two variables.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">sum_riemann(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,[</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">k</span><span style="font-family:monospace">])</span>
+returns
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">&nbsp;</td></tr>
+<tr><td class="dcell" style="text-align:center">lim</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span>→∞</td></tr>
+</table></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span>=1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">expr</span>
+</td></tr>
+</table>
+(which, viewing the sum as a Riemann sum of a continuous function on
+[0,1], is the definite integral) or returns
+<span style="font-family:monospace">"it is probably not a Riemann sum"</span> when the no result is
+found.
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Exercises.</span>
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+Suppose  <span style="font-style:italic">S</span><sub><span style="font-style:italic">n</span></sub>=∑<sub><span style="font-style:italic">k</span>=1</sub><sup><span style="font-style:italic">n</span></sup> <span style="font-style:italic">k</span><sup>2</sup>/<span style="font-style:italic">n</span><sup>3</sup>.<br>
+Compute  lim<sub><span style="font-style:italic">n</span> → +∞</sub> <span style="font-style:italic">S</span><sub><span style="font-style:italic">n</span></sub>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sum_riemann(k^2/n^3,[n,k])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-enumerate">Suppose  <span style="font-style:italic">S</span><sub><span style="font-style:italic">n</span></sub>=∑<sub><span style="font-style:italic">k</span>=1</sub><sup><span style="font-style:italic">n</span></sup> <span style="font-style:italic">k</span><sup>3</sup>/<span style="font-style:italic">n</span><sup>4</sup>.<br>
+Compute  lim<sub><span style="font-style:italic">n</span> → +∞</sub> <span style="font-style:italic">S</span><sub><span style="font-style:italic">n</span></sub>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sum_riemann(k^3/n^4,[n,k])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-enumerate">Compute  lim<sub><span style="font-style:italic">n</span> → +∞</sub>(1/<span style="font-style:italic">n</span>+1+
+1/<span style="font-style:italic">n</span>+2+…+1/<span style="font-style:italic">n</span>+<span style="font-style:italic">n</span>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sum_riemann(1/(n+k),[n,k])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-enumerate">Suppose  <span style="font-style:italic">S</span><sub><span style="font-style:italic">n</span></sub>=∑<sub><span style="font-style:italic">k</span>=1</sub><sup><span style="font-style:italic">n</span></sup> 32<span style="font-style:italic">n</span><sup>3</sup>/16<span style="font-style:italic">n</span><sup>4</sup>−<span style="font-style:italic">k</span><sup>4</sup>.<br>
+Compute  lim<sub><span style="font-style:italic">n</span> → +∞</sub> <span style="font-style:italic">S</span><sub><span style="font-style:italic">n</span></sub>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sum_riemann(32*n^3/(16*n^4-k^4),[n,k])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 arctan</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">3</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li></ol>
+<hr>
+<a href="cascmd_en229.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en231.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

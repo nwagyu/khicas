@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sets: set[]
+</title>
+</head>
+<body >
+<a href="cascmd_en050.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en052.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:sets" class="subsection">4.3.2  Sets: <span style="font-family:monospace">set[]</span>
+<a id="hevea_default61"></a><a id="hevea_default62"></a></h3>
+<p>To define a set of elements, put the elements separated by commas,
+with delimiters <span style="font-family:monospace">%{</span> and <span style="font-family:monospace">%}</span> or <span style="font-family:monospace">set[</span> and
+<span style="font-family:monospace">]</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">set[1,2,3,4]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">%{1,2,3,4%}</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⟦ 1,2,3,4⟧
+</td></tr>
+</table><p>
+In the <span style="font-family:monospace">Xcas</span> output, the set delimiters are displayed
+as ⟦ and ⟧ in order
+not to confuse sets with lists (see Section <a href="cascmd_en052.html#ssec%3Alstbasics">4.3.3</a>).
+For example, ⟦1,2,3 ⟧is the set <span style="font-family:monospace">%{1,2,3%}</span>,
+unlike [1,2,3] (normal brackets) which is the list <span style="font-family:monospace">[1,2,3]</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:=%{1,2,3,4%}</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:=set[1,2,3,4]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⟦ 1,2,3,4⟧
+</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">B:=%{5,5,6,3,4%}</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">B:=set[5,5,6,3,4]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">     ⟦ 5,6,3,4 ⟧
+</td></tr>
+</table><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+The order in a set is not significant and the elements in a set are
+all distinct. If you input <span style="font-family:monospace">B:=%{5,5,6,3,4%}</span> and
+<span style="font-family:monospace">C:=%{3,4,5,3,6%}</span>, then <span style="font-family:monospace">B==C</span> will return <span style="font-family:monospace">true</span>.</p><p>See Section <a href="index.html#sec%3Asetops">5.41</a> for operations on sets.</p>
+<hr>
+<a href="cascmd_en050.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en052.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

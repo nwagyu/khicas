@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The uniform distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en666.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en668.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:uniform" class="subsection">8.4.2  The uniform distribution
+</h3>
+<h4 id="sec1666" class="subsubsection">The probability density function for the uniform distribution: <span style="font-family:monospace">uniform</span> <span style="font-family:monospace">uniformd</span>
+<a id="hevea_default1199"></a>
+<a id="hevea_default1200"></a></h4>
+<p>Given two values <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span> with <span style="font-style:italic">a</span> &lt; <span style="font-style:italic">b</span>, the uniform distribution on
+[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>] has density function 1/(<span style="font-style:italic">b</span>−<span style="font-style:italic">a</span>) for <span style="font-style:italic">x</span> in [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>]. The
+<span style="font-family:monospace">uniform</span> (or <span style="font-family:monospace">uniformd</span>) command computes this density
+function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">uniform</span> (or <span style="font-style:italic">uniformd</span>) takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, real numbers with <span style="font-style:italic">a</span>&lt;<span style="font-style:italic">b</span>.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">uniform(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> (or <span style="font-family:monospace">uniformd(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span>)
+returns the value of the probability density function for the
+uniform distribution from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>, namely 1/(<span style="font-style:italic">b</span>−<span style="font-style:italic">a</span>).
+</li></ul><h4 id="sec1667" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">uniform(2.2,3.5,2.8)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.769230769231
+</td></tr>
+</table>
+<h4 id="sec1668" class="subsubsection">The cumulative distribution function for the uniform distribution: <span style="font-family:monospace">uniform_cdf</span> <span style="font-family:monospace">uniformd_cdf</span>
+<a id="hevea_default1201"></a>
+<a id="hevea_default1202"></a></h4>
+<p>The <span style="font-family:monospace">uniform_cdf</span> command finds the cumulative distribution
+function for the uniform distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">uniform_cdf</span> takes three mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, real numbers with <span style="font-style:italic">a</span>&lt;<span style="font-style:italic">b</span>.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize">Optionally <span style="font-style:italic">y</span>, a real number. 
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">uniform_cdf(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the
+cumulative distribution function for the uniform distribution from
+<span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>, which in this case will be (<span style="font-style:italic">x</span>−<span style="font-style:italic">a</span>)/(<span style="font-style:italic">b</span>−<span style="font-style:italic">a</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">uniform_cdf(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+<span style="font-family:monospace">Prob</span>(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> ≤ <span style="font-style:italic">y</span>), which in this case will be
+(<span style="font-style:italic">y</span>−<span style="font-style:italic">x</span>)/(<span style="font-style:italic">b</span>−<span style="font-style:italic">a</span>).
+</li></ul><h4 id="sec1669" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">uniform_cdf(2,4,3.2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.6
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">uniform_cdf(2,4,3,3.2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.1
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1670" class="subsubsection">The inverse distribution function for the uniform distribution: <span style="font-family:monospace">uniform_icdf</span> <span style="font-family:monospace">uniformd_icdf</span>
+<a id="hevea_default1203"></a>
+<a id="hevea_default1204"></a></h4>
+<p>The <span style="font-family:monospace">uniform_icdf</span> command computes the inverse distribution
+for the uniform distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">uniform_icdf</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, real numbers with <span style="font-style:italic">a</span>&lt;<span style="font-style:italic">b</span>.
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number between 0 and 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">uniform_icdf(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the value of the
+inverse distribution function to the uniform distribution from <span style="font-style:italic">a</span>
+to <span style="font-style:italic">b</span>; namely the value of <span style="font-style:italic">x</span> for which <span style="font-style:italic">h</span> = Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span><sub>)</sub>.
+</li></ul><h4 id="sec1671" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">uniform_icdf(2,3,.6)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2.6
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en666.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en668.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

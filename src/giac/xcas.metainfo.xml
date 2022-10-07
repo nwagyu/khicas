@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2021 Bernard Parisse <parisseb@orange.fr> -->
+<component type="desktop-application">
+  <id>xcas</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Xcas CAS</name>
+  <summary>Computer Algebra System</summary>
+
+  <description>
+<p>
+Xcas is a computer algebra system, it can expand or factor
+expressions, solve equation and systems, differential equations, 
+compute integrals, plot curves and more.
+</p>
+  </description>
+
+  <launchable type="desktop-id">xcas.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Some computations</caption>
+      <image>https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac/formel.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>A program</caption>
+      <image>https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac/horner.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html</url>
+
+  <provides>
+    <binary>xcas</binary>
+  </provides>
+
+  <releases>
+    <release version="1.7.0" date="2021-03-23">
+      <description>
+        Support for QuickJS.
+      </description>
+    </release>
+  </releases>
+</component>

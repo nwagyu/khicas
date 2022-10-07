@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title></title>
+</head>
+<body >
+<a href="cascmd_en046.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en048.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h4 id="sec74" class="subsubsection">Example</h4>
+<p>
+If the first command that you enter is:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">2+5</span>
+</div><p>
+resulting in<br>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">7
+</td></tr>
+</table><p>
+then later references to <span style="font-family:monospace">ans(0)</span> will evaluate to <span style="font-family:monospace">7</span>.</p><p><br>
+</p><p>Note that the argument to <span style="font-family:monospace">ans</span> doesn’t correspond to the line
+number in <span style="font-family:monospace">Xcas</span>. For one thing, the line numbers begin at 1.
+What’s more, if you go back and re-evaluate a previous line, then that
+will become part of the commands that <span style="font-family:monospace">ans</span> keeps track of.</p><p>If you give <span style="font-family:monospace">ans</span> a negative number, then it counts backwards
+from the current input. To get the latest output, for example, you
+can use <span style="font-family:monospace">ans(-1)</span>. With no argument, <span style="font-family:monospace">ans()</span> will also
+return the latest output.</p><p>Similarly, the <span style="font-family:monospace">quest</span><a id="hevea_default45"></a> command returns the
+previous inputs. Since these will often be simplified to be the same
+as the output, <span style="font-family:monospace">quest(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> sometimes has the same value as
+<span style="font-family:monospace">ans(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span>.</p><p>You can also use <span style="font-family:monospace">Ctrl</span> plus the arrow keys to scroll through
+previous inputs. With the cursor on the command line,
+<span style="font-family:monospace">Ctrl+uparrow</span> will go backwards in the list of previous
+commands and display them on the current line, and
+<span style="font-family:monospace">Ctrl+downarrow</span> will go forwards.</p>
+<hr>
+<a href="cascmd_en046.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en048.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

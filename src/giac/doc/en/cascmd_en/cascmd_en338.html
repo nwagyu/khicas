@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sylvester matrix of two polynomials and resultant: sylvester resultant
+
+</title>
+</head>
+<body >
+<a href="cascmd_en337.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en339.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec786" class="subsection">5.28.14  Sylvester matrix of two polynomials and resultant: <span style="font-family:monospace">sylvester</span> <span style="font-family:monospace">resultant</span>
+<a id="hevea_default588"></a>
+<a id="hevea_default589"></a></h3>
+<p>Given two polynomials <span style="font-style:italic">A</span>(<span style="font-style:italic">x</span>)=∑<sub><span style="font-style:italic">i</span>=0</sub><sup><span style="font-style:italic">i</span>=<span style="font-style:italic">n</span></sup> <span style="font-style:italic">a</span><sub><span style="font-style:italic">i</span></sub><span style="font-style:italic">x</span><sup><span style="font-style:italic">i</span></sup> and
+<span style="font-style:italic">B</span>(<span style="font-style:italic">x</span>)=∑<sub><span style="font-style:italic">i</span>=0</sub><sup><span style="font-style:italic">i</span>=<span style="font-style:italic">m</span></sup><span style="font-style:italic">b</span><sub><span style="font-style:italic">i</span></sub><span style="font-style:italic">x</span><sup><span style="font-style:italic">i</span></sup>, their Sylvester
+matrix is a square matrix of size <span style="font-style:italic">m</span>+<span style="font-style:italic">n</span> where
+<span style="font-style:italic">m</span>=degree(<span style="font-style:italic">B</span>(<span style="font-style:italic">x</span>)) and <span style="font-style:italic">n</span>=degree(<span style="font-style:italic">A</span>(<span style="font-style:italic">x</span>)). The <span style="font-style:italic">m</span>
+first lines are made with the <span style="font-style:italic">A</span>(<span style="font-style:italic">x</span>) coefficients, so that:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">s</span><sub>11</sub>=<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>12</sub>=<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span>−1</sub></td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>1(<span style="font-style:italic">n</span>+1)</sub>=<span style="font-style:italic">a</span><sub>0</sub></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">s</span><sub>21</sub>=0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>22</sub>=<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub></td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>2(<span style="font-style:italic">n</span>+1)</sub>=<span style="font-style:italic">a</span><sub>1</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>2(<span style="font-style:italic">n</span>+2)</sub>=<span style="font-style:italic">a</span><sub>0</sub></td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  ⋮</td><td style="text-align:center;white-space:nowrap" >⋮</td><td style="text-align:center;white-space:nowrap" >⋮</td><td style="text-align:center;white-space:nowrap" >⋱</td><td style="text-align:center;white-space:nowrap" >⋮</td><td style="text-align:center;white-space:nowrap" >⋱</td><td style="text-align:center;white-space:nowrap" >⋮</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">s</span><sub><span style="font-style:italic">m</span>1</sub>=0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub><span style="font-style:italic">m</span>2</sub>=0</td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub><span style="font-style:italic">m</span>(<span style="font-style:italic">n</span>+1)</sub>=<span style="font-style:italic">a</span><sub><span style="font-style:italic">m</span>−1</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub><span style="font-style:italic">m</span>(<span style="font-style:italic">n</span>+2)</sub>=<span style="font-style:italic">a</span><sub><span style="font-style:italic">m</span>−2</sub></td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>0</sub>
+</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table><p>
+and the <span style="font-style:italic">n</span> further lines are made with the <span style="font-style:italic">B</span>(<span style="font-style:italic">x</span>)
+coefficients, so that:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>(<span style="font-style:italic">m</span>+1)1</sub>=<span style="font-style:italic">b</span><sub><span style="font-style:italic">m</span></sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>(<span style="font-style:italic">m</span>+1)2</sub>=<span style="font-style:italic">b</span><sub><span style="font-style:italic">m</span>−1</sub></td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>(<span style="font-style:italic">m</span>+1)(<span style="font-style:italic">m</span>+1)</sub>=<span style="font-style:italic">b</span><sub>0</sub></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >⋮</td><td style="text-align:center;white-space:nowrap" >⋮</td><td style="text-align:center;white-space:nowrap" >⋮</td><td style="text-align:center;white-space:nowrap" >⋱</td><td style="text-align:center;white-space:nowrap" >⋮</td><td style="text-align:center;white-space:nowrap" >⋱</td><td style="text-align:center;white-space:nowrap" >⋮</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>(<span style="font-style:italic">m</span>+<span style="font-style:italic">n</span>)1</sub>=0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>(<span style="font-style:italic">m</span>+<span style="font-style:italic">n</span>)2</sub>=0</td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">s</span><sub>(<span style="font-style:italic">m</span>+<span style="font-style:italic">n</span>)(<span style="font-style:italic">m</span>+1)</sub>=<span style="font-style:italic">b</span><sub><span style="font-style:italic">n</span>−1</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">b</span><sub><span style="font-style:italic">n</span>−2</sub></td><td style="text-align:center;white-space:nowrap" >⋯</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">b</span><sub>0</sub>
+</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table><p>The determinant of a Sylvester polynomial is the resultant 
+of the two polynomials.
+If <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> have integer coefficients with non-zero resultant <span style="font-style:italic">r</span>,
+then the polynomials equation 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">AU</span>+<span style="font-style:italic">BV</span>=<span style="font-style:italic">r</span>
+</td></tr>
+</table><p> 
+has a unique solution <span style="font-style:italic">U</span>,<span style="font-style:italic">V</span> such that degree(<span style="font-style:italic">U</span>)&lt;degree(<span style="font-style:italic">B</span>) and
+degree(<span style="font-style:italic">V</span>)&lt;degree(<span style="font-style:italic">A</span>), and this solution has integer coefficients.</p><p><span style="font-weight:bold">Remark.</span><br>
+The discriminant of a polynomial is the resultant of the polynomial
+and its derivative.</p><p><br>
+</p><p>The <span style="font-family:monospace">sylvester</span> command computes Sylvester matrices.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sylvester</span> takes two arguments:<br>
+ <span style="font-style:italic">P</span> and <span style="font-style:italic">Q</span>, two polynomials.
+</li><li class="li-itemize"><span style="font-family:monospace">sylvester(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span><span style="font-family:monospace">)</span>
+returns the Sylvester matrix of <span style="font-style:italic">P</span> and <span style="font-style:italic">Q</span>.
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">resultant</span> command computes the resultant of two
+polynomials.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">resultant</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span> and <span style="font-style:italic">Q</span>, two polynomials.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a variable.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">resultant(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span>
+returns the resultant of <span style="font-style:italic">P</span> and <span style="font-style:italic">Q</span>.
+</li></ul><p>subsubsection*Example<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sylvester(x^3-p*x+q,3*x^2-p,x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">p</span></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">q</span></td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">p</span></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">q</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">p</span></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">p</span></td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">p</span></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">det([[1,0,-p,q,0],[0,1,0,-p,q],[3,0,-p,0,0], [0,3,0,-p,0],[0,0,3,0,-p]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−4 <span style="font-style:italic">p</span><sup>3</sup>+27 <span style="font-style:italic">q</span><sup>2</sup>
+</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">resultant(x^3-p*x+q,3*x^2-p,x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−4 <span style="font-style:italic">p</span><sup>3</sup>+27 <span style="font-style:italic">q</span><sup>2</sup>
+</td></tr>
+</table><h4 id="sec787" class="subsubsection">Examples using the resultant.</h4>
+<ul class="itemize"><li class="li-itemize">
+Let <span style="font-style:italic">F</span>1 and <span style="font-style:italic">F</span>2 be two fixed points in the plane and <span style="font-style:italic">A</span> be a
+variable point on the circle with center <span style="font-style:italic">F</span>1 and radius 2<span style="font-style:italic">a</span>. Find
+the cartesian equation of the set of points <span style="font-style:italic">M</span>, intersection of the
+line <span style="font-style:italic">F</span>1<span style="font-style:italic">A</span> and of the perpendicular bisector of <span style="font-style:italic">F</span>2<span style="font-style:italic">A</span>.
+<ul class="itemize"><li class="li-itemize">
+Geometric answer: Since
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    <span style="font-style:italic">MF</span>1+<span style="font-style:italic">MF</span>2=<span style="font-style:italic">MF</span>1+<span style="font-style:italic">MA</span>=<span style="font-style:italic">F</span>1<span style="font-style:italic">A</span>=2<span style="font-style:italic">a</span>
+</td></tr>
+</table> 
+<span style="font-style:italic">M</span> is on an ellipse with focus <span style="font-style:italic">F</span>1,<span style="font-style:italic">F</span>2 and major axis 2<span style="font-style:italic">a</span>.
+</li><li class="li-itemize">Analytic answer:
+In the Cartesian coordinate system with center <span style="font-style:italic">F</span>1
+and <span style="font-style:italic">x</span>-axis having the same direction as the vector <span style="font-style:italic">F</span>1<span style="font-style:italic">F</span>2, the
+coordinates of <span style="font-style:italic">A</span> are: 
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">      <span style="font-style:italic">A</span>= (2<span style="font-style:italic">a</span>cos(θ),2<span style="font-style:italic">a</span>sin(θ)) 
+</td></tr>
+</table> 
+where θ is the (<span style="font-style:italic">Ox</span>,<span style="font-style:italic">OA</span>) angle. Now choose <span style="font-style:italic">t</span>=tan(θ/2) as
+parameter, so that the coordinates of <span style="font-style:italic">A</span> are rational functions with
+respect to <span style="font-style:italic">t</span>. More precisely: 
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">      <span style="font-style:italic">A</span>=(<span style="font-style:italic">ax</span>,<span style="font-style:italic">ay</span>)=(2<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1−<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">,2<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2<span style="font-style:italic">t</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">) 
+</td></tr>
+</table> 
+If <span style="font-style:italic">F</span>1<span style="font-style:italic">F</span>2=2<span style="font-style:italic">c</span> and if <span style="font-style:italic">I</span> is the midpoint of <span style="font-style:italic">AF</span>2, then since the
+coordinates of <span style="font-style:italic">F</span>2 are <span style="font-style:italic">F</span>2=(2<span style="font-style:italic">c</span>,0), the coordinates of <span style="font-style:italic">I</span> are
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    <span style="font-style:italic">I</span>=(<span style="font-style:italic">c</span>+<span style="font-style:italic">ax</span>/2;<span style="font-style:italic">ay</span>/2)=(<span style="font-style:italic">c</span>+<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1−<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">;<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2<span style="font-style:italic">t</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">) 
+</td></tr>
+</table> 
+<span style="font-style:italic">IM</span> is orthogonal to <span style="font-style:italic">AF</span>2, hence <span style="font-style:italic">M</span>=(<span style="font-style:italic">x</span>;<span style="font-style:italic">y</span>) satisfies the equation <span style="font-style:italic">eq</span>1=0
+where 
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">      <span style="font-style:italic">eq</span>1:=(<span style="font-style:italic">x</span>−<span style="font-style:italic">ix</span>)*(<span style="font-style:italic">ax</span>−2*<span style="font-style:italic">c</span>)+(<span style="font-style:italic">y</span>−<span style="font-style:italic">iy</span>)*<span style="font-style:italic">ay</span> 
+</td></tr>
+</table> 
+But <span style="font-style:italic">M</span>=(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>) is also on <span style="font-style:italic">F</span>1<span style="font-style:italic">A</span>, hence <span style="font-style:italic">M</span> satisfies the equation
+<span style="font-style:italic">eq</span>2=0 where
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">      <span style="font-style:italic">eq</span>2:=<span style="font-style:italic">y</span>/<span style="font-style:italic">x</span>−<span style="font-style:italic">ay</span>/<span style="font-style:italic">ax</span> 
+</td></tr>
+</table>
+The resultant of both equations with respect to <span style="font-style:italic">t</span>,
+<span style="font-family:monospace">resultant(eq1,eq2,t)</span>, is a polynomial <span style="font-style:italic">eq</span>3 depending on the
+variables <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>, independent of <span style="font-style:italic">t</span> which is the cartesian equation of
+the set of points <span style="font-style:italic">M</span> when <span style="font-style:italic">t</span> varies.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">ax:=2*a*(1-t^2)/(1+t^2);ay:=2*a*2*t/(1+t^2);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">ix:=(ax+2*c)/2; iy:=(ay/2)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">eq1:=(x-ix)*(ax-2*c)+(y-iy)*ay</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">eq2:=y/x-ay/ax</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">factor(resultant(eq1,eq2,t))</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output gives as resultant:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −(64·(<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup>)·(<span style="font-style:italic">x</span><sup>2</sup>· <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">x</span><sup>2</sup>· <span style="font-style:italic">c</span><sup>2</sup>+−2· <span style="font-style:italic">x</span>· <span style="font-style:italic">a</span><sup>2</sup>·
+<span style="font-style:italic">c</span>+2· <span style="font-style:italic">x</span>· <span style="font-style:italic">c</span><sup>3</sup>−<span style="font-style:italic">a</span><sup>4</sup>+2· <span style="font-style:italic">a</span><sup>2</sup>· <span style="font-style:italic">c</span><sup>2</sup>+<span style="font-style:italic">a</span><sup>2</sup>· <span style="font-style:italic">y</span><sup>2</sup>−<span style="font-style:italic">c</span><sup>4</sup>))
+</td></tr>
+</table>
+The factor −64· (<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup>) is always different from zero,
+hence the locus equation of <span style="font-style:italic">M</span>:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">x</span><sup>2</sup><span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">x</span><sup>2</sup><span style="font-style:italic">c</span><sup>2</sup>+−2<span style="font-style:italic">xa</span><sup>2</sup><span style="font-style:italic">c</span>+2<span style="font-style:italic">xc</span><sup>3</sup>−<span style="font-style:italic">a</span><sup>4</sup>+2<span style="font-style:italic">a</span><sup>2</sup><span style="font-style:italic">c</span><sup>2</sup>+<span style="font-style:italic">a</span><sup>2</sup><span style="font-style:italic">y</span><sup>2</sup>−<span style="font-style:italic">c</span><sup>4</sup>=0
+</td></tr>
+</table>
+If the frame origin is <span style="font-style:italic">O</span>, the middle point of <span style="font-style:italic">F</span>1<span style="font-style:italic">F</span>2,
+then this is the cartesian equation of an ellipse.
+To make the change of origin
+<span style="font-style:italic">F</span>1<span style="font-style:italic">M</span>=<span style="font-style:italic">F</span>1<span style="font-style:italic">O</span>+<span style="font-style:italic">OM</span>:<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">normal(subst(x^2*a^2-x^2*c^2+-2*x*a^2*c+2*x*c^3-a^4+</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">2*a^2*c^2+ a^2*y^2-c^4,[x,y]=[c+X,Y]))</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">X</span><sup>2</sup> <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">X</span><sup>2</sup> <span style="font-style:italic">c</span><sup>2</sup>+<span style="font-style:italic">Y</span><sup>2</sup> <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">a</span><sup>4</sup>+<span style="font-style:italic">a</span><sup>2</sup> <span style="font-style:italic">c</span><sup>2</sup>
+</td></tr>
+</table>
+or if <span style="font-style:italic">b</span><sup>2</sup>=<span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">c</span><sup>2</sup>:<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal(subst(-c^2*X^2+c^2*a^2+X^2*a^2-a^4+a^2*Y^2,c^2=a^2-b^2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">X</span><sup>2</sup> <span style="font-style:italic">b</span><sup>2</sup>+<span style="font-style:italic">Y</span><sup>2</sup> <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">a</span><sup>2</sup> <span style="font-style:italic">b</span><sup>2</sup>
+</td></tr>
+</table>
+that is to say, after division by <span style="font-style:italic">a</span><sup>2</sup>*<span style="font-style:italic">b</span><sup>2</sup>, <span style="font-style:italic">M</span> satisfies the equation:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">X</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">Y</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">b</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">=1 
+</td></tr>
+</table>
+</li></ul>
+</li><li class="li-itemize">Let <span style="font-style:italic">F</span>1 and
+<span style="font-style:italic">F</span>2 be fixed points and <span style="font-style:italic">A</span> a variable point on the circle with center
+<span style="font-style:italic">F</span>1 and radius 2<span style="font-style:italic">a</span>. Find the cartesian equation of the hull of <span style="font-style:italic">D</span>,
+the segment bisector of <span style="font-style:italic">F</span>2<span style="font-style:italic">A</span>.<p>The segment bisector of <span style="font-style:italic">F</span>2<span style="font-style:italic">A</span> is tangent to the ellipse of focus
+<span style="font-style:italic">F</span>1,<span style="font-style:italic">F</span>2 and major axis 2<span style="font-style:italic">a</span>.</p><p>In the Cartesian coordinate system with center <span style="font-style:italic">F</span>1 and <span style="font-style:italic">x</span>-axis having
+the same direction as the vector <span style="font-style:italic">F</span>1<span style="font-style:italic">F</span>2, the coordinates of <span style="font-style:italic">A</span> are:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">A</span>= (2<span style="font-style:italic">a</span>cos(θ);2<span style="font-style:italic">a</span>sin(θ)) 
+</td></tr>
+</table><p> 
+where θ is the (<span style="font-style:italic">Ox</span>,<span style="font-style:italic">OA</span>) angle. Choose <span style="font-style:italic">t</span>=tan(θ/2) as
+parameter such that the coordinates of <span style="font-style:italic">A</span> are rational functions with
+respect to <span style="font-style:italic">t</span>. More precisely: 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">A</span>=(<span style="font-style:italic">ax</span>;<span style="font-style:italic">ay</span>)=(2<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1−<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">;2<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2<span style="font-style:italic">t</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">) 
+</td></tr>
+</table><p>
+If <span style="font-style:italic">F</span>1<span style="font-style:italic">F</span>2=2<span style="font-style:italic">c</span> and <span style="font-style:italic">I</span> is the midpoint of <span style="font-style:italic">AF</span>2:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">F</span>2=(2<span style="font-style:italic">c</span>,0),   <span style="font-style:italic">I</span>=(<span style="font-style:italic">c</span>+<span style="font-style:italic">ax</span>/2;<span style="font-style:italic">ay</span>/2)=(<span style="font-style:italic">c</span>+<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1−<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">;<span style="font-style:italic">a</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2<span style="font-style:italic">t</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">t</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">) 
+</td></tr>
+</table><p>
+Since <span style="font-style:italic">D</span> is orthogonal to <span style="font-style:italic">AF</span>2, the equation of <span style="font-style:italic">D</span> is <span style="font-style:italic">eq</span>1=0 where
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">eq</span>1:=(<span style="font-style:italic">x</span>−<span style="font-style:italic">ix</span>)*(<span style="font-style:italic">ax</span>−2*<span style="font-style:italic">c</span>)+(<span style="font-style:italic">y</span>−<span style="font-style:italic">iy</span>)*<span style="font-style:italic">ay</span> 
+</td></tr>
+</table><p> 
+So, the hull of <span style="font-style:italic">D</span> is the locus
+of <span style="font-style:italic">M</span>, the intersection point of <span style="font-style:italic">D</span> and <span style="font-style:italic">D</span>′ where <span style="font-style:italic">D</span>′ has equation
+<span style="font-style:italic">eq</span>2:=<span style="font-style:italic">diff</span>(<span style="font-style:italic">eq</span>1,<span style="font-style:italic">t</span>)=0.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ax:=2*a*(1-t^2)/(1+t^2);ay:=2*a*2*t/(1+t^2);</span><br>
+<span style="font-family:monospace">ix:=(ax+2*c)/2; iy:=(ay/2)</span><br>
+<span style="font-family:monospace">eq1:=normal((x-ix)*(ax-2*c)+(y-iy)*ay)</span><br>
+<span style="font-family:monospace">eq2:=normal(diff(eq1,t))</span><br>
+<span style="font-family:monospace">factor(resultant(eq1,eq2,t))</span>
+</div><p>
+<span style="font-style:italic">Output gives as resultant:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">(−(64<span style="font-style:italic">a</span><sup>2</sup>))(<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup>)(<span style="font-style:italic">x</span><sup>2</sup> <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">x</span><sup>2</sup> <span style="font-style:italic">c</span><sup>2</sup>+−2<span style="font-style:italic">x</span> <span style="font-style:italic">a</span><sup>2</sup><span style="font-style:italic">c</span>+ 2<span style="font-style:italic">x</span> <span style="font-style:italic">c</span><sup>3</sup>−<span style="font-style:italic">a</span><sup>4</sup>+2<span style="font-style:italic">a</span><sup>2</sup><span style="font-style:italic">c</span><sup>2</sup>+<span style="font-style:italic">a</span><sup>2</sup><span style="font-style:italic">y</span><sup>2</sup>−<span style="font-style:italic">c</span><sup>4</sup>)
+</td></tr>
+</table><p>
+The factor −64· <span style="font-style:italic">a</span><sup>2</sup>·(<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup>) is always different from zero,
+therefore the locus equation is:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup><span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">x</span><sup>2</sup><span style="font-style:italic">c</span><sup>2</sup>+−2<span style="font-style:italic">xa</span><sup>2</sup><span style="font-style:italic">c</span>+2<span style="font-style:italic">xc</span><sup>3</sup>−<span style="font-style:italic">a</span><sup>4</sup>+2<span style="font-style:italic">a</span><sup>2</sup><span style="font-style:italic">c</span><sup>2</sup>+<span style="font-style:italic">a</span><sup>2</sup><span style="font-style:italic">y</span><sup>2</sup>−<span style="font-style:italic">c</span><sup>4</sup>=0 
+</td></tr>
+</table><p>
+If <span style="font-style:italic">O</span>, the midpoint of <span style="font-style:italic">F</span>1<span style="font-style:italic">F</span>2, is chosen as origin,
+you find again the cartesian equation of the ellipse:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">X</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">Y</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">b</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">=1 
+</td></tr>
+</table></li></ul>
+<hr>
+<a href="cascmd_en337.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en339.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

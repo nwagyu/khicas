@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Euclidean quotient and euclidean remainder: quorem
+</title>
+</head>
+<body >
+<a href="cascmd_en373.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en375.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec865" class="subsection">5.34.7  Euclidean quotient and euclidean remainder: <span style="font-family:monospace">quorem</span>
+<a id="hevea_default630"></a></h3>
+<p>The <span style="font-family:monospace">quorem</span> command finds the quotient
+and remainder of the Euclidean division of two polynomials
+(see also Section <a href="cascmd_en104.html#sec%3Aiquorem">5.5.10</a> and Section <a href="cascmd_en328.html#ssec%3Aquorem">5.28.4</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">quorem</span> takes two mandatory arguments and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span> and <span style="font-style:italic">Q</span>, two polynomials with
+coefficients in ℤ/<span style="font-style:italic">p</span>ℤ.
+</li><li class="li-itemize">Optionally <span style="font-style:italic">x</span>, the variable (by default
+<span style="font-family:monospace">x</span>), if <span style="font-style:italic">P</span> and <span style="font-style:italic">Q</span> are given as expressions.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">quorem(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span>  ⟨ ,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span>
+returns the list of the quotient and remainder of the Euclidean
+division of <span style="font-style:italic">P</span> and <span style="font-style:italic">Q</span>.
+</li></ul><h4 id="sec866" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">quorem((x^3+x^2+1)%13,(2*x^2+4)%13)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%13</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">x</span>+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%13,</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%13</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">x</span>+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%13</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+Indeed
+ <span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span><sup>2</sup>+1=(2<span style="font-style:italic">x</span><sup>2</sup>+4)(<span style="font-style:italic">x</span>+1/2)+5<span style="font-style:italic">x</span>−4/4<br>
+and −3*4=−6*2=1  mod13.</p>
+<hr>
+<a href="cascmd_en373.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en375.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

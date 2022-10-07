@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Evaluating a real at a given precision: evalf Digits DIGITS
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en135.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en137.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:evalf" class="subsection">5.8.1  Evaluating a real at a given precision: <span style="font-family:monospace">evalf</span> <span style="font-family:monospace">Digits</span> <span style="font-family:monospace">DIGITS</span>
+<a id="hevea_default239"></a>
+<a id="hevea_default240"></a>
+<a id="hevea_default241"></a>
+</h3>
+<p>A real number is an exact number and its numeric evaluation at a given
+precision is a floating number represented in base 2. The precision of
+a floating number is the number of bits of its mantissa, which is at
+least 53 (hardware float numbers, also known as <span style="font-family:monospace">double</span>).</p><p>Floating numbers are displayed in base 10 with a number of digits
+controlled by the user either by assigning the <span style="font-family:monospace">Digits</span>
+variable or by modifying the Cas configuration (see
+Section <a href="cascmd_en027.html#ssec%3Aconfcomp">2.5.7</a>, item <a href="cascmd_en027.html#enum%3Adigs">8</a>). By default
+<span style="font-family:monospace">Digits</span> is equal to 12.</p><p>The number of digits displayed controls the number of bits of the
+mantissa; if <span style="font-family:monospace">Digits</span> is less than 15, 53 bits are used, if
+<span style="font-family:monospace">Digits</span> is strictly greater than 15, the number of bits is a
+roundoff of <span style="font-family:monospace">Digits</span> times log<sub>2</sub>(10).</p><p>An expression can be coerced into a floating number with the
+<span style="font-family:monospace">evalf</span> command (see Section <a href="#ssec%3Aevalf">5.8.1</a>). The <span style="font-family:monospace">evalf</span>
+command may have an optional second argument which will specify the
+precision to use.</p><p>Note that if an expression contains a floating number, evaluation will
+try to convert other arguments to floating point numbers in order to
+coerce the whole expression to a single floating number.</p><h4 id="sec279" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1+1/2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1.0+1/2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1.5
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">exp(pi*sqrt(20))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 π  </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">With </span><span style="font-style:italic"><span style="font-family:monospace">evalf</span></span><span style="font-style:italic">, input:</span>
+<div class="center">
+<span style="font-family:monospace">evalf(exp(pi*2*sqrt(5)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1263794.75367
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1.1^20</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  6.72749994932
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sqrt(2)^21</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">· 2<sup>10</sup>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (for a result with 30 digits):</span>
+<div class="center">
+<span style="font-family:monospace">Digits:=30</span>
+</div>
+<span style="font-style:italic">Input (for the numeric value of </span><span style="font-style:italic">e</span><sup>π√<span style="text-decoration:overline">163</span></sup><span style="font-style:italic">):</span>
+<div class="center">
+<span style="font-family:monospace">evalf(exp(pi*sqrt(163)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0.262537412640768743999999999985×10<sup>8</sup>
+</td></tr>
+</table>
+Note that <span style="font-family:monospace">Digits</span> is now set to 30. If you didn’t want to change
+the value of <span style="font-family:monospace">Digits</span>, you could have entered:<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">evalf(exp(pi*sqrt(163)),30)</span>
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en135.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en137.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

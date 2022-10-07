@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Reflections in the plane: reflection
+</title>
+</head>
+<body >
+<a href="cascmd_en860.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en862.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dreflections" class="subsection">13.15.3  Reflections in the plane: <span style="font-family:monospace">reflection</span>
+<a id="hevea_default1562"></a></h3>
+<p>See Section <a href="cascmd_en954.html#ssec%3A3dreflections">14.14.3</a> for reflections in space.</p><p>The <span style="font-family:monospace">reflection</span> command creates a reflection.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">reflection</span> takes one mandatory argument and
+one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point or a line.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">G</span>, a geometric object.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">reflection(</span><span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns a new command which
+reflects about <span style="font-style:italic">P</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">reflection(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">G</span><span style="font-family:monospace">)</span> returns and draws the reflection of
+<span style="font-style:italic">G</span> about <span style="font-style:italic">P</span>. 
+</li></ul><h4 id="sec2190" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">rf:= reflection(-1)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">rf(1+i)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en255.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">reflection(-1, 1+i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en256.png">
+</div>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">reflection(line(-1,i),1+i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en257.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en860.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en862.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Functions: function endfunction { } local return
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en737.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en739.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:funcs" class="subsection">12.1.2  Functions: <span style="font-family:monospace">function</span> <span style="font-family:monospace">endfunction</span> <span style="font-family:monospace">{</span> <span style="font-family:monospace">}</span> <span style="font-family:monospace">local</span> <span style="font-family:monospace">return</span>
+<a id="hevea_default1328"></a>
+<a id="hevea_default1329"></a>
+<a id="hevea_default1330"></a>
+<a id="hevea_default1331"></a>
+<a id="hevea_default1332"></a>
+</h3>
+<p>You have already seen functions defined with <span style="font-family:monospace">:=</span>. For
+example, to define a function <span style="font-family:monospace">sumprod</span> which takes two inputs
+and returns a list with the sum and the product of the inputs, you can
+enter:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sumprod(a,b):= [a+b,a*b]</span>
+</div><p>
+Afterwards, you can use this new function.
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sumprod(3,5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">8,15</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>You can define functions that are computed with a sequence of
+instructions by putting the instructions between braces, where each
+command ends with a semicolon. To use local variables,
+you can declare them with the <span style="font-family:monospace">local</span> keyword, followed by the
+variable names. The value returned by the function will be indicated
+with the <span style="font-family:monospace">return</span> keyword. For example, the above function
+<span style="font-family:monospace">sumprod</span> could also be defined by:<br>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">sumprod(a,b):= {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">local s, p;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">s:= a + b;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">p:= a*b;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">return [s,p];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">}</span>
+</td></tr>
+</table>
+</div><p>Another way to use a sequence of instructions to define a function is
+with the <span style="font-family:monospace">function</span> …<span style="font-family:monospace">endfunction</span> construction.
+With this approach, the function name and parameters follow the
+<span style="font-family:monospace">function</span> keyword. This is otherwise like the previous
+approach. The <span style="font-family:monospace">sumprod</span> function could be defined by:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>function sumprod(a,b)</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>local s, p;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>s:= a + b;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>p:= a*b;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>return [s,p];</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>endfunction</code>
+</td></tr>
+</table>
+</div>
+<hr>
+<a href="cascmd_en737.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en739.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

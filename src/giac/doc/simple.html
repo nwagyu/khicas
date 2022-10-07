@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+  <meta charset="utf-8">
+<title>Minimal example with Giac/Xcas</title>
+</head>
+
+<body>
+<h1>Eval with Xcas, MicroPython or Javascript</h1>
+This HTML file is a simple example of use of Giac/Xcas inside
+HTML/Javascript. Enter an expression to evaluate and choose
+the interpreter. 
+<br>
+The required files are <tt>giacsimple.js</tt> and
+<tt>giacwasm.js, giacwasm.wasm</tt> for Web-Assembly compatible
+browsers or <tt>giac.js</tt> otherwise. 
+<hr>
+
+<script src="giacsimple.js" async></script>
+
+<div id="status">Downloading...</div>
+<div>
+  <progress value="0" max="100" id="progress" hidden=1></progress>
+</div>
+<div id="output"></div>
+<textarea style="font-size:24px" id="input" cols="40" rows="1"
+onkeypress="if (event.keyCode==13){ evalinput();event.preventDefault();}">1/3+1/6</textarea>
+<button id="xcas_button" onclick="UI.micropy=0;UI.python_mode=0;update_button(0); evalinput();">Xcas</button>
+<button id="js_button" onclick="UI.micropy=-1;UI.python_mode=0;update_button(-1); evalinput();">Javascript</button>
+<button id="mp_button" onclick="UI.micropy=1;UI.python_mode=4;update_button(1); evalinput();">Python</button>
+
+<script>
+var update_button=function(i){
+document.getElementById('xcas_button').style.fontSize=(i==0?"24px":"14px");
+document.getElementById('js_button').style.fontSize=(i==-1?"24px":"14px");
+document.getElementById('mp_button').style.fontSize=(i==1?"24px":"14px");
+};
+var evalinput=function(){
+ var output=document.getElementById('output');
+ var input=document.getElementById('input');
+ UI.eval_input(output,input);
+};
+update_button(0);
+</script>
+
+
+<hr>
+<canvas id='canvas' width=0 height=0
+onmousedown="UI.canvas_pushed=true;UI.canvas_lastx=event.clientX; UI.canvas_lasty=event.clientY;"
+onmouseup="UI.canvas_pushed=false;"
+onmousemove="UI.canvas_mousemove(event, '');"
+>
+</canvas>
+<address></address>
+<!-- hhmts start -->Last modified: Thu Dec 31 09:34:40 CET 2020 <!-- hhmts end -->
+</body> </html>

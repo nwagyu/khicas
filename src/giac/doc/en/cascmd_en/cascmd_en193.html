@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Automatic simplification: autosimplify
+</title>
+</head>
+<body >
+<a href="cascmd_en192.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en194.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec400" class="subsection">5.12.15  Automatic simplification: <span style="font-family:monospace">autosimplify</span>
+<a id="hevea_default322"></a></h3>
+<p>The <span style="font-family:monospace">autosimplify</span> command determines how much simplification
+<span style="font-family:monospace">Xcas</span> will do automatically when you enter an expression. Note
+that <span style="font-family:monospace">autosimplify</span> only works with <span style="font-family:monospace">Xcas</span>, it doesn’t
+work with <span style="font-family:monospace">icas</span> or any other frontend.</p><p>By default, <span style="font-family:monospace">Xcas</span> will apply the <span style="font-family:monospace">regroup</span> command (see
+Section <a href="cascmd_en190.html#ssec%3Aregroup">5.12.12</a>) to your input, but the <span style="font-family:monospace">autosimplify</span>
+command can change this to applying another rewriting command to your
+input, such as <span style="font-family:monospace">simplify</span> (see Section <a href="cascmd_en192.html#ssec%3Asimplify">5.12.14</a>),
+<span style="font-family:monospace">factor</span> (see Section <a href="cascmd_en188.html#ssec%3Afactore">5.12.10</a>), or even <span style="font-family:monospace">nop</span> for
+no simplification. With no arguments, <span style="font-family:monospace">autosimplify</span> will
+return the current rewriting command. Otherwise:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">autosimplify</span> command takes one argument:<br>
+ <span style="font-style:italic">cmd</span>, a command that will be used to rewrite the results in
+<span style="font-family:monospace">Xcas</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">autosimplify(</span><span style="font-style:italic">cmd</span><span style="font-family:monospace">)</span> will
+tell <span style="font-family:monospace">Xcas</span> to apply <span style="font-style:italic">cmd</span> to subsequent inputs.
+To change the simplification mode during a session, the
+<span style="font-family:monospace">autosimplify</span> command should be on its own line.
+</li></ul><h4 id="sec401" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">autosimplify(nop)</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">1 + x^2 - 2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1 + <span style="font-style:italic">x</span><sup>2</sup> − 2
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">autosimplify(simplify)</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">1 + x^2 - 2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">x</span><sup>2</sup>−1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">autosimplify(factor)</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">1 + x^2 - 2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">autosimplify(regroup)</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">1 + x^2 - 2</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">x</span><sup>2</sup>−1
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en192.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en194.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

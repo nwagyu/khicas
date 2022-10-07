@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Least-squares polynomial approximation: fitpoly
+</title>
+</head>
+<body >
+<a href="cascmd_en322.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en324.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec750" class="subsection">5.27.35  Least-squares polynomial approximation: <span style="font-family:monospace">fitpoly</span>
+<a id="hevea_default563"></a></h3>
+<p>The <span style="font-family:monospace">fitpoly</span> command is used for replacing tabular data or a function
+by a polynomial of suitable/specified degree.</p>
+<h4 id="sec751" class="subsubsection">Smoothing data: polynomial regression</h4>
+<p>
+To find a polynomial that fits tabular data:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">fitpoly</span> takes one mandatory argument and two optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">data</span>, a two-column matrix or a sequence of two lists,
+representing the <span style="font-style:italic">x</span>- and <span style="font-style:italic">y</span>-values of data points
+(<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">y</span><sub>0</sub>),(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">y</span><sub>1</sub>),…,(<span style="font-style:italic">x</span><sub><span style="font-style:italic">m</span></sub>,<span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span><span style="font-family:monospace">[=</span><span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span><span style="font-family:monospace">]</span> or <span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span>,
+which is a variable <span style="font-style:italic">x</span> and optionally its domain [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>] or a segment [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>]
+(by default, unset).
+</li><li class="li-itemize">Optionally, a sequence of options, each of which may be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">limit=</span><span style="font-style:italic">N</span>, a nonnegative integer,
+which is the maximal degree for the resulting polynomial (by default, <span style="font-style:italic">N</span>=15).
+</li><li class="li-itemize"><span style="font-family:monospace">degree=</span><span style="font-style:italic">d</span>, where <span style="font-style:italic">d</span> is a nonnegative integer,
+which is the desired degree of the resulting polynomial (by default, unset).
+</li><li class="li-itemize"><span style="font-family:monospace">threshold=</span><span style="font-style:italic">tol</span>, a positive real number,
+which is used for finding an appropriate fitting degree,
+as described below
+(by default, <span style="font-family:monospace">threshold=</span>0.01, ignored when <span style="font-style:italic">d</span> is set).
+</li><li class="li-itemize"><span style="font-family:monospace">length=</span><span style="font-style:italic">l</span>, a positive integer,
+which is used for finding an appropriate fitting degree,
+as described below (by default, <span style="font-family:monospace">length=</span>5, ignored when <span style="font-style:italic">d</span> is set).
+</li></ul>
+</li></ul>
+</li><li class="li-itemize">If <span style="font-style:italic">d</span> is set, then <span style="font-family:monospace">fitpoly</span> returns the
+polynomial of degree min{<span style="font-style:italic">d</span>,<span style="font-style:italic">N</span>} which best fits the data
+in the least-squares sense.
+</li><li class="li-itemize">If <span style="font-style:italic">d</span> is not set,
+then a polynomial <span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub> of modest degree <span style="font-style:italic">n</span>≤ <span style="font-style:italic">N</span> but a good error suppression
+(thus representing the trend of the data)
+is chosen using <span style="font-style:italic">tol</span> and <span style="font-style:italic">l</span>
+such that raising the degree does not make a significant improvement to
+the approximation. Precisely, <span style="font-style:italic">n</span> is the first nonnegative integer such that
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">stddev[σ<sub><span style="font-style:italic">n</span></sub><sup>2</sup>,σ<sub><span style="font-style:italic">n</span>+1</sub><sup>2</sup>,…,σ<sub><span style="font-style:italic">n</span>+<span style="font-style:italic">l</span>−1</sub><sup>2</sup>]</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">mean[σ<sub>0</sub><sup>2</sup>,σ<sub>1</sub><sup>2</sup>,…,σ<sub><span style="font-style:italic">n</span>+<span style="font-style:italic">l</span>−1</sub><sup>2</sup>]</td></tr>
+</table></td><td class="dcell">≤<span style="font-style:italic">tol</span>, </td></tr>
+</table>
+where σ<sub><span style="font-style:italic">k</span></sub><sup>2</sup> is the sum of squared residuals ∑<sub><span style="font-style:italic">i</span>=0</sub><sup><span style="font-style:italic">m</span></sup>(<span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub>−<span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub>(<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>))<sup>2</sup>
+and <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub> is the best-fitting polynomial of degree <span style="font-style:italic">k</span>. Ideally, <span style="font-style:italic">n</span> is the
+smallest degree for which σ<sub><span style="font-style:italic">n</span></sub><sup>2</sup>≈σ<sub><span style="font-style:italic">n</span>+1</sub><sup>2</sup>≈σ<sub><span style="font-style:italic">n</span>+2</sub><sup>2</sup>≈⋯, meaning that
+higher-order polynomials would overfit on the noise.
+</li><li class="li-itemize">Lowering the parameter <span style="font-family:monospace">length</span>, as well as increasing
+<span style="font-family:monospace">threshold</span>, would make the algorithm more greedy,
+effectively lowering the degree of the output polynomial. Note that when
+<span style="font-family:monospace">degree</span> is set, these two parameters are ignored.
+</li><li class="li-itemize">If no variable is specified, then <span style="font-family:monospace">fitpoly</span> returns the list of
+polynomial coefficients.
+</li><li class="li-itemize">If a segment [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>] is given, then only the data points (<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>,<span style="font-style:italic">y</span><sub><span style="font-style:italic">k</span></sub>) for which
+<span style="font-style:italic">a</span>≤ <span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>≤ <span style="font-style:italic">b</span> are considered.
+</li></ul><p>subsubsection*Example<br>
+We find a polynomial which best approximates the data infected by noise.
+The data is produced by evaluating the polynomial <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=1/100<span style="font-style:italic">x</span><sup>4</sup>−1/5<span style="font-style:italic">x</span><sup>3</sup>+6<span style="font-style:italic">x</span>
+at 100 points between <span style="font-style:italic">x</span>=1 and <span style="font-style:italic">x</span>=20.8. The noise is generated by a random,
+normally-distributed variable.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(x):=x^4/100-x^3/5+6x:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">x:=[(1+0.2*k)$(k=0..99)]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">noise:=randvector(100,randvar(normal,mean=0,stddev=10)):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">y:=apply(f,x)+noise:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">fitpoly(x,y)</span>
+</td></tr>
+</table>
+</div><p>
+We obtain the list of polynomial coefficients, starting with the leading coefficient.<br>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[0.011665,−0.266955,0.844543,2.44967,3.94846] </td></tr>
+</table><p>
+Note that the polynomial of degree 4 is returned (it has five coefficients),
+which is, in this case, optimal for data smoothing.</p><p>When approximating only the data in segment [1,10], we obtain a polynomial of
+9th degree (the data curvature is now much smaller and the noise is more prominent).<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">length(fitpoly(x,y,1..10))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">10 </td></tr>
+</table><p>
+To make the approximating polynomial less sensitive to noise, we increase the threshold
+value <span style="font-style:italic">tol</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">fitpoly(x,y,t=1..10,threshold=0.05)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−1.30984955412 <span style="font-style:italic">t</span><sup>2</sup>+9.3259443857 <span style="font-style:italic">t</span>−2.6482979067 </td></tr>
+</table><p>
+Alternatively, we could set the parameter <span style="font-family:monospace">length</span> to a smaller value, e.g. 3.</p>
+<h4 id="sec752" class="subsubsection">Approximating functions by polynomials</h4>
+<p>
+To approximate a continuous function <span style="font-style:italic">f</span>:[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>]→ℝ by a polynomial <span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>
+of certain degree <span style="font-style:italic">n</span> which minimizes the error in the sense of <span style="font-style:italic">L</span><sup>2</sup>-norm:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">fitpoly</span> takes two mandatory arguments and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>), which is an univariate expression representing the function <span style="font-style:italic">f</span>.
+</li><li class="li-itemize"><span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span>, which is the domain [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>] of <span style="font-style:italic">f</span>.
+</li><li class="li-itemize">Optionally, a sequence of options, each of which may be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">limit=</span><span style="font-style:italic">N</span>, as before.
+</li><li class="li-itemize"><span style="font-family:monospace">degree=</span><span style="font-style:italic">d</span>, as before.
+</li><li class="li-itemize">ε or <span style="font-family:monospace">threshold=</span>ε,
+which is a positive real number such that for the resulting polynomial <span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>
+the following holds:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">||<span style="font-style:italic">f</span>−<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>||<sup>2</sup>=</td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">b</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left"><span style="font-style:italic">a</span></td></tr>
+</table></td><td class="dcell">(<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)−<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>(<span style="font-style:italic">x</span>))<sup>2</sup><span style="font-style:italic">d</span><span style="font-style:italic">x</span>≤ε</td></tr>
+</table>
+(by default, ε=10<sup>−8</sup>). This parameter is ignored when <span style="font-style:italic">d</span> is set.
+</li></ul>
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">fitpoly</span> finds <span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub> with smallest <span style="font-style:italic">n</span>≤ <span style="font-style:italic">N</span> such that
+||<span style="font-style:italic">f</span>−<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span></sub>||<sup>2</sup>≤ε. If such <span style="font-style:italic">n</span> does not exist, then <span style="font-style:italic">p</span><sub><span style="font-style:italic">N</span></sub> is returned.
+</li><li class="li-itemize">If the parameter <span style="font-style:italic">d</span> is set, then <span style="font-style:italic">p</span><sub><span style="font-style:italic">d</span></sub> which minimizes ||<span style="font-style:italic">f</span>−<span style="font-style:italic">p</span><sub><span style="font-style:italic">d</span></sub>|| among all
+polynomials of degree <span style="font-style:italic">d</span> is returned.
+</li><li class="li-itemize">Polynomial approximation is fast and robust even for large <span style="font-style:italic">d</span> and <span style="font-style:italic">N</span> resp. for
+small ε.
+</li></ul><h4 id="sec753" class="subsubsection">Examples</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">fitpoly(cos(x),0..pi/2,1e-2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−0.244320054366 <span style="font-style:italic">x</span><sup>3</sup>−0.336364730985 <span style="font-style:italic">x</span><sup>2</sup>+1.13004492821 <span style="font-style:italic">x</span>−0.0107731059645 </td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">f:=exp(-7x)*5x:; g:=fitpoly(f,0..1,degree=8)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >−21.717636069 <span style="font-style:italic">x</span><sup>8</sup>+107.930784832 <span style="font-style:italic">x</span><sup>7</sup>−232.831655404 <span style="font-style:italic">x</span><sup>6</sup></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >+286.778708741 <span style="font-style:italic">x</span><sup>5</sup>−222.236631985 <span style="font-style:italic">x</span><sup>4</sup>+111.004732684 <span style="font-style:italic">x</span><sup>3</sup></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >−33.8769709361 <span style="font-style:italic">x</span><sup>2</sup>+4.95239715728 <span style="font-style:italic">x</span>+0.000500886757642
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+The mean absolute error of the above approximation can be estimated as follows.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sqrt(romberg((f-g)^2,x=0..1))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">9.3456615562×10<sup>−5</sup> </td></tr>
+</table>
+<hr>
+<a href="cascmd_en322.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en324.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

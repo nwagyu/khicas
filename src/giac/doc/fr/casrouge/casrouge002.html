@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Les différentes instructions selon le mode choisi</title>
+</head>
+<body >
+<a href="casrouge001.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge003.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec16" class="chapter">Chapitre 2  Les différentes instructions selon le mode choisi</h1>
+<p>
+<span style="font-family:monospace">Xcas</span> propose un mode de compatibilité avec <span style="font-family:monospace">Maple</span>, <span style="font-family:monospace">MuPAD</span> et 
+la <span style="font-family:monospace">TI89/92</span> :<br>
+pour cela, il suffit de le spécifier dans <span style="font-family:monospace">Prog style</span> du menu de 
+configuration du <span style="font-family:monospace">cas</span> (bouton <span style="font-family:monospace">Config</span> ou menu
+<span style="font-family:monospace">Cfg-&gt;Configuration du CAS</span>) ou avec le menu 
+<span style="font-family:monospace">Cfg-&gt;Mode (syntax)</span>. On peut choisir, en 
+cliquant sur la flèche située à coté de <span style="font-family:monospace">Prog style</span> : <span style="font-family:monospace">Xcas</span>
+ou <span style="font-family:monospace">Maple</span> ou <span style="font-family:monospace">MuPAD</span> ou <span style="font-family:monospace">TI89/92</span>.<br>
+On a aussi la possibilité d’importer une session <span style="font-family:monospace">Maple</span>
+ou une archive <span style="font-family:monospace">TI89/92</span> en choisissant 
+<span style="font-family:monospace">Importer</span> du menu <span style="font-family:monospace">Fich</span>, ou importer dans
+un niveau éditeur de programmes un fichier écrit
+en syntaxe <span style="font-family:monospace">Maple</span>, <span style="font-family:monospace">Mupad</span> ou <span style="font-family:monospace">TI89/92</span>
+par le menu <span style="font-family:monospace">Prog-&gt;Inserer</span>.</p><p>On présente ici le mode <span style="font-family:monospace">Xcas</span> qui est proche de la syntaxe <span style="font-family:monospace">C</span>.
+On a aussi la possibilité d’avoir toutes les instructions en français de
+façon à être proche du langage Algorithmique.</p>
+<h2 id="sec17" class="section">2.1  Les commentaires</h2>
+<h3 id="sec18" class="subsection">2.1.1  Traduction Algorithmique</h3>
+<p>
+Il faut prendre l’habitude de commenter les programmes. 
+En algorithmique un commentaire commence par 
+<span style="font-family:monospace">// </span> et se termine par un passage à la ligne.<br>
+Exemple :<br>
+//ceci est un commentaire 
+</p>
+<h3 id="sec19" class="subsection">2.1.2  Traduction Xcas</h3>
+<p>
+Avec <span style="font-family:monospace">Xcas</span> un commentaire commence par 
+<span style="font-family:monospace">// </span> et se termine par un passage à la ligne.<br>
+Exemple :<br>
+//ceci est un commentaire 
+</p>
+<h3 id="sec20" class="subsection">2.1.3  Traduction MapleV</h3>
+<p>
+Un commentaire commence par <span style="font-family:monospace">#</span> et se termine par un passage à la 
+ligne.<br>
+Exemple :<br>
+# ceci est un commentaire 
+</p>
+<h3 id="sec21" class="subsection">2.1.4  Traduction MuPAD</h3>
+<p>
+Un commentaire est entouré de deux <span style="font-family:monospace">#</span> ou 
+commence par <span style="font-family:monospace">/*</span> et se termine par <span style="font-family:monospace">*/</span>.<br>
+Exemple :<br>
+# ceci est un commentaire #<br>
+/* ceci est un commentaire */
+</p>
+<h3 id="sec22" class="subsection">2.1.5  Traduction TI89 92</h3>
+<p>
+Le commentaire commence par
+<span style="font-family:monospace">©</span> (F2 9) et se termine par un passage à la ligne.<br>
+Exemple :<br>
+© ceci est un commentaire <br>
+</p>
+<h2 id="sec23" class="section">2.2  Les variables</h2>
+<p><a id="sec:var2"></a>
+Voir aussi <a href="casrouge001.html#sec%3Avar1">1.5.3</a>
+</p>
+<h3 id="sec24" class="subsection">2.2.1  Leurs noms</h3>
+<p><a id="hevea_default11"></a><a id="hevea_default12"></a><a id="hevea_default13"></a><a id="hevea_default14"></a>
+Ce sont les endroits où l’on peut stocker des valeurs, des nombres, des 
+expressions.<br>
+Avec <span style="font-family:monospace">Xcas</span> les noms des variables ou des fonctions commencent par une 
+lettre et sont formés par des lettres ou des chiffres.<br>
+Par exemple :<br>
+<span style="font-family:monospace">azertyuiop:=2</span> met la valeur 2 dans la variable <span style="font-family:monospace">azertyuiop</span><br>
+<span style="font-family:monospace">azertyuio?:=1</span> renvoie un message d’erreur car <span style="font-family:monospace">azertyuio?</span> contient
+<span style="font-family:monospace">?</span> qui n’est pas une lettre.<br>
+Étant donné que <span style="font-family:monospace">Xcas</span> fait du calcul formel il faut quelquefois purger 
+une variable <span style="font-family:monospace">var</span> pour qu’elle redevienne formelle avec la commande
+<span style="font-family:monospace">purge(var)</span> ou encore utiliser la commande <span style="font-family:monospace">assume(var,symbol)</span> pour 
+que <span style="font-family:monospace">var</span> redevienne formelle.<br>
+On tape :<br>
+<span style="font-family:monospace">x:=2;</span>
+<span style="font-family:monospace">x</span> contient <span style="font-family:monospace">2</span> et n’est pas formelle.<br>
+On tape :<br>
+<span style="font-family:monospace">purge(x)</span> : cela renvoie la valeur <span style="font-family:monospace">x</span> si <span style="font-family:monospace">x</span> est 
+affecté et <span style="font-family:monospace">x</span> redevient une variable formelle, et, si <span style="font-family:monospace">x</span> n’est 
+pas affecté <span style="font-family:monospace">purge(x)</span> renvoie <span style="font-family:monospace">"x not assigned"</span>.<br>
+ou bien, on tape :<br>
+<span style="font-family:monospace">assume(x,symbol)</span><br>
+et cela renvoie dans tous les cas <span style="font-family:monospace">DOM_SYMBOLIC</span>.<br>
+Avec <span style="font-family:monospace">MapleV</span> et <span style="font-family:monospace">MuPAD</span>, un nom doit commencer par une lettre, ne pas contenir d’espace, de symbole 
+opératoire (+, -, ...) et ne pas être un mot réservé comme D, I, ... pour <span style="font-family:monospace">MapleV</span>.<br>
+On peut utiliser des noms ayant plus de 8 caractères.<br>
+Pour <span style="font-family:monospace">TI89/92</span> un nom doit commencer par une lettre, ne pas contenir
+d’espace, de symbole opératoire (+, -, ...), ne pas être un mot 
+réservé et ne doit pas avoir plus de 8 caractères.
+</p>
+<h3 id="sec25" class="subsection">2.2.2  Notion de variables locales</h3>
+<p><a id="hevea_default15"></a>
+Pour <span style="font-family:monospace">Xcas</span> il faut définir les variables locales en début de programme
+en écrivant :<br>
+<span style="font-family:monospace">local a,b,c;</span><br>
+<span style="font-weight:bold">Attention</span><br>
+Dans un programme toutes les variables sont des variables qui sont initialisées par défaut à <span style="font-family:monospace">0</span>.<br>
+Mais ces variables peuvent être initialisées au moment de leur 
+déclaration avec <span style="font-family:monospace">local</span>, par exemple :
+<span style="font-family:monospace">local a,(b:=1),c;</span><br>
+<span style="font-weight:bold">Remarque</span><br>
+<span style="font-family:monospace">Xcas</span> accepte qu’il y ait plusieurs <span style="font-family:monospace">local</span> dans un programme, par 
+exemple :
+</p><pre class="verbatim">essailoc(n):={
+local s:=0;
+local j;
+for (j:=1;j&lt;=n;j++){
+s:=s+1/j;
+}
+return s;
+}
+</pre><p>
+Pour <span style="font-family:monospace">MapleV</span>, il faut définir les variables locales en début 
+de programme en écrivant :<br>
+<span style="font-family:monospace">local a,b</span><br>
+Pour <span style="font-family:monospace">MuPAD</span>, il faut définir les variables locales en début de programme en écrivant :<br>
+<span style="font-family:monospace">local a,b</span><br>
+Pour la <span style="font-family:monospace">TI89/92</span> il faut définir les variables locales en début de programme en écrivant :<br>
+<span style="font-family:monospace">:local a,b</span><br>
+</p>
+<h2 id="sec26" class="section">2.3  Les paramètres</h2>
+<p>
+Quand on écrit une fonction il est possible d’utiliser des paramètres.<br>
+Par exemple si <span style="font-family:monospace">A</span> et <span style="font-family:monospace">B</span> sont les paramètres de la fonction <span style="font-family:monospace">PGCD</span> on écrit :<br>
+<span style="font-family:monospace">PGCD(A,B)</span><br>
+Ces paramètres se comportent comme des variables locales, la seule 
+différence est qu’ils sont initialisés lors de l’appel de la fonction. 
+L’exécution se fait en demandant par exemple :
+<span style="font-family:monospace">PGCD(15,75)</span><br>
+</p>
+<h3 id="sec27" class="subsection">2.3.1  Traduction Xcas</h3>
+<p>
+Avec <span style="font-family:monospace">Xcas</span> on peut définir une fonction :
+</p><ul class="itemize"><li class="li-itemize">
+en lui donnant un nom :<br>
+ on met alors le nom de la fonction puis, entre parenthèses et séparés 
+par une virgule, le nom des paramètres, 
+par exemple :<br>
+<span style="font-family:monospace">addition(a,b):=a+b</span>;<br>
+L’exécution se fera alors en tapant : <span style="font-family:monospace">addition(2,5)</span>.<br>
+</li><li class="li-itemize">en mettant le nom des paramètres entre parenthèses puis <span style="font-family:monospace">-&gt;</span>
+puis entre des accolades le corps de la fonction, par exemple :<br>
+<span style="font-family:monospace">(a,b)-&gt;</span><span style="font-family:monospace">a+b;</span>.<br>
+cette façon d’écrire une fonction peut être utile quand on doit mettre 
+une fonction comme argument d’une commande par exemple :<br>
+<span style="font-family:monospace">makelist((j)-&gt;j</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2+1,1..3)</span> ou <br>
+<span style="font-family:monospace">makelist((j)-&gt;j</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2+1,1..9,2)</span>.<br>
+<span style="font-weight:bold">Remarque</span><br>
+Le langage de <span style="font-family:monospace">Xcas</span> est fonctionnel puisque on peut 
+passer des programmes ou des fonctions en paramètre.<br>
+</li></ul><p>
+Autre exemple :
+</p><pre class="verbatim">pgcd(a,b):={
+  local r; 
+  while (b!=0){
+  r:=irem(a,b);
+  a:=b;
+  b:=r;
+  } 
+  return(a);
+};
+</pre><p>
+ou encore :
+</p><pre class="verbatim">pgcd:=(a,b)-&gt; {
+  local r; 
+  while (b!=0){
+  r:=irem(a,b);
+  a:=b;
+  b:=r;
+  } 
+  return(a);
+};
+</pre><p>
+L’exécution se fera alors en tapant : <span style="font-family:monospace">pgcd(15,75)</span>.<br>
+
+</p>
+<h3 id="sec28" class="subsection">2.3.2  Traduction MapleV</h3>
+<p>
+<span style="font-family:monospace">PGCD:=proc(A,B)</span><br>
+....<br>
+....<br>
+<span style="font-family:monospace">end:</span><br>
+<span style="font-weight:bold">Attention</span> <br>
+Ces paramètres NE se comportent PAS comme des variables locales : ils sont 
+initialisés lors de l’appel de la fonction mais ne peuvent pas être
+changés au cours de la procédure. 
+L’exécution se fait en demandant par exemple :
+<span style="font-family:monospace">PGCD(15,75)</span>
+</p>
+<h3 id="sec29" class="subsection">2.3.3  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">PGCD:=proc(A,B)</span><br>
+<span style="font-family:monospace">begin</span><br>
+....<br>
+<span style="font-family:monospace">end_proc:</span><br>
+
+Ces paramètres se comportent comme des variables locales, la seule différence 
+est qu’ils sont initialisés lors de l’appel de la fonction. 
+L’exécution se fait en demandant par exemple :
+<span style="font-family:monospace">PGCD(15,75)</span>
+</p>
+<h3 id="sec30" class="subsection">2.3.4  Traduction TI89/92</h3>
+<p>
+Pour les <span style="font-family:monospace">TI 89/92</span> on met le nom des paramètres dans le nom de la 
+fonction par exemple :<br>
+<span style="font-family:monospace">:addition(a,b)</span><br>
+<span style="font-family:monospace">:pgcd(a,b)</span><br>
+</p>
+<h2 id="sec31" class="section">2.4  Les Entrées</h2>
+<p><a id="hevea_default16"></a><a id="hevea_default17"></a>
+</p>
+<h3 id="sec32" class="subsection">2.4.1  Traduction Algorithmique</h3>
+<p>
+Pour que l’utilisateur puisse entrer une valeur dans la variable <span style="font-family:monospace">A</span> au 
+cours de l’exécution d’un programme, on écrira, en algorithmique :<br>
+<span style="font-family:monospace">saisir A</span> <br>
+Et pour entrer des valeurs dans <span style="font-family:monospace">A</span> et <span style="font-family:monospace">B</span> on écrira :<br>
+<span style="font-family:monospace">saisir A,B</span>
+</p>
+<h3 id="sec33" class="subsection">2.4.2  Traduction Xcas</h3>
+<p>
+On écrit :<br>
+<span style="font-family:monospace">input(A);</span><br>
+ou <br>
+<span style="font-family:monospace">saisir(A);</span>
+</p>
+<h3 id="sec34" class="subsection">2.4.3  Traduction MapleV</h3>
+<p>
+On peut utiliser :<br>
+<span style="font-family:monospace">A := readline() ;</span> ou<br>
+<span style="font-family:monospace">A:=readstat(’A=?’);</span>
+</p>
+<h3 id="sec35" class="subsection">2.4.4  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">input("A=",A)</span><br>
+<span style="font-family:monospace">input("A=",A,"B=",B )</span>
+</p>
+<h3 id="sec36" class="subsection">2.4.5  Traduction TI89/92</h3>
+<p>
+<span style="font-family:monospace">:Prompt A</span><br>
+<span style="font-family:monospace">:Prompt A,B</span><br>
+ou encore :<br>
+<span style="font-family:monospace">:Input ‘‘A=’’,A</span>
+</p>
+<h2 id="sec37" class="section">2.5  Les Sorties</h2>
+<p><a id="hevea_default18"></a><a id="hevea_default19"></a>
+</p>
+<h3 id="sec38" class="subsection">2.5.1  Traduction Algorithmique</h3>
+<p>
+En algorithmique on écrit :<br>
+<span style="font-family:monospace">afficher A</span><br>
+ou si on veut connaitre le nom de la variable qui est affichée<br>
+<span style="font-family:monospace">afficher "A=",A</span>
+</p>
+<h3 id="sec39" class="subsection">2.5.2  Traduction Xcas</h3>
+<p>
+On écrit :<br>
+<span style="font-family:monospace">A:=2;B:=3;</span><br>
+<span style="font-family:monospace">print(A);</span><br>
+ou<br>
+<span style="font-family:monospace">afficher(A);</span><br>
+On obtient, en bleu dans la zone intermédaire <span style="font-family:monospace">2,3</span><br>
+<span style="font-family:monospace">print(A,B);</span><br>
+ou<br>
+<span style="font-family:monospace">afficher(A,B);</span><br>
+On obtient, en bleu dans la zone intermédaire <span style="font-family:monospace">2,3</span><br>
+
+ou encore<br>
+<span style="font-family:monospace">print("A=",A);</span><br>
+ou<br>
+<span style="font-family:monospace">afficher("A=",A);</span>
+On obtient, en bleu dans la zone intermédaire <span style="font-family:monospace">"A=",2</span><br>
+ou encore<br>
+<span style="font-family:monospace">print("A="+A);</span><br>
+ou<br>
+<span style="font-family:monospace">afficher("A="+A);</span>
+On obtient, en bleu dans la zone intermédaire <span style="font-family:monospace">A=2</span><br>
+<span style="font-family:monospace">print("A=",A,"B=",B);</span><br>
+ou<br>
+<span style="font-family:monospace">afficher("A=",A,"B=",B);</span>
+On obtient, en bleu dans la zone intermédaire <span style="font-family:monospace">"A=",2,"B=",3</span><br>
+<span style="font-family:monospace">print</span> ou <span style="font-family:monospace">afficher</span> permet de réaliser des affichages en cours de 
+programmme.<br>
+Ces affichages s’écriront alors en bleu dans la zone intermédaire .<br>
+On tape par exemple dans un niveau éditeur de programmes (que l’on ouvre avec
+<span style="font-family:monospace">Alt+p</span>) :
+</p><pre class="verbatim">carres(n):={
+local j;
+for (j:=1;j&lt;n+1;j++) {
+print(j^2);
+}
+return n^2;
+}
+</pre><p>
+Puis on complile ce programme en cliquant sur <span style="font-family:monospace">OK</span>.<br>
+On tape ensuite dans une ligne de commandes :
+<span style="font-family:monospace">carres(5)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">1<br>
+4<br>
+9<br>
+16<br>
+25</span><br>
+ écrit en bleu dans la zone intermédaire <br>
+et<br>
+<span style="font-family:monospace">25</span><br>
+ le résultat écrit en noir dans la zone des réponses.
+</p>
+<h3 id="sec40" class="subsection">2.5.3  Traduction MapleV</h3>
+<p>
+<span style="font-family:monospace">print(‘A=‘.A):</span><br>
+On préférera <span style="font-family:monospace">‘</span> (accent grave) à <span style="font-family:monospace">"</span> (guillemet), comme délimiteur de chaîne, car le premier n’est pas affiché, alors que le deuxième l’est.
+</p>
+<h3 id="sec41" class="subsection">2.5.4  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">print("A=",A)</span><br>
+Il fait savoir que lorsqu’une procèdure est appelée, la suite d’instructions entre 
+<span style="font-family:monospace">begin</span> et <span style="font-family:monospace">end_proc</span> est exécutée, et le résultat est égal au
+résultat de la dernière évaluation.
+</p>
+<h3 id="sec42" class="subsection">2.5.5  Traduction TI89/92</h3>
+<p>
+<span style="font-family:monospace">:Disp "A=",A</span><br>
+<span style="font-family:monospace">:ClrIO</span> efface l’écran.<br>
+<span style="font-family:monospace">:ClrHome</span> efface l’écran pour la <span style="font-family:monospace">TI 83+</span>.<br>
+<span style="font-family:monospace">:Pause</span> arrête le programme (on appuie sur <span style="font-family:monospace">ENTER</span> pour reprendre l’exécution).
+</p>
+<h2 id="sec43" class="section">2.6  La séquence d’instructions ou action ou bloc</h2>
+<p><a id="hevea_default20"></a>
+Une <span style="font-family:monospace">action</span> ou <span style="font-family:monospace">bloc</span> est une séquence d’une ou plusieurs 
+instructions.<br>
+En langage algorithmique, on utilisera l’espace ou le passage à la ligne 
+pour terminer une instruction.
+</p>
+<h3 id="sec44" class="subsection">2.6.1  Traduction Xcas</h3>
+<p>
+Avec <span style="font-family:monospace">Xcas</span> la séquence d’instructions est parenthèsées par 
+<span style="font-family:monospace">{ }</span>. La séquence d’instructions est appelée un <span style="font-family:monospace">bloc</span> ou une 
+<span style="font-family:monospace">action</span> et <span style="font-family:monospace">;</span> termine chaque instruction.
+Seule la dernière instruction d’un programme génére la réponse. Si on 
+veut des sorties intermédiaires il faudra le faire à l’aide de la commade 
+<span style="font-family:monospace">print</span> ou <span style="font-family:monospace">afficher</span> et ces sorties se feront alors avant 
+la réponse, dans la zone intermédaire en écriture bleue.<br>
+Par exemple si on écrit dans un niveau éditeur de programmes 
+(que l’on ouvre avec <span style="font-family:monospace">Alt+p</span>) :
+</p><pre class="verbatim">pgcd(a,b):={
+  local r; 
+  while (b!=0){
+  r:=irem(a,b);
+  print(r);
+  a:=b;
+  b:=r;
+  } 
+  return(a);
+};
+</pre><p>
+On compile en appuyant sur <span style="font-family:monospace">OK</span> et on tape :<br>
+<span style="font-family:monospace">pgcd(15,25)</span> <br>
+On obtient :<br>
+ <span style="font-family:monospace">5</span> comme réponse et :<br>
+<span style="font-family:monospace">r:15</span><br>
+<span style="font-family:monospace">r:10</span><br>
+<span style="font-family:monospace">r:5</span><br>
+<span style="font-family:monospace">r:0</span><br>
+s’écrivent en bleu dans un écran appelé zone intermédaire qui se met 
+avant la réponse.<br>
+Si la dernière instruction est géométrique, elle 
+génère une sortie dans unécran géométrique. Les instructions 
+<span style="font-family:monospace">print</span> ou <span style="font-family:monospace">afficher</span> se feront alors en bleu dans la zone 
+intermédaire située avant l’écran géométrique où se trouve la 
+réponse. Mais les instructions géométriques intermédiaires se feront 
+dans l’écran <span style="font-family:monospace">DispG</span> qui est un écran géométrique que l’on obtient 
+avec la commande <span style="font-family:monospace">DispG()</span> ou avec le menu <span style="font-family:monospace">Cfg-&gt;Montrer-&gt;DispG</span>.<br>
+Par exemple si on écrit dans un niveau éditeur de programmes (que l’on ouvre avec <span style="font-family:monospace">Alt+p</span>) :
+</p><pre class="verbatim">pgcdg(a,b):={
+  local r; 
+  while (b!=0){
+  r:=irem(a,b);
+  print(r);
+  point(a+i*b);
+  segment(a+i*b,b+i*r);
+  a:=b;
+  b:=r;
+  } 
+  return(point(a+i*b));
+};
+</pre><p>
+On compile en appuyant sur <span style="font-family:monospace">OK</span> et on tape :<br>
+<span style="font-family:monospace">A:=pgcdg(15,25)</span> <br>
+On obtient :<br>
+Un écran de graphique s’ouvre avec le point <span style="font-family:monospace">A</span> de coordonnées (0;5) 
+et :<br>
+<span style="font-family:monospace">r:15</span><br>
+<span style="font-family:monospace">r:10</span><br>
+<span style="font-family:monospace">r:5</span><br>
+<span style="font-family:monospace">r:0</span><br>
+s’écrivent en bleu dans un écran appelé zone intermédaire qui se met 
+avant l’écran de géométrie.<br>
+On ouvre l’écran géométrique <span style="font-family:monospace">DispG</span> (avec la commande <span style="font-family:monospace">DispG()</span> 
+ou avec le menu <span style="font-family:monospace">Cfg-&gt;Montrer-&gt;DispG</span>)
+Sur l’écran <span style="font-family:monospace">DispG</span> il y a les différents segments et les points (sans 
+la lettre <span style="font-family:monospace">A</span>) 
+Pour tout voir, vous devez soit appuyer sur le bouton <span style="font-family:monospace">auto</span> de l’écran 
+<span style="font-family:monospace">DispG</span>, soit changer la configuration avec le bouton <span style="font-family:monospace">cfg</span> de 
+l’écran <span style="font-family:monospace">DispG</span>.
+</p>
+<h3 id="sec45" class="subsection">2.6.2  Traduction MapleV</h3>
+<p>
+<span style="font-family:monospace"> : </span> ou <span style="font-family:monospace"> ; </span> indique la fin d’une instruction.<br>
+Une instruction terminée par point-virgule ( <span style="font-family:monospace"> ; </span> ) génére une sortie et celle 
+terminée par deux points ( <span style="font-family:monospace"> : </span> ) n’en génére pas.
+</p>
+<h3 id="sec46" class="subsection">2.6.3  Traduction MuPAD</h3>
+<p>
+Le <span style="font-family:monospace"> : </span> ou <span style="font-family:monospace"> ; </span> est un séparateur d’ instructions.<br>
+Le <span style="font-family:monospace"> ; </span> génére une sortie alors que le <span style="font-family:monospace"> : </span> n’en génére 
+pas.
+</p>
+<h3 id="sec47" class="subsection">2.6.4  Traduction TI89/92</h3>
+<p>
+<span style="font-family:monospace">:</span> indique la fin d’une instruction. Il faut noter qu’à chaque passage à la ligne le <span style="font-family:monospace">:</span> est mis automatiquement.</p>
+<h2 id="sec48" class="section">2.7  L’instruction d’affectation</h2>
+<p><a id="hevea_default21"></a><a id="hevea_default22"></a>
+L’affectation est utilisée pour stocker une valeur ou une expression dans 
+une variable.
+</p>
+<h3 id="sec49" class="subsection">2.7.1  Traduction Algorithmique</h3>
+<p>
+En algorithmique on écrira par exemple :<br>
+<span style="font-family:monospace">3=&gt;A</span><br>
+<span style="font-family:monospace">2*A=&gt;B</span><br>
+pour stocker <span style="font-family:monospace">3</span> dans <span style="font-family:monospace">A</span>, <span style="font-family:monospace">2*A</span> (c’est à dire 6) dans <span style="font-family:monospace">B</span>
+</p>
+<h3 id="sec50" class="subsection">2.7.2  Traduction Xcas</h3>
+<p>
+Avec <span style="font-family:monospace">Xcas</span> on écrira :<br>
+<span style="font-family:monospace">a:=3;</span><br>
+<span style="font-family:monospace">b:=2*a;</span><br>
+ou encore <br>
+<span style="font-family:monospace">3=&gt;a;</span><br>
+<span style="font-family:monospace">2*a=&gt;b;</span><br>
+pour stocker <span style="font-family:monospace">3</span> dans <span style="font-family:monospace">a</span>, <span style="font-family:monospace">2*a</span> (c’est à dire 6) dans <span style="font-family:monospace">b</span></p><p>En tapant le nom d’une variable dans <span style="font-family:monospace">Xcas</span> on peut voir le contenu de 
+cette variable. Si on tape le nom d’une fonction, on verra la définition de 
+la fonction.<br>
+<span style="font-weight:bold">Attention</span><br>
+On peut écrire :<br>
+<span style="font-family:monospace">(a,b):=(1,2)</span> ou <span style="font-family:monospace">(a,b):=[1,2]</span> ou <span style="font-family:monospace">[a,b]:=[1,2]</span>
+ou <span style="font-family:monospace">[a,b]:=(1,2)</span> qui est équivalent à <span style="font-family:monospace">a:=1;b:=2</span><br>
+c’est à dire ici à <span style="font-family:monospace">a:=1;b:=2</span> mais <br>
+<span style="font-family:monospace">a:=1;b:=2; (a,b):=(a+b,a-b)</span> est équivalent à 
+<span style="font-family:monospace">c:=a;a:=a+b;b:=c-b</span> donc ici à <span style="font-family:monospace">a:=3;b:=-1</span><br>
+Donc si on tape :<br>
+<span style="font-family:monospace">(a,b):=(1,2);(a,b):=(a+b,a-b)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">3</span> dans <span style="font-family:monospace">a</span> et <span style="font-family:monospace">-1</span> dans <span style="font-family:monospace">b</span><br>
+Donc si on tape :<br>
+<span style="font-family:monospace">a:=1;(a,b):=(2,a)</span> 
+On obtient :<br>
+<span style="font-family:monospace">2</span> dans <span style="font-family:monospace">a</span> et <span style="font-family:monospace">1</span> dans <span style="font-family:monospace">b</span><br>
+mais <span style="font-family:monospace">purge(a);(a,b):=(2,a)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">2</span> dans <span style="font-family:monospace">a</span> et <span style="font-family:monospace">2</span> dans <span style="font-family:monospace">b</span><br>
+Donc méfiance ....et utiliser <span style="font-family:monospace">(a,b):=(b,a)</span> qu’avec prudence !</p>
+<h3 id="sec51" class="subsection">2.7.3  Traduction Maple</h3>
+<p>
+Avec <span style="font-family:monospace">Maple</span> on écrit :<br>
+<span style="font-family:monospace">b:=2*a</span> pour stocker <span style="font-family:monospace">2*a</span> dans <span style="font-family:monospace">b</span>.
+</p>
+<h3 id="sec52" class="subsection">2.7.4  Traduction MuPAD</h3>
+<p>
+Avec <span style="font-family:monospace">MuPAD</span> on écrit :<br>
+<span style="font-family:monospace">b:=2*a</span> pour stocker <span style="font-family:monospace">2*a</span> dans <span style="font-family:monospace">b</span>.
+</p>
+<h3 id="sec53" class="subsection">2.7.5  Traduction TI89/92</h3>
+<p>
+On écrit <span style="font-family:monospace">2*A=&gt;B</span> pour stocker 2*A dans B.
+</p>
+<h2 id="sec54" class="section">2.8  L’instruction d’affectation par référence</h2>
+<p><a id="hevea_default23"></a>
+L’affectation <span style="font-family:monospace">:=</span> est utilisée pour stocker une valeur ou une 
+expression dans une variable. Mais lorsque <span style="font-family:monospace">Xcas</span> réalise cette 
+affectation il effectue une recopie de la valeur dans la variable ce qui peut 
+être long lorsqu’il s’agit d’une liste de grande taille. C’est pourquoi 
+quand la variable contient une liste, avec <span style="font-family:monospace">Xcas</span>, il faut utiliser 
+l’opérateur infixé <span style="font-family:monospace">=&lt;</span> qui stocke par référence le deuxième 
+argument dans la variable donnée en premier argument.<br>
+On tape par exemple :<br>
+<span style="font-family:monospace">L=&lt;makelist(x-&gt;x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2,0,10000):;</span> 
+puis, par exemple :<br>
+<span style="font-family:monospace">for(j:=0;j&lt;=1000;j++) </span><span style="font-family:monospace">L[10*j]=&lt;0</span>
+</p>
+<h2 id="sec55" class="section">2.9  L’instruction pour faire des hypothèses sur une variable formelle</h2>
+<p><a id="hevea_default24"></a><a id="hevea_default25"></a><a id="hevea_default26"></a>
+L’instruction <span style="font-family:monospace">assume</span> ou <span style="font-family:monospace">supposons</span> permet de faire une hypothèse 
+sur une variable formelle par exemple d’attribuer une valeur à une variable 
+pour faire une figure, tout en laissant cette variable reste formelle lorsqu’on
+l’utilise pour faire des calculs ou encore de supposer que <span style="font-family:monospace">n</span> est une v
+ariable entère ce qui permet de simplifier certaines expressions comme 
+<span style="font-family:monospace">cos(n*pi)</span>....
+</p>
+<h3 id="sec56" class="subsection">2.9.1  Traduction Algorithmique</h3>
+<p>
+En algorithmique on écrira par exemple :<br>
+<span style="font-family:monospace">supposons(n,entier)</span><br>
+<span style="font-family:monospace">supposons(a&gt;2)</span><br>
+<span style="font-family:monospace">supposons(a=2)</span>
+</p>
+<h3 id="sec57" class="subsection">2.9.2  Traduction Xcas</h3>
+<p>
+Avec <span style="font-family:monospace">Xcas</span> on écrira :<br>
+<span style="font-family:monospace">assume(n,integer);</span> ou <span style="font-family:monospace">supposons(n,integer);</span>
+puis par exemple <span style="font-family:monospace">cos(n*pi)</span> et on obtient <span style="font-family:monospace">(-1)</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">n</span><br>
+<span style="font-family:monospace">assume(a&gt;2);</span><br>
+On peut faire plusieurs hypothèses sur une variable avec <span style="font-family:monospace">assume</span> et
+<span style="font-family:monospace">additionally</span> par exemple, pour dire que <span style="font-family:monospace">n</span> est un entier plus grand 
+que 3, on tape :<br>
+<span style="font-family:monospace">assume(n,integer);additionally(n&gt;3);</span>
+Il faut noter que si on écrit dans l’écran de géométrie:<br>
+<span style="font-family:monospace">assume(a=2);</span> ou <span style="font-family:monospace">supposons(a=2);</span><br>
+ou encore <br>
+<span style="font-family:monospace">assume(a:=2);</span> ou <span style="font-family:monospace">supposons(a:=2);</span><br>
+cela a pour effet de mettre en haut et à droite un curseur noté <span style="font-family:monospace">a</span>. 
+En effet, cela veut dire que l’on va faire 
+une figure de géométrie en donnant à <span style="font-family:monospace">a</span> la valeur <span style="font-family:monospace">2</span>, mais que 
+les différents calculs se feront avec <span style="font-family:monospace">a</span> formelle. Bien sur la valeur 
+donnée à <span style="font-family:monospace">a</span> pourra être modifièe à l’aide du curseur et ainsi 
+modifier la figure selon les valeurs de <span style="font-family:monospace">a</span>. 
+</p>
+<h3 id="sec58" class="subsection">2.9.3  Traduction Maple</h3>
+<p>
+Avec <span style="font-family:monospace">Maple</span> on écrit :<br>
+<span style="font-family:monospace">assume(n,integer);</span><br>
+<span style="font-family:monospace">assume(a&gt;2);</span>
+</p>
+<h3 id="sec59" class="subsection">2.9.4  Traduction MuPAD</h3>
+<p>
+Avec <span style="font-family:monospace">MuPAD</span> on écrit :<br>
+<span style="font-family:monospace">assume(n,integer);</span><br>
+<span style="font-family:monospace">assume(a&gt;2);</span> 
+</p>
+<h3 id="sec60" class="subsection">2.9.5  Traduction TI89/92</h3>
+<p>
+Il n’y a pas d’hypothèse en mode <span style="font-family:monospace">TI</span>.
+</p>
+<h2 id="sec61" class="section">2.10  L’instruction pour connaitre les contraintes d’une variable</h2>
+<p><a id="hevea_default27"></a><a id="hevea_default28"></a><a id="hevea_default29"></a><a id="hevea_default30"></a>
+</p>
+<h3 id="sec62" class="subsection">2.10.1  Traduction Algorithmique</h3>
+<p>
+En algorithmique on écrira par exemple :<br>
+<span style="font-family:monospace">domaine(A)</span>
+</p>
+<h3 id="sec63" class="subsection">2.10.2  Traduction Xcas</h3>
+<p>
+Avec <span style="font-family:monospace">Xcas</span> on écrira :<br>
+<span style="font-family:monospace">about(a)</span> ou <span style="font-family:monospace">domaine(a)</span><br>
+<span style="font-family:monospace">assume(a)</span> ou <span style="font-family:monospace">supposons(a)</span> 
+</p>
+<h3 id="sec64" class="subsection">2.10.3  Traduction Maple</h3>
+<p>
+Avec <span style="font-family:monospace">Maple</span> on écrit :<br>
+<span style="font-family:monospace">about(a)</span> ou <span style="font-family:monospace">domaine(a)</span><br>
+<span style="font-family:monospace">assume(a)</span>
+</p>
+<h3 id="sec65" class="subsection">2.10.4  Traduction MuPAD</h3>
+<p>
+Avec <span style="font-family:monospace">MuPAD</span> on écrit :<br>
+<span style="font-family:monospace">getprop(a)</span>
+</p>
+<h3 id="sec66" class="subsection">2.10.5  Traduction TI89/92</h3>
+<p>
+Il n’y a pas d’hypothèse en mode <span style="font-family:monospace">TI</span>.</p>
+<h2 id="sec67" class="section">2.11  Les instructions conditionnelles</h2>
+<p><a id="hevea_default31"></a>
+</p>
+<h3 id="sec68" class="subsection">2.11.1  Traduction Algorithmique</h3>
+<p>
+<span style="font-family:monospace">si </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> alors
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">
+fsi</span><br>
+<span style="font-family:monospace">si </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> alors
+</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace"> sinon
+</span><span style="font-family:monospace"><em>action2</em></span><span style="font-family:monospace">
+fsi</span><br>
+<span style="font-weight:bold">Exemple</span> :<br>
+<span style="font-family:monospace">si A = 10 ou A &lt; B alors B-A=&gt;B sinon A-B=&gt;A fsi</span></p>
+<h3 id="sec69" class="subsection">2.11.2  Traduction Xcas</h3>
+<p><a id="hevea_default32"></a><a id="hevea_default33"></a><a id="hevea_default34"></a><a id="hevea_default35"></a><a id="hevea_default36"></a><a id="hevea_default37"></a><a id="hevea_default38"></a>
+<span style="font-family:monospace">if (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) {</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">;}</span><br>
+ou encore<br>
+<span style="font-family:monospace">if (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) then </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">; end</span><br>
+ou encore<br>
+<span style="font-family:monospace">si (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) alors </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">; fsi</span><br>
+et<br>
+<span style="font-family:monospace">if (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) {<br>
+</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace">;<br>
+} else {<br>
+</span><span style="font-family:monospace"><em>action2</em></span><span style="font-family:monospace">;<br>
+}<br>
+</span><br>
+ou encore<br>
+<span style="font-family:monospace">if (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) then <br>
+</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace">; <br>
+else
+</span><span style="font-family:monospace"><em>action2</em></span><span style="font-family:monospace">;<br>
+end</span><br>
+ou encore<br>
+<span style="font-family:monospace">si (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) alors <br>
+</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace">; <br>
+sinon 
+</span><span style="font-family:monospace"><em>action2</em></span><span style="font-family:monospace">;<br>
+fsi</span><br>
+
+<span style="font-weight:bold">Exemples</span><br>
+<span style="font-family:monospace">if ((a==10) or (a&lt;b)) {b:=b-a;} else {a:=a-b;}</span>
+</p><pre class="verbatim">essaiif(a,b):={
+  if ((a==10) or (a&lt;b)) {
+    b:=b-a;
+  } else {
+    a:=a-b;
+  }
+  return([a,b]);
+};
+
+essaisi(a,b):={
+  si ((a==10) or (a&lt;b)) 
+   alors
+    b:=b-a;
+   sinon
+    a:=a-b;
+  fsi;
+  return([a,b]);
+};
+
+idivsi(a,b):={
+  local (q:=0),(r:=a);
+  if (b!=0){
+    q:=iquo(a,b);
+    r:=irem(a,b);
+  } 
+  return([q,r]);
+};
+
+idivsi(a,b):={
+  local (q:=0),(r:=a);
+  si (b!=0)
+   alors
+    q:=iquo(a,b);
+    r:=irem(a,b);
+  fsi 
+  return([q,r]);
+};
+</pre><p>
+Avec <span style="font-family:monospace">Xcas</span>, lorsqu’il y a plusieurs <span style="font-family:monospace">if...else if...</span> à la suite
+on peut aussi utiliser un <span style="font-family:monospace">elif</span> qui est une écriture 
+condensée de <span style="font-family:monospace">else if</span> et se traduit par :<br>
+<a id="hevea_default39"></a><a id="hevea_default40"></a><a id="hevea_default41"></a><a id="hevea_default42"></a>
+<span style="font-family:monospace">if (</span><span style="font-family:monospace"><em>condition1</em></span><span style="font-family:monospace">) then <br>
+</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace">; <br>
+elif (</span><span style="font-family:monospace"><em>condition2</em></span><span style="font-family:monospace">) then <br>
+</span><span style="font-family:monospace"><em>action2</em></span><span style="font-family:monospace">;<br>
+elif (</span><span style="font-family:monospace"><em>condition3</em></span><span style="font-family:monospace">) then <br>
+</span><span style="font-family:monospace"><em>action3</em></span><span style="font-family:monospace">;<br>
+end</span><br>
+ou bien
+<span style="font-family:monospace">if (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) then <br>
+</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace">; <br>
+elif (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) then <br>
+</span><span style="font-family:monospace"><em>action2</em></span><span style="font-family:monospace">;<br>
+elif (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) then <br>
+</span><span style="font-family:monospace"><em>action3</em></span><span style="font-family:monospace">;<br>
+else 
+</span><span style="font-family:monospace"><em>action4</em></span><span style="font-family:monospace">;<br>
+end</span><br>
+<span style="font-weight:bold">Exemples</span>
+</p><pre class="verbatim"> 
+s(a):={
+local r;
+if a&gt;=10 then
+r:=5;
+elif  a&gt;=8 then
+r:=4;
+elif  a&gt;=6 then
+r:=3; 
+elif  a&gt;=4 then
+r:=2
+else
+r:=1;
+end;
+return r;
+}
+</pre><p>Avec <span style="font-family:monospace">Xcas</span>, on peut aussi utiliser un "case" lorsque les différentes 
+instructions à effectuer correspondantes à la valeur d’une expression qui 
+doit être une valeur entière et qui se traduit par :<br>
+<a id="hevea_default43"></a><a id="hevea_default44"></a><a id="hevea_default45"></a><a id="hevea_default46"></a>
+</p><pre class="verbatim"> 
+switch (&lt;nom_de_variable&gt;){
+case val_de_la_variable : {
+.....
+break;
+}
+case val_de_la_variable : {
+.....
+break;
+} default : {  
+...
+}
+}
+</pre><p>
+Exemple :
+</p><pre class="verbatim"> 
+s(a):={
+local r;
+switch(a) {
+case 1 :{
+r:=1;
+break;
+}
+case 2 :{
+r:=-1;
+break;
+}
+default :{
+r:=0;
+}
+}
+return r;
+}
+</pre>
+<h3 id="sec70" class="subsection">2.11.3  Traduction MapleV</h3>
+<p>
+si ... alors<br>
+<span style="font-family:monospace">if &lt;</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">&gt; 
+then &lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; 
+fi</span>;<br>
+si ... alors ... sinon ...<br>
+<span style="font-family:monospace">if &lt;</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">&gt; 
+then &lt;</span><span style="font-family:monospace"><em>action1&gt;</em></span><span style="font-family:monospace"> 
+else &lt;</span><span style="font-family:monospace"><em>action2&gt;</em></span><span style="font-family:monospace">
+fi</span>;<br>
+Le schéma général à n cas :<br>
+<span style="font-family:monospace">if &lt;</span><span style="font-family:monospace"><em>condition_1</em></span><span style="font-family:monospace">&gt; then &lt;</span><span style="font-family:monospace"><em>action_1</em></span><span style="font-family:monospace">&gt; <br>
+elif &lt;</span><span style="font-family:monospace"><em>condition_2</em></span><span style="font-family:monospace">&gt; then &lt;</span><span style="font-family:monospace"><em>action_2</em></span><span style="font-family:monospace">&gt; 
+<br>
+... elif &lt;</span><span style="font-family:monospace"><em>condition_n-1</em></span><span style="font-family:monospace">&gt; then &lt;</span><span style="font-family:monospace"><em>action_n-1</em></span><span style="font-family:monospace">&gt; else &lt;</span><span style="font-family:monospace"><em>action_n</em></span><span style="font-family:monospace">&gt; fi ;</span>
+</p>
+<h3 id="sec71" class="subsection">2.11.4  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">if &lt;</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">&gt;
+then 
+&lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; 
+end_if</span><br>
+<span style="font-family:monospace">if &lt;</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">&gt; then 
+&lt;</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace">&gt; else 
+&lt;</span><span style="font-family:monospace"><em>action2&gt;</em></span><span style="font-family:monospace">
+end_if</span><br>
+Exemple :<br>
+<span style="font-family:monospace">if a = 10 or A &lt; B then b:=b-a else a:=a-b end_if</span><br>
+Lorsque il y a plusiuers <span style="font-family:monospace">if else</span> à la suite on écrit <span style="font-family:monospace">elif</span> au
+lieu de <span style="font-family:monospace">else if</span>.
+</p>
+<h3 id="sec72" class="subsection">2.11.5  Traduction TI89/92</h3>
+<p>
+Si ..alors<br>
+<span style="font-family:monospace">:If </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> Then :
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"> : 
+EndIf</span><br>
+Si..alors sinon<br>
+<span style="font-family:monospace">:If </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> Then :
+</span><span style="font-family:monospace"><em>action1</em></span><span style="font-family:monospace"> : Else :
+</span><span style="font-family:monospace"><em>action2</em></span><span style="font-family:monospace">:
+EndIf</span><br>
+Exemple :<br>
+<span style="font-family:monospace">:If A = 10 or A &lt; B Then : B-A=&gt;B : Else : A-B=&gt;A : EndIf</span>
+</p>
+<h2 id="sec73" class="section">2.12  Les instructions "Pour" </h2>
+<p><a id="hevea_default47"></a>
+On utilise l’instruction "pour" lorsqu’on connait le nombre de fois que l’on 
+doit effectuer les instructions ("pour" peut aussi servir à faire 
+des boucles complètement génériques). 
+</p>
+<h3 id="sec74" class="subsection">2.12.1  Traduction Algorithmique</h3>
+<p><a id="hevea_default48"></a><a id="hevea_default49"></a>
+<span style="font-family:monospace">pour I de A jusque B faire </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"> fpour</span><br>
+<span style="font-family:monospace">pour I de A jusque B (pas P) faire </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"> fpour</span>
+</p>
+<h3 id="sec75" class="subsection">2.12.2  Traduction Xcas</h3>
+<p>
+<span style="font-weight:bold">Attention</span> si vous avez coché <span style="font-family:monospace">pas de test de i</span> dans la 
+<span style="font-family:monospace">configuration generale</span>, on ne doit pas employer la variable <span style="font-family:monospace">i</span> 
+car <span style="font-family:monospace">i</span> represente le nombre complexe de module 1 et d’argument π/2.<br>
+<span style="font-family:monospace">for (j:=1;j&lt;=b;j:=j+1) {</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">;}</span> ou encore <br>
+<span style="font-family:monospace">for (j:=1;j&lt;=b;j:=j++) {</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">;}</span><br>
+ou encore <br>
+<span style="font-family:monospace">pour j de 1 jusque b faire </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">; fpour</span><br>
+et<br>
+<span style="font-family:monospace">for (j:=1;j&lt;=b;j:=j+p) {</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">;}</span><br>
+ ou encore <br>
+<span style="font-family:monospace">pour j de 1 jusque b pas p faire </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">; fpour</span></p><p><span style="font-weight:bold">Exemples</span>
+</p><pre class="verbatim">essaifor(a,b):={
+  local s:=0;
+  for (j:=a;j&lt;b+1;j++){
+    s:=s+1/j^2;
+  } 
+  return(s);
+};
+
+essaiford(a,b):={
+  local s:=0; 
+  for (j:=b;j&gt;a-1;j--){
+    s:=s+1/j^2; 
+  }
+  return(s);
+};
+</pre>
+<h3 id="sec76" class="subsection">2.12.3  Traduction MapleV</h3>
+<p>
+Voici la syntaxe exacte :<br>
+<span style="font-family:monospace">for &lt;</span><span style="font-family:monospace"><em>nom</em></span><span style="font-family:monospace">&gt; from &lt;</span><span style="font-family:monospace"><em>expr</em></span><span style="font-family:monospace">&gt; by &lt;</span><span style="font-family:monospace"><em>expr</em></span><span style="font-family:monospace">&gt; to &lt;</span><span style="font-family:monospace"><em>expr</em></span><span style="font-family:monospace">&gt; 
+<br>
+do &lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; od ;</span><br>
+Par exemple<br>
+<span style="font-family:monospace">for i from 1 to n do 
+&lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">:&gt; 
+od</span><br>
+<span style="font-family:monospace">for i from 1 by p to n do 
+&lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">:&gt; 
+od</span>
+</p>
+<h3 id="sec77" class="subsection">2.12.4  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">for i from a to b do &lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; end_for</span><br>
+<span style="font-family:monospace">for i from b downto a do &lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; end_for</span><br>
+<span style="font-family:monospace">for i from a to b step p do &lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; end_for </span><br>
+Vous pouvez aussi ouvrir le menu <span style="font-family:monospace">MuPAD</span> sous menu <span style="font-family:monospace">Shapes</span> et 
+séléctionner <span style="font-family:monospace">for</span>.
+</p>
+<h3 id="sec78" class="subsection">2.12.5  Traduction TI89 92</h3>
+<p>
+<span style="font-family:monospace">:For I,A,B : </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"> : EndFor</span><br>
+<span style="font-family:monospace">:For I,A,B,P : </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"> : EndFor</span></p>
+<h2 id="sec79" class="section">2.13  L’instruction "Tant que"</h2>
+<p><a id="hevea_default50"></a><a id="hevea_default51"></a>
+On effectue les instructions tant que la condition est vraie :<br>
+on teste la condition si elle est fausse on s’arrête (arret=
+(condition =fausse)) sinon on effectue les instructions etc ... 
+On arrête la boucle quand la condition devient fausse c’est à dire :<br>
+tantque (non arret) on effectue les instructions.
+</p>
+<h3 id="sec80" class="subsection">2.13.1  Traduction Algorithmique</h3>
+<p>
+<span style="font-family:monospace">tantque </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> faire<br>
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"><br>
+ftantque</span>
+</p>
+<h3 id="sec81" class="subsection">2.13.2  Traduction Xcas</h3>
+<p>
+<span style="font-family:monospace">while (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) {<br>
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">;<br>
+}</span><br>
+ou encore<br>
+<span style="font-family:monospace">tantque (</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">) faire<br>
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">;<br>
+ftantque</span><br>
+
+<span style="font-weight:bold">Exemple</span>
+</p><pre class="verbatim">essaiwhile(a,b):={
+  while ((a==10) or (a&lt;b)) {
+    b:=b-a; 
+  }
+  return([a,b]);
+};
+</pre>
+<h3 id="sec82" class="subsection">2.13.3  Traduction MapleV</h3>
+<p>
+<span style="font-family:monospace">while &lt;</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">&gt; do 
+&lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; 
+od</span>: 
+</p>
+<h3 id="sec83" class="subsection">2.13.4  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">while &lt;</span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace">&gt; do
+&lt;</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">&gt; 
+end_while</span><br>
+Vous pouvez aussi ouvrir le menu <span style="font-family:monospace">MuPAD</span> sous menu <span style="font-family:monospace">Shapes</span> et 
+séléctionner <span style="font-family:monospace">while</span>.
+</p>
+<h3 id="sec84" class="subsection">2.13.5  Traduction TI89/92</h3>
+<p>
+<span style="font-family:monospace">:While </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> :</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"> :EndWhile</span> 
+</p>
+<h2 id="sec85" class="section">2.14  L’instruction "repeter"</h2>
+<p>
+On répéte les instructions jusqu’à ce que la condition devienne vraie.
+On fait les instructions (les instructions se font donc au moins une fois) 
+puis on teste la condition si elle est vraie on s’arrête 
+(arret= (condition=vraie)) sinon on effectue les 
+instructions etc ...On arrête la boucle quand la condition devient vraie.</p>
+<h3 id="sec86" class="subsection">2.14.1  Traduction Algorithmique</h3>
+<p>
+<span style="font-family:monospace">repeter<br>
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"><br>
+jusqua </span><span style="font-family:monospace"><em> condition</em></span>
+</p>
+<h3 id="sec87" class="subsection">2.14.2  Traduction Xcas</h3>
+<p>
+<span style="font-family:monospace">repeat <br>
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"><br>
+ until </span><span style="font-family:monospace"><em> (condition)</em></span> <br>
+ou encore<br>
+<span style="font-family:monospace">repeter<br>
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"><br>
+jusqua </span><span style="font-family:monospace"><em> (condition)</em></span><br>
+L’instruction "repeter" est traduite en :<br>
+<span style="font-family:monospace">while (true){<br>
+ </span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace">;<br>
+ if </span><span style="font-family:monospace"><em>(condition)</em></span><span style="font-family:monospace"> break;<br>
+}</span><br>
+cette traduction reste invisible à l’utilisateur (tant qu’il n’exécute pas 
+son programme au débugueur).
+</p>
+<h3 id="sec88" class="subsection">2.14.3  Traduction MapleV</h3>
+<p>
+Pas de schéma "repeter" en <span style="font-family:monospace">MapleV</span>, on utilise une
+boucle infinie et un <span style="font-family:monospace">break</span><br>
+<span style="font-family:monospace">do </span><span style="font-family:monospace"><em>action </em></span><span style="font-family:monospace"> if </span><span style="font-family:monospace"><em>condition</em></span><span style="font-family:monospace"> then break; fi; od;</span>
+</p>
+<h3 id="sec89" class="subsection">2.14.4  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">repeat <br>
+</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"><br>
+ until </span><span style="font-family:monospace"><em> condition</em></span><span style="font-family:monospace"> <br>
+end_repeat</span>
+</p>
+<h3 id="sec90" class="subsection">2.14.5  Traduction TI89/92</h3>
+<p>
+Pas de schéma "repeter" chez <span style="font-family:monospace">TI</span>, on utilise une
+boucle infinie et un <span style="font-family:monospace">Exit</span><br>
+<span style="font-family:monospace">:Loop :</span><span style="font-family:monospace"><em>action</em></span><span style="font-family:monospace"> :If </span><span style="font-family:monospace"><em>(condition)</em></span><span style="font-family:monospace"> :Exit :Endloop</span>
+</p>
+<h2 id="sec91" class="section">2.15  Les conditions ou expressions booléennes</h2>
+<p>
+Une condition est une fonction qui a comme valeur un booléen, à savoir elle
+est soit <span style="font-family:monospace">vraie</span> soit <span style="font-family:monospace">fausse</span>.
+</p>
+<h3 id="sec92" class="subsection">2.15.1  Les opérateurs relationnels</h3>
+<h4 id="sec93" class="subsubsection">Traduction Algorithmique</h4>
+<p>
+Pour exprimer une condition simple on utilise en algorithmique 
+les opérateurs :<br>
+<span style="font-family:monospace">=   &gt;   &lt;   ≤   ≥   ≠</span><br>
+</p>
+<h4 id="sec94" class="subsubsection">Traduction Xcas</h4>
+<p>
+Ces opérateurs se traduisent pour <span style="font-family:monospace">Xcas</span> par :
+</p><pre class="verbatim">==  &gt;  &lt;  &lt;=  &gt;=  !=
+</pre><p>
+Attention pour <span style="font-family:monospace">Xcas</span> l’égalité se traduit comme en langage <span style="font-family:monospace">C</span> par : <span style="font-family:monospace">==</span><br>
+</p>
+<h4 id="sec95" class="subsubsection">Traduction MapleV, MuPAD, TI89/92</h4>
+<p> 
+Ces opérateurs se traduisent pour <span style="font-family:monospace">MapleV</span>, <span style="font-family:monospace">MuPAD</span> et <span style="font-family:monospace">TI89/92</span> 
+par :
+</p><pre class="verbatim">=  &gt;  &lt;  &lt;=  &gt;=  &lt;&gt;
+</pre>
+<h3 id="sec96" class="subsection">2.15.2  Les opérateurs logiques</h3>
+<p><a id="hevea_default52"></a><a id="hevea_default53"></a><a id="hevea_default54"></a>
+Pour traduire des conditions complexes, on utilise en algorithmique, 
+les opérateurs logiques :<br>
+<span style="font-family:monospace">ou et non</span> <br>
+Pour <span style="font-family:monospace">Xcas</span>, ces opérateurs se traduisent par :<br>
+<span style="font-family:monospace">or and not</span> ou encore par <span style="font-family:monospace">∥ &amp;&amp;  !</span> <a id="hevea_default55"></a>
+<a id="hevea_default56"></a><a id="hevea_default57"></a><br>
+Pour <span style="font-family:monospace">MapleV</span>, <span style="font-family:monospace">MuPAD</span> et <span style="font-family:monospace">TI89/92</span>, ces opérateurs se 
+traduisent par :<br>
+<span style="font-family:monospace">or and not</span> 
+</p>
+<h2 id="sec97" class="section">2.16  Les fonctions</h2>
+<p><a id="hevea_default58"></a><a id="hevea_default59"></a>
+Dans une fonction on ne fait pas de saisie de données :
+on utilise des paramètres qui seront initialisés lors de l’appel.<br>
+Les entrées se font donc par passage de paramètres.<br>
+Dans une fonction on veut pouvoir réutiliser le résultat :<br>
+en algorithmique, c’est la commande <span style="font-family:monospace">retourne</span> qui renvoie la valeur de la 
+fonction.<br>
+Si la fonction est utilisée seule, sa valeur sera affichée et si la 
+fonction est utilisée dans une expression sa valeur sera utilisée pour calculer cette expression. 
+</p>
+<h3 id="sec98" class="subsection">2.16.1  Traduction Algorithmique</h3>
+<p><a id="hevea_default60"></a><a id="hevea_default61"></a>
+On écrit par exemple en algorithmique :
+</p><pre class="verbatim">fonction addition(A,B)
+retourne A+B
+ffonction
+</pre><p>
+Cela signifie que :<br>
+- Si on fait exécuter la fonction, ce qui se trouve juste après 
+<span style="font-family:monospace">retourne</span> sera la valeur de la fonction, mais les instructions qui 
+suivent <span style="font-family:monospace">retourne</span> seront ignorées (<span style="font-family:monospace">retourne</span> fait sortir 
+immédiatement de la fonction).<br>
+- On peut utiliser la fonction dans une expression ou directement dans la 
+ligne de commande et, dans ce cas, sa valeur sera affichée.<br>
+</p>
+<h3 id="sec99" class="subsection">2.16.2  Traduction Xcas</h3>
+<p>
+<span style="font-family:monospace">Xcas</span> utilise <span style="font-family:monospace">return</span> ou <span style="font-family:monospace">retourne</span>.
+</p><pre class="verbatim">addition(a,b):={
+  return(a+b);
+}
+</pre><p>
+<span style="font-weight:bold">Remarques</span> : 
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">return</span> n’est pas obligatoire on peut aussi écrire :
+<pre class="verbatim">addition(a,b):=a+b;
+</pre>
+</li><li class="li-itemize"><span style="font-family:monospace">return</span> fait sortir immédiatement de la fonction.
+Pour définir le minimum de 2 nombres on écrit soit avec 1 instruction
+<pre class="verbatim">mini1(a,b):={
+si(a&gt;b) alors 
+ return b 
+sinon 
+ return a;
+fsi
+}
+</pre>
+soit avec 2 instructions
+<pre class="verbatim">mini2(a,b):={
+si(a&gt;b) alors 
+ return b; 
+fsi
+return a;
+}
+</pre>
+</li></ul>
+<h3 id="sec100" class="subsection">2.16.3  Traduction MapleV</h3>
+<p>
+<span style="font-family:monospace">retourne</span> se traduit par <span style="font-family:monospace">RETURN</span>
+</p><pre class="verbatim">addition:= proc(a,b)
+RETURN(a+b);
+end:
+</pre><p>
+<span style="font-weight:bold">Remarque</span><br>
+ <span style="font-family:monospace">RETURN</span> fait sortir immédiatement de la fonction.
+</p>
+<h3 id="sec101" class="subsection">2.16.4  Traduction MuPAD</h3>
+<p>
+<span style="font-family:monospace">retourne</span> se traduit <span style="font-family:monospace">MuPAD</span> par <span style="font-family:monospace">return</span> :
+</p><pre class="verbatim">addition:=proc(a,b)
+begin
+return(a+b)
+end_proc;
+</pre><p>
+<span style="font-weight:bold">Remarque</span><br>
+<span style="font-family:monospace">return</span> fait sortir immédiatement de la fonction.
+</p>
+<h3 id="sec102" class="subsection">2.16.5  Traduction TI89 92</h3>
+<pre class="verbatim">:addition(a,b)
+:Func
+:Return a+b
+:EndFunc
+</pre><p>
+<span style="font-weight:bold">Remarque</span><br>
+<span style="font-family:monospace">Return</span> fait sortir immédiatement de la fonction.
+</p>
+<h2 id="sec103" class="section">2.17  Les listes</h2>
+<h3 id="sec104" class="subsection">2.17.1  Traduction Algorithmique</h3>
+<p>
+On utilise les { } pour délimiter une liste.<br>
+Attention!!!<br>
+En algorithmique, on a choisi cette notation car c’est celle qui est employée
+par les calculatrices...à ne pas confondre avec la notion d’ensemble en
+mathématiques : dans un ensemble l’ordre des éléments n’a pas 
+d’importance mais dans une liste l’ordre est important...<br>
+ Par exemple {} désigne la liste vide et {1, 2, 3} est une liste de 3 éléments.<br>
+<span style="font-family:monospace">concat</span> sera utilisé pour concaténer 2 listes ou une liste et un 
+élément ou un élément et une liste :<br>
+<span style="font-family:monospace">{1, 2, 3}=&gt;TAB</span><br>
+<span style="font-family:monospace">concat(TAB,4)=&gt;TAB</span> (maintenant <span style="font-family:monospace">TAB</span> désigne {1, 2, 3, 4} <br>
+<span style="font-family:monospace">TAB[2]</span> désigne le deuxième élément de <span style="font-family:monospace">TAB</span> ici 2.
+</p>
+<h3 id="sec105" class="subsection">2.17.2  Traduction Xcas</h3>
+<p><a id="hevea_default62"></a>
+Avec <span style="font-family:monospace">Xcas</span> il existe différentes notions :
+la liste ou le vecteur, la séquence et l’ensemble.
+</p><ul class="itemize"><li class="li-itemize">
+Les listes et les vecteurs<br>
+Une liste ou un vecteur est délimité par <span style="font-family:monospace">[ ]</span> et les éléments 
+situés à l’intérieur des crochets sont séparés par des virgules.
+</li><li class="li-itemize">Les séquences<br>
+Une séquence n’a pas de délimiteurs, les éléments sont séparés par 
+des virgules, mais on doit parfois parenthèser par
+<span style="font-family:monospace">( )</span> (on écrit <span style="font-family:monospace">1,2,3,4</span> ou <span style="font-family:monospace">(1,2,3,4)</span> ou encore 
+<span style="font-family:monospace">seq[1,2,3]</span><a id="hevea_default63"></a>).
+</li><li class="li-itemize">Les ensembles <br>
+Un ensemble est délimité par <span style="font-family:monospace">%{ %}</span> et les éléments situés à l’intérieur des délimiteurs sont séparés par des virgules 
+(on écrit <span style="font-family:monospace">%{ 1,2,3,4%}</span> ou encore <span style="font-family:monospace">set[1,2,3,4]</span><a id="hevea_default64"></a>).<br>
+</li></ul>
+<h4 id="sec106" class="subsubsection">Les fonctions pour les listes</h4>
+<p>
+La liste vide est désignée par <span style="font-family:monospace">[ ]</span> et la séquence vide par <span style="font-family:monospace">NULL</span>.<br>
+La commande <span style="font-family:monospace">makelist</span> <a id="hevea_default65"></a> permet de fabriquer une liste à 
+partir d’une fonction <span style="font-style:italic">f</span>. Les paramètres sont : la fonction, l’intervalle de variation de l’argument de <span style="font-style:italic">f</span> et le pas de son incrémentation.<br>
+On tape :<br>
+<span style="font-family:monospace"><span style="font-style:italic">f</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">x</span></span><span style="font-family:monospace">):=</span><span style="font-family:monospace"><span style="font-style:italic">x</span></span><sup><span style="font-family:monospace">2</span></sup><br>
+<span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">:=</span><span style="font-family:monospace"><span style="font-style:italic">makelist</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">f</span></span><span style="font-family:monospace">,2,10,3)</span> ou encore<br>
+<span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">:=</span><span style="font-family:monospace"><span style="font-style:italic">makelist</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">x</span></span><span style="font-family:monospace">-&gt;</span><span style="font-family:monospace"><span style="font-style:italic">x</span></span><sup><span style="font-family:monospace">2</span></sup><span style="font-family:monospace">,2,10,3)</span> ou encore<br>
+<span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">:=</span><span style="font-family:monospace"><span style="font-style:italic">makelist</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">x</span></span><span style="font-family:monospace">-&gt;</span><span style="font-family:monospace"><span style="font-style:italic">x</span></span><sup><span style="font-family:monospace">2</span></sup><span style="font-family:monospace">,2..10,3)</span> ou encore<br>
+<span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">:=</span><span style="font-family:monospace"><span style="font-style:italic">makelist</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">sq</span></span><span style="font-family:monospace">,2,10,3)</span> <br>
+On obtient <span style="font-family:monospace">l= [4,25,64]</span><br>
+Pour avoir une liste constante on peut taper par exemple :<br>
+<span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">:=</span><span style="font-family:monospace"><span style="font-style:italic">makelist</span></span><span style="font-family:monospace">(3,1..5)</span> on obtient <span style="font-family:monospace">l= [3,3,3,3,3]]</span><br>
+On peut écrire <span style="font-family:monospace">l:=[1,2,3]</span>.<br>
+Attention Les éléments sont indicés à partir de zéro (contrairement
+à <span style="font-family:monospace">Maple</span> ou <span style="font-family:monospace">MuPAD</span> qui commencent les indices à 1):<br>
+dans l’exemple <span style="font-family:monospace">l[0]</span> vaut <span style="font-family:monospace">1</span>.<br>
+Si on tape ensuite :<br>
+<span style="font-family:monospace">l[0]:=4</span> : après cette instruction <span style="font-family:monospace">l</span> sera la liste <span style="font-family:monospace">[4,2,3]</span>.<br>
+La commande <span style="font-family:monospace">append(l,elem)</span> <a id="hevea_default66"></a> permet de mettre à la fin 
+d’une liste <span style="font-family:monospace">l</span>,
+un élément (ou une liste) <span style="font-family:monospace">elem</span>.<br>
+La commande <span style="font-family:monospace">prepend(l,elem)</span> <a id="hevea_default67"></a> permet de mettre au début d’une liste <span style="font-family:monospace">l</span>,
+un élément (ou une liste) <span style="font-family:monospace">elem</span>.<br>
+La commande <span style="font-family:monospace">tail(l)</span> <a id="hevea_default68"></a> renvoie la liste <span style="font-family:monospace">l</span> privée de son premier élément et,<br>
+la commande <span style="font-family:monospace">head(l)</span><a id="hevea_default69"></a> renvoie le premier élément de la liste.<br>
+La commande <span style="font-family:monospace">concat</span> <a id="hevea_default70"></a> permet de concaténer deux listes ou une liste et un élément.<br>
+La commande <span style="font-family:monospace">augment</span> <a id="hevea_default71"></a> permet de concaténer deux listes.<br>
+La commande <span style="font-family:monospace">size</span> <a id="hevea_default72"></a> ou <span style="font-family:monospace">nops</span> <a id="hevea_default73"></a> renvoie la longueur d’une liste ou d’une séquence.
+</p>
+<h4 id="sec107" class="subsubsection">Les fonctions pour les séquences</h4>
+<p>
+La commande <span style="font-family:monospace">op</span> transforme une liste en une séquence.<br>
+On a la relation :<br>
+si <span style="font-family:monospace">l</span> est une liste <span style="font-family:monospace">op(l)</span> <a id="hevea_default74"></a> est une séquence.<br>
+<span style="font-weight:bold">Exemple </span><br>
+<span style="font-family:monospace">l:=[1,2,3]</span> <br>
+<span style="font-family:monospace">s:=op(l)</span> (<span style="font-family:monospace">s</span> est la séquence <span style="font-family:monospace">1,2,3</span>), <br>
+<span style="font-family:monospace">a:=[s]</span> (<span style="font-family:monospace">a</span> est la liste <span style="font-family:monospace">l</span> égale à <span style="font-family:monospace">[1,2,3]</span>),<br>
+Pour concaténer deux séquences il suffit d’écrire :<br>
+<span style="font-family:monospace">s1:=(1,2,3)</span><br>
+<span style="font-family:monospace">s:=(s1,4,5)</span><br>
+ou encore <br>
+<span style="font-family:monospace">s:=s1,4,5</span> car la virgule (<span style="font-family:monospace">,</span><a id="hevea_default75"></a>) est prioritaire par rapport 
+à l’affectation (<span style="font-family:monospace">:=</span>).<br>
+La commande <span style="font-family:monospace">seq</span> <a id="hevea_default76"></a> permet de fabriquer une séquence à 
+partir d’une expression. Les paramètres sont : l’expression,
+la variable=l’intervalle de variation (le pas d’incrémentation de la 
+variable est toujours 1).<br>
+On tape :<br>
+<span style="font-family:monospace">seq(j</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2,j=1..4)</span><br>
+On obtient ;<br>
+<span style="font-family:monospace">(1,4,9,16)</span><br>
+On peut aussi utiliser $ <a id="hevea_default77"></a>
+qui est une fonction infixée.<br>
+ On tape :<br>
+<span style="font-family:monospace">(j</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2) $ (j=1..4)</span><br>
+On obtient ;<br>
+<span style="font-family:monospace">(1,4,9,16)</span><br>
+</p>
+<h4 id="sec108" class="subsubsection">Les fonctions pour les ensembles</h4>
+<p>
+Soit <span style="font-family:monospace">A:=set[1,2,3,4]; B:=set[3,4,4,6];</span>
+<span style="font-family:monospace">union(A,B)</span> désigne l’union de <span style="font-family:monospace">A</span> et <span style="font-family:monospace">B</span>,<br>
+<span style="font-family:monospace">intersect(A,B)</span> désigne l’intersection de <span style="font-family:monospace">A</span> et <span style="font-family:monospace">B</span>,<br>
+<span style="font-family:monospace">minus(A,B)</span> désigne la différence de <span style="font-family:monospace">A</span> et <span style="font-family:monospace">B</span>.<br>
+On a :<br>
+<span style="font-family:monospace">union(A,B)=set[1,2,3,4,5,6]</span><br>
+<span style="font-family:monospace">intersect(A,B)=set[3,4]</span><br>
+<span style="font-family:monospace">minus(A,B)=set[1,2]</span>
+</p>
+<h3 id="sec109" class="subsection">2.17.3  Traduction MapleV</h3>
+<p>
+En <span style="font-family:monospace">Maple</span> on utilise <span style="font-family:monospace">{ }</span>, comme en mathématiques, pour représenter un <span style="font-weight:bold">ensemble</span>.<br>
+Exemple : <span style="font-family:monospace">De := {1, 2, 3, 4, 5, 6}</span><br>
+Dans un ensemble, l’ordre n’a pas d’importance. La répétition est 
+interdite.<br>
+Pour délimiter une <span style="font-weight:bold">liste</span>, on utilise <span style="font-family:monospace">[ ]</span>.<br>
+L’ordre est pris en compte, la répétition est possible.<br>
+Exemple : <span style="font-family:monospace">[Pile, Face, Pile]</span><br>
+Une <span style="font-weight:bold">séquence</span> est une suite d’objets, séparés par une virgule.<br>
+Si <span style="font-family:monospace">C</span> est un ensemble ou une liste, <span style="font-family:monospace">op(C)</span> est la séquence des 
+objets de <span style="font-family:monospace">C</span>.<br>
+<span style="font-family:monospace">nops(C)</span> est le nombre d’éléments de <span style="font-family:monospace">C</span>.<br>
+Ainsi, si <span style="font-family:monospace">L</span> est une liste, <span style="font-family:monospace">{op(L)}</span> est l’ensemble des objets 
+(non répétés) de <span style="font-family:monospace">L</span>.<br>
+Exemples <br>
+On écrit :<br>
+<span style="font-family:monospace">S:=NULL:</span> (pour la séquence vide)<br>
+<span style="font-family:monospace">S:=S,A:</span> (pour ajouter un élément à <span style="font-family:monospace">S</span>)<br>
+Une liste est une séquence entourée de crochets :<br>
+<span style="font-family:monospace">L:=[S]:</span><br>
+<span style="font-family:monospace">L[i]</span> est le iéme élément de la liste <span style="font-family:monospace">L</span>.<br>
+On peut aussi revenir à la séquence :
+<span style="font-family:monospace">S:=op(L):</span>
+</p>
+<h3 id="sec110" class="subsection">2.17.4  Traduction MuPAD</h3>
+<p>
+Une liste est une suite d’expressions entre un crochet ouvrant <span style="font-family:monospace">[</span> et un crochet 
+fermant <span style="font-family:monospace">]</span>.<br>
+<span style="font-family:monospace">[ ]</span> désigne la liste vide.<br>
+Exemple :<br>
+<span style="font-family:monospace">l:=[1,2,2,3]</span><br>
+<span style="font-family:monospace">nops(l)</span> renvoie le nombre d’éléments de la liste <span style="font-family:monospace">l</span>.<br>
+<span style="font-family:monospace">l[1]</span> ou <span style="font-family:monospace">op(l,1)</span> renvoie le premier élément de la liste <span style="font-family:monospace">l</span> : les 
+éléments sont numérotés de 1 à <span style="font-family:monospace">nops(l)</span>.<br>
+<span style="font-family:monospace">op(l)</span> renvoie <span style="font-family:monospace">1,2,2,3</span><br>
+<span style="font-family:monospace">append(l,4)</span> ajoute l’élément <span style="font-family:monospace">4</span> à la fin de la liste <span style="font-family:monospace">l</span>.<br>
+De plus, les listes peuvent être concaténées avec le signe <span style="font-family:monospace">.</span> 
+(un point), par exemple <span style="font-family:monospace">[1,2].[2,3]=[1,2,2,3]</span>.<br>
+<span style="font-family:monospace">Attention</span> une suite d’expressions entre une accolade ouvrante { et une 
+accolade fermante } désigne un ensemble.<br>
+Exemple d’ensembles et de fonctions agissant sur les ensembles :<br>
+<span style="font-family:monospace">A:={a,b,c}; B:={a,d}</span> <br>
+<span style="font-family:monospace">A union B</span> désigne <span style="font-family:monospace">{a,b,c,d}</span><br>
+<span style="font-family:monospace">A intersect B</span> désigne <span style="font-family:monospace">{a}</span><br>
+<span style="font-family:monospace">A minus B</span> désigne <span style="font-family:monospace">{b,c}</span>
+</p>
+<h3 id="sec111" class="subsection">2.17.5  Traduction TI89/92</h3>
+<p>
+<span style="font-family:monospace">augment</span> permet de concaténer deux listes.<br>
+{} désigne la liste vide.
+Pour travailler avec des listes, on peut initialiser une liste de
+<span style="font-family:monospace">n</span> éléments avec la commande <span style="font-family:monospace">newlist</span>, par exemple :<br>
+<span style="font-family:monospace">newlist(10)=&gt;L</span> (<span style="font-family:monospace">L</span> est alors une liste de 10 éléments nuls).<br>
+On peut utiliser les commandes suivantes :<br>
+<span style="font-family:monospace">seq(i*i, i, 1, 10)</span> qui désigne la liste des carrés des 10 premiers entiers, ou <span style="font-family:monospace">seq(i*i, i, 0, 10, 2)</span> qui désigne la liste des carrés des 5 premiers entiers pairs (le pas est ici égal à 2). <br>
+Exemple :<br>
+<span style="font-family:monospace"><span style="font-style:italic">seq</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">i</span></span><span style="font-family:monospace">*</span><span style="font-family:monospace"><span style="font-style:italic">i</span></span><span style="font-family:monospace">, </span><span style="font-family:monospace"><span style="font-style:italic">i</span></span><span style="font-family:monospace">, 0, 10, 2) =&gt;</span><span style="font-family:monospace"><span style="font-style:italic">L</span></span> va par exemple créer la liste :<br>
+{0, 4, 16, 36, 64, 100} c’est à dire la liste des carrés de 0 à 10 
+avec un pas de 2 que l’on stocke dans <span style="font-family:monospace">L</span>.<br>
+<span style="font-family:monospace">L[j] </span> qui désigne le jème élément de la liste <span style="font-family:monospace">L</span>.<br>
+On peut aussi écrire :<br>
+<span style="font-family:monospace">2=&gt;L[2]</span> <br>
+La liste <span style="font-family:monospace">L</span> est alors {0, 2, 16, 36, 64, 100}<br>
+ou si <span style="font-family:monospace"><span style="font-style:italic">L</span></span> est de longueur <span style="font-family:monospace">n</span> on peut rajouter un élément (par 
+exemple 121) à <span style="font-family:monospace"><span style="font-style:italic">L</span></span> en écrivant :<br>
+<span style="font-family:monospace">121 =&gt; L[n+1]</span> <br>
+Dans l’exemple précédent <span style="font-family:monospace">n=6</span> on peut donc écrire :<br>
+<span style="font-family:monospace">121 =&gt; L[7]</span> (<span style="font-family:monospace">L</span> est alors égale à {0, 2, 16, 36, 64, 100, 121}).<br>
+<span style="font-family:monospace">left (L, 5)</span> désigne les 5 premiers éléments de la liste <span style="font-family:monospace">L</span>.
+</p>
+<h2 id="sec112" class="section">2.18  Un exemple : le crible d’Eratosthène</h2>
+<h3 id="sec113" class="subsection">2.18.1  Description</h3>
+<p>
+Pour trouver les nombres premiers inférieurs ou égaux à <span style="font-style:italic">N</span> :
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+On écrit les nombres de 2 à <span style="font-style:italic">N</span> dans une liste.
+</li><li class="li-enumerate">On met 2 dans la case <span style="font-style:italic">P</span> .
+</li><li class="li-enumerate">Si <span style="font-style:italic">P</span> × <span style="font-style:italic">P</span> ≤ <span style="font-style:italic">N</span> il faut traiter les éléments de <span style="font-style:italic">P</span> à <span style="font-style:italic">N</span> :
+on barre tous les multiples de <span style="font-style:italic">P</span> à partir de <span style="font-style:italic">P</span> × <span style="font-style:italic">P</span>.
+</li><li class="li-enumerate">On augmente <span style="font-style:italic">P</span> de 1.<br>
+Si <span style="font-style:italic">P</span>× <span style="font-style:italic">P</span> est strictement supérieur à <span style="font-style:italic">N</span>, on arrête
+</li><li class="li-enumerate">On met le plus petit élément non barré de la liste dans la case
+<span style="font-style:italic">P</span>. On reprend à l’étape 3
+</li></ol>
+<h3 id="sec114" class="subsection">2.18.2  Écriture de l’algorithme</h3>
+<pre class="verbatim">Fonction crible(N)
+local TAB PREM I P
+// TAB et PREM sont des listes
+{} =&gt;TAB
+{} =&gt;PREM
+//on suppose que les indices d'une liste debutent par 0
+//si ils commencent par 1, mettre pour I de 1 a N
+pour I de 0 a N faire 
+  concat(TAB, I) =&gt; TAB
+fpour
+//On met 0 dans TAB[1] car 1 n'est pas premier
+//barrer 1 a ete realise en le remplacant par 0
+0 =&gt; TAB[1]
+//TAB est la liste 0 0 2 3 4 ...N 
+2 =&gt; P
+// On a fait les points 1 et 2
+tantque P*P &lt;= N faire
+  pour I de P a E(N/P) faire
+//E(N/P) designe la partie entiere de N/P
+    0 =&gt; TAB[I*P]
+  fpour
+// On a barre tous les multiples de P a partir de P*P
+  P+1 =&gt; P
+//On cherche le plus petit nombre &lt;= N non barre (non nul)
+// entre P et N
+  tantque (P*P &lt;= N) et (TAB[P]=0) faire
+    P+1 =&gt; P
+  ftantque
+ftantque
+//on ecrit le resultat dans une liste PREM
+pour I de 2 a N faire
+  si TAB[I]!= 0 alors 
+     concat(PREM, I) =&gt; PREM
+  fsi
+fpour
+retourne PREM
+</pre>
+<h3 id="sec115" class="subsection">2.18.3  Traduction Xcas</h3>
+<pre class="verbatim">//renvoie la liste des nombres premiers&lt;=n selon eratosthene
+crible(n):={
+  local tab,prem,p,j;
+  tab:=[0,0];
+  prem:=[];
+  for (j:=2;j&lt;=n;j++){
+    tab:=append(tab,j);
+  }
+  p:=2;
+  while (p*p&lt;=n) {
+    for (j:=p;j*p&lt;=n;j++){
+      tab[eval(j*p)]:=0;
+    }
+    p:=p+1;
+    while ((p*p&lt;=n) and (tab[p]==0)) {
+      p:=p+1;
+    } 
+  }
+  for (j:=2;j&lt;=n;j++) {
+    if (tab[j]!=0) { 
+      prem:=append(prem,j);
+    }
+  } 
+  return(prem);
+};
+</pre><p>
+ou avec les instructions françaises
+</p><pre class="verbatim">//renvoie la liste des nombres premiers&lt;=n selon eratosthene
+crible(n):={
+  local tab,prem,p,j;
+  [0,0]=&gt;tab;
+  []=&gt;prem;
+  pour j de 2 jusque n faire
+    append(tab,j)=&gt;tab;
+  fpour;
+  2=&gt;p;
+  tantque (p*p&lt;=n) faire
+    pour j de p jusque n/p faire
+      0=&gt;tab[eval(j*p)];
+    fpour
+    p+1=&gt;p;
+    tantque ((p*p&lt;=n) et (tab[p]==0)) faire
+      p+1=&gt;p;
+    ftantque;
+  ftantque;
+  pour j de 2 jusque n faire
+    si (tab[j]!=0) alors 
+      append(prem,j)=&gt;prem;
+    fsi
+  fpour
+  retourne(prem);
+};
+</pre>
+<h3 id="sec116" class="subsection">2.18.4  Traduction TI89/92</h3>
+<p>
+Voici la fonction crible :<br>
+- n est le paramètre de cette fonction.<br>
+- crible(n) est égal à la liste des nombres premiers inférieurs ou 
+égaux à n.
+</p><pre class="verbatim">:crible(n)
+:Func
+:local tab,prem,i,p
+:newList(n)=&gt;tab
+:newList(n)=&gt;prem
+:seq(i,i,1,n) =&gt;tab
+:0 =&gt; tab[1]
+:2 =&gt; p 
+:While p*p &lt;= n
+:For i,p,floor(n/p)
+:0 =&gt; tab[i*p]
+:EndFor
+:p+1 =&gt; p
+:While p*p&lt;= n and tab[p]=0
+:p+1 =&gt; p
+:EndWhile
+:EndWhile
+:0 =&gt; p
+:For i,2,n
+:If tab[i]!= 0 Then
+:p+1 =&gt;p
+:i =&gt;prem[p]
+:EndIf
+:EndFor
+:Return left(prem,p)
+:EndFunc
+</pre>
+<h2 id="sec117" class="section">2.19  Un exemple de fonction vraiement récursive</h2>
+<h3 id="sec118" class="subsection">2.19.1  La définition</h3>
+<p>
+Voici la définition de la fonction <span style="font-family:monospace">a</span> dite fonction de <span style="font-family:monospace">ackermann</span> 
+qui est une fonction de 
+ℕ×ℕ dans ℕ :<br>
+</p><pre class="verbatim">a(0,y)=y+1,
+a(x,0)=a(x-1,1) si x&gt;0,
+a(x,y)=a(x-1,a(x,y-1) si x&gt;0 et si y&gt;0.
+</pre><p>
+Ainsi on a :<br>
+<span style="font-family:monospace">a(0,0)=1</span><br>
+<span style="font-family:monospace">a(1,0)=a(0,1)=2</span><br>
+<span style="font-family:monospace">a(1,1)=a(0,a(1,0))=a(0,2)=3</span><br>
+<span style="font-family:monospace">a(1,2)=a(0,a(1,1))=4</span><br>
+<span style="font-family:monospace">a(1,n)=a(0,a(1,n-1))=1+a(1,n-1)=...=n+2</span><br>
+<span style="font-family:monospace">a(2,0)=a(1,1)=3</span><br>
+<span style="font-family:monospace">a(2,1)=a(1,a(2,0))=a(1,3)=5</span><br>
+<span style="font-family:monospace">a(2,2)=a(1,a(2,1))=2+a(2,1)=7</span><br>
+<span style="font-family:monospace">a(2,n)=a(1,a(2,n-1))=2+a(2,n-1)=2n+3</span><br>
+<span style="font-family:monospace">a(3,0)=a(2,1)=5</span><br>
+<span style="font-family:monospace">a(3,1)=a(2,a(3,0))=2*a(3,0)+3=13</span><br>
+<span style="font-family:monospace">a(3,2)=a(2,a(3,1))=2*a(3,1)+3=29</span><br>
+<span style="font-family:monospace">a(3,n)=a(2,a(3,n-1))=2*a(3,n-1)+3</span><br>
+    <span style="font-family:monospace">=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n+1)+3*(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">n+2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n-1)...+1)</span><br>
+    <span style="font-family:monospace">=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n+1)+3*(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n+1)-1)=
+2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n+3)-3</span><br>
+On a donc par exemple : <span style="font-family:monospace">a(3,5)=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">8-3=253</span><br>
+Les calculs sont vite gigantesques on a par exemple :<br>
+<span style="font-family:monospace">a(4,1)=a(3,a(4,0))=a(3,a(3,1))=a(3,13)=65533</span><br>
+<span style="font-family:monospace">a(4,2)=a(3,a(4,1))=a(3,65533)=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">65536-3</span><br>
+<span style="font-family:monospace">a(4,3)=a(3,a(4,2))=a(3,2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">65533-3)=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">65536-3)-3</span><br>
+On a donc :<br>
+<span style="font-family:monospace">a(4,y)=a(3,a(4,y-1))=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(a(4,y-1)+3)-3</span><br>
+    <span style="font-family:monospace">=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(a(4,y-2)+3)-3+3)-3=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(a(4,y-2)+3))-3</span><br>
+et donc <br>
+<span style="font-family:monospace">a(4,y)=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">..(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(a(4,0)+3))..)-3=
+2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">..(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">16)..)-3</span>,<br>
+ avec <span style="font-family:monospace">2</span><code><span style="font-family:monospace">^</span></code> qui se répète <span style="font-style:italic">y</span> fois, et comme 
+<span style="font-family:monospace">16=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2)</span> on a,<br>
+<span style="font-family:monospace">a(4,y)=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">..(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2)..)-3</span>,<br>
+ avec <span style="font-family:monospace">2</span> qui se répète <span style="font-style:italic">y</span>+3 fois.
+</p>
+<h3 id="sec119" class="subsection">2.19.2  Le programme</h3>
+<p>
+Voici un premier programme :
+</p><pre class="verbatim">akc(x,y):={
+if (x==0) return y+1;
+if (y==0) return akc(x-1,1);
+return ack(x-1,ack(x,y-1));
+}
+</pre><p>
+ou bien en utilisant <span style="font-family:monospace">ifte</span> :
+</p><pre class="verbatim">ack(x,y):=ifte(x==0,y+1,
+               ifte(y==0,ack(x-1,1),ack(x-1,ack(x,y-1))));
+</pre><p>
+On remarque que le temps pour calculer la valeur pour <span style="font-family:monospace">a(3,5)</span> est de 5.06s
+ce qui est tres long, mais on peut donc améliorer le programme en arrêtant
+la récursivité lorsque <span style="font-family:monospace">x==3</span>.<br>
+On écrit :
+</p><pre class="verbatim">a(x,y):={
+if (x==0) return y+1;
+if (x==1) return y+2;
+if (x==2) return 2*y+1;
+if (x==3) return 2^(y+3)-3;
+if (y==0) return a(x-1,1);
+return a(x-1,a(x,y-1));
+}
+</pre><p>
+On peut aussi améliorer le programme en arrêtant
+la récursivité lorsque <span style="font-family:monospace">x==4</span>.<br>
+On écrit :
+</p><pre class="verbatim">a(x,y):={
+if (x==0) return y+1;
+if (x==1) return y+2;
+if (x==2) return 2*y+1;
+if (x==3) return 2^(y+3)-3;
+if (x==4) {
+local p:=1;
+for (j:=1;j&lt;=y+3;j++) p:=2^p;
+return p-3; 
+}
+if (y==0) return a(x-1,1);
+return a(x-1,a(x,y-1));
+}
+</pre><p>
+Essayez <span style="font-family:monospace">a(4,1)=65533</span>, <span style="font-family:monospace">a(4,2)</span>....
+</p>
+<hr>
+<a href="casrouge001.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge003.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

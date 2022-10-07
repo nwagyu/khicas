@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sorting by permutation: sortperm</title>
+</head>
+<body >
+<a href="cascmd_en440.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en442.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1022" class="subsection">5.40.21  Sorting by permutation: <span style="font-family:monospace">sortperm</span></h3>
+<p>
+<a id="hevea_default726"></a></p><p>The <span style="font-family:monospace">sortperm</span> command returns the permutation which sorts the given
+list in ascending order or the list sorted by the given permutation.</p><p><span style="font-family:monospace">sortperm</span> takes one or two arguments:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">V</span>, a nonempty list.
+</li><li class="li-itemize"><span style="font-style:italic">P</span>, a permutation (optional).
+</li></ul><p>If called with one argument, <span style="font-family:monospace">sortperm</span> returns the permutation which sorts
+the list <span style="font-style:italic">V</span> in ascending order.
+If called with two arguments, it returns a copy of <span style="font-style:italic">V</span> sorted according to <span style="font-style:italic">P</span>.</p><p>This command is useful when several lists of equal lengths need to be sorted in the
+same order. Sorting by permutation is optimally efficient.</p><h4 id="sec1023" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">V:=[30,25,40,10,20]; P:=sortperm(V)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,4,1,0,2</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">S:=["ab","cd","ad","bc","de"]; sortperm(S,P)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"bc","de","cd","ab","ad"</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en440.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en442.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

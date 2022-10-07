@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The difference between := and =&lt;</title>
+</head>
+<body >
+<a href="cascmd_en752.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en754.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:assignmentdiffs" class="subsection">12.2.10  The difference between <span style="font-family:monospace">:=</span> and <span style="font-family:monospace">=&lt;</span></h3>
+<p>The <span style="font-family:monospace">:=</span> and <span style="font-family:monospace">=&lt;</span> assignment operators have different
+effects when they are used to modify an element of a list contained in
+a variable, since <span style="font-family:monospace">=&lt;</span> modifies the element by reference.
+Otherwise, they will have the same effect.</p><h4 id="sec1924" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= [1,2,3]</span>
+</div><p>
+Here:
+</p><div class="center">
+<span style="font-family:monospace">A[1]:= 5</span>
+</div><p>
+and
+</p><div class="center">
+<span style="font-family:monospace">A[1] =&lt; 5</span>
+</div><p>
+both change <span style="font-family:monospace">A[1]</span> to 5:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,5,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+but they do it in different ways. The command
+<span style="font-family:monospace">A[1] =&lt; 5</span> changes the middle value in the list that
+<span style="font-family:monospace">A</span> originally pointed to, and so any other variable pointing
+to the list will be changed, but <span style="font-family:monospace">A[1]:= 5</span> will create a
+duplicate list with the middle element of 5, and so any other variable
+pointing to the original list won’t be affected.</p><h4 id="sec1925" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:=[0,1,2,3,4]</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">B:=A</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">B[3]=&lt;33</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A,B</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2,33,4</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2,33,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:=[0,1,2,3,4]</span>
+<span style="font-family:monospace">B:=A</span>
+<span style="font-family:monospace">B[3]:=33</span>
+<span style="font-family:monospace">A,B</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2,3,4</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2,33,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p>If <span style="font-family:monospace">B</span> is set equal to a copy of <span style="font-family:monospace">A</span> instead of
+<span style="font-family:monospace">A</span>, then changing <span style="font-family:monospace">B</span> won’t affect <span style="font-family:monospace">A</span>.</p><h4 id="sec1926" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:=[0,1,2,3,4]</span>
+<span style="font-family:monospace">B:=copy(A)</span>
+<span style="font-family:monospace">B[3]=&lt;33</span>
+<span style="font-family:monospace">A,B</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2,3,4</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2,33,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en752.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en754.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

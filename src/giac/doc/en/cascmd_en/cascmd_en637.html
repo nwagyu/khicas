@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Frequencies: frequencies frequences
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en636.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en638.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:frequencies" class="subsection">8.1.12  Frequencies: <span style="font-family:monospace">frequencies</span> <span style="font-family:monospace">frequences</span>
+
+<a id="hevea_default1144"></a>
+<a id="hevea_default1145"></a></h3>
+<p>The frequency of a number in a list is the fraction of the list equal
+to the number. The <span style="font-family:monospace">frequencies</span> command finds the frequencies
+of the numbers in a list.<br>
+<span style="font-family:monospace">frequences</span> is a synonym for <span style="font-family:monospace">frequencies</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">frequencies</span> takes one argument:<br>
+ <span style="font-style:italic">L</span>, a list of numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">frequencies(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns a list whose elements are
+the numbers in the list and their frequencies.
+</li></ul><h4 id="sec1588" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">frequencies([1,2,1,1,2,1,2,4,3,3])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0.4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0.3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >0.2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >0.1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>You can use this, for example, to simulate flipping a fair coin and
+seeing how many times each side appears; to flip a coin 1000 times,
+for example:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">frequencies([rand(2) $ (k=1..1000)])</span>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0.484</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0.516</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+(See Section <a href="cascmd_en650.html#ssec%3Arand">8.3.1</a> for information on <span style="font-family:monospace">rand</span>.)
+</p>
+<hr>
+<a href="cascmd_en636.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en638.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

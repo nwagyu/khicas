@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The conjugate gradient algorithm: conjugate_gradient
+</title>
+</head>
+<body >
+<a href="cascmd_en557.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en559.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1396" class="subsection">5.54.4  The conjugate gradient algorithm: <span style="font-family:monospace">conjugate_gradient</span>
+<a id="hevea_default950"></a></h3>
+<p>The <span style="font-family:monospace">conjugate_gradient</span> command uses the conjugate gradient
+algorithm to solve a linear system of equations.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">conjugate_gradient</span> takes two mandatory arguments
+and two optional arguments.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, an <span style="font-style:italic">n</span>× <span style="font-style:italic">n</span> positive definite symmetric matrix.
+</li><li class="li-itemize"><span style="font-style:italic">y</span>, a vector of length <span style="font-style:italic">n</span>.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span><sub>0</sub>, a vector of length <span style="font-style:italic">n</span>, an initial
+approximation.
+</li><li class="li-itemize">є, a positive number (by default <span style="font-family:monospace">epsilon</span>,
+see Section <a href="cascmd_en027.html#ssec%3Aconfcomp">2.5.7</a>, item <a href="cascmd_en027.html#enum%3Aeps">9</a>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">conjugate_gradient(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">y</span> ⟨ <span style="font-style:italic">x</span><sub>0</sub>,є⟩<span style="font-family:monospace">)</span>
+returns the solution to <span style="font-style:italic">Ax</span> = <span style="font-style:italic">y</span> to within є.
+</li></ul><h4 id="sec1397" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">conjugate_gradient([[2,1],[1,5]],[1,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">9</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">9</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">conjugate_gradient([[2,1],[1,5]],[1,0],[0.55,-0.11],1e-2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.555,−0.11</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">conjugate_gradient([[2,1],[1,5]],[1,0],[0.55,-0.11],1e-10)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.555555555556,−0.111111111111</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en557.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en559.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

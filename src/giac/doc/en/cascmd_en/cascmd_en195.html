@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Substituting a variable by a value: |
+</title>
+</head>
+<body >
+<a href="cascmd_en194.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en196.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec404" class="subsection">5.12.17  Substituting a variable by a value: <span style="font-family:monospace">|</span>
+<a id="hevea_default324"></a></h3>
+<p>The <span style="font-family:monospace">|</span> operator is an infixed operator that evaluates an
+expression after giving values to some variables. It does not
+evaluate the expression before the variables are replaced by the
+requested values.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">|</span> is an infixed operator, so takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression depending on one or more
+variables on the left hand side.
+</li><li class="li-itemize"><span style="font-style:italic">x</span><sub>1</sub>=<span style="font-style:italic">a</span><sub>1</sub>, ldots; an equality or 
+sequence of several equalities.
+</li></ul>
+</li><li class="li-itemize"><span style="font-style:italic">expr</span><span style="font-family:monospace">|</span><span style="font-style:italic">x</span><sub>1</sub>=<span style="font-style:italic">a</span><sub>1</sub>,… returns the expression
+<span style="font-style:italic">expr</span> with <span style="font-style:italic">x</span><sub>1</sub> replaced by <span style="font-style:italic">a</span><sub>1</sub>, etc.
+</li></ul><h4 id="sec405" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">a^2 + 1 | a = 2</span>
+</div>
+<span style="font-style:italic">Output (even if </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> has been assigned a value):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">a^2 + b | a = 2, b = 3</span>
+</div>
+<span style="font-style:italic">Output (even if </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> or </span><span style="font-style:italic"><span style="font-family:monospace">b</span></span><span style="font-style:italic"> had been assigned a value):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  7
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en194.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en196.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

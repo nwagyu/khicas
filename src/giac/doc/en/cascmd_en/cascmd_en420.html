@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Transforming sequences into lists and lists into sequences: [] nop op makesuite
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en419.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en421.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:makesuiteop" class="subsection">5.39.10  Transforming sequences into lists and lists into sequences: <span style="font-family:monospace">[]</span> <span style="font-family:monospace">nop</span> <span style="font-family:monospace">op</span> <span style="font-family:monospace">makesuite</span>
+<a id="hevea_default697"></a>
+<a id="hevea_default698"></a>
+<a id="hevea_default699"></a>
+<a id="hevea_default700"></a>
+</h3>
+<p>To transform a sequence into list, you can put square brackets
+(<span style="font-family:monospace">[]</span>) around the sequence. The <span style="font-family:monospace">makevector</span> and
+<span style="font-family:monospace">nop</span> commands have the same effect.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">makevector</span> (or <span style="font-family:monospace">nop</span>) takes one argument:<br>
+ <span style="font-style:italic">S</span>, a sequence.
+</li><li class="li-itemize"><span style="font-family:monospace">makevector(</span><span style="font-style:italic">S</span><span style="font-family:monospace">)</span> (or <span style="font-family:monospace">nop(</span><span style="font-style:italic">S</span><span style="font-family:monospace">)</span>) returns the
+list with the same elements as <span style="font-style:italic">S</span> in the same order.
+</li></ul><h4 id="sec977" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">[seq(j^3,j=1..4)]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">[(j^3)$(j=1..4)]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">nop(j^3$(j=1..4))</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">makevector(j^3$(j=1..4))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,8,27,64</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">makesuite</span> command transforms a list into a sequence.
+Note that <span style="font-family:monospace">op</span> (see Section <a href="cascmd_en211.html#ssec%3Aop">5.15.3</a>) can do the same thing.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">makesuite</span> takes one argument:<br>
+ <span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-family:monospace">makesuite(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns the sequence with the same
+elements as <span style="font-style:italic">L</span> and the same order.
+</li></ul><h4 id="sec978" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">makesuite([0,1,2])</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">op([0,1,2])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0,1,2
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en419.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en421.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

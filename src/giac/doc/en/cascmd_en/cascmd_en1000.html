@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Convolution of two signals or functions: convolution
+</title>
+</head>
+<body >
+<a href="cascmd_en999.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1001.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:convolution" class="subsection">15.2.8  Convolution of two signals or functions: <span style="font-family:monospace">convolution</span>
+<a id="hevea_default1710"></a></h3>
+<p>The convolution of two real vectors
+<span style="font-style:italic">v</span>=[<span style="font-style:italic">v</span><sub>1</sub>,…,<span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span></sub>] and <span style="font-style:italic">w</span>=[<span style="font-style:italic">w</span><sub>1</sub>,…,<span style="font-style:italic">w</span><sub><span style="font-style:italic">m</span></sub>] is the complex vector
+<span style="font-style:italic">z</span>=<span style="font-style:italic">v</span>∗ <span style="font-style:italic">w</span> of length <span style="font-style:italic">n</span>+<span style="font-style:italic">m</span>−1 given by
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">z</span><sub><span style="font-style:italic">k</span></sub>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">i</span>=0</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">v</span><sub><span style="font-style:italic">i</span></sub> <span style="font-style:italic">w</span><sub><span style="font-style:italic">k</span>−<span style="font-style:italic">i</span></sub>,   <span style="font-style:italic">k</span>=0,1,…,<span style="font-style:italic">N</span>−1, 
+</td></tr>
+</table><p> 
+such that <span style="font-style:italic">v</span><sub><span style="font-style:italic">j</span></sub>=0  for  <span style="font-style:italic">j</span>≥ <span style="font-style:italic">n</span> and  <span style="font-style:italic">w</span><sub><span style="font-style:italic">j</span></sub>=0 for  <span style="font-style:italic">j</span>≥ <span style="font-style:italic">m</span>.</p><p>The convolution of two real functions <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) and <span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>) is the
+integral 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">+∞</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">−∞</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>) <span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>−<span style="font-style:italic">t</span>) <span style="font-style:italic">d</span><span style="font-style:italic">t</span> 
+</td></tr>
+</table><p>variable  <span style="font-style:italic">x</span>  as an optional third argument, in which case the
+<span style="font-family:monospace">convolution</span> takes two arguments, a real vector  <span style="font-weight:bold"><span style="font-style:italic">v</span></span> 
+of length  <span style="font-style:italic">n</span>  and a real vector  <span style="font-weight:bold"><span style="font-style:italic">w</span></span>  of length  <span style="font-style:italic">m</span> , and
+returns their convolution  <span style="font-weight:bold"><span style="font-style:italic">z</span></span>=<span style="font-weight:bold"><span style="font-style:italic">v</span></span>∗<span style="font-weight:bold"><span style="font-style:italic">w</span></span> 
+which is the vector of length  <span style="font-style:italic">N</span>=<span style="font-style:italic">n</span>+<span style="font-style:italic">m</span>−1  defined as: </p><p>The <span style="font-family:monospace">convolution</span> command finds the convolution of two vectors
+or two functions.</p><p>For the convolution of two vectors:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convolution</span> takes two arguments:<br>
+ <span style="font-style:italic">v</span>,<span style="font-style:italic">w</span>, two vectors (not necessarily the same length).
+</li><li class="li-itemize"><span style="font-family:monospace">convolution(</span><span style="font-style:italic">v</span>,<span style="font-style:italic">w</span><span style="font-family:monospace">)</span> returns the convolution
+correlation <span style="font-style:italic">v</span>∗ <span style="font-style:italic">w</span>.
+</li></ul><h4 id="sec2505" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">convolution([1,2,3],[1,-1,1,-1])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1.0,1.0,2.0,−2.0,1.0,−3.0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>For the convolution of two functions:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convolution</span> takes two mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>,<span style="font-style:italic">g</span>, two expressions of a variable.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the variable name.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">convolution(</span><span style="font-style:italic">f</span>,<span style="font-style:italic">g</span> ⟨ <span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span> returns the
+convolution of <span style="font-style:italic">f</span> and <span style="font-style:italic">g</span>.<p>The functions <span style="font-style:italic">f</span> and <span style="font-style:italic">g</span> are causal functions, i.e. <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>)=0
+for <span style="font-style:italic">x</span>&lt;0. Therefore both  <span style="font-style:italic">f</span>  and  <span style="font-style:italic">g</span>  are 
+multiplied by Heaviside function prior to integration.
+</p></li></ul><h4 id="sec2506" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Compute the convolution of <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=25 <span style="font-style:italic">e</span><sup>2 <span style="font-style:italic">x</span></sup> <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>) and
+<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">x</span> <span style="font-style:italic">e</span><sup>−3 <span style="font-style:italic">x</span></sup> θ(<span style="font-style:italic">x</span>), where θ is the Heaviside function:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convolution(25*exp(2x),x*exp(-3x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−5 <span style="font-style:italic">x</span> <span style="font-style:italic">e</span><sup>−3 <span style="font-style:italic">x</span></sup>−<span style="font-style:italic">e</span><sup>−3 <span style="font-style:italic">x</span></sup>+<span style="font-style:italic">e</span><sup>2 <span style="font-style:italic">x</span></sup></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize">Compute the convolution of <span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>)=ln(1+<span style="font-style:italic">t</span>) <span style="font-style:italic">u</span>(<span style="font-style:italic">t</span>) and 
+<span style="font-style:italic">g</span>(<span style="font-style:italic">t</span>)=1/√<span style="text-decoration:overline"><span style="font-style:italic">t</span></span>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convolution(ln(1+t),1/sqrt(t),t)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">2 <span style="font-style:italic">t</span> ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪<br>
+⎪</td><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span></td></tr>
+</table></td><td class="dcell">−2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span>+1</td></tr>
+</table></td><td class="dcell">⎪<br>
+⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span></td></tr>
+</table></td><td class="dcell">+2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span>+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+4 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span></td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span>+1</td></tr>
+</table></td><td class="dcell">+2 ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪<br>
+⎪</td><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span></td></tr>
+</table></td><td class="dcell">−2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span>+1</td></tr>
+</table></td><td class="dcell">⎪<br>
+⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span></td></tr>
+</table></td><td class="dcell">+2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span>+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">t</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">t</span>+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">In this example, convolution is used for reverberation. Assume
+that the directory <span style="font-family:monospace">sounds</span> contains two files, a dry, mono 
+recording of a guitar stored in <span style="font-family:monospace">guitar.wav</span> and a two-channel
+impulse response recorded in a French 18th century salon and stored in
+<span style="font-family:monospace">salon-ir.wav</span>.<br>
+Load the files:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">clip:=readwav("/path/to/sounds/guitar.wav"):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">ir:=readwav("/path/to/sounds/salon-ir.wav"):;</span>
+</td></tr>
+</table>
+</div>
+Then:
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotwav(clip)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en384.png">
+</div>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotwav(ir)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en385.png">
+</div>
+Convolving the data from <span style="font-family:monospace">clip</span> with both channels in
+<span style="font-family:monospace">ir</span> produces a reverberated variant of the recording, in
+stereo.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">data:=channel_data(clip):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L:=convolution(data,channel_data(ir,1)):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">R:=convolution(data,channel_data(ir,2)):;</span>
+</td></tr>
+</table>
+</div>
+The convolved signals <span style="font-family:monospace">L</span> and <span style="font-family:monospace">R</span> now become the left
+and right channel of a new audio clip, respectively. The
+<span style="font-family:monospace">normalize</span> option is used because convolution usually results
+in a huge increase of sample values (which is clear from the
+definition).
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">spatial:=createwav([L,R],normalize=-3):; playsnd(spatial)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+A sound that sounds as if it was recorded in the same salon as the
+impulse response. Moreover, it is a true stereo sound. To visualize it:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotwav(spatial)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en386.png">
+</div>
+Note that the resulting audio is longer than the input (for the length
+of the impulse response). 
+</li></ul>
+<hr>
+<a href="cascmd_en999.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1001.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

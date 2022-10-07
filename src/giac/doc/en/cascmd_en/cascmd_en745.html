@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Input: input Input InputStr textinput output Output
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en744.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en746.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1903" class="subsection">12.2.2  Input: <span style="font-family:monospace">input</span> <span style="font-family:monospace">Input</span> <span style="font-family:monospace">InputStr</span> <span style="font-family:monospace">textinput</span> <span style="font-family:monospace">output</span> <span style="font-family:monospace">Output</span>
+<a id="hevea_default1342"></a>
+<a id="hevea_default1343"></a>
+<a id="hevea_default1344"></a>
+<a id="hevea_default1345"></a>
+<a id="hevea_default1346"></a>
+<a id="hevea_default1347"></a></h3>
+<p>The <span style="font-family:monospace">input</span> command prompts the user for the value of a variable.<br>
+<span style="font-family:monospace">Input</span> is a synonym for <span style="font-family:monospace">input</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">input</span> takes an unspecified number of commands:<br>
+ <span style="font-style:italic">vars</span>, a sequence of variable names, each one optionally
+preceded by a string.
+</li><li class="li-itemize"><span style="font-family:monospace">input(</span><span style="font-style:italic">vars</span><span style="font-family:monospace">)</span> brings up a box where
+the user can enter a value for each variable.<br>
+ If a variable is preceded with a string, then that string will be
+the prompt for the variable, otherwise the variable name will be the
+prompt.
+</li></ul><h4 id="sec1904" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">input(a)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en136.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">input("Set a to the value: ",a)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en137.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">input(a,bee,c)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en138.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">input("Set a to the value: ",a,bee,"Set c to this value: ",c)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en139.png">
+</div>
+</li></ul><p><br>
+</p><p>If the value that you enter for <span style="font-family:monospace">input</span> is a string, it should
+be between quotes. If you want the user to enter a string without
+having to use the quotes, you can use the <span style="font-family:monospace">InputStr</span> command,
+which is just like <span style="font-family:monospace">input</span> except that it will assume any input
+is a string and so the user won’t need to use quotes.<br>
+<span style="font-family:monospace">textinput</span> is a synonym for <span style="font-family:monospace">InputStr</span>.</p><p><br>
+</p><p>The <span style="font-family:monospace">output</span> command creates message windows:<br>
+<span style="font-family:monospace">Output</span> is a synonym for <span style="font-family:monospace">output</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">output</span> takes one argument:<br>
+ <span style="font-family:monospace">strs</span>, a sequence of strings or variables which represent
+strings.
+</li><li class="li-itemize"><span style="font-family:monospace">output(</span><span style="font-style:italic">strs</span><span style="font-family:monospace">)</span> creates a message
+window displaying the concatentation of the strings.
+</li></ul><h4 id="sec1905" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">s := "message"</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">output("This is a ",s)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en140.png">
+</div><p><br>
+</p><p>You can use <span style="font-family:monospace">output</span> to add
+information to the input window.</p><h4 id="sec1906" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">input(output("Calculate p(a)"),"polynomial",p,"value",a)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en141.png">
+</div>
+<hr>
+<a href="cascmd_en744.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en746.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Intersection of a 2D graph with the axis
+</title>
+</head>
+<body >
+<a href="cascmd_en606.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en608.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1520" class="subsection">7.7.7  Intersection of a 2D graph with the axis
+<a id="hevea_default1085"></a><a id="hevea_default1086"></a></h3>
+<p>You can find the intersection of the graph <span style="font-style:italic">y</span>=<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) of a function with
+the axes using the commands covered so far.
+</p><ul class="itemize"><li class="li-itemize">
+Finding the intersection of the graph with the
+<span style="font-style:italic">y</span>-axis is simply evaluating
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(0),
+</td></tr>
+</table>
+indeed the point with coordinates (0,<span style="font-style:italic">f</span>(0)) is the intersection point
+of the graph of <span style="font-style:italic">f</span> with the <span style="font-style:italic">y</span>-axis.
+</li><li class="li-itemize">Finding the intersection of the graph of <span style="font-style:italic">f</span> with the <span style="font-style:italic">x</span>-axis
+requires solving the equation <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=0.
+<ul class="itemize"><li class="li-itemize">
+If <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) is polynomial-like, then you can find the 
+the exact values of the abscissa of these points with 
+<span style="font-family:monospace">solve</span> (see Section <a href="cascmd_en569.html#ssec%3Asolve">5.55.6</a>).<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve(</span><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>),<span style="font-style:italic">x</span><span style="font-family:monospace">)</span>
+</div>
+returns the solution.
+</li><li class="li-itemize">Otherwise, you can find numeric approximations of these
+abscissa. First, look at the graph for an initial guess <span style="font-style:italic">x</span><sub>0</sub> or a 
+range with an intersection and then refine it with
+<span style="font-family:monospace">fsolve</span> (see Section <a href="index.html#sec%3Afsolve">10.4</a>).<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fsolve(</span><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>),<span style="font-style:italic">x</span>,<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">method</span><span style="font-family:monospace">)</span>
+</div>
+returns a numeric approximation of a solution.
+</li></ul>
+</li></ul>
+<hr>
+<a href="cascmd_en606.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en608.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Testing positive definiteness of a symmetric matrix: isposdef</title>
+</head>
+<body >
+<a href="cascmd_en511.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en513.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1263" class="subsection">5.47.16  Testing positive definiteness of a symmetric matrix: <span style="font-family:monospace">isposdef</span></h3>
+<p>
+<a id="hevea_default886"></a></p><p>The <span style="font-family:monospace">isposdef</span> command checks whether the given symmetric matrix <span style="font-style:italic">A</span>∈ℝ<sup><span style="font-style:italic">n</span>× <span style="font-style:italic">n</span></sup>
+is positive definite, i.e. whether <span style="font-style:italic">x</span><sup><span style="font-style:italic">T</span></sup><span style="font-style:italic">Ax</span>&gt;0 for all vectors <span style="font-style:italic">x</span>∈ℝ<sup><span style="font-style:italic">n</span></sup>.</p><p><span style="font-family:monospace">isposdef</span> takes a symmetric matrix <span style="font-style:italic">A</span> as its only argument and returns 1 if <span style="font-style:italic">A</span> is positive
+definite and 0 otherwise. Note that this procedure does not check whether <span style="font-style:italic">A</span> is symmetric.</p><h4 id="sec1264" class="subsubsection">Example</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isposdef([[1,-1,2],[-1,4,3],[2,3,-5]])</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1 </td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">isposdef([[1,-1,2],[-1,-2,3],[2,3,-5]])</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0 </td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en511.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en513.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Power regression: power_regression power_regression_plot
+
+</title>
+</head>
+<body >
+<a href="cascmd_en646.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en648.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1616" class="subsection">8.2.7  Power regression: <span style="font-family:monospace">power_regression</span> <span style="font-family:monospace">power_regression_plot</span>
+<a id="hevea_default1167"></a>
+<a id="hevea_default1168"></a></h3>
+<p>The <span style="font-family:monospace">power_regression</span> command finds the graph <span style="font-style:italic">y</span>=<span style="font-style:italic">bx</span><sup><span style="font-style:italic">m</span></sup> which
+best fits a set of data points.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">power_regression</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">xcoords</span>, a list of <span style="font-style:italic">x</span>-coordinates.
+</li><li class="li-itemize"><span style="font-family:monospace">ycoords</span>, a list of <span style="font-style:italic">y</span>-coordinates.
+</li></ul>
+You can combine two arguments into a matrix with two columns (each
+list becomes a column of the matrix). 
+</li><li class="li-itemize"><span style="font-family:monospace">power_regression(</span><span style="font-style:italic">xcoords,ycoords</span><span style="font-family:monospace">)</span>
+returns a sequence <span style="font-style:italic">m</span>,<span style="font-style:italic">b</span> of the numbers in the best fit power
+equation <span style="font-style:italic">y</span>=<span style="font-style:italic">b</span> <span style="font-style:italic">x</span><sup><span style="font-style:italic">m</span></sup>.
+</li></ul><h4 id="sec1617" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">power_regression([[1,1],[2,4],[3,9],[4,16]])</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">power_regression([1,2,3,4],[1,4,9,16])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2.0,1.0
+</td></tr>
+</table><p>
+so the best fit (in this case, exact fit) power curve will be <span style="font-style:italic">y</span> = 1.0 <span style="font-style:italic">x</span><sup>2</sup>.</p><p><br>
+</p><p>The <span style="font-family:monospace">power_regression_plot</span> command draws the best fit
+power function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">power_regression_plot</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">xcoords</span>, a list of <span style="font-style:italic">x</span>-coordinates.
+</li><li class="li-itemize"><span style="font-family:monospace">ycoords</span>, a list of <span style="font-style:italic">y</span>-coordinates.
+</li></ul>
+You can combine two arguments into a matrix with two columns (each
+list becomes a column of the matrix). 
+</li><li class="li-itemize"><span style="font-family:monospace">power_regression_plot(</span><span style="font-style:italic">xcoords,ycoords</span><span style="font-family:monospace">)</span>
+draws the best fit power function, and puts the equation and <span style="font-style:italic">R</span><sup>2</sup>
+value above the graph.
+</li></ul><h4 id="sec1618" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">power_regression_plot([1,2,3,4],[1,4,9,16])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en125.png">
+</div><p>
+Note that in this case the <span style="font-style:italic">R</span><sup>2</sup> value is 1, indicating that
+the data points fall directly on the curve.</p>
+<hr>
+<a href="cascmd_en646.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en648.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

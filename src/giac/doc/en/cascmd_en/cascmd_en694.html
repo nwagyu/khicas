@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Testing a distribution with the χ2 distribution: chisquaret</title>
+</head>
+<body >
+<a href="cascmd_en693.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en695.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1803" class="subsection">8.5.4  Testing a distribution with the χ<sup>2</sup> distribution: <span style="font-family:monospace">chisquaret</span></h3>
+<p>
+<a id="hevea_default1281"></a></p><p>The <span style="font-family:monospace">chisquaret</span> command will use the χ<sup>2</sup> test to compare
+sample data to a specified distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">chisquaret</span> takes one mandatory argument and an
+unspecified number of optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list of sample data.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">distr</span>. This can be one of
+<ul class="itemize"><li class="li-itemize">
+The name of a distribution (see Section <a href="cascmd_en663.html#ssec%3Arandvar">8.3.14</a>
+for a list of distributions and their parameters).
+</li><li class="li-itemize">Another list of sample data.
+</li></ul>
+By default this will be the <span style="font-family:monospace">uniform</span> distribution.
+</li><li class="li-itemize"><span style="font-style:italic">params</span>, the parameters of the distribution
+<span style="font-style:italic">distr</span> or the keyword <span style="font-family:monospace">classes</span> and 
+optionally <span style="font-style:italic">c</span><sub><span style="font-style:italic">min</span></sub> and <span style="font-style:italic">c</span><sub><span style="font-style:italic">dim</span></sub>, the minimum size and default
+size of a statistics class (by default, <span style="font-family:monospace">class_min</span> and
+<span style="font-family:monospace">class_size</span>, which themselves default to 0 and 1; see
+Section <a href="cascmd_en028.html#ssec%3Aconfgraph">2.5.8</a>). 
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">chisquaret(</span><span style="font-style:italic">L</span> ⟨,<span style="font-style:italic">distr</span>⟩<span style="font-family:monospace">)</span>
+returns the result of the χ<sup>2</sup> test between the sample data and
+the named distribution or the two sample data.
+</li></ul><h4 id="sec1804" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chisquaret([57,54])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>Guessing data is the list of number of elements in each class,</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>         adequation to uniform distribution</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Sample adequation to a finite discrete probability distribution</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Chi2 test result 0.0810810810811,</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>reject adequation if superior to chisquare_icdf(1,0.95)=3.84145882069 or chisquare_icdf(1,1-alpha) if alpha!=5%</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>0.0810810810811</code>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chisquaret([1,1,1,1,1,0,0,1,0,1,1],[.4,.6])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>Sample adequation to a finite discrete probability distribution</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Chi2 test result 0.742424242424,</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>reject adequation if superior to chisquare_icdf(1,0.95)=3.84145882069</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>                     or chisquare_icdf(1,1-alpha) if alpha!=5%</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>0.742424242424</code>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chisquaret(ranv(1000,binomial,10,.5),binomial)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>Binomial: estimating n and p from data 10 0.5055</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Sample adequation to binomial(10,0.5055,.), Chi2 test result 7.77825189838,</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>reject adequation if superior to chisquare_icdf(7,0.95)=14.0671404493</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>                     or chisquare_icdf(7,1-alpha) if alpha!=5%</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>7.77825189838</code>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chisquaret(ranv(1000,binomial,10,.5),binomial,11,.5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>Sample adequation to binomial(11,0.5,.), Chi2 test result 125.617374161,</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>reject adequation if superior to chisquare_icdf(10,0.95)=18.3070380533</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>                     or chisquare_icdf(10,1-alpha) if alpha!=5%</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>125.617374161</code>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize">As an example using <span style="font-family:monospace">class_min</span> and <span style="font-family:monospace">class_size</span>:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L:= ranv(1000,normald,0,.2)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">chisquaret(L,normald,classes,-2,.25)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">or (setting </span><span style="font-style:italic"><span style="font-family:monospace">class_min</span></span><span style="font-style:italic"> to </span>−2<span style="font-style:italic"> and </span><span style="font-style:italic"><span style="font-family:monospace">class_size</span></span><span style="font-style:italic"> to </span>−0.25<span style="font-style:italic"> in the graphical configuration):</span>
+<div class="center">
+<span style="font-family:monospace">chisquaret(L,normald,classes)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>Normal density,</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>     estimating mean and stddev from data -0.00345919752912 0.201708100832</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>Sample adequation to normald_cdf(-0.00345919752912,0.201708100832,.),</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>     Chi2 test result 2.11405080381,</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>reject adequation if superior to chisquare_icdf(4,0.95)=9.48772903678</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>     or chisquare_icdf(4,1-alpha) if alpha!=5%</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>2.11405080381</code>
+</td></tr>
+</table>
+</div>
+In this last case, you are given the value of <span style="font-style:italic">d</span><sup>2</sup> of the statistic
+<span style="font-style:italic">D</span><sup>2</sup> = ∑<sub><span style="font-style:italic">j</span>=1</sub><sup><span style="font-style:italic">k</span></sup> (<span style="font-style:italic">n</span><sub><span style="font-style:italic">j</span></sub> − <span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub>)/<span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub>, where <span style="font-style:italic">k</span> is the number of
+sample classes for <span style="font-family:monospace">classes(L,-2,0.25)</span> (or
+<span style="font-family:monospace">classes(L)</span>), <span style="font-style:italic">n</span><sub><span style="font-style:italic">j</span></sub> is the size of the <span style="font-style:italic">j</span>th class, and <span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub> =
+<span style="font-style:italic">n</span> <span style="font-style:italic">p</span><sub><span style="font-style:italic">j</span></sub> where <span style="font-style:italic">n</span> is the size of <span style="font-family:monospace">L</span> and <span style="font-style:italic">p</span><sub><span style="font-style:italic">j</span></sub> is the
+probability of the <span style="font-style:italic">j</span>th class interval assuming a normal distribution
+with the mean and population standard deviation of <span style="font-family:monospace">L</span>.
+</li></ul>
+<hr>
+<a href="cascmd_en693.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en695.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

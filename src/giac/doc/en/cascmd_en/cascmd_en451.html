@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Folding operators: foldl foldr
+
+</title>
+</head>
+<body >
+<a href="cascmd_en450.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en452.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1046" class="subsection">5.40.31  Folding operators: <span style="font-family:monospace">foldl</span> <span style="font-family:monospace">foldr</span>
+<a id="hevea_default739"></a>
+<a id="hevea_default740"></a></h3>
+<p>The <span style="font-family:monospace">foldl</span> (left-fold) and <span style="font-family:monospace">foldr</span> (right-fold)
+commands take an infixed operator or function of two variables and
+apply them across a sequence of inputs through left and right
+association. </p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">foldl</span> takes an arbitrary number of arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">R</span>, an infixed operator or function of two variables.
+</li><li class="li-itemize"><span style="font-style:italic">I</span>, an initial value.
+</li><li class="li-itemize"><span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">a</span><sub>2</sub>,…, <span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub>, an arbitrary number of additional arguments.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">foldl(</span><span style="font-style:italic">R</span>,<span style="font-style:italic">I</span>,<span style="font-style:italic">a</span><sub>1</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub><span style="font-family:monospace">)</span> returns 
+<span style="font-style:italic">R</span>(… <span style="font-style:italic">R</span>(<span style="font-style:italic">R</span>(<span style="font-style:italic">I</span>,<span style="font-style:italic">a</span><sub>1</sub>),<span style="font-style:italic">a</span><sub>2</sub>)…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub>).
+</li></ul><h4 id="sec1047" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">foldl(’^’,2,3,5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">32768
+</td></tr>
+</table><p>
+which is 2<sup>(3<sup>5</sup>)</sup></p><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">foldr</span> takes an arbitrary number of arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">R</span>, an infixed operator or function of two variables.
+</li><li class="li-itemize"><span style="font-style:italic">I</span>, an initial value.
+</li><li class="li-itemize"><span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">a</span><sub>2</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span></sub>, an arbitrary number of additional arguments.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">foldr(</span><span style="font-style:italic">R</span>,<span style="font-style:italic">I</span>,<span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">a</span><sub>2</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub><span style="font-family:monospace">)</span> returns 
+<span style="font-style:italic">R</span>(<span style="font-style:italic">a</span>,…(<span style="font-style:italic">R</span>(<span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">R</span>(<span style="font-style:italic">a</span><sub>2</sub>,… <span style="font-style:italic">R</span>(<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span>−1</sub>,<span style="font-style:italic">R</span>(<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub>,<span style="font-style:italic">I</span>))))
+</li></ul><h4 id="sec1048" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">foldr(’^’,2,3,5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">847288609443
+</td></tr>
+</table><p>
+which is 3<sup>(5<sup>2</sup>)</sup></p>
+<hr>
+<a href="cascmd_en450.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en452.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

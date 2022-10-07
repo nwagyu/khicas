@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Modifying matrices</title>
+</head>
+<body >
+<a href="cascmd_en474.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en476.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1144" class="subsection">5.44.6  Modifying matrices</h3>
+<h4 id="sec1145" class="subsubsection">Modifying matrix elements by assignment: <span style="font-family:monospace">:=</span>
+<a id="hevea_default804"></a></h4>
+<p>You can change the elements of a named matrix by assignment
+(see Section <a href="cascmd_en055.html#ssec%3Aassign">4.4.2</a>).</p><h4 id="sec1146" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= [[1,2,6], [3,4,8], [1,0,1]]</span>
+</div><p>
+<span style="font-style:italic">then:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A[0,1]:= 5:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >8</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+Recall that the elements are indexed starting at 0, using double
+brackets allows you to use indices starting at 1.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A[[1,2]]:=7:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A</span> 
+</td></tr>
+</table> 
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >8</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>You can use assignment to change several entries of a matrix at one.</p><h4 id="sec1147" class="subsubsection">Example</h4>
+<p>
+Create a diagonal matrix with a diagonal of <span style="font-family:monospace">[1,2,3]</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">M:= matrix(3,3)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">M[0..2,0..2]:= [1,2,3]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table><p>
+To make the last column <span style="font-family:monospace">[4,5,6]</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">M[0..2,2]:= [4,5,6]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+<h4 id="sec1148" class="subsubsection">Modifying matrix elements by reference: <span style="font-family:monospace">::=</span> <span style="font-family:monospace">=&lt;</span>
+<a id="hevea_default805"></a>
+<a id="hevea_default806"></a></h4>
+<p>When you change an element of a matrix with the <span style="font-family:monospace">:=</span>
+assignment, a new copy of the matrix is created with the modified
+element. Particularly for large matrices, it is more efficient to use
+the <span style="font-family:monospace">=&lt;</span> assignment (see Section <a href="cascmd_en056.html#ssec%3Arefassign">4.4.3</a>), which will
+change the element of the matrix without making a copy.</p><h4 id="sec1149" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= [[4,5],[2,6]]</span>
+</div><p>
+The following commands will all return the matrix <span style="font-family:monospace">A</span> with the
+element in the second row, first column, changed to 3.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[1,0]:= 3</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[1,0] =&lt; 3</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[[2,1]]:= 3</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[[2,1]] =&lt; 3</span>
+</div><p>
+<span style="font-style:italic">then:</span>
+</p><div class="center">
+<span style="font-family:monospace">A</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p>You can change larger parts of a matrix simultaneously.</p><h4 id="sec1150" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= [[4,5],[2,6]]</span>
+</div><p>
+The following commands will change
+the second row to <span style="font-family:monospace">[3,7]</span><br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[1]:= [3,7]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[1] =&lt; [3,7]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[[2]]:= [3,7]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[[2]] =&lt; [3,7]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p>The <span style="font-family:monospace">=&lt;</span> assignment must be used carefully, since it not only
+modifies a matrix <span style="font-family:monospace">A</span>, it modifies all objects pointing to
+<span style="font-family:monospace">A</span>. In a program, initialization should contain a line like
+<span style="font-family:monospace">A:= copy(B)</span> (see Section <a href="cascmd_en057.html#ssec%3Acopy">4.4.4</a>) so modifications done on
+<span style="font-family:monospace">A</span> don’t affect <span style="font-family:monospace">B</span>, and modifications done on
+<span style="font-family:monospace">B</span> don’t affect <span style="font-family:monospace">A</span>.</p><p>For example:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">B:= [[4,5],[2,6]]</span>
+</div><p>
+<span style="font-style:italic">then:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= B</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A =&lt; B</span>
+</div><p>
+creates two matrices equal to
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[1] =&lt; [3,7]</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">B[1] =&lt; [3,7]</span>
+</div><p>
+transforms both <span style="font-family:monospace">A</span> and <span style="font-family:monospace">B</span> to 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p>On the other hand, creating <span style="font-family:monospace">A</span> and <span style="font-family:monospace">B</span> with:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">B:= [[4,5],[2,6]]</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:= copy(B)</span>
+</td></tr>
+</table>
+</div><p>
+will again create two matrices equal to
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+But:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A[1] =&lt; [3,7]</span>
+</div><p>
+will change <span style="font-family:monospace">A</span> to 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+but <span style="font-family:monospace">B</span> will still be
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1151" class="subsubsection">Modifying an element or a row of a matrix: <span style="font-family:monospace">subsop</span>
+<a id="hevea_default807"></a></h4>
+<p>The <span style="font-family:monospace">subsop</span> command modifies elements of lists (see
+Section <a href="cascmd_en427.html#ssec%3Asubsoplist">5.40.7</a>), and so you can use it to modify elements or rows of matrices.
+It is used mainly for <span style="font-family:monospace">Maple</span> and <span style="font-family:monospace">MuPAD</span> compatibility,
+and the argument list is in a different order in <span style="font-family:monospace">Maple</span> mode. Unlike
+<span style="font-family:monospace">:=</span> or <span style="font-family:monospace">=&lt;</span>, it does not require the matrix to be
+stored in a variable.</p><p>Let <span style="font-family:monospace">A</span> be the matrix give by:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:=[[4,5],[2,6]]</span>
+</div>
+<h5 id="sec1152" class="paragraph">In <span style="font-family:monospace">Xcas</span>, <span style="font-family:monospace">Mupad</span> and <span style="font-family:monospace">TI</span> modes:</h5>
+<p>Recall that the indexing in <span style="font-family:monospace">Xcas</span> mode begins with 0, while in
+<span style="font-family:monospace">Mupad</span> and <span style="font-family:monospace">TI</span> modes it begins with 1.</p><p>To modify an element:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">subsop</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">[</span><span style="font-style:italic">r</span>,<span style="font-style:italic">c</span><span style="font-family:monospace">]=</span><span style="font-style:italic">v</span>, an equality between a matrix position
+(given as a list) and a value.<br>
+ The two sides of the equality can also be given as separate
+arguments.
+</li></ul>
+<span style="font-family:monospace">subsop(</span><span style="font-style:italic">A</span><span style="font-family:monospace">,[</span><span style="font-style:italic">r</span>,<span style="font-style:italic">c</span><span style="font-family:monospace">]=</span><span style="font-style:italic">v</span><span style="font-family:monospace">)</span> returns the matrix which is the
+same as <span style="font-style:italic">A</span> except that the element in row <span style="font-style:italic">r</span>, column <span style="font-style:italic">c</span> is now <span style="font-style:italic">v</span>.
+</li></ul><h4 id="sec1153" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Xcas</span></span><span style="font-style:italic"> mode):</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],[1,0]=3)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],[1,0],3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Mupad</span></span><span style="font-style:italic"> or </span><span style="font-style:italic"><span style="font-family:monospace">TI</span></span><span style="font-style:italic"> mode):</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],[2,1]=3)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],[2,1],3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>To modify a row:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">subsop</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">r</span>=<span style="font-style:italic">L</span>, an equality between a row index and a list with the
+same length as the rows of <span style="font-style:italic">A</span>.<br>
+ The two sides of the equality can also be given as separate
+arguments.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">subsop(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">r</span>=<span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns the matrix which is the
+same as <span style="font-style:italic">A</span> except that row <span style="font-style:italic">r</span> is now equal to the list <span style="font-style:italic">L</span>.
+</li></ul><h4 id="sec1154" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Xcas</span></span><span style="font-style:italic"> mode):</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],1=[3,3])</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],1,[3,3])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Mupad</span></span><span style="font-style:italic"> or </span><span style="font-style:italic"><span style="font-family:monospace">TI</span></span><span style="font-style:italic"> mode):</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],2=[3,3])</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],2,[3,3])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h5 id="sec1155" class="paragraph">In <span style="font-family:monospace">Maple</span> mode:</h5>
+<p>Recall that the indexing in <span style="font-family:monospace">Maple</span> mode
+begins with 1.</p><p>To modify an element:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">subsop</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">[</span><span style="font-style:italic">r</span>,<span style="font-style:italic">c</span><span style="font-family:monospace">]=</span><span style="font-style:italic">v</span>, an equality between a matrix position
+(given as a list) and a value.<br>
+ The two sides of the equality can also be given as separate
+arguments.
+</li><li class="li-itemize"><span style="font-style:italic">A</span>, a matrix.
+</li></ul>
+<span style="font-family:monospace">subsop([</span><span style="font-style:italic">r</span>,<span style="font-style:italic">c</span><span style="font-family:monospace">]=</span><span style="font-style:italic">v</span><span style="font-family:monospace">,</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns the matrix which is the
+same as <span style="font-style:italic">A</span> except that the element in row <span style="font-style:italic">r</span>, column <span style="font-style:italic">c</span> is now <span style="font-style:italic">v</span>.
+</li></ul><h4 id="sec1156" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">subsop([2,1]=3,[[4,5],[2,6]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>To modify a row:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">subsop</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">r</span>=<span style="font-style:italic">L</span>, an equality between a row index and a list with the
+same length as the rows of the second argument <span style="font-style:italic">A</span>.
+</li><li class="li-itemize"><span style="font-style:italic">A</span>, a matrix.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">subsop(</span><span style="font-style:italic">r</span>=<span style="font-style:italic">L</span>,<span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns the matrix which is the
+same as <span style="font-style:italic">A</span> except that row <span style="font-style:italic">r</span> is now equal to the list <span style="font-style:italic">L</span>.
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Example:</span><br>
+<span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Maple</span></span><span style="font-style:italic"> mode):</span>
+</p><div class="center">
+<span style="font-family:monospace">subsop(2=[3,3],[[4,5],[2,6]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h5 id="sec1157" class="paragraph">In all modes:</h5>
+<p>If the matrix is stored in a variable, for example with the matrix
+<span style="font-family:monospace">A</span> as above, it is easier to enter <span style="font-family:monospace">A[1,0]:=3</span> and
+<span style="font-family:monospace">A[1]=[3,3]</span> to modify <span style="font-family:monospace">A</span> as above.</p><p>Also, note that <span style="font-family:monospace">subsop</span> with a <span style="font-family:monospace">’n=NULL’</span> argument
+deletes row number <span style="font-family:monospace">n</span>.</p><h4 id="sec1158" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Xcas</span></span><span style="font-style:italic"> mode):</span>
+</p><div class="center">
+<span style="font-family:monospace">subsop([[4,5],[2,6]],’1=NULL’)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1159" class="subsubsection">Removing rows or columns of a matrix: <span style="font-family:monospace">delrows</span> <span style="font-family:monospace">delcols</span>
+<a id="hevea_default808"></a>
+<a id="hevea_default809"></a></h4>
+<p>The <span style="font-family:monospace">delrows</span> (respectively <span style="font-family:monospace">delcols</span>) command removes
+one or more rows (respectively columns) from a matrix.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">delrows</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">r</span>, an integer or a range of integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">delrows(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">r</span><span style="font-family:monospace">)</span> returns the matrix equal to <span style="font-style:italic">A</span> with
+the row(s) given by <span style="font-style:italic">r</span> removed.
+</li></ul><h4 id="sec1160" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">delrows([[1,2,3],[4,5,6],[7,8,9]],1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >9</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">delrows([[1,2,3],[4,5,6],[7,8,9]],0..1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >9</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">delcols</span> command behaves like <span style="font-family:monospace">delrows</span>, but for
+columns.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">delcols</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">c</span>, an integer or a range of integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">delrows(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">c</span><span style="font-family:monospace">)</span> returns the matrix equal to <span style="font-style:italic">A</span> with
+the column(s) given by <span style="font-style:italic">c</span> removed.
+</li></ul><h4 id="sec1161" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">delcols([[1,2,3],[4,5,6],[7,8,9]],1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >9</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">delcols([[1,2,3],[4,5,6],[7,8,9]],0..1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >9</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1162" class="subsubsection">Resizing a matrix or vector: <span style="font-family:monospace">REDIM</span> <span style="font-family:monospace">redim</span>
+<a id="hevea_default810"></a>
+<a id="hevea_default811"></a></h4>
+<p>The <span style="font-family:monospace">REDIM</span> command resizes matrices and vectors.<br>
+<span style="font-family:monospace">redim</span> is a synonym for <span style="font-family:monospace">REDIM</span>.</p><p>For matrices:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">REDIM</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">[</span><span style="font-style:italic">m</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">]</span>, a list of two positive integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">REDIM(</span><span style="font-style:italic">A</span><span style="font-family:monospace">,[</span><span style="font-style:italic">m</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">])</span> returns <span style="font-style:italic">A</span> resized to an <span style="font-style:italic">m</span>×
+<span style="font-style:italic">n</span> matrix, removing elements (if necessary) to make it smaller and
+adding 0s (if necessary) to make it larger.
+</li></ul><h4 id="sec1163" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REDIM([[4,1,-2],[1,2,-1],[2,1,0]],[5,4])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >−2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >−1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REDIM([[4,1,-2],[1,2,-1],[2,1,0]],[2,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p>For vectors:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">REDIM</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, a positive integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">REDIM(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">L</span> resized to a list of length
+<span style="font-style:italic">n</span>, removing elements (if necessary) to make it smaller and
+adding 0s (if necessary) to make it larger.
+</li></ul><h4 id="sec1164" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REDIM([4,1,-2,1,2,-1],10)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,1,−2,1,2,−1,0,0,0,0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REDIM([4,1,-2,1,2,-1],3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,1,−2</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1165" class="subsubsection">Replacing part of a matrix or vector: <span style="font-family:monospace">REPLACE</span> <span style="font-family:monospace">replace</span>
+<a id="hevea_default812"></a><a id="hevea_default813"></a></h4>
+<p>The <span style="font-family:monospace">REPLACE</span> command replaces part of a matrix or vector.<br>
+<span style="font-family:monospace">replace</span> is a synonym for <span style="font-family:monospace">REPLACE</span>.</p><p>For matrices:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">REPLACE</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">[</span><span style="font-style:italic">m</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">]</span>, a list of two positive integers.
+</li><li class="li-itemize"><span style="font-style:italic">B</span>, a matrix.
+</li></ul>
+<span style="font-family:monospace">REPLACE(</span><span style="font-style:italic">A</span><span style="font-family:monospace">,[</span><span style="font-style:italic">m</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">],</span><span style="font-style:italic">B</span><span style="font-family:monospace">)</span> returns the matrix equal to <span style="font-style:italic">A</span>
+but with the upper left corner of <span style="font-style:italic">B</span> placed at row <span style="font-style:italic">m</span>, column <span style="font-style:italic">n</span>,
+replacing the previous elements of <span style="font-style:italic">A</span>. The matrix <span style="font-style:italic">B</span> will be
+shrunk, if necessary, to fit.
+</li></ul><h4 id="sec1166" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REPLACE([[1,2,3],[4,5,6]],[0,1],[[5,6],[7,8]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >8</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REPLACE([[1,2,3],[4,5,6]],[1,2],[[7,8],[9,0]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p>For lists:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">REPLACE</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, a positive integer.
+</li><li class="li-itemize"><span style="font-style:italic">M</span>, another list.
+</li></ul>
+<span style="font-family:monospace">REPLACE(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">n</span>,<span style="font-style:italic">M</span><span style="font-family:monospace">)</span> returns the list equal to <span style="font-style:italic">L</span>
+but with the elements beginning at index <span style="font-style:italic">n</span> replaced by the
+elements of <span style="font-style:italic">M</span>, replacing the previous elements of <span style="font-style:italic">L</span>. The list
+<span style="font-style:italic">M</span> will be shrunk, if necessary, to fit.
+</li></ul><h4 id="sec1167" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REPLACE([4,1,-2,1,2,-1],2,[10,11])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,1,10,11,2,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">REPLACE([4,1,-2,1,2,-1],1,[10,11,13])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,10,11,13,2,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h4 id="ssec:applymat" class="subsubsection">Applying a function to the elements of a matrix: <span style="font-family:monospace">apply</span>
+</h4>
+<p>The <span style="font-family:monospace">apply</span> command can apply a function to the elements of a
+matrix. (See Section <a href="cascmd_en449.html#ssec%3Aapplymap">5.40.29</a> for other uses of <span style="font-family:monospace">apply</span>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">apply</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>, a function of one variable.
+</li><li class="li-itemize"><span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">matrix</span>, the symbol.
+</li></ul>
+<span style="font-family:monospace">apply(</span><span style="font-style:italic">f</span>,<span style="font-style:italic">A</span>,<span style="font-family:monospace">matrix)</span> returns a matrix whose elements are
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) for the elements <span style="font-style:italic">x</span> of <span style="font-style:italic">A</span>.
+</li></ul><h4 id="sec1169" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">apply(x-&gt;x^2,[[1,2,3],[4,5,6]],matrix)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >9</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >16</td><td style="text-align:center;white-space:nowrap" >25</td><td style="text-align:center;white-space:nowrap" >36</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en474.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en476.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

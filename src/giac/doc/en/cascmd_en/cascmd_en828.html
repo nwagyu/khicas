@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Circles and arcs in the plane: circle
+</title>
+</head>
+<body >
+<a href="cascmd_en827.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en829.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dcircles" class="subsection">13.11.1  Circles and arcs in the plane: <span style="font-family:monospace">circle</span>
+<a id="hevea_default1519"></a></h3>
+<p>See also Section <a href="cascmd_en829.html#ssec%3A2darcs">13.11.2</a>.</p><p>See Section <a href="index.html#sec%3A3dcircles">14.10</a> for circles in space.</p><p>The <span style="font-family:monospace">circle</span> command creates circles and arcs. You can specify the
+circle in different ways.
+</p><ul class="itemize"><li class="li-itemize">
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">circle</span> can take one argument:<br>
+ <span style="font-style:italic">eqn</span>, the equation of a circle with variables <span style="font-style:italic">x</span> and 
+<span style="font-style:italic">y</span> (or an expression assumed to be set to 0).<br>
+ </li><li class="li-itemize"><span style="font-family:monospace">circle(</span><span style="font-style:italic">eqn</span><span style="font-family:monospace">)</span> returns and draws the circle.
+</li></ul><h4 id="sec2112" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">circle(x2 + y2 - 2*x - 2*y)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en222.png">
+</div></li><li class="li-itemize"><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">circle</span> can take two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point.
+</li><li class="li-itemize">α, a complex number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">circle(</span><span style="font-style:italic">P</span>,α<span style="font-family:monospace">)</span> returns and draws the circle centered
+at <span style="font-style:italic">P</span> and whose radius is |α|.
+</li></ul><h4 id="sec2113" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">circle(-1,i)</span>
+</div><p>
+<span style="font-style:italic">Output</span>:
+</p><div class="center">
+<img src="cascmd_en223.png">
+</div></li><li class="li-itemize"><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">circle</span> can take two arguments:<br>
+ <span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>, two points (where <span style="font-style:italic">B</span> must be the value of
+<span style="font-family:monospace">point</span> and not simply the affix).
+</li><li class="li-itemize"><span style="font-family:monospace">circle(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span><span style="font-family:monospace">)</span> returns and draws the circle whose
+diameter is <span style="font-style:italic">AB</span>.
+</li></ul><h4 id="sec2114" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">circle(-1,point(i))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en224.png">
+</div></li><li class="li-itemize"><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">circle</span> can take four mandatory arguments and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a point.
+</li><li class="li-itemize"><span style="font-style:italic">r</span>, a complex number.
+</li><li class="li-itemize"><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>, two real numbers.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">var</span><sub>1</sub><span style="font-style:italic">,var</span><sub>2</sub>, variable names.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">circle(</span><span style="font-style:italic">C</span>,<span style="font-style:italic">r</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns and draws an arc of the
+circle with center <span style="font-style:italic">C</span> and radius |<span style="font-style:italic">r</span>|, with central angles <span style="font-style:italic">a</span>
+and <span style="font-style:italic">b</span>. The angles start on the axis defined by <span style="font-style:italic">C</span> and <span style="font-style:italic">C</span>+<span style="font-style:italic">r</span>.<br>
+ If the arguments <span style="font-style:italic">var</span><sub>1</sub> and <span style="font-style:italic">var</span><sub>2</sub> are given,
+they will be assigned to the ends of the arc.
+</li></ul><h4 id="sec2115" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">circle(-1,1,0,pi/4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en225.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">circle(-1,point(i),0,pi/4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en226.png">
+</div>
+</li></ul></li></ul>
+<hr>
+<a href="cascmd_en827.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en829.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,372 @@
+\begin{indexenv}
+\indexitem {\texttt{()}}, \@locref{hevea_default135}{3.5}
+\indexspace
+\indexitem {\texttt{->}}, \@locref{hevea_default130}{3.4}
+\indexspace
+\indexitem {\texttt{:=}}, \@locref{hevea_default7}{1.3}, \@locref{hevea_default45}{3.2}, \@locref{hevea_default51}{3.2}
+\indexspace
+\indexitem {\texttt{=}}, \@locref{hevea_default59}{3.2}, \@locref{hevea_default61}{3.2}
+\indexitem {\texttt{==}}, \@locref{hevea_default52}{3.2}, \@locref{hevea_default54}{3.2}
+\indexspace
+\indexitem {\texttt{[]}}, \@locref{hevea_default136}{3.5}
+\indexspace
+\indexitem {\texttt{\%\{ \%\}}}, \@locref{hevea_default137}{3.5}
+\indexspace
+\indexitem All\_trig\_sol, \@locref{hevea_default22}{2.3}
+\indexitem {\texttt{abs}}, \@locref{hevea_default73}{3.4}
+\indexitem absolute value, \@locref{hevea_default74}{3.4}
+\indexitem {\texttt{acos}}, \@locref{hevea_default120}{3.4}
+\indexitem {\texttt{acosh}}, \@locref{hevea_default126}{3.4}
+\indexitem addition, \@locref{hevea_default24}{3.1}
+\indexitem and, \@locref{hevea_default346}{7.1}
+\indexitem {\texttt{and}}, \@locref{hevea_default48}{3.2}
+\indexitem antiderivatives, \@locref{hevea_default189}{4.3}
+\indexitem {\texttt{append}}, \@locref{hevea_default144}{3.5}
+\indexitem {\texttt{apply}}, \@locref{hevea_default145}{3.5}
+\indexitem arc\begin{indexenv}
+\indexitem cosine, \@locref{hevea_default121}{3.4}
+\indexitem sine, \@locref{hevea_default119}{3.4}
+\indexitem tangent, \@locref{hevea_default123}{3.4}
+\end{indexenv}
+\indexitem {\texttt{arg}}, \@locref{hevea_default92}{3.4}
+\indexitem argument, \@locref{hevea_default93}{3.4}
+\indexitem {\texttt{asc}}, \@locref{hevea_default160}{3.6}
+\indexitem {\texttt{asin}}, \@locref{hevea_default118}{3.4}
+\indexitem {\texttt{asinh}}, \@locref{hevea_default124}{3.4}
+\indexitem {\texttt{assume}}, \@locref{hevea_default47}{3.2}
+\indexitem {\texttt{atan}}, \@locref{hevea_default122}{3.4}
+\indexitem {\texttt{atanh}}, \@locref{hevea_default128}{3.4}
+\indexspace
+\indexitem Bezout, \@locref{hevea_default212}{5.1}
+\indexitem Bezout's identity, \@locref{hevea_default249}{5.2}
+\indexitem Booleans, \@locref{hevea_default53}{3.2}
+\indexitem {\texttt{blockmatrix}}, \@locref{hevea_default281}{5.4}
+\indexspace
+\indexitem {\texttt{canonical\_form}}, \@locref{hevea_default224}{5.2}
+\indexitem {\texttt{ceil}}, \@locref{hevea_default84}{3.4}
+\indexitem {\texttt{char}}, \@locref{hevea_default161}{3.6}
+\indexitem characters, \@locref{hevea_default169}{3.6}
+\indexitem {\texttt{circle}}, \@locref{hevea_default317}{6.2}, \@locref{hevea_default326}{6.2}
+\indexitem cloud of dots, \@locref{hevea_default325}{6.2}
+\indexitem {\texttt{coeff}}, \@locref{hevea_default225}{5.2}
+\indexitem command line, \@locref{hevea_default2}{1.1}, \@locref{hevea_default23}{2.4}
+\indexitem complex roots, \@locref{hevea_default21}{2.3}
+\indexitem {\texttt{concat}}, \@locref{hevea_default163}{3.6}
+\indexitem {\texttt{cone}}, \@locref{hevea_default340}{6.3}
+\indexitem {\texttt{conj}}, \@locref{hevea_default90}{3.4}
+\indexitem conjugate, \@locref{hevea_default91}{3.4}
+\indexitem {\texttt{convert}}, \@locref{hevea_default69}{3.3}
+\indexitem {\texttt{coordinates}}, \@locref{hevea_default94}{3.4}
+\indexitem {\texttt{cos}}, \@locref{hevea_default106}{3.4}
+\indexitem {\texttt{cosh}}, \@locref{hevea_default114}{3.4}
+\indexitem cosine, \@locref{hevea_default107}{3.4}
+\begin{indexenv}
+\indexitem hyperbolic, \@locref{hevea_default115}{3.4}
+\end{indexenv}
+\indexitem cotangent, \@locref{hevea_default111}{3.4}
+\indexitem {\texttt{cumSum}}, \@locref{hevea_default142}{3.5}
+\indexitem cumulative sum, \@locref{hevea_default143}{3.5}
+\indexitem {\texttt{curl}}, \@locref{hevea_default176}{4.1}
+\indexitem curve\begin{indexenv}
+\indexitem implicit, \@locref{hevea_default312}{6}
+\indexitem parametric, \@locref{hevea_default310}{6}
+\indexitem polar, \@locref{hevea_default311}{6}
+\end{indexenv}
+\indexitem {\texttt{cyclotomic}}, \@locref{hevea_default252}{5.2}
+\indexspace
+\indexitem {\texttt{Digits}}, \@locref{hevea_default18}{2.3}
+\indexitem {\texttt{degree}}, \@locref{hevea_default229}{5.2}
+\indexitem {\texttt{desolve}}, \@locref{hevea_default194}{4.5}
+\indexitem {\texttt{det}}, \@locref{hevea_default274}{5.4}
+\indexitem determinant, \@locref{hevea_default287}{5.4}
+\indexitem diagonalization, \@locref{hevea_default295}{5.6}
+\indexitem {\texttt{diff}}, \@locref{hevea_default170}{4.1}
+\indexitem divergence, \@locref{hevea_default175}{4.1}
+\indexitem {\texttt{divergence}}, \@locref{hevea_default174}{4.1}
+\indexitem {\texttt{divis}}, \@locref{hevea_default235}{5.2}
+\indexitem division, \@locref{hevea_default27}{3.1}
+\indexitem divisors, \@locref{hevea_default236}{5.2}
+\indexitem {\texttt{divpc}}, \@locref{hevea_default250}{5.2}
+\indexspace
+\indexitem {\texttt{e}}, \@locref{hevea_default32}{3.1}
+\indexitem {\texttt{egcd}}, \@locref{hevea_default248}{5.2}
+\indexitem {\texttt{eigenvals}}, \@locref{hevea_default298}{5.6}
+\indexitem eigenvalues, \@locref{hevea_default302}{5.6}
+\indexitem eigenvectors, \@locref{hevea_default303}{5.6}
+\indexitem {\texttt{eigenvects}}, \@locref{hevea_default299}{5.6}
+\indexitem {\texttt{else}}, \@locref{hevea_default345}{7.1}, \@locref{hevea_default351}{7.1}
+\indexitem {\texttt{epsilon}}, \@locref{hevea_default19}{2.3}, \@locref{hevea_default31}{3.1}
+\indexitem {\texttt{equation}}, \@locref{hevea_default319}{6.2}, \@locref{hevea_default327}{6.2}
+\indexitem equations, \@locref{hevea_default60}{3.2}
+\indexitem {\texttt{evalf}}, \@locref{hevea_default5}{1.2}, \@locref{hevea_default13}{1.6}, \@locref{hevea_default29}{3.1}, \@locref{hevea_default42}{3.1}
+\indexitem {\texttt{exact}}, \@locref{hevea_default30}{3.1}, \@locref{hevea_default43}{3.1}
+\indexitem {\texttt{exp}}, \@locref{hevea_default98}{3.4}
+\indexitem {\texttt{exp2trig}}, \@locref{hevea_default267}{5.3}
+\indexitem {\texttt{expand}}, \@locref{hevea_default9}{1.4}, \@locref{hevea_default63}{3.3}, \@locref{hevea_default218}{5.2}
+\indexitem {\texttt{expr}}, \@locref{hevea_default168}{3.6}
+\indexspace
+\indexitem {\texttt{False}}, \@locref{hevea_default58}{3.2}
+\indexitem {\texttt{factor}}, \@locref{hevea_default10}{1.4}, \@locref{hevea_default66}{3.3}, \@locref{hevea_default233}{5.2}
+\indexitem {\texttt{factorial}}, \@locref{hevea_default95}{3.4}
+\indexitem {\texttt{factors}}, \@locref{hevea_default234}{5.2}
+\indexitem {\texttt{false}}, \@locref{hevea_default57}{3.2}
+\indexitem {\texttt{floor}}, \@locref{hevea_default83}{3.4}
+\indexitem {\texttt{for}}, \@locref{hevea_default352}{7.1}
+\indexitem {\texttt{frac}}, \@locref{hevea_default81}{3.4}
+\indexitem fractional part, \@locref{hevea_default82}{3.4}
+\indexitem {\texttt{froot}}, \@locref{hevea_default237}{5.2}
+\indexitem {\texttt{fsolve}}, \@locref{hevea_default191}{4.4}
+\indexitem function\begin{indexenv}
+\indexitem apply to a list, \@locref{hevea_default146}{3.5}
+\end{indexenv}
+\indexitem {\texttt{function\_diff}}, \@locref{hevea_default171}{4.1}
+\indexitem functions, \@locref{hevea_default8}{1.3}
+\indexspace
+\indexitem Gauss-Jordan, \@locref{hevea_default289}{5.5}
+\indexitem {\texttt{gcd}}, \@locref{hevea_default209}{5.1}, \@locref{hevea_default246}{5.2}
+\indexitem {\texttt{getDenom}}, \@locref{hevea_default241}{5.2}
+\indexitem {\texttt{getNum}}, \@locref{hevea_default240}{5.2}
+\indexitem {\texttt{grad}}, \@locref{hevea_default172}{4.1}
+\indexitem gradient, \@locref{hevea_default173}{4.1}
+\indexspace
+\indexitem Help index, \@locref{hevea_default12}{1.6}, \@locref{hevea_default14}{1.6}
+\indexitem {\texttt{head}}, \@locref{hevea_default165}{3.6}
+\indexitem {\texttt{hermite}}, \@locref{hevea_default256}{5.2}
+\indexitem {\texttt{hessian}}, \@locref{hevea_default178}{4.1}
+\indexitem {\texttt{horner}}, \@locref{hevea_default223}{5.2}
+\indexitem {\texttt{hyp2exp}}, \@locref{hevea_default268}{5.3}
+\indexspace
+\indexitem {\texttt{i}}, \@locref{hevea_default34}{3.1}
+\indexitem {\texttt{idivis}}, \@locref{hevea_default208}{5.1}
+\indexitem {\texttt{idn}}, \@locref{hevea_default277}{5.4}
+\indexitem {\texttt{{egcd}}}, \@locref{hevea_default211}{5.1}
+\indexitem {\texttt{if}}, \@locref{hevea_default344}{7.1}, \@locref{hevea_default350}{7.1}
+\indexitem {\texttt{ifactor}}, \@locref{hevea_default205}{5.1}
+\indexitem {\texttt{ifactors}}, \@locref{hevea_default207}{5.1}
+\indexitem {\texttt{im}}, \@locref{hevea_default88}{3.4}
+\indexitem {\texttt{image}}, \@locref{hevea_default276}{5.4}
+\indexitem imaginary part, \@locref{hevea_default89}{3.4}
+\indexitem {\texttt{inf}}, \@locref{hevea_default36}{3.1}
+\indexitem {\texttt{infinity}}, \@locref{hevea_default35}{3.1}
+\indexitem {\texttt{int}}, \@locref{hevea_default186}{4.3}
+\indexitem {\texttt{integer}}, \@locref{hevea_default62}{3.2}
+\indexitem integrals, \@locref{hevea_default188}{4.3}
+\indexitem {\texttt{inter}}, \@locref{hevea_default318}{6.2}, \@locref{hevea_default341}{6.3}
+\indexitem {\texttt{interactive\_plotode}}, \@locref{hevea_default198}{4.5}
+\indexitem interface, \@locref{hevea_default15}{2.1}
+\indexitem intersection, \@locref{hevea_default320}{6.2}
+\indexitem inverse\begin{indexenv}
+\indexitem cosine hyperbolic, \@locref{hevea_default127}{3.4}
+\indexitem sine hyperbolic, \@locref{hevea_default125}{3.4}
+\indexitem tangent hyperbolic, \@locref{hevea_default129}{3.4}
+\end{indexenv}
+\indexitem {\texttt{iquo}}, \@locref{hevea_default202}{5.1}
+\indexitem {\texttt{iquorem}}, \@locref{hevea_default204}{5.1}
+\indexitem {\texttt{irem}}, \@locref{hevea_default200}{5.1}
+\indexitem {\texttt{isprime}}, \@locref{hevea_default213}{5.1}
+\indexspace
+\indexitem Jordan form, \@locref{hevea_default294}{5.6}
+\indexitem {\texttt{jordan}}, \@locref{hevea_default293}{5.6}
+\indexspace
+\indexitem {\texttt{ker}}, \@locref{hevea_default275}{5.4}
+\indexspace
+\indexitem {\texttt{lagrange}}, \@locref{hevea_default254}{5.2}
+\indexitem {\texttt{laguerre}}, \@locref{hevea_default258}{5.2}
+\indexitem {\texttt{laplacian}}, \@locref{hevea_default177}{4.1}
+\indexitem {\texttt{lcm}}, \@locref{hevea_default210}{5.1}, \@locref{hevea_default247}{5.2}
+\indexitem {\texttt{lcoeff}}, \@locref{hevea_default230}{5.2}
+\indexitem {\texttt{legend}}, \@locref{hevea_default313}{6.2}
+\indexitem {\texttt{limit}}, \@locref{hevea_default181}{4.2}
+\indexitem {\texttt{linsolve}}, \@locref{hevea_default192}{4.4}, \@locref{hevea_default290}{5.5}
+\indexitem list, \@locref{hevea_default133}{3.5}
+\begin{indexenv}
+\indexitem of coefficients, \@locref{hevea_default150}{3.5}
+\end{indexenv}
+\indexitem lists, \@locref{hevea_default152}{3.5}
+\indexitem {\texttt{ln}}, \@locref{hevea_default100}{3.4}
+\indexitem {\texttt{log}}, \@locref{hevea_default99}{3.4}
+\indexitem {\texttt{log10}}, \@locref{hevea_default103}{3.4}
+\indexitem logarithm\begin{indexenv}
+\indexitem base 10, \@locref{hevea_default102}{3.4}
+\indexitem natural, \@locref{hevea_default101}{3.4}
+\end{indexenv}
+\indexitem loop, \@locref{hevea_default353}{7.1}
+\indexitem loops, \@locref{hevea_default343}{7.1}
+\indexspace
+\indexitem {\texttt{makematrix}}, \@locref{hevea_default280}{5.4}
+\indexitem {\texttt{map}}, \@locref{hevea_default147}{3.5}
+\indexitem matrix\begin{indexenv}
+\indexitem determinant, \@locref{hevea_default286}{5.4}
+\indexitem hessian, \@locref{hevea_default179}{4.1}
+\indexitem identity, \@locref{hevea_default282}{5.4}
+\indexitem image, \@locref{hevea_default285}{5.4}
+\indexitem kernel, \@locref{hevea_default284}{5.4}
+\indexitem rank, \@locref{hevea_default283}{5.4}
+\end{indexenv}
+\indexitem {\texttt{matrix}}, \@locref{hevea_default279}{5.4}
+\indexitem {\texttt{max}}, \@locref{hevea_default76}{3.4}
+\indexitem maximum, \@locref{hevea_default77}{3.4}
+\indexitem menu bar, \@locref{hevea_default16}{2.1}, \@locref{hevea_default17}{2.2}
+\indexitem {\texttt{mid}}, \@locref{hevea_default139}{3.5}, \@locref{hevea_default164}{3.6}
+\indexitem {\texttt{min}}, \@locref{hevea_default78}{3.4}
+\indexitem minimum, \@locref{hevea_default79}{3.4}
+\indexitem multiplication, \@locref{hevea_default26}{3.1}
+\indexspace
+\indexitem {\texttt{NULL}}, \@locref{hevea_default138}{3.5}
+\indexitem {\texttt{nextprime}}, \@locref{hevea_default215}{5.1}
+\indexitem {\texttt{normal}}, \@locref{hevea_default64}{3.3}, \@locref{hevea_default217}{5.2}
+\indexitem not, \@locref{hevea_default348}{7.1}
+\indexitem number\begin{indexenv}
+\indexitem prime, \@locref{hevea_default214}{5.1}
+\end{indexenv}
+\indexitem numbers\begin{indexenv}
+\indexitem approximate, \@locref{hevea_default4}{1.2}, \@locref{hevea_default37}{3.1}
+\indexitem exact, \@locref{hevea_default3}{1.2}, \@locref{hevea_default38}{3.1}, \@locref{hevea_default39}{3.1}
+\indexitem hexadecimal, \@locref{hevea_default41}{3.1}
+\indexitem octal, \@locref{hevea_default40}{3.1}
+\end{indexenv}
+\indexspace
+\indexitem {\texttt{odesolve}}, \@locref{hevea_default195}{4.5}
+\indexitem {\texttt{open\_polygon}}, \@locref{hevea_default324}{6.2}, \@locref{hevea_default337}{6.3}
+\indexitem or, \@locref{hevea_default347}{7.1}
+\indexitem {\texttt{or}}, \@locref{hevea_default49}{3.2}
+\indexspace
+\indexitem {\texttt{parameq}}, \@locref{hevea_default328}{6.2}
+\indexitem {\texttt{partfrac}}, \@locref{hevea_default72}{3.3}, \@locref{hevea_default243}{5.2}
+\indexitem {\texttt{pcar}}, \@locref{hevea_default296}{5.6}
+\indexitem {\texttt{pcoeff}}, \@locref{hevea_default228}{5.2}
+\indexitem {\texttt{peval}}, \@locref{hevea_default222}{5.2}
+\indexitem {\texttt{pi}}, \@locref{hevea_default33}{3.1}
+\indexitem {\texttt{plane}}, \@locref{hevea_default338}{6.3}
+\indexitem {\texttt{plotpolar}}, \@locref{hevea_default308}{6}
+\indexitem {\texttt{plot}}, \@locref{hevea_default11}{1.5}, \@locref{hevea_default304}{6}
+\indexitem {\texttt{plotfield}}, \@locref{hevea_default196}{4.5}
+\indexitem {\texttt{plotfunc}}, \@locref{hevea_default305}{6}, \@locref{hevea_default331}{6.3}
+\indexitem {\texttt{plotimplicit}}, \@locref{hevea_default309}{6}
+\indexitem {\texttt{plotode}}, \@locref{hevea_default197}{4.5}
+\indexitem {\texttt{plotparam}}, \@locref{hevea_default307}{6}, \@locref{hevea_default332}{6.3}
+\indexitem {\texttt{pmin}}, \@locref{hevea_default297}{5.6}
+\indexitem {\texttt{point}}, \@locref{hevea_default315}{6.2}, \@locref{hevea_default333}{6.3}
+\indexitem {\texttt{poly2symb}}, \@locref{hevea_default148}{3.5}, \@locref{hevea_default226}{5.2}
+\indexitem {\texttt{polygon}}, \@locref{hevea_default323}{6.2}, \@locref{hevea_default336}{6.3}
+\indexitem polygonal line, \@locref{hevea_default321}{6.2}, \@locref{hevea_default334}{6.3}
+\indexitem {\texttt{polygonplot}}, \@locref{hevea_default322}{6.2}, \@locref{hevea_default335}{6.3}
+\indexitem polynomial\begin{indexenv}
+\indexitem characteristic, \@locref{hevea_default300}{5.6}
+\indexitem cyclotomic, \@locref{hevea_default253}{5.2}
+\indexitem Hermite, \@locref{hevea_default257}{5.2}
+\indexitem Lagrange, \@locref{hevea_default255}{5.2}
+\indexitem Laguerre, \@locref{hevea_default259}{5.2}
+\indexitem minimal, \@locref{hevea_default301}{5.6}
+\indexitem Taylor, \@locref{hevea_default220}{5.2}
+\indexitem Tchebyshev, \@locref{hevea_default261}{5.2}
+\end{indexenv}
+\indexitem power, \@locref{hevea_default28}{3.1}
+\indexitem {\texttt{powmod}}, \@locref{hevea_default199}{5.1}
+\indexitem {\texttt{previousprime}}, \@locref{hevea_default216}{5.1}
+\indexitem prime factors, \@locref{hevea_default206}{5.1}
+\indexitem product\begin{indexenv}
+\indexitem cross, \@locref{hevea_default270}{5.4}
+\indexitem matrix, \@locref{hevea_default271}{5.4}
+\indexitem scalar, \@locref{hevea_default269}{5.4}
+\indexitem term by term, \@locref{hevea_default272}{5.4}
+\end{indexenv}
+\indexitem {\texttt{product}}, \@locref{hevea_default141}{3.5}
+\indexitem {\texttt{proot}}, \@locref{hevea_default193}{4.4}, \@locref{hevea_default238}{5.2}
+\indexitem {\texttt{propfrac}}, \@locref{hevea_default242}{5.2}
+\indexitem {\texttt{ptayl}}, \@locref{hevea_default219}{5.2}
+\indexitem {\texttt{purge}}, \@locref{hevea_default50}{3.2}
+\indexspace
+\indexitem {\texttt{quo}}, \@locref{hevea_default244}{5.2}
+\indexitem quotient, \@locref{hevea_default203}{5.1}
+\indexspace
+\indexitem radian, \@locref{hevea_default20}{2.3}
+\indexitem {\texttt{randpoly}}, \@locref{hevea_default251}{5.2}
+\indexitem {\texttt{rank}}, \@locref{hevea_default273}{5.4}
+\indexitem {\texttt{ranm}}, \@locref{hevea_default278}{5.4}
+\indexitem {\texttt{ratnormal}}, \@locref{hevea_default65}{3.3}
+\indexitem {\texttt{re}}, \@locref{hevea_default86}{3.4}
+\indexitem real part, \@locref{hevea_default87}{3.4}
+\indexitem {\texttt{rem}}, \@locref{hevea_default245}{5.2}
+\indexitem remainder, \@locref{hevea_default201}{5.1}
+\indexitem {\texttt{romberg}}, \@locref{hevea_default187}{4.3}
+\indexitem {\texttt{round}}, \@locref{hevea_default80}{3.4}
+\indexitem {\texttt{rref}}, \@locref{hevea_default292}{5.5}
+\indexspace
+\indexitem {\texttt{scatterplot}}, \@locref{hevea_default329}{6.2}
+\indexitem {\texttt{segment}}, \@locref{hevea_default316}{6.2}
+\indexitem sequence, \@locref{hevea_default132}{3.5}
+\indexitem sequences, \@locref{hevea_default151}{3.5}
+\indexitem series, \@locref{hevea_default184}{4.2}
+\begin{indexenv}
+\indexitem Taylor, \@locref{hevea_default185}{4.2}
+\end{indexenv}
+\indexitem {\texttt{series}}, \@locref{hevea_default183}{4.2}
+\indexitem set, \@locref{hevea_default134}{3.5}
+\indexitem sets, \@locref{hevea_default153}{3.5}
+\indexitem {\texttt{sign}}, \@locref{hevea_default75}{3.4}
+\indexitem simplifications, \@locref{hevea_default70}{3.3}
+\indexitem {\texttt{simplify}}, \@locref{hevea_default67}{3.3}
+\indexitem {\texttt{simult}}, \@locref{hevea_default291}{5.5}
+\indexitem {\texttt{sin}}, \@locref{hevea_default104}{3.4}
+\indexitem {\texttt{sincos}}, \@locref{hevea_default71}{3.3}
+\indexitem sine, \@locref{hevea_default105}{3.4}
+\begin{indexenv}
+\indexitem hyperbolic, \@locref{hevea_default113}{3.4}
+\end{indexenv}
+\indexitem {\texttt{sinh}}, \@locref{hevea_default112}{3.4}
+\indexitem {\texttt{size}}, \@locref{hevea_default162}{3.6}
+\indexitem {\texttt{solve}}, \@locref{hevea_default190}{4.4}
+\indexitem space, \@locref{hevea_default330}{6.3}
+\indexitem {\texttt{sphere}}, \@locref{hevea_default339}{6.3}
+\indexitem {\texttt{sqrt}}, \@locref{hevea_default96}{3.4}
+\indexitem square root, \@locref{hevea_default97}{3.4}
+\indexitem {\texttt{string}}, \@locref{hevea_default167}{3.6}
+\indexitem {\texttt{sturmab}}, \@locref{hevea_default239}{5.2}
+\indexitem sublist, \@locref{hevea_default158}{3.5}
+\indexitem sublists, \@locref{hevea_default156}{3.5}
+\indexitem submatrix, \@locref{hevea_default288}{5.4}
+\indexitem subsequence, \@locref{hevea_default157}{3.5}
+\indexitem subsequences, \@locref{hevea_default155}{3.5}
+\indexitem {\texttt{subst}}, \@locref{hevea_default46}{3.2}
+\indexitem subtraction, \@locref{hevea_default25}{3.1}
+\indexitem {\texttt{sum}}, \@locref{hevea_default140}{3.5}
+\indexitem {\texttt{symb2poly}}, \@locref{hevea_default149}{3.5}, \@locref{hevea_default227}{5.2}
+\indexspace
+\indexitem Taylor polynomial, \@locref{hevea_default221}{5.2}
+\indexitem {\texttt{True}}, \@locref{hevea_default56}{3.2}
+\indexitem tables, \@locref{hevea_default154}{3.5}, \@locref{hevea_default159}{3.5}
+\indexitem {\texttt{tail}}, \@locref{hevea_default166}{3.6}
+\indexitem {\texttt{cot}}, \@locref{hevea_default110}{3.4}
+\indexitem {\texttt{tan}}, \@locref{hevea_default108}{3.4}
+\indexitem tangent, \@locref{hevea_default109}{3.4}
+\begin{indexenv}
+\indexitem hyperbolic, \@locref{hevea_default117}{3.4}
+\end{indexenv}
+\indexitem {\texttt{tangent}}, \@locref{hevea_default306}{6}
+\indexitem {\texttt{tanh}}, \@locref{hevea_default116}{3.4}
+\indexitem {\texttt{taylor}}, \@locref{hevea_default182}{4.2}
+\indexitem {\texttt{tchebyshev1}}, \@locref{hevea_default260}{5.2}
+\indexitem {\texttt{tchebyshev2}}, \@locref{hevea_default262}{5.2}
+\indexitem {\texttt{tcoeff}}, \@locref{hevea_default232}{5.2}
+\indexitem {\texttt{tcollect}}, \@locref{hevea_default264}{5.3}
+\indexitem test, \@locref{hevea_default342}{7.1}, \@locref{hevea_default349}{7.1}
+\indexitem {\texttt{texpand}}, \@locref{hevea_default265}{5.3}
+\indexitem text, \@locref{hevea_default314}{6.2}
+\indexitem {\texttt{tlin}}, \@locref{hevea_default263}{5.3}
+\indexitem {\texttt{trig2exp}}, \@locref{hevea_default266}{5.3}
+\indexitem {\texttt{true}}, \@locref{hevea_default55}{3.2}
+\indexitem {\texttt{tsimplify}}, \@locref{hevea_default68}{3.3}
+\indexspace
+\indexitem {\texttt{unapply}}, \@locref{hevea_default131}{3.4}, \@locref{hevea_default180}{4.1}
+\indexspace
+\indexitem {\texttt{valuation}}, \@locref{hevea_default231}{5.2}
+\indexitem variables, \@locref{hevea_default6}{1.3}, \@locref{hevea_default44}{3.2}
+\indexspace
+\indexitem whole part, \@locref{hevea_default85}{3.4}
+\indexspace
+\indexitem Xcas\begin{indexenv}
+\indexitem getting, \@locref{hevea_default1}{1.1}
+\indexitem starting, \@locref{hevea_default0}{1.1}
+\end{indexenv}
+\end{indexenv}

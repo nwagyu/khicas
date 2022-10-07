@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Unassigning variables: VARS purge DelVar del restart rm_a_z rm_all_vars
+
+
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en061.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en063.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:VARS" class="subsection">4.4.9  Unassigning variables: <span style="font-family:monospace">VARS</span> <span style="font-family:monospace">purge</span> <span style="font-family:monospace">DelVar</span> <span style="font-family:monospace">del</span> <span style="font-family:monospace">restart</span> <span style="font-family:monospace">rm_a_z</span> <span style="font-family:monospace">rm_all_vars</span>
+<a id="hevea_default90"></a>
+<a id="hevea_default91"></a>
+<a id="hevea_default92"></a>
+<a id="hevea_default93"></a>
+<a id="hevea_default94"></a>
+<a id="hevea_default95"></a>
+<a id="hevea_default96"></a>
+</h3>
+<p><span style="font-family:monospace">Xcas</span> has commands that help you keep track of what variables
+you are using and resetting them if desired. The <span style="font-family:monospace">VARS</span>
+command will list all the variables that you are using, the
+<span style="font-family:monospace">purge</span>, <span style="font-family:monospace">DelVar</span> and <span style="font-family:monospace">del</span> commands will delete
+selected variables, and the <span style="font-family:monospace">rm_a_z</span> and
+<span style="font-family:monospace">rm_all_vars</span> commands will remove classes of variables.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">VARS</span> takes no arguments.
+</li><li class="li-itemize"><span style="font-family:monospace">VARS()</span> returns a list of the variables that you have assigned
+values or made assumptions on.
+</li></ul><h4 id="sec100" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">a:= 1</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">anothervar:= 2</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">then:</span>
+</p><div class="center">
+<span style="font-family:monospace">VARS()</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">a</span>,<span style="font-style:italic">anothervar</span></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">purge</span> command will clear the values and assumptions you
+make on variables (see Section <a href="cascmd_en061.html#ssec%3Aabout">4.4.8</a>). For <span style="font-family:monospace">TI</span>
+compatibility there is also <span style="font-family:monospace">DelVar</span>, and for Python
+compatibility there is <span style="font-family:monospace">del</span>.
+</p><ul class="itemize"><li class="li-itemize">
+The <span style="font-family:monospace">purge</span> command takes one argument:<br>
+<span style="font-style:italic">var</span>, the name of a variable.
+</li><li class="li-itemize"><span style="font-family:monospace">purge(</span><span style="font-style:italic">var</span><span style="font-family:monospace">)</span> clears the variable <span style="font-style:italic">var</span>
+of all values and assumptions.
+</li></ul><ul class="itemize"><li class="li-itemize">
+The <span style="font-family:monospace">DelVar</span> (and <span style="font-family:monospace">del</span>) commands take one argument:<br>
+<span style="font-style:italic">var</span>, the name of a variable.
+</li><li class="li-itemize"><span style="font-family:monospace">Delvar</span> <span style="font-style:italic">var</span> (or <span style="font-family:monospace">del</span> <span style="font-style:italic">var</span>)
+removes the values attached to <span style="font-style:italic">var</span>. (Note that
+they do not take their argument in parentheses.
+</li></ul><h4 id="sec101" class="subsubsection">Example</h4>
+<p>
+To clear the variable <span style="font-family:monospace">a</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">purge(a)</span>
+</div><p>
+<span style="font-style:italic">or (for </span><span style="font-style:italic"><span style="font-family:monospace">TI</span></span><span style="font-style:italic"> compatibility):</span><br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">DelVar a</span>
+</div><p>
+<span style="font-style:italic">or (for Python compatibility):</span><br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">del a</span>
+</div><p><br>
+</p><p>The <span style="font-family:monospace">rm_all_vars</span> and <span style="font-family:monospace">restart</span> commands clear the
+values and assumptions you have made on all variables you can use.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rm_all_vars</span> takes no arguments.
+</li><li class="li-itemize"><span style="font-family:monospace">rm_all_vars()</span> removes all the values that you have
+attached to variables.
+</li></ul><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">restart</span> takes no arguments.
+</li><li class="li-itemize"><span style="font-family:monospace">restart</span> removes all the values that you have
+attached to variables. (Note that it does not use parentheses.)
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">rm_a_z</span> command clears the values and assumptions on all
+variables with single lowercase letter names.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rm_a_z</span> takes no arguments.
+</li><li class="li-itemize"><span style="font-family:monospace">rm_a_z()</span> purges all variables whose names are one letter
+and lowercase.
+</li></ul><h4 id="sec102" class="subsubsection">Example</h4>
+<p>
+If you have variables names <span style="font-family:monospace">A,B,a,b,myvar</span>, then after:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">rm_a_z()</span>
+</div><p>
+you will only have the variables named <span style="font-family:monospace">A,B,myvar</span>.</p>
+<hr>
+<a href="cascmd_en061.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en063.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

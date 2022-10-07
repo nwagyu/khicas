@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Characters and strings: "</title>
+</head>
+<body >
+<a href="cascmd_en076.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en078.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec137" class="subsection">5.3.1  Characters and strings: <span style="font-family:monospace">"</span><a id="hevea_default144"></a></h3>
+<p>Strings are delimited with quotation marks, <span style="font-family:monospace">"</span>. A character
+is a string of length one.<br>
+Do not confuse <span style="font-family:monospace">"</span> with <span style="font-family:monospace">’</span> (or
+<span style="font-family:monospace">quote</span><a id="hevea_default145"></a>) which is used to prevent evaluation
+of an expression (see Section <a href="cascmd_en182.html#ssec%3Aqt">5.12.4</a>). For example, <span style="font-family:monospace">"a"</span>
+returns a string with one character but <span style="font-family:monospace">’a’</span> or
+<span style="font-family:monospace">quote(a)</span> returns the variable <span style="font-family:monospace">a</span> unevaluated.</p><p>When a string is entered on a command line, it is evaluated to itself,
+hence the output is the same string. You can use <span style="font-family:monospace">+</span> to
+concatenate two strings or a string and another object (where the
+other object will be converted to a string, see
+Section <a href="cascmd_en088.html#ssec%3Aplusconcat">5.3.12</a>).</p><h4 id="sec138" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">"Hello"</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<span style="font-family:monospace">"Hello"</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">"Hello"+", how are you?"</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<span style="font-family:monospace">"Hello, how are you?"</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">"Hello"+ 123</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<span style="font-family:monospace">"Hello123"</span>
+</div>
+</li></ul><p><br>
+</p><p>You can refer to a particular character of a string using index
+notation, like for lists (see Section <a href="index.html#sec%3Alists">5.40</a>). Indices begin at 0
+in <span style="font-family:monospace">Xcas</span> mode, 1 in other modes.</p><h4 id="sec139" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">"Hello"[1]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">"e"</span>
+</div>
+<hr>
+<a href="cascmd_en076.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en078.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

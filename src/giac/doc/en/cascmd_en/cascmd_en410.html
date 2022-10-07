@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Converting box constraints from matrix to interval form: box_constraints
+
+</title>
+</head>
+<body >
+<a href="cascmd_en409.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en411.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec950" class="subsection">5.38.9  Converting box constraints from matrix to interval form: <span style="font-family:monospace">box_constraints</span>
+<a id="hevea_default680"></a>
+</h3>
+<p>The <span style="font-family:monospace">box_constraints</span> command
+can convert bounds of given variables from the matrix form to interval form.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">box_constraints</span> takes two mandatory arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">vars</span>, a list of variables [<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>].
+</li><li class="li-itemize"><span style="font-style:italic">bnds</span>, a matrix with <span style="font-style:italic">n</span> rows and two columns in which the <span style="font-style:italic">k</span>th row contains the lower and upper bound <span style="font-style:italic">l</span><sub><span style="font-style:italic">k</span></sub> and <span style="font-style:italic">u</span><sub><span style="font-style:italic">k</span></sub> of <span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>, respectively.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">box_constraints(</span><span style="font-style:italic">vars</span>,<span style="font-style:italic">bnds</span><span style="font-family:monospace">)</span>
+returns the sequence (<span style="font-style:italic">x</span><sub>1</sub>=<span style="font-style:italic">l</span><sub>1</sub>… <span style="font-style:italic">u</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>=<span style="font-style:italic">l</span><sub>2</sub>… <span style="font-style:italic">u</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>=<span style="font-style:italic">l</span><sub><span style="font-style:italic">n</span></sub>… <span style="font-style:italic">u</span><sub><span style="font-style:italic">n</span></sub>).
+</li></ul><h4 id="sec951" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">box_constraints([x,y],[[-2,2],[-5,5]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>=−2… 2,<span style="font-style:italic">y</span>=−5… 5
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en409.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en411.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

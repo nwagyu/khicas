@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="build/micropython.js"></script>
+  </head>
+  <body>
+<textarea id="in" title="" onkeypress="if (event.keyCode!=13) return true; console.log('exec',value);mp_js_do_str(value); return false;"></textarea>
+<br>
+    <div id='mp_js_stdout'></div>
+    <script>
+      mp_js_stdout.addEventListener('print', function(e) {
+        document.write(e.data);
+      }, false);
+
+      mp_js_init(64 * 1024);
+      mp_js_do_str('print(\'hello world\')');
+    </script>
+  </body>
+</html>

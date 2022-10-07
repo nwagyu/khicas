@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if points in space are collinear: is_collinear
+</title>
+</head>
+<body >
+<a href="cascmd_en942.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en944.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dcheckcollinear" class="subsection">14.13.6  Checking if points in space are collinear: <span style="font-family:monospace">is_collinear</span>
+<a id="hevea_default1649"></a></h3>
+<p>See Section <a href="cascmd_en868.html#ssec%3A2dcheckcollinear">13.16.2</a> for checking for collinearity in
+two-dimensional geometry.</p><p>The <span style="font-family:monospace">is_collinear</span> command determines whether or not points in
+space are collinear.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_collinear</span> takes one argument:<br>
+ <span style="font-style:italic">L</span>, a list or sequence of points.
+</li><li class="li-itemize"><span style="font-family:monospace">is_collinear(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns 1 if the points in <span style="font-style:italic">L</span> are
+collinear, it returns 0 otherwise.
+</li></ul><h4 id="sec2392" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_collinear([2,0,0],[0,2,0],[1,1,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_collinear([2,0,0],[0,2,0],[0,1,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en942.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en944.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

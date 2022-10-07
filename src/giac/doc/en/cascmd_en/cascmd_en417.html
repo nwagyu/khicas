@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Finding a subsequence or a sublist
+
+</title>
+</head>
+<body >
+<a href="cascmd_en416.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en418.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec968" class="subsection">5.39.7  Finding a subsequence or a sublist
+<a id="hevea_default693"></a>
+<a id="hevea_default694"></a></h3>
+<p>The bracket notation used to find elements of sequences and lists can
+also be used to extract a range of elements.
+If <span style="font-style:italic">S</span> is a sequence or list of size <span style="font-style:italic">n</span>, then
+<span style="font-style:italic">S</span><span style="font-family:monospace">[</span><span style="font-style:italic">n</span><sub>1</sub><span style="font-family:monospace">..</span><span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">]</span> returns the subsequence or sublist
+of <span style="font-style:italic">S</span> consisting of the elements with indices from <span style="font-style:italic">n</span><sub>1</sub> to
+<span style="font-style:italic">n</span><sub>2</sub>, where 0 ≤ <span style="font-style:italic">n</span><sub>1</sub>≤ <span style="font-style:italic">n</span><sub>2</sub> &lt; <span style="font-style:italic">s</span> (in <span style="font-family:monospace">Xcas</span> syntax mode) or 0 &lt;
+<span style="font-style:italic">n</span><sub>1</sub>≤ <span style="font-style:italic">n</span><sub>2</sub> ≤ <span style="font-style:italic">s</span> in other syntax modes.</p><h4 id="sec969" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">[0,1,2,3,4][1..3]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(A,B,C,D,E)[1..3]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">B</span>,<span style="font-style:italic">C</span>,<span style="font-style:italic">D</span>
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>For lists, the <span style="font-family:monospace">at</span> command can also be used to get a sublist.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">at</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-style:italic">n</span><sub>1</sub>..<span style="font-style:italic">n</span><sub>2</sub>, a range of integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">at(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">n</span><sub>1</sub><span style="font-family:monospace">..</span><span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns the sublist
+of <span style="font-style:italic">L</span> consisting of the elements with indices from <span style="font-style:italic">n</span><sub>1</sub> to
+<span style="font-style:italic">n</span><sub>2</sub>.
+</li></ul><p>
+Again, <span style="font-family:monospace">at</span> can not be used for sequences.</p><h4 id="sec970" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">at([1,2,3,4,5],2..4</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,4,5</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>An alternative to using <span style="font-family:monospace">at</span> for finding a sublist is the
+<span style="font-family:monospace">mid</span> command, which again cannot be used for sequences.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">mid</span> takes two mandatory and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, the index of the beginning of the sublist.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">l</span>, the length of the sublist.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">mid(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">n</span>  ⟨,<span style="font-style:italic">l</span>⟩<span style="font-family:monospace">)</span> returns the sublist of <span style="font-style:italic">L</span> with index
+beginning at <span style="font-style:italic">n</span>. With the option <span style="font-style:italic">l</span>, the length of the sublist
+will be <span style="font-style:italic">l</span>, otherwise it will go to the end of the list <span style="font-style:italic">L</span>.
+</li></ul><h4 id="sec971" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">mid([0,1,2,3,4,5],2,3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,3,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">mid([0,1,2,3,4,5],2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,3,4,5</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en416.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en418.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

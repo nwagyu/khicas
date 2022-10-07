@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Internal directories: NewFold SetFold GetFold DelFold VARS
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en066.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en068.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec113" class="subsection">4.6.3  Internal directories: <span style="font-family:monospace">NewFold</span> <span style="font-family:monospace">SetFold</span> <span style="font-family:monospace">GetFold</span> <span style="font-family:monospace">DelFold</span> <span style="font-family:monospace">VARS</span>
+<a id="hevea_default106"></a>
+<a id="hevea_default107"></a>
+<a id="hevea_default108"></a>
+<a id="hevea_default109"></a>
+<a id="hevea_default110"></a>
+<a id="hevea_default111"></a></h3>
+<p>You can create a directory that isn’t actually on your hard drive but
+is treated like one by <span style="font-family:monospace">Xcas</span> with the command
+<span style="font-family:monospace">NewFold</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">NewFold</span> takes one argument:
+<span style="font-style:italic">MyIntDir</span>, a variable name (see Section <a href="cascmd_en054.html#ssec%3Avarname">4.4.1</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">NewFold(</span><span style="font-style:italic">MyIntDir</span><span style="font-style:italic">)</span>
+creates a new internal directory named <span style="font-style:italic">MyIntDir</span>.
+(Note that quotation marks are not used.)
+</li></ul><p>Internal directories will be listed with the <span style="font-family:monospace">VARS()</span> command
+(see Section <a href="cascmd_en062.html#ssec%3AVARS">4.4.9</a>).</p><p>To actually use this directory, you’ll have to use the
+<span style="font-family:monospace">SetFold</span> command.
+</p><ul class="itemize"><li class="li-itemize">
+The <span style="font-family:monospace">SetFold</span> command takes one argument:<br>
+<span style="font-style:italic">MyIntDir</span>, the variable name of an internal directory created with
+<span style="font-family:monospace">NewFold</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">SetFold(</span><span style="font-style:italic">MyIntDir</span><span style="font-family:monospace">)</span>
+makes <span style="font-style:italic">MyIntDir</span> the working directory (see Section <a href="cascmd_en065.html#ssec%3Awdir">4.6.1</a>).
+</li></ul><p>Finally, you can print out the internal directory that you are in with
+the <span style="font-family:monospace">GetFold</span> command.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">GetFold</span> takes no arguments.
+</li><li class="li-itemize"><span style="font-family:monospace">GetFold()</span> returns the name of the current internal
+directory.
+</li></ul><h4 id="sec114" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">GetFold()</span>
+</div><p>
+will display the current internal directory.</p><p><br>
+</p><p>The <span style="font-family:monospace">DelFold</span> command will delete an internal directory.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">DelFold</span> takes one argument:<br>
+<span style="font-style:italic">MyIntDir</span>, the variable name of an internal directory.
+</li><li class="li-itemize"><span style="font-family:monospace">DelFold(</span><span style="font-style:italic">MyIntDir</span><span style="font-family:monospace">)</span> will delete the directory
+if it is empty.
+</li></ul>
+<hr>
+<a href="cascmd_en066.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en068.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

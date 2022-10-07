@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Concatenating objects into a string: cat
+</title>
+</head>
+<body >
+<a href="cascmd_en086.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en088.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:catobj" class="subsection">5.3.11  Concatenating objects into a string: <span style="font-family:monospace">cat</span><a id="hevea_default159"></a>
+</h3>
+<p>The <span style="font-family:monospace">cat</span> command transforms a sequence of objects into a
+string.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">cat</span> takes one argument:<br>
+ <span style="font-style:italic">seq</span>, a sequence of objects.
+</li><li class="li-itemize"><span style="font-family:monospace">cat(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns the concatenation of the string
+representations of these objects as a single string.
+</li></ul><h4 id="sec161" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cat("abcd",3,"d")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  "abcd3d"
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">c:=5</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">cat("abcd",c,"e")</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  "abcd5e"
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">purge(c)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">cat(15,c,3)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  "15c3"
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en086.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en088.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

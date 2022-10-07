@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Cosine window function: cosine_window
+</title>
+</head>
+<body >
+<a href="cascmd_en1008.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1010.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2523" class="subsection">15.2.17  Cosine window function: <span style="font-family:monospace">cosine_window</span>
+<a id="hevea_default1719"></a></h3>
+<p>The <span style="font-family:monospace">cosine_window</span> command finds a cosine window of
+a sequence.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">cosine_window</span> takes one mandatory argument
+and two optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">v</span>, a real vector with length <span style="font-style:italic">n</span>.
+</li><li class="li-itemize">Optionally, α, a real number (by default 1).
+</li><li class="li-itemize">Optionally, an interval <span style="font-style:italic">n</span><sub>0</sub>..<span style="font-style:italic">n</span><sub>1</sub> (by default 0..(<span style="font-style:italic">n</span>−1)).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">cosine_window(</span><span style="font-style:italic">v</span> ⟨,α,<span style="font-style:italic">n</span><sub>1</sub>..<span style="font-style:italic">n</span><sub>2</sub>⟩<span style="font-family:monospace">)</span>
+returns the elementwise product of [<span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span><sub>1</sub></sub>,…,<span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span><sub>2</sub></sub>]
+and the vector <span style="font-style:italic">w</span> of length <span style="font-style:italic">N</span>=<span style="font-style:italic">n</span><sub>2</sub>−<span style="font-style:italic">n</span><sub>1</sub>+1 defined by 
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">w</span><sub><span style="font-style:italic">k</span></sub>=sin<sup>α</sup></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span> π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span>−1</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table> 
+for <span style="font-style:italic">k</span>=0,1,…,<span style="font-style:italic">N</span>−1.
+</li></ul><h4 id="sec2524" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span> 
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L0:=randvector(1000,0..1):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">scatterplot(L0);</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en398.png">
+</div><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L:=cosine_window(L0,1.5):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">scatterplot(L);</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en399.png">
+</div>
+<hr>
+<a href="cascmd_en1008.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1010.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

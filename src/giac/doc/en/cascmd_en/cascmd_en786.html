@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title></title>
+</head>
+<body >
+<a href="cascmd_en785.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en787.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h4 id="sec2021" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">C:= point(1+i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en158.png">
+</div>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">nodisp(C:= point(1+i))</span>
+</div>
+Here, the point <span style="font-style:italic">C</span> is defined but not displayed. It is
+equivalent to following the command with <span style="font-family:monospace">:;</span>,<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">C:= point(1+i):;</span>
+</div>
+To define a point as above and display it without the label, enter the
+point’s name;<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">C</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en159.png">
+</div>
+Alternatively, you can get the same effect by defining the point
+within an <span style="font-family:monospace">eval</span> statement:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">eval(C:= point(1+i))</span>
+</div>
+To later display the point with a label, use the <span style="font-family:monospace">legend</span>
+command:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">legend(C,"C")</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">point(affix(C),legend="C")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en160.png">
+</div>
+In this case, the string "C" can be replaced with any other string
+as a label. Alternatively, redefine the
+variable as itself:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">C:= C</span>
+</div>
+prints <span style="font-style:italic">C</span> with its label.
+</li></ul>
+<hr>
+<a href="cascmd_en785.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en787.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

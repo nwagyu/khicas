@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Preventing evaluation: quote hold ’
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en181.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en183.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:qt" class="subsection">5.12.4  Preventing evaluation: <span style="font-family:monospace">quote</span> <span style="font-family:monospace">hold</span> <span style="font-family:monospace">’</span>
+<a id="hevea_default305"></a>
+<a id="hevea_default306"></a>
+<a id="hevea_default307"></a>
+</h3>
+<p>You can prevent an expression from being evaluated by <em>quoting</em>
+it, either by preceding it with <span style="font-family:monospace">’</span> or with the <span style="font-family:monospace">quote</span>
+or <span style="font-family:monospace">hold</span>) command.</p><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+If <span style="font-style:italic">a</span> is a variable, then <span style="font-style:italic">a</span><span style="font-family:monospace">:=quote(</span><span style="font-style:italic">a</span><span style="font-family:monospace">)</span> (or
+<span style="font-style:italic">a</span><span style="font-family:monospace">:=hold(</span><span style="font-style:italic">a</span><span style="font-family:monospace">)</span>) is equivalent to <span style="font-family:monospace">purge(</span><span style="font-style:italic">a</span><span style="font-family:monospace">)</span> (for the
+sake of Maple compatibility). It returns the value of this variable
+(or the hypothesis done on this variable).</p><h4 id="sec380" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">a:=2;quote(2+3*a)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">a:=2;’2+3*a’</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2,2+3 <span style="font-style:italic">a</span>
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en181.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en183.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

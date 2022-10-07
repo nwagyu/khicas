@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Defining functions with boolean tests: ifte ?: when
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en069.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en071.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:piecewise" class="subsection">5.1.3  Defining functions with boolean tests: <span style="font-family:monospace">ifte</span> <span style="font-family:monospace">?:</span> <span style="font-family:monospace">when</span>
+<a id="hevea_default123"></a>
+<a id="hevea_default124"></a>
+<a id="hevea_default125"></a>
+<a id="hevea_default126"></a>
+</h3>
+<p>You can use boolean tests to define functions not given by a single
+simple formula. Notably, you can use the <span style="font-family:monospace">ifte</span> command or
+<span style="font-family:monospace">?:</span> operator to define piecewise-defined functions.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ifte</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">condition</span>, a boolean condition.
+</li><li class="li-itemize"><span style="font-style:italic">true-result</span>, the result to return if
+<span style="font-style:italic">condition</span> is true.
+</li><li class="li-itemize"><span style="font-style:italic">false-result</span>, the result to return if
+<span style="font-style:italic">condition</span> is false.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">ifte(</span><span style="font-style:italic">condition, true-result,
+false-result</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">true-result</span> if
+<span style="font-style:italic">condition</span> is true and returns <span style="font-style:italic">false-result</span> if
+<span style="font-style:italic">condition</span> if false.
+</li></ul><h4 id="sec120" class="subsubsection">Example</h4>
+<p>
+You can define your own absolute value function with:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">myabs(x):= ifte(x &gt;= 0, x, -1*x)</span>
+</div><p>
+Afterwards, entering:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">myabs(-4)</span>
+</div><p>
+will return:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4
+</td></tr>
+</table><p>
+However, <span style="font-family:monospace">myabs</span> will return an error if it can’t evaluate the
+condition.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">myabs(x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">Ifte: Unable to check test Error: Bad Argument Value</span>
+</div><p><br>
+</p><p>The <span style="font-family:monospace">?:</span> construct behaves similarly to <span style="font-family:monospace">ifte</span>, but is
+structured differently and doesn’t return an error if the condition
+can’t be evaluated.
+</p><ul class="itemize"><li class="li-itemize">
+The <span style="font-family:monospace">?:</span> construct takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">condition</span>, a boolean condition.
+</li><li class="li-itemize"><span style="font-style:italic">true-result</span>, the result to return if
+<span style="font-style:italic">condition</span> is true.
+</li><li class="li-itemize"><span style="font-style:italic">false-result</span>, the result to return if
+<span style="font-style:italic">condition</span> is false.
+</li></ul>
+</li><li class="li-itemize"><span style="font-style:italic">condition</span><span style="font-family:monospace">?</span><span style="font-style:italic">true-result</span><span style="font-family:monospace">:</span><span style="font-style:italic">false-result</span>
+returns <span style="font-style:italic">true-result</span> if <span style="font-style:italic">condition</span> is true and
+returns <span style="font-style:italic">false-result</span> if <span style="font-style:italic">condition</span> if false.
+</li></ul><h4 id="sec121" class="subsubsection">Example</h4>
+<p>
+You can define your absolute value function with
+</p><div class="center">
+<span style="font-family:monospace">myabs(x):= (x &gt;= 0)? x: -1*x</span>
+</div><p>
+If you enter
+</p><div class="center">
+<span style="font-family:monospace">myabs(-4)</span>
+</div><p>
+you will again get
+</p><div class="center">
+<span style="font-family:monospace">4</span>
+</div><p>
+but now if the conditional can’t be evaluated, you won’t get an error.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">myabs(x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">((x &gt;= 0)? x: -x)</span>
+</div><p><br>
+</p><p>The <span style="font-family:monospace">when</span><a id="hevea_default127"></a> and <span style="font-family:monospace">IFTE</span><a id="hevea_default128"></a> commands
+are prefixed synonyms for the <span style="font-family:monospace">?:</span> construct.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">when</span> (and <span style="font-family:monospace">IFTE</span>) take three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">condition</span>, a boolean condition.
+</li><li class="li-itemize"><span style="font-style:italic">true-result</span>, the result to return if
+<span style="font-style:italic">condition</span> is true.
+</li><li class="li-itemize"><span style="font-style:italic">false-result</span>, the result to return if
+<span style="font-style:italic">condition</span> is false.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">when(</span><span style="font-style:italic">condition, true-result,
+false-result</span><span style="font-family:monospace">)</span> (and
+<span style="font-family:monospace">IFTE(</span><span style="font-style:italic">condition, true-result,
+false-result</span><span style="font-family:monospace">)</span>) return <span style="font-style:italic">true-result</span> if
+<span style="font-style:italic">condition</span> is true and returns <span style="font-style:italic">false-result</span> if
+<span style="font-style:italic">condition</span> if false.
+</li></ul><div class="center">
+<span style="font-family:monospace">(</span><span style="font-style:italic">condition</span><span style="font-family:monospace">)? </span><span style="font-style:italic">true-result</span><span style="font-family:monospace">: </span><span style="font-style:italic">false-result</span>
+</div><div class="center">
+<span style="font-family:monospace">when(</span><span style="font-style:italic">condition</span><span style="font-family:monospace">, </span><span style="font-style:italic">true-result</span><span style="font-family:monospace">, </span><span style="font-style:italic">false-result</span><span style="font-family:monospace">)</span>
+</div><p>
+and
+</p><div class="center">
+<span style="font-family:monospace">IFTE(</span><span style="font-style:italic">condition</span><span style="font-family:monospace">,</span> <span style="font-style:italic">true-result</span><span style="font-family:monospace">,</span> <span style="font-style:italic">false-result</span><span style="font-family:monospace">)</span>
+</div><p>
+all represent the same expression.</p><p>If you want to define a function with several pieces, it may be
+simpler to use the <span style="font-family:monospace">piecewise</span><a id="hevea_default129"></a> function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">piecewise</span> takes an unspecified (odd) number of
+arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">cond</span><sub>1</sub><span style="font-style:italic">, return</span><sub>1</sub><span style="font-style:italic">,
+cond</span><sub>2</sub><span style="font-style:italic">, return</span><sub>2</sub><span style="font-style:italic">, …, cond</span><sub><span style="font-style:italic">n</span></sub><span style="font-style:italic">,
+return</span><sub><span style="font-style:italic">n</span></sub>, an arbitrary number of pairs
+of conditions and corresponding return values.
+</li><li class="li-itemize"><span style="font-style:italic">default</span>, a result to return if none of the
+conditions are true.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">piecewise(</span><span style="font-style:italic">cond</span><sub>1</sub><span style="font-style:italic">, return</span><sub>1</sub><span style="font-style:italic">,
+…, cond</span><sub><span style="font-style:italic">n</span></sub><span style="font-style:italic">, return</span><sub><span style="font-style:italic">n</span></sub><span style="font-style:italic">, default</span><span style="font-family:monospace">)</span> returns
+<span style="font-style:italic">return</span><sub><span style="font-style:italic">k</span></sub> if <span style="font-style:italic">cond</span><sub><span style="font-style:italic">k</span></sub> is the
+first true condition, or <span style="font-style:italic">default</span> if none of
+the conditions are true.
+</li></ul><h4 id="sec122" class="subsubsection">Example</h4>
+<p>
+To define
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) =
+</td><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎧<br>
+⎪<br>
+⎨<br>
+⎪<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" >−2</td><td style="text-align:left;white-space:nowrap" >if  <span style="font-style:italic">x</span> &lt; −2</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >3<span style="font-style:italic">x</span>+4</td><td style="text-align:left;white-space:nowrap" >if  −2 ≤ <span style="font-style:italic">x</span> &lt; −1</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >1</td><td style="text-align:left;white-space:nowrap" >if  −1 ≤ <span style="font-style:italic">x</span> &lt; 0</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span> + 1</td><td style="text-align:left;white-space:nowrap" >if  <span style="font-style:italic">x</span> ≥ 0
+</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table><p>
+you can enter:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">f(x):= piecewise(x &lt; -2, -2, x &lt; -1, 3*x+4, x &lt; 0, 1, x + 1)</span>
+</div>
+<hr>
+<a href="cascmd_en069.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en071.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

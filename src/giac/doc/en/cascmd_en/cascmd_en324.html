@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Minimax polynomial approximation: minimax
+</title>
+</head>
+<body >
+<a href="cascmd_en323.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en325.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec754" class="subsection">5.27.36  Minimax polynomial approximation: <span style="font-family:monospace">minimax</span>
+<a id="hevea_default564"></a></h3>
+<p>The <span style="font-family:monospace">minimax</span> command finds the minimax polynomial approximation of a
+continuous function on a bounded interval using the Remez algorithm.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">minimax</span> takes three mandatory argument and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, a univariate expression representing a
+continuous function.
+</li><li class="li-itemize"><span style="font-style:italic">var</span><span style="font-family:monospace">=</span><span style="font-style:italic">a</span><span style="font-family:monospace">..</span><span style="font-style:italic">b</span>, a variable and the interval.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, a positive integer, the degree of the resulting polynomial.
+</li><li class="li-itemize">Optionally <span style="font-family:monospace">limit=</span><span style="font-style:italic">m</span>, where <span style="font-style:italic">m</span> is a positive
+integer specifying the number of iterations of the Remez
+algorithm. (By default, the number of iterations is unlimited.)
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">minimax(</span><span style="font-style:italic">expr,var=</span><span style="font-style:italic">a</span><span style="font-style:italic">..</span><span style="font-style:italic">b</span><span style="font-style:italic">,</span><span style="font-style:italic">n</span> ⟨<span style="font-family:monospace">limit=</span><span style="font-style:italic">m</span>⟩<span style="font-family:monospace">)</span>
+returns the minimax polynomial approximation of degree <span style="font-style:italic">n</span> or lower
+that approximates <span style="font-style:italic">expr</span> on [<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>]. The largest absolute
+error of the resulting polynomial will be printed in the message area.
+</li></ul><p>
+Since the coefficients of  <span style="font-style:italic">p</span>  are computed numerically, you should
+avoid setting <span style="font-style:italic">n</span> unnecessary high as it may result in a poor
+approximation due to the roundoff errors.
+</p><h4 id="sec755" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">minimax(sin(x),x=0..2*pi,10)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">max. absolute error: 5.85231264871e-06</span></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >5.85141928628×10<sup>−6</sup>+0.999777263417 <span style="font-style:italic">x</span>+0.001400152516 <span style="font-style:italic">x</span><sup>2</sup></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >   −0.170089663468 <span style="font-style:italic">x</span><sup>3</sup>+0.0042684302281 <span style="font-style:italic">x</span><sup>4</sup>+0.00525794778108 <span style="font-style:italic">x</span><sup>5</sup></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >   +0.00135760211866 <span style="font-style:italic">x</span><sup>6</sup>−0.000570502070425 <span style="font-style:italic">x</span><sup>7</sup></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">   +</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">6.0729711779×10<sup>−5</sup></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">x</span><sup>8</sup>
+−</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2.14787415748×10<sup>−6</sup></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">x</span><sup>9</sup></td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">   −</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1.49765719172×10<sup>−15</sup></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">x</span><sup>10</sup>
+</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<hr>
+<a href="cascmd_en323.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en325.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

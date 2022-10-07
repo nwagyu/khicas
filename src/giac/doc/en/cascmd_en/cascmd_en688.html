@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Distribution fitting by maximum likelihood: fitdistr
+</title>
+</head>
+<body >
+<a href="cascmd_en687.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en689.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1790" class="subsection">8.4.23  Distribution fitting by maximum likelihood: <span style="font-family:monospace">fitdistr</span>
+<a id="hevea_default1276"></a></h3>
+<p>The <span style="font-family:monospace">fitdistr</span> command finds the parameters for a distribution
+of a specified type that best fits a set of samples.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">fitdistr</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list of presumably independent and identically
+distributed samples.
+</li><li class="li-itemize"><span style="font-style:italic">distr</span>, a distribution type, which can be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">normal</span> or <span style="font-family:monospace">normald</span>, for a normal distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">exp</span>, <span style="font-family:monospace">exponential</span> of
+<span style="font-family:monospace">exponentiald</span>, for an exponential distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">poisson</span>, for a Poisson distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">geometric</span>, for a geometric distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">gammad</span>, for a gamma distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">betad</span>, for a beta distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">cauchy</span> or <span style="font-family:monospace">cauchyd</span>, for a Cauchy
+distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">weibull</span> or <span style="font-family:monospace">weibulld</span> for a Weibull
+distribution.
+</li></ul>
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">fitdistr(</span><span style="font-style:italic">L</span><span style="font-style:italic">,distr</span><span style="font-family:monospace">)</span> 
+returns the name of the specified type of distribution with
+parameters that fit <span style="font-style:italic">L</span> most closely according to the method of maximum
+likelihood.
+</li></ul><h4 id="sec1791" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fitdistr(randvector(1000,weibulld,1/2,1),weibull)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">weibulld</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.517079036032,1.05683817484</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">X:=randvar(normal,stddev=9.5):; Y:=randvar(normal,stddev=1.5):; S:=sample(eval(X/Y,0),1000):; Z:=fitdistr(S,cauchy)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">cauchyd</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.347058460176,6.55905486387</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">histogram(select(x-&gt;(x&gt;-100 and x&lt;100),S)); plot(Z(x),x=-100..100,display=red+line_width_2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en133.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">kolmogorovt(S,Z)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"D=",0.0161467485236,"K=",0.510605021406,"1-kolmogorovd(K)=",0.956753826255</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+The Kolmogorov-Smirnov test indicates that the samples from <span style="font-style:italic">S</span> are drawn from <span style="font-style:italic">Z</span> with high probability.
+</li></ul><p>You can fit a lognormal distribution to samples <span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub> by
+fitting a normal distribution to the sample logarithms log
+<span style="font-style:italic">x</span><sub>1</sub>,log<span style="font-style:italic">x</span><sub>2</sub>,…,log<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub> because log-likelihood functions are the
+same. For example, generate some samples according to the lognormal
+rule with parameters µ=5 and σ<sup>2</sup>=2:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">X:=randvar(normal,mean=5,variance=2):; S:=sample(eval(exp(X),0),1000):;</span>
+</div><p>
+Then fit the normal distribution to log<span style="font-style:italic">S</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">Y:=fitdistr(log(S),normal)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<span style="font-family:monospace">normald(5.04754808715,1.42751619912)</span>
+</div><p>
+The mean of <span style="font-style:italic">Y</span> is about 5.05 and the variance is about 2.04. Now
+the variable <span style="font-style:italic">Z</span>=exp(<span style="font-style:italic">Y</span>) has the sought lognormal distribution. </p>
+<hr>
+<a href="cascmd_en687.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en689.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

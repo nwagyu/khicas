@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Accessing elements</title>
+</head>
+<body >
+<a href="cascmd_en052.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en054.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:els" class="subsection">4.3.4  Accessing elements</h3>
+<p>The elements of sequences and lists are indexed starting from 0 in
+Xcas syntax mode and from 1 in all other syntax modes (see
+Section <a href="cascmd_en022.html#ssec%3Alang">2.5.2</a>). To access an element of a list or a sequence,
+follow the list with the index between square brackets.</p><h4 id="sec86" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">L:= [2,5,1,4]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,5,1,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">L[1]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">5
+</td></tr>
+</table>
+</li><li class="li-itemize">To access the last element of a list or sequence, you can put <span style="font-family:monospace">-1</span> between
+square brackets.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">L[-1]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4
+</td></tr>
+</table>
+</li></ul><p>If you want the indices to start from 1 in <span style="font-family:monospace">Xcas</span> syntax mode, you can
+enter the index between double brackets.</p><h4 id="sec87" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">L[[1]]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en052.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en054.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

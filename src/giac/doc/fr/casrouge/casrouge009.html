@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Exercices de combinatoire</title>
+</head>
+<body >
+<a href="casrouge008.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge010.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec297" class="chapter">Chapitre 9  Exercices de combinatoire</h1>
+<h2 id="sec298" class="section">9.1  Fonction partage ou nombre de partitions de <span style="font-style:italic">n</span>∈ ℕ</h2>
+<h3 id="sec299" class="subsection">9.1.1  L’énoncé</h3>
+<p>
+<span style="font-weight:bold">Définition</span><br>
+Un partition de <span style="font-style:italic">n</span>∈ ℕ est une suite de nombres entiers :
+λ<sub>1</sub>≥ λ<sub>2</sub>≥ ...λ<sub><span style="font-style:italic">m</span></sub>&gt;0 tels que :
+∑<sub><span style="font-style:italic">j</span>=1</sub><sup><span style="font-style:italic">m</span></sup>λ<sub><span style="font-style:italic">j</span></sub> =<span style="font-style:italic">n</span>.<br>
+On note <span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>) la fonction partage de <span style="font-style:italic">n</span> : c’est le nombre de partitions 
+distinctes de <span style="font-style:italic">n</span>∈ ℕ et on convient que p(0)=1.<br>
+<span style="font-weight:bold">Exemples</span><br>
+<span style="font-style:italic">p</span>(5)=7 car les 7 partitions distinctes de 5 sont :<br>
+1+1+1+1+1=5<br>
+2+1+1+1=5<br>
+2+2+1=5<br>
+3+1+1=5<br>
+3+2=5<br>
+4+1=5<br>
+5=5<br>
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+Chercher à la main : <span style="font-style:italic">p</span>(1),<span style="font-style:italic">p</span>(2),<span style="font-style:italic">p</span>(3),<span style="font-style:italic">p</span>(4),<span style="font-style:italic">p</span>(5),<span style="font-style:italic">p</span>(6),<span style="font-style:italic">p</span>(7)
+</li><li class="li-enumerate">Écrire un programme qui renvoie les valeurs de 
+<span style="font-style:italic">p</span>(0),<span style="font-style:italic">p</span>(1),<span style="font-style:italic">p</span>(2),<span style="font-style:italic">p</span>(3)..<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>)
+</li><li class="li-enumerate">Montrer ce que Euler a remarqué à savoir que le développement en 
+séries tronqué à l’ordre <span style="font-style:italic">n</span> de :
+∏<sub><span style="font-style:italic">j</span>=1</sub><sup><span style="font-style:italic">n</span></sup>1/1−<span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span></sup> vaut ∑<sub><span style="font-style:italic">j</span>=1</sub><sup><span style="font-style:italic">n</span></sup><span style="font-style:italic">p</span>(<span style="font-style:italic">j</span>)<span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span></sup>.
+</li><li class="li-enumerate">Écrire un programme qui renvoie les coefficients du développement en 
+séries tronqué à l’ordre <span style="font-style:italic">n</span> de :
+∏<sub><span style="font-style:italic">j</span>=1</sub><sup><span style="font-style:italic">n</span></sup>1/1−<span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span></sup> 
+</li></ol>
+<h3 id="sec300" class="subsection">9.1.2  La solution</h3>
+<ol class="enumerate" type=1><li class="li-enumerate">
+On trouve :<br>
+<span style="font-style:italic">p</span>(0)=1, <span style="font-style:italic">p</span>(1)=1, <span style="font-style:italic">p</span>(2)=2, <span style="font-style:italic">p</span>(3)=3, <span style="font-style:italic">p</span>(4)=5, <span style="font-style:italic">p</span>(5)=7, <span style="font-style:italic">p</span>(6)=11, <span style="font-style:italic">p</span>(7)=15
+</li><li class="li-enumerate">Soit <span style="font-style:italic">A</span> une matrice triangulaire inférieure tel que :<br>
+si <span style="font-style:italic">k</span>≤ <span style="font-style:italic">j</span>, <span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>] represente le nombre de partitions de <span style="font-style:italic">j</span> tel que
+λ<sub>1</sub>=<span style="font-style:italic">k</span>≥ λ<sub>2</sub>≥ ...λ<sub><span style="font-style:italic">m</span></sub>&gt;0.
+<span style="font-weight:bold">Sur l’exemple</span><br>
+<span style="font-style:italic">p</span>(5)=7 car les 7 partitions distinctes de 5 sont :<br>
+1+1+1+1+1=5 donc <span style="font-style:italic">A</span>[5,1]=1<br>
+2+1+1+1=5 <br>
+2+2+1=5 donc <span style="font-style:italic">A</span>[5,2]=2<br>
+3+1+1=5<br>
+3+2=5 donc <span style="font-style:italic">A</span>[5,3]=2<br>
+4+1=5 donc <span style="font-style:italic">A</span>[5,4]=1<br>
+5=5 donc <span style="font-style:italic">A</span>[5,5]=1<br>
+On a alors <span style="font-style:italic">p</span>(<span style="font-style:italic">j</span>)=∑<sub><span style="font-style:italic">k</span>=0</sub><sup><span style="font-style:italic">j</span></sup><span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>].<br>
+On remarque donc :<br>
+<span style="font-style:italic">A</span>[0,0]=1 et <span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,0]=0 (car λ<sub><span style="font-style:italic">m</span></sub>&gt;0 sauf pour <span style="font-style:italic">j</span>=0 puisque <span style="font-style:italic">p</span>(0)=1)<br>
+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">j</span>]=1 puisque <span style="font-style:italic">j</span>=<span style="font-style:italic">j</span><br>
+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,1]=<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>−1,1]=1 puisque <span style="font-style:italic">j</span>=<span style="font-style:italic">j</span>−1+1=<span style="font-style:italic">j</span>−2+1+1=1+1...+1<br>
+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,2]=<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>−2,1]+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>−2,2] puisque <span style="font-style:italic">j</span>=2+1+1+...=2+2+....<br>
+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,3]=<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>−3,1]+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>−3,2]+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>−3,3] puisque <span style="font-style:italic">j</span>=3+1+1+...1=3+2+....=3+3+....<br>
+etc...<br>
+<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">j</span>−1]=<span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>−1,<span style="font-style:italic">j</span>−1]=1 puisque <span style="font-style:italic">j</span>=(<span style="font-style:italic">j</span>−1)+1<br>
+ou encore :<br>
+les coefficients d’indice 0 de toutes les lignes sont nuls et<br>
+
+pour <span style="font-style:italic">k</span>=1..<span style="font-style:italic">n</span> le coefficient d’indice <span style="font-style:italic">k</span> de la n-ième ligne est 
+obtenu en faisant la somme des coefficients d’indice 0..<span style="font-style:italic">k</span> de la <span style="font-style:italic">n</span>−<span style="font-style:italic">k</span>-ième
+ligne c’est à dire :
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">k</span>]=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">j</span>=1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>−<span style="font-style:italic">k</span>,<span style="font-style:italic">j</span>]  et  </td></tr>
+</table>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">n</span>]=1   et  <span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>,0]=0  si  <span style="font-style:italic">n</span>&gt;0</td></tr>
+</table>
+Voici l’illustration pour <span style="font-style:italic">n</span>=5 avec <br>
+<span style="font-style:italic">k</span>=2, on a 5=0+1+4 :<br>
+<span style="font-style:italic">k</span>=3, on a 8=0+1+3+4 :<br>
+<span style="font-style:italic">k</span>=4, on a 9=0+1+3+3+2 :<br>
+....
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">| </td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td class="hbar"></td></tr>
+</table></td><td class="dcell">|</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >9</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1
+</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+On va faire un programme qui va calculer les coefficients de la matrice <span style="font-style:italic">A</span>.<p>On tape :
+</p><pre class="verbatim">partitions(n):={
+  local A,j,k,m,S;
+  A:=idn(n+1);
+  pour j de 2 jusque n faire
+    pour k de 1 jusque j-1 faire
+      S:=0;
+      pour m de 1 jusque k faire
+        S:=S+A[j-k,m];
+      fpour;
+      A[j,k]:=S;
+    fpour;
+  fpour;
+  retourne A;
+}:;
+</pre><p>
+On tape :
+<span style="font-family:monospace">A:=partitions(10)</span><br>
+On obtient : 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >9</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1
+</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table><p>
+On tape :
+<span style="font-family:monospace">sum(A[k])$(k=0..10)</span><br>
+On obtient : <span style="font-family:monospace">1,1,2,3,5,7,11,15,22,30,42</span></p><p>On peut faire un autre programme qui renverra la matrice <span style="font-style:italic">B</span> qui sera tel que :
+si <span style="font-style:italic">k</span>≤ <span style="font-style:italic">j</span>, <span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>] represente le nombre de partitions de <span style="font-style:italic">j</span> tel que
+<span style="font-style:italic">k</span>&gt;=λ<sub>1</sub>≥ λ<sub>2</sub>≥ ...λ<sub><span style="font-style:italic">m</span></sub>&gt;0.
+Autrement dit les lignes de <span style="font-style:italic">B</span> sont les sommes partielles des lignes de <span style="font-style:italic">A</span> :
+<span style="font-style:italic">B</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>]=∑<sub><span style="font-style:italic">m</span>=0</sub><sup><span style="font-style:italic">k</span></sup><span style="font-style:italic">A</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">m</span>]
+donc
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">B</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>]=<span style="font-style:italic">B</span>[<span style="font-style:italic">j</span>−<span style="font-style:italic">k</span>,<span style="font-style:italic">k</span>]+<span style="font-style:italic">B</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">k</span>−1]</td></tr>
+</table><p>
+On a donc <span style="font-style:italic">p</span>(<span style="font-style:italic">j</span>)=<span style="font-style:italic">B</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">j</span>].<br>
+On tape :
+</p><pre class="verbatim">partition(n):={
+  local B,j,k,m,S;
+  B:=idn(n+1);
+  pour k de 1 jusque n faire
+    B[0,k]:=1;
+  fpour;
+  pour j de 1 jusque n faire
+    pour k de 1 jusque j faire
+      B[j,k]:=B[j-k,k]+B[j,k-1];
+    fpour;
+    pour k de j+1 jusque n faire
+      B[j,k]:=B[j,j];
+    fpour;
+  fpour;
+  retourne B;
+}
+:;
+</pre><p>
+On tape :
+<span style="font-family:monospace">B:=partition(10)</span><br>
+On obtient : 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >2 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >3 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >5 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >7 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >7</td><td style="text-align:center;white-space:nowrap" >9</td><td style="text-align:center;white-space:nowrap" >10</td><td style="text-align:center;white-space:nowrap" >11</td><td style="text-align:center;white-space:nowrap" >11</td><td style="text-align:center;white-space:nowrap" >11</td><td style="text-align:center;white-space:nowrap" >11</td><td style="text-align:center;white-space:nowrap" >11 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >11</td><td style="text-align:center;white-space:nowrap" >13</td><td style="text-align:center;white-space:nowrap" >14</td><td style="text-align:center;white-space:nowrap" >15</td><td style="text-align:center;white-space:nowrap" >15</td><td style="text-align:center;white-space:nowrap" >15</td><td style="text-align:center;white-space:nowrap" >15 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >10</td><td style="text-align:center;white-space:nowrap" >15</td><td style="text-align:center;white-space:nowrap" >18</td><td style="text-align:center;white-space:nowrap" >20</td><td style="text-align:center;white-space:nowrap" >21</td><td style="text-align:center;white-space:nowrap" >22</td><td style="text-align:center;white-space:nowrap" >22</td><td style="text-align:center;white-space:nowrap" >22 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >12</td><td style="text-align:center;white-space:nowrap" >18</td><td style="text-align:center;white-space:nowrap" >23</td><td style="text-align:center;white-space:nowrap" >26</td><td style="text-align:center;white-space:nowrap" >28</td><td style="text-align:center;white-space:nowrap" >29</td><td style="text-align:center;white-space:nowrap" >30</td><td style="text-align:center;white-space:nowrap" >30 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >14</td><td style="text-align:center;white-space:nowrap" >23</td><td style="text-align:center;white-space:nowrap" >30</td><td style="text-align:center;white-space:nowrap" >35</td><td style="text-align:center;white-space:nowrap" >38</td><td style="text-align:center;white-space:nowrap" >40</td><td style="text-align:center;white-space:nowrap" >41</td><td style="text-align:center;white-space:nowrap" >42
+</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table><p>
+On remarquera que l’on retrouve la matrice <span style="font-style:italic">A</span> dans les diagonales montantes 
+de la matrice <span style="font-style:italic">B</span>.<br>
+On tape :
+<span style="font-family:monospace">tran(B)[10]</span><br>
+ou on tape :
+<span style="font-family:monospace">col(B,10)</span><br>
+On obtient : <span style="font-family:monospace">[1,1,2,3,5,7,11,15,22,30,42]</span>
+ou on tape :
+<span style="font-family:monospace">B[j,10]$(j=0..10)</span><br>
+On obtient : <span style="font-family:monospace">1,1,2,3,5,7,11,15,22,30,42</span>
+On tape :
+<span style="font-family:monospace">B:=partition(1000):;</span><br>
+On obtient (Evaluation time: 972.05) enfin le résultat...<br>
+On tape :
+<span style="font-family:monospace">B[200,1000]</span><br>
+On obtient 
+<span style="font-family:monospace">3972999029388</span><br>
+On tape :
+<span style="font-family:monospace">B[1000,1000]</span><br>
+On obtient 
+<span style="font-family:monospace">24061467864032622473692149727991</span><br>
+<span style="font-weight:bold">Remarque</span>
+On peut aussi pour avoir une relation de récurrence considérer les 
+les partitions <span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>) de <span style="font-style:italic">n</span> en une somme d’exactement <span style="font-style:italic">p</span> éléments 
+λ<sub>1</sub>≥ ...≥ λ<sub><span style="font-style:italic">p</span></sub>&gt;0. On dit alors :<br>
+<span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>) =(nombre de partage de <span style="font-style:italic">n</span> tels que λ<sub><span style="font-style:italic">p</span></sub>=1)+(nombre de partage de <span style="font-style:italic">n</span> tels que λ<sub><span style="font-style:italic">p</span></sub>&gt;1).<br>
+On a :<br>
+(nombre de partage de <span style="font-style:italic">n</span> tels que λ<sub><span style="font-style:italic">p</span></sub>=1)=(nombre de partage de <span style="font-style:italic">n</span>−1 en
+<span style="font-style:italic">p</span>−1 λ<sub><span style="font-style:italic">j</span></sub>)=<span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>−1,<span style="font-style:italic">p</span>−1)<br>
+(nombre de partage de <span style="font-style:italic">n</span> tels que λ<sub><span style="font-style:italic">p</span></sub>&gt;1)=(nombre de partage de <span style="font-style:italic">n</span>−<span style="font-style:italic">p</span> en
+<span style="font-style:italic">p</span> λ<sub><span style="font-style:italic">j</span></sub>)=<span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>,<span style="font-style:italic">p</span>)<br>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>):=<span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>−1,<span style="font-style:italic">p</span>−1)+<span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>,<span style="font-style:italic">p</span>)</td></tr>
+</table><p> 
+avec <span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>,0)=0, <span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>,<span style="font-style:italic">n</span>)=1 et <span style="font-style:italic">P</span>(<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>)=0 si <span style="font-style:italic">p</span>&gt;<span style="font-style:italic">n</span><br>
+On tape et on renvoie la somme des lignes de <span style="font-style:italic">P</span> :
+</p><pre class="verbatim">partage(n):={
+  local P,j,k,m,S;
+  P:=idn(n+1);
+  pour k de 1 jusque n faire
+    P[k,0]:=0;
+  fpour;
+  pour j de 1 jusque n faire
+    pour k de 1 jusque j faire
+      P[j,k]:=P[j-1,k-1]+P[j-k,k];
+    fpour;
+  fpour;
+  S:=[];
+  pour k de 1 jusque n faire
+    S[k]:=sum(row(P,k));
+  fpour;
+  retourne S;
+}:;
+</pre><p>
+On tape :
+<span style="font-family:monospace">P:=partage(1000):;</span><br>
+On obtient (Evaluation time: 455.81) enfin le résultat...mais c’est deux 
+fois plus rapide qu’avec <span style="font-family:monospace">B:=partition(1000):;</span><br>
+On tape :
+<span style="font-family:monospace">P[200]</span><br>
+On obtient 
+<span style="font-family:monospace">3972999029388</span><br>
+On tape :
+<span style="font-family:monospace">P[1000]</span><br>
+On obtient 
+<span style="font-family:monospace">24061467864032622473692149727991</span><br>
+
+<span style="font-weight:bold">relation entre </span><span style="font-style:italic">P</span><span style="font-weight:bold"> et </span><span style="font-style:italic">A</span> :<br>
+On a :<br>
+<span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>]=<span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>−1,<span style="font-style:italic">p</span>−1]+<span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>,<span style="font-style:italic">p</span>]<br>
+<span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>−1,<span style="font-style:italic">p</span>−1]=<span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>−2,<span style="font-style:italic">p</span>−2]+<span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>,<span style="font-style:italic">p</span>−1]....<br>
+donc </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>]= <span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>,0]+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">p</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">j</span>=1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>,<span style="font-style:italic">j</span>]</td></tr>
+</table><p> 
+avec <span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>,0]=0, <span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">n</span>]=1 et <span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>]=0 si <span style="font-style:italic">p</span>&gt;<span style="font-style:italic">n</span><br>
+Si on compare avec les relations obtenus pour <span style="font-style:italic">A</span>:<br>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">k</span>]=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">j</span>=1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>−<span style="font-style:italic">k</span>,<span style="font-style:italic">j</span>]  et  </td></tr>
+</table><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">n</span>]=1   et  <span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>,0]=0  si  <span style="font-style:italic">n</span>&gt;0</td></tr>
+</table><p>
+On a les mêmes relations de récurrence, donc :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">P</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>]=<span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>]</td></tr>
+</table><p>
+<span style="font-weight:bold">Représentation de Young</span><br>
+On peut voir facilement cette égalité, grâce à la repésentation de 
+Young qui repésente par exemple le partage :<br>
+20=7+3+3+2+1+1+1+1+1<br>
+par le tableau formé par 20 carrés disposés selon 9 lignes :<br>
+7 carrés sur la 1-ière ligne,<br>
+3 carrés sur la 2-ième ligne,<br>
+3 carrés sur la 3-ième ligne,<br>
+2 carrés sur la 4-ième ligne,<br>
+1 carré sur de la 5-ième jusqu’à la 9-ième ligne :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□ </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+Le nombre <span style="font-style:italic">p</span> de lignes correspond a un partage en une 
+somme de <span style="font-style:italic">p</span> éléments et le plus grand élément <span style="font-style:italic">m</span> de ce partage 
+est le nombre d’éléments de la première ligne.<br>
+Si maintenant on échange les lignes et les colonnes (on prend le transposé 
+de ce tableau) on obtient une transformation qui au partage :<br>
+20=7+3+3+2+1+1+1+1+1 en 
+une somme de 9 termes ayant comme plus grand élément 7 fait correspondre le
+partage :<br>
+20=9+4+3+1+1+1+1 en 
+une somme de 7 termes ayant comme plus grand élément 9 :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >□</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></li><li class="li-enumerate"><span style="font-weight:bold">Notations</span><br>
+1 sera noté 1<sub>1</sub>, 1+1 sera noté 2<sub>1</sub>, 1+1+1 sera noté 3<sub>1</sub> etc...<br>
+2 sera noté 2<sub>2</sub>, 2+2 sera noté 4<sub>2</sub>, 2+2+2 sera noté 6<sub>2</sub> etc...<br>
+Le développement en série de ;<br>
+1/1−<span style="font-style:italic">x</span><sup>1</sup> sera noté 1+<span style="font-style:italic">x</span><sup>1<sub>1</sub></sup>+<span style="font-style:italic">x</span><sup>2<sub>1</sub></sup>+...+<span style="font-style:italic">x</span><sup><span style="font-style:italic">n</span><sub>1</sub></sup>+...<br>
+1/1−<span style="font-style:italic">x</span><sup>2</sup> sera noté 1+<span style="font-style:italic">x</span><sup>2<sub>2</sub></sup>+<span style="font-style:italic">x</span><sup>4<sub>2</sub></sup>+...+<span style="font-style:italic">x</span><sup>2<span style="font-style:italic">n</span><sub>2</sub></sup>+...<br>
+1/1−<span style="font-style:italic">x</span><sup>3</sup> sera noté 1+<span style="font-style:italic">x</span><sup>3<sub>3</sub></sup>+<span style="font-style:italic">x</span><sup>6<sub>3</sub></sup>+...+<span style="font-style:italic">x</span><sup>3<span style="font-style:italic">n</span><sub>3</sub></sup>+...<br>
+.....<br>
+1/1−<span style="font-style:italic">x</span><sup><span style="font-style:italic">p</span></sup> sera noté 1+<span style="font-style:italic">x</span><sup><span style="font-style:italic">p</span><sub><span style="font-style:italic">p</span></sub></sup>+<span style="font-style:italic">x</span><sup>2<span style="font-style:italic">p</span><sub><span style="font-style:italic">p</span></sub></sup>+...+<span style="font-style:italic">x</span><sup><span style="font-style:italic">pn</span><sub><span style="font-style:italic">p</span></sub></sup>+...<br>
+Lorsque l’on fait le produit de ces développements en série le terme en <span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span></sup> a 
+pour coefficient <span style="font-style:italic">p</span>(<span style="font-style:italic">j</span>) car :<br>
+<span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span></sup>=<span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span><sub>1</sub></sup>=<span style="font-style:italic">x</span><sup>(<span style="font-style:italic">j</span>−2)<sub>1</sub></sup><span style="font-style:italic">x</span><sup>2<sub>2</sub></sup>=<span style="font-style:italic">x</span><sup>(<span style="font-style:italic">j</span>−4)<sub>1</sub></sup><span style="font-style:italic">x</span><sup>4<sub>2</sub></sup> ... <br>
+<span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span></sup>=<span style="font-style:italic">x</span><sup>(<span style="font-style:italic">j</span>−2)<sub><span style="font-style:italic">j</span>−2</sub></sup><span style="font-style:italic">x</span><sup>2<sub>1</sub></sup>=<span style="font-style:italic">x</span><sup>(<span style="font-style:italic">j</span>−2)<sub><span style="font-style:italic">j</span>−2</sub></sup><span style="font-style:italic">x</span><sup>2<sub>2</sub></sup>=<span style="font-style:italic">x</span><sup>(<span style="font-style:italic">j</span>−1)<sub><span style="font-style:italic">j</span>−1</sub></sup><span style="font-style:italic">x</span><sup>1<sub>1</sub></sup>=<span style="font-style:italic">x</span><sup><span style="font-style:italic">j</span><sub><span style="font-style:italic">j</span></sub></sup><p>On tape :
+<span style="font-family:monospace">P:=truncate(product([(1-x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">j)$(j=1..20)]),20)</span><br>
+On obtient : <span style="font-family:monospace">-x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">15-x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">12+x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">7+x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">5-x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2-x+1</span><br>
+On tape : <span style="font-family:monospace">A:=truncate(series(1/P,x=0,20),20)</span><br>
+On obtient : <br>
+<span style="font-family:monospace">627*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">20+490*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">19+385*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">18+297*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">17+231*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">16+176*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">15+ 135*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">14+101*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">13+77*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">12+56*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">11+42*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">10+30*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">9+22*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">8+ 15*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">7+11*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">6+7*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">5+5*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">4+3*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">3+2*x</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2+x+1</span><br>
+On tape :<span style="font-family:monospace">symb2poly(A)</span><br>
+ou on tape : <span style="font-family:monospace">coeff(A,x)</span><br>
+On obtient la liste <span style="font-style:italic">p</span>(20),<span style="font-style:italic">p</span>(19),..,<span style="font-style:italic">p</span>(1),<span style="font-style:italic">p</span>(0): <br>
+<span style="font-family:monospace">[627,490,385,297,231,176,135,101,77,56,42,30,22,15,11, 7,5,3,2,1,1]</span><br>
+On tape :<span style="font-family:monospace">lcoeff(A)</span><br>
+On obtient <span style="font-style:italic">p</span>(20): 
+<span style="font-family:monospace">627</span><br>
+</p></li><li class="li-enumerate">On tape mais cela n’est pas très efficace lorsque <span style="font-style:italic">n</span> est grand :
+<pre class="verbatim">partitioner(n):={
+local A,P;
+P:=truncate(product([(1-x^j)$(j=1..n)]),n);
+A:=truncate(series(1/P,x=0,n),n);
+return revlist(symb2poly(A));
+}:;
+</pre>
+On tape : <span style="font-family:monospace">partitioner(20)</span><br>
+On obtient la liste <span style="font-style:italic">p</span>(20),<span style="font-style:italic">p</span>(19),..,<span style="font-style:italic">p</span>(1),<span style="font-style:italic">p</span>(0) :<br>
+<span style="font-family:monospace">[627,490,385,297,231,176,135,101,77,56,42,30,22,15,11, 7,5,3,2,1,1]</span>
+</li></ol>
+<h3 id="sec301" class="subsection">9.1.3  Une méthode plus rapide</h3>
+<p>
+On utilise le théorème du nombre pentagonal d’Euler. Ce théorème donne
+une relation de récurrence entre <span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>) et <span style="font-style:italic">p</span>(<span style="font-style:italic">j</span>) pour <span style="font-style:italic">j</span>&lt;<span style="font-style:italic">n</span> avec la 
+convention que <span style="font-style:italic">p</span>(<span style="font-style:italic">j</span>)=0 lorsque <span style="font-style:italic">j</span>&lt;0, <span style="font-style:italic">p</span>(0)=1. 
+Cette relation est :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>)=<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−1)+<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−2)−<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−5)−<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−7)+<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−12)+<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−15)−<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−22)−<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−26)....</td></tr>
+</table><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">&nbsp;</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">m</span>&gt;0</td></tr>
+</table></td><td class="dcell"> (−1)<sup><span style="font-style:italic">m</span>+1</sup><span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−<span style="font-style:italic">m</span>(3<span style="font-style:italic">m</span>−1)/2)+(−1)<sup><span style="font-style:italic">m</span>+1</sup><span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>−<span style="font-style:italic">m</span>(3<span style="font-style:italic">m</span>+1)/2)</td></tr>
+</table><p>
+Les nombres <span style="font-style:italic">m</span>(3<span style="font-style:italic">m</span>−1)/2  et <span style="font-style:italic">m</span>(3<span style="font-style:italic">m</span>+1)/2  sont les nombres pentagonaux 
+généralisés. On tape :
+</p><pre class="verbatim">partition_euler(n):={
+local sg,s1,s2,m,k,j,p;
+p:=[1];
+pour j de 1 jusque n faire
+m:=1;
+sg:=1;
+s1:=0;
+k:=j-m*(3*m-1)/2;
+tantque k&gt;=0 faire 
+s1:=s1+sg*p[k]
+sg:=-sg;
+m:=m+1;
+k:=j-m*(3*m-1)/2;
+ftantque;
+m:=1;
+sg:=1;
+s2:=0;
+k:=j-m*(3*m+1)/2;
+tantque k&gt;=0 faire 
+s2:=s2+sg*p[k]
+sg:=-sg;
+m:=m+1;
+k:=j-m*(3*m+1)/2;
+ftantque;
+p[j]:=s1+s2;
+fpour;
+retourne p;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">partition_euler(20)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[1,1,2,3,5,7,11,15,22,30,42,56,77,101,135,176,231,297,385,490,627]</span><br>
+On tape :<br>
+<span style="font-family:monospace">P:=partition_euler(1000)</span><br>
+On obtient la liste après 2.77s<br>
+On tape :
+<span style="font-family:monospace">P[200]</span><br>
+On obtient 
+<span style="font-family:monospace">3972999029388</span><br>
+On tape :
+<span style="font-family:monospace">P[1000]</span><br>
+On obtient 
+<span style="font-family:monospace">24061467864032622473692149727991</span>
+</p>
+<h3 id="sec302" class="subsection">9.1.4  Estimation asymptotique</h3>
+<p>
+Ramanjan et Hardy ont trouvé une approximation de <span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>) qui est :<br>
+<span style="font-style:italic">p</span>(<span style="font-style:italic">n</span>)≃ <span style="font-style:italic">e</span><sup>π</sup>√<span style="text-decoration:overline">2</span><span style="text-decoration:overline"><span style="font-style:italic">n</span></span><span style="text-decoration:overline">/3</span>/4<span style="font-style:italic">n</span>√<span style="text-decoration:overline">3</span> quand <span style="font-style:italic">n</span> tend vers 
++∞.<br>
+On tape :<br>
+<span style="font-family:monospace">P(n):=exp(pi*sqrt(2n/3))/(4n*sqrt(3))</span><br>
+<span style="font-family:monospace">floor(evalf(P(1000),31))</span><br>
+
+On obtient :<br>
+<span style="font-family:monospace">24401996316802476288263414942904</span> au lieu de<br>
+<span style="font-family:monospace">24061467864032622473692149727991</span>
+</p>
+<h2 id="sec303" class="section">9.2  Un exercice de combinatoire et son programme</h2>
+<h3 id="sec304" class="subsection">9.2.1  L’énoncé</h3>
+<p>
+Un jury est composé de <span style="font-style:italic">p</span> personnes que l’on choisit parmi <span style="font-style:italic">n</span> personnes :
+<span style="font-style:italic">h</span> hommes et <span style="font-style:italic">f</span> femmes (<span style="font-style:italic">h</span>+<span style="font-style:italic">f</span>=<span style="font-style:italic">n</span>).<br>
+<span style="font-weight:bold">Application numérique</span> : <span style="font-style:italic">p</span>=10, <span style="font-style:italic">n</span>=17, <span style="font-style:italic">h</span>=9, <span style="font-style:italic">f</span>=8.
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+Écrire un programme qui renvoie la liste contenant les 
+différents jurys possibles.
+</li><li class="li-enumerate">On impose comme contrainte que Monsieur Y et Madame X ne doivent pas
+se trouver ensemble. <br>
+Écrire un programme qui renvoie la liste contenant tous les jurys respectant 
+cette contrainte.
+</li><li class="li-enumerate">On veut que le jury respecte la parité "homme-femme".<br>
+Pour cela, si <span style="font-style:italic">p</span>=2*<span style="font-style:italic">k</span> ou <span style="font-style:italic">p</span>=2*<span style="font-style:italic">k</span>+1, on suppose <span style="font-style:italic">f</span>≥ <span style="font-style:italic">k</span> et <span style="font-style:italic">h</span>=<span style="font-style:italic">n</span>−<span style="font-style:italic">f</span> ≥ <span style="font-style:italic">p</span>−<span style="font-style:italic">k</span>.<br>
+Écrire un programme qui renvoie la liste contenant les 
+jurys ayant <span style="font-style:italic">p</span>−<span style="font-style:italic">k</span> hommes et <span style="font-style:italic">k</span> femmes.
+</li><li class="li-enumerate">Avec l’hypothèse précédente, écrire un programme qui renvoie la 
+liste contenant les jurys respectant la parité "homme-femme" et respectant 
+la contrainte Monsieur Y et Madame X ne doivent pas se trouver ensemble.<br>
+</li><li class="li-enumerate">Rappels 
+Avec <span style="font-family:monospace">Xcas</span>, la commande <span style="font-family:monospace">comb(n,p)</span> renvoie le nombre de combinaisons
+de <span style="font-style:italic">p</span> objets pris parmi <span style="font-style:italic">n</span>.<br>
+Avec <span style="font-family:monospace">Xcas</span>, la commande <span style="font-family:monospace">convert(k,base,2)</span> renvoie la liste
+<span style="font-style:italic">K</span> de longueur <span style="font-style:italic">l</span> vérifiant <span style="font-style:italic">k</span>=∑<sub><span style="font-style:italic">j</span>=0</sub><sup><span style="font-style:italic">l</span>−1</sup><span style="font-style:italic">K</span>[<span style="font-style:italic">j</span>]*2<sup><span style="font-style:italic">j</span></sup>.
+<span style="font-family:monospace">revlist(K)</span> renvoie alors l’écriture en base 2 de <span style="font-style:italic">k</span>.
+</li></ol>
+<h3 id="sec305" class="subsection">9.2.2  Les programmes</h3>
+<ol class="enumerate" type=1><li class="li-enumerate">
+On peut avoir <span style="font-family:monospace">comb(n,p)</span> jurys différents.<br>
+On tape : <span style="font-family:monospace">comb(17,10)</span><br>
+On obtient : <span style="font-family:monospace">19448</span><br>
+Supposons que <span style="font-style:italic">n</span> cases <span style="font-style:italic">C</span> numérotées de 0 à <span style="font-style:italic">n</span>−1 
+représentent les membres du jury. <br>
+Dans ces cases on met 1 si la personne fait partie 
+du jury et 0 sinon. Un jury est donc une liste de 0 et de 1 et cela fait penser
+à l’écriture en base 2 d’un entier.<br>
+Avec <span style="font-family:monospace">Xcas</span>, la commande <span style="font-family:monospace">convert(k,base,2)</span> renvoie la liste
+<span style="font-style:italic">K</span> de longueur <span style="font-style:italic">l</span> vérifiant <span style="font-style:italic">k</span>=∑<sub><span style="font-style:italic">j</span>=0</sub><sup><span style="font-style:italic">l</span>−1</sup><span style="font-style:italic">K</span>[<span style="font-style:italic">j</span>]*2<sup><span style="font-style:italic">j</span></sup>
+On va donc considérer un jury comme un entier dont l’écriture en base 2
+a au plus <span style="font-style:italic">n</span> chiffres et comporte exactement <span style="font-style:italic">p</span> 1. 
+Pour faire le programme on va repésenter chaque jury par un nombre dont 
+l’écriture en base 2 comporte au plus <span style="font-style:italic">n</span> chiffres dont <span style="font-style:italic">p</span> 1 et pas plus de 
+<span style="font-style:italic">n</span>−<span style="font-style:italic">p</span> zéros.<br>
+Le plus petit nombre correspondant à un jury est :<br>
+<span style="font-family:monospace">m=sum(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">j,j,0,p-1)=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">p-1</span> <br>
+et le plus grand nombre correspondant à un jury est :<br>
+<span style="font-family:monospace">M=sum(2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">j,j,n-p,n-1)=2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">n-2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n-p)</span><br>
+car les <span style="font-style:italic">n</span> cases sont numerotés de 0 à <span style="font-style:italic">n</span>−1.<br>
+On peut initialiser la liste 
+<span style="font-family:monospace">L</span> soit avec <span style="font-family:monospace">L:=makelist(0,1,1);</span> soit avec
+<span style="font-family:monospace">L:=makelist(0,1,comb(n,p));</span> puisque l’on connait sa longueur.
+On écrit le programme <span style="font-family:monospace">jurys(n,p)</span> :
+<pre class="verbatim">jurys(n,p):={
+local j,k,L,m,M;
+//L:=makelist(0,1,comb(n,p));
+L:=makelist(0,1,1);
+k:=0;
+m:=2^p-1;
+M:=2^n-2^(n-p);
+for (j:=m;j&lt;=M;j++){
+if (sum(convert(j,base,2))==p){
+L[k]=&lt;j;
+k:=k+1;
+};
+}
+return L;
+}
+:;
+</pre>
+On tape :
+<span style="font-family:monospace">J:=jurys(17,10):;</span><br>
+On obtient, au bout d’environ 11s, une liste J de taille 19448 et contenant des
+entiers qui lorsqu’on les décompose en base 2 donne la composition du jury.<br>
+On tape :
+<span style="font-family:monospace">jurytire0:=J[rand(19448)]</span><br>
+On obtient par exemple : <span style="font-family:monospace">127255</span><br>
+On tape :
+<span style="font-family:monospace">convert(127255,base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[1,1,1,0,1,0,0,0,1,0,0,0,1,1,1,1,1]</span><br>
+Donc, les personnes de numéros : <span style="font-family:monospace">0,1,2,4,8,12,13,14,15,16</span> ont été
+tirées au sort pour faire partie du jury.<br>
+On peut bien sûr taper directement :<br>
+<span style="font-family:monospace">jurytire0:=convert(J[rand(19448)],base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[1,0,0,0,1,1,1,0,1,1,1,0,0,1,0,1,1]</span><br>
+Donc, les personnes de numéros : <span style="font-family:monospace">0,4,5,6,8,9,10,13,15,16</span> ont été
+tirées au sort pour faire partie du jury.<br>
+
+</li><li class="li-enumerate">On peut supposer que la case 0 représente Monsieur Y et que la case 
+<span style="font-style:italic">n</span>−1 représente Madame X.
+Donc le jury repésenté par le nombre <span style="font-style:italic">j</span> est valable si :<br>
+<span style="font-family:monospace">irem(j,2)==0</span> ou si <span style="font-family:monospace">j&lt;2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n-1)</span>. <br>
+On peut réecrire un 
+programme <span style="font-family:monospace">jurysXY(n,p)</span> qui utilise <span style="font-family:monospace">jurys</span> ou un 
+programme <span style="font-family:monospace">juryXY(n,p)</span> qui n’utilise pas <span style="font-family:monospace">jurys</span> ou utiliser la 
+liste précédente <span style="font-family:monospace">J</span> et rejeter les mauvais tirages.
+<ul class="itemize"><li class="li-itemize">
+Le programme <span style="font-family:monospace">jurysXY(n,p)</span>.<br>
+On peut initialiser la liste <span style="font-family:monospace">L</span>, soit avec <br>
+<span style="font-family:monospace">L:=makelist(0,1,1);</span> soit avec<br>
+<span style="font-family:monospace">L:=makelist(0,1,comb(n,p)-comb(n-2,p-2));</span> 
+puisque l’on connait sa longueur.
+<pre class="verbatim">jurysXY(n,p):={
+local LP,L,j,k,l;
+LP:=jurys(n,p);
+s:=comb(n,p);
+l:=s-comb(n-2,p-2);
+//L:=makelist(0,1,1);
+L:=makelist(0,1,l);
+l:=0;
+for(k:=0;k&lt;s;k++){
+j:=LP[k];
+if (irem(j,2)==0 or j&lt;2^(n-1)) {
+L[l]=&lt;j;
+l:=l+1;
+}
+}
+return L;
+}:;
+</pre>
+On tape : <span style="font-family:monospace">JXY:=jurysXY(17,10)</span><br>
+On a : <span style="font-family:monospace">size(JXY)=13013</span><br>
+On tape : <span style="font-family:monospace">jurytire1:=convert(JXY[rand(13013)],base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[0,1,1,0,1,1,1,1,1,0,0,0,1,0,1,0,1]</span><br>
+Mais ce programme appelle le programme <span style="font-family:monospace">jurys</span> précédent....
+</li><li class="li-itemize">Un programme <span style="font-family:monospace">juryXY(n,p)</span> qui n’utilise pas <span style="font-family:monospace">jurys</span><br>
+Les nombres qui correspondent aux jurys ne contenant pas X et Y en même 
+temps ont dans la décomposition en base 2 soit le coefficient de 2<sup><span style="font-style:italic">n</span>−1</sup>
+nul, soit est un nombre pair avec le coefficient de 2<sup><span style="font-style:italic">n</span>−1</sup> égal à 1 donc
+égal à 2*<span style="font-style:italic">j</span>+2<sup><span style="font-style:italic">n</span>−1</sup>.<br>
+Les nombres qui ont <span style="font-style:italic">p</span> 1 dans leur décomposition en
+base 2 et le coefficient de 2<sup><span style="font-style:italic">n</span>−1</sup> nul, vont de <span style="font-style:italic">m</span>=2<sup><span style="font-style:italic">p</span></sup>−1 à 
+<span style="font-style:italic">M</span>=2<sup>(</sup><span style="font-style:italic">n</span>−1)−2<sup>(</sup><span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>−1).<br>
+Les nombres pairs de la forme 2*<span style="font-style:italic">j</span>+2<sup><span style="font-style:italic">n</span>−1</sup> ont <span style="font-style:italic">j</span> qui a <span style="font-style:italic">p</span>−1 1 dans sa 
+décomposition en base 2. Les <span style="font-style:italic">j</span> vont donc de 2<sup><span style="font-style:italic">p</span></sup>−2 à 2<sup>(</sup><span style="font-style:italic">n</span>−1)−2<sup>(</sup><span style="font-style:italic">n</span>−<span style="font-style:italic">p</span>)
+par pas de 2.<br>
+On peut initialiser la liste 
+<span style="font-family:monospace">L</span> soit avec <span style="font-family:monospace">L:=makelist(0,1,1);</span> soit avec
+<span style="font-family:monospace">L:=makelist(0,1,comb(n,p)-comb(n-2,p-2));</span> puisque l’on connait sa 
+longueur.On tape le programme <span style="font-family:monospace">juryXY(n,p)</span>
+<pre class="verbatim">juryXY(n,p):={
+local L,j,k,ls,m,M;
+s:=comb(n,p);
+l:=s-comb(n-2,p-2);
+L:=makelist(0,1,l);
+//L:=makelist(0,1,1);
+k:=0;
+m:=2^p-1;
+M:=2^(n-1)-2^(n-p-1);
+for(j:=m;j&lt;=M;j++){
+if (sum(convert(j,base,2))==p){
+L[k]=&lt;j;
+k:=k+1;
+}
+}
+M:=2^(n-1)-2^(n-p);
+for(j:=m-1;j&lt;=M;j:=j+2){
+if (sum(convert(j,base,2))==p-1){
+L[k]=&lt;j+2^(n-1);
+k:=k+1;
+}
+}
+return L;
+}:;
+</pre>
+On tape : <span style="font-family:monospace">JXY:=juryXY(17,10)</span><br>
+On a : <span style="font-family:monospace">size(JXY)=13013</span><br>
+On tape : <span style="font-family:monospace">jurytire2:=convert(JXY[rand(13013)],base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[1,1,1,0,0,1,1,0,0,0,1,1,1,1,0,1]</span><br>
+
+</li><li class="li-itemize">programme <span style="font-family:monospace">jurytireXY(J)</span> qui se sert de la liste <span style="font-family:monospace">J</span> obtenue 
+précédemment (<span style="font-family:monospace">J:=jurys(17,10):;</span>)<br>
+On tape :
+<pre class="verbatim">jurytireXY(J):={
+local k,n,(s:=size(J));
+n:=size(convert(J[s-1],base,2));
+k:=1+2^(n-1);
+while (irem(k,2)!=0 and k&gt;=2^(n-1)){
+k:=J[rand(s)];
+}
+return k;
+}
+</pre>
+On tape :
+<span style="font-family:monospace">jurytireXY(J)</span>
+On obtient par exemple : <span style="font-family:monospace">54762</span><br>
+On tape :
+<span style="font-family:monospace">convert(109242,base,2)</span><br>
+On obtient : <span style="font-family:monospace">[0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1]</span>
+</li></ul>
+</li><li class="li-enumerate">On peut supposer que les cases de 0 à <span style="font-style:italic">h</span>−1 représentent les 
+hommes et que les cases de <span style="font-style:italic">h</span> à <span style="font-style:italic">n</span>−1 représentent les femmes.
+On écrit un nouveau programme <span style="font-family:monospace">jury55(h,f,p)</span> qui utilise le programme
+<span style="font-family:monospace">jurys(n,p)</span> écrit précédemment ou on se sert de la liste 
+<span style="font-family:monospace">J</span> trouvée précedemment.
+<ul class="itemize"><li class="li-itemize">
+Le programme <span style="font-family:monospace">jury55(h,f,p)</span>.<br>
+On peut initialiser la liste <span style="font-family:monospace">L</span> soit avec <br>
+<span style="font-family:monospace">L:=makelist(0,1,1);</span> soit avec<br>
+<span style="font-family:monospace">L:=makelist(0,1,comb(h,5)*comb(f,5));</span> <br>
+puisque l’on connait sa longueur.
+<pre class="verbatim">jury55(h,f,p):={
+local L,j,k,M,F,l,p2;
+p2:=iquo(p,2);
+L:=makelist(0,1,1);
+//L:=makelist(0,1,comb(h,5)*comb(f,5));
+M:=jurys(h,p-p2);
+F:=jurys(f,p2)*2^h;
+l:=0;
+for(j:=0;j&lt;comb(h,p-p2);j++){
+for(k:=0;k&lt;comb(f,p2);k++){
+L[l]=&lt;M[j]+F[k];
+l:=l+1;
+}
+}
+return L
+}:;
+</pre>
+<span style="font-family:monospace">J55:=jury55(9,8,10)</span><br>
+<span style="font-family:monospace">size(J55)=7056</span><br>
+On tape : <span style="font-family:monospace">jurytire3:=convert(J55[rand(7056)],base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[1,0,1,0,1,0,1,0,1,1,1,1,1,1]</span><br>
+</li><li class="li-itemize">Le programme <span style="font-family:monospace">jurytire55(J,h)</span> qui se sert de la liste <span style="font-family:monospace">J</span> 
+obtenue précédemment :<br>
+On tape :
+<pre class="verbatim">jurytire55(J,h):={
+local k,n,p,la,j,(s:=size(J));
+la:=convert(J[s-1],base,2);
+n:=size(la);
+p:=sum(la);
+k:=iquo(p,2);
+j:=1;
+while (sum(convert(irem(j,2^h),base,2))!=p-k){
+j:=J[rand(s)];
+}
+return j;
+}
+</pre>
+On tape : <span style="font-family:monospace">jurytire4:=convert(jurytire55(J,9),base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[1,1,1,0,1,0,0,0,1,1,1,1,1,0,0,1]</span><br>
+</li></ul>
+</li><li class="li-enumerate">On peut supposer que la case 0 représente Monsieur Y et que la case 
+<span style="font-style:italic">n</span>−1 représente Madame X.
+Donc le jury repésenté par le nombre <span style="font-style:italic">j</span> est valable si :<br>
+<span style="font-family:monospace">irem(j,2)==0</span> ou si <span style="font-family:monospace">j&lt;2</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">(n-1)</span>. <br>
+On peut réecrire un programme <span style="font-family:monospace">jury55XY(h,f,p)</span> qui utilise <span style="font-family:monospace">jury55</span>,
+ou un programme <span style="font-family:monospace">jurys55XY(n,p)</span> qui n’utilise pas <span style="font-family:monospace">jury55</span> mais 
+<span style="font-family:monospace">jurys</span>,
+ou utiliser la liste précédente <span style="font-family:monospace">J55</span> et rejeter les mauvais tirages,
+ou encore utiliser la liste <span style="font-family:monospace">J</span> du début et rejeter les mauvais tirages.
+<ul class="itemize"><li class="li-itemize">
+Le programme <span style="font-family:monospace">juryXY55(h,f,p)</span> qui utilise <span style="font-family:monospace">jury55</span>.<br>
+On peut initialiser la liste <span style="font-family:monospace">L</span> soit avec <br>
+<span style="font-family:monospace">L:=makelist(0,1,1);</span> soit avec<br>
+<span style="font-family:monospace">L:=makelist(0,1,comb(h,p-p2)*comb(f-1,p2-1));</span><br>
+ puisque l’on connait sa longueur.
+<pre class="verbatim">juryXY55(h,f,p):={
+local LP,L,j,k,l,p2;
+p2:=iquo(p,2);
+LP:=jury55(h,f,p);
+//L:=makelist(0,1,1);
+s:=comb(h,p-p2)*comb(f,p2);
+l:=s-comb(h-1,p-p2-1)*comb(f-1,p2-1);
+L:=makelist(0,1,l);
+l:=0;
+for(j:=0;j&lt;s;j++){
+k:=LP[j];
+if (irem(k,2)==0 or k&lt;2^(h+f-1)) {
+L[l]=&lt;k;
+l:=l+1;
+}
+}
+return L;
+}:;
+</pre>
+On tape : <span style="font-family:monospace">JXY55:=juryXY55(9,8,10)</span><br>
+On a : <span style="font-family:monospace">size(JXY55)=4606</span><br>
+On tape : <span style="font-family:monospace">jurytire5:=convert(JXY[rand(40606)],base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[1,0,0,0,0,1,1,1,1,1,1,0,1,1,0,1]</span><br>
+Mais ce programme appelle le programme <span style="font-family:monospace">jurys</span> précédent....
+</li><li class="li-itemize">Un programme <span style="font-family:monospace">jurys55XY(n,p)</span> utilise <span style="font-family:monospace">jurys</span><br>
+On tape le programme <span style="font-family:monospace">jurys55XY(h,f,p)</span>.<br>
+On peut initialiser la liste <span style="font-family:monospace">L</span> soit avec <br>
+<span style="font-family:monospace">L:=makelist(0,1,1);</span> soit avec<br>
+<span style="font-family:monospace">L:=makelist(0,1,comb(h,p-p2)*comb(f-1,p2)+</span> <br>
+          <span style="font-family:monospace">comb(h-1,p-p2)*comb(f-1,p2-1));</span><br>
+puisque l’on connait sa longueur.
+<pre class="verbatim">jurys55XY(h,f,p):={
+local L,j,k,M,F,l,p2;
+p2:=iquo(p,2);
+L:=makelist(0,1,1);
+//L:=makelist(0,1,comb(h,p-p2)*comb(f-1,p2)+
+              comb(h-1,p-p2)*comb(f-1,p2-1));
+M:=jurys(h,p-p2);
+F:=jurys(f-1,p2)*2^h;
+l:=0;
+for(j:=0;j&lt;comb(h,p-p2);j++){
+for(k:=0;k&lt;comb(f-1,p2);k++){
+L[l]=&lt;M[j]+F[k];
+l:=l+1;
+}
+}
+M:=jurys(h-1,p-p2);
+F:=jurys(f-1,p2-1)*2^h;
+for(j:=0;j&lt;comb(h-1,p-p2);j++){
+for(k:=0;k&lt;comb(f-1,p2-1);k++){
+L[l]=&lt;2*M[j]+F[k]+2^(h+f-1);
+l:=l+1;
+}
+}
+return L
+}:;
+</pre>
+On tape : <span style="font-family:monospace">JJXY55:=jurys55XY(9,8,10)</span><br>
+On a : <span style="font-family:monospace">size(JJXY55)=4606</span><br>
+On tape : <span style="font-family:monospace">jurytire6:=convert(JJXY55[rand(4606)],base,2)</span><br>
+On obtient par exemple : <span style="font-family:monospace">[0,0,0,1,1,0,1,1,1,1,1,1,0,1,0,0,1]</span><br>
+
+</li><li class="li-itemize">Le programme <span style="font-family:monospace">jurytireXY55(J55)</span> qui se sert de la liste <span style="font-family:monospace">J55</span> 
+obtenue précédemment (<span style="font-family:monospace">J55:=jury55(h,f,p)</span>) :<br>
+On tape :
+<pre class="verbatim">jurytireXY55(J55):={
+local n,k,(s=size(J55));
+n:=size(convert(J55[s-1],base,2));
+k:=1+2^(n-1);
+while (irem(k,2)!=0 and k&gt;=2^(n-1)){
+k:=J55[rand(s)];
+}
+return k;
+}
+</pre>
+On tape :
+<span style="font-family:monospace">jurytire()</span>
+On obtient par exemple : <span style="font-family:monospace">63798</span><br>
+On tape :
+<span style="font-family:monospace">convert(63798,base,2)</span><br>
+On obtient : <span style="font-family:monospace">[0,1,1,0,1,1,0,0,1,0,0,1,1,1,1,1]</span>
+</li><li class="li-itemize">Le programme <span style="font-family:monospace">jurytireXY5(J,h)</span> qui se sert de la liste <span style="font-family:monospace">J</span> 
+obtenue précédemment (<span style="font-family:monospace">J:=jurys(n,p)</span>) :<br>
+On tape :
+<pre class="verbatim"> jurytireXY5(J,h):={
+local n,k,la,p,(s=size(J));
+la:=convert(J[s-1],base,2);
+n:=size(la);
+p:=sum(la);
+k:=iquo(p,2);
+j:=1;
+while ((sum(convert(irem(j,2^h),base,2))!=p-k) or 
+       (irem(j,2)!=0 and j&gt;=2^(n-1))){
+j:=J[rand(s)];
+}
+return j;
+}
+</pre>
+On tape :
+<span style="font-family:monospace">jurytireXY5(J,9)</span><br>
+On obtient par exemple : <span style="font-family:monospace">24359</span><br>
+On tape :
+<span style="font-family:monospace">convert(24359,base,2)</span><br>
+On obtient : <span style="font-family:monospace">[1,1,1,0,0,1,0,0,1,1,1,1,1,0,1]</span>
+</li></ul>
+</li></ol>
+<h2 id="sec306" class="section">9.3  Visualistion des combinaisons modulo 2</h2>
+<h3 id="sec307" class="subsection">9.3.1  L’énoncé</h3>
+<p>
+On veut visualiser les points <span style="font-style:italic">k</span>,<span style="font-style:italic">j</span> (<span style="font-style:italic">j</span>≤ <span style="font-style:italic">k</span>) tel que <span style="font-style:italic">comb</span>(<span style="font-style:italic">k</span>,<span style="font-style:italic">j</span>)=0 mod2
+</p>
+<h3 id="sec308" class="subsection">9.3.2  Le programme</h3>
+<p>
+On tape :
+</p><pre class="verbatim">dessincomb(n):={
+  local j,k,L;
+  L:=NULL;
+  pour j de 1 jusque n faire
+    pour k de j jusque n faire
+      si irem(comb(k,j),2) alors 
+        L:=L,point(k,j,affichage=point_point);
+      fsi;
+    fpour;
+  fpour;
+  retourne L;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">dessincomb(255)</span><br>
+On obtient :<br>
+
+<img src="casrouge004.png"></p>
+<h2 id="sec309" class="section">9.4  Un exercice</h2>
+<p>
+On tire 100 fois de suite au hasard de façon équiprobable un entier <span style="font-style:italic">p</span>
+parmi 1,2..100 et on note <span style="font-style:italic">n</span><sub><span style="font-style:italic">p</span></sub> le nombre de fois où il a été tiré.<br>
+Écrire un programme qui représente les points <span style="font-style:italic">p</span>,<span style="font-style:italic">n</span><sub><span style="font-style:italic">p</span></sub>
+On tape :
+</p><pre class="verbatim">tirage():={
+local p,np,j,L,P;
+L:=0$(j=1..100)
+pour j de 0 jusque 99 faire
+p:=rand(100);
+L[p]:=L[p]+1;
+fpour;
+P:=NULL;
+pour p de 0 jusque 99 faire
+np:=L[p];
+si np!=0 alors P:=P,point(p+1+i*np); fsi; 
+fpour;
+print(max(L));
+retourne P;
+}:;
+</pre><p>
+On tape <span style="font-family:monospace">tirage()</span><br>
+On obtient :</p><p><img src="casrouge005.png"></p>
+<h2 id="sec310" class="section">9.5  Valeur de <span style="font-style:italic">e</span> et le hasard</h2>
+<h3 id="sec311" class="subsection">9.5.1  L’énoncé</h3>
+<p>
+On tire des nombres au hasard dans [0;1[ et on les ajoute. On s’arrête quand
+la somme obtenue est strictement plus grande que 1. On peut montrer que le 
+nombres de tirages nécessaires est en moyenne égal à <span style="font-style:italic">e</span>. Écrire un 
+programme vérifiant expérimentalement ce résultat.
+</p>
+<h3 id="sec312" class="subsection">9.5.2  La solution avec <span style="font-family:monospace">Xcas</span></h3>
+<p>
+Dans <span style="font-family:monospace">Xcas</span>, on peut soit utiliser <span style="font-family:monospace">rand(0,1)</span>, soit utiliser 
+la fonction <span style="font-family:monospace">f:=rand(0..1)</span> pour obtenir un nombre au hasard entre 0 et 1.<br>
+On tape :<span style="font-family:monospace">rand(0.1)</span><br>
+On obtient : <span style="font-family:monospace">0.482860322576</span><br>
+On tape : <span style="font-family:monospace">f:=rand(0..1)</span><br>
+puis : <span style="font-family:monospace">f()</span>
+On obtient : <span style="font-family:monospace">0.8627617261373</span><br>
+puis : <span style="font-family:monospace">f()</span>
+On obtient : <span style="font-family:monospace">0.3095522336662</span> etc....<br>
+On écrit le programme :
+</p><pre class="verbatim">approxe(n):={
+local j,S,k,N;
+N:=0;
+pour k de 1 jusque n faire
+S:=0;
+j:=0;
+tantque S&lt;=1 faire
+S:=S+rand(0,1);
+j:=j+1;
+ftantque;
+N:=N+j;
+fpour;
+retourne evalf(N/n);
+}:;
+</pre><p>
+On tape : <span style="font-family:monospace">approxe(100000)</span><br>
+On obtient : <span style="font-family:monospace">2.71750000000</span><br>
+ alors que <span style="font-family:monospace">evalf(e)=2.71828182846</span>
+</p>
+<h2 id="sec313" class="section">9.6  Distance moyenne entre de 2 points</h2>
+<h3 id="sec314" class="subsection">9.6.1  L’énoncé</h3>
+<p>
+On veut évaluer la distance moyenne entre 2 points choisis au hasard :
+dans un segment <span style="font-style:italic">S</span> de longueur 1, dans le carré unité <span style="font-style:italic">C</span> ou dans le cube 
+unité <span style="font-style:italic">K</span>.
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+Écrire un programme qui calcule cette distance moyenne lorsque l’on 
+choisit au hasard <span style="font-style:italic">n</span> fois de suite 2 points dans <span style="font-style:italic">S</span>,dans <span style="font-style:italic">C</span> ou dans <span style="font-style:italic">K</span>,
+puis généraliser.
+</li><li class="li-enumerate">Faire une représentation graphique permettant de visualiser la 
+répartition des distances dans le cube unité <span style="font-style:italic">K</span>.
+</li></ol>
+<h3 id="sec315" class="subsection">9.6.2  La solution avec <span style="font-family:monospace">Xcas</span></h3>
+<ol class="enumerate" type=1><li class="li-enumerate">
+<pre class="verbatim">distS(n):={
+local xa,xb,j,d,D;
+D:=0;
+pour j de 1 jusque n faire
+xa:=rand(0,1);
+xb:=rand(0,1);
+d:=abs(xa-xb);
+D:=D+d;
+fpour;
+retourne evalf(D/n);
+}:;
+
+distC(n):={
+local xa,ya,xb,yb,j,d,D;
+D:=0;
+pour j de 1 jusque n faire
+xa:=rand(0,1);ya:=rand(0,1);
+xb:=rand(0,1);yb:=rand(0,1);
+d:=distance([xa,ya],[xb,yb]);
+D:=D+d;
+fpour;
+retourne evalf(D/n);
+}:;
+
+distK(n):={
+local xa,ya,za,xb,yb,zb,j,d,D;
+D:=0;
+pour j de 1 jusque n faire
+xa:=rand(0,1);ya:=rand(0,1);za:=rand(0,1);
+xb:=rand(0,1);yb:=rand(0,1);zb:=rand(0,1);
+d:=distance([xa,ya,za],[xb,yb,zb]);
+D:=D+d;
+fpour;
+retourne evalf(D/n);
+}:;
+
+distp(p,n):={
+local a,b,j,d,D;
+D:=0;
+pour j de 1 jusque n faire
+a:=op(randMat(1,p,0..1));
+b:=op(randMat(1,p,0..1));
+d:=sqrt(sum((a-b)^2));
+D:=D+d;
+fpour;
+retourne evalf(D/n);
+}:;
+
+</pre>
+On tape : <span style="font-family:monospace">distS(100000)</span><br>
+On obtient : <span style="font-family:monospace">0.333424530881</span><br>
+On tape : <span style="font-family:monospace">distC(100000)</span><br>
+On obtient : <span style="font-family:monospace">0.522140638365</span><br>
+On tape : <span style="font-family:monospace">distK(100000)</span><br>
+On obtient : <span style="font-family:monospace">0.6627691590747</span><br>
+On tape : <span style="font-family:monospace">distp(4,100000)</span><br>
+On obtient : <span style="font-family:monospace">0.777235961163</span><br>
+On tape : <span style="font-family:monospace">distp(5,100000)</span><br>
+On obtient : <span style="font-family:monospace">0.877837288394</span><br>
+</li><li class="li-enumerate"><pre class="verbatim">graphdist(n):={
+local xa,ya,za,xb,yb,zb,j,d,L;
+L:=NULL;
+pour j de 1 jusque n faire
+xa:=rand(0,1);ya:=rand(0,1);za:=rand(0,1);
+xb:=rand(0,1);yb:=rand(0,1);zb:=rand(0,1);
+d:=distance([xa,ya,za],[xb,yb,zb]);
+L:=L,point(j+i*d);
+fpour;
+retourne L;
+}:;
+</pre>
+</li></ol><p>
+On tape : <span style="font-family:monospace">graphdist(10000)</span><br>
+On obtient :</p><p><img src="casrouge006.png"></p>
+<hr>
+<a href="casrouge008.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge010.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

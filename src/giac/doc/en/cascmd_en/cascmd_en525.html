@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Hermite normal form: ihermite
+</title>
+</head>
+<body >
+<a href="cascmd_en524.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en526.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1292" class="subsection">5.48.13  Hermite normal form: <span style="font-family:monospace">ihermite</span>
+<a id="hevea_default906"></a></h3>
+<p>The <em>Hermite normal form</em> of a matrix <span style="font-style:italic">A</span> with integer coefficients
+is a sort of integer row-echelon form. It is an upper triangular
+matrix <span style="font-style:italic">B</span> such that <span style="font-style:italic">B</span>=<span style="font-style:italic">UA</span> for a matrix <span style="font-style:italic">U</span> which is invertible in
+ℤ (det(<span style="font-style:italic">U</span>)=± 1).
+The <span style="font-family:monospace">ihermite</span> command finds the Hermite normal form of a matrix.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ihermite</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a matrix with coefficients in ℤ.
+</li><li class="li-itemize"><span style="font-family:monospace">ihermite(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> return a list [<span style="font-style:italic">U</span>,<span style="font-style:italic">B</span>] as above, and the
+absolute value of the elements above the diagonal of <span style="font-style:italic">B</span> are
+less than the pivot of the column divided by 2.
+</li></ul><p>
+The result is obtained by a Gauss-like reduction algorithm using only
+operations of rows with integer coefficients and invertible in
+ℤ.</p><h4 id="sec1293" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:=[[9,-36,30],[-36,192,-180],[30,-180,180]]:; ihermite(A)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >13</td><td style="text-align:center;white-space:nowrap" >9</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >20</td><td style="text-align:center;white-space:nowrap" >15</td><td style="text-align:center;white-space:nowrap" >12</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >30</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >12</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >60</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h5 id="sec1294" class="paragraph">Application: Compute a ℤ-basis of the kernel of a
+matrix having integer coefficients</h5>
+<p>Let <span style="font-style:italic">M</span> be a matrix with integer coefficients. To find the nullspace
+of <span style="font-style:italic">M</span>, you want find what you can multiply <span style="font-style:italic">M</span> by on the right to get
+the zero vector, but the Hermite command 
+returns a matrix that you multiply on the left of <span style="font-style:italic">M</span>. So consider
+the transpose of <span style="font-style:italic">M</span>, <span style="font-style:italic">M</span><sup><span style="font-style:italic">T</span></sup>.</p><p>Let <span style="font-style:italic">A</span> be the Hermite normal form of <span style="font-style:italic">M</span><sup><span style="font-style:italic">T</span></sup>, and <span style="font-style:italic">U</span> an invertible
+matrix in ℤ such that <span style="font-style:italic">A</span> = <span style="font-style:italic">U</span> <span style="font-style:italic">M</span><sup><span style="font-style:italic">T</span></sup>. Transposing this,
+you’ll get <span style="font-style:italic">A</span><sup><span style="font-style:italic">T</span></sup>=<span style="font-style:italic">M</span> <span style="font-style:italic">U</span><sup><span style="font-style:italic">T</span></sup>. Note that <span style="font-style:italic">M</span> times a column of <span style="font-style:italic">U</span><sup><span style="font-style:italic">T</span></sup> equals the
+corresponding column of <span style="font-style:italic">A</span><sup><span style="font-style:italic">T</span></sup>. So if a column of <span style="font-style:italic">A</span><sup><span style="font-style:italic">T</span></sup> is the zero
+vector, then <span style="font-style:italic">M</span> times the corresponding column of <span style="font-style:italic">U</span><sup><span style="font-style:italic">T</span></sup> will be the
+zero vector. In fact, these columns of <span style="font-style:italic">U</span><sup><span style="font-style:italic">T</span></sup> will be a
+ℤ-basis for the nullspace of <span style="font-style:italic">M</span>.</p><p>Any columns of <span style="font-style:italic">A</span><sup><span style="font-style:italic">T</span></sup> which are all 0s correspond to the rows of <span style="font-style:italic">A</span>
+which are all 0s. Since <span style="font-style:italic">A</span> is in Hermite form, these will be at the
+bottom, and so the corresponding rows of <span style="font-style:italic">U</span> will be at the
+bottom, and will be a ℤ-basis for the nullspace of <span style="font-style:italic">M</span>.</p><p>As an example, consider the matrix <span style="font-family:monospace">M</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">M:=[[1,4,7],[2,5,8],[3,6,9]]</span>
+</div><p>
+Find the Hermite decomposition:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">(U,A):=ihermite(transpose(M))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−3</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >−1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−1</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >−1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >−1</td><td style="text-align:center;white-space:nowrap" >−3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+Only the third row of <span style="font-family:monospace">A</span> consists of all 0s, so a
+ℤ-basis for the nullspace of <span style="font-family:monospace">M</span> consists of only
+the third row of <span style="font-family:monospace">U</span>; namely <span style="font-family:monospace">U[2]=[-1,2,-1]</span>.</p><p>You can check that this is in the nullspace:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">M*U[2]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,0,0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en524.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en526.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Kernel of a linear function: Nullspace
+</title>
+</head>
+<body >
+<a href="cascmd_en508.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en510.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1257" class="subsection">5.47.13  Kernel of a linear function: <span style="font-family:monospace">Nullspace</span>
+<a id="hevea_default883"></a></h3>
+<p>The <span style="font-family:monospace">Nullspace</span> command is the inert form of <span style="font-family:monospace">nullspace</span>.
+<span style="font-weight:bold">Warning:</span><br>
+The <span style="font-family:monospace">Nullspace</span> command is only useful in Maple mode.
+(See Section <a href="cascmd_en022.html#ssec%3Alang">2.5.2</a>; you can get into <span style="font-family:monospace">Maple</span> mode by 
+hitting the state line red button then <span style="font-family:monospace">Prog style</span>, then
+choosing Maple and Apply).</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">Nullspace</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, an integer matrix representing a linear function with respect
+to the standard basis.
+</li><li class="li-itemize"><span style="font-family:monospace">Nullspace(</span><span style="font-style:italic">A</span><span style="font-family:monospace">) mod </span><span style="font-style:italic">p</span> returns a list of
+vectors that is a basis for the kernel of the linear transformation 
+ℤ/<span style="font-style:italic">p</span>ℤ[<span style="font-style:italic">X</span>].
+</li></ul><h4 id="sec1258" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Nullspace([[1,1,2],[2,1,3],[3,1,4]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">nullspace</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (in Maple mode):</span>
+<div class="center">
+<span style="font-family:monospace">Nullspace([[1,2],[3,1]]) mod 5</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+In <span style="font-family:monospace">Xcas</span> mode, the equivalent input is:<br>
+<span style="font-style:italic">Input (in </span><span style="font-style:italic"><span style="font-family:monospace">Xcas</span></span><span style="font-style:italic"> mode):</span>
+<div class="center">
+<span style="font-family:monospace">nullspace([[1,2],[3,1]] % 5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >2%5</td><td style="text-align:center;white-space:nowrap" >−1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en508.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en510.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

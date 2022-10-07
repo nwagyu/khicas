@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Exact local extrema: extrema
+</title>
+</head>
+<body >
+<a href="cascmd_en551.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en553.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1383" class="subsection">5.53.3  Exact local extrema: <span style="font-family:monospace">extrema</span>
+<a id="hevea_default944"></a></h3>
+<p><span style="font-family:monospace">extrema</span> attempts to find local extrema of a
+univariate/multivariate differentiable expression, possibly subject to
+equality constraints, by using analytical methods.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">extrema</span> which takes two mandatory arguments and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, a differentiable expression.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">constr</span>, a list of equality constraints,
+where each constraint is an equality or an expression assumed to be
+equal to zero, and the number of constraints must be strictly less
+than the number of variables. If there is only one constraint, it
+doesn’t have to be a list.<p>Additionally, the Jacobian matrix of the constraints must be full
+rank (i.e., denoting the <span style="font-style:italic">k</span>th constraint by
+<span style="font-style:italic">g</span><sub><span style="font-style:italic">k</span></sub>(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>)=0 for <span style="font-style:italic">k</span>=1,2,…,<span style="font-style:italic">m</span> and letting 
+<span style="font-weight:bold"><span style="font-style:italic">g</span></span>=(<span style="font-style:italic">g</span><sub>1</sub>,<span style="font-style:italic">g</span><sub>2</sub>,…,<span style="font-style:italic">g</span><sub><span style="font-style:italic">m</span></sub>), the Jacobian matrix of <span style="font-weight:bold"><span style="font-style:italic">g</span></span>
+must be equal to <span style="font-style:italic">m</span>).
+</p></li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of variables. A variable can be
+specified with bounds, <span style="font-style:italic">x</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>, where <span style="font-style:italic">a</span> or <span style="font-style:italic">b</span> is allowed to be
+<span style="font-family:monospace">-infinity</span> or <span style="font-family:monospace">infinity</span>. <p>If there is only one variable, it
+doesn’t have to be a list.</p><p>The parameter <span style="font-family:monospace">vars</span> can also be entered as a list of values
+of the variables; e.g.
+[<span style="font-style:italic">x</span><sub>1</sub>=<span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>=<span style="font-style:italic">a</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>=<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>], in which case the critical
+point close to <span style="font-style:italic">a</span>=(<span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">a</span><sub>2</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>) is computed
+numerically by applying an iterative method with initial point <span style="font-style:italic">a</span>.
+</p></li><li class="li-itemize">Optionally, <span style="font-style:italic">opt</span>, which can be either
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">order=</span><span style="font-style:italic">n</span>, to make <span style="font-style:italic">n</span> the upper bound for the order of derivatives examined
+in the process (so if <span style="font-style:italic">n</span>=1 only critical points are found, by default <span style="font-family:monospace">order=</span>5), or
+</li><li class="li-itemize"><span style="font-family:monospace">lagrange</span> to specify the method of Lagrange multipliers.
+</li></ul>
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">extrema(</span><span style="font-style:italic">expr </span> ⟨<span style="font-style:italic"> constr </span>⟩<span style="font-style:italic">,
+vars </span> ⟨<span style="font-style:italic"> opt </span>⟩<span style="font-family:monospace">)</span> returns
+a list [<span style="font-style:italic">min,max</span>], where <span style="font-style:italic">min</span> is the list of
+local minima and <span style="font-style:italic">max</span> is the list of local maxima of
+<span style="font-family:monospace">expr</span>.<p>Saddle and unclassified points are reported in the message area.
+Also, information about possible (non)strict extrema is printed out.
+If <span style="font-family:monospace">lagrange</span> is passed as an optional last argument, the
+method of Lagrange multipliers is used. Else, the problem is reduced
+to an unconstrained one by applying implicit differentiation.</p><p>Note that <span style="font-family:monospace">extrema</span> respects the bound constraints set to variables
+by the <span style="font-family:monospace">assume</span> command.
+</p></li></ul><p>
+If critical points are left unclassified you might consider repeating the
+process with larger value of <span style="font-style:italic">n</span>, although the success is not
+guaranteed.</p><h4 id="sec1384" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">extrema(-2*cos(x)-cos(x)^2,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >π </td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">extrema(x/2-2*sin(x/2),x=-12..12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">10</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> π</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> π </td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> π</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">10</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> π </td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">assume(a&gt;=0);extrema(x^2+a*x,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">a</span></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">extrema(exp(x^2-2x)*ln(x)*ln(1-x),x=0.5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.277769149124</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">extrema(x^3-2x*y+3y^4,[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">12</td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">12</td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">assume(a&gt;0);extrema(x/a^2+a*y^2,x+y=a,[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">a</span><sup>4</sup>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">a</span><sup>3</sup></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">a</span><sup>3</sup></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">extrema(x^2+y^2,x*y=1,[x=0..inf,y=0..inf])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">extrema(x*y*z,x+y+z=1,[x,y,z],order=1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en551.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en553.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

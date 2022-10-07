@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Modular symbols</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">Modular symbols</h2>
+
+<p></p>
+<p></p>
+<p>Let &Delta; := Div^0(&Popf;^1(&Qopf;)) be the abelian group of divisors of
+degree 0 on the rational projective line. The standard GL(2,&Qopf;)
+action on &Popf;^1(&Qopf;) via homographies naturally extends to &Delta;. Given</p>
+<p>
+<b>*</b> G a finite index subgroup of SL(2,&Zopf;),</p>
+<p>
+<b>*</b> a field F and a finite dimensional representation V/F of
+  GL(2,&Qopf;),</p>
+<p>
+we consider the space of <em>modular symbols</em> M := 
+Hom<sub>G</sub>(&Delta;, V). This finite dimensional F-vector
+space is a G-module, canonically isomorphic to H^1<sub>c</sub>(X(G), V),
+and allows to compute modular forms for G.</p>
+<p>
+Currently, we only support the groups &Gamma;<sub>0</sub>(N) (N &gt; 0 an integer)
+and the representations V<sub>k</sub> = &Qopf;[X,Y]<sub>k-2</sub> (k &geq; 2 an integer) over
+&Qopf;. We represent a space of modular symbols by an <em>ms</em> structure,
+created by the function <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>. It encodes basic data attached to the
+space: chosen &Zopf;[G]-generators (g<sub>i</sub>) for &Delta; (and relations among
+those) and an F-basis of M. A modular symbol s is thus given either in
+terms of this fixed basis, or as a collection of values s(g<sub>i</sub>)
+satisfying certain relations.</p>
+<p>
+A subspace of M (e.g. the cuspidal or Eisenstein subspaces, the new or
+old modular symbols, etc.) is given by a structure allowing quick projection
+and restriction of linear operators; its first component is a matrix whose
+columns  form  an F-basis  of the subspace.</p>
+<p>
+<hr>
+<div id="se:msatkinlehner"></div>
+<div id="msatkinlehner"></div>
+<h4>msatkinlehner(M, Q, {H})</h4>
+<p>
+Let M be a full modular symbol space of level N,
+as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>, let Q | N, (Q,N/Q) = 1,
+and let H be a subspace stable under the Atkin-Lehner involution w<sub>Q</sub>.
+Return the matrix of w<sub>Q</sub> acting on H (M if omitted).</p>
+<p>
+</p><pre class="code">  ? M = msinit(36,2); \\ M<sub>2</sub>(Gamma<sub>0</sub>(36))
+  ? w = msatkinlehner(M,4); w^2 == 1
+  %2 = 1
+  ? #w   \\ involution acts on a 13-dimensional space
+  %3 = 13
+  ? M = msinit(36,2, -1); \\ M<sub>2</sub>(Gamma<sub>0</sub>(36))^-
+  ? w = msatkinlehner(M,4); w^2 == 1
+  %5 = 1
+  ? #w
+  %6 = 4
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msatkinlehner</b>(GEN M, long Q, GEN H = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mscuspidal"></div>
+<div id="mscuspidal"></div>
+<h4>mscuspidal(M, {<em>flag</em> = 0})</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+return its cuspidal part S. If <em>flag</em> = 1, return
+[S,E] its decomposition into cuspidal and Eisenstein parts.</p>
+<p>
+A subspace is given by a structure allowing quick projection and
+restriction of linear operators; its first component is
+a matrix with integer coefficients whose columns form a &Qopf;-basis of
+the subspace.</p>
+<p>
+</p><pre class="code">  ? M = msinit(2,8, 1); \\ M<sub>8</sub>(Gamma<sub>0</sub>(2))^+
+  ? [S,E] = mscuspidal(M, 1);
+  ? E[1]  \\ 2-dimensional
+  %3 =
+  [0 -10]
+  
+  [0 -15]
+  
+  [0  -3]
+  
+  [1   0]
+  
+  ? S[1]  \\ 1-dimensional
+  %4 =
+  [ 3]
+  
+  [30]
+  
+  [ 6]
+  
+  [-8]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mscuspidal</b>(GEN M, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msdim"></div>
+<div id="msdim"></div>
+<h4>msdim(M)</h4>
+<p>
+M being a full modular symbol space or subspace, for instance
+as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code> or <code><a href="Modular_symbols.html#se:mscuspidal"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mscuspidal</a></code>, return
+its dimension as a &Qopf;-vector space.</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,4); msdim(M)
+  %1 = 6
+  ? M = msinit(11,4,1); msdim(M)
+  %2 = 4 \\ dimension of the '+' part
+  ? [S,E] = mscuspidal(M,1);
+  ? [msdim(S), msdim(E)]
+  %4 = [2, 2]
+</pre><p>
+Note that <code>mfdim([N,k])</code> is going to be much faster if
+you only need the dimension of the space and not really to work with it.
+This function is only useful to quickly check the dimension of an existing
+space.</p>
+<p>
+The library syntax is <code>long <b>msdim</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mseisenstein"></div>
+<div id="mseisenstein"></div>
+<h4>mseisenstein(M)</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+return its Eisenstein subspace.
+A subspace is given by a structure allowing quick projection and
+restriction of linear operators; its first component is
+a matrix with integer coefficients whose columns form a &Qopf;-basis of
+the subspace.
+This is the same basis as given by the second component of
+<code><a href="Modular_symbols.html#se:mscuspidal"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mscuspidal</a></code>(M, 1).</p>
+<p>
+</p><pre class="code">  ? M = msinit(2,8, 1); \\ M<sub>8</sub>(Gamma<sub>0</sub>(2))^+
+  ? E = mseisenstein(M);
+  ? E[1]  \\ 2-dimensional
+  %3 =
+  [0 -10]
+  
+  [0 -15]
+  
+  [0  -3]
+  
+  [1   0]
+  
+  ? E == mscuspidal(M,1)[2]
+  %4 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mseisenstein</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mseval"></div>
+<div id="mseval"></div>
+<h4>mseval(M, s, {p})</h4>
+<p>
+Let &Delta; := Div^0(&Popf;^1 (&Qopf;)).
+Let M be a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+let s be a modular symbol from M, i.e. an element
+of Hom<sub>G</sub>(&Delta;, V), and let p = [a,b]  &in;  &Delta; be a path between
+two elements in &Popf;^1(&Qopf;), return s(p) &in;  V. The path extremities a and
+b may be given as <code>t_INT</code>, <code>t_FRAC</code> or <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code> = (1:0); it
+is also possible to describe the path by a 2  x 2 integral matrix
+whose columns give the two cusps. The symbol s is either</p>
+<p>
+<b>*</b> a <code>t_COL</code> coding a modular symbol in terms of
+the fixed basis of Hom<sub>G</sub>(&Delta;,V) chosen in M; if M was
+initialized with a non-zero <em>sign</em> (+ or -), then either the
+basis for the full symbol space or the &#177;-part can be used (the dimension
+being used to distinguish the two).</p>
+<p>
+<b>*</b> a <code>t_MAT</code> whose columns encode modular symbols as above. This is
+much faster than evaluating individual symbols on the same path p
+independently.</p>
+<p>
+<b>*</b> a <code>t_VEC</code> (v<sub>i</sub>) of elements of V, where the v<sub>i</sub> = s(g<sub>i</sub>) give
+the image of the generators g<sub>i</sub> of &Delta;, see <code><a href="Modular_symbols.html#se:mspathgens"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspathgens</a></code>.
+We assume that s is a proper symbol, i.e.&nbsp;that the v<sub>i</sub> satisfy
+the <code><a href="Modular_symbols.html#se:mspathgens"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspathgens</a></code> relations.</p>
+<p>
+If p is omitted, convert a single symbol s  to the second form: a vector
+of the s(g<sub>i</sub>). A <code>t_MAT</code> is converted to a vector of such.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? M = msinit(2,8,1); \\ M<sub>8</sub>(Gamma<sub>0</sub>(2))^+
+  ? g = mspathgens(M)[1]
+  %2 = [[+oo, 0], [0, 1]]
+  ? N = msnew(M)[1]; #N \\ Q-basis of new subspace, dimension 1
+  %3 = 1
+  ? s = N[,1]         \\ t_COL representation
+  %4 = [-3, 6, -8]~
+  ? S = mseval(M, s)   \\ t_VEC representation
+  %5 = [64*x^6-272*x^4+136*x^2-8, 384*x^5+960*x^4+192*x^3-672*x^2-432*x-72]
+  ? mseval(M,s, g[1])
+  %6 = 64*x^6 - 272*x^4 + 136*x^2 - 8
+  ? mseval(M,S, g[1])
+  %7 = 64*x^6 - 272*x^4 + 136*x^2 - 8
+</pre><p>
+Note that the symbol should have values in
+V = &Qopf;[x,y]<sub>k-2</sub>, we return the de-homogenized values corresponding to y
+ = 1 instead.</p>
+<p>
+The library syntax is <code>GEN <b>mseval</b>(GEN M, GEN s, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msfromcusp"></div>
+<div id="msfromcusp"></div>
+<h4>msfromcusp(M, c)</h4>
+<p>
+Returns the modular symbol attached to the cusp
+c, where M is a modular symbol space of level N, attached to
+G = &Gamma;<sub>0</sub>(N). The cusp c in &Popf;^1(&Qopf;)/G is given either as <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code>
+( = (1:0)) or as a rational number a/b ( = (a:b)). The attached symbol maps
+the path [b] - [a]  &in;  Div^0 (&Popf;^1(&Qopf;)) to E<sub>c</sub>(b) - E<sub>c</sub>(a), where
+E<sub>c</sub>(r) is 0 when r != c and X<sup>k-2</sup> | &gamma;<sub>r</sub> otherwise, where
+&gamma;<sub>r</sub>.r = (1:0). These symbols span the Eisenstein subspace
+of M.</p>
+<p>
+</p><pre class="code">  ? M = msinit(2,8);  \\  M<sub>8</sub>(Gamma<sub>0</sub>(2))
+  ? E =  mseisenstein(M);
+  ? E[1] \\ two-dimensional
+  %3 =
+  [0 -10]
+  
+  [0 -15]
+  
+  [0  -3]
+  
+  [1   0]
+  
+  ? s = msfromcusp(M,oo)
+  %4 = [0, 0, 0, 1]~
+  ? mseval(M, s)
+  %5 = [1, 0]
+  ? s = msfromcusp(M,1)
+  %6 = [-5/16, -15/32, -3/32, 0]~
+  ? mseval(M,s)
+  %7 = [-x^6, -6*x^5 - 15*x^4 - 20*x^3 - 15*x^2 - 6*x - 1]
+</pre><p></p>
+<p>
+In case M was initialized with a non-zero <em>sign</em>, the symbol is given
+in terms of the fixed basis of the whole symbol space, not the + or -
+part (to which it need not belong).</p>
+<p>
+</p><pre class="code">  ? M = msinit(2,8, 1);  \\  M<sub>8</sub>(Gamma<sub>0</sub>(2))^+
+  ? E =  mseisenstein(M);
+  ? E[1] \\ still two-dimensional, in a smaller space
+  %3 =
+  [ 0 -10]
+  
+  [ 0   3]
+  
+  [-1   0]
+  
+  ? s = msfromcusp(M,oo) \\ in terms of the basis for M<sub>8</sub>(Gamma<sub>0</sub>(2)) !
+  %4 = [0, 0, 0, 1]~
+  ? mseval(M, s) \\ same symbol as before
+  %5 = [1, 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msfromcusp</b>(GEN M, GEN c)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msfromell"></div>
+<div id="msfromell"></div>
+<h4>msfromell(E, {<em>sign</em> = 0})</h4>
+<p>
+Let E/&Qopf; be an elliptic curve of conductor N. For &varepsilon; = 
+&#177;1, we define the (cuspidal, new) modular symbol x^&varepsilon; in
+H^1<sub>c</sub>(X<sub>0</sub>(N),&Qopf;)^&varepsilon;  attached to
+E. For all primes p not dividing N we have
+T<sub>p</sub>(x^&varepsilon;) = a<sub>p</sub> x^&varepsilon;, where a<sub>p</sub> = p+1-#E(&Fopf;<sub>p</sub>).</p>
+<p>
+Let &Omega;^ += <code>E.omega[1]</code> be the real period of E
+(integration of the N&eacute;ron differential dx/(2y+a_1x+a3) on the connected
+component of E(&Ropf;), i.e.&nbsp;the generator of H<sub>1</sub>(E,&Zopf;)^+) normalized by
+&Omega;^+ &gt; 0. Let i&Omega;^- the integral on a generator of H<sub>1</sub>(E,&Zopf;)^- with
+&Omega;^-  &in;  &Ropf;<sub> &gt; 0</sub>. If c_ oo  is the number of connected components of
+E(&Ropf;), &Omega;^- is equal to (-2/c_ oo )  x <code>imag(E.omega[2])</code>.
+The complex modular symbol is defined by
+F: &delta;  &rightarrow;   2i&pi; &int;<sub>&delta;</sub> f(z) dz
+The modular symbols x^&varepsilon; are normalized so that
+ F = x^+ &Omega;^+ + x^- i&Omega;^-. In particular, we have
+ x^+([0]-[ oo ]) = L(E,1) / &Omega;^+,
+which defines x<sup>&#177;</sup> unless L(E,1) = 0. Furthermore, for all fundamental
+discriminants D such that &varepsilon;.D &gt; 0, we also have
+&sum;<sub>0 &leq; a &lt; |D|</sub> (D|a) x^&varepsilon;([a/|D|]-[ oo ])
+ = L(E,(D|.),1) / &Omega;<sup>&varepsilon;</sup>,
+where (D|.) is the Kronecker symbol. The period &Omega;^- is also
+2/c_ oo x  the real period of the twist
+E<sup>(-4)</sup> = <code>elltwist(E,-4)</code>.</p>
+<p>
+This function returns the pair [M, x], where M is
+<code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>(N,2) and x is x<sup><em>sign</em></sup> as above when <em>sign</em> = 
+&#177;1, and x = [x^+,x^-, L<sub>E</sub>] when <em>sign</em> is 0, where L<sub>E</sub>
+is a matrix giving the canonical &Zopf;-lattice attached to E in the sense
+of <code><a href="Modular_symbols.html#se:mslattice"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mslattice</a></code> applied to &Qopf; x^+ + &Qopf; x^-. Explicitly, it
+is generated by (x<sup>+</sup>,x<sup>-</sup>) when E(&Ropf;) has two connected components
+and by (x<sup>+</sup> - x<sup>-</sup>,2x^-) otherwise.</p>
+<p>
+The modular symbols x^&#177; are given as a <code>t_COL</code> (in terms
+of the fixed basis of Hom<sub>G</sub>(&Delta;,&Qopf;) chosen in M).</p>
+<p>
+</p><pre class="code">  ? E=ellinit([0,-1,1,-10,-20]);  \\ X<sub>0</sub>(11)
+  ? [M,xp]= msfromell(E,1);
+  ? xp
+  %3 = [1/5, -1/2, -1/2]~
+  ? [M,x]= msfromell(E);
+  ? x    \\  x^+, x^- and L<sub>E</sub>
+  %5 = [[1/5, -1/2, -1/2]~, [0, 1/2, -1/2]~, [1/5, 0; -1, 1; 0, -1]]
+  ? p = 23; (mshecke(M,p) - ellap(E,p))*x[1]
+  %6 = [0, 0, 0]~ \\ true at all primes, including p = 11; same for x[2]
+  ? (mshecke(M,p) - ellap(E,p))*x[3] == 0
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+Instead of a single curve E, one may use instead a vector
+of <em>isogenous</em> curves. The function then returns M and the
+vector of attached modular symbols.</p>
+<p>
+The library syntax is <code>GEN <b>msfromell</b>(GEN E, long sign)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msfromhecke"></div>
+<div id="msfromhecke"></div>
+<h4>msfromhecke(M, v, {H})</h4>
+<p>
+Given a msinit M and a vector v of pairs [p, P] (where p is prime
+and P is a polynomial with integer coefficients), return a basis of all
+modular symbols such that P(T<sub>p</sub>)(s) = 0. If H is present, it must
+be a Hecke-stable subspace and we restrict to s  &in;  H. When T<sub>p</sub> has
+a rational eigenvalue and P(x) = x-a<sub>p</sub> has degree 1, we also accept the
+integer a<sub>p</sub> instead of P.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,-1,1,-10,-20]) \\11a1
+  ? ellap(E,2)
+  %2 = -2
+  ? ellap(E,3)
+  %3 = -1
+  ? M = msinit(11,2);
+  ? S = msfromhecke(M, [[2,-2],[3,-1]])
+  %5 =
+  [ 1  1]
+  
+  [-5  0]
+  
+  [ 0 -5]
+  ? mshecke(M, 2, S)
+  %6 =
+  [-2  0]
+  
+  [ 0 -2]
+  
+  ? M = msinit(23,4);
+  ? S = msfromhecke(M, [[5, x^4-14*x^3-244*x^2+4832*x-19904]]);
+  ? factor( charpoly(mshecke(M,5,S)) )
+  %9 =
+  [x^4 - 14*x^3 - 244*x^2 + 4832*x - 19904 2]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msfromhecke</b>(GEN M, GEN v, GEN H = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msgetlevel"></div>
+<div id="msgetlevel"></div>
+<h4>msgetlevel(M)</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>, return
+its level N.</p>
+<p>
+The library syntax is <code>long <b>msgetlevel</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msgetsign"></div>
+<div id="msgetsign"></div>
+<h4>msgetsign(M)</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>, return
+its sign: &#177;1 or 0 (unset).</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,4, 1);
+  ? msgetsign(M)
+  %2 = 1
+  ? M = msinit(11,4);
+  ? msgetsign(M)
+  %4 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>msgetsign</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msgetweight"></div>
+<div id="msgetweight"></div>
+<h4>msgetweight(M)</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>, return
+its weight k.</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,4);
+  ? msgetweight(M)
+  %2 = 4
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>msgetweight</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mshecke"></div>
+<div id="mshecke"></div>
+<h4>mshecke(M, p, {H})</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+p being a prime number, and H being a Hecke-stable subspace (M if
+omitted) return the matrix of T<sub>p</sub> acting on H
+(U<sub>p</sub> if p divides N). Result is undefined if H is not stable
+by T<sub>p</sub> (resp.&nbsp;U<sub>p</sub>).</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,2); \\ M<sub>2</sub>(Gamma<sub>0</sub>(11))
+  ? T2 = mshecke(M,2)
+  %2 =
+  [3  0  0]
+  
+  [1 -2  0]
+  
+  [1  0 -2]
+  ? M = msinit(11,2, 1); \\ M<sub>2</sub>(Gamma<sub>0</sub>(11))^+
+  ? T2 = mshecke(M,2)
+  %4 =
+  [ 3  0]
+  
+  [-1 -2]
+  
+  ? N = msnew(M)[1] \\ Q-basis of new cuspidal subspace
+  %5 =
+  [-2]
+  
+  [-5]
+  
+  ? p = 1009; mshecke(M, p, N) \\ action of T_1009 on N
+  %6 =
+  [-10]
+  ? ellap(ellinit("11a1"), p)
+  %7 = -10
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mshecke</b>(GEN M, long p, GEN H = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msinit"></div>
+<div id="msinit"></div>
+<h4>msinit(G, V, {<em>sign</em> = 0})</h4>
+<p>
+Given G a finite index subgroup of SL(2,&Zopf;)
+and a finite dimensional representation V of GL(2,&Qopf;), creates a
+space of modular symbols, the G-module Hom<sub>G</sub>(Div^0(&Popf;^1
+(&Qopf;)), V). This is canonically isomorphic to H^1<sub>c</sub>(X(G), V), and allows to
+compute modular forms for G. If <em>sign</em> is present and non-zero, it
+must be &#177;1 and we consider the subspace defined by Ker (&sigma; -
+<em>sign</em>), where &sigma; is induced by <code>[-1,0;0,1]</code>. Currently the
+only supported groups are the &Gamma;<sub>0</sub>(N), coded by the integer N &gt; 0.
+The only supported representation is V<sub>k</sub> = &Qopf;[X,Y]<sub>k-2</sub>, coded by the
+integer k &geq; 2.</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,2); msdim(M) \\ Gamma0(11), weight 2
+  %1 = 3
+  ? mshecke(M,2) \\ T<sub>2</sub> acting on M
+  %2 =
+  [3  1  1]
+  
+  [0 -2  0]
+  
+  [0  0 -2]
+  ? msstar(M) \\ * involution
+  %3 =
+  [1 0 0]
+  
+  [0 0 1]
+  
+  [0 1 0]
+  
+  ? Mp = msinit(11,2, 1); msdim(Mp) \\ + part
+  %4 = 2
+  ? mshecke(Mp,2)  \\ T<sub>2</sub> action on M^+
+  %5 =
+  [3  2]
+  
+  [0 -2]
+  ? msstar(Mp)
+  %6 =
+  [1 0]
+  
+  [0 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msinit</b>(GEN G, GEN V, long sign)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msissymbol"></div>
+<div id="msissymbol"></div>
+<h4>msissymbol(M, s)</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+check whether s is a modular symbol attached to M. If A is a matrix,
+check whether its columns represent modular symbols and return a 0-1
+vector.</p>
+<p>
+</p><pre class="code">  ? M = msinit(7,8, 1); \\ M<sub>8</sub>(Gamma<sub>0</sub>(7))^+
+  ? A = msnew(M)[1];
+  ? s = A[,1];
+  ? msissymbol(M, s)
+  %4 = 1
+  ? msissymbol(M, A)
+  %5 = [1, 1, 1]
+  ? S = mseval(M,s);
+  ? msissymbol(M, S)
+  %7 = 1
+  ? [g,R] = mspathgens(M); g
+  %8 = [[+oo, 0], [0, 1/2], [1/2, 1]]
+  ? #R  \\ 3 relations among the generators g<sub>i</sub>
+  %9 = 3
+  ? T = S; T[3]++; \\ randomly perturb S(g<sub>3</sub>)
+  ? msissymbol(M, T)
+  %11 = 0  \\ no longer satisfies the relations
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msissymbol</b>(GEN M, GEN s)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mslattice"></div>
+<div id="mslattice"></div>
+<h4>mslattice(M, {H})</h4>
+<p>
+Let &Delta; := Div^0(&Popf;^1(&Qopf;)) and V<sub>k</sub> = &Qopf;[x,y]<sub>k-2</sub>.
+Let M be a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>
+and let H be a subspace, e.g. as given by <code><a href="Modular_symbols.html#se:mscuspidal"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mscuspidal</a></code>.
+This function returns a canonical &Zopf;
+structure on H defined as follows.
+Consider the map c: M = Hom<sub>&Gamma;<sub>0</sub>(N)</sub>(&Delta;, V<sub>k</sub>)  &rightarrow; 
+H^1(&Gamma;<sub>0</sub>(N), V<sub>k</sub>) given by
+&phi; <code> &longmapsto; </code><em>class</em>(&gamma;  &rightarrow;  &phi;({0, &gamma;<sup>-1</sup> 0})).
+Let L<sub>k</sub> = &Zopf;[x,y]<sub>k-2</sub> be the natural &Zopf;-structure of V<sub>k</sub>. The result of
+<code><a href="Modular_symbols.html#se:mslattice"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mslattice</a></code> is a &Zopf;-basis of the inverse image by c of
+H^1(&Gamma;<sub>0</sub>(N), L<sub>k</sub>) in the space of modular symbols generated by H.</p>
+<p>
+For user convenience, H can be defined by a matrix representing the
+&Qopf;-basis of H (in terms of the canonical &Qopf;-basis of M fixed by
+<code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code> and used to represent modular symbols).</p>
+<p>
+If omitted, H is the cuspidal part of M as given by <code><a href="Modular_symbols.html#se:mscuspidal"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mscuspidal</a></code>.
+The Eisenstein part Hom<sub>&Gamma;<sub>0</sub>(N)</sub>(Div(&Popf;^1(&Qopf;)), V<sub>k</sub>) is in
+the kernel of c, so the result has no meaning for the Eisenstein part
+<code>H</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? M=msinit(11,2);
+  ? [S,E] = mscuspidal(M,1); S[1] \\ a primitive Q-basis of S
+  %2 =
+  [ 1  1]
+  [-5  0]
+  [ 0 -5]
+  ? mslattice(M,S)
+  %3 =
+  [-1/5 -1/5]
+  [   1    0]
+  [   0    1]
+  ? mslattice(M,E)
+  %4 =
+  [1]
+  [0]
+  [0]
+  ? M=msinit(5,4);
+  ? S=mscuspidal(M); S[1]
+  %6 =
+  [  7  20]
+  [  3   3]
+  [-10 -23]
+  [-30 -30]
+  ? mslattice(M,S)
+  %7 =
+  [-1/10 -11/130]
+  [    0  -1/130]
+  [ 1/10    6/65]
+  [    0    1/13]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mslattice</b>(GEN M, GEN H = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msnew"></div>
+<div id="msnew"></div>
+<h4>msnew(M)</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+return the <em>new</em> part of its cuspidal subspace. A subspace is given by
+a structure allowing quick projection and restriction of linear operators;
+its first component is a matrix with integer coefficients whose columns form
+a &Qopf;-basis of the subspace.</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,8, 1); \\ M<sub>8</sub>(Gamma<sub>0</sub>(11))^+
+  ? N = msnew(M);
+  ? #N[1]  \\ 6-dimensional
+  %3 = 6
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msnew</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msomseval"></div>
+<div id="msomseval"></div>
+<h4>msomseval(<em>Mp</em>, <em>PHI</em>, <em>path</em>)</h4>
+<p>
+Return the vectors of moments of the p-adic distribution attached
+to the path <code>path</code> by the overconvergent modular symbol <code>PHI</code>.</p>
+<p>
+</p><pre class="code">  ? M = msinit(3,6,1);
+  ? Mp= mspadicinit(M,5,10);
+  ? phi = [5,-3,-1]~;
+  ? msissymbol(M,phi)
+  %4 = 1
+  ? PHI = mstooms(Mp,phi);
+  ? ME = msomseval(Mp,PHI,[oo, 0]);
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msomseval</b>(GEN Mp, GEN PHI, GEN path)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspadicL"></div>
+<div id="mspadicL"></div>
+<h4>mspadicL(<em>mu</em>, {s = 0}, {r = 0})</h4>
+<p>
+Returns the value (or r-th derivative)
+on a character &chi;^s of &Zopf;<sub>p</sub><sup>*</sup> of the p-adic L-function
+attached to <code>mu</code>.</p>
+<p>
+Let &Phi; be the p-adic distribution-valued overconvergent symbol
+attached to a modular symbol &phi; for &Gamma;<sub>0</sub>(N) (eigenvector for
+T<sub>N</sub>(p) for the eigenvalue a<sub>p</sub>). Then L<sub>p</sub>(&Phi;,&chi;^s) = L<sub>p</sub>(&mu;,s) is the
+p-adic L function defined by
+L<sub>p</sub>(&Phi;,&chi;^s) = &int;<sub>&Zopf;<sub>p</sub><sup>*</sup></sub> &chi;^s(z) d&mu;(z)
+where &mu; is the distribution on &Zopf;<sub>p</sub><sup>*</sup> defined by the restriction of
+&Phi;([ oo ]-[0]) to &Zopf;<sub>p</sub><sup>*</sup>. The r-th derivative is taken in
+direction <code>&lt;</code>&chi;<code>&gt;</code>:
+L<sub>p</sub><sup>(r)</sup>(&Phi;,&chi;^s) = &int;<sub>&Zopf;<sub>p</sub><sup>*</sup></sub> &chi;^s(z) (log z)^r d&mu;(z).
+In the argument list,</p>
+<p>
+<b>*</b> <code>mu</code> is as returned by <code><a href="Modular_symbols.html#se:mspadicmoments"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicmoments</a></code> (distributions
+attached to &Phi; by restriction to discs a + p^&nu;&Zopf;<sub>p</sub>, (a,p) = 1).</p>
+<p>
+<b>*</b> s = [s<sub>1</sub>,s<sub>2</sub>] with s<sub>1</sub>  &in;  &Zopf;  &subset;  &Zopf;<sub>p</sub> and s<sub>2</sub> mod p-1 or
+s<sub>2</sub> mod 2 for p = 2, encoding the p-adic character &chi;^s := <code>&lt;</code>
+&chi; <code>&gt;</code><sup>s<sub>1</sub></sup> &tau;<sup>s<sub>2</sub></sup>; here &chi; is the cyclotomic character from
+Gal(&Qopf;<sub>p</sub>(&mu;<sub>p^ oo </sub>)/&Qopf;<sub>p</sub>) to &Zopf;<sub>p</sub><sup>*</sup>, and &tau; is the
+Teichm&uuml;ller character (for p &gt; 2 and the character of order 2 on
+(&Zopf;/4&Zopf;)<sup>*</sup> if p = 2); for convenience, the character [s,s] can also be
+represented by the integer s.</p>
+<p>
+When a<sub>p</sub> is a p-adic unit, L<sub>p</sub> takes its values in &Qopf;<sub>p</sub>.
+When a<sub>p</sub> is not a unit, it takes its values in the
+two-dimensional &Qopf;<sub>p</sub>-vector space D<sub>cris</sub>(M(&phi;)) where M(&phi;) is
+the "motive" attached to &phi;, and we return the two p-adic components
+with respect to some fixed &Qopf;<sub>p</sub>-basis.</p>
+<p>
+</p><pre class="code">  ? M = msinit(3,6,1); phi=[5, -3, -1]~;
+  ? msissymbol(M,phi)
+  %2 = 1
+  ? Mp = mspadicinit(M, 5, 4);
+  ? mu = mspadicmoments(Mp, phi); \\ no twist
+  \\ End of initializations
+  
+  ? mspadicL(mu,0) \\ L<sub>p</sub>(chi^0)
+  %5 = 5 + 2*5^2 + 2*5^3 + 2*5^4 + ...
+  ? mspadicL(mu,1) \\ L<sub>p</sub>(chi), zero for parity reasons
+  %6 = [O(5^13)]~
+  ? mspadicL(mu,2) \\ L<sub>p</sub>(chi^2)
+  %7 = 3 + 4*5 + 4*5^2 + 3*5^5 + ...
+  ? mspadicL(mu,[0,2]) \\ L<sub>p</sub>(tau^2)
+  %8 = 3 + 5 + 2*5^2 + 2*5^3 + ...
+  ? mspadicL(mu, [1,0]) \\ L<sub>p</sub>(&lt;chi&gt;)
+  %9 = 3*5 + 2*5^2 + 5^3 + 2*5^7 + 5^8 + 5^10 + 2*5^11 + O(5^13)
+  ? mspadicL(mu,0,1) \\ L<sub>p</sub>'(chi^0)
+  %10 = 2*5 + 4*5^2 + 3*5^3 + ...
+  ? mspadicL(mu, 2, 1) \\ L<sub>p</sub>'(chi^2)
+  %11 = 4*5 + 3*5^2 + 5^3 + 5^4 + ...
+</pre><p></p>
+<p></p>
+<p>
+Now several quadratic twists: <code><a href="Modular_symbols.html#se:mstooms"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mstooms</a></code> is indicated.</p>
+<p>
+</p><pre class="code">  ? PHI = mstooms(Mp,phi);
+  ? mu = mspadicmoments(Mp, PHI, 12); \\ twist by 12
+  ? mspadicL(mu)
+  %14 = 5 + 5^2 + 5^3 + 2*5^4 + ...
+  ? mu = mspadicmoments(Mp, PHI, 8); \\ twist by 8
+  ? mspadicL(mu)
+  %16 = 2 + 3*5 + 3*5^2 + 2*5^4 + ...
+  ? mu = mspadicmoments(Mp, PHI, -3); \\ twist by -3 &lt; 0
+  ? mspadicL(mu)
+  %18 = O(5^13) \\ always 0, phi is in the + part and D &lt; 0
+</pre><p></p>
+<p></p>
+<p>
+One can locate interesting symbols of level N and weight k with
+<code><a href="Modular_symbols.html#se:msnew"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msnew</a></code> and <code><a href="Modular_symbols.html#se:mssplit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mssplit</a></code>. Note that instead of a symbol, one can
+input a 1-dimensional Hecke-subspace from <code><a href="Modular_symbols.html#se:mssplit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mssplit</a></code>: the function will
+automatically use the underlying basis vector.</p>
+<p>
+</p><pre class="code">  ? M=msinit(5,4,1); \\ M<sub>4</sub>(Gamma<sub>0</sub>(5))^+
+  ? L = mssplit(M, msnew(M)); \\ list of irreducible Hecke-subspaces
+  ? phi = L[1]; \\ one Galois orbit of newforms
+  ? #phi[1] \\... this one is rational
+  %4 = 1
+  ? Mp = mspadicinit(M, 3, 4);
+  ? mu = mspadicmoments(Mp, phi);
+  ? mspadicL(mu)
+  %7 = 1 + 3 + 3^3 + 3^4 + 2*3^5 + 3^6 + O(3^9)
+  
+  ? M = msinit(11,8, 1); \\ M<sub>8</sub>(Gamma<sub>0</sub>(11))^+
+  ? Mp = mspadicinit(M, 3, 4);
+  ? L = mssplit(M, msnew(M));
+  ? phi = L[1]; #phi[1] \\ ... this one is two-dimensional
+  %11 = 2
+  ? mu = mspadicmoments(Mp, phi);
+   ***   at top-level: mu=mspadicmoments(Mp,ph
+   ***                    ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** mspadicmoments: incorrect type in mstooms [dim<sub>Q</sub> (eigenspace) &gt; 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mspadicL</b>(GEN mu, GEN s = NULL, long r)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspadicinit"></div>
+<div id="mspadicinit"></div>
+<h4>mspadicinit(M, p, n, {<em>flag</em>})</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>, and p
+a prime, initialize technical data needed to compute with overconvergent
+modular symbols, modulo p^n. If <em>flag</em> is unset, allow
+all symbols; else initialize only for a restricted range of symbols
+depending on <em>flag</em>: if <em>flag</em> = 0 restrict to ordinary symbols, else
+restrict to symbols &phi; such that T<sub>p</sub>(&phi;) = a<sub>p</sub> &phi;,
+with v<sub>p</sub>(a<sub>p</sub>) &geq; <em>flag</em>, which is faster as <em>flag</em> increases.
+(The fastest initialization is obtained for <em>flag</em> = 0 where we only allow
+ordinary symbols.) For supersingular eigensymbols, such that p | a<sub>p</sub>, we
+must further assume that p does not divide the level.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a1");
+  ? [M,phi] = msfromell(E,1);
+  ? ellap(E,3)
+  %3 = -1
+  ? Mp = mspadicinit(M, 3, 10, 0); \\ commit to ordinary symbols
+  ? PHI = mstooms(Mp,phi);
+</pre><p></p>
+<p></p>
+<p>
+If we restrict the range of allowed symbols with <em>flag</em> (for faster
+initialization), exceptions will occur if v<sub>p</sub>(a<sub>p</sub>) violates this bound:</p>
+<p>
+</p><pre class="code">  ? E = ellinit("15a1");
+  ? [M,phi] = msfromell(E,1);
+  ? ellap(E,7)
+  %3 = 0
+  ? Mp = mspadicinit(M,7,5,0); \\ restrict to ordinary symbols
+  ? PHI = mstooms(Mp,phi)
+  ***   at top-level: PHI=mstooms(Mp,phi)
+  ***                     ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; 
+  *** mstooms: incorrect type in mstooms [v<sub>p</sub>(ap) &gt; mspadicinit flag] (t_VEC).
+  ? Mp = mspadicinit(M,7,5); \\ no restriction
+  ? PHI = mstooms(Mp,phi);
+</pre><p>
+This function uses O(N^2(n+k)^2p) memory, where N is the
+level of M.</p>
+<p>
+The library syntax is <code>GEN <b>mspadicinit</b>(GEN M, long p, long n, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspadicmoments"></div>
+<div id="mspadicmoments"></div>
+<h4>mspadicmoments(<em>Mp</em>, <em>PHI</em>, {D = 1})</h4>
+<p>
+Given <code>Mp</code> from <code><a href="Modular_symbols.html#se:mspadicinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicinit</a></code>, an overconvergent
+eigensymbol <code>PHI</code> from <code><a href="Modular_symbols.html#se:mstooms"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mstooms</a></code> and a fundamental discriminant
+D coprime to p,
+let <code>PHI</code>^D denote the twisted symbol. This function computes
+the distribution &mu; = <code>PHI</code>^D([0] -  oo ]) | &Zopf;<sub>p</sub><sup>*</sup> restricted
+to &Zopf;<sub>p</sub><sup>*</sup>. More precisely, it returns
+the moments of the p-1 distributions <code>PHI</code>^D([0]-[ oo ])
+ | (a + p&Zopf;<sub>p</sub>), 0 &lt; a &lt; p.
+We also allow <code>PHI</code> to be given as a classical
+symbol, which is then lifted to an overconvergent symbol by <code><a href="Modular_symbols.html#se:mstooms"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mstooms</a></code>;
+but this is wasteful if more than one twist is later needed.</p>
+<p>
+The returned data &mu; (p-adic distributions attached to <code>PHI</code>)
+can then be used in <code><a href="Modular_symbols.html#se:mspadicL"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicL</a></code> or <code><a href="Modular_symbols.html#se:mspadicseries"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicseries</a></code>.
+This precomputation allows to quickly compute derivatives of different
+orders or values at different characters.</p>
+<p>
+</p><pre class="code">  ? M = msinit(3,6, 1);
+  ? phi = [5,-3,-1]~;
+  ? msissymbol(M, phi)
+  %3 = 1
+  ? p = 5; mshecke(M,p) * phi  \\ eigenvector of T<sub>5</sub>, a<sub>5</sub> = 6
+  %4 = [30, -18, -6]~
+  ? Mp = mspadicinit(M, p, 10, 0); \\ restrict to ordinary symbols, mod p^10
+  ? PHI = mstooms(Mp, phi);
+  ? mu = mspadicmoments(Mp, PHI);
+  ? mspadicL(mu)
+  %8 = 5 + 2*5^2 + 2*5^3 + ...
+  ? mu = mspadicmoments(Mp, PHI, 12); \\ twist by 12
+  ? mspadicL(mu)
+  %10 = 5 + 5^2 + 5^3 + 2*5^4 + ...
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mspadicmoments</b>(GEN Mp, GEN PHI, long D)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspadicseries"></div>
+<div id="mspadicseries"></div>
+<h4>mspadicseries(<em>mu</em>, {i = 0})</h4>
+<p>
+Let &Phi; be the p-adic distribution-valued overconvergent symbol
+attached to a modular symbol &phi; for &Gamma;<sub>0</sub>(N) (eigenvector for
+T<sub>N</sub>(p) for the eigenvalue a<sub>p</sub>).
+If &mu; is the distribution on &Zopf;<sub>p</sub><sup>*</sup> defined by the restriction of
+&Phi;([ oo ]-[0]) to &Zopf;<sub>p</sub><sup>*</sup>, let
+<sup>L</sup><sub>p</sub>(&mu;,&tau;<sup>i</sup>)(x)
+ = &int;<sub>&Zopf;<sub>p</sub><sup>*</sup></sub> &tau;^i(t) (1+x)<sup>log<sub>p</sub>(t)/log<sub>p</sub>(u)</sup>d&mu;(t)
+Here, &tau; is the Teichm&uuml;ller character and u is a specific
+multiplicative generator of 1+2p&Zopf;<sub>p</sub>. (Namely 1+p if p &gt; 2 or 5
+if p = 2.) To explain
+the formula, let G_ oo := Gal(&Qopf;(&mu;<sub>p<sup> oo </sub></sup>)/ &Qopf;),
+let &chi;:G_ oo  &rightarrow;  &Zopf;<sub>p</sub><sup>*</sup> be the cyclotomic character (isomorphism)
+and &gamma; the element of G_ oo  such that &chi;(&gamma;) = u;
+then
+&chi;(&gamma;)<sup>log<sub>p</sub>(t)/log<sub>p</sub>(u)</sup> = <code>&lt;</code>t <code>&gt;</code>.</p>
+<p>
+The p-padic precision of individual terms is maximal given the precision of
+the overconvergent symbol &mu;.</p>
+<p>
+</p><pre class="code">  ? [M,phi] = msfromell(ellinit("17a1"),1);
+  ? Mp = mspadicinit(M, 5,7);
+  ? mu = mspadicmoments(Mp, phi,1); \\ overconvergent symbol
+  ? mspadicseries(mu)
+  %4 = (4 + 3*5 + 4*5^2 + 2*5^3 + 2*5^4 + 5^5 + 4*5^6 + 3*5^7 + O(5^9)) \
+   + (3 + 3*5 + 5^2 + 5^3 + 2*5^4 + 5^6 + O(5^7))*x \
+   + (2 + 3*5 + 5^2 + 4*5^3 + 2*5^4 + O(5^5))*x^2 \
+   + (3 + 4*5 + 4*5^2 + O(5^3))*x^3 \
+   + (3 + O(5))*x^4 + O(x^5)
+</pre><p></p>
+<p>
+An example with non-zero Teichm&uuml;ller:</p>
+<p>
+</p><pre class="code">  ? [M,phi] = msfromell(ellinit("11a1"),1);
+  ? Mp = mspadicinit(M, 3,10);
+  ? mu = mspadicmoments(Mp, phi,1);
+  ? mspadicseries(mu, 2)
+  %4 = (2 + 3 + 3^2 + 2*3^3 + 2*3^5 + 3^6 + 3^7 + 3^10 + 3^11 + O(3^12)) \
+   + (1 + 3 + 2*3^2 + 3^3 + 3^5 + 2*3^6 + 2*3^8 + O(3^9))*x \
+   + (1 + 2*3 + 3^4 + 2*3^5 + O(3^6))*x^2 \
+   + (3 + O(3^2))*x^3 + O(x^4)
+</pre><p></p>
+<p>
+Supersingular example (not checked)</p>
+<p>
+</p><pre class="code">  ? E = ellinit("17a1"); ellap(E,3)
+  %1 = 0
+  ? [M,phi] = msfromell(E,1);
+  ? Mp = mspadicinit(M, 3,7);
+  ? mu = mspadicmoments(Mp, phi,1);
+  ? mspadicseries(mu)
+  %5 = [(2*3^-1 + 1 + 3 + 3^2 + 3^3 + 3^4 + 3^5 + 3^6 + O(3^7)) \
+   + (2 + 3^3 + O(3^5))*x \
+   + (1 + 2*3 + O(3^2))*x^2 + O(x^3),\
+   (3^-1 + 1 + 3 + 3^2 + 3^3 + 3^4 + 3^5 + 3^6 + O(3^7)) \
+   + (1 + 2*3 + 2*3^2 + 3^3 + 2*3^4 + O(3^5))*x \
+   + (3^-2 + 3^-1 + O(3^2))*x^2 + O(3^-2)*x^3 + O(x^4)]
+</pre><p></p>
+<p>
+Example with a twist:</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a1");
+  ? [M,phi] = msfromell(E,1);
+  ? Mp = mspadicinit(M, 3,10);
+  ? mu = mspadicmoments(Mp, phi,5); \\ twist by 5
+  ? L = mspadicseries(mu)
+  %5 = (2*3^2 + 2*3^4 + 3^5 + 3^6 + 2*3^7 + 2*3^10 + O(3^12)) \
+   + (2*3^2 + 2*3^6 + 3^7 + 3^8 + O(3^9))*x \
+   + (3^3 + O(3^6))*x^2 + O(3^2)*x^3 + O(x^4)
+  ? mspadicL(mu)
+  %6 = [2*3^2 + 2*3^4 + 3^5 + 3^6 + 2*3^7 + 2*3^10 + O(3^12)]~
+  ? ellpadicL(E,3,10,,5)
+  %7 = 2 + 2*3^2 + 3^3 + 2*3^4 + 2*3^5 + 3^6 + 2*3^7 + O(3^10)
+  ? mspadicseries(mu,1) \\ must be 0
+  %8 = O(3^12) + O(3^9)*x + O(3^6)*x^2 + O(3^2)*x^3 + O(x^4)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mspadicseries</b>(GEN mu, long i)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspathgens"></div>
+<div id="mspathgens"></div>
+<h4>mspathgens(M)</h4>
+<p>
+Let &Delta; := Div^0(&Popf;^1(&Qopf;)).
+Let M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+return a set of &Zopf;[G]-generators for &Delta;. The output
+is [g,R], where g is a minimal system of generators and R
+the vector of &Zopf;[G]-relations between the given generators. A
+relation is coded by a vector of pairs [a<sub>i</sub>,i] with a<sub>i</sub> &in;  &Zopf;[G]
+and i the index of a generator, so that &sum;<sub>i</sub> a<sub>i</sub> g[i] = 0.</p>
+<p>
+An element [v]-[u] in &Delta; is coded by the "path" [u,v],
+where <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code> denotes the point at infinity (1:0) on the projective
+line.
+An element of &Zopf;[G] is either an integer n ( = n [id<sub>2</sub>]) or a
+"factorization matrix": the first column contains distinct elements g<sub>i</sub>
+of G and the second integers n<sub>i</sub> and the matrix codes &sum; n<sub>i</sub> [g<sub>i</sub>]:</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,8); \\ M<sub>8</sub>(Gamma<sub>0</sub>(11))
+  ? [g,R] = mspathgens(M);
+  ? g
+  %3 = [[+oo, 0], [0, 1/3], [1/3, 1/2]] \\ 3 paths
+  ? #R  \\ a single relation
+  %4 = 1
+  ? r = R[1]; #r \\ ...involving all 3 generators
+  %5 = 3
+  ? r[1]
+  %6 = [[1, 1; [1, 1; 0, 1], -1], 1]
+  ? r[2]
+  %7 = [[1, 1; [7, -2; 11, -3], -1], 2]
+  ? r[3]
+  %8 = [[1, 1; [8, -3; 11, -4], -1], 3]
+</pre><p></p>
+<p>
+The given relation is of the form &sum;<sub>i</sub> (1-&gamma;<sub>i</sub>) g<sub>i</sub> = 0, with
+&gamma;<sub>i</sub> &in;  &Gamma;<sub>0</sub>(11). There will always be a single relation involving
+all generators (corresponding to a round trip along all cusps), then
+relations involving a single generator (corresponding to 2 and 3-torsion
+elements in the group:</p>
+<p>
+</p><pre class="code">  ? M = msinit(2,8); \\ M<sub>8</sub>(Gamma<sub>0</sub>(2))
+  ? [g,R] = mspathgens(M);
+  ? g
+  %3 = [[+oo, 0], [0, 1]]
+</pre><p></p>
+<p>
+Note that the output depends only on the group G, not on the
+representation V.</p>
+<p>
+The library syntax is <code>GEN <b>mspathgens</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspathlog"></div>
+<div id="mspathlog"></div>
+<h4>mspathlog(M, p)</h4>
+<p>
+Let &Delta; := Div^0(&Popf;^1(&Qopf;)).
+Let M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+encoding fixed &Zopf;[G]-generators (g<sub>i</sub>) of &Delta; (see <code><a href="Modular_symbols.html#se:mspathgens"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspathgens</a></code>).
+A path p = [a,b] between two elements in &Popf;^1(&Qopf;) corresponds to
+[b]-[a] &in;  &Delta;. The path extremities a and b may be given as
+<code>t_INT</code>, <code>t_FRAC</code> or <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code> = (1:0). Finally, we also allow
+to input a path as a 2 x 2 integer matrix, whose first
+and second column give a and b respectively, with the convention
+[x,y]~ = (x:y) in &Popf;^1(&Qopf;).</p>
+<p>
+Returns (p<sub>i</sub>) in &Zopf;[G] such that p = &sum;<sub>i</sub> p<sub>i</sub> g<sub>i</sub>.</p>
+<p>
+</p><pre class="code">  ? M = msinit(2,8); \\ M<sub>8</sub>(Gamma<sub>0</sub>(2))
+  ? [g,R] = mspathgens(M);
+  ? g
+  %3 = [[+oo, 0], [0, 1]]
+  ? p = mspathlog(M, [1/2,2/3]);
+  ? p[1]
+  %5 =
+  [[1, 0; 2, 1] 1]
+  
+  ? p[2]
+  %6 =
+  [[1, 0; 0, 1] 1]
+  
+  [[3, -1; 4, -1] 1]
+  ? mspathlog(M, [1,2;2,3]) == p  \\ give path via a 2x2 matrix
+  %7 = 1
+</pre><p></p>
+<p>
+Note that the output depends only on the group G, not on the
+representation V.</p>
+<p>
+The library syntax is <code>GEN <b>mspathlog</b>(GEN M, GEN p)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspetersson"></div>
+<div id="mspetersson"></div>
+<h4>mspetersson(M, {F}, {G = F})</h4>
+<p>
+M being a full modular symbol space for &Gamma; = &Gamma;<sub>0</sub>(N),
+as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+calculate the intersection product {F, G} of modular symbols F and G
+on M = Hom<sub>&Gamma;</sub>(&Delta;, V<sub>k</sub>) extended to an hermitian bilinear
+form on M  &bigotimes;  &Copf; whose radical is the Eisenstein subspace of M.</p>
+<p>
+Suppose that f<sub>1</sub> and f<sub>2</sub> are two parabolic forms. Let F<sub>1</sub>
+and F<sub>2</sub> be the attached modular symbols
+ F<sub>i</sub>(&delta;) = &int;<sub>&delta;</sub> f<sub>i</sub>(z).(z X + Y)<sup>k-2</sup> dz
+and let F<sup>&Ropf;</sup><sub>1</sub>, F<sup>&Ropf;</sup><sub>2</sub> be the attached real modular symbols
+ F<sup>&Ropf;</sup><sub>i</sub>(&delta;) = &int;<sub>&delta;</sub>
+   Re(f<sub>i</sub>(z).(z X + Y)<sup>k-2</sup> dz) 
+Then we have</p>
+<p>{ F<sup>&Ropf;</sup><sub>1</sub>, F<sup>&Ropf;</sup><sub>2</sub> } = -2 (2i)<sup>k-2</sup>.
+   Im( &lt; f<sub>1</sub>,f<sub>2</sub> &gt; <sub><em>Petersson</em></sub>) 
+and
+{ F<sub>1</sub>, <span style="text-decoration:overline">F<sub>2</sub></span> } = (2i)<sup>k-2</sup> &lt; f<sub>1</sub>,f<sub>2</sub> &gt; <sub><em>Petersson</em></sub>
+In weight 2, the intersection product {F, G} has integer values on the
+&Zopf;-structure on M given by <code><a href="Modular_symbols.html#se:mslattice"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mslattice</a></code> and defines a Riemann form on
+H^1<sub>par</sub>(&Gamma;,&Ropf;).</p>
+<p>
+For user convenience, we allow F and G to be matrices and return the
+attached Gram matrix. If F is omitted: treat it as the full modular space
+attached to M; if G is omitted, take it equal to F.</p>
+<p>
+</p><pre class="code">  ? M = msinit(37,2);
+  ? C = mscuspidal(M)[1];
+  ? mspetersson(M, C)
+  %3 =
+  [ 0 -17 -8 -17]
+  [17   0 -8 -25]
+  [ 8   8  0 -17]
+  [17  25 17   0]
+  ? mspetersson(M, mslattice(M,C))
+  %4 =
+  [0 -1 0 -1]
+  [1  0 0 -1]
+  [0  0 0 -1]
+  [1  1 1  0]
+  ? E = ellinit("33a1");
+  ? [M,xpm] = msfromell(E); [xp,xm,L] = xpm;
+  ? mspetersson(M, mslattice(M,L))
+  %7 =
+  [0 -3]
+  [3  0]
+  ? ellmoddegree(E)
+  %8 = [3, -126]
+</pre><p></p>
+<p>
+The coefficient 3 in the matrix is the degree of the
+modular parametrization.</p>
+<p>
+The library syntax is <code>GEN <b>mspetersson</b>(GEN M, GEN F = NULL, GEN G = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mspolygon"></div>
+<div id="mspolygon"></div>
+<h4>mspolygon(M, {<em>flag</em> = 0})</h4>
+<p>
+Given an integer N &gt; 1, return an hyperbolic polygon (Farey symbol)
+attached to the group &Gamma;<sub>0</sub>(N). More precisely,</p>
+<p>
+<b>*</b> its vertices are an ordered list in &Popf;<sup>1</sup>(&Qopf;), forming a system of
+representatives of cusps,</p>
+<p>
+<b>*</b> its edges are hyperbolic arcs joining two consecutive vertices,</p>
+<p>
+<b>*</b> given a path (a,b) between two elements of &Popf;<sup>1</sup>(&Qopf;), let
+<span style="text-decoration:overline">(a,b)</span> = (b,a) be the opposite path. There is an involution e
+ &rightarrow;  e<sup>*</sup> on the edges, where e<sup>*</sup> is &Gamma;<sub>0</sub>(N) equivalent to
+<span style="text-decoration:overline">e</span>, i.e. there exist &gamma;<sub>e</sub>  &in;  &Gamma;<sub>0</sub>(N) such that e = 
+&gamma;<sub>e</sub> <span style="text-decoration:overline">e<sup>*</sup></span>.</p>
+<p>
+The polygon is given by</p>
+<p>
+<b>*</b> the list E of its consecutive edges as matrices in M<sub>2</sub>(&Zopf;);</p>
+<p>
+<b>*</b> the permutation A attached to the involution, such that
+<code>A[i]</code> is the index of e<sup>*</sup> in E if e = E[i] is the i-th edge;</p>
+<p>
+<b>*</b> the list G of pairing matrices between e and
+<span style="text-decoration:overline">e<sup>*</sup></span>, i.e. the matrices &gamma;<sub>e</sub> &in;  &Gamma;<sub>0</sub>(N) such that e = 
+&gamma;<sub>e</sub> <span style="text-decoration:overline">e<sup>*</sup></span>. If e = E[i], then &gamma;<sub>e</sub> = G[i].
+Remark that &gamma;<sub>e<sup>*</sup></sub> = &gamma;<sub>e</sub><sup>-1</sup> if e != e<sup>*</sup>; modulo these
+trivial relations, the pairing matrices form a system of independant
+generators of &Gamma;<sub>0</sub>(N)/{1,-1}. Note that &gamma;<sub>e</sub> is elliptic if and only if
+e^ *= e.</p>
+<p>
+The above data yields a fundamental domain for &Gamma;<sub>0</sub>(N) acting
+on Poincar&eacute;'s half-plane: take the convex hull of the polygon defined by</p>
+<p>
+<b>*</b> the edges in E such that e != e<sup>*</sup> or e^ *= e, where the pairing
+matrix &gamma;<sub>e</sub> has order 2;</p>
+<p>
+<b>*</b> the edges (r,t) and (t,s) where the edge e = (r,s)  &in;  E is such
+that e = e<sup>*</sup> and &gamma;<sub>e</sub> has order 3 and the triangle (r,t,s)
+is the image of (0,exp(2i&pi;/3),  oo ) by some element of PSL<sub>2</sub>(&Qopf;)
+formed around the edge.</p>
+<p>
+Binary digits of flag mean:</p>
+<p>
+1: return a normalized hyperbolic polygon if set, else a polygon with
+unimodular edges (matrices of determinant 1). A polygon is normalized
+in the sense of compact orientable surfaces if the distance d(a,a<sup>*</sup>) between
+an edge a and its image by the involution a<sup>*</sup> is less than 2, with
+equality if and only if a is <em>linked</em> with another edge b
+(a, b, a<sup>*</sup> et b<sup>*</sup> appear consecutively in E up to cyclic
+permutation). In particular, the vertices of all edges such that that
+d(a,a<sup>*</sup>) != 1 (distance is 0 or 2) are all equivalent to 0 modulo
+&Gamma;<sub>0</sub>(N). The external vertices of a a<sup>*</sup> such that d(a,a<sup>*</sup>) = 1 are
+also equivalent to 0; the internal vertices a&cap; a<sup>*</sup> (a single point),
+together with 0, form a system of representatives of the cusps of
+&Gamma;<sub>0</sub>(N)\&Popf;<sup>1</sup>(&Qopf;). This is useful to compute the homology group
+H<sub>1</sub>(X<sub>0</sub>(N),&Zopf;) as it gives a symplectic basis for the intersection pairing.
+In this case, the number of parabolic matrices (trace 2) in the system of
+generators G is 2(t-1), where t is the number of non equivalent cusps
+for &Gamma;<sub>0</sub>(N).</p>
+<p>
+2: add graphical representations (in LaTeX form) for the hyperbolic polygon
+in Poincar&eacute;'s half-space and the involution a &rightarrow;  a<sup>*</sup> of the Farey symbol.
+The corresponding character strings can be written to file and included in a
+LaTeX document provided the preamble contains
+<code>\usepackage{ tikz}</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? [V,A,G] = mspolygon(3);
+  ? V
+  %2 = [[-1, 1; -1, 0], [1, 0; 0, 1], [0, 1; -1, 1]]
+  ? A
+  %3 = Vecsmall([2, 1, 3])
+  ? G
+  %4 = [[-1, -1; 0, -1], [1, -1; 0, 1], [1, -1; 3, -2]]
+  ? [V,A,G, D1,D2] = mspolygon(11,2); \\ D1 and D2 contains pictures
+  ? {write("F.tex",
+       "\\documentclass{article}\\usepackage{tikz}\\begin{document}"
+       D1, "\n",
+       D2,
+       "\\end{document}");}
+  
+  ? [V1,A1] = mspolygon(6,1); \\ normalized
+  ? V1
+  %8 = [[-1, 1; -1, 0], [1, 0; 0, 1], [0, 1; -1, 3],
+        [1, -2; 3, -5], [-2, 1; -5, 2], [1, -1; 2, -1]]
+  ? A1
+  %9 = Vecsmall([2, 1, 4, 3, 6, 5])
+  
+  ? [V0,A0] = mspolygon(6);  \\ not normalized V[3]<sup>*</sup> = V[6], d(V[3],V[6]) = 3
+  ? A0
+  %11 = Vecsmall([2, 1, 6, 5, 4, 3])
+  
+  ? [V,A] = mspolygon(14, 1);
+  ? A
+  %13 = Vecsmall([2, 1, 4, 3, 6, 5, 9, 10, 7, 8])
+</pre><p></p>
+<p>
+One can see from this last example that the (normalized) polygon has the form
+(a<sub>1</sub>, a<sub>1</sub><sup>*</sup>, a<sub>2</sub>, a<sub>2</sub><sup>*</sup>, a<sub>3</sub>, a<sub>3</sub><sup>*</sup>, a<sub>4</sub>, a<sub>5</sub>, a<sub>4</sub><sup>*</sup>, a<sub>5</sub><sup>*</sup>),
+that X<sub>0</sub>(14) is of genus 1 (in general the genus is the number of blocks
+of the form aba<sup>*</sup>b<sup>*</sup>), has no elliptic points (A has no fixed point)
+and 4 cusps (number of blocks of the form aa<sup>*</sup> plus 1). The vertices
+of edges a<sub>4</sub> and a<sub>5</sub> all project to 0 in X<sub>0</sub>(14): the paths a<sub>4</sub>
+and a<sub>5</sub> project as loops in X<sub>0</sub>(14) and give a symplectic basis of the
+homology H<sub>1</sub>(X<sub>0</sub>(14),&Zopf;).</p>
+<p>
+</p><pre class="code">  ? [V,A] = mspolygon(15);
+  ? apply(matdet, V) \\ all unimodular
+  %2 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  ? [V,A] = mspolygon(15,1);
+  ? apply(matdet, V) \\ normalized polygon but no longer unimodular edges
+  %4 = [1, 1, 1, 1, 2, 2, 47, 11, 47, 11]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mspolygon</b>(GEN M, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msqexpansion"></div>
+<div id="msqexpansion"></div>
+<h4>msqexpansion(M, <em>projH</em>, {B = <em>seriesprecision</em>})</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+and <em>projH</em> being a projector on a Hecke-simple subspace (as given
+by <code><a href="Modular_symbols.html#se:mssplit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mssplit</a></code>), return the Fourier coefficients a<sub>n</sub>, n &leq; B of the
+corresponding normalized newform. If B is omitted, use
+<code>seriesprecision</code>.</p>
+<p>
+This function uses a naive O(B^2 d^3)
+algorithm, where d = O(kN) is the dimension of M<sub>k</sub>(&Gamma;<sub>0</sub>(N)).</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,2, 1); \\ M<sub>2</sub>(Gamma<sub>0</sub>(11))^+
+  ? L = mssplit(M, msnew(M));
+  ? msqexpansion(M,L[1], 20)
+  %3 = [1, -2, -1, 2, 1, 2, -2, 0, -2, -2, 1, -2, 4, 4, -1, -4, -2, 4, 0, 2]
+  ? ellan(ellinit("11a1"), 20)
+  %4 = [1, -2, -1, 2, 1, 2, -2, 0, -2, -2, 1, -2, 4, 4, -1, -4, -2, 4, 0, 2]
+</pre><p>
+The shortcut <code>msqexpansion(M, s, B)</code> is available for
+a symbol s, provided it is a Hecke eigenvector:</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a1");
+  ? [M,s]=msfromell(E);
+  ? msqexpansion(M,s,10)
+  %3 = [1, -2, -1, 2, 1, 2, -2, 0, -2, -2]
+  ? ellan(E, 10)
+  %4 = [1, -2, -1, 2, 1, 2, -2, 0, -2, -2]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msqexpansion</b>(GEN M, GEN projH, long precdl)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mssplit"></div>
+<div id="mssplit"></div>
+<h4>mssplit(M, {H}, {<em>dimlim</em>})</h4>
+<p>
+Let M denote a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>(N,k,1)
+or <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>(N,k,-1) and let H be a Hecke-stable subspace of
+<code><a href="Modular_symbols.html#se:msnew"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msnew</a></code>(M) (the full new subspace if H is omitted). This function
+splits H into Hecke-simple subspaces. If <code>dimlim</code> is present and
+positive, restrict to subspaces of dimension  &leq; <code>dimlim</code>. A subspace
+is given by a structure allowing quick projection and restriction of linear
+operators; its first component is a matrix with integer coefficients whose
+columns form a &Qopf;-basis of the subspace.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? M = msinit(11,8, 1); \\ M<sub>8</sub>(Gamma<sub>0</sub>(11))^+
+  ? L = mssplit(M); \\ split msnew(M)
+  ? #L
+  %3 = 2
+  ? f = msqexpansion(M,L[1],5); f[1].mod
+  %4 = x^2 + 8*x - 44
+  ? lift(f)
+  %5 = [1, x, -6*x - 27, -8*x - 84, 20*x - 155]
+  ? g = msqexpansion(M,L[2],5); g[1].mod
+  %6 = x^4 - 558*x^2 + 140*x + 51744
+</pre><p>
+To a Hecke-simple subspace corresponds an orbit of
+(normalized) newforms, defined over a number field. In the above example,
+we printed the polynomials defining the said fields, as well as the first
+5 Fourier coefficients (at the infinite cusp) of one such form.</p>
+<p>
+The library syntax is <code>GEN <b>mssplit</b>(GEN M, GEN H = NULL, long dimlim)</code>.</p>
+<p>
+
+<hr>
+<div id="se:msstar"></div>
+<div id="msstar"></div>
+<h4>msstar(M, {H})</h4>
+<p>
+M being a full modular symbol space, as given by <code><a href="Modular_symbols.html#se:msinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msinit</a></code>,
+return the matrix of the <code>*</code> involution, induced by complex conjugation,
+acting on the (stable) subspace H (M if omitted).</p>
+<p>
+</p><pre class="code">  ? M = msinit(11,2); \\ M<sub>2</sub>(Gamma<sub>0</sub>(11))
+  ? w = msstar(M);
+  ? w^2 == 1
+  %3 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>msstar</b>(GEN M, GEN H = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mstooms"></div>
+<div id="mstooms"></div>
+<h4>mstooms(<em>Mp</em>, <em>phi</em>)</h4>
+<p>
+Given <code>Mp</code> from <code><a href="Modular_symbols.html#se:mspadicinit"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicinit</a></code>, lift the (classical) eigen symbol
+<code>phi</code> to a p-adic distribution-valued overconvergent symbol in the
+sense of Pollack and Stevens. More precisely, let &phi; belong to the space
+W of modular symbols of level N, v<sub>p</sub>(N) &leq; 1, and weight k which is
+an eigenvector for the Hecke operator T<sub>N</sub>(p) for a non-zero eigenvalue
+a<sub>p</sub> and let N<sub>0</sub> = lcm(N,p).</p>
+<p>
+Under the action of T<sub>N<sub>0</sub></sub>(p), &phi; generates a subspace W_&phi; of
+dimension 1 (if p | N) or 2 (if p does not divide N) in the
+space of modular symbols of level N<sub>0</sub>.</p>
+<p>
+Let V<sub>p</sub> = [p,0;0,1] and C<sub>p</sub> = [a<sub>p</sub>,p<sup>k-1</sup>;-1,0].
+When p does not divide N and a<sub>p</sub> is divisible by p, <code><a href="Modular_symbols.html#se:mstooms"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mstooms</a></code>
+returns the lift &Phi; of (&phi;,&phi;|<sub>k</sub> V<sub>p</sub>) such that
+ T<sub>N<sub>0</sub></sub>(p) &Phi; = C<sub>p</sub> &Phi;</p>
+<p>
+When p does not divide N and a<sub>p</sub> is not divisible by p, <code><a href="Modular_symbols.html#se:mstooms"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mstooms</a></code>
+returns the lift &Phi; of &phi; - &alpha;<sup>-1</sup> &phi;|<sub>k</sub> V<sub>p</sub>
+which is an eigenvector of T<sub>N<sub>0</sub></sub>(p) for the unit eigenvalue
+where &alpha;^2 - a<sub>p</sub> &alpha; + p<sup>k-1</sup> = 0.</p>
+<p>
+The resulting overconvergent eigensymbol can then be used in
+<code><a href="Modular_symbols.html#se:mspadicmoments"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicmoments</a></code>, then <code><a href="Modular_symbols.html#se:mspadicL"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicL</a></code> or <code><a href="Modular_symbols.html#se:mspadicseries"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicseries</a></code>.</p>
+<p>
+</p><pre class="code">  ? M = msinit(3,6, 1); p = 5;
+  ? Tp = mshecke(M, p); factor(charpoly(Tp))
+  %2 =
+  [x - 3126 2]
+  
+  [   x - 6 1]
+  ? phi = matker(Tp - 6)[,1] \\ generator of p-Eigenspace, a<sub>p</sub> = 6
+  %3 = [5, -3, -1]~
+  ? Mp = mspadicinit(M, p, 10, 0); \\ restrict to ordinary symbols, mod p^10
+  ? PHI = mstooms(Mp, phi);
+  ? mu = mspadicmoments(Mp, PHI);
+  ? mspadicL(mu)
+  %7 = 5 + 2*5^2 + 2*5^3 + ...
+</pre><p></p>
+<p>
+A non ordinary symbol.</p>
+<p>
+</p><pre class="code">  ? M = msinit(4,6,1); p = 3;
+  ? Tp = mshecke(M, p); factor(charpoly(Tp))
+  %2 =
+  [x - 244 3]
+  
+  [ x + 12 1]
+  ? phi = matker(Tp + 12)[,1] \\ a<sub>p</sub> = -12 is divisible by p = 3
+  %3 = [-1/32, -1/4, -1/32, 1]~
+  ? msissymbol(M,phi)
+  %4 = 1
+  ? Mp = mspadicinit(M,3,5,0);
+  ? PHI = mstooms(Mp,phi);
+   ***   at top-level: PHI=mstooms(Mp,phi)
+   ***                     ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; 
+   *** mstooms: incorrect type in mstooms [v<sub>p</sub>(ap) &gt; mspadicinit flag] (t_VEC).
+  ? Mp = mspadicinit(M,3,5,1);
+  ? PHI = mstooms(Mp,phi);
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mstooms</b>(GEN Mp, GEN phi)</code>.</p>
+<p>
+
+<hr>
+</body>

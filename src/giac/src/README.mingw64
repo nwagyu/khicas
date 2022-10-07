@@ -1,0 +1,109 @@
+
+============================================================================
+             Compiling giac/icas/xcas in Windows 10 (MSYS2)
+============================================================================
+
+Let {GIAC} denote the path to unpacked giac source directory (currently
+it is giac-1.6.0), e.g. c:/Users/You/Downloads/giac-1.6.0.  Note that, in
+MSYS2, / is used as a directory separator instead of Windows backslash (\).
+
+1.  Download 64-bit installation binaries for MSYS2 from
+    https://www.msys2.org/wiki/MSYS2-installation/ and install MSYS2 to
+    the recommended folder (C:/msys64) or something similar (avoid spaces
+    in the installation path).
+
+2.  From Windows start menu, run 'MSYS2 MinGW 64-bit'. The MSYS2 terminal
+    opens, which must have the following prompt: 'You@YourComputer MINGW64'
+
+3.  Update MSYS2 by typing (without the leading $):
+      $ pacman -Syu
+    After updating, the shell will request restarting.  Press 'y' and run
+    'MSYS2 MinGW 64-bit' from the Start menu again.  This time enter:
+      $ pacman -Su
+    to complete the upgrade.
+
+4.  Install dependencies by copying the following in the MSYS2 terminal:
+      $ export M64=mingw-w64-x86_64 && pacman -S $M64-libao $M64-lapack $M64-curl $M64-dlfcn $M64-gcc $M64-gcc-fortran $M64-gl2ps $M64-glpk $M64-gsl $M64-iconv $M64-libjpeg-turbo $M64-libpng $M64-libsamplerate $M64-fltk $M64-mesa $M64-openblas $M64-readline
+
+5.  Disable any third-party antivirus software which currently runs on your
+    system.  This is very important since test executables which are during
+    automatic configuration would otherwise be quarantined immediately.
+
+6.  Get the latest MPFI source tarball from
+    https://gforge.inria.fr/frs/?group_id=157 (currently mpfi-1.5.4.tar.gz),
+    unpack it somewhere in your home folder using e.g. 7-zip and enter the
+    following commands in the MSYS2 terminal:
+      $ cd /c/Users/You/path/to/mpfi-x.y.z
+      $ ./autogen.sh
+      $ ./configure --host=x86_64-w64-mingw32
+      $ make
+      $ make install
+    This compiles and installs MPFI library.  Note that you may get lots of
+    virus & threat protection notifications from Windows which will be
+    popping in the bottom-right corner during configuring (ignore them).
+
+7.  Get the latest NTL Unix source tarball from
+    https://www.shoup.net/ntl/download.html (currently ntl-11.4.3.tar.gz)
+    and unpack it somewhere in your home folder.  Then enter the following
+    commands in MSYS2 terminal:
+      $ cd /c/Users/You/path/to/ntl-x.y.z/src
+      $ ./configure PREFIX=/mingw64
+      $ make
+      $ make install
+    This compiles and installs NTL library.
+
+8.  Get the latest ECM source tarball from
+    https://gforge.inria.fr/frs/?group_id=135 (currently ecm-7.0.4.tar.gz)
+    and unpack it somewhere in your home folder.  Then enter the following
+    commands in MSYS2 terminal:
+      $ cd /c/Users/You/path/to/ecm-x.y.z
+      $ ./configure --host=x86_64-w64-mingw32
+      $ make
+      $ make install
+    This compiles and installs ECM library.
+
+9.  Get the latest nauty/Traces source tarball from
+    http://pallini.di.uniroma1.it/ (currently nauty27r1.tar.gz)
+    and unpack it in the {GIAC}/src directory.  You obtain the folder
+    nauty27r1.  Using e.g. File Explorer, rename that directory to 'nauty'.
+    Then enter the following commands in MSYS2 terminal:
+      $ cd {GIAC}/src/nauty
+      $ ./configure --host=x86_64-w64-mingw32
+      $ make
+    There is no 'install' recipe in nauty Makefile, so we have to keep
+    nauty inside the giac source directory.
+mkdir /mingw64/include/nauty
+cp *.h /mingw64/include/nauty
+cp nauty.a /mingw64/lib/libnauty.a
+
+10. Download the latest Pari/GP installation executable for Windows from
+    https://pari.math.u-bordeaux.fr/download.html (currently
+    Pari64-2-13-0.exe) and run it.  Choose to install Pari/GP in C:\Pari64
+    (if you want to install in some other path, you must change the PARIDIR
+    variable in Makefile.mingw64).
+
+11. Now create {GIAC}/src/config.h by entering the following commands:
+      $ cd {GIAC}
+      $ ./configure --host=x86_64-w64-mingw32
+
+12. Since configure script is unable to locate Pari/GP, define the macros
+    HAVE_LIBPARI and HAVE_PARI_PARI_H to 1 manually in config.h (uncomment
+    the respective lines).  Also, comment out the line which reads as
+      #define HAVE_GETTEXT 1
+    This prevents vnsprintf-related errors during compilation of xcas.exe.
+
+13. To build giac.dll without FLTK, enter:
+      $ make -f Makefile.mingw64 giac.dll
+    To build icas.exe (with FLTK graphics), enter:
+      $ make -f Makefile.mingw64 icas.exe
+    To build xcas.exe, enter:
+      $ make -f Makefile.mingw64 xcas.exe
+
+14. To test icas/xcas, install the binaries in {GIAC}/mingw64/bin by typing:
+      $ make -f Makefile.mingw64 install
+    The above command copies xcas.exe and icas.exe to {GIAC}/mingw64/bin
+    together with all the necessary runtime dlls.  Now type:
+      $ cd {GIAC}/mingw64/bin
+      $ ./icas.exe
+    In MSYS2, you have to press CTRL-C to quit icas session, not CTRL-D as
+    it says.

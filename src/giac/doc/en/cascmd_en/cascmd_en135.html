@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Accessing to PARI/GP commands: pari
+
+</title>
+</head>
+<body >
+<a href="cascmd_en134.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en136.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:pari" class="subsection">5.7.10  Accessing to PARI/GP commands: <span style="font-family:monospace">pari</span>
+<a id="hevea_default238"></a>
+</h3>
+<p>PARI/GP (<a href="https://pari.math.u-bordeaux.fr/"><span style="font-family:monospace">https://pari.math.u-bordeaux.fr/</span></a>) is a computer algebra
+system which focuses on number theory. <span style="font-family:monospace">Xcas</span> can use the
+PARI/GP functions with the <span style="font-family:monospace">pari</span> command.</p><p>The arguments of <span style="font-family:monospace">pari</span> depends on the PARI/GP function it is
+using.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">pari</span> with a string as first argument (the PARI command name)
+executes the corresponding PARI command with the remaining arguments.
+For example <span style="font-family:monospace">pari("weber",1+i)</span> executes the PARI command
+<span style="font-family:monospace">weber(1+i)</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">pari</span> without any argument exports all PARI/GP functions to
+<span style="font-family:monospace">Xcas</span> with the prefix <span style="font-family:monospace">pari_</span>. If the name of a
+PARI function is not also the name of an <span style="font-family:monospace">Xcas</span> command, that
+function will also be exported without the prefix.
+</li></ul><p>
+For example, after calling <span style="font-family:monospace">pari()</span>, the commands
+<span style="font-family:monospace">pari_weber(1+i)</span> and <span style="font-family:monospace">weber(1+i)</span> will execute the PARI
+command <span style="font-family:monospace">weber(1+i)</span>.</p><p>The documentation of PARI/GP is available with the menu
+<span style="font-family:monospace">Help</span>▸<span style="font-family:monospace">Manuals</span>.</p>
+<hr>
+<a href="cascmd_en134.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en136.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,3239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Elliptic curves</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">Elliptic curves</h2>
+
+<p></p>
+<p></p>
+<p><hr>
+<div id="Elliptic_curve_structures"></div>
+<h4>Elliptic curve structures</h4>
+<p></p>
+<p>An elliptic curve is given by a Weierstrass model</p>
+<p>  y^2+a_1xy+a_3y = x^3+a_2x^2+a_4x+a<sub>6</sub>,</p>
+<p>whose discriminant is non-zero. Affine points on <code>E</code> are represented as
+two-component vectors <code>[x,y]</code>; the point at infinity, i.e.&nbsp;the identity
+element of the group law, is represented by the one-component vector
+<code>[0]</code>.</p>
+<p>
+Given a vector of coefficients [a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>], the function
+<code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> initializes and returns an <em>ell</em> structure. An additional
+optional argument allows to specify the base field in case it cannot be
+inferred from the curve coefficients. This structure contains data needed by
+elliptic curve related functions, and is generally passed as a first argument.
+Expensive data are skipped on initialization: they will be dynamically
+computed when (and if) needed, and then inserted in the structure. The
+precise layout of the <em>ell</em> structure is left undefined and should never
+be used directly. The following member functions are available,
+depending on the underlying domain.</p>
+<p>
+
+<hr>
+<div id="Reduction"></div>
+<h4>Reduction</h4>
+<p></p>
+<p>Let E be a curve defined over &Qopf;<sub>p</sub> given by a p-integral model;
+if the curve has good reduction at p, we may define its reduction
+~{E} over the finite field &Fopf;<sub>p</sub>:</p>
+<p>
+</p><pre class="code">  ? E = ellinit([-3,1], O(5^10));  \\   E/&Qopf;<sub>5</sub>
+  ? Et = ellinit(E, 5)
+  ? ellcard(Et)  \\   ~{E}/&Fopf;<sub>5</sub> has 7 points
+  %3 = 7
+  ? ellinit(E, 7)
+   ***   at top-level: ellinit(E,7)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; 
+   *** ellinit: inconsistent moduli in ellinit: 5 != 7
+</pre><p></p>
+<p>
+Likewise, if a curve is defined over a number field K and &pfr; is a
+maximal ideal with finite residue field &Fopf;<sub>q</sub>, we define the reduction
+~{E}/&Fopf;<sub>q</sub> provided E has good reduction at &pfr;.
+E/&Qopf; is an important special case:</p>
+<p>
+</p><pre class="code">  ? E = ellinit([-3,1]);
+  ? factor(E.disc)
+  %2 =
+  [2 4]
+  
+  [3 4]
+  ? Et = ellinit(E, 5);
+  ? ellcard(Et) \\   ~{E} / &Fopf;<sub>5</sub> has 7 points
+  %4 = 7
+  ? ellinit(E, 3)  \\ bad reduction at 3
+  %5 = []
+</pre><p>
+General number fields are similar:</p>
+<p>
+</p><pre class="code">  ? K = nfinit(x^2+1); E = ellinit([x,x+1], K);
+  ? idealfactor(K, E.disc)  \\ three primes of bad reduction
+  %2 =
+  [  [2, [1, 1]~, 2, 1, [1, -1; 1, 1]] 10]
+  
+  [ [5, [-2, 1]~, 1, 1, [2, -1; 1, 2]]  2]
+  
+  [[5, [2, 1]~, 1, 1, [-2, -1; 1, -2]]  2]
+  ? P = idealprimedec(K, 3); \\ a prime of good reduction
+  ? idealnorm(K, P)
+  %4 = 9
+  ? Et = ellinit(E, P);
+  ? ellcard(Et)  \\   ~{E} / &Fopf;<sub>9</sub> has 4 points
+  %6 = 4
+</pre><p></p>
+<p>
+If the model is not locally minimal at &pfr;, the above will fail:
+<code><a href="Elliptic_curves.html#se:elllocalred"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">elllocalred</a></code> and <code><a href="Elliptic_curves.html#se:ellchangecurve"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellchangecurve</a></code> allow to reduce to that case.</p>
+<p>
+Some functions such as <code><a href="Elliptic_curves.html#se:ellap"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellap</a></code>, <code><a href="Elliptic_curves.html#se:ellcard"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellcard</a></code>, <code><a href="Elliptic_curves.html#se:ellgroup"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellgroup</a></code> and
+<code><a href="Elliptic_curves.html#se:ellissupersingular"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellissupersingular</a></code> even implicitly replace the given equation by
+a local minimal model and consider the group of non-singular points
+~{E}<sup>ns</sup> so they make sense even when the curve has bad reduction.</p>
+<p>
+
+<hr>
+<div id="se:ellL1"></div>
+<div id="ellL1"></div>
+<h4>ellL1(E, {r = 0})</h4>
+<p>
+Returns the value at s = 1 of the derivative of order r of the
+L-function of the elliptic curve E.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a1"); \\ order of vanishing is 0
+  ? ellL1(E)
+  %2 = 0.2538418608559106843377589233
+  ? E = ellinit("389a1");  \\ order of vanishing is 2
+  ? ellL1(E)
+  %4 = -5.384067311837218089235032414 E-29
+  ? ellL1(E, 1)
+  %5 = 0
+  ? ellL1(E, 2)
+  %6 = 1.518633000576853540460385214
+</pre><p></p>
+<p>
+The main use of this function, after computing at <em>low</em> accuracy the
+order of vanishing using <code><a href="Elliptic_curves.html#se:ellanalyticrank"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellanalyticrank</a></code>, is to compute the
+leading term at <em>high</em> accuracy to check (or use) the Birch and
+Swinnerton-Dyer conjecture:</p>
+<p>
+</p><pre class="code">  ? \p18
+    realprecision = 18 significant digits
+  ? E = ellinit("5077a1"); ellanalyticrank(E)
+  time = 8 ms.
+  %1 = [3, 10.3910994007158041]
+  ? \p200
+    realprecision = 202 significant digits (200 digits displayed)
+  ? ellL1(E, 3)
+  time = 104 ms.
+  %3 = 10.3910994007158041387518505103609170697263563756570092797 [...]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellL1_bitprec</b>(GEN E, long r, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elladd"></div>
+<div id="elladd"></div>
+<h4>elladd(E, <em>z1</em>, <em>z2</em>)</h4>
+<p>
+Sum of the points z1 and z2 on the
+elliptic curve corresponding to E.</p>
+<p>
+The library syntax is <code>GEN <b>elladd</b>(GEN E, GEN z1, GEN z2)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellak"></div>
+<div id="ellak"></div>
+<h4>ellak(E, n)</h4>
+<p>
+Computes the coefficient a<sub>n</sub> of the L-function of the elliptic curve
+E/&Qopf;, i.e.&nbsp;coefficients of a newform of weight 2 by the modularity theorem
+(Taniyama-Shimura-Weil conjecture). E must be an <code>ell</code> structure
+over &Qopf; as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>. E must be given by an integral model,
+not necessarily minimal, although a minimal model will make the function
+faster.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([1,-1,0,4,3]);
+  ? ellak(E, 10)
+  %2 = -3
+  ? e = ellchangecurve(E, [1/5,0,0,0]); \\ made not minimal at 5
+  ? ellak(e, 10) \\ wasteful but works
+  %3 = -3
+  ? E = ellminimalmodel(e); \\ now minimal
+  ? ellak(E, 5)
+  %5 = -3
+</pre><p>
+If the model is not minimal at a number of bad primes, then
+the function will be slower on those n divisible by the bad primes.
+The speed should be comparable for other n:</p>
+<p>
+</p><pre class="code">  ? for(i=1,10^6, ellak(E,5))
+  time = 699 ms.
+  ? for(i=1,10^6, ellak(e,5)) \\ 5 is bad, markedly slower
+  time = 1,079 ms.
+  
+  ? for(i=1,10^5,ellak(E,5*i))
+  time = 1,477 ms.
+  ? for(i=1,10^5,ellak(e,5*i)) \\ still slower but not so much on average
+  time = 1,569 ms.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>akell</b>(GEN E, GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellan"></div>
+<div id="ellan"></div>
+<h4>ellan(E, n)</h4>
+<p>
+Computes the vector of the first n Fourier coefficients a<sub>k</sub>
+corresponding to the elliptic curve E defined over a number field.
+If E is defined over &Qopf;, the curve may be given by an
+arbitrary model, not necessarily minimal,
+although a minimal model will make the function faster. Over a more general
+number field, the model must be locally minimal at all primes above 2
+and 3.</p>
+<p>
+The library syntax is <code>GEN <b>ellan</b>(GEN E, long n)</code>.
+Also available is <code>GEN <b>ellanQ_zv</b>(GEN e, long n)</code>, which
+returns a <code>t_VECSMALL</code> instead of a <code>t_VEC</code>, saving on memory.</p>
+<p>
+
+<hr>
+<div id="se:ellanalyticrank"></div>
+<div id="ellanalyticrank"></div>
+<h4>ellanalyticrank(E, {<em>eps</em>})</h4>
+<p>
+Returns the order of vanishing at s = 1 of the L-function of the
+elliptic curve E and the value of the first non-zero derivative. To
+determine this order, it is assumed that any value less than <code>eps</code> is
+zero. If <code>eps</code> is omitted, 2<sup>-b/2</sup> is used, where b
+is the current bit precision.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a1"); \\ rank 0
+  ? ellanalyticrank(E)
+  %2 = [0, 0.2538418608559106843377589233]
+  ? E = ellinit("37a1"); \\ rank 1
+  ? ellanalyticrank(E)
+  %4 = [1, 0.3059997738340523018204836835]
+  ? E = ellinit("389a1"); \\ rank 2
+  ? ellanalyticrank(E)
+  %6 = [2, 1.518633000576853540460385214]
+  ? E = ellinit("5077a1"); \\ rank 3
+  ? ellanalyticrank(E)
+  %8 = [3, 10.39109940071580413875185035]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellanalyticrank_bitprec</b>(GEN E, GEN eps = NULL, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellap"></div>
+<div id="ellap"></div>
+<h4>ellap(E, {p})</h4>
+<p>
+Let <code>E</code> be an <code>ell</code> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, attached
+to an elliptic curve E/K. If the field K = &Fopf;<sub>q</sub> is finite, return the
+trace of Frobenius t, defined by the equation #E(&Fopf;<sub>q</sub>) = q+1 - t.</p>
+<p>
+For other fields of definition and p defining a finite residue field
+&Fopf;<sub>q</sub>, return the trace of Frobenius for the reduction of E: the argument
+p is best left omitted if K = &Qopf;_&ell; (else we must have p = &ell;) and
+must be a prime number (K = &Qopf;) or prime ideal (K a general number field)
+with residue field &Fopf;<sub>q</sub> otherwise. The equation need not be minimal
+or even integral at p; of course, a minimal model will be more efficient.</p>
+<p>
+For a number field K, the trace of Frobenius is the a<sub>p</sub>
+coefficient in the Euler product defining the curve L-series, whence
+the function name:
+L(E/K,s) = &prod;<sub>bad p</sub> (1-a<sub>p</sub> (Np)<sup>-s</sup>)<sup>-1</sup>
+             &prod;<sub>good p</sub> (1-a<sub>p</sub> (Np)<sup>-s</sup> + (Np)<sup>1-2s</sup>)<sup>-1</sup>. </p>
+<p>
+When the characteristic of the finite field is large, the availability of
+the <code>seadata</code> package will speed up the computation.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,1]);  \\ y^2 = x^3 + 0.x + 1, defined over Q
+  ? ellap(E, 7) \\ 7 necessary here
+  %2 = -4       \\ #E(F<sub>7</sub>) = 7+1-(-4) = 12
+  ? ellcard(E, 7)
+  %3 = 12       \\ OK
+  
+  ? E = ellinit([0,1], 11);  \\ defined over F_11
+  ? ellap(E)       \\ no need to repeat 11
+  %4 = 0
+  ? ellap(E, 11)   \\ ... but it also works
+  %5 = 0
+  ? ellgroup(E, 13) \\ ouch, inconsistent input!
+     ***   at top-level: ellap(E,13)
+     ***                 ^ &mdash;  &mdash;  &mdash; --
+     *** ellap: inconsistent moduli in Rg_to_Fp:
+       11
+       13
+  ? a = ffgen(ffinit(11,3), 'a); \\ defines F<sub>q</sub> := F<sub>11^3</sub>
+  ? E = ellinit([a+1,a]);  \\ y^2 = x^3 + (a+1)x + a, defined over F<sub>q</sub>
+  ? ellap(E)
+  %8 = -3
+</pre><p></p>
+<p></p>
+<p>
+If the curve is defined over a more general number field than &Qopf;,
+the maximal ideal p must be explicitly given in <code><a href="General_number_fields.html#se:idealprimedec"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">idealprimedec</a></code>
+format. There is no assumption of local minimality at p.</p>
+<p>
+</p><pre class="code">  ? K = nfinit(a^2+1); E = ellinit([1+a,0,1,0,0], K);
+  ? fa = idealfactor(K, E.disc)
+  %2 =
+  [  [5, [-2, 1]~, 1, 1, [2, -1; 1, 2]] 1]
+  
+  [[13, [5, 1]~, 1, 1, [-5, -1; 1, -5]] 2]
+  ? ellap(E, fa[1,1])
+  %3 = -1 \\ non-split multiplicative reduction
+  ? ellap(E, fa[2,1])
+  %4 = 1  \\ split multiplicative reduction
+  ? P17 = idealprimedec(K,17)[1];
+  ? ellap(E, P17)
+  %6 = 6  \\ good reduction
+  ? E2 = ellchangecurve(E, [17,0,0,0]);
+  ? ellap(E2, P17)
+  %8 = 6  \\ same, starting from a non-miminal model
+  
+  ? P3 = idealprimedec(K,3)[1];
+  ? ellap(E, P3)  \\ OK: E is minimal at P3
+  %10 = -2
+  ? E3 = ellchangecurve(E, [3,0,0,0]);
+  ? ellap(E3, P3) \\ not integral at P3
+   ***   at top-level: ellap(E3,P3)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; 
+   *** ellap: impossible inverse in Rg_to_ff: Mod(0, 3).
+</pre><p></p>
+<p></p>
+<p>
+<b>Algorithms used.</b> If E/&Fopf;<sub>q</sub> has CM by a principal imaginary
+quadratic order we use a fast explicit formula (involving essentially
+Kronecker symbols and Cornacchia's algorithm), in O(log q)^2 bit
+operations.
+Otherwise, we use Shanks-Mestre's baby-step/giant-step method, which runs in
+time &Otilde;(q<sup>1/4</sup>) using &Otilde;(q<sup>1/4</sup>) storage, hence becomes
+unreasonable when q has about 30&nbsp;digits. Above this range, the <code>SEA</code>
+algorithm becomes available, heuristically in &Otilde;(log q)^4, and
+primes of the order of 200&nbsp;digits become feasible.  In small
+characteristic we use Mestre's (p = 2), Kohel's (p = 3,5,7,13), Satoh-Harley
+(all in &Otilde;(p<sup>2</sup> n^2)) or Kedlaya's (in &Otilde;(p n^3))
+algorithms.</p>
+<p>
+The library syntax is <code>GEN <b>ellap</b>(GEN E, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellbil"></div>
+<div id="ellbil"></div>
+<h4>ellbil(E, <em>z1</em>, <em>z2</em>)</h4>
+<p>
+Deprecated alias for <code>ellheight(E,P,Q)</code>.</p>
+<p>
+The library syntax is <code>GEN <b>bilhell</b>(GEN E, GEN z1, GEN z2, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellbsd"></div>
+<div id="ellbsd"></div>
+<h4>ellbsd(E)</h4>
+<p>
+The object E being an elliptic curve over a number field, returns a real
+number c such that the BSD conjecture predicts that
+L<sub>E</sub><sup>(r)</sup>(1)/r != c R S where r is the rank, R the regulator and
+S the cardinal of the Tate-Shafarevich group.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? e = ellinit([0,-1,1,-10,-20]); \\ rank 0
+  ? ellbsd(e)
+  %2 = 0.25384186085591068433775892335090946105
+  ? lfun(e,1)
+  %3 = 0.25384186085591068433775892335090946104
+  ? e = ellinit([0,0,1,-1,0]); \\ rank 1
+  ? P = ellheegner(e);
+  ? ellbsd(e)*ellheight(e,P)
+  %6 = 0.30599977383405230182048368332167647445
+  ? lfun(e,1,1)
+  %7 = 0.30599977383405230182048368332167647445
+  ? e = ellinit([1+a,0,1,0,0],nfinit(a^2+1)); \\ rank 0
+  ? ellbsd(e)
+  %9 = 0.42521832235345764503001271536611593310
+  ? lfun(e,1)
+  %10 = 0.42521832235345764503001271536611593309
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellbsd</b>(GEN E, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellcard"></div>
+<div id="ellcard"></div>
+<h4>ellcard(E, {p})</h4>
+<p>
+Let <code>E</code> be an <code>ell</code> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, attached
+to an elliptic curve E/K. If K = &Fopf;<sub>q</sub> is finite, return the order of the
+group E(&Fopf;<sub>q</sub>).</p>
+<p>
+</p><pre class="code">  ? E = ellinit([-3,1], 5); ellcard(E)
+  %1 = 7
+  ? t = ffgen(3^5,'t); E = ellinit([t,t^2+1]); ellcard(E)
+  %2 = 217
+</pre><p></p>
+<p>
+For other fields of definition and p defining a finite residue field
+&Fopf;<sub>q</sub>, return the order of the reduction of E: the argument p is best
+left omitted if K = &Qopf;_&ell; (else we must have p = &ell;) and must be a
+prime number (K = &Qopf;) or prime ideal (K a general number field) with
+residue field &Fopf;<sub>q</sub> otherwise. The equation need not be minimal
+or even integral at p; of course, a minimal model will be more efficient.
+The function considers the group of non-singular points of the reduction
+of a minimal model of the curve at p, so also makes sense when the curve
+has bad reduction.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([-3,1]);
+  ? factor(E.disc)
+  %2 =
+  [2 4]
+  
+  [3 4]
+  ? ellcard(E, 5)  \\ as above !
+  %3 = 7
+  ? ellcard(E, 2) \\ additive reduction
+  %4 = 2
+</pre><p></p>
+<p></p>
+<p>
+When the characteristic of the finite field is large, the availability of
+the <code>seadata</code> package will speed the computation. See also <code><a href="Elliptic_curves.html#se:ellap"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellap</a></code>
+for the list of implemented algorithms.</p>
+<p>
+The library syntax is <code>GEN <b>ellcard</b>(GEN E, GEN p = NULL)</code>.
+Also available is <code>GEN <b>ellcard</b>(GEN E, GEN p)</code> where p is not
+<code>NULL</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellchangecurve"></div>
+<div id="ellchangecurve"></div>
+<h4>ellchangecurve(E, v)</h4>
+<p>
+Changes the data for the elliptic curve E
+by changing the coordinates using the vector <code>v = [u,r,s,t]</code>, i.e.&nbsp;if x'
+and y' are the new coordinates, then x = u^2x'+r, y = u^3y'+su^2x'+t.
+E must be an <code>ell</code> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>. The special
+case v = 1 is also used instead of [1,0,0,0] to denote the
+trivial coordinate change.</p>
+<p>
+The library syntax is <code>GEN <b>ellchangecurve</b>(GEN E, GEN v)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellchangepoint"></div>
+<div id="ellchangepoint"></div>
+<h4>ellchangepoint(x, v)</h4>
+<p>
+Changes the coordinates of the point or
+vector of points x using the vector <code>v = [u,r,s,t]</code>, i.e.&nbsp;if x' and
+y' are the new coordinates, then x = u^2x'+r, y = u^3y'+su^2x'+t (see also
+<code><a href="Elliptic_curves.html#se:ellchangecurve"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellchangecurve</a></code>).</p>
+<p>
+</p><pre class="code">  ? E0 = ellinit([1,1]); P0 = [0,1]; v = [1,2,3,4];
+  ? E = ellchangecurve(E0, v);
+  ? P = ellchangepoint(P0,v)
+  %3 = [-2, 3]
+  ? ellisoncurve(E, P)
+  %4 = 1
+  ? ellchangepointinv(P,v)
+  %5 = [0, 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellchangepoint</b>(GEN x, GEN v)</code>.
+The reciprocal function <code>GEN <b>ellchangepointinv</b>(GEN x, GEN ch)</code>
+inverts the coordinate change.</p>
+<p>
+
+<hr>
+<div id="se:ellchangepointinv"></div>
+<div id="ellchangepointinv"></div>
+<h4>ellchangepointinv(x, v)</h4>
+<p>
+Changes the coordinates of the point or vector of points x using
+the inverse of the isomorphism attached to <code>v = [u,r,s,t]</code>,
+i.e.&nbsp;if x' and y' are the old coordinates, then x = u^2x'+r,
+y = u^3y'+su^2x'+t (inverse of <code><a href="Elliptic_curves.html#se:ellchangepoint"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellchangepoint</a></code>).</p>
+<p>
+</p><pre class="code">  ? E0 = ellinit([1,1]); P0 = [0,1]; v = [1,2,3,4];
+  ? E = ellchangecurve(E0, v);
+  ? P = ellchangepoint(P0,v)
+  %3 = [-2, 3]
+  ? ellisoncurve(E, P)
+  %4 = 1
+  ? ellchangepointinv(P,v)
+  %5 = [0, 1]  \\ we get back P0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellchangepointinv</b>(GEN x, GEN v)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellconvertname"></div>
+<div id="ellconvertname"></div>
+<h4>ellconvertname(<em>name</em>)</h4>
+<p>
+Converts an elliptic curve name, as found in the <code>elldata</code> database,
+from a string to a triplet [<em>conductor</em>, <em>isogeny class</em>,
+<em>index</em>]. It will also convert a triplet back to a curve name.
+Examples:</p>
+<p>
+</p><pre class="code">  ? ellconvertname("123b1")
+  %1 = [123, 1, 1]
+  ? ellconvertname(%)
+  %2 = "123b1"
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellconvertname</b>(GEN name)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elldivpol"></div>
+<div id="elldivpol"></div>
+<h4>elldivpol(E, n, {v = 'x})</h4>
+<p>
+n-division polynomial f<sub>n</sub> for the curve E in the
+variable v. In standard notation, for any affine point P = (X,Y) on the
+curve, we have
+[n]P = (&phi;<sub>n</sub>(P)&psi;<sub>n</sub>(P) : &omega;<sub>n</sub>(P) : &psi;<sub>n</sub>(P)^3)
+for some polynomials &phi;<sub>n</sub>,&omega;<sub>n</sub>,&psi;<sub>n</sub> in
+&Zopf;[a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>][X,Y]. We have f<sub>n</sub>(X) = &psi;<sub>n</sub>(X) for n odd, and
+f<sub>n</sub>(X) = &psi;<sub>n</sub>(X,Y) (2Y + a_1X+a<sub>3</sub>) for n even. We have
+ f<sub>1</sub> = 1,  f<sub>2</sub> = 4X^3 + b_2X^2 + 2b<sub>4</sub> X + b<sub>6</sub>,   f<sub>3</sub> = 3 X^4 + b<sub>2</sub> X^3 + 3b<sub>4</sub> X^2 + 3 b<sub>6</sub> X + b8, 
+ f<sub>4</sub> = f<sub>2</sub>(2X^6 + b<sub>2</sub> X^5 + 5b<sub>4</sub> X^4 + 10 b<sub>6</sub> X^3 + 10 b<sub>8</sub> X^2 +
+(b_2b<sub>8</sub>-b_4b<sub>6</sub>)X + (b_8b<sub>4</sub> - b<sub>6</sub>^2)),...
+For n &geq; 2, the roots of f<sub>n</sub> are the X-coordinates of points in E[n].</p>
+<p>
+The library syntax is <code>GEN <b>elldivpol</b>(GEN E, long n, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:elleisnum"></div>
+<div id="elleisnum"></div>
+<h4>elleisnum(w, k, {<em>flag</em> = 0})</h4>
+<p>
+k being an even positive integer, computes the numerical value of the
+Eisenstein series of weight k at the lattice w, as given by
+<code><a href="Elliptic_curves.html#se:ellperiods"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellperiods</a></code>, namely</p>
+<p>(2i &pi;/&omega;<sub>2</sub>)^k
+(1 + 2/&zeta;(1-k) &sum;<sub>n &geq; 1</sub> n<sup>k-1</sup>q^n / (1-q^n)),</p>
+<p>where q = exp(2i&pi; &tau;) and &tau; := &omega;<sub>1</sub>/&omega;<sub>2</sub> belongs to the
+complex upper half-plane. It is also possible to directly input w = 
+[&omega;<sub>1</sub>,&omega;<sub>2</sub>], or an elliptic curve E as given by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>.</p>
+<p>
+</p><pre class="code">  ? w = ellperiods([1,I]);
+  ? elleisnum(w, 4)
+  %2 = 2268.8726415508062275167367584190557607
+  ? elleisnum(w, 6)
+  %3 = -3.977978632282564763 E-33
+  ? E = ellinit([1, 0]);
+  ? elleisnum(E, 4, 1)
+  %5 = -47.999999999999999999999999999999999998
+</pre><p></p>
+<p></p>
+<p>
+When <em>flag</em> is non-zero and k = 4 or 6, returns the elliptic invariants g<sub>2</sub>
+or g<sub>3</sub>, such that
+y^2 = 4x^3 - g<sub>2</sub> x - g<sub>3</sub>
+is a Weierstrass equation for E.</p>
+<p>
+The library syntax is <code>GEN <b>elleisnum</b>(GEN w, long k, long flag, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elleta"></div>
+<div id="elleta"></div>
+<h4>elleta(w)</h4>
+<p>
+Returns the quasi-periods [&eta;<sub>1</sub>,&eta;<sub>2</sub>]
+attached to the lattice basis <em>w</em> = [&omega;<sub>1</sub>, &omega;<sub>2</sub>].
+Alternatively, <em>w</em> can be an elliptic curve E as output by
+<code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, in which case, the quasi periods attached to the period
+lattice basis <code>E.omega</code> (namely, <code>E.eta</code>) are returned.</p>
+<p>
+</p><pre class="code">  ? elleta([1, I])
+  %1 = [3.141592653589793238462643383, 9.424777960769379715387930149*I]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>elleta</b>(GEN w, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellformaldifferential"></div>
+<div id="ellformaldifferential"></div>
+<h4>ellformaldifferential(E, {n = <em>seriesprecision</em>}, {t = 'x})</h4>
+<p>
+Let &omega; := dx / (2y+a_1x+a<sub>3</sub>) be the invariant differential form
+attached to the model E of some elliptic curve (<code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> form),
+and &eta; := x(t)&omega;. Return n terms (<code>seriesprecision</code> by default)
+of f(t),g(t) two power series in the formal parameter t = -x/y such that
+&omega; = f(t) dt, &eta; = g(t) dt:
+ f(t) = 1+a<sub>1</sub> t + (a<sub>1</sub>^2 + a<sub>2</sub>) t^2 +...,  
+   g(t) = t<sup>-2</sup> +...</p>
+<p>
+</p><pre class="code">   ? E = ellinit([-1,1/4]); [f,g] = ellformaldifferential(E,7,'t);
+   ? f
+   %2 = 1 - 2*t^4 + 3/4*t^6 + O(t^7)
+   ? g
+   %3 = t^-2 - t^2 + 1/2*t^4 + O(t^5)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellformaldifferential</b>(GEN E, long precdl, long n = -1)</code> where <code>n</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:ellformalexp"></div>
+<div id="ellformalexp"></div>
+<h4>ellformalexp(E, {n = <em>seriesprecision</em>}, {z = 'x})</h4>
+<p>
+The elliptic formal exponential <code>Exp</code> attached to E is the
+isomorphism from the formal additive law to the formal group of E. It is
+normalized so as to be the inverse of the elliptic logarithm (see
+<code><a href="Elliptic_curves.html#se:ellformallog"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellformallog</a></code>): <code>Exp</code> o L = Id. Return n terms of this
+power series:</p>
+<p>
+</p><pre class="code">  ? E=ellinit([-1,1/4]); Exp = ellformalexp(E,10,'z)
+  %1 = z + 2/5*z^5 - 3/28*z^7 + 2/15*z^9 + O(z^11)
+  ? L = ellformallog(E,10,'t);
+  ? subst(Exp,z,L)
+  %3 = t + O(t^11)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellformalexp</b>(GEN E, long precdl, long n = -1)</code> where <code>n</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:ellformallog"></div>
+<div id="ellformallog"></div>
+<h4>ellformallog(E, {n = <em>seriesprecision</em>}, {v = 'x})</h4>
+<p>
+The formal elliptic logarithm is a series L in t K[[t]]
+such that d L = &omega; = dx / (2y + a_1x + a<sub>3</sub>), the canonical invariant
+differential attached to the model E. It gives an isomorphism
+from the formal group of E to the additive formal group.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([-1,1/4]); L = ellformallog(E, 9, 't)
+  %1 = t - 2/5*t^5 + 3/28*t^7 + 2/3*t^9 + O(t^10)
+  ? [f,g] = ellformaldifferential(E,8,'t);
+  ? L' - f
+  %3 = O(t^8)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellformallog</b>(GEN E, long precdl, long n = -1)</code> where <code>n</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:ellformalpoint"></div>
+<div id="ellformalpoint"></div>
+<h4>ellformalpoint(E, {n = <em>seriesprecision</em>}, {v = 'x})</h4>
+<p>
+If E is an elliptic curve, return the coordinates x(t), y(t) in the
+formal group of the elliptic curve E in the formal parameter t = -x/y
+at  oo :
+ x = t<sup>-2</sup> -a<sub>1</sub> t<sup>-1</sup> - a<sub>2</sub> - a<sub>3</sub> t +...
+ y = - t<sup>-3</sup> -a<sub>1</sub> t<sup>-2</sup> - a_2t<sup>-1</sup> -a<sub>3</sub> +...
+Return n terms (<code>seriesprecision</code> by default) of these two power
+series, whose coefficients are in &Zopf;[a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>].</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,0,1,-1,0]); [x,y] = ellformalpoint(E,8,'t);
+  ? x
+  %2 = t^-2 - t + t^2 - t^4 + 2*t^5 + O(t^6)
+  ? y
+  %3 = -t^-3 + 1 - t + t^3 - 2*t^4 + O(t^5)
+  ? E = ellinit([0,1/2]); ellformalpoint(E,7)
+  %4 = [x^-2 - 1/2*x^4 + O(x^5), -x^-3 + 1/2*x^3 + O(x^4)]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellformalpoint</b>(GEN E, long precdl, long n = -1)</code> where <code>n</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:ellformalw"></div>
+<div id="ellformalw"></div>
+<h4>ellformalw(E, {n = <em>seriesprecision</em>}, {t = 'x})</h4>
+<p>
+Return the formal power series w attached to the elliptic curve E,
+in the variable t:
+ w(t) = t^3 + a<sub>1</sub> t^4 + (a<sub>2</sub> + a<sub>1</sub>^2) t^5 +...+ O(t<sup>n+3</sup>),
+which is the formal expansion of -1/y in the formal parameter t := -x/y
+at  oo  (take n = <code>seriesprecision</code> if n is omitted). The
+coefficients of w belong to &Zopf;[a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>].</p>
+<p>
+</p><pre class="code">  ? E=ellinit([3,2,-4,-2,5]); ellformalw(E, 5, 't)
+  %1 = t^3 + 3*t^4 + 11*t^5 + 35*t^6 + 101*t^7 + O(t^8)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellformalw</b>(GEN E, long precdl, long n = -1)</code> where <code>n</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:ellfromeqn"></div>
+<div id="ellfromeqn"></div>
+<h4>ellfromeqn(P)</h4>
+<p>
+Given a genus 1 plane curve, defined by the affine equation f(x,y) = 0,
+return the coefficients [a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>] of a Weierstrass equation
+for its Jacobian. This allows to recover a Weierstrass model for an elliptic
+curve given by a general plane cubic or by a binary quartic or biquadratic
+model. The function implements the f <code>: &mdash; &gt;</code>f<sup>*</sup> formulae of Artin, Tate
+and Villegas (Advances in Math. 198 (2005), pp. 366--382).</p>
+<p>
+In the example below, the function is used to convert between twisted Edwards
+coordinates and Weierstrass coordinates.</p>
+<p>
+</p><pre class="code">  ? e = ellfromeqn(a*x^2+y^2 - (1+d*x^2*y^2))
+  %1 = [0, -a - d, 0, -4*d*a, 4*d*a^2 + 4*d^2*a]
+  ? E = ellinit(ellfromeqn(y^2-x^2 - 1 +(121665/121666*x^2*y^2)),2^255-19);
+  ? isprime(ellcard(E) / 8)
+  %3 = 1
+</pre><p></p>
+<p></p>
+<p>
+The elliptic curve attached to the sum of two cubes is given by</p>
+<p>
+</p><pre class="code">  ? ellfromeqn(x^3+y^3 - a)
+  %1 = [0, 0, -9*a, 0, -27*a^2]
+</pre><p></p>
+<p></p>
+<p>
+<b>Congruent number problem:.</b>
+Let n be an integer, if a^2+b^2 = c^2 and a b = 2 n,
+then by substituting b by 2 n/a in the first equation,
+we get ((a^2+(2 n/a)^2)-c^2) a^2 = 0.
+We set x = a, y = a c.</p>
+<p>
+</p><pre class="code">  ? En = ellfromeqn((x^2 + (2*n/x)^2 - (y/x)^2)*x^2)
+  %1 = [0, 0, 0, -16*n^2, 0]
+</pre><p></p>
+<p>
+For example 23 is congruent since the curve has a point of infinite order,
+namely:</p>
+<p>
+</p><pre class="code">  ? ellheegner( ellinit(subst(En, n, 23)) )
+  %2 = [168100/289, 68053440/4913]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellfromeqn</b>(GEN P)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellfromj"></div>
+<div id="ellfromj"></div>
+<h4>ellfromj(j)</h4>
+<p>
+Returns the coefficients [a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>] of a fixed elliptic curve
+with j-invariant j.</p>
+<p>
+The library syntax is <code>GEN <b>ellfromj</b>(GEN j)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellgenerators"></div>
+<div id="ellgenerators"></div>
+<h4>ellgenerators(E)</h4>
+<p>
+If E is an elliptic curve over the rationals, return a &Zopf;-basis of the
+free part of the Mordell-Weil group attached to E.  This relies on
+the <code>elldata</code> database being installed and referencing the curve, and so
+is only available for curves over &Zopf; of small conductors.
+If E is an elliptic curve over a finite field &Fopf;<sub>q</sub> as output by
+<code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, return a minimal set of generators for the group E(&Fopf;<sub>q</sub>).</p>
+<p>
+<b>Caution.</b> when the group is not cyclic, of shape &Zopf;/d<sub>1</sub>&Zopf;  x 
+&Zopf;/d<sub>2</sub>&Zopf; with d<sub>2</sub> | d<sub>1</sub>, the points [P,Q] returned by ellgenerators
+need not have order d<sub>1</sub> and d<sub>2</sub>: it is true that
+P has order d<sub>1</sub>, but we only know that Q is a generator of
+E(&Fopf;<sub>q</sub>)/ &lt;P&gt;  and that the Weil pairing w(P,Q) has order d<sub>2</sub>,
+see <code>??ellgroup</code>.
+If you need generators [P,R] with R of order d<sub>2</sub>, find
+x such that R = Q-[x]P has order d<sub>2</sub> by solving
+the discrete logarithm problem [d<sub>2</sub>]Q = [x]([d<sub>2</sub>]P) in a cyclic group of
+order d<sub>1</sub>/d<sub>2</sub>. This will be very expensive if d<sub>1</sub>/d<sub>2</sub> has a large
+prime factor.</p>
+<p>
+The library syntax is <code>GEN <b>ellgenerators</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellglobalred"></div>
+<div id="ellglobalred"></div>
+<h4>ellglobalred(E)</h4>
+<p>
+Let E be an <code>ell</code> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> attached
+to an elliptic curve defined over a number field. This function calculates
+the arithmetic conductor and the global Tamagawa number c.
+The result [N,v,c,F,L] is slightly different if E is defined
+over &Qopf; (domain D = 1 in <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>) or over a number field
+(domain D is a number field structure, including <code>nfinit(x)</code>
+representing &Qopf; !):</p>
+<p>
+<b>*</b> N is the arithmetic conductor of the curve,</p>
+<p>
+<b>*</b> v is an obsolete field, left in place for backward compatibility.
+If E is defined over &Qopf;, v gives the coordinate change for E to the
+standard minimal integral model (<code><a href="Elliptic_curves.html#se:ellminimalmodel"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellminimalmodel</a></code> provides it in a
+cheaper way); if E is defined over another number field, v gives a
+coordinate change to an integral model (<code><a href="Elliptic_curves.html#se:ellintegralmodel"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellintegralmodel</a></code> provides it
+in a cheaper way).</p>
+<p>
+<b>*</b> c is the product of the local Tamagawa numbers c<sub>p</sub>, a quantity
+which enters in the Birch and Swinnerton-Dyer conjecture,</p>
+<p>
+<b>*</b> F is the factorization of N,</p>
+<p>
+<b>*</b> L is a vector, whose i-th entry contains the local data
+at the i-th prime ideal divisor of N, i.e.
+<code>L[i] = elllocalred(E,F[i,1])</code>. If E is defined over &Qopf;, the local
+coordinate change has been deleted and replaced by a 0; if E is defined
+over another number field the local coordinate change to a local minimal
+model is given relative to the integral model afforded by v (so either
+start from an integral model so that v be trivial, or apply v first).</p>
+<p>
+The library syntax is <code>GEN <b>ellglobalred</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellgroup"></div>
+<div id="ellgroup"></div>
+<h4>ellgroup(E, {p}, {<em>flag</em>})</h4>
+<p>
+Let <code>E</code> be an <code>ell</code> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, attached
+to an elliptic curve E/K. We first describle the function when the field
+K = &Fopf;<sub>q</sub> is finite, it computes the structure of the finite abelian group
+E(&Fopf;<sub>q</sub>):</p>
+<p>
+<b>*</b> if <em>flag</em> = 0, return the structure [] (trivial group) or [d<sub>1</sub>]
+(non-trivial cyclic group) or [d<sub>1</sub>,d<sub>2</sub>] (non-cyclic group) of
+E(&Fopf;<sub>q</sub>)  ~  &Zopf;/d<sub>1</sub>&Zopf;  x &Zopf;/d<sub>2</sub>&Zopf;, with d<sub>2</sub> | d<sub>1</sub>.</p>
+<p>
+<b>*</b> if <em>flag</em> = 1, return a triple [h,<em>cyc</em>,<em>gen</em>], where
+h is the curve cardinality, <em>cyc</em> gives the group structure as a
+product of cyclic groups (as per <em>flag</em> = 0). More precisely, if d<sub>2</sub> &gt; 1,
+the output is [d_1d<sub>2</sub>, [d<sub>1</sub>,d<sub>2</sub>], [P,Q]] where P is
+of order d<sub>1</sub> and [P,Q] generates the curve.
+<b>Caution.</b> It is not guaranteed that Q has order d<sub>2</sub>, which in
+the worst case requires an expensive discrete log computation. Only that
+<code><a href="Elliptic_curves.html#se:ellweilpairing"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellweilpairing</a></code>(E, P, Q, d<sub>1</sub>) has order d<sub>2</sub>.</p>
+<p>
+For other fields of definition and p defining a finite residue field
+&Fopf;<sub>q</sub>, return the structure of the reduction of E: the argument
+p is best left omitted if K = &Qopf;_&ell; (else we must have p = &ell;) and
+must be a prime number (K = &Qopf;) or prime ideal (K a general number field)
+with residue field &Fopf;<sub>q</sub> otherwise. The curve is allowed to have bad
+reduction at p and in this case we consider the (cyclic) group of
+non-singular points for the reduction of a minimal model at p.</p>
+<p>
+If <em>flag</em> = 0, the equation not be minimal or even integral at p; of course,
+a minimal model will be more efficient.</p>
+<p>
+If <em>flag</em> = 1, the requested generators depend on the model, which must then
+be minimal at p, otherwise an exception is thrown. Use
+<code><a href="Elliptic_curves.html#se:ellintegralmodel"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellintegralmodel</a></code> and/or <code>ellocalred</code> first to reduce to this case.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,1]);  \\ y^2 = x^3 + 0.x + 1, defined over Q
+  ? ellgroup(E, 7)
+  %2 = [6, 2] \\ Z/6 x Z/2, non-cyclic
+  ? E = ellinit([0,1] * Mod(1,11));  \\ defined over F_11
+  ? ellgroup(E)   \\ no need to repeat 11
+  %4 = [12]
+  ? ellgroup(E, 11)   \\ ... but it also works
+  %5 = [12]
+  ? ellgroup(E, 13) \\ ouch, inconsistent input!
+     ***   at top-level: ellgroup(E,13)
+     ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; --
+     *** ellgroup: inconsistent moduli in Rg_to_Fp:
+       11
+       13
+  ? ellgroup(E, 7, 1)
+  %6 = [12, [6, 2], [[Mod(2, 7), Mod(4, 7)], [Mod(4, 7), Mod(4, 7)]]]
+</pre><p></p>
+<p>
+Let us now consider curves of bad reduction, in this case we return the
+structure of the (cyclic) group of non-singular points, satisfying
+#E<sub>ns</sub>(&Fopf;<sub>p</sub>) = p - a<sub>p</sub>:</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,5]);
+  ? ellgroup(E, 5, 1)
+  %2 = [5, [5], [[Mod(4, 5), Mod(2, 5)]]]
+  ? ellap(E, 5)
+  %3 = 0 \\ additive reduction at 5
+  ? E = ellinit([0,-1,0,35,0]);
+  ? ellgroup(E, 5, 1)
+  %5 = [4, [4], [[Mod(2, 5), Mod(2, 5)]]]
+  ? ellap(E, 5)
+  %6 = 1 \\ split multiplicative reduction at 5
+  ? ellgroup(E, 7, 1)
+  %7 = [8, [8], [[Mod(3, 7), Mod(5, 7)]]]
+  ? ellap(E, 7)
+  %8 = -1 \\ non-split multiplicative reduction at 7
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellgroup0</b>(GEN E, GEN p = NULL, long flag)</code>.
+Also available is <code>GEN <b>ellgroup</b>(GEN E, GEN p)</code>, corresponding
+to <em>flag</em> = 0.</p>
+<p>
+
+<hr>
+<div id="se:ellheegner"></div>
+<div id="ellheegner"></div>
+<h4>ellheegner(E)</h4>
+<p>
+Let E be an elliptic curve over the rationals, assumed to be of
+(analytic) rank 1. This returns a non-torsion rational point on the curve,
+whose canonical height is equal to the product of the elliptic regulator by the
+analytic Sha.</p>
+<p>
+This uses the Heegner point method, described in Cohen GTM 239; the complexity
+is proportional to the product of the square root of the conductor and the
+height of the point (thus, it is preferable to apply it to strong Weil curves).</p>
+<p>
+</p><pre class="code">  ? E = ellinit([-157^2,0]);
+  ? u = ellheegner(E); print(u[1], "\n", u[2])
+  69648970982596494254458225/166136231668185267540804
+  538962435089604615078004307258785218335/67716816556077455999228495435742408
+  ? ellheegner(ellinit([0,1]))         \\ E has rank 0 !
+   ***   at top-level: ellheegner(E=ellinit
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** ellheegner: The curve has even analytic rank.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellheegner</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellheight"></div>
+<div id="ellheight"></div>
+<h4>ellheight(E, P, {Q})</h4>
+<p>
+Global N&eacute;ron-Tate height h(P) of the point P on the elliptic curve
+E, defined over &Qopf; or a number field, using the normalization in Cremona's
+<em>Algorithms for modular elliptic curves</em>. E must be an <code>ell</code> as
+output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>; it needs not be given by a minimal model although the
+computation will be faster if it is.</p>
+<p>
+If the argument Q is present, computes the value of the bilinear
+form (h(P+Q)-h(P-Q)) / 4.</p>
+<p>
+The library syntax is <code>GEN <b>ellheight0</b>(GEN E, GEN P, GEN Q = NULL, long prec)</code>.
+Also available is <code>GEN <b>ellheight</b>(GEN E, GEN P, long prec)</code>
+(Q omitted).</p>
+<p>
+
+<hr>
+<div id="se:ellheightmatrix"></div>
+<div id="ellheightmatrix"></div>
+<h4>ellheightmatrix(E, x)</h4>
+<p>
+x being a vector of points, this
+function outputs the Gram matrix of x with respect to the N&eacute;ron-Tate
+height, in other words, the (i,j) component of the matrix is equal to
+<code>ellbil(E,x[i],x[j])</code>. The rank of this matrix, at least in some
+approximate sense, gives the rank of the set of points, and if x is a
+basis of the Mordell-Weil group of E, its determinant is equal to
+the regulator of E. Note our height normalization follows Cremona's
+<em>Algorithms for modular elliptic curves</em>: this matrix should be divided
+by 2 to be in accordance with, e.g., Silverman's normalizations.</p>
+<p>
+The library syntax is <code>GEN <b>ellheightmatrix</b>(GEN E, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellidentify"></div>
+<div id="ellidentify"></div>
+<h4>ellidentify(E)</h4>
+<p>
+Look up the elliptic curve E, defined by an arbitrary model over &Qopf;,
+in the <code>elldata</code> database.
+Return <code>[[N, M, G], C]</code>  where N is the curve name in Cremona's
+elliptic curve database, M is the minimal model, G is a &Zopf;-basis of
+the free part of the Mordell-Weil group E(&Qopf;) and C is the
+change of coordinates change, suitable for <code><a href="Elliptic_curves.html#se:ellchangecurve"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellchangecurve</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>ellidentify</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellinit"></div>
+<div id="ellinit"></div>
+<h4>ellinit(x, {D = 1})</h4>
+<p>
+Initialize an <code>ell</code> structure, attached to the elliptic curve E.
+E is either</p>
+<p>
+<b>*</b> a 5-component vector [a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>] defining the elliptic
+curve with Weierstrass equation
+ Y^2 + a<sub>1</sub> XY + a<sub>3</sub> Y = X^3 + a<sub>2</sub> X^2 + a<sub>4</sub> X + a<sub>6</sub>, </p>
+<p>
+<b>*</b> a 2-component vector [a<sub>4</sub>,a<sub>6</sub>] defining the elliptic
+curve with short Weierstrass equation
+ Y^2 = X^3 + a<sub>4</sub> X + a<sub>6</sub>, </p>
+<p>
+<b>*</b> a character string in Cremona's notation, e.g. <code>"11a1"</code>, in which
+case the curve is retrieved from the <code>elldata</code> database if available.</p>
+<p>
+The optional argument D describes the domain over which the curve is
+defined:</p>
+<p>
+<b>*</b> the <code>t_INT</code> 1 (default): the field of rational numbers &Qopf;.</p>
+<p>
+<b>*</b> a <code>t_INT</code> p, where p is a prime number: the prime finite field
+&Fopf;<sub>p</sub>.</p>
+<p>
+<b>*</b> an <code>t_INTMOD</code> <code>Mod(a, p)</code>, where p is a prime number: the
+prime finite field &Fopf;<sub>p</sub>.</p>
+<p>
+<b>*</b> a <code>t_FFELT</code>, as returned by <code><a href="Arithmetic_functions.html#se:ffgen"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ffgen</a></code>: the corresponding finite
+field &Fopf;<sub>q</sub>.</p>
+<p>
+<b>*</b> a <code>t_PADIC</code>, O(p^n): the field &Qopf;<sub>p</sub>, where p-adic quantities
+will be computed to a relative accuracy of n digits. We advise to input a
+model defined over &Qopf; for such curves. In any case, if you input an
+approximate model with <code>t_PADIC</code> coefficients, it will be replaced by a lift
+to &Qopf; (an exact model "close" to the one that was input) and all quantities
+will then be computed in terms of this lifted model, at the given accuracy.</p>
+<p>
+<b>*</b> a <code>t_REAL</code> x: the field &Copf; of complex numbers, where floating
+point quantities are by default computed to a relative accuracy of
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:precision"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">precision</a></code>(x). If no such argument is given, the value of
+<code>realprecision</code> at the time <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> is called will be used.</p>
+<p>
+<b>*</b> a number field K, given by a <code>nf</code> or <code>bnf</code> structure; a
+<code>bnf</code> is required for <code><a href="Elliptic_curves.html#se:ellminimalmodel"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellminimalmodel</a></code>.</p>
+<p>
+<b>*</b> a prime ideal &pfr;, given by a <code>prid</code> structure; valid if
+x is a curve defined over a number field K and the equation is integral
+and minimal at &pfr;.</p>
+<p>
+This argument D is indicative: the curve coefficients are checked for
+compatibility, possibly changing D; for instance if D = 1 and
+an <code>t_INTMOD</code> is found. If inconsistencies are detected, an error is
+raised:</p>
+<p>
+</p><pre class="code">  ? ellinit([1 + O(5), 1], O(7));
+   ***   at top-level: ellinit([1+O(5),1],O
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** ellinit: inconsistent moduli in ellinit: 7 != 5
+</pre><p>
+If the curve coefficients are too general to fit any of the
+above domain categories, only basic operations, such as point addition, will
+be supported later.</p>
+<p>
+If the curve (seen over the domain D) is singular, fail and return an
+empty vector [].</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,0,0,0,1]); \\ y^2 = x^3 + 1, over Q
+  ? E = ellinit([0,1]);       \\ the same curve, short form
+  ? E = ellinit("36a1");      \\ sill the same curve, Cremona's notations
+  ? E = ellinit([0,1], 2)     \\ over F2: singular curve
+  %4 = []
+  ? E = ellinit(['a4,'a6] * Mod(1,5));  \\ over F<sub>5</sub>[a4,a6], basic support !
+</pre><p></p>
+<p></p>
+<p>
+The result of <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> is an <em>ell</em> structure. It contains at least
+the following information in its components:</p>
+<p>
+ a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>,b<sub>2</sub>,b<sub>4</sub>,b<sub>6</sub>,b<sub>8</sub>,c<sub>4</sub>,c<sub>6</sub>,&Delta;,j.</p>
+<p>
+All are accessible via member functions. In particular, the discriminant is
+<code>E.disc</code>, and the j-invariant is <code>E.j</code>.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([a4, a6]);
+  ? E.disc
+  %2 = -64*a4^3 - 432*a6^2
+  ? E.j
+  %3 = -6912*a4^3/(-4*a4^3 - 27*a6^2)
+</pre><p></p>
+<p>
+Further components contain domain-specific data, which are in general dynamic:
+only computed when needed, and then cached in the structure.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([2,3], 10^60+7);  \\ E over F<sub>p</sub>, p large
+  ? ellap(E)
+  time = 4,440 ms.
+  %2 = -1376268269510579884904540406082
+  ? ellcard(E);  \\ now instantaneous !
+  time = 0 ms.
+  ? ellgenerators(E);
+  time = 5,965 ms.
+  ? ellgenerators(E); \\ second time instantaneous
+  time = 0 ms.
+</pre><p></p>
+<p>
+See the description of member functions related to elliptic curves at the
+beginning of this section.</p>
+<p>
+The library syntax is <code>GEN <b>ellinit</b>(GEN x, GEN D = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellintegralmodel"></div>
+<div id="ellintegralmodel"></div>
+<h4>ellintegralmodel(E, {&v})</h4>
+<p>
+Let E be an <code>ell</code> structure over a number field K or &Qopf;<sub>p</sub>.
+This function returns an integral model. If v is present, sets
+v = [u,0,0,0] to the corresponding change of variable: the return value is
+identical to that of <code>ellchangecurve(E, v)</code>.</p>
+<p>
+</p><pre class="code">  ? e = ellinit([1/17,1/42]);
+  ? e = ellintegralmodel(e,&v);
+  ? e[1..5]
+  %3 = [0, 0, 0, 15287762448, 3154568630095008]
+  ? v
+  %4 = [1/714, 0, 0, 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellintegralmodel</b>(GEN E, GEN *v = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellisdivisible"></div>
+<div id="ellisdivisible"></div>
+<h4>ellisdivisible(E, P, n, {&Q})</h4>
+<p>
+Given E/K a number field and P in E(K)
+return 1 if P = [n]R for some R in E(K) and set Q to one such R;
+and return 0 otherwise. The integer n &geq; 0 may be given as
+<code>ellxn(E,n)</code>, if many points need to be tested.</p>
+<p>
+</p><pre class="code">  ? K = nfinit(polcyclo(11,t));
+  ? E = ellinit([0,-1,1,0,0], K);
+  ? P = [0,0];
+  ? ellorder(E,P)
+  %4 = 5
+  ? ellisdivisible(E,P,5, &Q)
+  %5 = 1
+  ? lift(Q)
+  %6 = [-t^7-t^6-t^5-t^4+1, -t^9-2*t^8-2*t^7-3*t^6-3*t^5-2*t^4-2*t^3-t^2-1]
+  ? ellorder(E, Q)
+  %7 = 25
+</pre><p>
+The algebraic complexity of the underlying algorithm is in
+O(n^4), so it is advisable to first factor n, then use a chain of checks
+attached to the prime divisors of n: the function will do it itself unless
+n is given in <code><a href="Elliptic_curves.html#se:ellxn"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellxn</a></code> form.</p>
+<p>
+The library syntax is <code>long <b>ellisdivisible</b>(GEN E, GEN P, GEN n, GEN *Q = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellisogeny"></div>
+<div id="ellisogeny"></div>
+<h4>ellisogeny(E, G, {<em>only_image</em> = 0}, {x = 'x}, {y = 'y})</h4>
+<p>
+Given an elliptic curve E, a finite subgroup G of E is given either
+as a generating point P (for a cyclic G) or as a polynomial whose roots
+vanish on the x-coordinates of the non-zero elements of G (general case
+and more efficient if available). This function returns the
+[a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>] invariants of the quotient elliptic curve E/G and
+(if <em>only_image</em> is zero (the default)) a vector of rational
+functions [f, g, h] such that the isogeny E  &rightarrow;  E/G is given by (x,y)
+<code> &longmapsto; </code>(f(x)/h(x)^2, g(x,y)/h(x)^3).</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,1]);
+  ? elltors(E)
+  %2 = [6, [6], [[2, 3]]]
+  ? ellisogeny(E, [2,3], 1)  \\ Weierstrass model for E/&lt;P&gt;
+  %3 = [0, 0, 0, -135, -594]
+  ? ellisogeny(E,[-1,0])
+  %4 = [[0,0,0,-15,22], [x^3+2*x^2+4*x+3, y*x^3+3*y*x^2-2*y, x+1]]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellisogeny</b>(GEN E, GEN G, long only_image, long x = -1, long y = -1)</code> where <code>x</code>, <code>y</code> are variable numbers.</p>
+<p>
+
+<hr>
+<div id="se:ellisogenyapply"></div>
+<div id="ellisogenyapply"></div>
+<h4>ellisogenyapply(f, g)</h4>
+<p>
+Given an isogeny of elliptic curves f:E' &rightarrow;  E (being the result of a call
+to <code><a href="Elliptic_curves.html#se:ellisogeny"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellisogeny</a></code>), apply f to g:</p>
+<p>
+<b>*</b> if g is a point P in the domain of f, return the image f(P);</p>
+<p>
+<b>*</b> if g:E" &rightarrow;  E' is a compatible isogeny, return the composite
+isogeny f o g:  E" &rightarrow;  E.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? one = ffgen(101, 't)^0;
+  ? E = ellinit([6, 53, 85, 32, 34] * one);
+  ? P = [84, 71] * one;
+  ? ellorder(E, P)
+  %4 = 5
+  ? [F, f] = ellisogeny(E, P);  \\ f: E-&gt;F = E/&lt;P&gt;
+  ? ellisogenyapply(f, P)
+  %6 = [0]
+  ? F = ellinit(F);
+  ? Q = [89, 44] * one;
+  ? ellorder(F, Q)
+  %9 = 2
+  ? [G, g] = ellisogeny(F, Q); \\  g: F-&gt;G = F/&lt;Q&gt;
+  ? gof = ellisogenyapply(g, f); \\ gof: E -&gt; G
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellisogenyapply</b>(GEN f, GEN g)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellisomat"></div>
+<div id="ellisomat"></div>
+<h4>ellisomat(E, {p = 0}, {<em>fl</em> = 0})</h4>
+<p>
+Given an elliptic curve E defined over a number field, compute
+representatives of the isomorphism classes of elliptic curves &Qopf;-isogenous
+to E. The function returns a vector [L,M] where L is a list of triples
+[E<sub>i</sub>, f<sub>i</sub>, g<sub>i</sub>], where E<sub>i</sub> is an elliptic curve in [a<sub>4</sub>,a<sub>6</sub>] form,
+f<sub>i</sub>: E  &rightarrow;  E<sub>i</sub> is a rational isogeny, g<sub>i</sub>: E<sub>i</sub>  &rightarrow;  E is the dual isogeny
+of f<sub>i</sub>, and M is the matrix such that M<sub>i,j</sub> is the degree of the
+isogeny between E<sub>i</sub> and E<sub>j</sub>. Furthermore the first curve E<sub>1</sub> is
+isomorphic to E by f<sub>1</sub>. If the flag <em>fl</em> = 1, the f<sub>i</sub> and g<sub>i</sub> are
+not computed, which saves time, and L is the list of the curves E<sub>i</sub>.
+If p is set, it must be a prime number; in this which case only isogenies of
+degree a power of p are considered.
+Over a number field, the possible isogeny degrees are determined by
+Billerey algorithm. As a consequence, CM curves over a number field are not
+fully supported.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("14a1");
+  ? [L,M] = ellisomat(E);
+  ? LE = apply(x-&gt;x[1], L)  \\ list of curves
+  %3 = [[215/48,-5291/864],[-675/16,6831/32],[-8185/48,-742643/864],
+       [-1705/48,-57707/864],[-13635/16,306207/32],[-131065/48,-47449331/864]]
+  ? L[2][2]  \\ isogeny f<sub>2</sub>
+  %4 = [x^3+3/4*x^2+19/2*x-311/12,
+        1/2*x^4+(y+1)*x^3+(y-4)*x^2+(-9*y+23)*x+(55*y+55/2),x+1/3]
+  ? L[2][3]  \\ dual isogeny g<sub>2</sub>
+  %5 = [1/9*x^3-1/4*x^2-141/16*x+5613/64,
+        -1/18*x^4+(1/27*y-1/3)*x^3+(-1/12*y+87/16)*x^2+(49/16*y-48)*x
+        +(-3601/64*y+16947/512),x-3/4]
+  ? apply(E-&gt;ellidentify(ellinit(E))[1][1], LE)
+  %6 = ["14a1","14a4","14a3","14a2","14a6","14a5"]
+  ? M
+  %7 =
+  [1  3  3 2  6  6]
+  
+  [3  1  9 6  2 18]
+  
+  [3  9  1 6 18  2]
+  
+  [2  6  6 1  3  3]
+  
+  [6  2 18 3  1  9]
+  
+  [6 18  2 3  9  1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellisomat</b>(GEN E, long p, long fl)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellisoncurve"></div>
+<div id="ellisoncurve"></div>
+<h4>ellisoncurve(E, z)</h4>
+<p>
+Gives 1 (i.e.&nbsp;true) if the point z is on the elliptic curve E, 0
+otherwise. If E or z have imprecise coefficients, an attempt is made to
+take this into account, i.e.&nbsp;an imprecise equality is checked, not a precise
+one. It is allowed for z to be a vector of points in which case a vector
+(of the same type) is returned.</p>
+<p>
+The library syntax is <code>GEN <b>ellisoncurve</b>(GEN E, GEN z)</code>.
+Also available is <code>int <b>oncurve</b>(GEN E, GEN z)</code> which does not
+accept vectors of points.</p>
+<p>
+
+<hr>
+<div id="se:ellisotree"></div>
+<div id="ellisotree"></div>
+<h4>ellisotree(E)</h4>
+<p>
+Given an elliptic curve E defined over &Qopf; or a set of
+&Qopf;-isogenous curves as given by <code><a href="Elliptic_curves.html#se:ellisomat"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellisomat</a></code>, return a pair [L,M] where</p>
+<p>
+<b>*</b> L lists the minimal models of the isomorphism classes of elliptic
+curves &Qopf;-isogenous to E (or in the set of isogenous curves),</p>
+<p>
+<b>*</b> M is the adjacency matrix of the prime degree isogenies tree:
+there is an edge from E<sub>i</sub> to E<sub>j</sub> if there is an isogeny E<sub>i</sub>  &rightarrow;  E<sub>j</sub> of
+prime degree such that the N&eacute;ron differential forms are preserved.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? E = ellinit("14a1");
+  ? [L,M] = ellisotree(E);
+  ? M
+  %3 =
+  [0 0 3 2 0 0]
+  
+  [3 0 0 0 2 0]
+  
+  [0 0 0 0 0 2]
+  
+  [0 0 0 0 0 3]
+  
+  [0 0 0 3 0 0]
+  
+  [0 0 0 0 0 0]
+  ? [L2,M2] = ellisotree(ellisomat(E,2,1));
+  %4 =
+  [0 2]
+  
+  [0 0]
+  ? [L3,M3] = ellisotree(ellisomat(E,3,1));
+  ? M3
+  %6 =
+  [0 0 3]
+  
+  [3 0 0]
+  
+  [0 0 0]
+</pre><p>
+Compare with the result of <code><a href="Elliptic_curves.html#se:ellisomat"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellisomat</a></code>.</p>
+<p>
+</p><pre class="code">  ? [L,M]=ellisomat(E,,1);
+  ? M
+  %7 =
+  [1  3  3 2  6  6]
+  
+  [3  1  9 6  2 18]
+  
+  [3  9  1 6 18  2]
+  
+  [2  6  6 1  3  3]
+  
+  [6  2 18 3  1  9]
+  
+  [6 18  2 3  9  1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellisotree</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellissupersingular"></div>
+<div id="ellissupersingular"></div>
+<h4>ellissupersingular(E, {p})</h4>
+<p>
+Return 1 if the elliptic curve E defined over a number field, &Qopf;<sub>p</sub>
+or a finite field is supersingular at p, and 0 otherwise.
+If the curve is defined over a number field, p must be explicitly given,
+and must be a prime number, resp.&nbsp;a maximal ideal, if the curve is defined
+over &Qopf;, resp.&nbsp;a general number field: we return 1 if and only if E
+has supersingular good reduction at p.</p>
+<p>
+Alternatively, E can be given by its j-invariant in a finite field. In
+this case p must be omitted.</p>
+<p>
+</p><pre class="code">  ? setrand(1); \\ make the choice of g deterministic
+  ? g = ffprimroot(ffgen(7^5))
+  %1 = 4*x^4 + 5*x^3 + 6*x^2 + 5*x + 6
+  ? [g^n | n &lt;- [1 .. 7^5 - 1], ellissupersingular(g^n)]
+  %2 = [6]
+  
+  ? K = nfinit(y^3-2); P = idealprimedec(K, 2)[1];
+  ? E = ellinit([y,1], K);
+  ? ellissupersingular(E, P)
+  %5 = 1
+  ? Q = idealprimedec(K,5)[1];
+  ? ellissupersingular(E, Q)
+  %6 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellissupersingular</b>(GEN E, GEN p = NULL)</code>.
+Also available is
+<code>int <b>elljissupersingular</b>(GEN j)</code> where j is a j-invariant of a curve
+over a finite field.</p>
+<p>
+
+<hr>
+<div id="se:ellj"></div>
+<div id="ellj"></div>
+<h4>ellj(x)</h4>
+<p>
+Elliptic j-invariant. x must be a complex number
+with positive imaginary part, or convertible into a power series or a
+p-adic number with positive valuation.</p>
+<p>
+The library syntax is <code>GEN <b>jell</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elllocalred"></div>
+<div id="elllocalred"></div>
+<h4>elllocalred(E, {p})</h4>
+<p>
+Calculates the Kodaira type of the local fiber of the elliptic curve
+E at p. E must be an <code>ell</code> structure as output by
+<code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, over &Qopf;_&ell; (p better left omitted, else equal to &ell;)
+over &Qopf; (p a rational prime) or a number field K (p
+a maximal ideal given by a <code>prid</code> structure).
+The result is a 4-component vector [f,kod,v,c]. Here f is the exponent of
+p in the arithmetic conductor of E, and kod is the Kodaira type which
+is coded as follows:</p>
+<p>
+1 means good reduction (type I<sub>0</sub>), 2, 3 and 4 mean types II, III and IV
+respectively, 4+&nu; with &nu; &gt; 0 means type I_&nu;;
+finally the opposite values -1, -2, etc.&nbsp;refer to the starred types
+I<sub>0</sub><sup>*</sup>, II<sup>*</sup>, etc. The third component v is itself a vector [u,r,s,t]
+giving the coordinate changes done during the local reduction;
+u = 1 if and only if the given equation was already minimal at p.
+Finally, the last component c is the local Tamagawa number c<sub>p</sub>.</p>
+<p>
+The library syntax is <code>GEN <b>elllocalred</b>(GEN E, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elllog"></div>
+<div id="elllog"></div>
+<h4>elllog(E, P, G, {o})</h4>
+<p>
+Given two points P and G on the elliptic curve E/&Fopf;<sub>q</sub>, returns the
+discrete logarithm of P in base G, i.e. the smallest non-negative
+integer n such that P = [n]G.
+See <code><a href="Arithmetic_functions.html#se:znlog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znlog</a></code> for the limitations of the underlying discrete log algorithms.
+If present, o represents the order of G, see Section <a href="Arithmetic_functions.html#se:DLfun"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:DLfun</a>;
+the preferred format for this parameter is <code>[N, factor(N)]</code>, where N
+is  the order of G.</p>
+<p>
+If no o is given, assume that G generates the curve.
+The function also assumes that P is a multiple of G.</p>
+<p>
+</p><pre class="code">  ? a = ffgen(ffinit(2,8),'a);
+  ? E = ellinit([a,1,0,0,1]);  \\ over F<sub>2^8</sub>
+  ? x = a^3; y = ellordinate(E,x)[1];
+  ? P = [x,y]; G = ellmul(E, P, 113);
+  ? ord = [242, factor(242)]; \\ P generates a group of order 242. Initialize.
+  ? ellorder(E, G, ord)
+  %4 = 242
+  ? e = elllog(E, P, G, ord)
+  %5 = 15
+  ? ellmul(E,G,e) == P
+  %6 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>elllog</b>(GEN E, GEN P, GEN G, GEN o = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elllseries"></div>
+<div id="elllseries"></div>
+<h4>elllseries(E, s, {A = 1})</h4>
+<p>
+This function is deprecated, use <code>lfun(E,s)</code> instead.</p>
+<p>
+E being an elliptic curve, given by an arbitrary model over &Qopf; as output
+by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, this function computes the value of the L-series of E at
+the (complex) point s. This function uses an O(N<sup>1/2</sup>) algorithm, where
+N is the conductor.</p>
+<p>
+The optional parameter A fixes a cutoff point for the integral and is best
+left omitted; the result must be independent of A, up to
+<code>realprecision</code>, so this allows to check the function's accuracy.</p>
+<p>
+The library syntax is <code>GEN <b>elllseries</b>(GEN E, GEN s, GEN A = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellminimaldisc"></div>
+<div id="ellminimaldisc"></div>
+<h4>ellminimaldisc(E)</h4>
+<p>
+E being an elliptic curve defined over a number field output by
+ <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, return the minimal discriminant ideal of E.</p>
+<p>
+The library syntax is <code>GEN <b>ellminimaldisc</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellminimalmodel"></div>
+<div id="ellminimalmodel"></div>
+<h4>ellminimalmodel(E, {&v})</h4>
+<p>
+Let E be an <code>ell</code> structure over a number field K. This function
+determines whether E admits a global minimal integral model. If so, it
+returns it and sets v = [u,r,s,t] to the corresponding change of variable:
+the return value is identical to that of <code>ellchangecurve(E, v)</code>.</p>
+<p>
+Else return the (non-principal) Weierstrass class of E, i.e. the class of
+&prod; &pfr;<sup>(v<sub>&pfr;</sub>{&Delta;</sup> - &delta;<sub>&pfr;</sub>) / 12} where
+&Delta; = <code>E.disc</code> is the model's discriminant and
+&pfr; ^ &delta;<sub>&pfr;</sub> is the local minimal discriminant.
+This function requires either that E be defined
+over the rational field &Qopf; (with domain D = 1 in <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>),
+in which case a global minimal model always exists, or over a number
+field given by a <em>bnf</em> structure. The Weierstrass class is given in
+<code><a href="General_number_fields.html#se:bnfisprincipal"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnfisprincipal</a></code> format, i.e. in terms of the <code>K.gen</code> generators.</p>
+<p>
+The resulting model has integral coefficients and is everywhere minimal, the
+coefficients a<sub>1</sub> and a<sub>3</sub> are reduced modulo 2 (in terms of the fixed
+integral basis <code>K.zk</code>) and a<sub>2</sub> is reduced modulo 3. Over &Qopf;, we
+further require that a<sub>1</sub> and a<sub>3</sub> be 0 or 1, that a<sub>2</sub> be 0 or &#177;
+1 and that u &gt; 0 in the change of variable: both the model and the change
+of variable v are then unique.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? e = ellinit([6,6,12,55,233]);  \\ over Q
+  ? E = ellminimalmodel(e, &v);
+  ? E[1..5]
+  %3 = [0, 0, 0, 1, 1]
+  ? v
+  %4 = [2, -5, -3, 9]
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+</p><pre class="code">  ? K = bnfinit(a^2-65);  \\ over a non-principal number field
+  ? K.cyc
+  %2 = [2]
+  ? u = Mod(8+a, K.pol);
+  ? E = ellinit([1,40*u+1,0,25*u^2,0], K);
+  ? ellminimalmodel(E) \\ no global minimal model exists over Z<sub>K</sub>
+  %6 = [1]~
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellminimalmodel</b>(GEN E, GEN *v = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellminimaltwist"></div>
+<div id="ellminimaltwist"></div>
+<h4>ellminimaltwist(E, {<em>flag</em> = 0})</h4>
+<p>
+Let E be an elliptic curve defined over &Qopf;, return
+a discriminant D such that the twist of E by D is minimal among all
+possible quadratic twists, i.e. if <em>flag</em> = 0, its minimal model has minimal
+discriminant, or if <em>flag</em> = 1, it has minimal conductor.</p>
+<p>
+In the example below, we find a curve with j-invariant 3 and minimal
+conductor.</p>
+<p>
+</p><pre class="code">  ? E = ellminimalmodel(ellinit(ellfromj(3)));
+  ? ellglobalred(E)[1]
+  %2 = 357075
+  ? D = ellminimaltwist(E,1)
+  %3 = -15
+  ? E2 = ellminimalmodel(ellinit(elltwist(E,D)));
+  ? ellglobalred(E2)[1]
+  %5 = 14283
+</pre><p></p>
+<p>
+In the example below, <em>flag</em> = 0 and <em>flag</em> = 1 give different results.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([1,0]);
+  ? D0 = ellminimaltwist(E,0)
+  %7 = 1
+  ? D1 = ellminimaltwist(E,1)
+  %8 = 8
+  ? E0 = ellminimalmodel(ellinit(elltwist(E,D0)));
+  ? [E0.disc, ellglobalred(E0)[1]]
+  %10 = [-64, 64]
+  ? E1 = ellminimalmodel(ellinit(elltwist(E,D1)));
+  ? [E1.disc, ellglobalred(E1)[1]]
+  %12 = [-4096, 32]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellminimaltwist0</b>(GEN E, long flag)</code>.
+Also available are
+<code>GEN <b>ellminimaltwist</b>(E)</code> for <em>flag</em> = 0, and
+<code>GEN <b>ellminimaltwistcond</b>(E)</code> for <em>flag</em> = 1.</p>
+<p>
+
+<hr>
+<div id="se:ellmoddegree"></div>
+<div id="ellmoddegree"></div>
+<h4>ellmoddegree(e)</h4>
+<p>
+e being an elliptic curve defined over &Qopf; output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>,
+compute the modular degree of e divided by the square of
+the Manin constant c. It is conjectured that c = 1 for the strong Weil
+curve in the isogeny class (optimal quotient of J<sub>0</sub>(N)) and this can be
+proven using <code><a href="Elliptic_curves.html#se:ellweilcurve"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellweilcurve</a></code> when the conductor N is moderate.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a1"); \\ from Cremona table: strong Weil curve and c = 1
+  ? [v,smith] = ellweilcurve(E); smith \\ proof of the above
+  %2 = [[1, 1], [5, 1], [1, 1/5]]
+  ? ellmoddegree(E)
+  %3 = 1
+  ? [ellidentify(e)[1][1] | e&lt;-v]
+  %4 = ["11a1", "11a2", "11a3"]
+  ? ellmoddegree(ellinit("11a2"))
+  %5 = 5
+  ? ellmoddegree(ellinit("11a3"))
+  %6 = 1/5
+</pre><p>
+The modular degree of <code>11a1</code> is 1 (because
+<code><a href="Elliptic_curves.html#se:ellweilcurve"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellweilcurve</a></code> or Cremona's table prove that the Manin constant
+is 1 for this curve); the output of <code><a href="Elliptic_curves.html#se:ellweilcurve"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellweilcurve</a></code> also proves
+that the Manin constants of <code>11a2</code> and <code>11a3</code> are 1 and 5
+respectively, so the actual modular degree of both <code>11a2</code> and <code>11a3</code>
+is 5.</p>
+<p>
+The library syntax is <code>GEN <b>ellmoddegree</b>(GEN e)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellmodulareqn"></div>
+<div id="ellmodulareqn"></div>
+<h4>ellmodulareqn(N, {x}, {y})</h4>
+<p>
+Given a prime N &lt; 500, return a vector [P,t] where P(x,y)
+is a modular equation of level N, i.e.&nbsp;a bivariate polynomial with integer
+coefficients; t indicates the type of this equation: either
+<em>canonical</em> (t = 0) or <em>Atkin</em> (t = 1). This function requires
+the <code>seadata</code> package and its only use is to give access to the package
+contents. See <code><a href="Polynomials_and_power_series.html#se:polmodular"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polmodular</a></code> for a more general and more flexible function.</p>
+<p>
+Let j be the j-invariant function. The polynomial P satisfies
+the functional equation,
+ P(f,j) = P(f | W<sub>N</sub>, j | W<sub>N</sub>) = 0 
+for some modular function f = f<sub>N</sub> (hand-picked for each fixed N to
+minimize its size, see below), where W<sub>N</sub>(&tau;) = -1 / (N &tau;) is the
+Atkin-Lehner involution. These two equations allow to compute the values of
+the classical modular polynomial &Phi;<sub>N</sub>, such that &Phi;<sub>N</sub>(j(&tau;),
+j(N&tau;)) = 0, while being much smaller than the latter. More precisely, we
+have j(W<sub>N</sub>(&tau;)) = j(N &tau;); the function f is invariant under
+&Gamma;<sub>0</sub>(N) and also satisfies</p>
+<p>
+<b>*</b> for Atkin type: f | W<sub>N</sub> = f;</p>
+<p>
+<b>*</b> for canonical type: let s = 12/gcd(12,N-1), then
+f | W<sub>N</sub> = N^s / f. In this case, f has a simple definition:
+f(&tau;) = N^s   (&eta;(N &tau;) / &eta;(&tau;) )<sup>2 s</sup>,
+where &eta; is Dedekind's eta function.</p>
+<p>
+The following GP function returns values of the classical modular polynomial
+by eliminating f<sub>N</sub>(&tau;) in the above functional equation,
+for N &leq; 31 or N &in; {41,47,59,71}.</p>
+<p></p>
+<p>
+</p><pre class="code">  classicaleqn(N, X='X, Y='Y)=
+  {
+    my([P,t] = ellmodulareqn(N), Q, d);
+    if (poldegree(P,'y) &gt; 2, error("level unavailable in classicaleqn"));
+    if (t == 0, \\ Canonical
+      my(s = 12/gcd(12,N-1));
+      Q = 'x^(N+1) * substvec(P,['x,'y],[N^s/'x,Y]);
+      d = N^(s*(2*N+1)) * (-1)^(N+1);
+    , \\ Atkin
+      Q = subst(P,'y,Y);
+      d = (X-Y)^(N+1));
+    polresultant(subst(P,'y,X), Q) / d;
+  }
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellmodulareqn</b>(long N, long x = -1, long y = -1)</code> where <code>x</code>, <code>y</code> are variable numbers.</p>
+<p>
+
+<hr>
+<div id="se:ellmul"></div>
+<div id="ellmul"></div>
+<h4>ellmul(E, z, n)</h4>
+<p>
+Computes [n]z, where z is a point on the elliptic curve E. The
+exponent n is in &Zopf;, or may be a complex quadratic integer if the curve E
+has complex multiplication by n (if not, an error message is issued).</p>
+<p>
+</p><pre class="code">  ? Ei = ellinit([1,0]); z = [0,0];
+  ? ellmul(Ei, z, 10)
+  %2 = [0]     \\ unsurprising: z has order 2
+  ? ellmul(Ei, z, I)
+  %3 = [0, 0]  \\ Ei has complex multiplication by Z[i]
+  ? ellmul(Ei, z, quadgen(-4))
+  %4 = [0, 0]  \\ an alternative syntax for the same query
+  ? Ej  = ellinit([0,1]); z = [-1,0];
+  ? ellmul(Ej, z, I)
+    ***   at top-level: ellmul(Ej,z,I)
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; --
+    *** ellmul: not a complex multiplication in ellmul.
+  ? ellmul(Ej, z, 1+quadgen(-3))
+  %6 = [1 - w, 0]
+</pre><p></p>
+<p>
+The simple-minded algorithm for the CM case assumes that we are in
+characteristic 0, and that the quadratic order to which n belongs has
+small discriminant.</p>
+<p>
+The library syntax is <code>GEN <b>ellmul</b>(GEN E, GEN z, GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellneg"></div>
+<div id="ellneg"></div>
+<h4>ellneg(E, z)</h4>
+<p>
+Opposite of the point z on elliptic curve E.</p>
+<p>
+The library syntax is <code>GEN <b>ellneg</b>(GEN E, GEN z)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellnonsingularmultiple"></div>
+<div id="ellnonsingularmultiple"></div>
+<h4>ellnonsingularmultiple(E, P)</h4>
+<p>
+Given an elliptic curve E/&Qopf; (more precisely, a model defined over &Qopf;
+of a curve) and a rational point P  &in;  E(&Qopf;), returns the pair [R,n],
+where n is the least positive integer such that R := [n]P has good
+reduction at every prime. More precisely, its image in a minimal model is
+everywhere non-singular.</p>
+<p>
+</p><pre class="code">  ? e = ellinit("57a1"); P = [2,-2];
+  ? ellnonsingularmultiple(e, P)
+  %2 = [[1, -1], 2]
+  ? e = ellinit("396b2"); P = [35, -198];
+  ? [R,n] = ellnonsingularmultiple(e, P);
+  ? n
+  %5 = 12
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellnonsingularmultiple</b>(GEN E, GEN P)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellorder"></div>
+<div id="ellorder"></div>
+<h4>ellorder(E, z, {o})</h4>
+<p>
+Gives the order of the point z on the elliptic
+curve E, defined over a finite field or a number field.
+Return (the impossible value) zero if the point has infinite order.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([-157^2,0]);  \\ the "157-is-congruent" curve
+  ? P = [2,2]; ellorder(E, P)
+  %2 = 2
+  ? P = ellheegner(E); ellorder(E, P) \\ infinite order
+  %3 = 0
+  ? K = nfinit(polcyclo(11,t)); E=ellinit("11a3", K); T = elltors(E);
+  ? ellorder(E, T.gen[1])
+  %5 = 25
+  ? E = ellinit(ellfromj(ffgen(5^10)));
+  ? ellcard(E)
+  %7 = 9762580
+  ? P = random(E); ellorder(E, P)
+  %8 = 4881290
+  ? p = 2^160+7; E = ellinit([1,2], p);
+  ? N = ellcard(E)
+  %9 = 1461501637330902918203686560289225285992592471152
+  ? o = [N, factor(N)];
+  ? for(i=1,100, ellorder(E,random(E)))
+  time = 260 ms.
+</pre><p></p>
+<p>
+The parameter o, is now mostly useless, and kept for backward
+compatibility. If present, it represents a non-zero multiple of the order
+of z, see Section <a href="Arithmetic_functions.html#se:DLfun"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:DLfun</a>; the preferred format for this parameter is
+<code>[ord, factor(ord)]</code>, where <code>ord</code> is the cardinality of the curve.
+It is no longer needed since PARI is now able to compute it over large
+finite fields (was restricted to small prime fields at the time this feature
+was introduced), <em>and</em> caches the result in E so that it is computed
+and factored only once. Modifying the last example, we see that including
+this extra parameter provides no improvement:</p>
+<p>
+</p><pre class="code">  ? o = [N, factor(N)];
+  ? for(i=1,100, ellorder(E,random(E),o))
+  time = 260 ms.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellorder</b>(GEN E, GEN z, GEN o = NULL)</code>.
+The obsolete form <code>GEN <b>orderell</b>(GEN e, GEN z)</code> should no longer be
+used.</p>
+<p>
+
+<hr>
+<div id="se:ellordinate"></div>
+<div id="ellordinate"></div>
+<h4>ellordinate(E, x)</h4>
+<p>
+Gives a 0, 1 or 2-component vector containing
+the y-coordinates of the points of the curve E having x as
+x-coordinate.</p>
+<p>
+The library syntax is <code>GEN <b>ellordinate</b>(GEN E, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadicL"></div>
+<div id="ellpadicL"></div>
+<h4>ellpadicL(E, p, n, {s = 0}, {r = 0}, {D = 1})</h4>
+<p>
+Returns the value (or r-th derivative) on a character &chi;^s of
+&Zopf;<sub>p</sub><sup>*</sup> of the p-adic L-function of the elliptic curve E/&Qopf;, twisted by
+D, given modulo p^n.</p>
+<p>
+<b>Characters.</b> The set of continuous characters of
+Gal(&Qopf;(&mu;<sub>p<sup> oo </sub></sup>)/ &Qopf;) is identified to &Zopf;<sub>p</sub><sup>*</sup> via the
+cyclotomic character &chi; with values in <span style="text-decoration:overline">&Qopf;<sub>p</sub></span><sup>*</sup>. Denote by
+&tau;:&Zopf;<sub>p</sub><sup>*</sup> &rightarrow; &Zopf;<sub>p</sub><sup>*</sup> the Teichm&uuml;ller character, with values
+in the (p-1)-th roots of 1 for p != 2, and {-1,1} for p = 2;
+finally, let
+<code>&lt;</code>&chi;<code>&gt;</code>= &chi; &tau;<sup>-1</sup>, with values in 1 + 2p&Zopf;<sub>p</sub>.
+In GP, the continuous character of
+Gal(&Qopf;(&mu;<sub>p<sup> oo </sub></sup>)/ &Qopf;) given by <code>&lt;</code>&chi;<code>&gt;</code><sup>s<sub>1</sub></sup>
+&tau;<sup>s<sub>2</sub></sup> is represented by the pair of integers s = (s<sub>1</sub>,s<sub>2</sub>), with s<sub>1</sub>
+ &in;  &Zopf;<sub>p</sub> and s<sub>2</sub> mod p-1 for p &gt; 2, (resp. mod 2 for p = 2); s
+may be also an integer, representing (s,s) or &chi;^s.</p>
+<p>
+<b>The p-adic L function.</b>
+The p-adic L function L<sub>p</sub> is defined on the set of continuous
+characters of Gal(&Qopf;(&mu;<sub>p<sup> oo </sub></sup>)/ &Qopf;), as &int;<sub>&Zopf;<sub>p</sub><sup>*</sup></sub>
+&chi;^s d &mu; for a certain p-adic distribution &mu; on &Zopf;<sub>p</sub><sup>*</sup>. The
+derivative is given by
+L<sub>p</sub><sup>(r)</sup>(E, &chi;^s) = &int;<sub>&Zopf;<sub>p</sub><sup>*</sup></sub> log<sub>p</sub>^r(a) &chi;^s(a) d&mu;(a).
+More precisely:</p>
+<p>
+<b>*</b> When E has good supersingular reduction, L<sub>p</sub> takes its
+values in D := H^1<sub>dR</sub>(E/&Qopf;) &bigotimes; _&Qopf; &Qopf;<sub>p</sub> and satisfies
+(1-p<sup>-1</sup> F)<sup>-2</sup> L<sub>p</sub>(E, &chi;^0) = (L(E,1) / &Omega;).&omega;
+where F is the Frobenius, L(E,1) is the value of the complex L
+function at 1, &omega; is the N&eacute;ron differential
+and &Omega; the attached period on E(&Ropf;). Here, &chi;^0 represents
+the trivial character.</p>
+<p>
+The function returns the components of L<sub>p</sub><sup>(r)</sup>(E,&chi;^s) in
+the basis (&omega;, F &omega;).</p>
+<p>
+<b>*</b> When E has ordinary good reduction, this method only defines
+the projection of L<sub>p</sub>(E,&chi;^s) on the &alpha;-eigenspace,
+where &alpha; is the unit eigenvalue for F. This is what the function
+returns. We have
+(1- &alpha;<sup>-1</sup>)<sup>-2</sup> L<sub>p,&alpha;</sub>(E,&chi;^0) = L(E,1) / &Omega;.</p>
+<p>
+Two supersingular examples:</p>
+<p>
+</p><pre class="code">  ? cxL(e) = bestappr( ellL1(e) / e.omega[1] );
+  
+  ? e = ellinit("17a1"); p=3; \\ supersingular, a3 = 0
+  ? L = ellpadicL(e,p,4);
+  ? F = [0,-p;1,ellap(e,p)]; \\ Frobenius matrix in the basis (omega,F(omega))
+  ? (1-p^(-1)*F)^-2 * L / cxL(e)
+  %5 = [1 + O(3^5), O(3^5)]~ \\ [1,0]~
+  
+  ? e = ellinit("116a1"); p=3; \\ supersingular, a3 != 0~
+  ? L = ellpadicL(e,p,4);
+  ? F = [0,-p; 1,ellap(e,p)];
+  ? (1-p^(-1)*F)^-2*L~ / cxL(e)
+  %9 = [1 + O(3^4), O(3^5)]~
+</pre><p></p>
+<p></p>
+<p>
+Good ordinary reduction:</p>
+<p>
+</p><pre class="code">  ? e = ellinit("17a1"); p=5; ap = ellap(e,p)
+  %1 = -2 \\ ordinary
+  ? L = ellpadicL(e,p,4)
+  %2 = 4 + 3*5 + 4*5^2 + 2*5^3 + O(5^4)
+  ? al = padicappr(x^2 - ap*x + p, ap + O(p^7))[1];
+  ? (1-al^(-1))^(-2) * L / cxL(e)
+  %4 = 1 + O(5^4)
+</pre><p></p>
+<p></p>
+<p>
+Twist and Teichm&uuml;ller:</p>
+<p>
+</p><pre class="code">  ? e = ellinit("17a1"); p=5; \\ ordinary
+  \\ 2nd derivative at tau^1, twist by -7
+  ? ellpadicL(e, p, 4, [0,1], 2, -7)
+  %2 = 2*5^2 + 5^3 + O(5^4)
+</pre><p></p>
+<p>
+We give an example of non split multiplicative reduction (see
+<code><a href="Elliptic_curves.html#se:ellpadicbsd"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicbsd</a></code> for more examples).</p>
+<p>
+</p><pre class="code">  ? e=ellinit("15a1"); p=3; n=5;
+  ? L = ellpadicL(e,p,n)
+  %2 = 2 + 3 + 3^2 + 3^3 + 3^4 + O(3^5)
+  ? (1 - ellap(e,p))^(-1) * L / cxL(e)
+  %3 = 1 + O(3^5)
+</pre><p></p>
+<p></p>
+<p>
+This function is a special case of <code><a href="Modular_symbols.html#se:mspadicL"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicL</a></code> and it also appears
+as the first term of <code><a href="Modular_symbols.html#se:mspadicseries"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mspadicseries</a></code>:</p>
+<p>
+</p><pre class="code">  ? e = ellinit("17a1"); p=5;
+  ? L = ellpadicL(e,p,4)
+  %2 = 4 + 3*5 + 4*5^2 + 2*5^3 + O(5^4)
+  ? [M,phi] = msfromell(e, 1);
+  ? Mp = mspadicinit(M, p, 4);
+  ? mu = mspadicmoments(Mp, phi);
+  ? mspadicL(mu)
+  %6 = 4 + 3*5 + 4*5^2 + 2*5^3 + 2*5^4 + 5^5 + O(5^6)
+  ? mspadicseries(mu)
+  %7 = (4 + 3*5 + 4*5^2 + 2*5^3 + 2*5^4 + 5^5 + O(5^6))
+        + (3 + 3*5 + 5^2 + 5^3 + O(5^4))*x
+        + (2 + 3*5 + 5^2 + O(5^3))*x^2
+        + (3 + 4*5 + 4*5^2 + O(5^3))*x^3
+        + (3 + 2*5 + O(5^2))*x^4 + O(x^5)
+</pre><p>
+These are more cumbersome than <code><a href="Elliptic_curves.html#se:ellpadicL"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicL</a></code> but allow to
+compute at different characters, or successive derivatives, or to
+twist by a quadratic character essentially for the cost of a single call to
+<code><a href="Elliptic_curves.html#se:ellpadicL"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicL</a></code> due to precomputations.</p>
+<p>
+The library syntax is <code>GEN <b>ellpadicL</b>(GEN E, GEN p, long n, GEN s = NULL, long r, GEN D = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadicbsd"></div>
+<div id="ellpadicbsd"></div>
+<h4>ellpadicbsd(E, p, n, {D = 1})</h4>
+<p>
+Given an elliptic curve E over &Qopf;, its quadratic twist E<sub>D</sub>
+and a prime number p, this function is a p-adic analog of the complex
+functions <code><a href="Elliptic_curves.html#se:ellanalyticrank"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellanalyticrank</a></code> and <code><a href="Elliptic_curves.html#se:ellbsd"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellbsd</a></code>. It calls <code><a href="Elliptic_curves.html#se:ellpadicL"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicL</a></code>
+with initial accuracy p^n and may increase it internally;
+it returns a vector [r, L<sub>p</sub>] where</p>
+<p>
+<b>*</b> L<sub>p</sub> is a p-adic number (resp. a pair of p-adic numbers if
+E has good supersingular reduction) defined modulo p^N, conjecturally
+equal to R<sub>p</sub> S, where R<sub>p</sub> is the p-adic regulator as given by
+<code><a href="Elliptic_curves.html#se:ellpadicregulator"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicregulator</a></code> (in the basis (&omega;, F &omega;)) and S is the
+cardinal of the Tate-Shafarevich group for the quadratic twist E<sub>D</sub>.</p>
+<p>
+<b>*</b> r is an upper bound for the analytic rank of the p-adic
+L-function attached to E<sub>D</sub>: we know for sure that the i-th
+derivative of L<sub>p</sub>(E<sub>D</sub>,.) at &chi;^0 is O(p^N) for all i &lt; r
+and that its r-th derivative is non-zero; it is expected that the true
+analytic rank is equal to the rank of the Mordell-Weil group E<sub>D</sub>(&Qopf;),
+plus 1 if the reduction of E<sub>D</sub> at p is split multiplicative;
+if r = 0, then both the analytic rank and the Mordell-Weil rank are
+unconditionnally 0.</p>
+<p>
+Recall that the p-adic BSD conjecture (Mazur, Tate, Teitelbaum, Bernardi,
+Perrin-Riou) predicts an explicit link between R<sub>p</sub> S and
+(1-p<sup>-1</sup>  F)<sup>-2</sup>.L<sub>p</sub><sup>(r)</sup>(E<sub>D</sub>, &chi;^0) / r! 
+where r is the analytic rank of the p-adic L-function attached to
+E<sub>D</sub> and F is the Frobenius on H^1<sub>dR</sub>; see <code><a href="Elliptic_curves.html#se:ellpadicL"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicL</a></code>
+for definitions.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a1"); p = 7; n = 5; \\ good ordinary
+  ? ellpadicbsd(E, 7, 5) \\ rank 0,
+  %2 = [0, 1 + O(7^5)]
+  
+  ? E = ellinit("91a1"); p = 7; n = 5; \\ non split multiplicative
+  ? [r,Lp] = ellpadicbsd(E, p, n)
+  %5 = [1, 2*7 + 6*7^2 + 3*7^3 + 7^4 + O(7^5)]
+  ? R = ellpadicregulator(E, p, n, E.gen)
+  %6 = 2*7 + 6*7^2 + 3*7^3 + 7^4 + 5*7^5 + O(7^6)
+  ? sha = Lp/R
+  %7 = 1 + O(7^4)
+  
+  ? E = ellinit("91b1"); p = 7; n = 5; \\ split multiplicative
+  ? [r,Lp] = ellpadicbsd(E, p, n)
+  %9 = [2, 2*7 + 7^2 + 5*7^3 + O(7^4)]
+  ? ellpadicregulator(E, p, n, E.gen)
+  %10 = 2*7 + 7^2 + 5*7^3 + 6*7^4 + 2*7^5 + O(7^6)
+  ? [rC, LC] = ellanalyticrank(E);
+  ? [r, rC]
+  %12 = [2, 1]  \\ r = rC+1 because of split multiplicative reduction
+  
+  ? E = ellinit("53a1"); p = 5; n = 5; \\ supersingular
+  ? [r, Lp] = ellpadicbsd(E, p, n);
+  ? r
+  %15 = 1
+  ? Lp
+  %16 = [3*5 + 2*5^2 + 2*5^5 + O(5^6), \
+         5 + 3*5^2 + 4*5^3 + 2*5^4 + 5^5 + O(5^6)]
+  ? R = ellpadicregulator(E, p, n, E.gen)
+  %17 = [3*5 + 2*5^2 + 2*5^5 + O(5^6), 5 + 3*5^2 + 4*5^3 + 2*5^4 + O(5^5)]
+  \\ expect Lp = R*#Sha, hence (conjecturally) #Sha = 1
+  
+  ? E = ellinit("84a1"); p = 11; n = 6; D = -443;
+  ? [r,Lp] = ellpadicbsd(E, 11, 6, D) \\ Mordell-Weil rank 0, no regulator
+  %19 = [0, 3 + 2*11 + O(11^6)]
+  ? lift(Lp)  \\ expected cardinal for Sha is 5^2
+  %20 = 25
+  ? ellpadicbsd(E, 3, 12, D)  \\ at 3
+  %21 = [1, 1 + 2*3 + 2*3^2 + O(3^8)]
+  ? ellpadicbsd(E, 7, 8, D)   \\ and at 7
+  %22 = [0, 4 + 3*7 + O(7^8)]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellpadicbsd</b>(GEN E, GEN p, long n, GEN D = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadicfrobenius"></div>
+<div id="ellpadicfrobenius"></div>
+<h4>ellpadicfrobenius(E, p, n)</h4>
+<p>
+If p &gt; 2 is a prime and E is an elliptic curve on &Qopf; with good
+reduction at p, return the matrix of the Frobenius endomorphism &varphi; on
+the crystalline module D<sub>p</sub>(E) = &Qopf;<sub>p</sub>  &bigotimes;  H^1<sub>dR</sub>(E/&Qopf;) with respect to
+the basis of the given model (&omega;, &eta; = x &omega;), where
+&omega; = dx/(2 y+a<sub>1</sub> x+a<sub>3</sub>) is the invariant differential.
+The characteristic polynomial of &varphi; is x^2 - a<sub>p</sub> x + p.
+The matrix is computed to absolute p-adic precision p^n.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? E = ellinit([1,-1,1,0,0]);
+  ? F = ellpadicfrobenius(E,5,3);
+  ? lift(F)
+  %3 =
+  [120 29]
+  
+  [ 55  5]
+  ? charpoly(F)
+  %4 = x^2 + O(5^3)*x + (5 + O(5^3))
+  ? ellap(E, 5)
+  %5 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellpadicfrobenius</b>(GEN E, long p, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadicheight"></div>
+<div id="ellpadicheight"></div>
+<h4>ellpadicheight(E, p, n, P, {Q})</h4>
+<p>
+Cyclotomic p-adic height of the rational point P on the elliptic curve
+E (defined over &Qopf;), given to n p-adic digits.
+If the argument Q is present, computes the value of the bilinear
+form (h(P+Q)-h(P-Q)) / 4.</p>
+<p>
+Let D := H^1<sub>dR</sub>(E)  &bigotimes; _&Qopf; &Qopf;<sub>p</sub> be the &Qopf;<sub>p</sub> vector space
+spanned by &omega;
+(invariant differential dx/(2y+a_1x+a3) related to the given model) and
+&eta; = x &omega;. Then the cyclotomic p-adic height h<sub>E</sub> associates to
+P &in;  E(&Qopf;) an element f &omega; + g &eta; in D.
+This routine returns the vector [f, g] to n p-adic digits.
+If P &in;  E(&Qopf;) is in the kernel of reduction mod p and if its reduction
+at all finite places is non singular, then g = -(log<sub>E</sub> P)^2, where
+log<sub>E</sub> is the logarithm for the formal group of E at p.</p>
+<p>
+If furthermore the model is of the form Y^2 = X^3 + a X + b and P = (x,y),
+then
+   f = log<sub>p</sub>(<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:denominator"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">denominator</a></code>(x)) - 2 log<sub>p</sub>(&sigma;(P))
+where &sigma;(P) is given by <code><a href="Elliptic_curves.html#se:ellsigma"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellsigma</a></code>(E,P).</p>
+<p>
+Recall (<em>Advanced topics in the arithmetic of elliptic
+curves</em>, Theorem&nbsp;3.2) that the local height function over the complex numbers
+is of the form
+   &lambda;(z) = -log (|<code>E.disc</code>|) / 6 + Re(z &eta;(z)) - 2 log(
+  &sigma;(z)). 
+(N.B. our normalization for local and global heights is twice that of
+Silverman's).</p>
+<p>
+</p><pre class="code">   ? E = ellinit([1,-1,1,0,0]); P = [0,0];
+   ? ellpadicheight(E,5,3, P)
+   %2 = [3*5 + 5^2 + 2*5^3 + O(5^4), 5^2 + 4*5^4 + O(5^5)]
+   ? E = ellinit("11a1"); P = [5,5]; \\ torsion point
+   ? ellpadicheight(E,19,6, P)
+   %4 = [0, 0]
+   ? E = ellinit([0,0,1,-4,2]); P = [-2,1];
+   ? ellpadicheight(E,3,3, P)
+   %6 = [2*3^2 + 2*3^3 + 3^4 + O(3^5), 2*3^2 + 3^4 + O(3^5)]
+   ? ellpadicheight(E,3,5, P, elladd(E,P,P))
+   %7 = [3^2 + 2*3^3 + O(3^7), 3^2 + 3^3 + 2*3^4 + 3^5 + O(3^7)]
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> When E has good ordinary reduction at p or non split multiplicative
+reduction, the "canonical" p-adic height is given by</p>
+<p>
+</p><pre class="code">  s2 = ellpadics2(E,p,n);
+  ellpadicheight(E, p, n, P) * [1,-s2]~
+</pre><p>
+Since s<sub>2</sub> does not depend on P, it is preferable to
+compute it only once:</p>
+<p>
+</p><pre class="code">  ? E = ellinit("5077a1"); p = 5; n = 7;  \\ rank 3
+  ? s2 = ellpadics2(E,p,n);
+  ? M = ellpadicheightmatrix(E,p, n, E.gen) * [1,-s2]~;
+  ? matdet(M)   \\ p-adic regulator on the points in E.gen
+  %4 = 5 + 5^2 + 4*5^3 + 2*5^4 + 2*5^5 + 2*5^6 + O(5^7)
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> When E has split multiplicative reduction at p (Tate curve),
+the "canonical" p-adic height is given by</p>
+<p>
+</p><pre class="code">  Ep = ellinit(E[1..5], O(p^(n))); \\ E seen as a Tate curve over Qp
+  [u2,u,q] = Ep.tate;
+  ellpadicheight(E, p, n, P) * [1,-s2 + 1/log(q)/u2]]~
+</pre><p>
+where s<sub>2</sub> is as above. For example,</p>
+<p>
+</p><pre class="code">  ? E = ellinit("91b1"); P =[-1, 3]; p = 7; n = 5;
+  ? Ep = ellinit(E[1..5], O(p^(n)));
+  ? s2 = ellpadics2(E,p,n);
+  ? [u2,u,q] = Ep.tate;
+  ? H = ellpadicheight(E,p, n, P) * [1,-s2 + 1/log(q)/u2]~
+  %5 = 2*7 + 7^2 + 5*7^3 + 6*7^4 + 2*7^5 + O(7^6)
+</pre><p>
+These normalizations are chosen so that p-adic BSD conjectures
+are easy to state, see <code><a href="Elliptic_curves.html#se:ellpadicbsd"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicbsd</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>ellpadicheight0</b>(GEN E, GEN p, long n, GEN P, GEN Q = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadicheightmatrix"></div>
+<div id="ellpadicheightmatrix"></div>
+<h4>ellpadicheightmatrix(E, p, n, Q)</h4>
+<p>
+Q being a vector of points, this function returns the "Gram matrix"
+[F,G] of the cyclotomic p-adic height h<sub>E</sub> with respect to
+the basis (&omega;, &eta;) of D = H^1<sub>dR</sub>(E)  &bigotimes; _&Qopf; &Qopf;<sub>p</sub>
+given to n p-adic digits. In other words, if
+<code><a href="Elliptic_curves.html#se:ellpadicheight"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicheight</a></code>(E,p,n, Q[i],Q[j]) = [f,g], corresponding to
+f &omega; + g &eta; in D, then F[i,j] = f and G[i,j] = g.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,0,1,-7,6]); Q = [[-2,3],[-1,3]]; p = 5; n = 5;
+  ? [F,G] = ellpadicheightmatrix(E,p,n,Q);
+  ? lift(F)  \\ p-adic entries, integral approximation for readability
+  %3 =
+  [2364 3100]
+  
+  [3100 3119]
+  
+  ? G
+  %4 =
+  [25225 46975]
+  
+  [46975 61850]
+  
+  ? [F,G] * [1,-ellpadics2(E,p,n)]~
+  %5 =
+  [4 + 2*5 + 4*5^2 + 3*5^3 + O(5^5)           4*5^2 + 4*5^3 + 5^4 + O(5^5)]
+  
+  [    4*5^2 + 4*5^3 + 5^4 + O(5^5) 4 + 3*5 + 4*5^2 + 4*5^3 + 5^4 + O(5^5)]
+  
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellpadicheightmatrix</b>(GEN E, GEN p, long n, GEN Q)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadiclog"></div>
+<div id="ellpadiclog"></div>
+<h4>ellpadiclog(E, p, n, P)</h4>
+<p>
+Given E defined over K = &Qopf; or &Qopf;<sub>p</sub> and P = [x,y] on E(K) in the
+kernel of reduction mod p, let t(P) = -x/y be the formal group
+parameter; this function returns L(t), where L denotes the formal
+logarithm (mapping the formal group of E  to the additive formal group)
+attached to the canonical invariant differential:
+dL = dx/(2y + a_1x + a<sub>3</sub>).</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,0,1,-4,2]); P = [-2,1];
+  ? ellpadiclog(E,2,10,P)
+  %2 = 2 + 2^3 + 2^8 + 2^9 + 2^10 + O(2^11)
+  ? E = ellinit([17,42]);
+  ? p=3; Ep = ellinit(E,p); \\ E mod p
+  ? P=[114,1218]; ellorder(Ep,P) \\ the order of P on (E mod p) is 2
+  %5 = 2
+  ? Q = ellmul(E,P,2) \\ we need a point of the form 2*P
+  %6 = [200257/7056, 90637343/592704]
+  ? ellpadiclog(E,3,10,Q)
+  %7 = 3 + 2*3^2 + 3^3 + 3^4 + 3^5 + 3^6 + 2*3^8 + 3^9 + 2*3^10 + O(3^11)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellpadiclog</b>(GEN E, GEN p, long n, GEN P)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadicregulator"></div>
+<div id="ellpadicregulator"></div>
+<h4>ellpadicregulator(E, p, n, S)</h4>
+<p>
+Let E/&Qopf; be an elliptic curve. Return the determinant of the Gram
+matrix of the vector of points S = (S<sub>1</sub>,..., S<sub>r</sub>)  with respect to the
+"canonical" cyclotomic p-adic height on E, given to n (p-adic)
+digits.</p>
+<p>
+When E has ordinary reduction at p, this is the expected Gram
+deteterminant in &Qopf;<sub>p</sub>.</p>
+<p>
+In the case of supersingular reduction of E at p, the definition
+requires care: the regulator R is an element of
+D := H^1<sub>dR</sub>(E)  &bigotimes; _&Qopf; &Qopf;<sub>p</sub>, which is a two-dimensional
+&Qopf;<sub>p</sub>-vector space spanned by &omega; and &eta; = x &omega;
+(which are defined over &Qopf;) or equivalently but now over &Qopf;<sub>p</sub>
+by &omega; and F&omega; where F is the Frobenius endomorphism on D
+as defined in <code><a href="Elliptic_curves.html#se:ellpadicfrobenius"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicfrobenius</a></code>. On D we
+define the cyclotomic height h<sub>E</sub> = f &omega; + g &eta;
+(see <code><a href="Elliptic_curves.html#se:ellpadicheight"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicheight</a></code>) and a canonical alternating bilinear form
+[.,.]<sub>D</sub> such that [&omega;, &eta;]<sub>D</sub> = 1.</p>
+<p>
+For any &nu;  &in;  D, we can define a height h_&nu; := [ h<sub>E</sub>, &nu; ]<sub>D</sub>
+from E(&Qopf;) to &Qopf;<sub>p</sub> and <code>&lt;</code>.,.<code>&gt;</code>_&nu; the attached
+bilinear form. In particular, if h<sub>E</sub> = f &omega; + g&eta;, then
+h_&eta; = [ h<sub>E</sub>, &eta; ]<sub>D</sub> = f and h_&omega; = [ h<sub>E</sub>, &omega; ]<sub>D</sub> = - g
+hence h<sub>E</sub> = h_&eta; &omega; - h_&omega; &eta;.
+Then, R is the unique element of D such that
+[&omega;,&nu;]<sub>D</sub><sup>r-1</sup> [R, &nu;]<sub>D</sub> = det(<code>&lt;</code>S<sub>i</sub>, S<sub>j</sub> <code>&gt;</code><sub>&nu;</sub>)
+for all &nu;  &in;  D not in &Qopf;<sub>p</sub> &omega;. The <code><a href="Elliptic_curves.html#se:ellpadicregulator"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicregulator</a></code>
+function returns R in the basis (&omega;, F&omega;), which was chosen
+so that p-adic BSD conjectures are easy to state, see <code><a href="Elliptic_curves.html#se:ellpadicbsd"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpadicbsd</a></code>.</p>
+<p>
+Note that by definition
+[R, &eta;]<sub>D</sub> = det(<code>&lt;</code>S<sub>i</sub>, S<sub>j</sub> <code>&gt;</code><sub>&eta;</sub>)
+and
+[R, &omega;+&eta;]<sub>D</sub> = det(<code>&lt;</code>S<sub>i</sub>, S<sub>j</sub> <code>&gt;</code><sub>&omega;+&eta;</sub>).</p>
+<p>
+The library syntax is <code>GEN <b>ellpadicregulator</b>(GEN E, GEN p, long n, GEN S)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpadics2"></div>
+<div id="ellpadics2"></div>
+<h4>ellpadics2(E, p, n)</h4>
+<p>
+If p &gt; 2 is a prime and E/&Qopf; is an elliptic curve with ordinary good
+reduction at p, returns the slope of the unit eigenvector
+of <code>ellpadicfrobenius(E,p,n)</code>, i.e., the action of Frobenius &varphi; on
+the crystalline module D<sub>p</sub>(E) = &Qopf;<sub>p</sub>  &bigotimes;  H^1<sub>dR</sub>(E/&Qopf;) in the basis of
+the given model (&omega;, &eta; = x &omega;), where &omega; is the invariant
+differential dx/(2 y+a<sub>1</sub> x+a<sub>3</sub>). In other words, &eta; + s<sub>2</sub>&omega;
+is an eigenvector for the unit eigenvalue of &varphi;.</p>
+<p>
+</p><pre class="code">  ? e=ellinit([17,42]);
+  ? ellpadics2(e,13,4)
+  %2 = 10 + 2*13 + 6*13^3 + O(13^4)
+</pre><p></p>
+<p>
+This slope is the unique c  &in;  3<sup>-1</sup>&Zopf;<sub>p</sub> such that the odd solution
+  &sigma;(t) = t + O(t^2) of
+ - d((1)/(&sigma;) (d &sigma;)/(&omega;))
+ = (x(t) + c) &omega;
+is in t&Zopf;<sub>p</sub>[[t]].</p>
+<p>
+It is equal to b<sub>2</sub>/12 - E<sub>2</sub>/12 where E<sub>2</sub> is the value of the Katz
+p-adic Eisenstein series of weight 2 on (E,&omega;). This is
+used to construct a canonical p-adic height when E has good ordinary
+reduction at p as follows</p>
+<p>
+</p><pre class="code">  s2 = ellpadics2(E,p,n);
+  h(E,p,n, P, s2) = ellpadicheight(E, [p,[1,-s2]],n, P);
+</pre><p>
+Since s<sub>2</sub> does not depend on the point P, we compute it
+only once.</p>
+<p>
+The library syntax is <code>GEN <b>ellpadics2</b>(GEN E, GEN p, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellperiods"></div>
+<div id="ellperiods"></div>
+<h4>ellperiods(w, {<em>flag</em> = 0})</h4>
+<p>
+Let w describe a complex period lattice (w = [w<sub>1</sub>,w<sub>2</sub>]
+or an <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> structure). Returns normalized periods [W<sub>1</sub>,W<sub>2</sub>] generating
+the same lattice such that &tau; := W<sub>1</sub>/W<sub>2</sub> has positive imaginary part
+and lies in the standard fundamental domain for SL<sub>2</sub>(&Zopf;).</p>
+<p>
+If <em>flag</em> = 1, the function returns [[W<sub>1</sub>,W<sub>2</sub>], [&eta;<sub>1</sub>,&eta;<sub>2</sub>]], where
+&eta;<sub>1</sub> and &eta;<sub>2</sub> are the quasi-periods attached to
+[W<sub>1</sub>,W<sub>2</sub>], satisfying &eta;<sub>2</sub> W<sub>1</sub> - &eta;<sub>1</sub> W<sub>2</sub> = 2 i &pi;.</p>
+<p>
+The output of this function is meant to be used as the first argument
+given to ellwp, ellzeta, ellsigma or elleisnum. Quasi-periods are
+needed by ellzeta and ellsigma only.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? L = ellperiods([1,I],1);
+  ? [w1,w2] = L[1]; [e1,e2] = L[2];
+  ? e2*w1 - e1*w2
+  %3 = 6.2831853071795864769252867665590057684*I
+  ? ellzeta(L, 1/2 + 2*I)
+  %4 = 1.5707963... - 6.283185307...*I
+  ? ellzeta([1,I], 1/2 + 2*I) \\ same but less efficient
+  %4 = 1.5707963... - 6.283185307...*I
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellperiods</b>(GEN w, long flag, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpointtoz"></div>
+<div id="ellpointtoz"></div>
+<h4>ellpointtoz(E, P)</h4>
+<p>
+If E/&Copf;  ~  &Copf;/&Lambda; is a complex elliptic curve (&Lambda; = 
+<code>E.omega</code>), computes a complex number z, well-defined modulo the
+lattice &Lambda;, corresponding to the point P; i.e.&nbsp;such that
+P = [&wp;_&Lambda;(z),&wp;'_&Lambda;(z)] satisfies the equation
+y^2 = 4x^3 - g<sub>2</sub> x - g<sub>3</sub>,
+where g<sub>2</sub>, g<sub>3</sub> are the elliptic invariants.</p>
+<p>
+If E is defined over &Ropf; and P &in;  E(&Ropf;), we have more precisely, 0  &leq; 
+Re(t) &lt; w1 and 0 &leq; Im(t) &lt; Im(w2), where (w1,w2) are the real and
+complex periods of E.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,1]); P = [2,3];
+  ? z = ellpointtoz(E, P)
+  %2 = 3.5054552633136356529375476976257353387
+  ? ellwp(E, z)
+  %3 = 2.0000000000000000000000000000000000000
+  ? ellztopoint(E, z) - P
+  %4 = [2.548947057811923643 E-57, 7.646841173435770930 E-57]
+  ? ellpointtoz(E, [0]) \\ the point at infinity
+  %5 = 0
+</pre><p></p>
+<p></p>
+<p>
+If E is defined over a general number field, the function returns the
+values corresponding to the various complex embeddings of the curve
+and of the point, in the same order as <code>E.nf.roots</code>:</p>
+<p>
+</p><pre class="code">  ? E=ellinit([-22032-15552*x,0], nfinit(x^2-2));
+  ? P=[-72*x-108,0];
+  ? ellisoncurve(E,P)
+  %3 = 1
+  ? ellpointtoz(E,P)
+  %4 = [-0.52751724240790530394437835702346995884*I,
+        -0.090507650025885335533571758708283389896*I]
+  ? E.nf.roots
+  %5 = [-1.4142135623730950488016887242096980786, \\ x-&gt; -sqrt(2)
+         1.4142135623730950488016887242096980786] \\ x-&gt;  sqrt(2)
+</pre><p></p>
+<p></p>
+<p>
+If E/&Qopf;<sub>p</sub> has multiplicative reduction, then E/<span style="text-decoration:overline">&Qopf;<sub>p</sub></span> is analytically
+isomorphic to <span style="text-decoration:overline">&Qopf;</span><sub>p</sub><sup>*</sup>/q^&Zopf; (Tate curve) for some p-adic integer q.
+The behavior is then as follows:</p>
+<p>
+<b>*</b> If the reduction is split (E.<code>tate[2]</code> is a <code>t_PADIC</code>), we have
+an isomorphism &phi;: E(&Qopf;<sub>p</sub>)  ~  &Qopf;<sub>p</sub><sup>*</sup>/q^&Zopf; and the function returns
+&phi;(P) &in;  &Qopf;<sub>p</sub>.</p>
+<p>
+<b>*</b> If the reduction is <em>not</em> split (E.<code>tate[2]</code> is a
+<code>t_POLMOD</code>), we only have an isomorphism &phi;: E(K)  ~  K<sup>*</sup>/q^&Zopf; over
+the unramified quadratic extension K/&Qopf;<sub>p</sub>. In this case, the output
+&phi;(P) &in;  K is a <code>t_POLMOD</code>.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,-1,1,0,0], O(11^5)); P = [0,0];
+  ? [u2,u,q] = E.tate; type(u) \\ split multiplicative reduction
+  %2 = "t_PADIC"
+  ? ellmul(E, P, 5)  \\ P has order 5
+  %3 = [0]
+  ? z = ellpointtoz(E, [0,0])
+  %4 = 3 + 11^2 + 2*11^3 + 3*11^4 + 6*11^5 + 10*11^6 + 8*11^7 + O(11^8)
+  ? z^5
+  %5 = 1 + O(11^9)
+  ? E = ellinit(ellfromj(1/4), O(2^6)); x=1/2; y=ellordinate(E,x)[1];
+  ? z = ellpointtoz(E,[x,y]); \\ t_POLMOD of t_POL with t_PADIC coeffs
+  ? liftint(z) \\ lift all p-adics
+  %8 = Mod(8*u + 7, u^2 + 437)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>zell</b>(GEN E, GEN P, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellpow"></div>
+<div id="ellpow"></div>
+<h4>ellpow(E, z, n)</h4>
+<p>
+Deprecated alias for <code><a href="Elliptic_curves.html#se:ellmul"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellmul</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>ellmul</b>(GEN E, GEN z, GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellratpoints"></div>
+<div id="ellratpoints"></div>
+<h4>ellratpoints(E, h, {<em>flag</em> = 0})</h4>
+<p>
+E being an integral model of elliptic curve , return a vector
+containing the affine rational points on the curve of naive height less than
+h. If <em>flag</em> = 1, stop as soon as a point is found; return either an empty
+vector or a vector containing a single point.
+See <code><a href="Elliptic_curves.html#se:hyperellratpoints"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">hyperellratpoints</a></code> for how h can be specified.</p>
+<p>
+</p><pre class="code">  ? E=ellinit([-25,1]);
+  ? ellratpoints(E,10)
+  %2 = [[-5,1],[-5,-1],[-3,7],[-3,-7],[-1,5],[-1,-5],
+        [0,1],[0,-1],[5,1],[5,-1],[7,13],[7,-13]]
+  ? ellratpoints(E,10,1)
+  %3 = [[-5,1]]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellratpoints</b>(GEN E, GEN h, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellrootno"></div>
+<div id="ellrootno"></div>
+<h4>ellrootno(E, {p})</h4>
+<p>
+E being an <code>ell</code> structure over &Qopf; as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>,
+this function computes the local root number of its L-series at the place
+p (at the infinite place if p = 0). If p is omitted, return the global
+root number and in this case the curve can also be defined over a number field.</p>
+<p>
+Note that the global root number is the sign of the functional
+equation and conjecturally is the parity of the rank of the
+Mordell-Weil group. The equation for E needs not be minimal at p,
+but if the model is already minimal the function will run faster.</p>
+<p>
+The library syntax is <code>long <b>ellrootno</b>(GEN E, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellsea"></div>
+<div id="ellsea"></div>
+<h4>ellsea(E, {<em>tors</em> = 0})</h4>
+<p>
+Let E be an <em>ell</em> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, defined over
+a finite field &Fopf;<sub>q</sub>. This low-level function computes the order of the
+group E(&Fopf;<sub>q</sub>) using the SEA algorithm; compared to the high-level
+function <code><a href="Elliptic_curves.html#se:ellcard"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellcard</a></code>, which includes SEA among its choice of algorithms,
+the <code>tors</code> argument allows to speed up a search for curves having almost
+prime order and whose quadratic twist may also have almost prime order.
+When <code>tors</code> is set to a non-zero value, the function returns 0 as soon
+as it detects that the order has a small prime factor not dividing <code>tors</code>;
+SEA considers modular polynomials of increasing prime degree &ell; and we
+return 0 as soon as we hit an &ell; (coprime to <code>tors</code>) dividing
+#E(&Fopf;<sub>q</sub>):</p>
+<p>
+</p><pre class="code">  ? ellsea(ellinit([1,1], 2^56+3477), 1)
+  %1 = 72057594135613381
+  ? forprime(p=2^128,oo, q = ellcard(ellinit([1,1],p)); if(isprime(q),break))
+  time = 6,571 ms.
+  ? forprime(p=2^128,oo, q = ellsea(ellinit([1,1],p),1);if(isprime(q),break))
+  time = 522 ms.
+</pre><p></p>
+<p>
+In particular, set <code>tors</code> to 1 if you want a curve with prime order,
+to 2 if you want to allow a cofactor which is a power of two (e.g. for
+Edwards's curves), etc. The early exit on bad curves yields a massive
+speedup compared to running the cardinal algorithm to completion.</p>
+<p>
+When <code>tors</code> is negative, similar checks are performed for the quadratic
+twist of the curve.</p>
+<p>
+The following function returns a curve of prime order over &Fopf;<sub>p</sub>.</p>
+<p>
+</p><pre class="code">  cryptocurve(p) =
+  {
+    while(1,
+      my(E, N, j = Mod(random(p), p));
+      E = ellinit(ellfromj(j));
+      N = ellsea(E, 1); if (!N, continue);
+      if (isprime(N), return(E));
+      \\ try the quadratic twist for free
+      if (isprime(2*p+2 - N), return(ellinit(elltwist(E))));
+    );
+  }
+  ? p = randomprime([2^255, 2^256]);
+  ? E = cryptocurve(p); \\ insist on prime order
+  %2 = 47,447ms
+</pre><p>
+The same example without early abort (using <code>ellcard(E)</code>
+instead of <code>ellsea(E, 1)</code>) runs for about 5 minutes before finding a
+suitable curve.</p>
+<p>
+The availability of the <code>seadata</code> package will speed up the computation,
+and is strongly recommended. The generic function <code><a href="Elliptic_curves.html#se:ellcard"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellcard</a></code> should be
+preferred when you only want to compute the cardinal of a given curve without
+caring about it having almost prime order:</p>
+<p>
+<b>*</b> If the characteristic is too small (p &leq; 7) or the field
+cardinality is tiny (q &leq; 523) the generic algorithm
+<code><a href="Elliptic_curves.html#se:ellcard"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellcard</a></code> is used instead and the <code>tors</code> argument is ignored.
+(The reason for this is that SEA is not implemented for p &leq; 7 and
+that if q &leq; 523 it is likely to run into an infinite loop.)</p>
+<p>
+<b>*</b> If the field cardinality is smaller than about 2<sup>50</sup>, the
+generic algorithm will be faster.</p>
+<p>
+<b>*</b> Contrary to <code><a href="Elliptic_curves.html#se:ellcard"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellcard</a></code>, <code><a href="Elliptic_curves.html#se:ellsea"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellsea</a></code> does not store the computed
+cardinality in E.</p>
+<p>
+The library syntax is <code>GEN <b>ellsea</b>(GEN E, long tors)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellsearch"></div>
+<div id="ellsearch"></div>
+<h4>ellsearch(N)</h4>
+<p>
+This function finds all curves in the <code>elldata</code> database satisfying
+the constraint defined by the argument N:</p>
+<p>
+<b>*</b> if N is a character string, it selects a given curve, e.g.
+<code>"11a1"</code>, or curves in the given isogeny class, e.g. <code>"11a"</code>, or
+curves with given conductor, e.g. <code>"11"</code>;</p>
+<p>
+<b>*</b> if N is a vector of integers, it encodes the same constraints
+as the character string above, according to the <code><a href="Elliptic_curves.html#se:ellconvertname"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellconvertname</a></code>
+correspondance, e.g. <code>[11,0,1]</code> for <code>"11a1"</code>, <code>[11,0]</code> for
+<code>"11a"</code> and <code>[11]</code> for <code>"11"</code>;</p>
+<p>
+<b>*</b> if N is an integer, curves with conductor N are selected.</p>
+<p>
+If N codes a full curve name, for instance <code>"11a1"</code> or <code>[11,0,1]</code>,
+the output format is [N, [a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>], G] where
+[a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>] are the coefficients of the Weierstrass equation of
+the curve and G is a &Zopf;-basis of the free part of the
+Mordell-Weil group attached to the curve.</p>
+<p>
+</p><pre class="code">  ? ellsearch("11a3")
+  %1 = ["11a3", [0, -1, 1, 0, 0], []]
+  ? ellsearch([11,0,3])
+  %2 = ["11a3", [0, -1, 1, 0, 0], []]
+</pre><p></p>
+<p></p>
+<p>
+If N is not a full curve name, then the output is a vector of all matching
+curves in the above format:</p>
+<p>
+</p><pre class="code">  ? ellsearch("11a")
+  %1 = [["11a1", [0, -1, 1, -10, -20], []],
+        ["11a2", [0, -1, 1, -7820, -263580], []],
+        ["11a3", [0, -1, 1, 0, 0], []]]
+  ? ellsearch("11b")
+  %2 = []
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellsearch</b>(GEN N)</code>.
+Also available is <code>GEN <b>ellsearchcurve</b>(GEN N)</code> that only
+accepts complete curve names (as <code>t_STR</code>).</p>
+<p>
+
+<hr>
+<div id="se:ellsigma"></div>
+<div id="ellsigma"></div>
+<h4>ellsigma(L, {z = 'x}, {<em>flag</em> = 0})</h4>
+<p>
+Computes the value at z of the Weierstrass &sigma; function attached to
+the lattice L as given by <code><a href="Elliptic_curves.html#se:ellperiods"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellperiods</a></code>(,1): including quasi-periods
+is useful, otherwise there are recomputed from scratch for each new z.
+ &sigma;(z, L) = z &prod;<sub>&omega; &in;  L<sup>*</sup></sub> (1 -
+(z)/(&omega;))e<sup>(z)/(&omega;) + (z^2)/(2&omega;^2)</sup>.
+It is also possible to directly input L = [&omega;<sub>1</sub>,&omega;<sub>2</sub>],
+or an elliptic curve E as given by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> (L = <code>E.omega</code>).</p>
+<p>
+</p><pre class="code">  ? w = ellperiods([1,I], 1);
+  ? ellsigma(w, 1/2)
+  %2 = 0.47494937998792065033250463632798296855
+  ? E = ellinit([1,0]);
+  ? ellsigma(E) \\ at 'x, implicitly at default seriesprecision
+  %4 = x + 1/60*x^5 - 1/10080*x^9 - 23/259459200*x^13 + O(x^17)
+</pre><p></p>
+<p></p>
+<p>
+If <em>flag</em> = 1, computes an arbitrary determination of log(&sigma;(z)).</p>
+<p>
+The library syntax is <code>GEN <b>ellsigma</b>(GEN L, GEN z = NULL, long flag, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellsub"></div>
+<div id="ellsub"></div>
+<h4>ellsub(E, <em>z1</em>, <em>z2</em>)</h4>
+<p>
+Difference of the points z1 and z2 on the
+elliptic curve corresponding to E.</p>
+<p>
+The library syntax is <code>GEN <b>ellsub</b>(GEN E, GEN z1, GEN z2)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elltamagawa"></div>
+<div id="elltamagawa"></div>
+<h4>elltamagawa(E)</h4>
+<p>
+The object E being an elliptic curve over a number field, returns the global
+Tamagawa number of the curve (including the factor at infinite places).</p>
+<p>
+</p><pre class="code">  ? e = ellinit([1, -1, 1, -3002, 63929]); \\ curve "90c6" from elldata
+  ? elltamagawa(e)
+  %2 = 288
+  ? [elllocalred(e,p)[4] | p&lt;-[2,3,5]]
+  %3 = [6, 4, 6]
+  ? vecprod(%)  \\ since e.disc &gt; 0 the factor at infinity is 2
+  %4 = 144
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>elltamagawa</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elltaniyama"></div>
+<div id="elltaniyama"></div>
+<h4>elltaniyama(E, {d = <em>seriesprecision</em>})</h4>
+<p>
+Computes the modular parametrization of the elliptic curve E/&Qopf;,
+where E is an <code>ell</code> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>. This returns
+a two-component vector [u,v] of power series, given to d significant
+terms (<code>seriesprecision</code> by default), characterized by the following two
+properties. First the point (u,v) satisfies the equation of the elliptic
+curve. Second, let N be the conductor of E and &Phi;: X<sub>0</sub>(N) &rightarrow;  E
+be a modular parametrization; the pullback by &Phi; of the
+N&eacute;ron differential du/(2v+a_1u+a<sub>3</sub>) is equal to 2i&pi;
+f(z)dz, a holomorphic differential form. The variable used in the power
+series for u and v is x, which is implicitly understood to be equal to
+exp(2i&pi; z).</p>
+<p>
+The algorithm assumes that E is a <em>strong</em> Weil curve
+and that the Manin constant is equal to 1: in fact, f(x) = &sum;<sub>n &gt; 0</sub>
+<code><a href="Elliptic_curves.html#se:ellan"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellan</a></code>(E, n) x^n.</p>
+<p>
+The library syntax is <code>GEN <b>elltaniyama</b>(GEN E, long precdl)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elltatepairing"></div>
+<div id="elltatepairing"></div>
+<h4>elltatepairing(E, P, Q, m)</h4>
+<p>
+Computes the Tate pairing of the two points P and Q on the elliptic
+curve E. The point P must be of m-torsion.</p>
+<p>
+The library syntax is <code>GEN <b>elltatepairing</b>(GEN E, GEN P, GEN Q, GEN m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elltors"></div>
+<div id="elltors"></div>
+<h4>elltors(E)</h4>
+<p>
+If E is an elliptic curve defined over a number field or a finite field,
+outputs the torsion subgroup of E as a 3-component vector <code>[t,v1,v2]</code>,
+where <code>t</code> is the order of the torsion group, <code>v1</code> gives the structure
+of the torsion group as a product of cyclic groups (sorted by decreasing
+order), and <code>v2</code> gives generators for these cyclic groups. E must be an
+<code>ell</code> structure as output by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>.</p>
+<p>
+</p><pre class="code">  ?  E = ellinit([-1,0]);
+  ?  elltors(E)
+  %1 = [4, [2, 2], [[0, 0], [1, 0]]]
+</pre><p></p>
+<p>
+Here, the torsion subgroup is isomorphic to &Zopf;/2&Zopf;  x &Zopf;/2&Zopf;, with
+generators [0,0] and [1,0].</p>
+<p>
+The library syntax is <code>GEN <b>elltors</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:elltwist"></div>
+<div id="elltwist"></div>
+<h4>elltwist(E, {P})</h4>
+<p>
+Returns the coefficients [a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>] of the twist of the
+elliptic curve E by the quadratic extension of the coefficient ring
+defined by P (when P is a polynomial) or <code>quadpoly(P)</code> when P is an
+integer.  If E is defined over a finite field, then P can be omitted,
+in which case a random model of the unique non-trivial twist is returned.
+If E is defined over a number field, the model should be replaced by a
+minimal model (if one exists).</p>
+<p>
+Example: Twist by discriminant -3:</p>
+<p>
+</p><pre class="code">  ? elltwist(ellinit([0,a2,0,a4,a6]),-3)
+  %1 = [0,-3*a2,0,9*a4,-27*a6]
+</pre><p></p>
+<p>
+Twist by the Artin-Shreier extension given by x^2+x+T in
+characteristic 2:</p>
+<p>
+</p><pre class="code">  ? lift(elltwist(ellinit([a1,a2,a3,a4,a6]*Mod(1,2)),x^2+x+T))
+  %1 = [a1,a2+a1^2*T,a3,a4,a6+a3^2*T]
+</pre><p></p>
+<p>
+Twist of an elliptic curve defined over a finite field:</p>
+<p>
+</p><pre class="code">  ? E=ellinit([1,7]*Mod(1,19));lift(elltwist(E))
+  %1 = [0,0,0,11,12]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>elltwist</b>(GEN E, GEN P = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellweilcurve"></div>
+<div id="ellweilcurve"></div>
+<h4>ellweilcurve(E, {&<em>ms</em>})</h4>
+<p>
+If E' is an elliptic curve over &Qopf;, let L<sub>E'</sub> be the
+sub-&Zopf;-module of Hom<sub>&Gamma;<sub>0</sub>(N)</sub>(&Delta;,&Qopf;) attached to E'
+(It is given by x[3] if [M,x] = <code><a href="Modular_symbols.html#se:msfromell"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">msfromell</a></code>(E').)</p>
+<p>
+On the other hand, if N is the conductor of E and f is the modular form
+for &Gamma;<sub>0</sub>(N) attached to E, let L<sub>f</sub> be the lattice of the
+f-component of Hom<sub>&Gamma;<sub>0</sub>(N)</sub>(&Delta;,&Qopf;) given by the elements
+&phi; such that &phi;({0,&gamma;<sup>-1</sup> 0})  &in;  &Zopf; for all
+&gamma;  &in;  &Gamma;<sub>0</sub>(N) (see <code><a href="Modular_symbols.html#se:mslattice"
+    onClick="parent.itemFrame.location='cont_Modular_symbols.html'">mslattice</a></code>).</p>
+<p>
+Let E' run through the isomorphism classes of elliptic curves
+isogenous to E as given by <code><a href="Elliptic_curves.html#se:ellisomat"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellisomat</a></code> (and in the same order).
+This function returns a pair <code>[vE,vS]</code> where <code>vE</code> contains minimal
+models for the E' and <code>vS</code> contains the list of Smith invariants for
+the lattices L<sub>E'</sub> in L<sub>f</sub>. The function also accepts the output of
+<code><a href="Elliptic_curves.html#se:ellisomat"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellisomat</a></code>, i.e. the isogeny class. If the optional argument <code>ms</code>
+is present, it contains the output of <code>msfromell(vE, 0)</code>, i.e. the new
+modular symbol space M of level N and a vector of triples [x^+,x^-, L]
+attached to each curve E'.</p>
+<p>
+In particular, the strong Weil curve amongst the curves isogenous to E
+is the one whose Smith invariants are [c,c], where c is the Manin
+constant, conjecturally equal to 1.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("11a3");
+  ? [vE, vS] = ellweilcurve(E);
+  ? [n] = [ i | i&lt;-[1..#vS], vS[i]==[1,1] ]  \\ lattice with invariant [1,1]
+  %3 = [2]
+  ? ellidentify(vE[n]) \\ ... corresponds to strong Weil curve
+  %4 = [["11a1", [0, -1, 1, -10, -20], []], [1, 0, 0, 0]]
+  
+  ? [vE, vS] = ellweilcurve(E, &ms); \\ vE,vS are as above
+  ? [M, vx] = ms; msdim(M) \\ ... but ms contains more information
+  %6 = 3
+  ? #vx
+  %7 = 3
+  ? vx[1]
+  %8 = [[1/25, -1/10, -1/10]~, [0, 1/2, -1/2]~, [1/25,0; -3/5,1; 2/5,-1]]
+  ? forell(E, 11,11, print(msfromell(ellinit(E[1]), 1)[2]))
+  [1/5, -1/2, -1/2]~
+  [1, -5/2, -5/2]~
+  [1/25, -1/10, -1/10]~
+</pre><p>
+The last example prints the modular symbols x^+ in M^+
+attached to the curves <code>11a1</code>, <code>11a2</code> and <code>11a3</code>.</p>
+<p>
+The library syntax is <code>GEN <b>ellweilcurve</b>(GEN E, GEN *ms = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellweilpairing"></div>
+<div id="ellweilpairing"></div>
+<h4>ellweilpairing(E, P, Q, m)</h4>
+<p>
+Computes the Weil pairing of the two points of m-torsion P and Q
+on the elliptic curve E.</p>
+<p>
+The library syntax is <code>GEN <b>ellweilpairing</b>(GEN E, GEN P, GEN Q, GEN m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellwp"></div>
+<div id="ellwp"></div>
+<h4>ellwp(w, {z = 'x}, {<em>flag</em> = 0})</h4>
+<p>
+Computes the value at z of the Weierstrass &wp; function attached to
+the lattice w as given by <code><a href="Elliptic_curves.html#se:ellperiods"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellperiods</a></code>. It is also possible to
+directly input w = [&omega;<sub>1</sub>,&omega;<sub>2</sub>], or an elliptic curve E as given
+by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> (w = <code>E.omega</code>).</p>
+<p>
+</p><pre class="code">  ? w = ellperiods([1,I]);
+  ? ellwp(w, 1/2)
+  %2 = 6.8751858180203728274900957798105571978
+  ? E = ellinit([1,1]);
+  ? ellwp(E, 1/2)
+  %4 = 3.9413112427016474646048282462709151389
+</pre><p>
+One can also compute the series expansion around z = 0:</p>
+<p>
+</p><pre class="code">  ? E = ellinit([1,0]);
+  ? ellwp(E)              \\ 'x implicitly at default seriesprecision
+  %5 = x^-2 - 1/5*x^2 + 1/75*x^6 - 2/4875*x^10 + O(x^14)
+  ? ellwp(E, x + O(x^12)) \\ explicit precision
+  %6 = x^-2 - 1/5*x^2 + 1/75*x^6 + O(x^9)
+</pre><p></p>
+<p></p>
+<p>
+Optional <em>flag</em> means 0 (default): compute only &wp;(z), 1: compute
+[&wp;(z),&wp;'(z)].</p>
+<p>
+For instance, the Dickson elliptic functions <em>sm</em> and <em>sn</em> can be
+implemented as follows</p>
+<p>
+</p><pre class="code">   smcm(z) =
+   { my(a, b, E = ellinit([0,-1/(4*27)])); \\ ell. invariants (g2,g3)=(0,1/27)
+     [a,b] = ellwp(E, z, 1);
+     [6*a / (1-3*b), (3*b+1)/(3*b-1)];
+   }
+   ? [s,c] = smcm(0.5);
+   ? s
+   %2 = 0.4898258757782682170733218609
+   ? c
+   %3 = 0.9591820206453842491187464098
+   ? s^3+c^3
+   %4 = 1.000000000000000000000000000
+   ? smcm('x + O('x^11))
+   %5 = [x - 1/6*x^4 + 2/63*x^7 - 13/2268*x^10 + O(x^11),
+         1 - 1/3*x^3 + 1/18*x^6 - 23/2268*x^9 + O(x^10)]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellwp0</b>(GEN w, GEN z = NULL, long flag, long prec)</code>.
+For <em>flag</em> = 0, we also have
+<code>GEN <b>ellwp</b>(GEN w, GEN z, long prec)</code>, and
+<code>GEN <b>ellwpseries</b>(GEN E, long v, long precdl)</code> for the power series in
+variable v.</p>
+<p>
+
+<hr>
+<div id="se:ellxn"></div>
+<div id="ellxn"></div>
+<h4>ellxn(E, n, {v = 'x})</h4>
+<p>
+In standard notation, for any affine point P = (v,w) on the
+curve E, we have
+[n]P = (&phi;<sub>n</sub>(P)&psi;<sub>n</sub>(P) : &omega;<sub>n</sub>(P) : &psi;<sub>n</sub>(P)^3)
+for some polynomials &phi;<sub>n</sub>,&omega;<sub>n</sub>,&psi;<sub>n</sub> in
+&Zopf;[a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,a<sub>4</sub>,a<sub>6</sub>][v,w]. This function returns
+[&phi;<sub>n</sub>(P),&psi;<sub>n</sub>(P)^2], which give the numerator and denominator of
+the abscissa of [n]P and depend only on v.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([17,42]);
+  ? T = ellxn(E, 2, 'X)
+  %2 = [X^4 - 34*X^2 - 336*X + 289, 4*X^3 + 68*X + 168]
+  ? P = [114,1218]; ellmul(E,P,2)
+  %3 = [200257/7056, 90637343/592704]
+  ? [x,y] = subst(T,'X,P[1]) \\ substitute P[1] in ellxn(E,2)
+  %4 = [168416137, 5934096] \\ numerator and denominator of 2*P
+  ? x/y                     \\ check we find ellmul(e,P,2)[1]
+  %5 = 200257/7056
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellxn</b>(GEN E, long n, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:ellzeta"></div>
+<div id="ellzeta"></div>
+<h4>ellzeta(w, {z = 'x})</h4>
+<p>
+Computes the value at z of the Weierstrass &zeta; function attached to
+the lattice w as given by <code><a href="Elliptic_curves.html#se:ellperiods"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellperiods</a></code>(,1): including quasi-periods
+is useful, otherwise there are recomputed from scratch for each new z.
+ &zeta;(z, L) = (1)/(z) + z^2&sum;<sub>&omega; &in;  L<sup>*</sup></sub>
+(1)/(&omega;^2(z-&omega;)).
+It is also possible to directly input w = [&omega;<sub>1</sub>,&omega;<sub>2</sub>],
+or an elliptic curve E as given by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> (w = <code>E.omega</code>).
+The quasi-periods of &zeta;, such that
+&zeta;(z + a&omega;<sub>1</sub> + b&omega;<sub>2</sub>) = &zeta;(z) + a&eta;<sub>1</sub> + b&eta;<sub>2</sub> 
+for integers a and b are obtained as &eta;<sub>i</sub> = 2&zeta;(&omega;<sub>i</sub>/2).
+Or using directly <code><a href="Elliptic_curves.html#se:elleta"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">elleta</a></code>.</p>
+<p>
+</p><pre class="code">  ? w = ellperiods([1,I],1);
+  ? ellzeta(w, 1/2)
+  %2 = 1.5707963267948966192313216916397514421
+  ? E = ellinit([1,0]);
+  ? ellzeta(E, E.omega[1]/2)
+  %4 = 0.84721308479397908660649912348219163647
+</pre><p>
+One can also compute the series expansion around z = 0
+(the quasi-periods are useless in this case):</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,1]);
+  ? ellzeta(E) \\ at 'x, implicitly at default seriesprecision
+  %4 = x^-1 + 1/35*x^5 - 1/7007*x^11 + O(x^15)
+  ? ellzeta(E, x + O(x^20)) \\ explicit precision
+  %5 = x^-1 + 1/35*x^5 - 1/7007*x^11 + 1/1440257*x^17 + O(x^18)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ellzeta</b>(GEN w, GEN z = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ellztopoint"></div>
+<div id="ellztopoint"></div>
+<h4>ellztopoint(E, z)</h4>
+<p>
+E being an <em>ell</em> as output by
+<code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code>, computes the coordinates [x,y] on the curve E
+corresponding to the complex or p-adic parameter z. Hence this is the
+inverse function of <code><a href="Elliptic_curves.html#se:ellpointtoz"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellpointtoz</a></code>.</p>
+<p>
+<b>*</b> If E is defined over a p-adic field and has multiplicative
+reduction, then z is understood as an element on the
+Tate curve <span style="text-decoration:overline">Q</span><sub>p</sub><sup>*</sup> / q^&Zopf;.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,-1,1,0,0], O(11^5));
+  ? [u2,u,q] = E.tate; type(u)
+  %2 = "t_PADIC" \\ split multiplicative reduction
+  ? z = ellpointtoz(E, [0,0])
+  %3 = 3 + 11^2 + 2*11^3 + 3*11^4 + 6*11^5 + 10*11^6 + 8*11^7 + O(11^8)
+  ? ellztopoint(E,z)
+  %4 = [O(11^9), O(11^9)]
+  
+  ? E = ellinit(ellfromj(1/4), O(2^6)); x=1/2; y=ellordinate(E,x)[1];
+  ? z = ellpointtoz(E,[x,y]); \\ non-split: t_POLMOD with t_PADIC coefficients
+  ? P = ellztopoint(E, z);
+  ? P[1] \\ y coordinate is analogous, more complicated
+  %8 = Mod(O(2^4)*x + (2^-1 + O(2^5)), x^2 + (1 + 2^2 + 2^4 + 2^5 + O(2^7)))
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> If E is defined over the complex numbers (for instance over &Qopf;),
+z is understood as a complex number in &Copf;/&Lambda;<sub>E</sub>. If the
+short Weierstrass equation is y^2 = 4x^3 - g_2x - g<sub>3</sub>, then [x,y]
+represents the Weierstrass &wp;-function
+and its derivative. For a general Weierstrass equation we have
+x = &wp;(z) - b<sub>2</sub>/12,  y = &wp;'(z)/2 - (a<sub>1</sub> x + a<sub>3</sub>)/2.
+If z is in the lattice defining E over &Copf;, the result is the point at
+infinity [0].</p>
+<p>
+</p><pre class="code">  ? E = ellinit([0,1]); P = [2,3];
+  ? z = ellpointtoz(E, P)
+  %2 = 3.5054552633136356529375476976257353387
+  ? ellwp(E, z)
+  %3 = 2.0000000000000000000000000000000000000
+  ? ellztopoint(E, z) - P
+  %4 = [2.548947057811923643 E-57, 7.646841173435770930 E-57]
+  ? ellztopoint(E, 0)
+  %5 = [0] \\ point at infinity
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>pointell</b>(GEN E, GEN z, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:genus2red"></div>
+<div id="genus2red"></div>
+<h4>genus2red(<em>PQ</em>, {p})</h4>
+<p>
+Let PQ be a polynomial P, resp. a vector [P,Q] of polynomials, with
+rational coefficients.
+Determines the reduction at p &gt; 2 of the (proper, smooth) genus&nbsp;2
+curve C/&Qopf;, defined by the hyperelliptic equation y^2 = P(x), resp.
+y^2 + Q(x)*y = P(x).
+(The special fiber X<sub>p</sub> of the minimal regular model X of C over &Zopf;.)</p>
+<p>
+If p is omitted, determines the reduction type for all (odd) prime
+divisors of the discriminant.</p>
+<p>
+This function was rewritten from an implementation of Liu's
+algorithm by Cohen and Liu (1994), <code>genus2reduction-0.3</code>, see
+<code>http://www.math.u-bordeaux.fr/~liu/G2R/</code>.</p>
+<p>
+<b>CAVEAT.</b> The function interface may change: for the
+time being, it returns [N,<em>FaN</em>, T, V]
+where N is either the local conductor at p or the
+global conductor, <em>FaN</em> is its factorization, y^2 = T defines a
+minimal model over &Zopf;[1/2] and V describes the reduction type at the
+various considered&nbsp;p. Unfortunately, the program is not complete for
+p = 2, and we may return the odd part of the conductor only: this is the
+case if the factorization includes the (impossible) term 2<sup>-1</sup>; if the
+factorization contains another power of 2, then this is the exact local
+conductor at 2 and N is the global conductor.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? default(debuglevel, 1);
+  ? genus2red(x^6 + 3*x^3 + 63, 3)
+  (potential) stable reduction: [1, []]
+  reduction at p: [III{9}] page 184, [3, 3], f = 10
+  %1 = [59049, Mat([3, 10]), x^6 + 3*x^3 + 63, [3, [1, []],
+         ["[III{9}] page 184", [3, 3]]]]
+  ? [N, FaN, T, V] = genus2red(x^3-x^2-1, x^2-x);  \\ X<sub>1</sub>(13), global reduction
+  p = 13
+  (potential) stable reduction: [5, [Mod(0, 13), Mod(0, 13)]]
+  reduction at p: [I{0}-II-0] page 159, [], f = 2
+  ? N
+  %3 = 169
+  ? FaN
+  %4 = Mat([13, 2])   \\ in particular, good reduction at 2 !
+  ? T
+  %5 = x^6 + 58*x^5 + 1401*x^4 + 18038*x^3 + 130546*x^2 + 503516*x + 808561
+  ? V
+  %6 = [[13, [5, [Mod(0, 13), Mod(0, 13)]], ["[I{0}-II-0] page 159", []]]]
+</pre><p></p>
+<p>
+We now first describe the format of the vector V = V<sub>p</sub> in the case where
+p was specified (local reduction at&nbsp;p): it is a triple [p, <em>stable</em>,
+<em>red</em>]. The component <em>stable</em> = [<em>type</em>, <em>vecj</em>] contains
+information about the stable reduction after a field extension;
+depending on <em>type</em>s, the stable reduction is</p>
+<p>
+<b>*</b> 1: smooth (i.e. the curve has potentially good reduction). The
+      Jacobian J(C) has potentially good reduction.</p>
+<p>
+<b>*</b> 2: an elliptic curve E with an ordinary double point; <em>vecj</em>
+contains j mod p, the modular invariant of E. The (potential)
+semi-abelian reduction of J(C) is the extension of an elliptic curve (with
+modular invariant j mod p) by a torus.</p>
+<p>
+<b>*</b> 3: a projective line with two ordinary double points. The Jacobian
+J(C) has potentially multiplicative reduction.</p>
+<p>
+<b>*</b> 4: the union of two projective lines crossing transversally at three
+points. The Jacobian J(C) has potentially multiplicative reduction.</p>
+<p>
+<b>*</b> 5: the union of two elliptic curves E<sub>1</sub> and E<sub>2</sub> intersecting
+transversally at one point; <em>vecj</em> contains their modular invariants
+j<sub>1</sub> and j<sub>2</sub>, which may live in a quadratic extension of &Fopf;<sub>p</sub> and need
+not be distinct. The Jacobian J(C) has potentially good reduction,
+isomorphic to the product of the reductions of E<sub>1</sub> and E<sub>2</sub>.</p>
+<p>
+<b>*</b> 6: the union of an elliptic curve E and a projective line which has
+an ordinary double point, and these two components intersect transversally
+at one point; <em>vecj</em> contains j mod p, the modular invariant of E.
+The (potential) semi-abelian reduction of J(C) is the extension of an
+elliptic curve (with modular invariant j mod p) by a torus.</p>
+<p>
+<b>*</b> 7: as in type 6, but the two components are both singular. The
+Jacobian J(C) has potentially multiplicative reduction.</p>
+<p>
+The component <em>red</em> = [<em>NUtype</em>, <em>neron</em>] contains two data
+concerning the reduction at p without any ramified field extension.</p>
+<p>
+The <em>NUtype</em> is a <code>t_STR</code> describing the reduction at p of C,
+following Namikawa-Ueno, <em>The complete classification of fibers in
+pencils of curves of genus two</em>, Manuscripta Math., vol. 9, (1973), pages
+143-186. The reduction symbol is followed by the corresponding page number
+or page range in this article.</p>
+<p>
+The second datum <em>neron</em> is the group of connected components (over an
+algebraic closure of &Fopf;<sub>p</sub>) of the N&eacute;ron model of J(C), given as a
+finite abelian group (vector of elementary divisors).</p>
+<p>
+If p = 2, the <em>red</em> component may be omitted altogether (and
+replaced by <code>[]</code>, in the case where the program could not compute it.
+When p was not specified, V is the vector of all V<sub>p</sub>, for all
+considered p.</p>
+<p>
+<b>Notes about Namikawa-Ueno types.</b></p>
+<p>
+<b>*</b> A lower index is denoted between braces: for instance,
+ <code>[I{2}-II-5]</code> means <code>[I<sub>2</sub>-II-5]</code>.</p>
+<p>
+<b>*</b> If K and K' are Kodaira symbols for singular fibers of elliptic
+curves, then <code>[K-K'-m]</code> and <code>[K'-K-m]</code> are the same.</p>
+<p>
+We define a total ordering on Kodaira symbol by fixing <code><a href="Transcendental_functions.html#se:I"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">I</a></code> &lt; <code>I*</code> &lt; 
+<code>II</code> &lt; <code>II*</code>,.... If the reduction type is the same, we order by
+the number of components, e.g. <code><a href="Transcendental_functions.html#se:I"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">I</a></code><sub>2</sub> &lt; <code><a href="Transcendental_functions.html#se:I"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">I</a></code><sub>4</sub>, etc.
+Then we normalize our output so that K &leq; K'.</p>
+<p>
+<b>*</b> <code>[K-K'--1]</code>  is <code>[K-K'-&alpha;]</code> in the notation of
+Namikawa-Ueno.</p>
+<p>
+<b>*</b> The figure <code>[2I<sub>0</sub>-m]</code> in Namikawa-Ueno, page 159, must be denoted
+by <code>[2I<sub>0</sub>-(m+1)]</code>.</p>
+<p>
+The library syntax is <code>GEN <b>genus2red</b>(GEN PQ, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:hyperellcharpoly"></div>
+<div id="hyperellcharpoly"></div>
+<h4>hyperellcharpoly(X)</h4>
+<p>
+X being a non-singular hyperelliptic curve defined over a finite field,
+return the characteristic polynomial of the Frobenius automorphism.
+X can be given either by a squarefree polynomial P such that
+X: y^2 = P(x) or by a vector [P,Q] such that
+X: y^2 + Q(x) y = P(x) and Q^2+4 P is squarefree.</p>
+<p>
+The library syntax is <code>GEN <b>hyperellcharpoly</b>(GEN X)</code>.</p>
+<p>
+
+<hr>
+<div id="se:hyperellpadicfrobenius"></div>
+<div id="hyperellpadicfrobenius"></div>
+<h4>hyperellpadicfrobenius(Q, p, n)</h4>
+<p>
+Let X be the curve defined by y^2 = Q(x), where  Q is a polynomial of
+degree d over &Qopf; and p &geq; d a prime such that X has good reduction
+at p return the matrix of the Frobenius endomorphism &varphi; on the
+crystalline module D<sub>p</sub>(X) = &Qopf;<sub>p</sub>  &bigotimes;  H^1<sub>dR</sub>(X/&Qopf;) with respect to the
+basis of the given model (&omega;, x &omega;,...,x<sup>g-1</sup> &omega;), where
+&omega; = dx/(2 y) is the invariant differential, where g is the genus of
+X (either d = 2 g+1 or d = 2 g+2).  The characteristic polynomial of
+&varphi; is the numerator of the zeta-function of the reduction of the curve
+X modulo p. The matrix is computed to absolute p-adic precision p^n.</p>
+<p>
+The library syntax is <code>GEN <b>hyperellpadicfrobenius</b>(GEN Q, ulong p, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:hyperellratpoints"></div>
+<div id="hyperellratpoints"></div>
+<h4>hyperellratpoints(X, h, {<em>flag</em> = 0})</h4>
+<p>
+X being a non-singular hyperelliptic curve given by an integral model,
+return a vector containing the affine rational points on the curve of naive height less than h.
+If <em>flag</em> = 1, stop as soon as a point is found; return either an empty vector or a vector containing a single point.</p>
+<p>
+X is given either by a squarefree polynomial P such that X: y^2 = P(x)
+or by a vector [P,Q] such that X: y^2+Q(x) y = P(x) and Q^2+4 P is
+squarefree.</p>
+<p>
+The parameter h can be</p>
+<p>
+<b>*</b> an integer H: find the points [n/d,y] whose abscissas x = n/d have
+naive height ( = max(|n|, d)) less than H;</p>
+<p>
+<b>*</b> a vector [N,D] with D &leq; N: find the points [n/d,y] with
+|n| &leq; N, d &leq; D.</p>
+<p>
+<b>*</b> a vector [N,[D<sub>1</sub>,D<sub>2</sub>]] with D<sub>1</sub> &lt; D<sub>2</sub> &leq; N  find the points
+[n/d,y] with |n| &leq; N and D<sub>1</sub> &leq; d &leq; D<sub>2</sub>.</p>
+<p>
+The library syntax is <code>GEN <b>hyperellratpoints</b>(GEN X, GEN h, long flag)</code>.</p>
+<p>
+
+<hr>
+</body>

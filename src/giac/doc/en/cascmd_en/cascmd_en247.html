@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>An example: Finding the surface of revolution with minimal area</title>
+</head>
+<body >
+<a href="cascmd_en246.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en248.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec580" class="subsection">5.22.6  An example: Finding the surface of revolution with minimal area</h3>
+<p>In this section, you will find the function 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span><sub>0</sub>∈ <span style="font-style:italic">D</span>={<span style="font-style:italic">y</span>∈ <span style="font-style:italic">C</span><sup>1</sup>[0,1]:<span style="font-style:italic">y</span>(0)=1,<span style="font-style:italic">y</span>(1)=2/3} 
+</td></tr>
+</table><p> 
+for which the area of the corresponding surface of revolution is
+minimal. The result is not necessarily intuitive.</p><p>The area of the surface of revolution is measured by the functional
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">F</span>(<span style="font-style:italic">y</span>)=2 π </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">1</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">0</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>) </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1+<span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>)<sup>2</sup></td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">d</span><span style="font-style:italic">x</span>.  
+</td></tr>
+</table><p>
+First, set <span style="font-style:italic">f</span>(<span style="font-style:italic">y</span>,<span style="font-style:italic">y</span>′,<span style="font-style:italic">x</span>)=<span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>) √<span style="text-decoration:overline">1+</span><span style="text-decoration:overline"><span style="font-style:italic">y</span></span><span style="text-decoration:overline">′(</span><span style="text-decoration:overline"><span style="font-style:italic">x</span></span><span style="text-decoration:overline">)</span><sup><span style="text-decoration:overline">2</span></sup> and compute the
+associated Euler-Lagrange equation:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">eq := euler_lagrange(y(x)*sqrt(1+diff(y(x),x)^2))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:8em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">d</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">d</span><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">=<span style="font-style:italic">K</span><sub>0</sub>,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">d</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">d</span><span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">d</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">d</span><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+You can obtain the stationary function by finding the general solution
+of the first equation.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sol:=collect(simplify(dsolve(eq[0],x,y)))</span>
+</div><p>
+(See Section <a href="cascmd_en304.html#ssec%3Acollect">5.27.16</a>).
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−<span style="font-style:italic">K</span><sub>0</sub>,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">K</span><sub>0</sub> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−<span style="font-style:italic">c</span><sub>1</sub></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">K</span><sub>0</sub></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 <span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−<span style="font-style:italic">c</span><sub>1</sub></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">K</span><sub>0</sub></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+Obviously the constant solution −<span style="font-style:italic">K</span><sub>0</sub> is not in <span style="font-style:italic">D</span>, so set <span style="font-style:italic">y</span><sub>0</sub>
+to be the second element of the above list. That function, which can
+be written as 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span><sub>0</sub>(<span style="font-style:italic">x</span>)=−<span style="font-style:italic">K</span><sub>0</sub> cosh</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−<span style="font-style:italic">c</span><sub>1</sub></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">K</span><sub>0</sub></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">, 
+</td></tr>
+</table><p>
+is a <em>catenary</em>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">y0:=sol[1]:; p:=[K_0,c_1]:;</span>
+</div><p>
+To find the values of <span style="font-style:italic">K</span><sub>0</sub> and <span style="font-style:italic">c</span><sub>1</sub> from the boundary conditions,
+first plot the curves <span style="font-style:italic">y</span><sub>0</sub>(0)=1 and <span style="font-style:italic">y</span><sub>0</sub>(1)=2/3 for
+<span style="font-style:italic">K</span><sub>0</sub>∈[−1,1] and <span style="font-style:italic">c</span><sub>1</sub>∈[−1,2] to see where they intersect each
+other.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">eq1:=subs(y0,x=0)=1:; eq2:=subs(y0,x=1)=2/3:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">implicitplot([eq1,eq2],K_0=-1..1,c_1=-1..2)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en010.png">
+</div><p>
+Observe that there are exactly two catenaries satisfying the
+Euler-Lagrange necessary conditions and the given boundary conditions:
+the first with <span style="font-style:italic">K</span><sub>0</sub>≈ −0.5 and <span style="font-style:italic">c</span><sub>1</sub>≈ 0.6 and the second
+with <span style="font-style:italic">K</span><sub>0</sub>≈ −0.3 and <span style="font-style:italic">c</span><sub>1</sub>≈ 0.5. You can obtain the values of
+these constants more precisely by using <span style="font-family:monospace">fsolve</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">p1:=fsolve([eq1,eq2],p,[-0.5,0.6]);</span>
+<span style="font-family:monospace">p2:=fsolve([eq1,eq2],p,[-0.3,0.5])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[−0.56237423894,0.662588703113], [−0.30613431407,0.567138261119]
+</td></tr>
+</table><p>
+You can check, for each catenary, whether the strong Legendre
+condition </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span><sub><span style="font-style:italic">y</span>′ <span style="font-style:italic">y</span>′</sub>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><sub><span style="font-style:italic">k</span></sub>,<span style="font-style:italic">y</span><sub><span style="font-style:italic">k</span></sub>′)&gt;0</td></tr>
+</table><p> holds for <span style="font-style:italic">k</span>=1,2.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">y1:=subs(y0,p,p1):; y2:=subs(y0,p,p2):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">D2f:=diff(f,diff(y(x),x),2):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">solve([eval(subs(D2f,y=y1,y(x)=y1))&lt;=0,x&gt;=0,x&lt;=1],x);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">solve([eval(subs(D2f,y=y2,y(x)=y2))&lt;=0,x&gt;=0,x&lt;=1],x)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[],[]
+</td></tr>
+</table><p>
+You can conclude that the strong Legendre condition is satisfied in
+both cases, so you can proceed by attempting to find the points conjugate
+to 0 for each catenary. The function <span style="font-style:italic">y</span><sub>0</sub> depends on two parameters,
+so you can use <span style="font-family:monospace">conjugate_equation</span> to find these points
+easily.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">fsolve(conjugate_equation(y0,p,p1,x,0)=0,x=0..1)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">fsolve(conjugate_equation(y0,p,p2,x,0)=0,x=0..1)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[0.0], [0.0,0.799514772606]
+</td></tr>
+</table><p>
+You can conclude that there are no points conjugate to 0 in (0,1]
+for the catenary <span style="font-style:italic">y</span><sub>1</sub>, so it minimizes the functional <span style="font-style:italic">F</span>. However,
+for the other catenary there is a conjugate point in the relevant
+interval, therefore <span style="font-style:italic">y</span><sub>2</sub> is not a minimizer.</p><p>You can verify the above conclusions by computing the surface area for
+catenaries <span style="font-style:italic">y</span><sub>1</sub> and <span style="font-style:italic">y</span><sub>2</sub> and comparing them.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">int(y1*sqrt(1+diff(y1,x)^2),x=0..1);
+int(y2*sqrt(1+diff(y2,x)^2),x=0..1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.81396915825,0.826468466845
+</td></tr>
+</table><p>
+You can see that the surface formed by rotating the curve <span style="font-style:italic">y</span><sub>1</sub> is
+indeed smaller than the area of the surface formed by rotating the
+curve <span style="font-style:italic">y</span><sub>2</sub>. Finally, you can visualize both surfaces for convenience.<br>
+<span style="font-style:italic">Input:</span><br>
+(see Section <a href="index.html#sec%3Aplot3d">7.6</a> for information on <span style="font-family:monospace">plot3d</span>)
+</p><div class="center">
+<span style="font-family:monospace">plot3d([y1*cos(t),y1*sin(t),x],x=0..1,t=0..2*pi, display=yellow+filled)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en011.png">
+</div><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">plot3d([y2*cos(t),y2*sin(t),x],x=0..1,t=0..2*pi, display=yellow+filled)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en012.png">
+</div>
+<hr>
+<a href="cascmd_en246.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en248.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

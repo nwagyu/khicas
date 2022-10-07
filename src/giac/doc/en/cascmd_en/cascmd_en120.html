@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Jacobi symbol: jacobi_symbol
+</title>
+</head>
+<body >
+<a href="cascmd_en119.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en121.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec242" class="subsection">5.5.26  Jacobi symbol: <span style="font-family:monospace">jacobi_symbol</span>
+<a id="hevea_default211"></a></h3>
+<p>The Jacobi symbol is a generalization of the Legendre symbol
+(<span style="font-style:italic">a</span>/<span style="font-style:italic">n</span>) for when <span style="font-style:italic">n</span> isn’t prime. Let </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">n</span>=<span style="font-style:italic">p</span><sub>1</sub><sup>α <sub>1</sub></sup>… <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub><sup>α <sub><span style="font-style:italic">k</span></sub></sup> </td></tr>
+</table><p> be the prime factorization
+of <span style="font-style:italic">n</span>. The Jacobi symbol of <span style="font-style:italic">a</span> is defined by: </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">=
+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">p</span><sub>1</sub></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">α<sub>1</sub></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">…</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">α
+<sub><span style="font-style:italic">k</span></sub></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table><p> Where the left hand side is the Jacobi symbol and the right
+hand side contains Legendre symbols. The <span style="font-family:monospace">jacobi_symbol</span>
+command computes the Jacobi symbol.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">jacobi_symbol</span> takes two arguments:<br>
+ <span style="font-style:italic">a</span> and <span style="font-style:italic">n</span>, integers.
+</li><li class="li-itemize"><span style="font-family:monospace">jacobi_symbol(</span><span style="font-style:italic">a</span><span style="font-family:monospace">,</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the Jacobi symbol
+(<span style="font-style:italic">a</span>/<span style="font-style:italic">n</span>).
+</li></ul><h4 id="sec243" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">jacobi_symbol(25,12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">jacobi_symbol(35,12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">jacobi_symbol(33,12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en119.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en121.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

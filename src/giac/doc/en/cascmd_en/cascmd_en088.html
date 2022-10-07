@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Adding an object to a string: +
+
+</title>
+</head>
+<body >
+<a href="cascmd_en087.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en089.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:plusconcat" class="subsection">5.3.12  Adding an object to a string: <span style="font-family:monospace">+</span>
+<a id="hevea_default160"></a>
+</h3>
+<p>The <span style="font-family:monospace">’+’</span> command can be used like <span style="font-family:monospace">cat</span> (see
+Section <a href="cascmd_en087.html#ssec%3Acatobj">5.3.11</a>), and the <span style="font-family:monospace">+</span> operator is the infixed
+version. (See Section <a href="cascmd_en212.html#sssec%3Acontextplus">5.16.1</a> for other uses of <span style="font-family:monospace">+</span>
+and <span style="font-family:monospace">’+’</span>.)
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">’+’</span> takes one argument:<br>
+ <span style="font-style:italic">seq</span>, a sequence of objects, at least one of which is a string.
+</li><li class="li-itemize"><span style="font-family:monospace">’+’(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns the concatenation of the string
+representations of the objects in <span style="font-style:italic">seq</span>.
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Warning.</span><br>
+<span style="font-family:monospace">+</span> is infixed and <span style="font-family:monospace">’+’</span> is prefixed.</p><h4 id="sec163" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">’+’("abcd",3,"d")</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">"abcd"+3+"d"</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  "abcd3d"
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">c:=5</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">"abcd"+c+"d"</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">’+’("abcd",c,"d")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  "abcd5d"
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en087.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en089.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

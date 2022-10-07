@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The β function: Beta
+
+</title>
+</head>
+<body >
+<a href="cascmd_en150.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en152.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:beta" class="subsection">5.8.16  The β function: <span style="font-family:monospace">Beta</span>
+<a id="hevea_default260"></a>
+</h3>
+<p>The β function is defined by </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">β(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>)=</td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">1</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">0</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">t</span><sup><span style="font-style:italic">x</span>−1</sup>
+(1−<span style="font-style:italic">t</span>)<sup><span style="font-style:italic">y</span>−1</sup> =</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">Γ(<span style="font-style:italic">x</span>)*Γ(<span style="font-style:italic">y</span>)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">Γ(<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>)</td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table><p> This is
+defined for <span style="font-style:italic">x</span> and <span style="font-style:italic">y</span> positive reals (to ensure the convergence of
+the integral) and by extension for <span style="font-style:italic">x</span> and <span style="font-style:italic">y</span> if they are not
+negative integers.<br>
+<span style="font-family:monospace">Remarkable values:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">β(1,1)=1,    β(<span style="font-style:italic">n</span>,1)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+</table></td><td class="dcell">,    β(<span style="font-style:italic">n</span>,2)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span>(<span style="font-style:italic">n</span>+1)</td></tr>
+</table></td></tr>
+</table><p>The <span style="font-family:monospace">Beta</span> command computes the β function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">Beta</span> takes two arguments:<br>
+ <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, real numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">Beta(</span><span style="font-style:italic">a</span><span style="font-family:monospace">,</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns the value of the β(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>).
+</li></ul><h4 id="sec311" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Beta(5,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">30</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Beta(x,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">Γ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">Γ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">y</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">Γ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+<span style="font-style:italic">y</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Beta(5.1,2.2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0.0242053671402
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en150.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en152.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

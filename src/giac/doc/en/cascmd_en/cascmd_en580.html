@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Solving differential equations: desolve deSolve dsolve
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en579.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en581.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:dsolve" class="subsection">5.57.1  Solving differential equations: <span style="font-family:monospace">desolve</span> <span style="font-family:monospace">deSolve</span> <span style="font-family:monospace">dsolve</span>
+<a id="hevea_default979"></a>
+<a id="hevea_default980"></a>
+<a id="hevea_default981"></a>
+</h3>
+<p>The <span style="font-family:monospace">desolve</span> (or <span style="font-family:monospace">deSolve</span>) command can solve:
+</p><ul class="itemize"><li class="li-itemize">
+linear differential equations with constant coefficients,
+</li><li class="li-itemize">first order linear differential equations,
+</li><li class="li-itemize">first order differential equations without <span style="font-style:italic">y</span>,
+</li><li class="li-itemize">first order differential equations without <span style="font-style:italic">x</span>,
+</li><li class="li-itemize">first order differential equations with separable variables,
+</li><li class="li-itemize">first order homogeneous differential equations (<span style="font-style:italic">y</span>′=<span style="font-style:italic">F</span>(<span style="font-style:italic">y</span>/<span style="font-style:italic">x</span>)),
+</li><li class="li-itemize">first order differential equations with integrating factor,
+</li><li class="li-itemize">first order Bernoulli differential equations (<span style="font-style:italic">a</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">y</span>′+<span style="font-style:italic">b</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">y</span>=<span style="font-style:italic">c</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">y</span><sup><span style="font-style:italic">n</span></sup>),
+</li><li class="li-itemize">first order Clairaut differential equations (<span style="font-style:italic">y</span>=<span style="font-style:italic">x</span>*<span style="font-style:italic">y</span>′+<span style="font-style:italic">f</span>(<span style="font-style:italic">y</span>′)).
+</li></ul><p>
+<span style="font-family:monospace">deSolve</span> is a synonym for <span style="font-family:monospace">desolve</span>.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">desolve</span> takes one mandatory arguments and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">de</span>, a differential equation or list of differential
+equations, including any initial conditions.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the variable (by default <span style="font-family:monospace">x</span>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">y</span>, the unknown function (by default <span style="font-family:monospace">y</span>).
+The unknown function can be given in variable form (such as
+<span style="font-family:monospace">y</span>) or function form (such as <span style="font-family:monospace">y(x)</span>), in which
+case the variable doesn’t have to be given as a separate argument.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">desolve(</span><span style="font-style:italic">de</span> ⟨,<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>⟩<span style="font-family:monospace">)</span>
+returns the solution of the differential equation.
+</li></ul><p>
+In the differential equations, the function <span style="font-style:italic">y</span> can be denoted by <span style="font-style:italic">y</span>
+or <span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>), the derivative by <span style="font-style:italic">y</span>′, <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>) or <span style="font-family:monospace">diff(</span><span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>),<span style="font-style:italic">x</span><span style="font-family:monospace">)</span>,
+etc.</p><h4 id="sec1449" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(y’’+2*y’+y,y)</span> 
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>1</sub></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([y’’+2*y’+y,y(0)=1,y’(0)=0],y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(diff(y(t),t$2)+2*diff(y(t),t)+y(t),y(t))</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(diff(y(t),t$2)+2*diff(y(t),t)+y(t),t,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">t</span></sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">t</span>+<span style="font-style:italic">c</span><sub>1</sub></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([diff(y(t),t$2)+2*diff(y(t),t)+y(t),y(0)=1,y’(0)=0],y(t))</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([diff(y(t),t$2)+2*diff(y(t),t)+y(t),y(0)=1,y’(0)=0],t,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">t</span></sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">t</span>+1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>″+<span style="font-style:italic">y</span>=cos(<span style="font-style:italic">x</span>)
+</td></tr>
+</table>
+<span style="font-style:italic">Input (typing twice prime for </span><span style="font-style:italic"><span style="font-family:monospace">y’’</span></span><span style="font-style:italic">):</span>
+<div class="center">
+<span style="font-family:monospace">desolve(y’’+y=cos(x),y)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">desolve((diff(diff(y))+y)=(cos(x)),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> cos<span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>1</sub> sin<span style="font-style:italic">x</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span> sin<span style="font-style:italic">x</span>+cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">c</span>_0, <span style="font-style:italic">c</span>_1 are the constants of integration: <span style="font-style:italic">y</span>(0)=<span style="font-style:italic">c</span>_0
+<span style="font-style:italic">y</span>′(0)=<span style="font-style:italic">c</span>_1.
+</li><li class="li-itemize">If the variable is not <span style="font-family:monospace">x</span> but <span style="font-family:monospace">t</span>:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(derive(derive(y(t),t),t)+y(t)=cos(t),t,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> cos<span style="font-style:italic">t</span>+<span style="font-style:italic">c</span><sub>1</sub> sin<span style="font-style:italic">t</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">t</span> sin<span style="font-style:italic">t</span>+cos<span style="font-style:italic">t</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">c</span>_0, <span style="font-style:italic">c</span>_1 are the constants of integration: <span style="font-style:italic">y</span>(0)=<span style="font-style:italic">c</span>_0 and
+<span style="font-style:italic">y</span>′(0)=<span style="font-style:italic">c</span>_1.
+</li><li class="li-itemize">Solve:<br>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>″+<span style="font-style:italic">y</span>=cos(<span style="font-style:italic">x</span>),     <span style="font-style:italic">y</span>(0)=1
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([y’’+y=cos(x),y(0)=1],y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> cos<span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>1</sub> sin<span style="font-style:italic">x</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span> sin<span style="font-style:italic">x</span>+cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>″+<span style="font-style:italic">y</span>=cos(<span style="font-style:italic">x</span>)     (<span style="font-style:italic">y</span>(0))<sup>2</sup>=1
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([y’’+y=cos(x),y(0)^2=1],y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3 cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">+<span style="font-style:italic">c</span><sub>1</sub> sin<span style="font-style:italic">x</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span> sin<span style="font-style:italic">x</span>+cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5 cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">+<span style="font-style:italic">c</span><sub>1</sub> sin<span style="font-style:italic">x</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span> sin<span style="font-style:italic">x</span>+cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+each component of this list is a solution,
+you have two solutions depending
+on the constant <span style="font-style:italic">c</span>_1 (<span style="font-style:italic">y</span>′(0)=<span style="font-style:italic">c</span><sub>1</sub>) and corresponding to <span style="font-style:italic">y</span>(0)=1 and to <span style="font-style:italic">y</span>(0)=−1.
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>″+<span style="font-style:italic">y</span>=cos(<span style="font-style:italic">x</span>),     (<span style="font-style:italic">y</span>(0))<sup>2</sup>=1     <span style="font-style:italic">y</span>′(0)=1
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([y’’+y=cos(x),y(0)^2=1,y’(0)=1],y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3 cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">+sin<span style="font-style:italic">x</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span> sin<span style="font-style:italic">x</span>+cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5 cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">+sin<span style="font-style:italic">x</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span> sin<span style="font-style:italic">x</span>+cos<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+each component of this list is a solution (you have two solutions).
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>″+2<span style="font-style:italic">y</span>′+<span style="font-style:italic">y</span>=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(y’’+2*y’+y=0,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>1</sub></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+the solution depends on two constants of integration:
+<span style="font-style:italic">c</span>_0 and <span style="font-style:italic">c</span>_1 (<span style="font-style:italic">y</span>(0)=<span style="font-style:italic">c</span>_0 and <span style="font-style:italic">y</span>′(0)=<span style="font-style:italic">c</span>_1).
+</li><li class="li-itemize"><span style="font-style:italic">Solve:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>″−6<span style="font-style:italic">y</span>′+9<span style="font-style:italic">y</span>=<span style="font-style:italic">xe</span><sup>3<span style="font-style:italic">x</span></sup>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(y’’-6*y’+9*y=x*exp(3*x),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup>3 <span style="font-style:italic">x</span></sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>1</sub></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>3</sup> <span style="font-style:italic">e</span><sup>3 <span style="font-style:italic">x</span></sup>
+</td></tr>
+</table>
+The solution depends on 2 constants of integration:
+<span style="font-style:italic">c</span>_0, <span style="font-style:italic">c</span>_1 (<span style="font-style:italic">y</span>(0)=<span style="font-style:italic">c</span>_0 and <span style="font-style:italic">y</span>′(0)=<span style="font-style:italic">c</span>_1).
+</li></ul><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+Examples of first order linear equations.
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">xy</span>′+<span style="font-style:italic">y</span>−3<span style="font-style:italic">x</span><sup>2</sup>=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(x*y’+y-3*x^2,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub>+<span style="font-style:italic">x</span><sup>3</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>′+<span style="font-style:italic">x</span>*<span style="font-style:italic">y</span>=0, <span style="font-style:italic">y</span>(0)=1
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([y’+x*y=0, y(0)=1]),y)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">desolve((y’+x*y=0) &amp;&amp; (y(0)=1),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>(<span style="font-style:italic">x</span><sup>2</sup>−1)<span style="font-style:italic">y</span>′+2<span style="font-style:italic">y</span>=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(x*(x^2-1)*y’+2*y=0,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>−1</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>(<span style="font-style:italic">x</span><sup>2</sup>−1)<span style="font-style:italic">y</span>′+2<span style="font-style:italic">y</span>=<span style="font-style:italic">x</span><sup>2</sup>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(x*(x^2-1)*y’+2*y=x^2,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span><sup>2</sup> ln<span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>−1</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">If the variable is <span style="font-style:italic">t</span> instead of <span style="font-style:italic">x</span>, for example, solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">t</span>(<span style="font-style:italic">t</span><sup>2</sup>−1)<span style="font-style:italic">y</span>′(<span style="font-style:italic">t</span>)+2<span style="font-style:italic">y</span>(<span style="font-style:italic">t</span>)=<span style="font-style:italic">t</span><sup>2</sup>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(t*(t^2-1)*diff(y(t),t)+2*y(t)=(t^2),y(t))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">t</span><sup>2</sup>+<span style="font-style:italic">t</span><sup>2</sup> ln<span style="font-style:italic">t</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">t</span><sup>2</sup>−1</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>(<span style="font-style:italic">x</span><sup>2</sup>−1)<span style="font-style:italic">y</span>′+2<span style="font-style:italic">y</span>=<span style="font-style:italic">x</span><sup>2</sup>,<span style="font-style:italic">y</span>(2)=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve([x*(x^2-1)*y’+2*y=x^2,y(2)=0],y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span><sup>2</sup> ln<span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>−1</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1+<span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">y</span>′−<span style="font-style:italic">x</span>−<span style="font-style:italic">y</span>=</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1+<span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(y’*sqrt(1+x^2)-x-y-sqrt(1+x^2),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−<span style="font-style:italic">c</span><sub>0</sub>+ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span><sup>2</sup>+1</td></tr>
+</table></td><td class="dcell">−<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span><sup>2</sup>+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+</li><li class="li-itemize">Examples of first differential equations with separable variables.
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>′=2</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span></td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(y’=2*sqrt(y),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">c</span><sub>0</sub>+<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">xy</span>′ln(<span style="font-style:italic">x</span>)−<span style="font-style:italic">y</span>(3ln(<span style="font-style:italic">x</span>)+1)=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(x*y’*ln(x)-(3*ln(x)+1)*y,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span><sup>3</sup> ln<span style="font-style:italic">x</span>
+</td></tr>
+</table>
+</li></ul>
+</li><li class="li-itemize">Examples of Bernoulli differential equations
+<span style="font-style:italic">a</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">y</span>′+<span style="font-style:italic">b</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">y</span>=<span style="font-style:italic">c</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">y</span><sup><span style="font-style:italic">n</span></sup> where <span style="font-style:italic">n</span> is a real constant.<br>
+The method used is to divide the equation by <span style="font-style:italic">y</span><sup><span style="font-style:italic">n</span></sup>,
+so that it becomes a first order linear differential equation
+in <span style="font-style:italic">u</span>=1/<span style="font-style:italic">y</span><sup><span style="font-style:italic">n</span>−1</sup>.
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">xy</span>′+2<span style="font-style:italic">y</span>+<span style="font-style:italic">xy</span><sup>2</sup>=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(x*y’+2*y+x*y^2,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">0,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>1</sub> <span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">xy</span>′−2<span style="font-style:italic">y</span>=<span style="font-style:italic">xy</span><sup>3</sup>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(x*y’-2*y-x*y^3,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">· 2 <span style="font-style:italic">x</span><sup>5</sup>+<span style="font-style:italic">c</span><sub>0</sub></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup>−4 ln<span style="font-style:italic">x</span></sup></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">· 2 <span style="font-style:italic">x</span><sup>5</sup>+<span style="font-style:italic">c</span><sub>0</sub></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup>−4 ln<span style="font-style:italic">x</span></sup></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup><span style="font-style:italic">y</span>′−2<span style="font-style:italic">y</span>=<span style="font-style:italic">xe</span><sup>(4/<span style="font-style:italic">x</span>)</sup><span style="font-style:italic">y</span><sup>3</sup>
+</td></tr>
+</table>
+Input:
+<div class="center">
+<span style="font-family:monospace">desolve(x*y’-2*y-x*exp(4/x)*y^3,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell">2 <span style="font-style:italic">x</span><sup>4</sup> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">4</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">d</span><span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>0</sub></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup>−4 ln<span style="font-style:italic">x</span></sup></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell">2 <span style="font-style:italic">x</span><sup>4</sup> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">4</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">d</span><span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>0</sub></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup>−4 ln<span style="font-style:italic">x</span></sup></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+</li><li class="li-itemize">Examples of first order homogeneous differential equations (<span style="font-style:italic">y</span>′=<span style="font-style:italic">F</span>(<span style="font-style:italic">y</span>/<span style="font-style:italic">x</span>),
+the method of integration is to search for <span style="font-style:italic">t</span>=<span style="font-style:italic">y</span>/<span style="font-style:italic">x</span> instead of <span style="font-style:italic">y</span>).
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3<span style="font-style:italic">x</span><sup>3</sup><span style="font-style:italic">y</span>′=<span style="font-style:italic">y</span>(3<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">y</span><sup>2</sup>)
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(3*x^3*diff(y)=((3*x^2-y^2)*y),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">0,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:2em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:2em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">c</span><sub>0</sub></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+Hence the solutions are <span style="font-style:italic">y</span>=0 and the familiy of curves with parametric
+equations <span style="font-style:italic">x</span>=<span style="font-style:italic">c</span><sub>0</sub>exp(3/(2<span style="font-style:italic">t</span><sup>2</sup>)), <span style="font-style:italic">y</span>=<span style="font-style:italic">t</span>*<span style="font-style:italic">c</span><sub>0</sub>exp(3/(2<span style="font-style:italic">t</span><sup>2</sup>))
+(the parameter is denoted by <span style="font-family:monospace">‘ t‘</span> in the answer).
+</li></ul>
+</li><li class="li-itemize">Examples of first order differential equations with an
+integrating factor. By multiplying the equation by a function of <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,
+it becomes a closed differential form.
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">yy</span>′+<span style="font-style:italic">x</span>=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(y*y’+x,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">x</span><sup>2</sup>−2 <span style="font-style:italic">c</span><sub>0</sub></td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">x</span><sup>2</sup>−2 <span style="font-style:italic">c</span><sub>0</sub></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+In this example, <span style="font-style:italic">xdx</span>+<span style="font-style:italic">ydy</span> is closed, the integrating factor was 1.
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2<span style="font-style:italic">xyy</span>′+<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">y</span><sup>2</sup>+<span style="font-style:italic">a</span><sup>2</sup>=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(2*x*y*y’+x^2-y^2+a^2,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">c</span><sub>1</sub> <span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">c</span><sub>1</sub> <span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+In this example, the integrating factor was 1/<span style="font-style:italic">x</span><sup>2</sup>.
+</li></ul></li><li class="li-itemize">Example of first order differential equations without <span style="font-style:italic">x</span>.<br>
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">(<span style="font-style:italic">y</span>+<span style="font-style:italic">y</span>′)<sup>4</sup>+<span style="font-style:italic">y</span>′+3<span style="font-style:italic">y</span>=0
+</td></tr>
+</table>
+This kind of equation cannot be solved directly by <span style="font-family:monospace">Xcas</span>, you
+can use the following steps on solve it with the help of <span style="font-family:monospace">Xcas</span>.
+The idea is to find a parametric representation of
+<span style="font-style:italic">F</span>(<span style="font-style:italic">u</span>,<span style="font-style:italic">v</span>)=0 where the equation is <span style="font-style:italic">F</span>(<span style="font-style:italic">y</span>,<span style="font-style:italic">y</span>′)=0.
+Let <span style="font-style:italic">u</span>=<span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>),<span style="font-style:italic">v</span>=<span style="font-style:italic">g</span>(<span style="font-style:italic">t</span>) be such a parametrization of <span style="font-style:italic">F</span>=0, then
+<span style="font-style:italic">y</span>=<span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>) and <span style="font-style:italic">dy</span>/<span style="font-style:italic">dx</span>=<span style="font-style:italic">y</span>′=<span style="font-style:italic">g</span>(<span style="font-style:italic">t</span>). Hence
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">dy</span>/<span style="font-style:italic">dt</span>=<span style="font-style:italic">f</span>′(<span style="font-style:italic">t</span>)=<span style="font-style:italic">y</span>′*<span style="font-style:italic">dx</span>/<span style="font-style:italic">dt</span>=<span style="font-style:italic">g</span>(<span style="font-style:italic">t</span>)*<span style="font-style:italic">dx</span>/<span style="font-style:italic">dt</span> 
+</td></tr>
+</table>
+The solution is the curve of parametric equations
+<span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>), <span style="font-style:italic">y</span>(<span style="font-style:italic">t</span>)=<span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>), where <span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>) is solution of the differential equation
+<span style="font-style:italic">g</span>(<span style="font-style:italic">t</span>)<span style="font-style:italic">dx</span>=<span style="font-style:italic">f</span>′(<span style="font-style:italic">t</span>)<span style="font-style:italic">dt</span>.<br>
+Back to the example, you can let <span style="font-style:italic">y</span>+<span style="font-style:italic">y</span>′=<span style="font-style:italic">t</span>, hence:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>=−<span style="font-style:italic">t</span>−8*<span style="font-style:italic">t</span><sup>4</sup>,    <span style="font-style:italic">y</span>′=<span style="font-style:italic">dy</span>/<span style="font-style:italic">dx</span>=3*<span style="font-style:italic">t</span>+8*<span style="font-style:italic">t</span><sup>4</sup>    <span style="font-style:italic">dy</span>/<span style="font-style:italic">dt</span>=−1−32*<span style="font-style:italic">t</span><sup>3</sup>
+</td></tr>
+</table>
+therefore
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">(3*<span style="font-style:italic">t</span>+8*<span style="font-style:italic">t</span><sup>4</sup>)*<span style="font-style:italic">dx</span>=(−1−32*<span style="font-style:italic">t</span><sup>3</sup>)<span style="font-style:italic">dt</span> 
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve((3*t+8*t^4)*diff(x(t),t)=(-1-32*t^3),x(t))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">9 <span style="font-style:italic">c</span><sub>0</sub>−11 ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">8 <span style="font-style:italic">t</span><sup>3</sup>+3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">t</span><sup>3</sup></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">9</td></tr>
+</table></td></tr>
+</table>
+The solution is the curve of parametric equation:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>)=−11*1/9*ln(8*<span style="font-style:italic">t</span><sup>3</sup>+3)+1/−9*ln(<span style="font-style:italic">t</span><sup>3</sup>)+<span style="font-style:italic">c</span><sub>0</sub>,    <span style="font-style:italic">y</span>(<span style="font-style:italic">t</span>)=−<span style="font-style:italic">t</span>−8*<span style="font-style:italic">t</span><sup>4</sup> 
+</td></tr>
+</table>
+</li><li class="li-itemize">Examples of first order
+Clairaut differential equations (<span style="font-style:italic">y</span>=<span style="font-style:italic">x</span>*<span style="font-style:italic">y</span>′+<span style="font-style:italic">f</span>(<span style="font-style:italic">y</span>′)).<br>
+The solutions are the lines <span style="font-style:italic">D</span><sub><span style="font-style:italic">m</span></sub> of equation <span style="font-style:italic">y</span>=<span style="font-style:italic">mx</span>+<span style="font-style:italic">f</span>(<span style="font-style:italic">m</span>) where
+<span style="font-style:italic">m</span> is a real constant.
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">xy</span>′+<span style="font-style:italic">y</span>′<sup>3</sup>−<span style="font-style:italic">y</span>=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve(x*y’+y’^3-y,y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span>+<span style="font-style:italic">c</span><sub>0</sub><sup>3</sup></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>−<span style="font-style:italic">xy</span>′ − </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sup>2</sup>+<span style="font-style:italic">b</span><sup>2</sup>*<span style="font-style:italic">y</span>′<sup>2</sup></td></tr>
+</table></td><td class="dcell">=0
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">desolve((y-x*y’-sqrt(a^2+b^2*y’^2),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-style:italic">c</span><sub>0</sub> <span style="font-style:italic">x</span>+</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sup>2</sup>+<span style="font-style:italic">b</span><sup>2</sup> <span style="font-style:italic">c</span><sub>0</sub><sup>2</sup></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+</li></ul>
+<hr>
+<a href="cascmd_en579.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en581.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

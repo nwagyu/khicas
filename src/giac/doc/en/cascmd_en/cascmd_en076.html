@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Bitwise Hamming distance: hamdist</title>
+</head>
+<body >
+<a href="cascmd_en075.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en077.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec134" class="subsection">5.2.2  Bitwise Hamming distance: <span style="font-family:monospace">hamdist</span><a id="hevea_default143"></a></h3>
+<p>The Hamming distance between two integers is the number of differences
+between the bits of the two integers. The <span style="font-family:monospace">hamdist</span> operator
+finds the Hamming distance between two integers.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">hamdist</span> takes two arguments:<br>
+<span style="font-style:italic">m</span> and <span style="font-style:italic">n</span>, both integers.
+</li><li class="li-itemize"><span style="font-family:monospace">hamdist(</span><span style="font-style:italic">m</span><span style="font-family:monospace">,</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the Hamming distance
+between <span style="font-style:italic">m</span> and <span style="font-style:italic">n</span>.
+</li></ul><h4 id="sec135" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">hamdist(0x12,0x38)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">hamdist(18,56)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3
+</td></tr>
+</table><p>
+because:<br>
+<span style="font-family:monospace">18</span> is written <span style="font-family:monospace">0x12</span> in base 16 and <span style="font-family:monospace">0b010010</span> in base 2,<br>
+<span style="font-family:monospace">56</span> is written <span style="font-family:monospace">0x38</span> in base 16 and <span style="font-family:monospace">0b111000</span> in base 2,<br>
+<span style="font-family:monospace">hamdist(18,56)</span> is equal to <span style="font-family:monospace">1+0+1+0+1+0</span> and so is equal to <span style="font-family:monospace">3</span>.</p>
+<hr>
+<a href="cascmd_en075.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en077.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

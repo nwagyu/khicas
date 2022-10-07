@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Producing random numbers with a multinomial distribution: randmultinomial
+
+</title>
+</head>
+<body >
+<a href="cascmd_en652.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en654.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:randmultinomial" class="subsection">8.3.4  Producing random numbers with a multinomial distribution: <span style="font-family:monospace">randmultinomial</span>
+<a id="hevea_default1182"></a>
+</h3>
+<p>The <span style="font-family:monospace">randmultinomial</span> command finds random numbers chosen
+according to a multinomial distribution (see Section <a href="cascmd_en670.html#ssec%3Amultinomial">8.4.5</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">randmultinomial</span> takes one mandatory and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a list <span style="font-style:italic">P</span>=[<span style="font-style:italic">p</span><sub>0</sub>,…,<span style="font-style:italic">p</span><sub><span style="font-style:italic">n</span>−1</sub>] of <span style="font-style:italic">n</span> probabilities
+which add to 1 (representing the probability that one of several
+mutually exclusive events occurs).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">K</span>, a list of length <span style="font-style:italic">n</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">randmultinomial(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns an index chosen randomly
+according to the corresponding multinomial distribution.
+</li><li class="li-itemize"><span style="font-family:monospace">randmultinomial(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">K</span><span style="font-family:monospace">)</span> returns an element of <span style="font-style:italic">K</span>
+whose index is chosen randomly.
+</li></ul><h4 id="sec1637" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">randmultinomial([1/2, 1/3, 1/6])</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">randmultinomial([1/2, 1/3, 1/6],["R","V","B"])</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"R"
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en652.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en654.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

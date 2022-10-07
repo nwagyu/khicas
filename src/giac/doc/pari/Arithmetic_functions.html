@@ -1,0 +1,4487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Arithmetic functions</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:arithmetic"></div>
+<h2 class="center">Arithmetic functions</h2>
+
+<p></p>
+<p>
+These functions are by definition functions whose natural domain of
+definition is either &Zopf; (or &Zopf;<sub> &gt; 0</sub>). The way these functions are used is
+completely different from transcendental functions in that there are no
+automatic type conversions: in general only integers are accepted as
+arguments. An integer argument N can be given in the following alternate
+formats:</p>
+<p>
+<b>*</b> <code>t_MAT</code>: its factorization <code>fa = factor(N)</code>,</p>
+<p>
+<b>*</b> <code>t_VEC</code>: a pair <code>[N, fa]</code> giving both the integer and
+  its factorization.</p>
+<p>
+This allows to compute different arithmetic functions at a given N
+while factoring the latter only once.</p>
+<p></p>
+<p>
+</p><pre class="code">    ? N = 10!; faN = factor(N);
+    ? eulerphi(N)
+    %2 = 829440
+    ? eulerphi(faN)
+    %3 = 829440
+    ? eulerphi(S = [N, faN])
+    %4 = 829440
+    ? sigma(S)
+    %5 = 15334088
+</pre><p></p>
+<p></p>
+<p>
+<hr>
+<div id="Arithmetic_functions_and_the_factoring_engine"></div>
+<h4>Arithmetic functions and the factoring engine</h4>
+<p></p>
+<p>All arithmetic functions in the narrow sense of the word&nbsp; &mdash;  Euler's
+totient function, the Moebius function,
+the sums over divisors or powers of divisors etc. &mdash;  call, after trial
+division by small primes, the same versatile factoring machinery described
+under <code><a href="Arithmetic_functions.html#se:factorint"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factorint</a></code>. It includes Shanks SQUFOF, Pollard Rho,
+ECM and MPQS stages, and has an early exit option for the
+functions <b>moebius</b> and (the integer function underlying)
+<b>issquarefree</b>. This machinery relies on a fairly strong
+probabilistic primality test, see <code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>, but you may also set</p>
+<p>
+</p><pre class="code">    default(factor_proven, 1)
+</pre><p>
+to ensure that all tentative factorizations are fully proven.
+This should not slow down PARI too much, unless prime numbers with
+hundreds of decimal digits occur frequently in your application.</p>
+<p>
+
+<hr>
+<div id="se:DLfun"></div>
+<div id="Orders_in_finite_groups_and_Discrete_Logarithm_functions"></div>
+<h4>Orders in finite groups and Discrete Logarithm functions</h4>
+<p></p>
+<p></p>
+<p>
+The following functions compute the order of an element in a finite group:
+<code><a href="Elliptic_curves.html#se:ellorder"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellorder</a></code> (the rational points on an elliptic curve defined over a
+finite field), <code><a href="Arithmetic_functions.html#se:fforder"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">fforder</a></code> (the multiplicative group of a finite field),
+<code><a href="Arithmetic_functions.html#se:znorder"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znorder</a></code> (the invertible elements in &Zopf;/n&Zopf;). The following functions
+compute discrete logarithms in the same groups (whenever this is meaningful)
+<code><a href="Elliptic_curves.html#se:elllog"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">elllog</a></code>, <code><a href="Arithmetic_functions.html#se:fflog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">fflog</a></code>, <code><a href="Arithmetic_functions.html#se:znlog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znlog</a></code>.</p>
+<p>
+All such functions allow an optional argument specifying an integer
+N, representing the order of the group. (The <em>order</em> functions also
+allows any non-zero multiple of the order, with a minor loss of efficiency.)
+That optional argument follows the same format as given above:</p>
+<p>
+<b>*</b> <code>t_INT</code>: the integer N,</p>
+<p>
+<b>*</b> <code>t_MAT</code>: the factorization <code>fa = factor(N)</code>,</p>
+<p>
+<b>*</b> <code>t_VEC</code>: this is the preferred format and provides both the
+integer N and its factorization in a two-component vector
+<code>[N, fa]</code>.</p>
+<p>
+When the group is fixed and many orders or discrete logarithms will be
+computed, it is much more efficient to initialize this data once and for all
+and pass it to the relevant functions, as in</p>
+<p>
+</p><pre class="code">  ? p = nextprime(10^40);
+  ? v = [p-1, factor(p-1)]; \\ data for discrete log & order computations
+  ? znorder(Mod(2,p), v)
+  %3 = 500000000000000000000000000028
+  ? g = znprimroot(p);
+  ? znlog(2, g, v)
+  %5 = 543038070904014908801878611374
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:dirichletchar"></div>
+<div id="Dirichlet_characters"></div>
+<h4>Dirichlet characters</h4>
+<p></p>
+<p>
+The finite abelian group G = (&Zopf;/N&Zopf;)<sup>*</sup> can be written G = &bigoplus; <sub>i &leq; 
+n</sub> (&Zopf;/d<sub>i</sub>&Zopf;) g<sub>i</sub>, with d<sub>n</sub> | ... | d<sub>2</sub> | d<sub>1</sub> (SNF condition),
+all d<sub>i</sub> &gt; 0, and &prod;<sub>i</sub> d<sub>i</sub> = &phi;(N).</p>
+<p>
+The SNF condition makes the d<sub>i</sub> unique, but the generators g<sub>i</sub>, of
+respective order d<sub>i</sub>, are definitely not unique. The &bigoplus;  notation
+means that all elements of G can be written uniquely as &prod;<sub>i</sub> g<sub>i</sub><sup>n<sub>i</sub></sup>
+where n<sub>i</sub>  &in;  &Zopf;/d<sub>i</sub>&Zopf;. The g<sub>i</sub> are the so-called <em>SNF generators</em>
+of G.</p>
+<p>
+<b>*</b> a <em>character</em> on the abelian group
+&bigoplus;  (&Zopf;/d<sub>j</sub>&Zopf;) g<sub>j</sub>
+is given by a row vector &chi; = [a<sub>1</sub>,...,a<sub>n</sub>] of integers 0 &leq; a<sub>i</sub> &lt; 
+d<sub>i</sub> such that &chi;(g<sub>j</sub>) = e(a<sub>j</sub> / d<sub>j</sub>) for all j, with the standard
+notation e(x) := exp(2i&pi; x).
+In other words,
+&chi;(&prod; g<sub>j</sub><sup>n<sub>j</sub></sup>) = e(&sum; a<sub>j</sub> n<sub>j</sub> / d<sub>j</sub>).</p>
+<p>
+This will be generalized to more general abelian groups in later sections
+(Hecke characters), but in the present case of (&Zopf;/N&Zopf;)<sup>*</sup>, there is a useful
+alternate convention : namely, it is not necessary to impose the SNF
+condition and we can use Chinese reminders instead. If N = &prod; p<sup>e<sub>p</sub></sup> is
+the factorization of N into primes, the so-called <em>Conrey generators</em>
+of G are the generators of the (&Zopf;/p<sup>e<sub>p</sub></sup>&Zopf;)<sup>*</sup> lifted to (&Zopf;/N&Zopf;)<sup>*</sup> by
+requesting that they be congruent to 1 modulo N/p<sup>e<sub>p</sub></sup> (for p odd we
+take the smallest positive primitive root mod p^2, and for p = 2
+we take -1 if
+e<sub>2</sub> &gt; 1 and additionally 5 if e<sub>2</sub> &gt; 2). We can again write G = 
+&bigoplus; <sub>i &leq; n</sub> (&Zopf;/D<sub>i</sub>&Zopf;) G<sub>i</sub>, where again &prod;<sub>i</sub> D<sub>i</sub> = &phi;(N). These
+generators don't satisfy the SNF condition in general since their orders are
+now (p-1)p<sup>e<sub>p</sub>-1</sup> for p odd; for p = 2, the generator -1 has order
+2 and 5 has order 2<sup>e<sub>2</sub>-2</sup> (e<sub>2</sub> &gt; 2). Nevertheless, any m &in; 
+(&Zopf;/N&Zopf;)<sup>*</sup> can be uniquely decomposed as &prod; G<sub>i</sub><sup>m<sub>i</sub></sup> for some m<sub>i</sub>
+modulo D<sub>i</sub> and we can define a character by &chi;(G<sub>j</sub>) = e(m<sub>j</sub> / D<sub>j</sub>) for
+all j.</p>
+<p>
+<b>*</b> The <em>column vector</em> of the m<sub>j</sub>, 0 &leq; m<sub>j</sub> &lt; D<sub>j</sub> is called the
+<em>Conrey logarithm</em> of m (discrete logarithm in terms of the Conrey
+generators). Note that discrete logarithms in PARI/GP are always expressed as
+<code>t_COL</code>s.</p>
+<p>
+<b>*</b> The attached character is called the <em>Conrey character</em>
+attached to m.</p>
+<p>
+To sum up a Dirichlet character can be defined by a <code>t_INT</code> (the Conrey
+label m), a <code>t_COL</code> (the Conrey logarithm of m, in terms of the Conrey
+generators) or a <code>t_VEC</code> (in  terms of the SNF generators). The <code>t_COL</code>
+format, i.e. Conrey logarithms, is the preferred (fastest) representation.</p>
+<p>
+Concretely, this works as follows:</p>
+<p>
+<code>G = znstar(N, 1)</code> initializes (&Zopf;/N&Zopf;)<sup>*</sup>, which must be given as
+first arguments to all functions handling Dirichlet characters.</p>
+<p>
+<code><a href="Arithmetic_functions.html#se:znconreychar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreychar</a></code> transforms <code>t_INT</code> and <code>t_COL</code> to a SNF character.</p>
+<p>
+<code><a href="Arithmetic_functions.html#se:znconreylog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreylog</a></code> transforms <code>t_INT</code> and <code>t_VEC</code> to a Conrey logarithm.</p>
+<p>
+<code><a href="Arithmetic_functions.html#se:znconreyexp"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreyexp</a></code> transforms <code>t_VEC</code> and <code>t_COL</code> to a Conrey label.</p>
+<p>
+Also available are <code><a href="Arithmetic_functions.html#se:charconj"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">charconj</a></code>,  <code><a href="Arithmetic_functions.html#se:chardiv"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">chardiv</a></code>, <code><a href="Arithmetic_functions.html#se:charmul"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">charmul</a></code>,
+<code><a href="Arithmetic_functions.html#se:charker"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">charker</a></code>, <code><a href="Arithmetic_functions.html#se:chareval"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">chareval</a></code>, <code><a href="Arithmetic_functions.html#se:charorder"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">charorder</a></code>, <code><a href="Arithmetic_functions.html#se:zncharinduce"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">zncharinduce</a></code>,
+<code><a href="Arithmetic_functions.html#se:znconreyconductor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreyconductor</a></code> (also computes the primitive character attached to
+the input character). The prefix <code>char</code> indicates that the function
+applies to all characters, the prefix <code><a href="Arithmetic_functions.html#se:znchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znchar</a></code> that it is specific to
+Dirichlet characters (on (&Zopf;/N&Zopf;)<sup>*</sup>) and the prefix <code>znconrey</code> that it
+is specific to Conrey representation.</p>
+<p>
+
+<hr>
+<div id="se:addprimes"></div>
+<div id="addprimes"></div>
+<h4>addprimes({x = []})</h4>
+<p>
+Adds the integers contained in the
+vector x (or the single integer x) to a special table of
+"user-defined primes", and returns that table. Whenever <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code> is
+subsequently called, it will trial divide by the elements in this table.
+If x is empty or omitted, just returns the current list of extra
+primes.</p>
+<p>
+The entries in x must be primes: there is no internal check, even if
+the <code>factor_proven</code> default is set. To remove primes from the list use
+<code><a href="Arithmetic_functions.html#se:removeprimes"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">removeprimes</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>addprimes</b>(GEN x = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bestappr"></div>
+<div id="bestappr"></div>
+<h4>bestappr(x, {B})</h4>
+<p>
+Using variants of the extended Euclidean algorithm, returns a rational
+approximation a/b to x, whose denominator is limited
+by B, if present. If B is omitted, return the best approximation
+affordable given the input accuracy; if you are looking for true rational
+numbers, presumably approximated to sufficient accuracy, you should first
+try that option. Otherwise, B must be a positive real scalar (impose
+0 &lt; b &leq; B).</p>
+<p>
+<b>*</b> If x is a <code>t_REAL</code> or a <code>t_FRAC</code>, this function uses continued
+fractions.</p>
+<p>
+</p><pre class="code">  ? bestappr(Pi, 100)
+  %1 = 22/7
+  ? bestappr(0.1428571428571428571428571429)
+  %2 = 1/7
+  ? bestappr([Pi, sqrt(2) + 'x], 10^3)
+  %3 = [355/113, x + 1393/985]
+</pre><p></p>
+<p>
+By definition, a/b is the best rational approximation to x if
+|b x - a| &lt; |v x - u| for all integers (u,v) with 0 &lt; v &leq; B.
+(Which implies that n/d is a convergent of the continued fraction of x.)</p>
+<p>
+<b>*</b> If x is a <code>t_INTMOD</code> modulo N or a <code>t_PADIC</code> of precision N = 
+p^k, this function performs rational modular reconstruction modulo N. The
+routine then returns the unique rational number a/b in coprime integers
+|a| &lt; N/2B and b &leq; B which is congruent to x modulo N. Omitting
+B amounts to choosing it of the order of sqrt{N/2}. If rational
+reconstruction is not possible (no suitable a/b exists), returns [].</p>
+<p>
+</p><pre class="code">  ? bestappr(Mod(18526731858, 11^10))
+  %1 = 1/7
+  ? bestappr(Mod(18526731858, 11^20))
+  %2 = []
+  ? bestappr(3 + 5 + 3*5^2 + 5^3 + 3*5^4 + 5^5 + 3*5^6 + O(5^7))
+  %2 = -1/3
+</pre><p>
+In most concrete uses, B is a prime power and we performed
+Hensel lifting to obtain x.</p>
+<p>
+The function applies recursively to components of complex objects
+(polynomials, vectors,...). If rational reconstruction fails for even a
+single entry, return [].</p>
+<p>
+The library syntax is <code>GEN <b>bestappr</b>(GEN x, GEN B = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bestapprPade"></div>
+<div id="bestapprPade"></div>
+<h4>bestapprPade(x, {B})</h4>
+<p>
+Using variants of the extended Euclidean algorithm, returns a rational
+function approximation a/b to x, whose denominator is limited
+by B, if present. If B is omitted, return the best approximation
+affordable given the input accuracy; if you are looking for true rational
+functions, presumably approximated to sufficient accuracy, you should first
+try that option. Otherwise, B must be a non-negative real
+(impose 0 &leq; degree(b) &leq; B).</p>
+<p>
+<b>*</b> If x is a <code>t_POLMOD</code> modulo N this function performs rational
+modular reconstruction modulo N. The routine then returns the unique
+rational function a/b in coprime polynomials, with degree(b) &leq; B
+and degree(a) minimal, which is congruent to x modulo N.
+Omitting B amounts to choosing it equal to the floor of
+degree(N) / 2. If rational reconstruction is not possible (no
+suitable a/b exists), returns [].</p>
+<p>
+</p><pre class="code">  ? T = Mod(x^3 + x^2 + x + 3, x^4 - 2);
+  ? bestapprPade(T)
+  %2 = (2*x - 1)/(x - 1)
+  ? U = Mod(1 + x + x^2 + x^3 + x^5, x^9);
+  ? bestapprPade(U)  \\ internally chooses B = 4
+  %3 = []
+  ? bestapprPade(U, 5) \\ with B = 5, a solution exists
+  %4 = (2*x^4 + x^3 - x - 1)/(-x^5 + x^3 + x^2 - 1)
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> If x is a <code>t_RFRAC</code> or <code>t_SER</code>, this function implicitly
+converts the input to <code>t_POLMOD</code> modulo N = t^k
+fractions.</p>
+<p>
+</p><pre class="code">  ? T = 1 + x + x^2 + x^3 + x^4 + x^5 + x^6 + O(x^7);
+  ? bestapprPade(T)
+  %1 = 1/(-x + 1)
+</pre><p></p>
+<p>
+The function applies recursively to components of complex objects
+(polynomials, vectors,...). If rational reconstruction fails for even a
+single entry, return [].</p>
+<p>
+The library syntax is <code>GEN <b>bestapprPade</b>(GEN x, long B)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bezout"></div>
+<div id="bezout"></div>
+<h4>bezout(x, y)</h4>
+<p>
+Deprecated alias for <code><a href="Arithmetic_functions.html#se:gcdext"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">gcdext</a></code></p>
+<p>
+The library syntax is <code>GEN <b>gcdext0</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bigomega"></div>
+<div id="bigomega"></div>
+<h4>bigomega(x)</h4>
+<p>
+Number of prime divisors of the integer |x| counted with
+multiplicity:</p>
+<p>
+</p><pre class="code">  ? factor(392)
+  %1 =
+  [2 3]
+  
+  [7 2]
+  
+  ? bigomega(392)
+  %2 = 5;  \\ = 3+2
+  ? omega(392)
+  %3 = 2;  \\ without multiplicity
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>bigomega</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:charconj"></div>
+<div id="charconj"></div>
+<h4>charconj(<em>cyc</em>, <em>chi</em>)</h4>
+<p>
+Let <em>cyc</em> represent a finite abelian group by its elementary
+divisors, i.e. (d<sub>j</sub>) represents &sum;<sub>j &leq; k</sub> &Zopf;/d<sub>j</sub>&Zopf; with d<sub>k</sub>
+ | ... | d<sub>1</sub>; any object which has a <code>.cyc</code> method is also
+allowed, e.g.&nbsp;the output of <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> or <code><a href="General_number_fields.html#se:bnrinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrinit</a></code>. A character
+on this group is given by a row vector &chi; = [a<sub>1</sub>,...,a<sub>n</sub>] such that
+&chi;(&prod; g<sub>j</sub><sup>n<sub>j</sub></sup>) = exp(2&pi; i&sum; a<sub>j</sub> n<sub>j</sub> / d<sub>j</sub>), where g<sub>j</sub> denotes
+the generator (of order d<sub>j</sub>) of the j-th cyclic component.</p>
+<p>
+This function returns the conjugate character.</p>
+<p>
+</p><pre class="code">  ? cyc = [15,5]; chi = [1,1];
+  ? charconj(cyc, chi)
+  %2 = [14, 4]
+  ? bnf = bnfinit(x^2+23);
+  ? bnf.cyc
+  %4 = [3]
+  ? charconj(bnf, [1])
+  %5 = [2]
+</pre><p>
+For Dirichlet characters (when <code>cyc</code> is
+<code>znstar(q,1)</code>), characters in Conrey representation are available,
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>:</p>
+<p>
+</p><pre class="code">  ? G = znstar(8, 1);  \\ (Z/8Z)<sup>*</sup>
+  ? charorder(G, 3)  \\ Conrey label
+  %2 = 2
+  ? chi = znconreylog(G, 3);
+  ? charorder(G, chi)  \\ Conrey logarithm
+  %4 = 2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>charconj0</b>(GEN cyc, GEN chi)</code>.
+Also available is
+<code>GEN <b>charconj</b>(GEN cyc, GEN chi)</code>, when <code>cyc</code> is known to
+be a vector of elementary divisors and <code>chi</code> a compatible character
+(no checks).</p>
+<p>
+
+<hr>
+<div id="se:chardiv"></div>
+<div id="chardiv"></div>
+<h4>chardiv(<em>cyc</em>, a, b)</h4>
+<p>
+Let <em>cyc</em> represent a finite abelian group by its elementary
+divisors, i.e. (d<sub>j</sub>) represents &sum;<sub>j &leq; k</sub> &Zopf;/d<sub>j</sub>&Zopf; with d<sub>k</sub>
+ | ... | d<sub>1</sub>; any object which has a <code>.cyc</code> method is also
+allowed, e.g.&nbsp;the output of <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> or <code><a href="General_number_fields.html#se:bnrinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrinit</a></code>. A character
+on this group is given by a row vector a = [a<sub>1</sub>,...,a<sub>n</sub>] such that
+&chi;(&prod; g<sub>j</sub><sup>n<sub>j</sub></sup>) = exp(2&pi; i&sum; a<sub>j</sub> n<sub>j</sub> / d<sub>j</sub>), where g<sub>j</sub> denotes
+the generator (of order d<sub>j</sub>) of the j-th cyclic component.</p>
+<p>
+Given two characters a and b, return the character
+a / b = a <span style="text-decoration:overline">b</span>.</p>
+<p>
+</p><pre class="code">  ? cyc = [15,5]; a = [1,1]; b =  [2,4];
+  ? chardiv(cyc, a,b)
+  %2 = [14, 2]
+  ? bnf = bnfinit(x^2+23);
+  ? bnf.cyc
+  %4 = [3]
+  ? chardiv(bnf, [1], [2])
+  %5 = [2]
+</pre><p>
+For Dirichlet characters on  (&Zopf;/N&Zopf;)<sup>*</sup>, additional
+representations are available (Conrey labels, Conrey logarithm),
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>.
+If the two characters are in the same format, the
+result is given in the same format, otherwise a Conrey logarithm is used.</p>
+<p>
+</p><pre class="code">  ? G = znstar(100, 1);
+  ? G.cyc
+  %2 = [20, 2]
+  ? a = [10, 1]; \\ usual representation for characters
+  ? b = 7; \\ Conrey label;
+  ? c = znconreylog(G, 11); \\ Conrey log
+  ? chardiv(G, b,b)
+  %6 = 1   \\ Conrey label
+  ? chardiv(G, a,b)
+  %7 = [0, 5]~  \\ Conrey log
+  ? chardiv(G, a,c)
+  %7 = [0, 14]~   \\ Conrey log
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>chardiv0</b>(GEN cyc, GEN a, GEN b)</code>.
+Also available is
+<code>GEN <b>chardiv</b>(GEN cyc, GEN a, GEN b)</code>, when <code>cyc</code> is known to
+be a vector of elementary divisors and a, b are compatible characters
+(no checks).</p>
+<p>
+
+<hr>
+<div id="se:chareval"></div>
+<div id="chareval"></div>
+<h4>chareval(G, <em>chi</em>, x, {z})</h4>
+<p>
+Let G be an abelian group structure affording a discrete logarithm
+method, e.g G = <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code>(N, 1) for (&Zopf;/N&Zopf;)<sup>*</sup> or a <code>bnr</code>
+structure, let x be an element of G and let <em>chi</em> be a character of
+G (see the note below for details). This function returns the value of
+<em>chi</em> at x.</p>
+<p>
+<b>Note on characters.</b>
+Let K be some field. If G is an abelian group,
+let &chi;: G  &rightarrow;  K<sup>*</sup> be a character of finite order and let o be a
+multiple of the character order such that &chi;(n) = &zeta;<sup>c(n)</sup> for some
+fixed &zeta; &in;  K<sup>*</sup> of multiplicative order o and a unique morphism c: G
+ &rightarrow;  (&Zopf;/o&Zopf;,+). Our usual convention is to write
+G = (&Zopf;/o<sub>1</sub>&Zopf;) g<sub>1</sub> &bigoplus; ...&bigoplus;  (&Zopf;/o<sub>d</sub>&Zopf;) g<sub>d</sub>
+for some generators (g<sub>i</sub>) of respective order d<sub>i</sub>, where the group has
+exponent o := lcm<sub>i</sub> o<sub>i</sub>. Since &zeta;^o = 1, the vector (c<sub>i</sub>) in
+&prod; (&Zopf;/o<sub>i</sub>&Zopf;) defines a character &chi; on G via &chi;(g<sub>i</sub>) = 
+&zeta;<sup>c<sub>i</sub> (o/o<sub>i</sub>)</sup> for all i. Classical Dirichlet characters have values
+in K = &Copf; and we can take &zeta; = exp(2i&pi;/o).</p>
+<p>
+<b>Note on Dirichlet characters.</b>
+In the special case where <em>bid</em> is attached to G = (&Zopf;/q&Zopf;)<sup>*</sup>
+(as per <code>G = znstar(q,1)</code>), the Dirichlet
+character <em>chi</em> can be written in one of the usual 3 formats: a <code>t_VEC</code>
+in terms of <code>bid.gen</code> as above, a <code>t_COL</code> in terms of the Conrey
+generators, or a <code>t_INT</code> (Conrey label);
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>.</p>
+<p>
+The character value is encoded as follows, depending on the optional
+argument z:</p>
+<p>
+<b>*</b> If z is omitted: return the rational number c(x)/o for x coprime
+to q, where we normalize 0 &leq; c(x) &lt; o. If x can not be mapped to the
+group (e.g. x is not coprime to the conductor of a Dirichlet or Hecke
+character) we return the sentinel value -1.</p>
+<p>
+<b>*</b> If z is an integer o, then we assume that o is a multiple of the
+character order and we return the integer c(x) when x belongs
+to the group, and the sentinel value -1 otherwise.</p>
+<p>
+<b>*</b> z can be of the form [<em>zeta</em>, o], where <em>zeta</em>
+is an o-th root of 1 and o is a multiple of the character order.
+We return &zeta;<sup>c(x)</sup> if x belongs to the group, and the sentinel
+value 0 otherwise. (Note that this coincides  with the usual extension
+of Dirichlet characters to &Zopf;, or of Hecke characters to general ideals.)</p>
+<p>
+<b>*</b> Finally, z can be of the form [<em>vzeta</em>, o], where
+<em>vzeta</em> is a vector of powers &zeta;^0,..., &zeta;<sup>o-1</sup>
+of some o-th root of 1 and o is a multiple of the character order.
+As above, we return &zeta;<sup>c(x)</sup> after a table lookup. Or the sentinel
+value 0.</p>
+<p>
+The library syntax is <code>GEN <b>chareval</b>(GEN G, GEN chi, GEN x, GEN z = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:chargalois"></div>
+<div id="chargalois"></div>
+<h4>chargalois(<em>cyc</em>, {<em>ORD</em>})</h4>
+<p>
+Let <em>cyc</em> represent a finite abelian group by its elementary divisors
+(any object which has a <code>.cyc</code> method is also allowed, i.e. the output of
+<code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> or <code><a href="General_number_fields.html#se:bnrinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrinit</a></code>). Return a list of representatives for the
+Galois orbits of complex characters of G.
+If <code>ORD</code> is present, select characters depending on their orders:</p>
+<p>
+<b>*</b> if <code>ORD</code> is a <code>t_INT</code>, restrict to orders less than this
+bound;</p>
+<p>
+<b>*</b> if <code>ORD</code> is a <code>t_VEC</code> or <code>t_VECSMALL</code>, restrict to orders in
+the list.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(96);
+  ? #chargalois(G) \\ 16 orbits of characters mod 96
+  %2 = 16
+  ? #chargalois(G,4) \\ order less than 4
+  %3 = 12
+  ? chargalois(G,[1,4]) \\ order 1 or 4; 5 orbits
+  %4 = [[0, 0, 0], [2, 0, 0], [2, 1, 0], [2, 0, 1], [2, 1, 1]]
+</pre><p></p>
+<p>
+Given a character &chi;, of order n (<code>charorder(G,chi)</code>), the
+elements in its orbit are the &phi;(n) characters &chi;^i, (i,n) = 1.</p>
+<p>
+The library syntax is <code>GEN <b>chargalois</b>(GEN cyc, GEN ORD = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:charker"></div>
+<div id="charker"></div>
+<h4>charker(<em>cyc</em>, <em>chi</em>)</h4>
+<p>
+Let <em>cyc</em> represent a finite abelian group by its elementary
+divisors, i.e. (d<sub>j</sub>) represents &sum;<sub>j &leq; k</sub> &Zopf;/d<sub>j</sub>&Zopf; with d<sub>k</sub>
+ | ... | d<sub>1</sub>; any object which has a <code>.cyc</code> method is also
+allowed, e.g.&nbsp;the output of <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> or <code><a href="General_number_fields.html#se:bnrinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrinit</a></code>. A character
+on this group is given by a row vector &chi; = [a<sub>1</sub>,...,a<sub>n</sub>] such that
+&chi;(&prod; g<sub>j</sub><sup>n<sub>j</sub></sup>) = exp(2&pi; i&sum; a<sub>j</sub> n<sub>j</sub> / d<sub>j</sub>), where g<sub>j</sub> denotes
+the generator (of order d<sub>j</sub>) of the j-th cyclic component.</p>
+<p>
+This function returns the kernel of &chi;, as a matrix K in HNF which is a
+left-divisor of <code>matdiagonal(d)</code>. Its columns express in terms of
+the g<sub>j</sub> the generators of the subgroup. The determinant of K is the
+kernel index.</p>
+<p>
+</p><pre class="code">  ? cyc = [15,5]; chi = [1,1];
+  ? charker(cyc, chi)
+  %2 =
+  [15 12]
+  
+  [ 0  1]
+  
+  ? bnf = bnfinit(x^2+23);
+  ? bnf.cyc
+  %4 = [3]
+  ? charker(bnf, [1])
+  %5 =
+  [3]
+</pre><p>
+Note that for Dirichlet characters (when <code>cyc</code> is
+<code>znstar(q, 1)</code>), characters in Conrey representation are available,
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>.</p>
+<p>
+</p><pre class="code">  ? G = znstar(8, 1);  \\ (Z/8Z)<sup>*</sup>
+  ? charker(G, 1) \\ Conrey label for trivial character
+  %2 =
+  [1 0]
+  
+  [0 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>charker0</b>(GEN cyc, GEN chi)</code>.
+Also available is
+<code>GEN <b>charker</b>(GEN cyc, GEN chi)</code>, when <code>cyc</code> is known to
+be a vector of elementary divisors and <code>chi</code> a compatible character
+(no checks).</p>
+<p>
+
+<hr>
+<div id="se:charmul"></div>
+<div id="charmul"></div>
+<h4>charmul(<em>cyc</em>, a, b)</h4>
+<p>
+Let <em>cyc</em> represent a finite abelian group by its elementary
+divisors, i.e. (d<sub>j</sub>) represents &sum;<sub>j &leq; k</sub> &Zopf;/d<sub>j</sub>&Zopf; with d<sub>k</sub>
+ | ... | d<sub>1</sub>; any object which has a <code>.cyc</code> method is also
+allowed, e.g.&nbsp;the output of <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> or <code><a href="General_number_fields.html#se:bnrinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrinit</a></code>. A character
+on this group is given by a row vector a = [a<sub>1</sub>,...,a<sub>n</sub>] such that
+&chi;(&prod; g<sub>j</sub><sup>n<sub>j</sub></sup>) = exp(2&pi; i&sum; a<sub>j</sub> n<sub>j</sub> / d<sub>j</sub>), where g<sub>j</sub> denotes
+the generator (of order d<sub>j</sub>) of the j-th cyclic component.</p>
+<p>
+Given two characters a and b, return the product character ab.</p>
+<p>
+</p><pre class="code">  ? cyc = [15,5]; a = [1,1]; b =  [2,4];
+  ? charmul(cyc, a,b)
+  %2 = [3, 0]
+  ? bnf = bnfinit(x^2+23);
+  ? bnf.cyc
+  %4 = [3]
+  ? charmul(bnf, [1], [2])
+  %5 = [0]
+</pre><p>
+For Dirichlet characters on  (&Zopf;/N&Zopf;)<sup>*</sup>, additional
+representations are available (Conrey labels, Conrey logarithm), see
+Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>. If the two characters are in
+the same format, their
+product is given in the same format, otherwise a Conrey logarithm is used.</p>
+<p>
+</p><pre class="code">  ? G = znstar(100, 1);
+  ? G.cyc
+  %2 = [20, 2]
+  ? a = [10, 1]; \\ usual representation for characters
+  ? b = 7; \\ Conrey label;
+  ? c = znconreylog(G, 11); \\ Conrey log
+  ? charmul(G, b,b)
+  %6 = 49   \\ Conrey label
+  ? charmul(G, a,b)
+  %7 = [0, 15]~  \\ Conrey log
+  ? charmul(G, a,c)
+  %7 = [0, 6]~   \\ Conrey log
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>charmul0</b>(GEN cyc, GEN a, GEN b)</code>.
+Also available is
+<code>GEN <b>charmul</b>(GEN cyc, GEN a, GEN b)</code>, when <code>cyc</code> is known to
+be a vector of elementary divisors and a, b are compatible characters
+(no checks).</p>
+<p>
+
+<hr>
+<div id="se:charorder"></div>
+<div id="charorder"></div>
+<h4>charorder(<em>cyc</em>, <em>chi</em>)</h4>
+<p>
+Let <em>cyc</em> represent a finite abelian group by its elementary
+divisors, i.e. (d<sub>j</sub>) represents &sum;<sub>j &leq; k</sub> &Zopf;/d<sub>j</sub>&Zopf; with d<sub>k</sub>
+ | ... | d<sub>1</sub>; any object which has a <code>.cyc</code> method is also
+allowed, e.g.&nbsp;the output of <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> or <code><a href="General_number_fields.html#se:bnrinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrinit</a></code>. A character
+on this group is given by a row vector &chi; = [a<sub>1</sub>,...,a<sub>n</sub>] such that
+&chi;(&prod; g<sub>j</sub><sup>n<sub>j</sub></sup>) = exp(2&pi; i&sum; a<sub>j</sub> n<sub>j</sub> / d<sub>j</sub>), where g<sub>j</sub> denotes
+the generator (of order d<sub>j</sub>) of the j-th cyclic component.</p>
+<p>
+This function returns the order of the character <code>chi</code>.</p>
+<p>
+</p><pre class="code">  ? cyc = [15,5]; chi = [1,1];
+  ? charorder(cyc, chi)
+  %2 = 15
+  ? bnf = bnfinit(x^2+23);
+  ? bnf.cyc
+  %4 = [3]
+  ? charorder(bnf, [1])
+  %5 = 3
+</pre><p>
+For Dirichlet characters (when <code>cyc</code> is
+<code>znstar(q, 1)</code>), characters in Conrey representation are available,
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>:</p>
+<p>
+</p><pre class="code">  ? G = znstar(100, 1); \\ (Z/100Z)<sup>*</sup>
+  ? charorder(G, 7)   \\ Conrey label
+  %2 = 4
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>charorder0</b>(GEN cyc, GEN chi)</code>.
+Also available is
+<code>GEN <b>charorder</b>(GEN cyc, GEN chi)</code>, when <code>cyc</code> is known to
+be a vector of elementary divisors and <code>chi</code> a compatible character
+(no checks).</p>
+<p>
+
+<hr>
+<div id="se:charpow"></div>
+<div id="charpow"></div>
+<h4>charpow(<em>cyc</em>, a, n)</h4>
+<p>
+Let <em>cyc</em> represent a finite abelian group by its elementary
+divisors, i.e. (d<sub>j</sub>) represents &sum;<sub>j &leq; k</sub> &Zopf;/d<sub>j</sub>&Zopf; with d<sub>k</sub>
+ | ... | d<sub>1</sub>; any object which has a <code>.cyc</code> method is also
+allowed, e.g.&nbsp;the output of <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> or <code><a href="General_number_fields.html#se:bnrinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrinit</a></code>. A character
+on this group is given by a row vector a = [a<sub>1</sub>,...,a<sub>n</sub>] such that
+&chi;(&prod; g<sub>j</sub><sup>n<sub>j</sub></sup>) = exp(2&pi; i&sum; a<sub>j</sub> n<sub>j</sub> / d<sub>j</sub>), where g<sub>j</sub> denotes
+the generator (of order d<sub>j</sub>) of the j-th cyclic component.</p>
+<p>
+Given n &in;  &Zopf; and a character a, return the character a^n.</p>
+<p>
+</p><pre class="code">  ? cyc = [15,5]; a = [1,1];
+  ? charpow(cyc, a, 3)
+  %2 = [3, 3]
+  ? charpow(cyc, a, 5)
+  %2 = [5, 0]
+  ? bnf = bnfinit(x^2+23);
+  ? bnf.cyc
+  %4 = [3]
+  ? charpow(bnf, [1], 3)
+  %5 = [0]
+</pre><p>
+For Dirichlet characters on  (&Zopf;/N&Zopf;)<sup>*</sup>, additional
+representations are available (Conrey labels, Conrey logarithm), see
+Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code> and the output uses the
+same format as the input.</p>
+<p>
+</p><pre class="code">  ? G = znstar(100, 1);
+  ? G.cyc
+  %2 = [20, 2]
+  ? a = [10, 1]; \\ standard representation for characters
+  ? b = 7; \\ Conrey label;
+  ? c = znconreylog(G, 11); \\ Conrey log
+  ? charpow(G, a,3)
+  %6 = [10, 1]   \\ standard representation
+  ? charpow(G, b,3)
+  %7 = 43   \\ Conrey label
+  ? charpow(G, c,3)
+  %8 = [1, 8]~  \\ Conrey log
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>charpow0</b>(GEN cyc, GEN a, GEN n)</code>.
+Also available is
+<code>GEN <b>charpow</b>(GEN cyc, GEN a, GEN n)</code>, when <code>cyc</code> is known to
+be a vector of elementary divisors (no check).</p>
+<p>
+
+<hr>
+<div id="se:chinese"></div>
+<div id="chinese"></div>
+<h4>chinese(x, {y})</h4>
+<p>
+If x and y are both intmods or both polmods, creates (with the same
+type) a z in the same residue class as x and in the same residue class as
+y, if it is possible.</p>
+<p>
+</p><pre class="code">  ? chinese(Mod(1,2), Mod(2,3))
+  %1 = Mod(5, 6)
+  ? chinese(Mod(x,x^2-1), Mod(x+1,x^2+1))
+  %2 = Mod(-1/2*x^2 + x + 1/2, x^4 - 1)
+</pre><p></p>
+<p>
+This function also allows vector and matrix arguments, in which case the
+operation is recursively applied to each component of the vector or matrix.</p>
+<p>
+</p><pre class="code">  ? chinese([Mod(1,2),Mod(1,3)], [Mod(1,5),Mod(2,7)])
+  %3 = [Mod(1, 10), Mod(16, 21)]
+</pre><p></p>
+<p>
+For polynomial arguments in the same variable, the function is applied to each
+coefficient; if the polynomials have different degrees, the high degree terms
+are copied verbatim in the result, as if the missing high degree terms in the
+polynomial of lowest degree had been <code>Mod(0,1)</code>. Since the latter
+behavior is usually <em>not</em> the desired one, we propose to convert the
+polynomials to vectors of the same length first:</p>
+<p>
+</p><pre class="code">   ? P = x+1; Q = x^2+2*x+1;
+   ? chinese(P*Mod(1,2), Q*Mod(1,3))
+   %4 = Mod(1, 3)*x^2 + Mod(5, 6)*x + Mod(3, 6)
+   ? chinese(Vec(P,3)*Mod(1,2), Vec(Q,3)*Mod(1,3))
+   %5 = [Mod(1, 6), Mod(5, 6), Mod(4, 6)]
+   ? Pol(%)
+   %6 = Mod(1, 6)*x^2 + Mod(5, 6)*x + Mod(4, 6)
+</pre><p></p>
+<p></p>
+<p>
+If y is omitted, and x is a vector, <code><a href="Arithmetic_functions.html#se:chinese"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">chinese</a></code> is applied recursively
+to the components of x, yielding a residue belonging to the same class as all
+components of x.</p>
+<p>
+Finally <code><a href="Arithmetic_functions.html#se:chinese"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">chinese</a></code>(x,x) = x regardless of the type of x; this allows
+vector arguments to contain other data, so long as they are identical in both
+vectors.</p>
+<p>
+The library syntax is <code>GEN <b>chinese</b>(GEN x, GEN y = NULL)</code>.
+<code>GEN <b>chinese1</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:content"></div>
+<div id="content"></div>
+<h4>content(x, {D})</h4>
+<p>
+Computes the gcd of all the coefficients of x,
+when this gcd makes sense. This is the natural definition
+if x is a polynomial (and by extension a power series) or a
+vector/matrix. This is in general a weaker notion than the <em>ideal</em>
+generated by the coefficients:</p>
+<p>
+</p><pre class="code">  ? content(2*x+y)
+  %1 = 1            \\ = gcd(2,y) over Q[y]
+</pre><p></p>
+<p></p>
+<p>
+If x is a scalar, this simply returns the absolute value of x if x is
+rational (<code>t_INT</code> or <code>t_FRAC</code>), and either 1 (inexact input) or x
+(exact input) otherwise; the result should be identical to <code>gcd(x, 0)</code>.</p>
+<p>
+The content of a rational function is the ratio of the contents of the
+numerator and the denominator. In recursive structures, if a
+matrix or vector <em>coefficient</em> x appears, the gcd is taken
+not with x, but with its content:</p>
+<p>
+</p><pre class="code">  ? content([ [2], 4*matid(3) ])
+  %1 = 2
+</pre><p>
+The content of a <code>t_VECSMALL</code> is computed assuming the
+entries are signed integers.</p>
+<p>
+The optional argument D allows to control over which ring we compute
+and get a more predictable behaviour:</p>
+<p>
+<b>*</b> 1: we only consider the underlying &Qopf;-structure and the
+denominator is a (positive) rational number</p>
+<p>
+<b>*</b> a simple variable, say <code>'x</code>: all entries are considered as
+rational functions in K(x) for some field K and the content is an
+element of K.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? f = x + 1/y + 1/2;
+  ? content(f) \\ as a t_POL in x
+  %2 = 1/(2*y)
+  ? content(f, 1) \\ Q-content
+  %3 = 1/2
+  ? content(f, y) \\ as a rational function in y
+  %4 = 1/2
+  ? g = x^2*y + y^2*x;
+  ? content(g, x)
+  %6 = y
+  ? content(g, y)
+  %7 = x
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>content0</b>(GEN x, GEN D = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:contfrac"></div>
+<div id="contfrac"></div>
+<h4>contfrac(x, {b}, {<em>nmax</em>})</h4>
+<p>
+Returns the row vector whose components are the partial quotients of the
+continued fraction expansion of x. In other words, a result
+[a<sub>0</sub>,...,a<sub>n</sub>] means that x  ~  a<sub>0</sub>+1/(a<sub>1</sub>+...+1/a<sub>n</sub>). The
+output is normalized so that a<sub>n</sub> != 1 (unless we also have n = 0).</p>
+<p>
+The number of partial quotients n+1 is limited by <code>nmax</code>. If
+<code>nmax</code> is omitted, the expansion stops at the last significant partial
+quotient.</p>
+<p>
+</p><pre class="code">  ? \p19
+    realprecision = 19 significant digits
+  ? contfrac(Pi)
+  %1 = [3, 7, 15, 1, 292, 1, 1, 1, 2, 1, 3, 1, 14, 2, 1, 1, 2, 2]
+  ? contfrac(Pi,, 3)  \\ n = 2
+  %2 = [3, 7, 15]
+</pre><p></p>
+<p>
+x can also be a rational function or a power series.</p>
+<p>
+If a vector b is supplied, the numerators are equal to the coefficients
+of b, instead of all equal to 1 as above; more precisely, x  ~ 
+(1/b<sub>0</sub>)(a<sub>0</sub>+b<sub>1</sub>/(a<sub>1</sub>+...+b<sub>n</sub>/a<sub>n</sub>)); for a numerical continued fraction
+(x real), the a<sub>i</sub> are integers, as large as possible; if x is a
+rational function, they are polynomials with deg a<sub>i</sub> = deg b<sub>i</sub> + 1.
+The length of the result is then equal to the length of b, unless the next
+partial quotient cannot be reliably computed, in which case the expansion
+stops. This happens when a partial remainder is equal to zero (or too small
+compared to the available significant digits for x a <code>t_REAL</code>).</p>
+<p>
+A direct implementation of the numerical continued fraction
+<code>contfrac(x,b)</code> described above would be</p>
+<p>
+</p><pre class="code">  \\ "greedy" generalized continued fraction
+  cf(x, b) =
+  { my( a= vector(#b), t );
+  
+    x *= b[1];
+    for (i = 1, #b,
+      a[i] = floor(x);
+      t = x - a[i]; if (!t || i == #b, break);
+      x = b[i+1] / t;
+    ); a;
+  }
+</pre><p>
+There is some degree of freedom when choosing the a<sub>i</sub>; the
+program above can easily be modified to derive variants of the standard
+algorithm. In the same vein, although no builtin
+function implements the related Engel expansion (a special kind of
+Egyptian fraction decomposition: x = 1/a<sub>1</sub> + 1/(a_1a<sub>2</sub>) +... ),
+it can be obtained as follows:</p>
+<p>
+</p><pre class="code">  \\ n terms of the Engel expansion of x
+  engel(x, n = 10) =
+  { my( u = x, a = vector(n) );
+    for (k = 1, n,
+      a[k] = ceil(1/u);
+      u = u*a[k] - 1;
+      if (!u, break);
+    ); a
+  }
+</pre><p></p>
+<p></p>
+<p>
+<b>Obsolete hack.</b> (don't use this): if b is an integer, <em>nmax</em>
+is ignored and the command is understood as <code>contfrac(x,, b)</code>.</p>
+<p>
+The library syntax is <code>GEN <b>contfrac0</b>(GEN x, GEN b = NULL, long nmax)</code>.
+Also available are <code>GEN <b>gboundcf</b>(GEN x, long nmax)</code>,
+<code>GEN <b>gcf</b>(GEN x)</code> and <code>GEN <b>gcf2</b>(GEN b, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:contfracpnqn"></div>
+<div id="contfracpnqn"></div>
+<h4>contfracpnqn(x, {n = -1})</h4>
+<p>
+When x is a vector or a one-row matrix, x
+is considered as the list of partial quotients [a<sub>0</sub>,a<sub>1</sub>,...,a<sub>n</sub>] of a
+rational number, and the result is the 2 by 2 matrix
+[p<sub>n</sub>,p<sub>n-1</sub>;q<sub>n</sub>,q<sub>n-1</sub>] in the standard notation of continued fractions,
+so p<sub>n</sub>/q<sub>n</sub> = a<sub>0</sub>+1/(a<sub>1</sub>+...+1/a<sub>n</sub>). If x is a matrix with two rows
+[b<sub>0</sub>,b<sub>1</sub>,...,b<sub>n</sub>] and [a<sub>0</sub>,a<sub>1</sub>,...,a<sub>n</sub>], this is then considered as a
+generalized continued fraction and we have similarly
+p<sub>n</sub>/q<sub>n</sub> = (1/b<sub>0</sub>)(a<sub>0</sub>+b<sub>1</sub>/(a<sub>1</sub>+...+b<sub>n</sub>/a<sub>n</sub>)). Note that in this case one
+usually has b<sub>0</sub> = 1.</p>
+<p>
+If n &geq; 0 is present, returns all convergents from p<sub>0</sub>/q<sub>0</sub> up to
+p<sub>n</sub>/q<sub>n</sub>. (All convergents if x is too small to compute the n+1
+requested convergents.)</p>
+<p>
+</p><pre class="code">  ? a = contfrac(Pi,10)
+  %1 = [3, 7, 15, 1, 292, 1, 1, 1, 3]
+  ? allpnqn(x) = contfracpnqn(x,#x) \\ all convergents
+  ? allpnqn(a)
+  %3 =
+  [3 22 333 355 103993 104348 208341 312689 1146408]
+  
+  [1  7 106 113  33102  33215  66317  99532  364913]
+  ? contfracpnqn(a) \\ last two convergents
+  %4 =
+  [1146408 312689]
+  
+  [ 364913  99532]
+  
+  ? contfracpnqn(a,3) \\ first three convergents
+  %5 =
+  [3 22 333 355]
+  
+  [1  7 106 113]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>contfracpnqn</b>(GEN x, long n)</code>.
+also available is <code>GEN <b>pnqn</b>(GEN x)</code> for n = -1.</p>
+<p>
+
+<hr>
+<div id="se:core"></div>
+<div id="core"></div>
+<h4>core(n, {<em>flag</em> = 0})</h4>
+<p>
+If n is an integer written as
+n = df^2 with d squarefree, returns d. If <em>flag</em> is non-zero,
+returns the two-element row vector [d,f]. By convention, we write 0 = 0
+ x 1^2, so <code>core(0, 1)</code> returns [0,1].</p>
+<p>
+The library syntax is <code>GEN <b>core0</b>(GEN n, long flag)</code>.
+Also available are <code>GEN <b>core</b>(GEN n)</code> (<em>flag</em> = 0) and
+<code>GEN <b>core2</b>(GEN n)</code> (<em>flag</em> = 1)</p>
+<p>
+
+<hr>
+<div id="se:coredisc"></div>
+<div id="coredisc"></div>
+<h4>coredisc(n, {<em>flag</em> = 0})</h4>
+<p>
+A <em>fundamental discriminant</em> is an integer of the form t = 1
+ mod 4 or 4t = 8,12 mod 16, with t squarefree (i.e.&nbsp;1 or the
+discriminant of a quadratic number field). Given a non-zero integer
+n, this routine returns the (unique) fundamental discriminant d
+such that n = df^2, f a positive rational number. If <em>flag</em> is non-zero,
+returns the two-element row vector [d,f]. If n is congruent to
+0 or 1 modulo 4, f is an integer, and a half-integer otherwise.</p>
+<p>
+By convention, <code>coredisc(0, 1))</code> returns [0,1].</p>
+<p>
+Note that <code><a href="Arithmetic_functions.html#se:quaddisc"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quaddisc</a></code>(n) returns the same value as <code><a href="Arithmetic_functions.html#se:coredisc"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">coredisc</a></code>(n),
+and also works with rational inputs n &in; &Qopf;<sup>*</sup>.</p>
+<p>
+The library syntax is <code>GEN <b>coredisc0</b>(GEN n, long flag)</code>.
+Also available are <code>GEN <b>coredisc</b>(GEN n)</code> (<em>flag</em> = 0) and
+<code>GEN <b>coredisc2</b>(GEN n)</code> (<em>flag</em> = 1)</p>
+<p>
+
+<hr>
+<div id="se:dirdiv"></div>
+<div id="dirdiv"></div>
+<h4>dirdiv(x, y)</h4>
+<p>
+x and y being vectors of perhaps different
+lengths but with y[1] != 0 considered as Dirichlet series, computes
+the quotient of x by y, again as a vector.</p>
+<p>
+The library syntax is <code>GEN <b>dirdiv</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:direuler"></div>
+<div id="direuler"></div>
+<h4>direuler(p = a, b, <em>expr</em>, {c})</h4>
+<p>
+Computes the Dirichlet series attached to the
+Euler product of expression <em>expr</em> as p ranges through the primes
+from a
+to b. <em>expr</em> must be a polynomial or rational function in another
+variable than p (say X) and <em>expr</em>(X) is understood as the local
+factor <em>expr</em>(p<sup>-s</sup>).</p>
+<p>
+The series is output as a vector of coefficients. If c is omitted, output
+the first b coefficients of the series; otherwise, output the first c
+coefficients. The following command computes the <b>sigma</b> function,
+attached to &zeta;(s)&zeta;(s-1):</p>
+<p>
+</p><pre class="code">  ? direuler(p=2, 10, 1/((1-X)*(1-p*X)))
+  %1 = [1, 3, 4, 7, 6, 12, 8, 15, 13, 18]
+  
+  ? direuler(p=2, 10, 1/((1-X)*(1-p*X)), 5) \\ fewer terms
+  %2 = [1, 3, 4, 7, 6]
+</pre><p>
+Setting c &lt; b is useless (the same effect would be
+achieved by setting b = c). If c &gt; b, the computed coefficients are
+"missing" Euler factors:</p>
+<p>
+</p><pre class="code">  ? direuler(p=2, 10, 1/((1-X)*(1-p*X)), 15) \\ more terms, no longer = sigma !
+  %3 = [1, 3, 4, 7, 6, 12, 8, 15, 13, 18, 0, 28, 0, 24, 24]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>direuler</b>(void *E, GEN (*eval)(void*,GEN), GEN a, GEN b)</code></p>
+<p>
+
+<hr>
+<div id="se:dirmul"></div>
+<div id="dirmul"></div>
+<h4>dirmul(x, y)</h4>
+<p>
+x and y being vectors of perhaps different lengths representing
+the Dirichlet series &sum;<sub>n</sub> x<sub>n</sub> n<sup>-s</sup> and &sum;<sub>n</sub> y<sub>n</sub> n<sup>-s</sup>,
+computes the product of x by y, again as a vector.</p>
+<p>
+</p><pre class="code">  ? dirmul(vector(10,n,1), vector(10,n,moebius(n)))
+  %1 = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</pre><p></p>
+<p>
+The product
+length is the minimum of <code>#</code>x<code>*</code>v(y) and <code>#</code>y<code>*</code>v(x),
+where v(x) is the index of the first non-zero coefficient.</p>
+<p>
+</p><pre class="code">  ? dirmul([0,1], [0,1]);
+  %2 = [0, 0, 0, 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>dirmul</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:divisors"></div>
+<div id="divisors"></div>
+<h4>divisors(x, {<em>flag</em> = 0})</h4>
+<p>
+Creates a row vector whose components are the
+divisors of x. The factorization of x (as output by <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>) can
+be used instead. If <em>flag</em> = 1, return pairs [d, <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>(d)].</p>
+<p>
+By definition, these divisors are the products of the irreducible
+factors of n, as produced by <code>factor(n)</code>, raised to appropriate
+powers (no negative exponent may occur in the factorization). If n is
+an integer, they are the positive divisors, in increasing order.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? divisors(12)
+  %1 = [1, 2, 3, 4, 6, 12]
+  ? divisors(12, 1) \\ include their factorization
+  %2 = [[1, matrix(0,2)], [2, Mat([2, 1])], [3, Mat([3, 1])],
+        [4, Mat([2, 2])], [6, [2, 1; 3, 1]], [12, [2, 2; 3, 1]]]
+  
+  ? divisors(x^4 + 2*x^3 + x^2) \\ also works for polynomials
+  %3 = [1, x, x^2, x + 1, x^2 + x, x^3 + x^2, x^2 + 2*x + 1,
+        x^3 + 2*x^2 + x, x^4 + 2*x^3 + x^2]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>divisors0</b>(GEN x, long flag)</code>.
+The functions <code>GEN <b>divisors</b>(GEN N)</code> (<em>flag</em> = 0) and
+<code>GEN <b>divisors_factored</b>(GEN N)</code> (<em>flag</em> = 1) are also available.</p>
+<p>
+
+<hr>
+<div id="se:divisorslenstra"></div>
+<div id="divisorslenstra"></div>
+<h4>divisorslenstra(N, r, s)</h4>
+<p>
+Given three integers N &gt; s &gt; r &geq; 0 such that (r,s) = 1
+and s^3 &gt; N, find all divisors d of N such that d = r (mod s).
+There are at most 11 such divisors (Lenstra).</p>
+<p>
+</p><pre class="code">  ? N = 245784; r = 19; s = 65 ;
+  ? divisorslenstra(N, r, s)
+  %2 = [19, 84, 539, 1254, 3724, 245784]
+  ? [ d | d &lt;- divisors(N), d % s == r]
+  %3 = [19, 84, 539, 1254, 3724, 245784]
+</pre><p>
+When the preconditions are not met, the result is undefined:</p>
+<p>
+</p><pre class="code">  ? N = 4484075232; r = 7; s = 1303; s^3 &gt; N
+  %4 = 0
+  ? divisorslenstra(N, r, s)
+  ? [ d | d &lt;- divisors(N), d % s == r ]
+  %6 = [7, 2613, 9128, 19552, 264516, 3407352, 344928864]
+</pre><p>
+(Divisors were missing but s^3 &lt; N.)</p>
+<p>
+The library syntax is <code>GEN <b>divisorslenstra</b>(GEN N, GEN r, GEN s)</code>.</p>
+<p>
+
+<hr>
+<div id="se:eulerphi"></div>
+<div id="eulerphi"></div>
+<h4>eulerphi(x)</h4>
+<p>
+Euler's &phi; (totient) function of the
+integer |x|, in other words |(&Zopf;/x&Zopf;)<sup>*</sup>|.</p>
+<p>
+</p><pre class="code">  ? eulerphi(40)
+  %1 = 16
+</pre><p></p>
+<p>
+According to this definition we let &phi;(0) := 2, since &Zopf;^ *= {-1,1};
+this is consistent with <code>znstar(0)</code>: we have
+<code>znstar(n).no = eulerphi(n)</code> for all n &in; &Zopf;.</p>
+<p>
+The library syntax is <code>GEN <b>eulerphi</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factor"></div>
+<div id="factor"></div>
+<h4>factor(x, {D})</h4>
+<p>
+Factor x over domain D; if D is omitted, it is determined from x.
+For instance, if x is an integer, it is factored in &Zopf;, if it is a
+polynomial with rational coefficients, it is factored in &Qopf;[x], etc., see
+below for details. The result is a two-column matrix: the first contains the
+irreducibles dividing x (rational or Gaussian primes, irreducible
+polynomials), and the second the exponents. By convention, 0 is factored
+as 0^1.</p>
+<p>
+<b>x  &in;  &Qopf;.</b>
+See <code><a href="Arithmetic_functions.html#se:factorint"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factorint</a></code> for the algorithms used. The factorization includes the
+unit -1 when x &lt; 0 and all other factors are positive; a denominator is
+factored with negative exponents. The factors are sorted in increasing order.</p>
+<p>
+</p><pre class="code">  ? factor(-7/106)
+  %1 =
+  [-1  1]
+  
+  [ 2 -1]
+  
+  [ 7  1]
+  
+  [53 -1]
+</pre><p>
+By convention, 1 is factored as <code>matrix(0,2)</code>
+(the empty factorization, printed as <code>[;]</code>).</p>
+<p>
+Large rational "primes"  &gt; 2<sup>64</sup> in the factorization are in fact
+<em>pseudoprimes</em> (see <code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>), a priori not rigorously proven
+primes. Use <code><a href="Arithmetic_functions.html#se:isprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">isprime</a></code> to prove primality of these factors, as in</p>
+<p>
+</p><pre class="code">  ? fa = factor(2^2^7 + 1)
+  %1 =
+  [59649589127497217 1]
+  
+  [5704689200685129054721 1]
+  
+  ? isprime( fa[,1] )
+  %2 = [1, 1]~   \\ both entries are proven primes
+</pre><p></p>
+<p>
+Another possibility is to globally set the default <code>factor_proven</code>, which
+will perform a rigorous primality proof for each pseudoprime factor but will
+slow down PARI.</p>
+<p>
+A <code>t_INT</code> argument D can be added, meaning that we look only for
+prime factors p &lt; D. The limit D must be non-negative.
+In this case, all but the last factor are proven primes, but the remaining
+factor may actually be a proven composite! If the remaining factor is less
+than D^2, then it is prime.</p>
+<p>
+</p><pre class="code">  ? factor(2^2^7 +1, 10^5)
+  %3 =
+  [340282366920938463463374607431768211457 1]
+</pre><p></p>
+<p>
+<b>Deprecated feature.</b> Setting D = 0 is the same
+as setting it to <code>primelimit</code> + 1.</p>
+<p></p>
+<p>
+This routine uses trial division and perfect power tests, and should not be
+used for huge values of D (at most 10^9, say):
+<code>factorint(, 1 + 8)</code> will in general be faster. The latter does not
+guarantee that all small prime factors are found, but it also finds larger
+factors and in a more efficient way.</p>
+<p>
+</p><pre class="code">  ? F = (2^2^7 + 1) * 1009 * (10^5+3); factor(F, 10^5)  \\ fast, incomplete
+  time = 0 ms.
+  %4 =
+  [1009 1]
+  
+  [34029257539194609161727850866999116450334371 1]
+  
+  ? factor(F, 10^9)    \\ slow
+  time = 3,260 ms.
+  %6 =
+  [1009 1]
+  
+  [100003 1]
+  
+  [340282366920938463463374607431768211457 1]
+  
+  ? factorint(F, 1+8)  \\ much faster and all small primes were found
+  time = 8 ms.
+  %7 =
+  [1009 1]
+  
+  [100003 1]
+  
+  [340282366920938463463374607431768211457 1]
+  
+  ? factor(F)   \\ complete factorization
+  time = 60 ms.
+  %8 =
+  [1009 1]
+  
+  [100003 1]
+  
+  [59649589127497217 1]
+  
+  [5704689200685129054721 1]
+</pre><p></p>
+<p></p>
+<p>
+Setting D = I will factor in the Gaussian integers
+&Zopf;[i]:</p>
+<p>
+<b>x  &in;  &Qopf;(i).</b> The factorization is performed with Gaussian
+primes in &Zopf;[i] and includes Gaussian units in {&#177;1, &#177; i};
+factors are sorted by increasing norm. Except for a possible leading unit,
+the Gaussian factors are normalized: rational factors are positive and
+irrational factors have positive imaginary part (a canonical represneta.</p>
+<p>
+Unless <code>factor_proven</code> is set, large factors are actually pseudoprimes,
+not proven primes; a rational factor is prime if less than 2<sup>64</sup> and an
+irrational one if its norm is less than 2<sup>64</sup>.</p>
+<p>
+</p><pre class="code">  ? factor(5*I)
+  %1 =
+  [  2 + I 1]
+  
+  [1 + 2*I 1]
+</pre><p>
+One can force the factorization of a rational number
+by setting the domain D = I:</p>
+<p>
+</p><pre class="code">  ? factor(-5, I)
+  %2 =
+  [      I 1]
+  
+  [  2 + I 1]
+  
+  [1 + 2*I 1]
+  ? factorback(%)
+  %3 = -5
+</pre><p></p>
+<p></p>
+<p>
+<b>Univariate polynomials and rational functions.</b>
+PARI can factor univariate polynomials in K[t]. The following base fields
+K are currently supported: &Qopf;, &Ropf;, &Copf;, &Qopf;<sub>p</sub>, finite fields and
+number fields. See <code><a href="Arithmetic_functions.html#se:factormod"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factormod</a></code> and <code><a href="Arithmetic_functions.html#se:factorff"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factorff</a></code> for the algorithms used
+over finite fields and <code><a href="General_number_fields.html#se:nffactor"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">nffactor</a></code> for the algorithms over number fields.
+The irreducible factors are sorted by increasing degree and normalized: they
+are monic except when K = &Qopf; where they are primitive in &Zopf;[t].</p>
+<p>
+The content is <em>not</em> included in the factorization, in particular
+<code><a href="Arithmetic_functions.html#se:factorback"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factorback</a></code> will in general recover the original x only up to
+multiplication by an element of K<sup>*</sup>: when K != &Qopf;, this scalar is
+<code><a href="Polynomials_and_power_series.html#se:pollead"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">pollead</a></code>(x) (since irreducible factors are monic); and when K = &Qopf;
+you can either ask for the &Qopf;-content explicitly of use factorback:</p>
+<p>
+</p><pre class="code">  ? P = t^2 + 5*t/2 + 1; F = factor(P)
+  %1 =
+  [t + 2 1]
+  
+  [2*t + 1 1]
+  
+  ? content(P, 1) \\ Q-content
+  %2 = 1/2
+  
+  ? pollead(factorback(F)) / pollead(P)
+  %3 = 2
+</pre><p></p>
+<p></p>
+<p>
+You can specify K using the optional "domain" argument D as follows</p>
+<p>
+<b>*</b> K = &Qopf; : D a rational number (<code>t_INT</code> or <code>t_FRAC</code>),</p>
+<p>
+<b>*</b> K = &Zopf;/p&Zopf; with p prime : D a <code>t_INTMOD</code> modulo p;
+factoring modulo a non-prime number is not supported.</p>
+<p>
+<b>*</b> K = &Fopf;<sub>q</sub> : D a <code>t_FFELT</code> encoding the finite field; you can also
+use a <code>t_POLMOD</code> of <code>t_INTMOD</code> modulo a prime p but this is usualy
+less convenient;</p>
+<p>
+<b>*</b> K = &Qopf;[X]/(T) a number field : D a <code>t_POLMOD</code> modulo T,</p>
+<p>
+<b>*</b> K = &Qopf;(i) (alternate syntax for special case): D = I,</p>
+<p>
+<b>*</b> K = &Qopf;(w) a quadratic number field (alternate syntax for special
+case): D a <code>t_QUAD</code>,</p>
+<p>
+<b>*</b> K = &Ropf; : D a real number (<code>t_REAL</code>); truncate the factorization
+at accuracy <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:precision"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">precision</a></code>(D), possibly less if x is inexact and
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:precision"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">precision</a></code>(x) is less that <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:precision"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">precision</a></code>(D),</p>
+<p>
+<b>*</b> K = &Copf; : D a complex number with a <code>t_REAL</code> component, e.g.
+<code>I * 1.</code>; truncate the factorization as for K = &Ropf;,</p>
+<p>
+<b>*</b> K = &Qopf;<sub>p</sub> : D a <code>t_PADIC</code>; truncate the factorization at
+p-adic accuracy <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:padicprec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">padicprec</a></code>(D), possibly less if x is inexact
+with insufficient p-adic accuracy;</p>
+<p></p>
+<p>
+</p><pre class="code">  ? T = x^2+1;
+  ? factor(T, 1);                      \\ over Q
+  ? factor(T, Mod(1,3))                \\ over F<sub>3</sub>
+  ? factor(T, ffgen(ffinit(3,2,'t))^0) \\ over F<sub>3^2</sub>
+  ? factor(T, Mod(Mod(1,3), t^2+t+2))  \\ over F<sub>3^2</sub>, again
+  ? factor(T, O(3^6))                  \\ over Q<sub>3</sub>, precision 6
+  ? factor(T, 1.)                      \\ over R, current precision
+  ? factor(T, I*1.)                    \\ over C
+  ? factor(T, Mod(1, y^3-2))           \\ over Q(2<sup>1/3</sup>)
+</pre><p>
+In most cases, it is possible and simpler to call a
+specialized variant rather than use the above scheme:</p>
+<p>
+</p><pre class="code">  ? factormod(T, 3)              \\ over F<sub>3</sub>
+  ? factormod(T, [t^2+t+2, 3])   \\ over F<sub>3^2</sub>
+  ? factormod(T, ffgen(3^2, 't)) \\ over F<sub>3^2</sub>
+  ? factorpadic(T, 3,6)          \\ over Q<sub>3</sub>, precision 6
+  ? nffactor(y^3-2, T)           \\ over Q(2<sup>1/3</sup>)
+  ? polroots(T)                  \\ over C
+  ? polrootsreal(T)              \\ over R (real polynomial)
+</pre><p></p>
+<p></p>
+<p>
+It is also possible to let the routine use the smallest field containing all
+coefficients, taking into account quotient structures induced by
+<code>t_INTMOD</code>s and <code>t_POLMOD</code>s (e.g.&nbsp;if a coefficient in &Zopf;/n&Zopf; is known,
+all rational numbers encountered are first mapped to &Zopf;/n&Zopf;; different
+moduli will produce an error):</p>
+<p>
+</p><pre class="code">  ? T = x^2+1;
+  ? factor(T);                         \\ over Q
+  ? factor(T*Mod(1,3))                 \\ over F<sub>3</sub>
+  ? factor(T*ffgen(ffinit(3,2,'t))^0)  \\ over F<sub>3^2</sub>
+  ? factor(T*Mod(Mod(1,3), t^2+t+2))   \\ over F<sub>3^2</sub>, again
+  ? factor(T*(1 + O(3^6))              \\ over Q<sub>3</sub>, precision 6
+  ? factor(T*1.)                       \\ over R, current precision
+  ? factor(T*(1.+0.*I))                \\ over C
+  ? factor(T*Mod(1, y^3-2))            \\ over Q(2<sup>1/3</sup>)
+</pre><p>
+Multiplying by a suitable field element equal to 1  &in;  K
+in this way is error-prone and is not recommanded. Factoring existing
+polynomials with obvious fields of coefficients is fine, the domain
+argument D should be used instead ad hoc conversions.</p>
+<p>
+<b>Note on inexact polynomials.</b>
+Polynomials with inexact coefficients
+(e.g. floating point or p-adic numbers)
+are first rounded to an exact representation, then factored to (potentially)
+infinite accuracy and we return a truncated approximation of that
+virtual factorization. To avoid pitfalls, we advise to only factor
+<em>exact</em> polynomials:</p>
+<p>
+</p><pre class="code">  ? factor(x^2-1+O(2^2)) \\ rounded to x^2 + 3, irreducible in Q<sub>2</sub>
+  %1 =
+  [(1 + O(2^2))*x^2 + O(2^2)*x + (1 + 2 + O(2^2)) 1]
+  
+  ? factor(x^2-1+O(2^3)) \\ rounded to x^2 + 7, reducible !
+  %2 =
+  [  (1 + O(2^3))*x + (1 + 2 + O(2^3)) 1]
+  
+  [(1 + O(2^3))*x + (1 + 2^2 + O(2^3)) 1]
+  
+  ? factor(x^2-1, O(2^2)) \\ no ambiguity now
+  %3 =
+  [    (1 + O(2^2))*x + (1 + O(2^2)) 1]
+  
+  [(1 + O(2^2))*x + (1 + 2 + O(2^2)) 1]
+</pre><p></p>
+<p></p>
+<p>
+<b>Note about inseparable polynomials.</b> Polynomials with inexact
+coefficients are considered to be squarefree: indeed, there exist a
+squarefree polynomial arbitrarily close to the input, and they cannot be
+distinguished at the input accuracy. This means that irreducible factors are
+repeated according to their apparent multiplicity. On the contrary, using a
+specialized function such as <code><a href="Polynomials_and_power_series.html#se:factorpadic"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">factorpadic</a></code> with an <em>exact</em> rational
+input yields the correct multiplicity when the (now exact) input is not
+separable. Compare:</p>
+<p>
+</p><pre class="code">  ? factor(z^2 + O(5^2)))
+  %1 =
+  [(1 + O(5^2))*z + O(5^2) 1]
+  
+  [(1 + O(5^2))*z + O(5^2) 1]
+  ? factor(z^2, O(5^2))
+  %2 =
+  [1 + O(5^2))*z + O(5^2) 2]
+</pre><p></p>
+<p></p>
+<p>
+<b>Multivariate polynomials and rational functions.</b>
+PARI recursively factors <em>multivariate</em> polynomials in
+K[t<sub>1</sub>,..., t<sub>d</sub>] for the same fields K as above and the argument D
+is used in the same way to specify K. The irreducible factors are sorted
+by their main variable (least priority first) then by increasing degree.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? factor(x^2 + y^2, Mod(1,5))
+  %1 =
+  [          x + Mod(2, 5)*y 1]
+  
+  [Mod(1, 5)*x + Mod(3, 5)*y 1]
+  
+  ? factor(x^2 + y^2, O(5^2))
+  %2 =
+  [  (1 + O(5^2))*x + (O(5^2)*y^2 + (2 + 5 + O(5^2))*y + O(5^2)) 1]
+  
+  [(1 + O(5^2))*x + (O(5^2)*y^2 + (3 + 3*5 + O(5^2))*y + O(5^2)) 1]
+  
+  ? lift(%)
+  %3 =
+  [ x + 7*y 1]
+  
+  [x + 18*y 1]
+</pre><p>
+Note that the implementation does not really support inexact
+real fields (&Ropf; or &Copf;) and usually misses factors even if the input
+is exact:</p>
+<p>
+</p><pre class="code">  ? factor(x^2 + y^2, I)  \\ over Q(i)
+  %4 =
+  [x - I*y 1]
+  
+  [x + I*y 1]
+  
+  ? factor(x^2 + y^2, I*1.) \\ over C
+  %5 =
+  [x^2 + y^2 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>factor0</b>(GEN x, GEN D = NULL)</code>.</p>
+<p>
+<code>GEN <b>factor</b>(GEN x)</code>
+<code>GEN <b>boundfact</b>(GEN x, ulong lim)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factorback"></div>
+<div id="factorback"></div>
+<h4>factorback(f, {e})</h4>
+<p>
+Gives back the factored object corresponding to a factorization. The
+integer 1 corresponds to the empty factorization.</p>
+<p>
+If e is present, e and f must be vectors of the same length (e being
+integral), and the corresponding factorization is the product of the
+f[i]<sup>e[i]</sup>.</p>
+<p>
+If not, and f is vector, it is understood as in the preceding case with e
+a vector of 1s: we return the product of the f[i]. Finally, f can be a
+regular factorization, as produced with any <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code> command. A few
+examples:</p>
+<p>
+</p><pre class="code">  ? factor(12)
+  %1 =
+  [2 2]
+  
+  [3 1]
+  
+  ? factorback(%)
+  %2 = 12
+  ? factorback([2,3], [2,1])   \\ 2^3 * 3^1
+  %3 = 12
+  ? factorback([5,2,3])
+  %4 = 30
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>factorback2</b>(GEN f, GEN e = NULL)</code>.
+Also available is <code>GEN <b>factorback</b>(GEN f)</code> (case e = <code>NULL</code>).</p>
+<p>
+
+<hr>
+<div id="se:factorcantor"></div>
+<div id="factorcantor"></div>
+<h4>factorcantor(x, p)</h4>
+<p>
+This function is obsolete, use factormod.</p>
+<p>
+The library syntax is <code>GEN <b>factmod</b>(GEN x, GEN p)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factorff"></div>
+<div id="factorff"></div>
+<h4>factorff(x, {p}, {a})</h4>
+<p>
+Obsolete, kept for backward compatibility: use factormod.</p>
+<p>
+The library syntax is <code>GEN <b>factorff</b>(GEN x, GEN p = NULL, GEN a = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factorial"></div>
+<div id="factorial"></div>
+<h4>factorial(x)</h4>
+<p>
+Factorial of x. The expression x! gives a result which is an integer,
+while <code><a href="Arithmetic_functions.html#se:factorial"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factorial</a></code>(x) gives a real number.</p>
+<p>
+The library syntax is <code>GEN <b>mpfactr</b>(long x, long prec)</code>.
+<code>GEN <b>mpfact</b>(long x)</code> returns x! as a <code>t_INT</code>.</p>
+<p>
+
+<hr>
+<div id="se:factorint"></div>
+<div id="factorint"></div>
+<h4>factorint(x, {<em>flag</em> = 0})</h4>
+<p>
+Factors the integer n into a product of
+pseudoprimes (see <code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>), using a combination of the
+Shanks SQUFOF and Pollard Rho method (with modifications due to
+Brent), Lenstra's ECM (with modifications by Montgomery), and
+MPQS (the latter adapted from the LiDIA code with the kind
+permission of the LiDIA maintainers), as well as a search for pure powers.
+The output is a two-column matrix as for <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>: the first column
+contains the "prime" divisors of n, the second one contains the
+(positive) exponents.</p>
+<p>
+By convention 0 is factored as 0^1, and 1 as the empty factorization;
+also the divisors are by default not proven primes if they are larger than
+2<sup>64</sup>, they only failed the BPSW compositeness test (see
+<code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>). Use <code><a href="Arithmetic_functions.html#se:isprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">isprime</a></code> on the result if you want to
+guarantee primality or set the <code>factor_proven</code> default to 1.
+Entries of the private prime tables (see <code><a href="Arithmetic_functions.html#se:addprimes"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">addprimes</a></code>) are also included
+as is.</p>
+<p>
+This gives direct access to the integer factoring engine called by most
+arithmetical functions. <em>flag</em> is optional; its binary digits mean 1: avoid
+MPQS, 2: skip first stage ECM (we may still fall back to it later), 4: avoid
+Rho and SQUFOF, 8: don't run final ECM (as a result, a huge composite may be
+declared to be prime). Note that a (strong) probabilistic primality test is
+used; thus composites might not be detected, although no example is known.</p>
+<p>
+You are invited to play with the flag settings and watch the internals at
+work by using <code>gp</code>'s <code>debug</code> default parameter (level 3 shows
+just the outline, 4 turns on time keeping, 5 and above show an increasing
+amount of internal details).</p>
+<p>
+The library syntax is <code>GEN <b>factorint</b>(GEN x, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factormod"></div>
+<div id="factormod"></div>
+<h4>factormod(f, {D}, {<em>flag</em> = 0})</h4>
+<p>
+Factors the polynomial f over the finite field defined by the domain
+D as follows:</p>
+<p>
+<b>*</b> D = p a prime: factor over &Fopf;<sub>p</sub>;</p>
+<p>
+<b>*</b> D = [T,p] for a prime p and T an irreducible polynomial over
+&Fopf;<sub>p</sub>: factor over &Fopf;<sub>p</sub>[x]/(T);</p>
+<p>
+<b>*</b> D a <code>t_FFELT</code>: factor over the attached field;</p>
+<p>
+<b>*</b> D omitted: factor over the field of definition of f, which
+must be a finite field.</p>
+<p>
+The coefficients of f must be operation-compatible with the corresponding
+finite field. The result is a two-column matrix, the first column being the
+irreducible polynomials dividing f, and the second the exponents.
+By convention, the 0 polynomial factors as 0^1; a non-zero constant
+polynomial has empty factorization, a 0 x 2 matrix. The irreducible
+factors are ordered by increasing degree and the result is canonical: it will
+not change across multiple calls or sessions.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? factormod(x^2 + 1, 3)  \\ over F<sub>3</sub>
+  %1 =
+  [Mod(1, 3)*x^2 + Mod(1, 3) 1]
+  ? liftall( factormod(x^2 + 1, [3, t^2+1]) ) \\ over F<sub>9</sub>
+  %2 =
+  [  x + t 1]
+  
+  [x + 2*t 1]
+  ? t = ffgen(t^2+Mod(1,3)); factormod(x^2 + t^0) \\ same using t_FFELT
+  %3 =
+  [  x + t 1]
+  
+  [x + 2*t 1]
+  ? factormod(x^2+Mod(1,3))
+  %4 =
+  [Mod(1, 3)*x^2 + Mod(1, 3) 1]
+  ? liftall( factormod(x^2 + Mod(Mod(1,3),y^2+1)) )
+  %5 =
+  [  x + y 1]
+  
+  [x + 2*y 1]
+</pre><p></p>
+<p></p>
+<p>
+If <em>flag</em> is non-zero, outputs only the <em>degrees</em> of the irreducible
+polynomials (for example to compute an L-function). By convention, a
+constant polynomial (including the 0 polynomial) has empty factorization.
+The degrees appear in increasing order but need not correspond to the
+ordering with <em>flag</em> = 0 when multiplicities are present.</p>
+<p>
+</p><pre class="code">  ? f = x^3 + 2*x^2 + x + 2;
+  ? factormod(f, 5)  \\ (x+2)^2 * (x+3)
+  %1 =
+  [Mod(1, 5)*x + Mod(2, 5) 2]
+  
+  [Mod(1, 5)*x + Mod(3, 5) 1]
+  ? factormod(f, 5, 1) \\ (deg 1) * (deg 1)^2
+  %2 =
+  [1 1]
+  
+  [1 2]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>factormod0</b>(GEN f, GEN D = NULL, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factormodDDF"></div>
+<div id="factormodDDF"></div>
+<h4>factormodDDF(f, {D})</h4>
+<p>
+Distinct-degree factorization of the squarefree polynomial f over the
+finite field defined by the domain D as follows:</p>
+<p>
+<b>*</b> D = p a prime: factor over &Fopf;<sub>p</sub>;</p>
+<p>
+<b>*</b> D = [T,p] for a prime p and T an irreducible polynomial over
+&Fopf;<sub>p</sub>: factor over &Fopf;<sub>p</sub>[x]/(T);</p>
+<p>
+<b>*</b> D a <code>t_FFELT</code>: factor over the attached field;</p>
+<p>
+<b>*</b> D omitted: factor over the field of definition of f, which
+must be a finite field.</p>
+<p>
+This is somewhat faster than full factorization. The coefficients of f
+must be operation-compatible with the corresponding finite field. The result
+is a two-column matrix:</p>
+<p>
+<b>*</b> the first column contains monic (squarefree) pairwise coprime polynomials
+dividing f, all of whose irreducible factors have degree d;</p>
+<p>
+<b>*</b> the second column contains the degrees of the irreducible factors.</p>
+<p>
+The factors are ordered by increasing degree and the result is canonical: it
+will not change across multiple calls or sessions.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? f = (x^2 + 1) * (x^2-1);
+  ? factormodSQF(f,3) \\ squarefree over F<sub>3</sub>
+  %2 =
+  [Mod(1, 3)*x^4 + Mod(2, 3) 1]
+  
+  ? factormodDDF(f, 3)
+  %3 =
+  [Mod(1, 3)*x^2 + Mod(2, 3) 1]  \\ two degree 1 factors
+  
+  [Mod(1, 3)*x^2 + Mod(1, 3) 2]  \\ irred of degree 2
+  
+  ? for(i=1,10^5,factormodDDF(f,3))
+  time = 424 ms.
+  ? for(i=1,10^5,factormod(f,3))  \\ full factorization is slower
+  time = 464 ms.
+  
+  ? liftall( factormodDDF(x^2 + 1, [3, t^2+1]) ) \\ over F<sub>9</sub>
+  %6 =
+  [x^2 + 1 1] \\ product of two degree 1 factors
+  
+  ? t = ffgen(t^2+Mod(1,3)); factormodDDF(x^2 + t^0) \\ same using t_FFELT
+  %7 =
+  [x^2 + 1 1]
+  
+  ? factormodDDF(x^2-Mod(1,3))
+  %8 =
+  [Mod(1, 3)*x^2 + Mod(2, 3) 1]
+  
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>factormodDDF</b>(GEN f, GEN D = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:factormodSQF"></div>
+<div id="factormodSQF"></div>
+<h4>factormodSQF(f, {D})</h4>
+<p>
+Squarefree factorization of the polynomial f over the finite field
+defined by the domain D as follows:</p>
+<p>
+<b>*</b> D = p a prime: factor over &Fopf;<sub>p</sub>;</p>
+<p>
+<b>*</b> D = [T,p] for a prime p and T an irreducible polynomial over
+&Fopf;<sub>p</sub>: factor over &Fopf;<sub>p</sub>[x]/(T);</p>
+<p>
+<b>*</b> D a <code>t_FFELT</code>: factor over the attached field;</p>
+<p>
+<b>*</b> D omitted: factor over the field of definition of f, which
+must be a finite field.</p>
+<p>
+This is somewhat faster than full factorization. The coefficients of f
+must be operation-compatible with the corresponding finite field. The result
+is a two-column matrix:</p>
+<p>
+<b>*</b> the first column contains monic squarefree pairwise coprime polynomials
+dividing f;</p>
+<p>
+<b>*</b> the second column contains the power to which the polynomial in column
+1 divides f;</p>
+<p>
+The factors are ordered by increasing degree and the result is canonical: it
+will not change across multiple calls or sessions.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? f = (x^2 + 1)^3 * (x^2-1)^2;
+  ? factormodSQF(f, 3)  \\ over F<sub>3</sub>
+  %1 =
+  [Mod(1, 3)*x^2 + Mod(2, 3) 2]
+  
+  [Mod(1, 3)*x^2 + Mod(1, 3) 3]
+  
+  ? for(i=1,10^5,factormodSQF(f,3))
+  time = 192 ms.
+  ? for(i=1,10^5,factormod(f,3))  \\ full factorization is slower
+  time = 409 ms.
+  
+  ? liftall( factormodSQF((x^2 + 1)^3, [3, t^2+1]) ) \\ over F<sub>9</sub>
+  %4 =
+  [x^2 + 1 3]
+  
+  ? t = ffgen(t^2+Mod(1,3)); factormodSQF((x^2 + t^0)^3) \\ same using t_FFELT
+  %5 =
+  [x^2 + 1 3]
+  
+  ? factormodSQF(x^8 + x^7 + x^6 + x^2 + x + Mod(1,2))
+  %6 =
+  [                Mod(1, 2)*x + Mod(1, 2) 2]
+  
+  [Mod(1, 2)*x^2 + Mod(1, 2)*x + Mod(1, 2) 3]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>factormodSQF</b>(GEN f, GEN D = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffcompomap"></div>
+<div id="ffcompomap"></div>
+<h4>ffcompomap(f, g)</h4>
+<p>
+Let k, l, m be three finite fields and f a (partial) map from k
+to l and g a (partial) map from l to m, return the (partial) map f o g
+from k to m.</p>
+<p>
+</p><pre class="code">  a = ffgen([3,5],'a); b = ffgen([3,10],'b); c = ffgen([3,20],'c);
+  m = ffembed(a, b); n = ffembed(b, c);
+  rm = ffinvmap(m); rn = ffinvmap(n);
+  nm = ffcompomap(n,m);
+  ffmap(n,ffmap(m,a)) == ffmap(nm, a)
+  %5 = 1
+  ffcompomap(rm, rn) == ffinvmap(nm)
+  %6 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ffcompomap</b>(GEN f, GEN g)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffembed"></div>
+<div id="ffembed"></div>
+<h4>ffembed(a, b)</h4>
+<p>
+Given two finite fields elements a and b, return a <em>map</em>
+embedding the definition field of a to the definition field of b.
+Assume that the latter contains the former.</p>
+<p>
+</p><pre class="code">  ? a = ffgen([3,5],'a);
+  ? b = ffgen([3,10],'b);
+  ? m = ffembed(a, b);
+  ? A = ffmap(m, a);
+  ? minpoly(A) == minpoly(a)
+  %5 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ffembed</b>(GEN a, GEN b)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffextend"></div>
+<div id="ffextend"></div>
+<h4>ffextend(a, P, {v})</h4>
+<p>
+Extend the field K of definition of a by a root of the polynomial
+P &in;  K[X] assumed to be irreducible over K.  Return [r, m] where r
+is a root of P in the extension field L and m is a map from K to L,
+see <code><a href="Arithmetic_functions.html#se:ffmap"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ffmap</a></code>.
+If v is given, the variable name is used to display the generator of L,
+else the name of the variable of P is used.
+A generator of L can be recovered using b = ffgen(r).
+The image of P in L[X] can be recovered using PL = ffmap(m,P).</p>
+<p>
+</p><pre class="code">  ? a = ffgen([3,5],'a);
+  ? P = x^2-a; polisirreducible(P)
+  %2 = 1
+  ? [r,m] = ffextend(a, P, 'b);
+  ? r
+  %3 = b^9+2*b^8+b^7+2*b^6+b^4+1
+  ? subst(ffmap(m, P), x, r)
+  %4 = 0
+  ? ffgen(r)
+  %5 = b
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ffextend</b>(GEN a, GEN P, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:fffrobenius"></div>
+<div id="fffrobenius"></div>
+<h4>fffrobenius(m, {n = 1})</h4>
+<p>
+Return the n-th power of the Frobenius map over the field of definition
+of m.</p>
+<p>
+</p><pre class="code">  ? a = ffgen([3,5],'a);
+  ? f = fffrobenius(a);
+  ? ffmap(f,a) == a^3
+  %3 = 1
+  ? g = fffrobenius(a, 5);
+  ? ffmap(g,a) == a
+  %5 = 1
+  ? h = fffrobenius(a, 2);
+  ? h == ffcompomap(f,f)
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>fffrobenius</b>(GEN m, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffgen"></div>
+<div id="ffgen"></div>
+<h4>ffgen(k, {v = 'x})</h4>
+<p>
+Return a generator for the finite field k as a <code>t_FFELT</code>.
+The field k can be given by</p>
+<p>
+<b>*</b> its order q</p>
+<p>
+<b>*</b> the pair [p,f] where q = p^f</p>
+<p>
+<b>*</b> a monic irreducible polynomial with <code>t_INTMOD</code> coefficients modulo a
+      prime.</p>
+<p>
+<b>*</b> a <code>t_FFELT</code> belonging to k.</p>
+<p>
+If <code>v</code> is given, the variable name is used to display g, else the
+variable of the polynomial or the <code>t_FFELT</code> is used , else x is used.</p>
+<p>
+When only the order is specified, the function uses the polynomial generated
+by <code><a href="Arithmetic_functions.html#se:ffinit"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ffinit</a></code> and is deterministic: two calls to the function with the
+same parameters will always give the same generator.</p>
+<p>
+For efficiency, the characteristic is not checked to be prime, nor
+If a polynomial is given it is not checked whether it is irreducible.</p>
+<p>
+To obtain a multiplicative generator, call <code><a href="Arithmetic_functions.html#se:ffprimroot"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ffprimroot</a></code> on the result.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? g = ffgen(16, 't);
+  ? g.mod \\ recover the underlying polynomial.
+  %2 = t^4+t^3+t^2+t+1
+  ? g.p \\ recover the characteristic
+  %3 = 2
+  ? fforder(g) \\ g is not a multiplicative generator
+  %4 = 5
+  ? a = ffprimroot(g) \\ recover a multiplicative generator
+  %5 = t^3+t^2+t
+  ? fforder(a)
+  %6 = 15
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ffgen</b>(GEN k, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+To create a generator for a prime finite field, the function
+<code>GEN <b>p_to_GEN</b>(GEN p, long v)</code> returns <code>ffgen(p,v)^0</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffinit"></div>
+<div id="ffinit"></div>
+<h4>ffinit(p, n, {v = 'x})</h4>
+<p>
+Computes a monic polynomial of degree n which is irreducible over
+ &Fopf;<sub>p</sub>, where p is assumed to be prime. This function uses a fast variant
+ of Adleman and Lenstra's algorithm.</p>
+<p>
+It is useful in conjunction with <code><a href="Arithmetic_functions.html#se:ffgen"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ffgen</a></code>; for instance if
+<code>P = ffinit(3,2)</code>, you can represent elements in &Fopf;<sub>3^2</sub> in term of
+<code>g = ffgen(P,'t)</code>. This can be abbreviated as
+<code>g = ffgen(3^2, 't)</code>, where the defining polynomial P can be later
+recovered as <code>g.mod</code>.</p>
+<p>
+The library syntax is <code>GEN <b>ffinit</b>(GEN p, long n, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:ffinvmap"></div>
+<div id="ffinvmap"></div>
+<h4>ffinvmap(m)</h4>
+<p>
+m being a map from K to L two finite fields, return the partial map
+p from L to K such that for all k &in;  K, p(m(k)) = k.</p>
+<p>
+</p><pre class="code">  ? a = ffgen([3,5],'a);
+  ? b = ffgen([3,10],'b);
+  ? m = ffembed(a, b);
+  ? p = ffinvmap(m);
+  ? u = random(a);
+  ? v = ffmap(m, u);
+  ? ffmap(p, v^2+v+2) == u^2+u+2
+  %7 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ffinvmap</b>(GEN m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fflog"></div>
+<div id="fflog"></div>
+<h4>fflog(x, g, {o})</h4>
+<p>
+Discrete logarithm of the finite field element x in base g, i.e.&nbsp;
+an e in &Zopf; such that g^e = o. If
+present, o represents the multiplicative order of g, see
+Section <a href="Arithmetic_functions.html#se:DLfun"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:DLfun</a>; the preferred format for
+this parameter is <code>[ord, factor(ord)]</code>, where <code>ord</code> is the
+order of g. It may be set as a side effect of calling <code><a href="Arithmetic_functions.html#se:ffprimroot"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ffprimroot</a></code>.</p>
+<p>
+If no o is given, assume that g is a primitive root. The result is
+undefined if e does not exist. This function uses</p>
+<p>
+<b>*</b> a combination of generic discrete log algorithms (see <code><a href="Arithmetic_functions.html#se:znlog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znlog</a></code>)</p>
+<p>
+<b>*</b> a cubic sieve index calculus algorithm for large fields of degree at
+least 5.</p>
+<p>
+<b>*</b> Coppersmith's algorithm for fields of characteristic at most 5.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? t = ffgen(ffinit(7,5));
+  ? o = fforder(t)
+  %2 = 5602   \\  <em>not</em> a primitive root.
+  ? fflog(t^10,t)
+  %3 = 10
+  ? fflog(t^10,t, o)
+  %4 = 10
+  ? g = ffprimroot(t, &o);
+  ? o   \\ order is 16806, bundled with its factorization matrix
+  %6 = [16806, [2, 1; 3, 1; 2801, 1]]
+  ? fforder(g, o)
+  %7 = 16806
+  ? fflog(g^10000, g, o)
+  %8 = 10000
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>fflog</b>(GEN x, GEN g, GEN o = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffmap"></div>
+<div id="ffmap"></div>
+<h4>ffmap(m, x)</h4>
+<p>
+Given a (partial) map m between two finite fields, return the image of
+x by m. The function is applied recursively to the component of vectors,
+matrices and polynomials. If m is a partial map that is not defined at x,
+return [].</p>
+<p>
+</p><pre class="code">  ? a = ffgen([3,5],'a);
+  ? b = ffgen([3,10],'b);
+  ? m = ffembed(a, b);
+  ? P = x^2+a*x+1;
+  ? Q = ffmap(m,P);
+  ? ffmap(m,poldisc(P)) == poldisc(Q)
+  %6 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ffmap</b>(GEN m, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffnbirred"></div>
+<div id="ffnbirred"></div>
+<h4>ffnbirred(q, n, {<em>fl</em> = 0})</h4>
+<p>
+Computes the number of monic irreducible polynomials over &Fopf;<sub>q</sub> of degree exactly n,
+(<em>flag</em> = 0 or omitted) or at most n (<em>flag</em> = 1).</p>
+<p>
+The library syntax is <code>GEN <b>ffnbirred0</b>(GEN q, long n, long fl)</code>.
+Also available are
+ <code>GEN <b>ffnbirred</b>(GEN q, long n)</code> (for <em>flag</em> = 0)
+ and <code>GEN <b>ffsumnbirred</b>(GEN q, long n)</code> (for <em>flag</em> = 1).</p>
+<p>
+
+<hr>
+<div id="se:fforder"></div>
+<div id="fforder"></div>
+<h4>fforder(x, {o})</h4>
+<p>
+Multiplicative order of the finite field element x.  If o is
+present, it represents a multiple of the order of the element,
+see Section <a href="Arithmetic_functions.html#se:DLfun"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:DLfun</a>; the preferred format for
+this parameter is <code>[N, factor(N)]</code>, where <code>N</code> is the cardinality
+of the multiplicative group of the underlying finite field.</p>
+<p>
+</p><pre class="code">  ? t = ffgen(ffinit(nextprime(10^8), 5));
+  ? g = ffprimroot(t, &o);  \\  o will be useful!
+  ? fforder(g^1000000, o)
+  time = 0 ms.
+  %5 = 5000001750000245000017150000600250008403
+  ? fforder(g^1000000)
+  time = 16 ms. \\  noticeably slower, same result of course
+  %6 = 5000001750000245000017150000600250008403
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>fforder</b>(GEN x, GEN o = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ffprimroot"></div>
+<div id="ffprimroot"></div>
+<h4>ffprimroot(x, {&o})</h4>
+<p>
+Return a primitive root of the multiplicative
+group of the definition field of the finite field element x (not necessarily
+the same as the field generated by x). If present, o is set to
+a vector <code>[ord, fa]</code>, where <code>ord</code> is the order of the group
+and <code>fa</code> its factorization <code>factor(ord)</code>. This last parameter is
+useful in <code><a href="Arithmetic_functions.html#se:fflog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">fflog</a></code> and <code><a href="Arithmetic_functions.html#se:fforder"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">fforder</a></code>, see Section <a href="Arithmetic_functions.html#se:DLfun"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:DLfun</a>.</p>
+<p>
+</p><pre class="code">  ? t = ffgen(ffinit(nextprime(10^7), 5));
+  ? g = ffprimroot(t, &o);
+  ? o[1]
+  %3 = 100000950003610006859006516052476098
+  ? o[2]
+  %4 =
+  [2 1]
+  
+  [7 2]
+  
+  [31 1]
+  
+  [41 1]
+  
+  [67 1]
+  
+  [1523 1]
+  
+  [10498781 1]
+  
+  [15992881 1]
+  
+  [46858913131 1]
+  
+  ? fflog(g^1000000, g, o)
+  time = 1,312 ms.
+  %5 = 1000000
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ffprimroot</b>(GEN x, GEN *o = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:gcd"></div>
+<div id="gcd"></div>
+<h4>gcd(x, {y})</h4>
+<p>
+Creates the greatest common divisor of x and y.
+If you also need the u and v such that x*u + y*v = gcd(x,y),
+use the <code><a href="Arithmetic_functions.html#se:gcdext"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">gcdext</a></code> function. x and y can have rather quite general
+types, for instance both rational numbers. If y is omitted and x is a
+vector, returns the gcd of all components of x, i.e.&nbsp;this is
+equivalent to <code>content(x)</code>.</p>
+<p>
+When x and y are both given and one of them is a vector/matrix type,
+the GCD is again taken recursively on each component, but in a different way.
+If y is a vector, resp.&nbsp;matrix, then the result has the same type as y,
+and components equal to <code>gcd(x, y[i])</code>, resp.&nbsp;<code>gcd(x, y[,i])</code>. Else
+if x is a vector/matrix the result has the same type as x and an
+analogous definition. Note that for these types, <code><a href="Arithmetic_functions.html#se:gcd"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">gcd</a></code> is not
+commutative.</p>
+<p>
+The algorithm used is a naive Euclid except for the following inputs:</p>
+<p>
+<b>*</b> integers: use modified right-shift binary ("plus-minus"
+variant).</p>
+<p>
+<b>*</b> univariate polynomials with coefficients in the same number
+field (in particular rational): use modular gcd algorithm.</p>
+<p>
+<b>*</b> general polynomials: use the subresultant algorithm if
+coefficient explosion is likely (non modular coefficients).</p>
+<p>
+If u and v are polynomials in the same variable with <em>inexact</em>
+coefficients, their gcd is defined to be scalar, so that</p>
+<p>
+</p><pre class="code">  ? a = x + 0.0; gcd(a,a)
+  %1 = 1
+  ? b = y*x + O(y); gcd(b,b)
+  %2 = y
+  ? c = 4*x + O(2^3); gcd(c,c)
+  %3 = 4
+</pre><p>
+A good quantitative check to decide whether such a
+gcd "should be" non-trivial, is to use <code><a href="Polynomials_and_power_series.html#se:polresultant"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polresultant</a></code>: a value
+close to 0 means that a small deformation of the inputs has non-trivial gcd.
+You may also use <code><a href="Arithmetic_functions.html#se:gcdext"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">gcdext</a></code>, which does try to compute an approximate gcd
+d and provides u, v to check whether u x + v y is close to d.</p>
+<p>
+The library syntax is <code>GEN <b>ggcd0</b>(GEN x, GEN y = NULL)</code>.
+Also available are <code>GEN <b>ggcd</b>(GEN x, GEN y)</code>, if <code>y</code> is not
+<code>NULL</code>, and <code>GEN <b>content</b>(GEN x)</code>, if <code>y</code> = <code>NULL</code>.</p>
+<p>
+
+<hr>
+<div id="se:gcdext"></div>
+<div id="gcdext"></div>
+<h4>gcdext(x, y)</h4>
+<p>
+Returns [u,v,d] such that d is the gcd of x,y,
+x*u+y*v = gcd(x,y), and u and v minimal in a natural sense.
+The arguments must be integers or polynomials. </p>
+<p></p>
+<p>
+</p><pre class="code">  ? [u, v, d] = gcdext(32,102)
+  %1 = [16, -5, 2]
+  ? d
+  %2 = 2
+  ? gcdext(x^2-x, x^2+x-2)
+  %3 = [-1/2, 1/2, x - 1]
+</pre><p></p>
+<p></p>
+<p>
+If x,y are polynomials in the same variable and <em>inexact</em>
+coefficients, then compute u,v,d such that x*u+y*v = d, where d
+approximately divides both and x and y; in particular, we do not obtain
+<code>gcd(x,y)</code> which is <em>defined</em> to be a scalar in this case:</p>
+<p>
+</p><pre class="code">  ? a = x + 0.0; gcd(a,a)
+  %1 = 1
+  
+  ? gcdext(a,a)
+  %2 = [0, 1, x + 0.E-28]
+  
+  ? gcdext(x-Pi, 6*x^2-zeta(2))
+  %3 = [-6*x - 18.8495559, 1, 57.5726923]
+</pre><p>
+For inexact inputs, the output is thus not well defined
+mathematically, but you obtain explicit polynomials to check whether the
+approximation is close enough for your needs.</p>
+<p>
+The library syntax is <code>GEN <b>gcdext0</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:hilbert"></div>
+<div id="hilbert"></div>
+<h4>hilbert(x, y, {p})</h4>
+<p>
+Hilbert symbol of x and y modulo the prime p, p = 0 meaning
+the place at infinity (the result is undefined if p != 0 is not prime).</p>
+<p>
+It is possible to omit p, in which case we take p = 0 if both x
+and y are rational, or one of them is a real number. And take p = q
+if one of x, y is a <code>t_INTMOD</code> modulo q or a q-adic. (Incompatible
+types will raise an error.)</p>
+<p>
+The library syntax is <code>long <b>hilbert</b>(GEN x, GEN y, GEN p = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:isfundamental"></div>
+<div id="isfundamental"></div>
+<h4>isfundamental(D)</h4>
+<p>
+True (1) if D is equal to 1 or to the discriminant of a quadratic
+field, false (0) otherwise. D can be input in factored form as for
+arithmetic functions:</p>
+<p>
+</p><pre class="code">  ? isfundamental(factor(-8))
+  %1 = 1
+  \\ count fundamental discriminants up to 10^8
+  ? c = 0; forfactored(d = 1, 10^8, if (isfundamental(d), c++)); c
+  time = 40,840 ms.
+  %2 = 30396325
+  ? c = 0; for(d = 1, 10^8, if (isfundamental(d), c++)); c
+  time = 1min, 33,593 ms. \\ slower !
+  %3 = 30396325
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>isfundamental</b>(GEN D)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ispolygonal"></div>
+<div id="ispolygonal"></div>
+<h4>ispolygonal(x, s, {&N})</h4>
+<p>
+True (1) if the integer x is an s-gonal number, false (0) if not.
+The parameter s &gt; 2 must be a <code>t_INT</code>. If N is given, set it to n
+if x is the n-th s-gonal number.</p>
+<p>
+</p><pre class="code">  ? ispolygonal(36, 3, &N)
+  %1 = 1
+  ? N
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>ispolygonal</b>(GEN x, GEN s, GEN *N = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ispower"></div>
+<div id="ispower"></div>
+<h4>ispower(x, {k}, {&n})</h4>
+<p>
+If k is given, returns true (1) if x is a k-th power, false
+(0) if not. What it means to be a k-th power depends on the type of
+x; see <code><a href="Arithmetic_functions.html#se:issquare"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">issquare</a></code> for details.</p>
+<p>
+If k is omitted, only integers and fractions are allowed for x and the
+function returns the maximal k &geq; 2 such that x = n^k is a perfect
+power, or 0 if no such k exist; in particular <code>ispower(-1)</code>,
+<code>ispower(0)</code>, and <code>ispower(1)</code> all return 0.</p>
+<p>
+If a third argument &n is given and x is indeed a k-th power, sets
+n to a k-th root of x.</p>
+<p>
+For a <code>t_FFELT</code> <code>x</code>, instead of omitting <code>k</code> (which is
+not allowed for this type), it may be natural to set</p>
+<p>
+</p><pre class="code">  k = (x.p ^ x.f - 1) / fforder(x)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>ispower</b>(GEN x, GEN k = NULL, GEN *n = NULL)</code>.
+Also available is
+<code>long <b>gisanypower</b>(GEN x, GEN *pty)</code> (k omitted).</p>
+<p>
+
+<hr>
+<div id="se:ispowerful"></div>
+<div id="ispowerful"></div>
+<h4>ispowerful(x)</h4>
+<p>
+True (1) if x is a powerful integer, false (0) if not;
+an integer is powerful if and only if its valuation at all primes dividing
+x is greater than 1.</p>
+<p>
+</p><pre class="code">  ? ispowerful(50)
+  %1 = 0
+  ? ispowerful(100)
+  %2 = 1
+  ? ispowerful(5^3*(10^1000+1)^2)
+  %3 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>ispowerful</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:isprime"></div>
+<div id="isprime"></div>
+<h4>isprime(x, {<em>flag</em> = 0})</h4>
+<p>
+True (1) if x is a prime
+number, false (0) otherwise. A prime number is a positive integer having
+exactly two distinct divisors among the natural numbers, namely 1 and
+itself.</p>
+<p>
+This routine proves or disproves rigorously that a number is prime, which can
+be very slow when x is indeed a large prime integer. For instance
+a 1000 digits prime should require 15 to 30 minutes with default algorithms.
+Use <code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code> to quickly check for compositeness. Use
+<code><a href="Arithmetic_functions.html#se:primecert"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">primecert</a></code> in order to obtain a primality proof instead of a yes/no
+answer; see also <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>.</p>
+<p>
+The function accepts vector/matrices arguments, and is then
+applied componentwise.</p>
+<p>
+If <em>flag</em> = 0, use a combination of</p>
+<p>
+<b>*</b> Baillie-Pomerance-Selfridge-Wagstaff compositeness test
+(see <code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>),</p>
+<p>
+<b>*</b> Selfridge "p-1" test if x-1 is smooth enough,</p>
+<p>
+<b>*</b> Adleman-Pomerance-Rumely-Cohen-Lenstra (APRCL) for general
+medium-sized x (less than 1500 bits),</p>
+<p>
+<b>*</b> Atkin-Morain's Elliptic Curve Primality Prover (ECPP) for general
+large x.</p>
+<p>
+If <em>flag</em> = 1, use Selfridge-Pocklington-Lehmer "p-1" test; this requires
+partially factoring various auxilliary integers and is likely to be very slow.</p>
+<p>
+If <em>flag</em> = 2, use APRCL only.</p>
+<p>
+If <em>flag</em> = 3, use ECPP only.</p>
+<p>
+The library syntax is <code>GEN <b>gisprime</b>(GEN x, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:isprimepower"></div>
+<div id="isprimepower"></div>
+<h4>isprimepower(x, {&n})</h4>
+<p>
+If x = p^k is a prime power (p prime, k &gt; 0), return k, else
+return 0. If a second argument &n is given and x is indeed
+the k-th power of a prime p, sets n to p.</p>
+<p>
+The library syntax is <code>long <b>isprimepower</b>(GEN x, GEN *n = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ispseudoprime"></div>
+<div id="ispseudoprime"></div>
+<h4>ispseudoprime(x, {<em>flag</em>})</h4>
+<p>
+True (1) if x is a strong pseudo
+prime (see below), false (0) otherwise. If this function returns false, x
+is not prime; if, on the other hand it returns true, it is only highly likely
+that x is a prime number. Use <code><a href="Arithmetic_functions.html#se:isprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">isprime</a></code> (which is of course much
+slower) to prove that x is indeed prime.
+The function accepts vector/matrices arguments, and is then applied
+componentwise.</p>
+<p>
+If <em>flag</em> = 0, checks whether x has no small prime divisors (up to 101
+included) and is a Baillie-Pomerance-Selfridge-Wagstaff pseudo prime.
+Such a pseudo prime passes a Rabin-Miller test for base 2,
+followed by a Lucas test for the sequence (P,1), where P &geq; 3
+is the smallest odd integer such that P^2 - 4 is not a square mod x.
+(Technically, we are using an "almost extra strong Lucas test" that
+checks whether V<sub>n</sub> is &#177; 2, without computing U<sub>n</sub>.)</p>
+<p>
+There are no known composite numbers passing the above test, although it is
+expected that infinitely many such numbers exist. In particular, all
+composites  &leq; 2<sup>64</sup> are correctly detected (checked using
+<code>http://www.cecm.sfu.ca/Pseudoprimes/index-2-to-64.html</code>).</p>
+<p>
+If <em>flag</em> &gt; 0, checks whether x is a strong Miller-Rabin pseudo prime  for
+<em>flag</em> randomly chosen bases (with end-matching to catch square roots of -1).</p>
+<p>
+The library syntax is <code>GEN <b>gispseudoprime</b>(GEN x, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ispseudoprimepower"></div>
+<div id="ispseudoprimepower"></div>
+<h4>ispseudoprimepower(x, {&n})</h4>
+<p>
+If x = p^k is a pseudo-prime power (p pseudo-prime as per
+<code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>, k &gt; 0), return k, else
+return 0. If a second argument &n is given and x is indeed
+the k-th power of a prime p, sets n to p.</p>
+<p>
+More precisely, k is always the largest integer such that x = n^k for
+some integer n and, when n &leq; 2<sup>64</sup> the function returns k &gt; 0 if and
+only if n is indeed prime. When n &gt; 2<sup>64</sup> is larger than the threshold,
+the function may return 1 even though n is composite: it only passed
+an <code>ispseudoprime(n)</code> test.</p>
+<p>
+The library syntax is <code>long <b>ispseudoprimepower</b>(GEN x, GEN *n = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:issquare"></div>
+<div id="issquare"></div>
+<h4>issquare(x, {&n})</h4>
+<p>
+True (1) if x is a square, false (0)
+if not. What "being a square" means depends on the type of x: all
+<code>t_COMPLEX</code> are squares, as well as all non-negative <code>t_REAL</code>; for
+exact types such as <code>t_INT</code>, <code>t_FRAC</code> and <code>t_INTMOD</code>, squares are
+numbers of the form s^2 with s in &Zopf;, &Qopf; and &Zopf;/N&Zopf; respectively.</p>
+<p>
+</p><pre class="code">  ? issquare(3)          \\ as an integer
+  %1 = 0
+  ? issquare(3.)         \\ as a real number
+  %2 = 1
+  ? issquare(Mod(7, 8))  \\ in Z/8Z
+  %3 = 0
+  ? issquare( 5 + O(13^4) )  \\ in Q_13
+  %4 = 0
+</pre><p></p>
+<p>
+If n is given, a square root of x is put into n.</p>
+<p>
+</p><pre class="code">  ? issquare(4, &n)
+  %1 = 1
+  ? n
+  %2 = 2
+</pre><p></p>
+<p>
+For polynomials, either we detect that the characteristic is 2 (and check
+directly odd and even-power monomials) or we assume that 2 is invertible
+and check whether squaring the truncated power series for the square root
+yields the original input.</p>
+<p>
+For <code>t_POLMOD</code> x, we only support <code>t_POLMOD</code>s of <code>t_INTMOD</code>s
+encoding finite fields, assuming without checking that the intmod modulus
+p is prime and that the polmod modulus is irreducible modulo p.</p>
+<p>
+</p><pre class="code">  ? issquare(Mod(Mod(2,3), x^2+1), &n)
+  %1 = 1
+  ? n
+  %2 = Mod(Mod(2, 3)*x, Mod(1, 3)*x^2 + Mod(1, 3))
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>issquareall</b>(GEN x, GEN *n = NULL)</code>.
+Also available is <code>long <b>issquare</b>(GEN x)</code>. Deprecated
+GP-specific functions <code>GEN <b>gissquare</b>(GEN x)</code> and
+<code>GEN <b>gissquareall</b>(GEN x, GEN *pt)</code> return <code>gen<sub>0</sub></code> and <code>gen<sub>1</sub></code>
+instead of a boolean value.</p>
+<p>
+
+<hr>
+<div id="se:issquarefree"></div>
+<div id="issquarefree"></div>
+<h4>issquarefree(x)</h4>
+<p>
+True (1) if x is squarefree, false (0) if not. Here x can be an
+integer or a polynomial with coefficients in an integral domain.</p>
+<p>
+</p><pre class="code">  ? issquarefree(12)
+  %1 = 0
+  ? issquarefree(6)
+  %2 = 1
+  ? issquarefree(x^3+x^2)
+  %3 = 0
+  ? issquarefree(Mod(1,4)*(x^2+x+1))    \\ Z/4Z is not a domain !
+   ***   at top-level: issquarefree(Mod(1,4)*(x^2+x+1))
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** issquarefree: impossible inverse in Fp_inv: Mod(2, 4).
+</pre><p>
+A polynomial is declared squarefree if <code><a href="Arithmetic_functions.html#se:gcd"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">gcd</a></code>(x,x') is
+1. In particular a non-zero polynomial with inexact coefficients is
+considered to be squarefree. Note that this may be inconsistent with
+<code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>, which first rounds the input to some exact approximation before
+factoring in the apropriate domain; this is correct when the input is not
+close to an inseparable polynomial (the resultant of x and x' is not
+close to 0).</p>
+<p>
+An integer can be input in factored form as in arithmetic functions.</p>
+<p>
+</p><pre class="code">  ? issquarefree(factor(6))
+  %1 = 1
+  \\ count squarefree integers up to 10^8
+  ? c = 0; for(d = 1, 10^8, if (issquarefree(d), c++)); c
+  time = 3min, 2,590 ms.
+  %2 = 60792694
+  ? c = 0; forfactored(d = 1, 10^8, if (issquarefree(d), c++)); c
+  time = 45,348 ms. \\ faster !
+  %3 = 60792694
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>issquarefree</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:istotient"></div>
+<div id="istotient"></div>
+<h4>istotient(x, {&N})</h4>
+<p>
+True (1) if x = &phi;(n) for some integer n, false (0)
+if not.</p>
+<p>
+</p><pre class="code">  ? istotient(14)
+  %1 = 0
+  ? istotient(100)
+  %2 = 0
+</pre><p></p>
+<p>
+If N is given, set N = n as well.</p>
+<p>
+</p><pre class="code">  ? istotient(4, &n)
+  %1 = 1
+  ? n
+  %2 = 10
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>istotient</b>(GEN x, GEN *N = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:kronecker"></div>
+<div id="kronecker"></div>
+<h4>kronecker(x, y)</h4>
+<p>
+Kronecker symbol (x|y), where x and y must be of type integer. By
+definition, this is the extension of Legendre symbol to &Zopf;  x &Zopf;
+by total multiplicativity in both arguments with the following special rules
+for y = 0, -1 or 2:</p>
+<p>
+<b>*</b> (x|0) = 1 if |x |= 1 and 0 otherwise.</p>
+<p>
+<b>*</b> (x|-1) = 1 if x &geq; 0 and -1 otherwise.</p>
+<p>
+<b>*</b> (x|2) = 0 if x is even and 1 if x = 1,-1 mod 8 and -1
+if x = 3,-3 mod 8.</p>
+<p>
+The library syntax is <code>long <b>kronecker</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lcm"></div>
+<div id="lcm"></div>
+<h4>lcm(x, {y})</h4>
+<p>
+Least common multiple of x and y, i.e.&nbsp;such
+that lcm(x,y)*gcd(x,y) = x*y, up to units. If y is omitted and x
+is a vector, returns the lcm of all components of x.
+For integer arguments, return the non-negative lcm.</p>
+<p>
+When x and y are both given and one of them is a vector/matrix type,
+the LCM is again taken recursively on each component, but in a different way.
+If y is a vector, resp.&nbsp;matrix, then the result has the same type as y,
+and components equal to <code>lcm(x, y[i])</code>, resp.&nbsp;<code>lcm(x, y[,i])</code>. Else
+if x is a vector/matrix the result has the same type as x and an
+analogous definition. Note that for these types, <code><a href="Arithmetic_functions.html#se:lcm"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">lcm</a></code> is not
+commutative.</p>
+<p>
+Note that <code>lcm(v)</code> is quite different from</p>
+<p>
+</p><pre class="code">  l = v[1]; for (i = 1, #v, l = lcm(l, v[i]))
+</pre><p></p>
+<p>
+Indeed, <code>lcm(v)</code> is a scalar, but <code>l</code> may not be (if one of
+the <code>v[i]</code> is a vector/matrix). The computation uses a divide-conquer tree
+and should be much more efficient, especially when using the GMP
+multiprecision kernel (and more subquadratic algorithms become available):</p>
+<p>
+</p><pre class="code">  ? v = vector(10^5, i, random);
+  ? lcm(v);
+  time = 546 ms.
+  ? l = v[1]; for (i = 1, #v, l = lcm(l, v[i]))
+  time = 4,561 ms.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>glcm0</b>(GEN x, GEN y = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:logint"></div>
+<div id="logint"></div>
+<h4>logint(x, b, {&z})</h4>
+<p>
+Return the largest integer e so that b^e &leq; x, where the
+parameters b &gt; 1 and x &gt; 0 are both integers. If the parameter z is
+present, set it to b^e.</p>
+<p>
+</p><pre class="code">  ? logint(1000, 2)
+  %1 = 9
+  ? 2^9
+  %2 = 512
+  ? logint(1000, 2, &z)
+  %3 = 9
+  ? z
+  %4 = 512
+</pre><p>
+The number of digits used to write b in base x is
+<code>1 + logint(x,b)</code>:</p>
+<p>
+</p><pre class="code">  ? #digits(1000!, 10)
+  %5 = 2568
+  ? logint(1000!, 10)
+  %6 = 2567
+</pre><p>
+This function may conveniently replace</p>
+<p>
+</p><pre class="code">    floor( log(x) / log(b) )
+</pre><p>
+which may not give the correct answer since PARI
+does not guarantee exact rounding.</p>
+<p>
+The library syntax is <code>long <b>logint0</b>(GEN x, GEN b, GEN *z = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:moebius"></div>
+<div id="moebius"></div>
+<h4>moebius(x)</h4>
+<p>
+Moebius &mu;-function of |x|; x must be a non-zero integer.</p>
+<p>
+The library syntax is <code>long <b>moebius</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:nextprime"></div>
+<div id="nextprime"></div>
+<h4>nextprime(x)</h4>
+<p>
+Finds the smallest pseudoprime (see
+<code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>) greater than or equal to x. x can be of any real
+type. Note that if x is a pseudoprime, this function returns x and not
+the smallest pseudoprime strictly larger than x. To rigorously prove that
+the result is prime, use <code><a href="Arithmetic_functions.html#se:isprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">isprime</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>nextprime</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:numdiv"></div>
+<div id="numdiv"></div>
+<h4>numdiv(x)</h4>
+<p>
+Number of divisors of |x|. x must be of type integer.</p>
+<p>
+The library syntax is <code>GEN <b>numdiv</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:omega"></div>
+<div id="omega"></div>
+<h4>omega(x)</h4>
+<p>
+Number of distinct prime divisors of |x|. x must be of type integer.</p>
+<p>
+</p><pre class="code">  ? factor(392)
+  %1 =
+  [2 3]
+  
+  [7 2]
+  
+  ? omega(392)
+  %2 = 2;  \\ without multiplicity
+  ? bigomega(392)
+  %3 = 5;  \\ = 3+2, with multiplicity
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>omega</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:precprime"></div>
+<div id="precprime"></div>
+<h4>precprime(x)</h4>
+<p>
+Finds the largest pseudoprime (see
+<code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>) less than or equal to x. x can be of any real type.
+Returns 0 if x &leq; 1. Note that if x is a prime, this function returns x
+and not the largest prime strictly smaller than x. To rigorously prove that
+the result is prime, use <code><a href="Arithmetic_functions.html#se:isprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">isprime</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>precprime</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:prime"></div>
+<div id="prime"></div>
+<h4>prime(n)</h4>
+<p>
+The n-th prime number</p>
+<p>
+</p><pre class="code">  ? prime(10^9)
+  %1 = 22801763489
+</pre><p>
+Uses checkpointing and a naive O(n) algorithm. Will need
+about 30 minutes for n up to 10<sup>11</sup>; make sure to start gp with
+<code>primelimit</code> at least sqrt{p<sub>n</sub>}, e.g. the value
+sqrt{nlog (nlog n)} is guaranteed to be sufficient.</p>
+<p>
+The library syntax is <code>GEN <b>prime</b>(long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:primecert"></div>
+<div id="primecert"></div>
+<h4>primecert(N, {<em>flag</em> = 0})</h4>
+<p>
+If N is a prime, return a PARI Primality Certificate for the prime N,
+as described below. Otherwise, return 0. A Primality Certificate
+c can be checked using <code><a href="Arithmetic_functions.html#se:primecertisvalid"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">primecertisvalid</a></code>(c).</p>
+<p>
+If <em>flag</em> = 0 (default), return an ECPP certificate (Atkin-Morain)</p>
+<p>
+A PARI ECPP Primality Certificate for the prime N is either a prime
+integer N &lt; 2<sup>64</sup> or a vector <code>C</code> of length &ell; whose ith
+component <code>C[i]</code> is a vector of length 5 containing N<sub>i</sub>, t<sub>i</sub>,
+s<sub>i</sub>, a<sub>i</sub>, P<sub>i</sub> (in that order) where N<sub>1</sub> = N. It is said to be valid
+if for each i = 1,..., &ell;, all of the following conditions are
+satisfied</p>
+<p>
+<b>*</b> N<sub>i</sub> is a positive integer</p>
+<p>
+<b>*</b> t<sub>i</sub> is an integer such that t<sub>i</sub> &lt; 4N<sub>i</sub>^2</p>
+<p>
+<b>*</b> s<sub>i</sub> is a positive integer which divides m<sub>i</sub> where
+ m<sub>i</sub> = N<sub>i</sub> + 1 - t<sub>i</sub></p>
+<p>
+<b>*</b> If we set q<sub>i</sub> = (m<sub>i</sub>)/(s<sub>i</sub>), then</p>
+<p>
+&nbsp;&nbsp;<b>*</b> q<sub>i</sub> &gt; (N<sub>i</sub><sup>1/4</sup>+1)^2</p>
+<p>
+&nbsp;&nbsp;<b>*</b> q<sub>i</sub> = N<sub>i+1</sub> if 1 &leq; i &lt; l</p>
+<p>
+&nbsp;&nbsp;<b>*</b> q_&ell; &leq; 2<sup>64</sup> is prime</p>
+<p>
+<b>*</b> a<sub>i</sub> is an integer</p>
+<p>
+&nbsp;&nbsp;<b>*</b> <code>P[i]</code> is a vector of length 2 representing the affine
+point P<sub>i</sub> = (x<sub>i</sub>, y<sub>i</sub>) on the elliptic curve E: y^2 = x^3 + a_ix + b<sub>i</sub>
+modulo N<sub>i</sub> where b<sub>i</sub> = y<sub>i</sub>^2 - x<sub>i</sub>^3 - a_ix<sub>i</sub> satisfying the following:</p>
+<p>
+&nbsp;&nbsp;<b>*</b> m<sub>i</sub> P<sub>i</sub> = oo </p>
+<p>
+&nbsp;&nbsp;<b>*</b> s<sub>i</sub> P<sub>i</sub> != oo </p>
+<p>
+<b>Theorem.</b> If N is an integer and there exist positive integers
+m, q and a point P on the elliptic curve E: y^2 = x^3 + ax + b defined
+modulo N such that q &gt; (N<sup>1/4</sup> + 1)^2, q is a prime divisor of m,
+mP = oo  and (m)/(q)P != oo , then N is prime.</p>
+<p>
+Using the above theorem, the data in the vector <code>C</code> can be used to
+certify the primality of N assuming q_&ell; is prime.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? primecert(10^35 + 69)
+  %1 = [[100000000000000000000000000000000069, 5468679110354
+  52074, 2963504668391148, 0, [60737979324046450274283740674
+  208692, 24368673584839493121227731392450025]], [3374383076
+  4501150277, -11610830419, 734208843, 0, [26740412374402652
+  72 4, 6367191119818901665]], [45959444779, 299597, 2331, 0
+  , [18022351516, 9326882 51]]]
+  ? primecert(nextprime(2^64))
+  %2 = [[18446744073709551629, -8423788454, 160388, 1, [1059
+  8342506117936052, 2225259013356795550]]]
+  ? primecert(6)
+  %3 = 0
+  ? primecert(41)
+  %4 = 41
+</pre><p></p>
+<p></p>
+<p>
+If <em>flag</em> = 1 (very slow), return an N-1 certificate (Pocklington Lehmer)</p>
+<p>
+A PARI N-1 Primality Certificate for the prime N is either a prime
+integer N &lt; 2<sup>64</sup> or a pair [N, C], where C is a vector with &ell;
+elements which are either a single integer p<sub>i</sub> &lt; 2<sup>64</sup> or a
+triple [p<sub>i</sub>,a<sub>i</sub>,C<sub>i</sub>] with p<sub>i</sub> &gt; 2<sup>64</sup> satisfying the following
+properties:</p>
+<p>
+<b>*</b> p<sub>i</sub> is a prime divisor of N - 1;</p>
+<p>
+<b>*</b> a<sub>i</sub> is an integer such that a<sub>i</sub><sup>N-1</sup> = 1 (mod N) and
+a<sub>i</sub><sup>(N-1)/p<sub>i</sub></sup> - 1 is coprime with N;</p>
+<p>
+<b>*</b> C<sub>i</sub> is an N-1 Primality Certificate for p<sub>i</sub></p>
+<p>
+<b>*</b> The product F of the p<sub>i</sub><sup>v<sub>p<sub>i</sub></sub>(N-1)</sup> is strictly larger than
+N<sup>1/3</sup>. Provided that all p<sub>i</sub> are indeed primes, this implies that any
+divisor of N is congruent to 1 modulo F.</p>
+<p>
+<b>*</b> The Billhart, Lehmer, Selfridge criterion is satisfied: when we write
+N = 1 + c<sub>1</sub> F + c<sub>2</sub> F^2 in base F the polynomial 1 + c<sub>1</sub> X + c<sub>2</sub> X^2
+is irreducible over &Zopf;, i.e. c<sub>1</sub>^2 - 4c<sub>2</sub> is not a square. This
+implies that N is prime.</p>
+<p>
+This algorithm requires factoring partially p-1 for various prime integers
+p with an unfactored parted  &leq; p<sup>2/3</sup> and this may be exceedingly
+slow compared to the default.</p>
+<p>
+The algorithm fails if one of the pseudo-prime factors is not prime, which is
+exceedingly unlikely and well worth a bug report. Note that if you monitor
+the algorithm at a high enough debug level, you may see warnings about
+untested integers being declared primes. This is normal: we ask for partial
+factorizations (sufficient to prove primality if the unfactored part is not
+too large), and <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code> warns us that the cofactor hasn't been tested.
+It may or may not be tested later, and may or may not be prime. This does
+not affect the validity of the whole Primality Certificate.</p>
+<p>
+The library syntax is <code>GEN <b>primecert</b>(GEN N, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:primecertexport"></div>
+<div id="primecertexport"></div>
+<h4>primecertexport(<em>cert</em>, {<em>format</em> = 0})</h4>
+<p>
+Returns a string suitable for print/write to display a primality certificate
+from <code><a href="Arithmetic_functions.html#se:primecert"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">primecert</a></code>, the format of which depends on the value of <code>format</code>:</p>
+<p>
+<b>*</b> 0 (default): Human-readable format.</p>
+<p>
+<b>*</b> 1: Primo format 4.</p>
+<p>
+<b>*</b> 2: MAGMA format.</p>
+<p>
+Currently, only ECPP Primality Certificates are supported.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? cert = primecert(10^35+69);
+  ? s = primecertexport(cert); \\ Human-readable
+  ? print(s)
+  [1]
+   N = 100000000000000000000000000000000069
+   t = 546867911035452074
+   s = 2963504668391148
+  a4 = 0
+  D = -3
+  m = 99999999999999999453132088964547996
+  q = 33743830764501150277
+  E = [0, 1]
+  P = [21567861682493263464353543707814204,
+  49167839501923147849639425291163552]
+  [2]
+   N = 33743830764501150277
+   t = -11610830419
+   s = 734208843
+  a4 = 0
+  D = -3
+  m = 33743830776111980697
+  q = 45959444779
+  E = [0, 25895956964997806805]
+  P = [29257172487394218479, 3678591960085668324]
+  
+  \\ Primo format
+  ? s = primecertexport(cert,1); write("cert.out", s);
+  
+  \\ Magma format, write to file
+  ? s = primecertexport(cert,2); write("cert.m", s);
+  
+  ? cert = primecert(10^35+69, 1); \\ N-1 certificate
+   ***   at top-level: primecertexport(cert)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; 
+   *** primecertexport: sorry, N-1 certificate is not yet implemented.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>primecertexport</b>(GEN cert, long format)</code>.</p>
+<p>
+
+<hr>
+<div id="se:primecertisvalid"></div>
+<div id="primecertisvalid"></div>
+<h4>primecertisvalid(<em>cert</em>)</h4>
+<p>
+Verifies if cert is a valid PARI ECPP Primality certificate, as described
+in <code>??primecert</code>.</p>
+<p>
+</p><pre class="code">  ? cert = primecert(10^35 + 69)
+  %1 = [[100000000000000000000000000000000069, 5468679110354
+  52074, 2963504668391148, 0, [60737979324046450274283740674
+  208692, 24368673584839493121227731392450025]], [3374383076
+  4501150277, -11610830419, 734208843, 0, [26740412374402652
+  72 4, 6367191119818901665]], [45959444779, 299597, 2331, 0
+  , [18022351516, 9326882 51]]]
+  ? primecertisvalid(cert)
+  %2 = 1
+  
+  ? cert[1][1]++; \\ random perturbation
+  ? primecertisvalid(cert)
+  %4 = 0  \\ no longer valid
+  ? primecertisvalid(primecert(6))
+  %5 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>primecertisvalid</b>(GEN cert)</code>.</p>
+<p>
+
+<hr>
+<div id="se:primepi"></div>
+<div id="primepi"></div>
+<h4>primepi(x)</h4>
+<p>
+The prime counting function. Returns the number of
+primes p, p &leq; x.</p>
+<p>
+</p><pre class="code">  ? primepi(10)
+  %1 = 4;
+  ? primes(5)
+  %2 = [2, 3, 5, 7, 11]
+  ? primepi(10^11)
+  %3 = 4118054813
+</pre><p>
+Uses checkpointing and a naive O(x) algorithm;
+make sure to start gp with <code>primelimit</code> at least sqrt{x}.</p>
+<p>
+The library syntax is <code>GEN <b>primepi</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:primes"></div>
+<div id="primes"></div>
+<h4>primes(n)</h4>
+<p>
+Creates a row vector whose components are the first n prime numbers.
+(Returns the empty vector for n &leq; 0.) A <code>t_VEC</code> n = [a,b] is also
+allowed, in which case the primes in [a,b] are returned</p>
+<p>
+</p><pre class="code">  ? primes(10)     \\ the first 10 primes
+  %1 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+  ? primes([0,29])  \\ the primes up to 29
+  %2 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+  ? primes([15,30])
+  %3 = [17, 19, 23, 29]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>primes0</b>(GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbclassno"></div>
+<div id="qfbclassno"></div>
+<h4>qfbclassno(D, {<em>flag</em> = 0})</h4>
+<p>
+Ordinary class number of the quadratic order of discriminant D, for
+"small" values of D.</p>
+<p>
+<b>*</b> if  D &gt; 0 or <em>flag</em> = 1, use a O(|D|<sup>1/2</sup>)
+algorithm (compute L(1,&chi;<sub>D</sub>) with the approximate functional equation).
+This is slower than <code><a href="Arithmetic_functions.html#se:quadclassunit"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quadclassunit</a></code> as soon as |D|  ~  10^2 or
+so and is not meant to be used for large D.</p>
+<p>
+<b>*</b> if D &lt; 0 and <em>flag</em> = 0 (or omitted), use a O(|D|<sup>1/4</sup>)
+algorithm (Shanks's baby-step/giant-step method). It should
+be faster than <code><a href="Arithmetic_functions.html#se:quadclassunit"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quadclassunit</a></code> for small values of D, say
+|D| &lt; 10<sup>18</sup>.</p>
+<p>
+<b>Important warning.</b> In the latter case, this function only
+implements part of Shanks's method (which allows to speed it up
+considerably). It gives unconditionnally correct results for
+|D| &lt; 2.10<sup>10</sup>, but may give incorrect results for larger values
+if the class
+group has many cyclic factors. We thus recommend to double-check results
+using the function <code><a href="Arithmetic_functions.html#se:quadclassunit"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quadclassunit</a></code>, which is about 2 to 3 times slower in
+the range |D|  &in;  [10<sup>10</sup>, 10<sup>18</sup>], assuming GRH. We currently have no
+counter-examples but they should exist: we would appreciate a bug report if
+you find one.</p>
+<p>
+<b>Warning.</b> Contrary to what its name implies, this routine does not
+compute the number of classes of binary primitive forms of discriminant D,
+which is equal to the <em>narrow</em> class number. The two notions are the same
+when D &lt; 0 or the fundamental unit &varepsilon; has negative norm; when D
+ &gt; 0 and N&varepsilon; &gt; 0, the number of classes of forms is twice the
+ordinary class number. This is a problem which we cannot fix for backward
+compatibility reasons. Use the following routine if you are only interested
+in the number of classes of forms:</p>
+<p>
+</p><pre class="code">  QFBclassno(D) =
+  qfbclassno(D) * if (D &lt; 0 || norm(quadunit(D)) &lt; 0, 1, 2)
+</pre><p></p>
+<p>
+Here are a few examples:</p>
+<p>
+</p><pre class="code">  ? qfbclassno(400000028) \\ D &gt; 0: slow
+  time = 3,140 ms.
+  %1 = 1
+  ? quadclassunit(400000028).no
+  time = 20 ms. \\ { much faster, assume GRH}
+  %2 = 1
+  ? qfbclassno(-400000028) \\ D &lt; 0: fast enough
+  time = 0 ms.
+  %3 = 7253
+  ? quadclassunit(-400000028).no
+  time = 0 ms.
+  %4 = 7253
+</pre><p></p>
+<p>
+See also <code><a href="Arithmetic_functions.html#se:qfbhclassno"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">qfbhclassno</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>qfbclassno0</b>(GEN D, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbcompraw"></div>
+<div id="qfbcompraw"></div>
+<h4>qfbcompraw(x, y)</h4>
+<p>
+composition of the binary quadratic forms x and y, without
+reduction of the result. This is useful e.g.&nbsp;to compute a generating
+element of an ideal. The result is undefined if x and y do not have the
+same discriminant.</p>
+<p>
+The library syntax is <code>GEN <b>qfbcompraw</b>(GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbhclassno"></div>
+<div id="qfbhclassno"></div>
+<h4>qfbhclassno(x)</h4>
+<p>
+Hurwitz class number of x, when
+x is non-negative and congruent to 0 or 3 modulo 4, and 0 for other
+values. For x &gt; 5.10^5, we assume the GRH, and use <code><a href="Arithmetic_functions.html#se:quadclassunit"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quadclassunit</a></code>
+with default parameters.</p>
+<p>
+</p><pre class="code">  ? qfbhclassno(1) \\ not 0 or 3 mod 4
+  %1 = 0
+  ? qfbhclassno(3)
+  %2 = 1/3
+  ? qfbhclassno(4)
+  %3 = 1/2
+  ? qfbhclassno(23)
+  %4 = 3
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>hclassno</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbnucomp"></div>
+<div id="qfbnucomp"></div>
+<h4>qfbnucomp(x, y, L)</h4>
+<p>
+composition of the primitive positive
+definite binary quadratic forms x and y (type <code>t_QFI</code>) using the NUCOMP
+and NUDUPL algorithms of Shanks, &agrave; la Atkin. L is any positive
+constant, but for optimal speed, one should take L = |D/4|<sup>1/4</sup>, i.e.
+<code>sqrtnint(abs(D) &gt;&gt; 2,4)</code>, where D is the common discriminant of x and
+y. When x and y do not have the same discriminant, the result is
+undefined.</p>
+<p>
+The current implementation is slower than the generic routine for small D,
+and becomes faster when D has about 45 bits.</p>
+<p>
+The library syntax is <code>GEN <b>nucomp</b>(GEN x, GEN y, GEN L)</code>.
+Also available is <code>GEN <b>nudupl</b>(GEN x, GEN L)</code> when x = y.</p>
+<p>
+
+<hr>
+<div id="se:qfbnupow"></div>
+<div id="qfbnupow"></div>
+<h4>qfbnupow(x, n, {L})</h4>
+<p>
+n-th power of the primitive positive definite
+binary quadratic form x using Shanks's NUCOMP and NUDUPL algorithms;
+if set, L should be equal to <code>sqrtnint(abs(D) &gt;&gt; 2,4)</code>, where D &lt; 0 is
+the discriminant of x.</p>
+<p>
+The current implementation is slower than the generic routine for small
+discriminant D, and becomes faster for D  ~  2<sup>45</sup>.</p>
+<p>
+The library syntax is <code>GEN <b>nupow</b>(GEN x, GEN n, GEN L = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbpowraw"></div>
+<div id="qfbpowraw"></div>
+<h4>qfbpowraw(x, n)</h4>
+<p>
+n-th power of the binary quadratic form
+x, computed without doing any reduction (i.e.&nbsp;using <code><a href="Arithmetic_functions.html#se:qfbcompraw"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">qfbcompraw</a></code>).
+Here n must be non-negative and n &lt; 2<sup>31</sup>.</p>
+<p>
+The library syntax is <code>GEN <b>qfbpowraw</b>(GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbprimeform"></div>
+<div id="qfbprimeform"></div>
+<h4>qfbprimeform(x, p)</h4>
+<p>
+Prime binary quadratic form of discriminant
+x whose first coefficient is p, where |p| is a prime number.
+By abuse of notation,
+p = &#177; 1 is also valid and returns the unit form. Returns an
+error if x is not a quadratic residue mod p, or if x &lt; 0 and p &lt; 0.
+(Negative definite <code>t_QFI</code> are not implemented.) In the case where x &gt; 0,
+the "distance" component of the form is set equal to zero according to the
+current precision.</p>
+<p>
+The library syntax is <code>GEN <b>primeform</b>(GEN x, GEN p, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbred"></div>
+<div id="qfbred"></div>
+<h4>qfbred(x, {<em>flag</em> = 0}, {d}, {<em>isd</em>}, {<em>sd</em>})</h4>
+<p>
+Reduces the binary quadratic form x (updating Shanks's distance function
+if x is indefinite). The binary digits of <em>flag</em> are toggles meaning</p>
+<p>
+&nbsp;&nbsp;1: perform a single reduction step</p>
+<p>
+&nbsp;&nbsp;2: don't update Shanks's distance</p>
+<p>
+The arguments d, <em>isd</em>, <em>sd</em>, if present, supply the values of the
+discriminant, floor{sqrt{d}}, and sqrt{d} respectively
+(no checking is done of these facts). If d &lt; 0 these values are useless,
+and all references to Shanks's distance are irrelevant.</p>
+<p>
+The library syntax is <code>GEN <b>qfbred0</b>(GEN x, long flag, GEN d = NULL, GEN isd = NULL, GEN sd = NULL)</code>.
+Also available are</p>
+<p>
+<code>GEN <b>redimag</b>(GEN x)</code> (for definite x),</p>
+<p>
+and for indefinite forms:</p>
+<p>
+<code>GEN <b>redreal</b>(GEN x)</code></p>
+<p>
+<code>GEN <b>rhoreal</b>(GEN x)</code> ( = <code>qfbred(x,1)</code>),</p>
+<p>
+<code>GEN <b>redrealnod</b>(GEN x, GEN isd)</code> ( = <code>qfbred(x,2,,isd)</code>),</p>
+<p>
+<code>GEN <b>rhorealnod</b>(GEN x, GEN isd)</code> ( = <code>qfbred(x,3,,isd)</code>).</p>
+<p>
+
+<hr>
+<div id="se:qfbredsl2"></div>
+<div id="qfbredsl2"></div>
+<h4>qfbredsl2(x, {<em>data</em>})</h4>
+<p>
+Reduction of the (real or imaginary) binary quadratic form x, return
+[y,g] where y is reduced and g in SL(2,&Zopf;) is such that
+ g.x = y; <em>data</em>, if
+present, must be equal to [D, <code><a href="Arithmetic_functions.html#se:sqrtint"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">sqrtint</a></code>(D)], where D &gt; 0 is the
+discriminant of x. In case x is a <code>t_QFR</code>, the distance component is
+unaffected.</p>
+<p>
+The library syntax is <code>GEN <b>qfbredsl2</b>(GEN x, GEN data = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:qfbsolve"></div>
+<div id="qfbsolve"></div>
+<h4>qfbsolve(Q, p)</h4>
+<p>
+Solve the equation Q(x,y) = p over the integers,
+where Q is a binary quadratic form and p a prime number.</p>
+<p>
+Return [x,y] as a two-components vector, or zero if there is no solution.
+Note that this function returns only one solution and not all the solutions.</p>
+<p>
+Let D = disc Q. The algorithm used runs in probabilistic polynomial time
+in p (through the computation of a square root of D modulo p); it is
+polynomial time in D if Q is imaginary, but exponential time if Q is
+real (through the computation of a full cycle of reduced forms). In the
+latter case, note that <code><a href="General_number_fields.html#se:bnfisprincipal"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnfisprincipal</a></code> provides a solution in heuristic
+subexponential time in D assuming the GRH.</p>
+<p>
+The library syntax is <code>GEN <b>qfbsolve</b>(GEN Q, GEN p)</code>.</p>
+<p>
+
+<hr>
+<div id="se:quadclassunit"></div>
+<div id="quadclassunit"></div>
+<h4>quadclassunit(D, {<em>flag</em> = 0}, {<em>tech</em> = []})</h4>
+<p>
+Buchmann-McCurley's sub-exponential algorithm for computing the
+class group of a quadratic order of discriminant D.</p>
+<p>
+This function should be used instead of <code><a href="Arithmetic_functions.html#se:qfbclassno"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">qfbclassno</a></code> or <code>quadregula</code>
+when D &lt; -10<sup>25</sup>, D &gt; 10<sup>10</sup>, or when the <em>structure</em> is wanted. It
+is a special case of <code><a href="General_number_fields.html#se:bnfinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnfinit</a></code>, which is slower, but more robust.</p>
+<p>
+The result is a vector v whose components should be accessed using member
+functions:</p>
+<p>
+<b>*</b> <code>v.no</code>: the class number</p>
+<p>
+<b>*</b> <code>v.cyc</code>: a vector giving the structure of the class group as a
+product of cyclic groups;</p>
+<p>
+<b>*</b> <code>v.gen</code>: a vector giving generators of those cyclic groups (as
+binary quadratic forms).</p>
+<p>
+<b>*</b> <code>v.reg</code>: the regulator, computed to an accuracy which is the
+maximum of an internal accuracy determined by the program and the current
+default (note that once the regulator is known to a small accuracy it is
+trivial to compute it to very high accuracy, see the tutorial).</p>
+<p>
+The <em>flag</em> is obsolete and should be left alone. In older versions,
+it supposedly computed the narrow class group when D &gt; 0, but this did not
+work at all; use the general function <code><a href="General_number_fields.html#se:bnfnarrow"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnfnarrow</a></code>.</p>
+<p>
+Optional parameter <em>tech</em> is a row vector of the form [c<sub>1</sub>, c<sub>2</sub>],
+where c<sub>1</sub> &leq; c<sub>2</sub> are non-negative real numbers which control the execution
+time and the stack size, see <a href="General_number_fields.html#se:GRHbnf"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">se:GRHbnf</a>. The parameter is used as a
+threshold to balance the relation finding phase against the final linear
+algebra. Increasing the default c<sub>1</sub> means that relations are easier
+to find, but more relations are needed and the linear algebra will be
+harder. The default value for c<sub>1</sub> is 0 and means that it is taken equal
+to c<sub>2</sub>. The parameter c<sub>2</sub> is mostly obsolete and should not be changed,
+but we still document it for completeness: we compute a tentative class
+group by generators and relations using a factorbase of prime ideals
+ &leq; c<sub>1</sub> (log |D|)^2, then prove that ideals of norm
+ &leq; c<sub>2</sub> (log |D|)^2 do
+not generate a larger group. By default an optimal c<sub>2</sub> is chosen, so that
+the result is provably correct under the GRH  &mdash;  a famous result of Bach
+states that c<sub>2</sub> = 6 is fine, but it is possible to improve on this
+algorithmically. You may provide a smaller c<sub>2</sub>, it will be ignored
+(we use the provably correct
+one); you may provide a larger c<sub>2</sub> than the default value, which results
+in longer computing times for equally correct outputs (under GRH).</p>
+<p>
+The library syntax is <code>GEN <b>quadclassunit0</b>(GEN D, long flag, GEN tech = NULL, long prec)</code>.
+If you really need to experiment with the <em>tech</em> parameter, it is
+usually more convenient to use
+<code>GEN <b>Buchquad</b>(GEN D, double c1, double c2, long prec)</code>. If only the
+class number is needed, <code>GEN <b>quadclassno</b>(GEN D)</code> will be faster (still
+assuming the GRH), but will not provide the group structure. For negative
+D, |D| &lt; 10<sup>20</sup>, <code><a href="Arithmetic_functions.html#se:qfbclassno"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">qfbclassno</a></code> should be faster but may return a
+wrong result.</p>
+<p>
+
+<hr>
+<div id="se:quaddisc"></div>
+<div id="quaddisc"></div>
+<h4>quaddisc(x)</h4>
+<p>
+Discriminant of the &eacute;tale algebra &Qopf;(sqrt{x}), where x &in; &Qopf;<sup>*</sup>.
+This is the same as <code><a href="Arithmetic_functions.html#se:coredisc"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">coredisc</a></code>(d) where d is the integer square-free
+part of x, so x = d f^2 with f &in;  &Qopf;<sup>*</sup> and d &in; &Zopf;.
+This returns 0 for x = 0, 1 for x square and the discriminant of the
+quadratic field &Qopf;(sqrt{x}) otherwise.</p>
+<p>
+</p><pre class="code">  ? quaddisc(7)
+  %1 = 28
+  ? quaddisc(-7)
+  %2 = -7
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>quaddisc</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:quadgen"></div>
+<div id="quadgen"></div>
+<h4>quadgen(D, {v = 'w})</h4>
+<p>
+Creates the quadratic number &omega; = (a+sqrt{D})/2 where
+a = 0 if D = 0 mod 4,
+a = 1 if D = 1 mod 4, so that (1,&omega;) is an integral basis for the
+quadratic order of discriminant D. D must be an integer congruent to 0 or
+1 modulo 4, which is not a square.
+If <em>v</em> is given, the variable name is used to display g else 'w' is used.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? w = quadgen(5, 'w); w^2 - w - 1
+  %1 = 0
+  ? w = quadgen(0, 'w)
+   ***   at top-level: w=quadgen(0)
+   ***                   ^ &mdash;  &mdash;  &mdash; -
+   *** quadgen: domain error in quadpoly: issquare(disc) = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>quadgen0</b>(GEN D, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+When <em>v</em> does not matter, the function
+<code>GEN <b>quadgen</b>(GEN D)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:quadhilbert"></div>
+<div id="quadhilbert"></div>
+<h4>quadhilbert(D)</h4>
+<p>
+Relative equation defining the
+Hilbert class field of the quadratic field of discriminant D.</p>
+<p>
+If D &lt; 0, uses complex multiplication (Schertz's variant).</p>
+<p>
+If D &gt; 0 Stark units are used and (in rare cases) a
+vector of extensions may be returned whose compositum is the requested class
+field. See <code><a href="General_number_fields.html#se:bnrstark"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrstark</a></code> for details.</p>
+<p>
+The library syntax is <code>GEN <b>quadhilbert</b>(GEN D, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:quadpoly"></div>
+<div id="quadpoly"></div>
+<h4>quadpoly(D, {v = 'x})</h4>
+<p>
+Creates the "canonical" quadratic
+polynomial (in the variable v) corresponding to the discriminant D,
+i.e.&nbsp;the minimal polynomial of <code><a href="Arithmetic_functions.html#se:quadgen"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quadgen</a></code>(D). D must be an integer
+congruent to 0 or 1 modulo 4, which is not a square.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? quadpoly(5,'y)
+  %1 = y^2 - y - 1
+  ? quadpoly(0,'y)
+   ***   at top-level: quadpoly(0,'y)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; --
+   *** quadpoly: domain error in quadpoly: issquare(disc) = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>quadpoly0</b>(GEN D, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:quadray"></div>
+<div id="quadray"></div>
+<h4>quadray(D, f)</h4>
+<p>
+Relative equation for the ray
+class field of conductor f for the quadratic field of discriminant D
+using analytic methods. A <code>bnf</code> for x^2 - D is also accepted in place
+of D.</p>
+<p>
+For D &lt; 0, uses the &sigma; function and Schertz's method.</p>
+<p>
+For D &gt; 0, uses Stark's conjecture, and a vector of relative equations may be
+returned. See <code><a href="General_number_fields.html#se:bnrstark"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">bnrstark</a></code> for more details.</p>
+<p>
+The library syntax is <code>GEN <b>quadray</b>(GEN D, GEN f, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:quadregulator"></div>
+<div id="quadregulator"></div>
+<h4>quadregulator(x)</h4>
+<p>
+Regulator of the quadratic field of positive discriminant x. Returns
+an error if x is not a discriminant (fundamental or not) or if x is a
+square. See also <code><a href="Arithmetic_functions.html#se:quadclassunit"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quadclassunit</a></code> if x is large.</p>
+<p>
+The library syntax is <code>GEN <b>quadregulator</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:quadunit"></div>
+<div id="quadunit"></div>
+<h4>quadunit(D, {v = 'w})</h4>
+<p>
+Fundamental unit u of the
+real quadratic field &Qopf;(sqrt D) where  D is the positive discriminant
+of the field. If D is not a fundamental discriminant, this probably gives
+the fundamental unit of the corresponding order. D must be an integer
+congruent to 0 or 1 modulo 4, which is not a square; the result is a
+quadratic number (see Section <a href="Arithmetic_functions.html#se:quadgen"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:quadgen</a>).
+If <em>v</em> is given, the variable name is used to display u
+else 'w' is used.</p>
+<p>
+The library syntax is <code>GEN <b>quadunit0</b>(GEN D, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+When <em>v</em> does not matter, the function
+<code>GEN <b>quadunit</b>(GEN D)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:ramanujantau"></div>
+<div id="ramanujantau"></div>
+<h4>ramanujantau(n)</h4>
+<p>
+Compute the value of Ramanujan's tau function at an individual n,
+assuming the truth of the GRH (to compute quickly class numbers of imaginary
+quadratic fields using <code><a href="Arithmetic_functions.html#se:quadclassunit"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">quadclassunit</a></code>).
+Algorithm in &Otilde;(n<sup>1/2</sup>) using O(log n) space. If all values up
+to N are required, then
+&sum; &tau;(n)q^n = q &prod;<sub>n &geq; 1</sub> (1-q^n)<sup>24</sup>
+will produce them in time &Otilde;(N), against &Otilde;(N<sup>3/2</sup>) for
+individual calls to <code><a href="Arithmetic_functions.html#se:ramanujantau"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ramanujantau</a></code>; of course the space complexity then
+becomes &Otilde;(N).</p>
+<p>
+</p><pre class="code">  ? tauvec(N) = Vec(q*eta(q + O(q^N))^24);
+  ? N = 10^4; v = tauvec(N);
+  time = 26 ms.
+  ? ramanujantau(N)
+  %3 = -482606811957501440000
+  ? w = vector(N, n, ramanujantau(n)); \\ much slower !
+  time = 13,190 ms.
+  ? v == w
+  %4 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ramanujantau</b>(GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:randomprime"></div>
+<div id="randomprime"></div>
+<h4>randomprime({N = 2<sup>31</sup>})</h4>
+<p>
+Returns a strong pseudo prime (see <code><a href="Arithmetic_functions.html#se:ispseudoprime"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">ispseudoprime</a></code>) in [2,N-1].
+A <code>t_VEC</code> N = [a,b] is also allowed, with a &leq; b in which case a
+pseudo prime a &leq; p &leq; b is returned; if no prime exists in the
+interval, the function will run into an infinite loop. If the upper bound
+is less than 2<sup>64</sup> the pseudo prime returned is a proven prime.</p>
+<p>
+The library syntax is <code>GEN <b>randomprime</b>(GEN N = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:removeprimes"></div>
+<div id="removeprimes"></div>
+<h4>removeprimes({x = []})</h4>
+<p>
+Removes the primes listed in x from
+the prime number table. In particular <code>removeprimes(addprimes())</code> empties
+the extra prime table. x can also be a single integer. List the current
+extra primes if x is omitted.</p>
+<p>
+The library syntax is <code>GEN <b>removeprimes</b>(GEN x = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sigma"></div>
+<div id="sigma"></div>
+<h4>sigma(x, {k = 1})</h4>
+<p>
+Sum of the k-th powers of the positive divisors of |x|. x
+and k must be of type integer.</p>
+<p>
+The library syntax is <code>GEN <b>sumdivk</b>(GEN x, long k)</code>.
+Also available is <code>GEN <b>sumdiv</b>(GEN n)</code>, for k = 1.</p>
+<p>
+
+<hr>
+<div id="se:sqrtint"></div>
+<div id="sqrtint"></div>
+<h4>sqrtint(x)</h4>
+<p>
+Returns the integer square root of x, i.e. the largest integer y
+such that y^2 &leq; x, where x a non-negative integer.</p>
+<p>
+</p><pre class="code">  ? N = 120938191237; sqrtint(N)
+  %1 = 347761
+  ? sqrt(N)
+  %2 = 347761.68741970412747602130964414095216
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sqrtint</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sqrtnint"></div>
+<div id="sqrtnint"></div>
+<h4>sqrtnint(x, n)</h4>
+<p>
+Returns the integer n-th root of x, i.e. the largest integer y such
+that y^n &leq; x, where x is a non-negative integer.</p>
+<p>
+</p><pre class="code">  ? N = 120938191237; sqrtnint(N, 5)
+  %1 = 164
+  ? N^(1/5)
+  %2 = 164.63140849829660842958614676939677391
+</pre><p>
+The special case n = 2 is <code><a href="Arithmetic_functions.html#se:sqrtint"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">sqrtint</a></code></p>
+<p>
+The library syntax is <code>GEN <b>sqrtnint</b>(GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumdedekind"></div>
+<div id="sumdedekind"></div>
+<h4>sumdedekind(h, k)</h4>
+<p>
+Returns the Dedekind sum attached to the integers h and k,
+ corresponding to a fast implementation of</p>
+<p>
+</p><pre class="code">    s(h,k) = sum(n = 1, k-1, (n/k)*(frac(h*n/k) - 1/2))
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>sumdedekind</b>(GEN h, GEN k)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sumdigits"></div>
+<div id="sumdigits"></div>
+<h4>sumdigits(n, {B = 10})</h4>
+<p>
+Sum of digits in the integer n, when written in base B &gt; 1.</p>
+<p>
+</p><pre class="code">  ? sumdigits(123456789)
+  %1 = 45
+  ? sumdigits(123456789, 2)
+  %1 = 16
+</pre><p>
+Note that the sum of bits in n is also returned by
+<code><a href="Combinatorics.html#se:hammingweight"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">hammingweight</a></code>. This function is much faster than
+<code>vecsum(digits(n,B))</code> when B is 10 or a power of 2, and only
+slightly faster in other cases.</p>
+<p>
+The library syntax is <code>GEN <b>sumdigits0</b>(GEN n, GEN B = NULL)</code>.
+Also available is <code>GEN <b>sumdigits</b>(GEN n)</code>, for B = 10.</p>
+<p>
+
+<hr>
+<div id="se:znchar"></div>
+<div id="znchar"></div>
+<h4>znchar(D)</h4>
+<p>
+Given a datum D describing a group (&Zopf;/N&Zopf;)<sup>*</sup> and a Dirichlet
+character &chi;, return the pair <code>[G, chi]</code>, where <code>G</code> is
+<code>znstar(N, 1)</code>) and <code>chi</code> is a GP character.</p>
+<p>
+The following possibilities for D are supported</p>
+<p>
+<b>*</b> a non-zero <code>t_INT</code> congruent to 0,1 modulo 4, return the real
+character modulo D given by the Kronecker symbol (D/.);</p>
+<p>
+<b>*</b> a <code>t_INTMOD</code> <code>Mod(m, N)</code>, return the Conrey character
+modulo N of index m (see <code><a href="Arithmetic_functions.html#se:znconreylog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreylog</a></code>).</p>
+<p>
+<b>*</b> a modular form space as per <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>([N,k,&chi;]) or a modular
+form for such a space, return the underlying Dirichlet character &chi;
+(which may be defined modulo a divisor of N but need not be primitive).</p>
+<p>
+In the remaining cases, <code>G</code> is initialized by <code>znstar(N, 1)</code>.</p>
+<p>
+<b>*</b> a pair <code>[G, chi]</code>, where <code>chi</code> is a standard GP Dirichlet
+character c = (c<sub>j</sub>) on <code>G</code> (generic character <code>t_VEC</code> or
+Conrey characters <code>t_COL</code> or <code>t_INT</code>); given
+generators G = &bigoplus;  (&Zopf;/d<sub>j</sub>&Zopf;) g<sub>j</sub>, &chi;(g<sub>j</sub>) = e(c<sub>j</sub>/d<sub>j</sub>).</p>
+<p>
+<b>*</b> a pair <code>[G, chin]</code>, where <code>chin</code> is a <em>normalized</em>
+representation [n, ~{c}] of the Dirichlet character c; &chi;(g<sub>j</sub>)
+ = e(~{c}<sub>j</sub> / n) where n is minimal (order of &chi;).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? [G,chi] = znchar(-3);
+  ? G.cyc
+  %2 = [2]
+  ? chareval(G, chi, 2)
+  %3 = 1/2
+  ?  kronecker(-3,2)
+  %4 = -1
+  ? znchartokronecker(G,chi)
+  %5 = -3
+  ? mf = mfinit([28, 5/2, Mod(2,7)]); [f] = mfbasis(mf);
+  ? [G,chi] = znchar(mf); [G.mod, chi]
+  %7 = [7, [2]~]
+  ? [G,chi] = znchar(f); chi
+  %8 = [28, [0, 2]~]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znchar</b>(GEN D)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zncharconductor"></div>
+<div id="zncharconductor"></div>
+<h4>zncharconductor(G, <em>chi</em>)</h4>
+<p>
+Let <em>G</em> be attached to (&Zopf;/q&Zopf;)<sup>*</sup> (as per
+<code>G = znstar(q, 1)</code>) and <code>chi</code> be a Dirichlet character on
+(&Zopf;/q&Zopf;)<sup>*</sup> (see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>).
+Return the conductor of <code>chi</code>:</p>
+<p>
+</p><pre class="code">  ? G = znstar(126000, 1);
+  ? zncharconductor(G,11)   \\ primitive
+  %2 = 126000
+  ? zncharconductor(G,1)    \\ trivial character, not primitive!
+  %3 = 1
+  ? zncharconductor(G,1009) \\ character mod 5^3
+  %4 = 125
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>zncharconductor</b>(GEN G, GEN chi)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znchardecompose"></div>
+<div id="znchardecompose"></div>
+<h4>znchardecompose(G, <em>chi</em>, Q)</h4>
+<p>
+Let N = &prod;<sub>p</sub> p<sup>e<sub>p</sub></sup> and a Dirichlet character &chi;,
+we have a decomposition &chi; = &prod;<sub>p</sub> &chi;<sub>p</sub> into character modulo N
+where the conductor of &chi;<sub>p</sub> divides p<sup>e<sub>p</sub></sup>; it equals p<sup>e<sub>p</sub></sup> for
+all p if and only if &chi; is primitive.</p>
+<p>
+Given a <em>znstar</em> G describing a group (&Zopf;/N&Zopf;)<sup>*</sup>, a Dirichlet
+character <code>chi</code> and an integer Q, return &prod;<sub>p | (Q,N)</sub> &chi;<sub>p</sub>.
+For instance, if Q = p is a prime divisor of N, the function returns
+&chi;<sub>p</sub> (as a character modulo N), given as a Conrey character (<code>t_COL</code>).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(40, 1);
+  ? G.cyc
+  %2 = [4, 2, 2]
+  ? chi = [2, 1, 1];
+  ? chi2 = znchardecompose(G, chi, 2)
+  %4 = [1, 1, 0]~
+  ? chi5 = znchardecompose(G, chi, 5)
+  %5 = [0, 0, 2]~
+  ? znchardecompose(G, chi, 3)
+  %6 = [0, 0, 0]~
+  ? c = charmul(G, chi2, chi5)
+  %7 = [1, 1, 2]~  \\ t_COL: in terms of Conrey generators !
+  ? znconreychar(G,c)
+  %8 = [2, 1, 1]   \\ t_VEC: in terms of SNF generators
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znchardecompose</b>(GEN G, GEN chi, GEN Q)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znchargauss"></div>
+<div id="znchargauss"></div>
+<h4>znchargauss(G, <em>chi</em>, {a = 1})</h4>
+<p>
+Given a Dirichlet character &chi; on G = (&Zopf;/N&Zopf;)<sup>*</sup> (see
+<code><a href="Arithmetic_functions.html#se:znchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znchar</a></code>), return the complex Gauss sum
+g(&chi;,a) = &sum;<sub>n = 1</sub>^N &chi;(n) e(a n/N)</p>
+<p>
+</p><pre class="code">  ? [G,chi] = znchar(-3); \\ quadratic Gauss sum: I*sqrt(3)
+  ? znchargauss(G,chi)
+  %2 = 1.7320508075688772935274463415058723670*I
+  ? [G,chi] = znchar(5);
+  ? znchargauss(G,chi)  \\ sqrt(5)
+  %2 = 2.2360679774997896964091736687312762354
+  ? G = znstar(300,1); chi = [1,1,12]~;
+  ? znchargauss(G,chi) / sqrt(300) - exp(2*I*Pi*11/25)  \\ = 0
+  %4 = 2.350988701644575016 E-38 + 1.4693679385278593850 E-39*I
+  ? lfuntheta([G,chi], 1)  \\ = 0
+  %5 = -5.79[...] E-39 - 2.71[...] E-40*I
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znchargauss</b>(GEN G, GEN chi, GEN a = NULL, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zncharinduce"></div>
+<div id="zncharinduce"></div>
+<h4>zncharinduce(G, <em>chi</em>, N)</h4>
+<p>
+Let G be attached to (&Zopf;/q&Zopf;)<sup>*</sup> (as per <code>G = znstar(q,1)</code>)
+and let <code>chi</code> be a Dirichlet character on (&Zopf;/q&Zopf;)<sup>*</sup>, given by</p>
+<p>
+<b>*</b> a <code>t_VEC</code>: a standard character on <code>bid.gen</code>,</p>
+<p>
+<b>*</b> a <code>t_INT</code> or a <code>t_COL</code>: a Conrey index in (&Zopf;/q&Zopf;)<sup>*</sup> or its
+Conrey logarithm;
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>.</p>
+<p>
+Let N be a multiple of q, return the character modulo N extending
+<code>chi</code>. As usual for arithmetic functions, the new modulus N can be
+given as a <code>t_INT</code>, via a factorization matrix or a pair
+<code>[N, factor(N)]</code>, or by <code>znstar(N,1)</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(4, 1);
+  ? chi = znconreylog(G,1); \\ trivial character mod 4
+  ? zncharinduce(G, chi, 80)  \\ now mod 80
+  %3 = [0, 0, 0]~
+  ? zncharinduce(G, 1, 80)  \\ same using directly Conrey label
+  %4 = [0, 0, 0]~
+  ? G2 = znstar(80, 1);
+  ? zncharinduce(G, 1, G2)  \\ same
+  %4 = [0, 0, 0]~
+  
+  ? chi = zncharinduce(G, 3, G2)  \\ extend the non-trivial character mod 4
+  %5 = [1, 0, 0]~
+  ? [G0,chi0] = znchartoprimitive(G2, chi);
+  ? G0.mod
+  %7 = 4
+  ? chi0
+  %8 = [1]~
+</pre><p>
+Here is a larger example:</p>
+<p>
+</p><pre class="code">  ? G = znstar(126000, 1);
+  ? label = 1009;
+  ? chi = znconreylog(G, label)
+  %3 = [0, 0, 0, 14, 0]~
+  ? [G0,chi0] = znchartoprimitive(G, label); \\ works also with 'chi'
+  ? G0.mod
+  %5 = 125
+  ? chi0 \\ primitive character mod 5^3 attached to chi
+  %6 = [14]~
+  ? G0 = znstar(N0, 1);
+  ? zncharinduce(G0, chi0, G) \\ induce back
+  %8 = [0, 0, 0, 14, 0]~
+  ? znconreyexp(G, %)
+  %9 = 1009
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>zncharinduce</b>(GEN G, GEN chi, GEN N)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zncharisodd"></div>
+<div id="zncharisodd"></div>
+<h4>zncharisodd(G, <em>chi</em>)</h4>
+<p>
+Let G be attached to (&Zopf;/N&Zopf;)<sup>*</sup> (as per <code>G = znstar(N,1)</code>)
+and let <code>chi</code> be a Dirichlet character on (&Zopf;/N&Zopf;)<sup>*</sup>, given by</p>
+<p>
+<b>*</b> a <code>t_VEC</code>: a standard character on <code>G.gen</code>,</p>
+<p>
+<b>*</b> a <code>t_INT</code> or a <code>t_COL</code>: a Conrey index in (&Zopf;/q&Zopf;)<sup>*</sup> or its
+Conrey logarithm;
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>.</p>
+<p>
+Return 1 if and only if <code>chi</code>(-1) = -1 and 0 otherwise.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(8, 1);
+  ? zncharisodd(G, 1)  \\ trivial character
+  %2 = 0
+  ? zncharisodd(G, 3)
+  %3 = 1
+  ? chareval(G, 3, -1)
+  %4 = 1/2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>zncharisodd</b>(GEN G, GEN chi)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znchartokronecker"></div>
+<div id="znchartokronecker"></div>
+<h4>znchartokronecker(G, <em>chi</em>, {<em>flag</em> = 0})</h4>
+<p>
+Let G be attached to (&Zopf;/N&Zopf;)<sup>*</sup> (as per <code>G = znstar(N,1)</code>)
+and let <code>chi</code> be a Dirichlet character on (&Zopf;/N&Zopf;)<sup>*</sup>, given by</p>
+<p>
+<b>*</b> a <code>t_VEC</code>: a standard character on <code>bid.gen</code>,</p>
+<p>
+<b>*</b> a <code>t_INT</code> or a <code>t_COL</code>: a Conrey index in (&Zopf;/q&Zopf;)<sup>*</sup> or its
+Conrey logarithm;
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>.</p>
+<p>
+If <em>flag</em> = 0, return the discriminant D if <code>chi</code> is real equal to the
+Kronecker symbol (D/.) and 0 otherwise. The discriminant D is
+fundamental if and only if <code>chi</code> is primitive.</p>
+<p>
+If <em>flag</em> = 1, return the fundamental discriminant attached to the
+corresponding primitive character.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(8,1); CHARS = [1,3,5,7]; \\ Conrey labels
+  ? apply(t-&gt;znchartokronecker(G,t), CHARS)
+  %2 = [4, -8, 8, -4]
+  ? apply(t-&gt;znchartokronecker(G,t,1), CHARS)
+  %3 = [1, -8, 8, -4]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znchartokronecker</b>(GEN G, GEN chi, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znchartoprimitive"></div>
+<div id="znchartoprimitive"></div>
+<h4>znchartoprimitive(G, <em>chi</em>)</h4>
+<p>
+Let <em>G</em> be attached to (&Zopf;/q&Zopf;)<sup>*</sup> (as per
+<code>G = znstar(q, 1)</code>) and <code>chi</code> be a Dirichlet character on
+(&Zopf;/q&Zopf;)<sup>*</sup>, of conductor q<sub>0</sub> | q.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(126000, 1);
+  ? [G0,chi0] = znchartoprimitive(G,11)
+  ? G0.mod
+  %3 = 126000
+  ? chi0
+  %4 = 11
+  ? [G0,chi0] = znchartoprimitive(G,1);\\ trivial character, not primitive!
+  ? G0.mod
+  %6 = 1
+  ? chi0
+  %7 = []~
+  ? [G0,chi0] = znchartoprimitive(G,1009)
+  ? G0.mod
+  %4 = 125
+  ? chi0
+  %5 = [14]~
+</pre><p>
+Note that <code><a href="Arithmetic_functions.html#se:znconreyconductor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreyconductor</a></code> is more efficient since
+it can return &chi;<sub>0</sub> and its conductor q<sub>0</sub> without needing to initialize
+G<sub>0</sub>. (The price to pay is a more cryptic format and the need to
+initalize G<sub>0</sub> later but the can be done once for all characters
+of conductor q<sub>0</sub>.)</p>
+<p>
+The library syntax is <code>GEN <b>znchartoprimitive</b>(GEN G, GEN chi)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znconreychar"></div>
+<div id="znconreychar"></div>
+<h4>znconreychar(<em>bid</em>, m)</h4>
+<p>
+Given a <em>bid</em> attached to (&Zopf;/q&Zopf;)<sup>*</sup> (as per
+<code>bid = znstar(q,1)</code>), this function returns the Dirichlet character
+attached to m  &in;  (&Zopf;/q&Zopf;)<sup>*</sup> via Conrey's logarithm, which
+establishes a "canonical" bijection between (&Zopf;/q&Zopf;)<sup>*</sup> and its dual.</p>
+<p>
+Let q = &prod;<sub>p</sub> p<sup>e<sub>p</sub></sup> be the factorization of q into distinct primes.
+For all odd  p with e<sub>p</sub> &gt; 0, let g<sub>p</sub> be the element in (&Zopf;/q&Zopf;)<sup>*</sup>
+which is</p>
+<p>
+<b>*</b> congruent to 1 mod q/p<sup>e<sub>p</sub></sup>,</p>
+<p>
+<b>*</b> congruent mod p<sup>e<sub>p</sub></sup> to the smallest positive integer that generates
+(&Zopf;/p^2&Zopf;)<sup>*</sup>.</p>
+<p>
+For p = 2, we let g<sub>4</sub> (if 2<sup>e<sub>2</sub></sup> &geq; 4) and g<sub>8</sub> (if furthermore
+(2<sup>e<sub>2</sub></sup> &geq; 8) be the elements in (&Zopf;/q&Zopf;)<sup>*</sup> which are</p>
+<p>
+<b>*</b> congruent to 1 mod q/2<sup>e<sub>2</sub></sup>,</p>
+<p>
+<b>*</b> g<sub>4</sub> = -1 mod 2<sup>e<sub>2</sub></sup>,</p>
+<p>
+<b>*</b> g<sub>8</sub> = 5 mod 2<sup>e<sub>2</sub></sup>.</p>
+<p>
+Then the g<sub>p</sub> (and the extra g<sub>4</sub> and g<sub>8</sub> if 2<sup>e<sub>2</sub></sup> &geq; 2) are
+independent generators of (&Zopf;/q&Zopf;)<sup>*</sup>, i.e. every m in (&Zopf;/q&Zopf;)<sup>*</sup> can be
+written uniquely as &prod;<sub>p</sub> g<sub>p</sub><sup>m<sub>p</sub></sup>, where m<sub>p</sub> is defined modulo the
+order o<sub>p</sub> of g<sub>p</sub> and p  &in;  S<sub>q</sub>, the set of prime divisors of q
+together with 4 if 4 | q and 8 if 8 | q. Note that the g<sub>p</sub>
+are in general <em>not</em> SNF generators as produced by <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> whenever
+&omega;(q) &geq; 2, although their number is the same. They however allow
+to handle the finite abelian group (&Zopf;/q&Zopf;)<sup>*</sup> in a fast and elegant way.
+(Which unfortunately does not generalize to ray class groups or Hecke
+characters.)</p>
+<p>
+The Conrey logarithm of m is the vector (m<sub>p</sub>)<sub>p &in;  S<sub>q</sub></sub>, obtained
+via <code><a href="Arithmetic_functions.html#se:znconreylog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreylog</a></code>. The Conrey character &chi;<sub>q</sub>(m,.)  attached to
+m mod q maps
+each g<sub>p</sub>, p &in;  S<sub>q</sub> to e(m<sub>p</sub> / o<sub>p</sub>), where e(x) = exp(2i&pi; x).
+This function returns the Conrey character expressed in the standard PARI
+way in terms of the SNF generators <code>bid.gen</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(8,1);
+  ? G.cyc
+  %2 = [2, 2]  \\ Z/2 x Z/2
+  ? G.gen
+  %3 = [7, 3]
+  ? znconreychar(G,1)  \\ 1 is always the trivial character
+  %4 = [0, 0]
+  ? znconreychar(G,2)  \\ 2 is not coprime to 8 !!!
+    ***   at top-level: znconreychar(G,2)
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    *** znconreychar: elements not coprime in Zideallog:
+      2
+      8
+    ***   Break loop: type 'break' to go back to GP prompt
+  break&gt;
+  
+  ? znconreychar(G,3)
+  %5 = [0, 1]
+  ? znconreychar(G,5)
+  %6 = [1, 1]
+  ? znconreychar(G,7)
+  %7 = [1, 0]
+</pre><p>
+We indeed get all 4 characters of (&Zopf;/8&Zopf;)<sup>*</sup>.</p>
+<p>
+For convenience, we allow to input the <em>Conrey logarithm</em> of m
+instead of m:</p>
+<p>
+</p><pre class="code">  ? G = znstar(55, 1);
+  ? znconreychar(G,7)
+  %2 = [7, 0]
+  ? znconreychar(G, znconreylog(G,7))
+  %3 = [7, 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znconreychar</b>(GEN bid, GEN m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znconreyconductor"></div>
+<div id="znconreyconductor"></div>
+<h4>znconreyconductor(G, <em>chi</em>, {&<em>chi0</em>})</h4>
+<p>
+Let <em>G</em> be attached to (&Zopf;/q&Zopf;)<sup>*</sup> (as per
+<code>G = znstar(q, 1)</code>) and <code>chi</code> be a Dirichlet character on
+(&Zopf;/q&Zopf;)<sup>*</sup>, given by</p>
+<p>
+<b>*</b> a <code>t_VEC</code>: a standard character on <code>bid.gen</code>,</p>
+<p>
+<b>*</b> a <code>t_INT</code> or a <code>t_COL</code>: a Conrey index in (&Zopf;/q&Zopf;)<sup>*</sup> or its
+Conrey logarithm;
+see Section <a href="Arithmetic_functions.html#se:dirichletchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:dirichletchar</a> or <code>??character</code>.</p>
+<p>
+Return the conductor of <code>chi</code>, as the <code>t_INT</code> <code>bid.mod</code>
+if <code>chi</code> is primitive, and as a pair <code>[N, faN]</code> (with <code>faN</code> the
+factorization of N) otherwise.</p>
+<p>
+If <code>chi0</code> is present, set it to the Conrey logarithm of the attached
+primitive character.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(126000, 1);
+  ? znconreyconductor(G,11)   \\ primitive
+  %2 = 126000
+  ? znconreyconductor(G,1)    \\ trivial character, not primitive!
+  %3 = [1, matrix(0,2)]
+  ? N0 = znconreyconductor(G,1009, &chi0) \\ character mod 5^3
+  %4 = [125, Mat([5, 3])]
+  ? chi0
+  %5 = [14]~
+  ? G0 = znstar(N0, 1);      \\ format [N,factor(N)] accepted
+  ? znconreyexp(G0, chi0)
+  %7 = 9
+  ? znconreyconductor(G0, chi0) \\ now primitive, as expected
+  %8 = 125
+</pre><p>
+The group <code>G0</code> is not computed as part of
+<code><a href="Arithmetic_functions.html#se:znconreyconductor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreyconductor</a></code> because it needs to be computed only once per
+conductor, not once per character.</p>
+<p>
+The library syntax is <code>GEN <b>znconreyconductor</b>(GEN G, GEN chi, GEN *chi0 = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znconreyexp"></div>
+<div id="znconreyexp"></div>
+<h4>znconreyexp(G, <em>chi</em>)</h4>
+<p>
+Given a <em>znstar</em> G attached to (&Zopf;/q&Zopf;)<sup>*</sup> (as per
+<code>G = znstar(q, 1)</code>), this function returns the Conrey exponential of
+the character <em>chi</em>: it returns the integer
+m  &in;  (&Zopf;/q&Zopf;)<sup>*</sup> such that <code>znconreylog(G, m)</code> is <em>chi</em>.</p>
+<p>
+The character <em>chi</em> is given either as a</p>
+<p>
+<b>*</b> <code>t_VEC</code>: in terms of the generators <code>G.gen</code>;</p>
+<p>
+<b>*</b> <code>t_COL</code>: a Conrey logarithm.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(126000, 1)
+  ? znconreylog(G,1)
+  %2 = [0, 0, 0, 0, 0]~
+  ? znconreyexp(G,%)
+  %3 = 1
+  ? G.cyc \\ SNF generators
+  %4 = [300, 12, 2, 2, 2]
+  ? chi = [100, 1, 0, 1, 0]; \\ some random character on SNF generators
+  ? znconreylog(G, chi)  \\ in terms of Conrey generators
+  %6 = [0, 3, 3, 0, 2]~
+  ? znconreyexp(G, %)  \\ apply to a Conrey log
+  %7 = 18251
+  ? znconreyexp(G, chi) \\ ... or a char on SNF generators
+  %8 = 18251
+  ? znconreychar(G,%)
+  %9 = [100, 1, 0, 1, 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znconreyexp</b>(GEN G, GEN chi)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znconreylog"></div>
+<div id="znconreylog"></div>
+<h4>znconreylog(G, m)</h4>
+<p>
+Given a <em>znstar</em> attached to (&Zopf;/q&Zopf;)<sup>*</sup> (as per
+<code>G = znstar(q,1)</code>), this function returns the Conrey logarithm of
+m  &in;  (&Zopf;/q&Zopf;)<sup>*</sup>.</p>
+<p>
+Let q = &prod;<sub>p</sub> p<sup>e<sub>p</sub></sup> be the factorization of q into distinct primes,
+where we assume e<sub>2</sub> = 0 or e<sub>2</sub> &geq; 2. (If e<sub>2</sub> = 1, we can ignore 2
+from the factorization, as if we replaced q by q/2, since (&Zopf;/q&Zopf;)<sup>*</sup>
+ ~  (&Zopf;/(q/2)&Zopf;)<sup>*</sup>.)</p>
+<p>
+For all odd  p with e<sub>p</sub> &gt; 0, let g<sub>p</sub> be the element in (&Zopf;/q&Zopf;)<sup>*</sup>
+which is</p>
+<p>
+<b>*</b> congruent to 1 mod q/p<sup>e<sub>p</sub></sup>,</p>
+<p>
+<b>*</b> congruent mod p<sup>e<sub>p</sub></sup> to the smallest positive integer that generates
+(&Zopf;/p^2&Zopf;)<sup>*</sup>.</p>
+<p>
+For p = 2, we let g<sub>4</sub> (if 2<sup>e<sub>2</sub></sup> &geq; 4) and g<sub>8</sub> (if furthermore
+(2<sup>e<sub>2</sub></sup> &geq; 8) be the elements in (&Zopf;/q&Zopf;)<sup>*</sup> which are</p>
+<p>
+<b>*</b> congruent to 1 mod q/2<sup>e<sub>2</sub></sup>,</p>
+<p>
+<b>*</b> g<sub>4</sub> = -1 mod 2<sup>e<sub>2</sub></sup>,</p>
+<p>
+<b>*</b> g<sub>8</sub> = 5 mod 2<sup>e<sub>2</sub></sup>.</p>
+<p>
+Then the g<sub>p</sub> (and the extra g<sub>4</sub> and g<sub>8</sub> if 2<sup>e<sub>2</sub></sup> &geq; 2) are
+independent generators of &Zopf;/q&Zopf;<sup>*</sup>, i.e. every m in (&Zopf;/q&Zopf;)<sup>*</sup> can be
+written uniquely as &prod;<sub>p</sub> g<sub>p</sub><sup>m<sub>p</sub></sup>, where m<sub>p</sub> is defined modulo the
+order o<sub>p</sub> of g<sub>p</sub> and p  &in;  S<sub>q</sub>, the set of prime divisors of q
+together with 4 if 4 | q and 8 if 8 | q. Note that the g<sub>p</sub>
+are in general <em>not</em> SNF generators as produced by <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> whenever
+&omega;(q) &geq; 2, although their number is the same. They however allow
+to handle the finite abelian group (&Zopf;/q&Zopf;)<sup>*</sup> in a fast and elegant way.
+(Which unfortunately does not generalize to ray class groups or Hecke
+characters.)</p>
+<p>
+The Conrey logarithm of m is the vector (m<sub>p</sub>)<sub>p &in;  S<sub>q</sub></sub>. The inverse
+function <code><a href="Arithmetic_functions.html#se:znconreyexp"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreyexp</a></code> recovers the Conrey label m from a character.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(126000, 1);
+  ? znconreylog(G,1)
+  %2 = [0, 0, 0, 0, 0]~
+  ? znconreyexp(G, %)
+  %3 = 1
+  ? znconreylog(G,2)  \\ 2 is not coprime to modulus !!!
+    ***   at top-level: znconreylog(G,2)
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    *** znconreylog: elements not coprime in Zideallog:
+      2
+      126000
+    ***   Break loop: type 'break' to go back to GP prompt
+  break&gt;
+  ? znconreylog(G,11) \\ wrt. Conrey generators
+  %4 = [0, 3, 1, 76, 4]~
+  ? log11 = ideallog(,11,G)   \\ wrt. SNF generators
+  %5 = [178, 3, -75, 1, 0]~
+</pre><p></p>
+<p></p>
+<p>
+For convenience, we allow to input the ordinary discrete log of m,
+<code>ideallog(,m,bid)</code>, which allows to convert discrete logs
+from <code>bid.gen</code> generators to Conrey generators.</p>
+<p>
+</p><pre class="code">  ? znconreylog(G, log11)
+  %7 = [0, 3, 1, 76, 4]~
+</pre><p>
+We also allow a character (<code>t_VEC</code>) on <code>bid.gen</code> and
+return its representation on the Conrey generators.</p>
+<p>
+</p><pre class="code">  ? G.cyc
+  %8 = [300, 12, 2, 2, 2]
+  ? chi = [10,1,0,1,1];
+  ? znconreylog(G, chi)
+  %10 = [1, 3, 3, 10, 2]~
+  ? n = znconreyexp(G, chi)
+  %11 = 84149
+  ? znconreychar(G, n)
+  %12 = [10, 1, 0, 1, 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znconreylog</b>(GEN G, GEN m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zncoppersmith"></div>
+<div id="zncoppersmith"></div>
+<h4>zncoppersmith(P, N, X, {B = N})</h4>
+<p>
+N being an integer and P &in;  &Zopf;[X], finds all integers x with
+|x| &leq; X such that
+gcd(N, P(x)) &geq; B,
+using Coppersmith's algorithm (a famous application of the LLL
+algorithm). X must be smaller than exp(log^2 B / (deg(P) log N)):
+for B = N, this means X &lt; N<sup>1/deg(P)</sup>. Some x larger than X may
+be returned if you are very lucky. The smaller B (or the larger X), the
+slower the routine will be. The strength of Coppersmith method is the
+ability to find roots modulo a general <em>composite</em> N: if N is a prime
+or a prime power, <code><a href="Polynomials_and_power_series.html#se:polrootsmod"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polrootsmod</a></code> or <code><a href="Polynomials_and_power_series.html#se:polrootspadic"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polrootspadic</a></code> will be much
+faster.</p>
+<p>
+We shall now present two simple applications. The first one is
+finding non-trivial factors of N, given some partial information on the
+factors; in that case B must obviously be smaller than the largest
+non-trivial divisor of N.</p>
+<p>
+</p><pre class="code">  setrand(1); \\ to make the example reproducible
+  interval = [10^30, 10^31];
+  p = randomprime(interval);
+  q = randomprime(interval); N = p*q;
+  p0 = p % 10^20; \\ assume we know 1) p &gt; 10^29, 2) the last 19 digits of p
+  L = zncoppersmith(10^19*x + p0, N, 10^12, 10^29)
+  
+  \\ result in 10ms.
+  %6 = [738281386540]
+  ? gcd(L[1] * 10^19 + p0, N) == p
+  %7 = 1
+</pre><p>
+and we recovered p, faster than by trying all
+possibilities  &lt; 10<sup>12</sup>.</p>
+<p>
+The second application is an attack on RSA with low exponent, when the
+message x is short and the padding P is known to the attacker. We use
+the same RSA modulus N as in the first example:</p>
+<p>
+</p><pre class="code">  setrand(1);
+  P = random(N);    \\ known padding
+  e = 3;            \\ small public encryption exponent
+  X = floor(N^0.3); \\ N^(1/e - epsilon)
+  x0 = random(X);   \\ unknown short message
+  C = lift( (Mod(x0,N) + P)^e ); \\ known ciphertext, with padding P
+  zncoppersmith((P + x)^3 - C, N, X)
+  
+  \\ result in 244ms.
+  %14 = [2679982004001230401]
+  
+  ? %[1] == x0
+  %15 = 1
+</pre><p></p>
+<p>
+We guessed an integer of the order of 10<sup>18</sup>, almost instantly.</p>
+<p>
+The library syntax is <code>GEN <b>zncoppersmith</b>(GEN P, GEN N, GEN X, GEN B = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znlog"></div>
+<div id="znlog"></div>
+<h4>znlog(x, g, {o})</h4>
+<p>
+This functions allows two distinct modes of operation depending
+on g:</p>
+<p>
+<b>*</b> if g is the output of <code><a href="Arithmetic_functions.html#se:znstar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znstar</a></code> (with initialization),
+we compute the discrete logarithm of x with respect to the generators
+contained in the structure. See <code><a href="General_number_fields.html#se:ideallog"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">ideallog</a></code> for details.</p>
+<p>
+<b>*</b> else g is an explicit element in (&Zopf;/N&Zopf;)<sup>*</sup>, we compute the
+discrete logarithm of x in (&Zopf;/N&Zopf;)<sup>*</sup> in base g. The rest of this
+entry describes the latter possibility.</p>
+<p>
+The result is [] when x is not a power of g, though the function may
+also enter an infinite loop in this case.</p>
+<p>
+If present, o represents the multiplicative order of g, see
+Section <a href="Arithmetic_functions.html#se:DLfun"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:DLfun</a>; the preferred format for this parameter is
+<code>[ord, factor(ord)]</code>, where <code>ord</code> is the order of g.
+This provides a definite speedup when the discrete log problem is simple:</p>
+<p>
+</p><pre class="code">  ? p = nextprime(10^4); g = znprimroot(p); o = [p-1, factor(p-1)];
+  ? for(i=1,10^4, znlog(i, g, o))
+  time = 163 ms.
+  ? for(i=1,10^4, znlog(i, g))
+  time = 200 ms. \\ a little slower
+</pre><p></p>
+<p></p>
+<p>
+The result is undefined if g is not invertible mod N or if the supplied
+order is incorrect.</p>
+<p>
+This function uses</p>
+<p>
+<b>*</b> a combination of generic discrete log algorithms (see below).</p>
+<p>
+<b>*</b> in (&Zopf;/N&Zopf;)<sup>*</sup> when N is prime: a linear sieve index calculus
+method, suitable for N &lt; 10<sup>50</sup>, say, is used for large prime divisors of
+the order.</p>
+<p>
+The generic discrete log algorithms are:</p>
+<p>
+<b>*</b> Pohlig-Hellman algorithm, to reduce to groups of prime order q,
+where q | p-1 and p is an odd prime divisor of N,</p>
+<p>
+<b>*</b> Shanks baby-step/giant-step (q &lt; 2<sup>32</sup> is small),</p>
+<p>
+<b>*</b> Pollard rho method (q &gt; 2<sup>32</sup>).</p>
+<p>
+The latter two algorithms require O(sqrt{q}) operations in the group on
+average, hence will not be able to treat cases where q &gt; 10<sup>30</sup>, say.
+In addition, Pollard rho is not able to handle the case where there are no
+solutions: it will enter an infinite loop.</p>
+<p>
+</p><pre class="code">  ? g = znprimroot(101)
+  %1 = Mod(2,101)
+  ? znlog(5, g)
+  %2 = 24
+  ? g^24
+  %3 = Mod(5, 101)
+  
+  ? G = znprimroot(2 * 101^10)
+  %4 = Mod(110462212541120451003, 220924425082240902002)
+  ? znlog(5, G)
+  %5 = 76210072736547066624
+  ? G^% == 5
+  %6 = 1
+  ? N = 2^4*3^2*5^3*7^4*11; g = Mod(13, N); znlog(g^110, g)
+  %7 = 110
+  ? znlog(6, Mod(2,3))  \\ no solution
+  %8 = []
+</pre><p>
+For convenience, g is also allowed to be a p-adic number:</p>
+<p>
+</p><pre class="code">  ? g = 3+O(5^10); znlog(2, g)
+  %1 = 1015243
+  ? g^%
+  %2 = 2 + O(5^10)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>znlog0</b>(GEN x, GEN g, GEN o = NULL)</code>.
+The function
+<code>GEN <b>znlog</b>(GEN x, GEN g, GEN o)</code> is also available</p>
+<p>
+
+<hr>
+<div id="se:znorder"></div>
+<div id="znorder"></div>
+<h4>znorder(x, {o})</h4>
+<p>
+x must be an integer mod n, and the
+result is the order of x in the multiplicative group (&Zopf;/n&Zopf;)<sup>*</sup>. Returns
+an error if x is not invertible.
+The parameter o, if present, represents a non-zero
+multiple of the order of x, see Section <a href="Arithmetic_functions.html#se:DLfun"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">se:DLfun</a>; the preferred format for
+this parameter is <code>[ord, factor(ord)]</code>, where <code>ord = eulerphi(n)</code>
+is the cardinality of the group.</p>
+<p>
+The library syntax is <code>GEN <b>znorder</b>(GEN x, GEN o = NULL)</code>.
+Also available is <code>GEN <b>order</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znprimroot"></div>
+<div id="znprimroot"></div>
+<h4>znprimroot(n)</h4>
+<p>
+Returns a primitive root (generator) of (&Zopf;/n&Zopf;)<sup>*</sup>, whenever this
+latter group is cyclic (n = 4 or n = 2p^k or n = p^k, where p is an
+odd prime and k &geq; 0). If the group is not cyclic, the result is
+undefined. If n is a prime power, then the smallest positive primitive
+root is returned. This may not be true for n = 2p^k, p odd.</p>
+<p>
+Note that this function requires factoring p-1 for p as above,
+in order to determine the exact order of elements in
+(&Zopf;/n&Zopf;)<sup>*</sup>: this is likely to be costly if p is large.</p>
+<p>
+The library syntax is <code>GEN <b>znprimroot</b>(GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:znstar"></div>
+<div id="znstar"></div>
+<h4>znstar(n, {<em>flag</em> = 0})</h4>
+<p>
+Gives the structure of the multiplicative group (&Zopf;/n&Zopf;)<sup>*</sup>.
+The output G depends on the value of <em>flag</em>:</p>
+<p>
+<b>*</b> <em>flag</em> = 0 (default), an abelian group structure [h,d,g],
+where h = &phi;(n) is the order (<code>G.no</code>), d (<code>G.cyc</code>)
+is a k-component row-vector d of integers d<sub>i</sub> such that d<sub>i</sub> &gt; 1,
+d<sub>i</sub> | d<sub>i-1</sub> for i &geq; 2 and
+ (&Zopf;/n&Zopf;)<sup>*</sup>  ~  &prod;<sub>i = 1</sub>^k (&Zopf;/d<sub>i</sub>&Zopf;), 
+and g (<code>G.gen</code>) is a k-component row vector giving generators of
+the image of the cyclic groups &Zopf;/d<sub>i</sub>&Zopf;.</p>
+<p>
+<b>*</b> <em>flag</em> = 1 the result is a <code>bid</code> structure;
+this allows computing discrete logarithms using <code><a href="Arithmetic_functions.html#se:znlog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znlog</a></code> (also in the
+non-cyclic case!).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = znstar(40)
+  %1 = [16, [4, 2, 2], [Mod(17, 40), Mod(21, 40), Mod(11, 40)]]
+  ? G.no   \\ eulerphi(40)
+  %2 = 16
+  ? G.cyc  \\ cycle structure
+  %3 = [4, 2, 2]
+  ? G.gen  \\ generators for the cyclic components
+  %4 = [Mod(17, 40), Mod(21, 40), Mod(11, 40)]
+  ? apply(znorder, G.gen)
+  %5 = [4, 2, 2]
+</pre><p>
+For user convenience, we define <code>znstar(0)</code> as
+<code>[2, [2], [-1]]</code>, corresponding to &Zopf;<sup>*</sup>, but <em>flag</em> = 1 is not
+implemented in this trivial case.</p>
+<p>
+The library syntax is <code>GEN <b>znstar0</b>(GEN n, long flag)</code>.</p>
+<p>
+
+<hr>
+</body>

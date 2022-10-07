@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Trigonometric interpolation: triginterp
+</title>
+</head>
+<body >
+<a href="cascmd_en321.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en323.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec748" class="subsection">5.27.34  Trigonometric interpolation: <span style="font-family:monospace">triginterp</span>
+<a id="hevea_default562"></a></h3>
+<p>The <span style="font-family:monospace">triginterp</span> command computes a trigonometric polynomial
+which interpolates given data.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">triginterp</span> takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list of numbers.
+</li><li class="li-itemize"><span style="font-style:italic">a</span>, a number (the beginning of an interval).
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, a number (the end of the interval).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, the name of a variable.
+</li></ul>
+The last three arguments can also be given as <span style="font-style:italic">x</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">triginterp(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> or
+<span style="font-family:monospace">triginterp(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">x</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> 
+returns the trigonometric polynomial that interpolates data given in the list
+<span style="font-style:italic">L</span>. It is assumed that the list <span style="font-style:italic">L</span> contains
+ordinate components of the points with equidistant abscissa components
+between <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span> such that the first element of <span style="font-style:italic">L</span>
+corresponds to <span style="font-style:italic">a</span> and the last element to <span style="font-style:italic">b</span>.
+</li></ul><h4 id="sec749" class="subsubsection">Example</h4>
+<p>
+For example, <span style="font-weight:bold">y</span> may be a list of experimental measurements
+of some quantity taken in regular intervals, with the first
+observation at time <span style="font-style:italic">t</span>=<span style="font-style:italic">a</span> and the last observation at time
+<span style="font-style:italic">t</span>=<span style="font-style:italic">b</span>. The resulting trigonometric polynomial has period
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">T</span>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span> (<span style="font-style:italic">b</span>−<span style="font-style:italic">a</span>)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span>−1</td></tr>
+</table></td><td class="dcell">, 
+</td></tr>
+</table><p> 
+where <span style="font-style:italic">n</span> is the number of observations (<span style="font-style:italic">n</span>=<span style="font-family:monospace">size(</span><span style="font-family:monospace"><span style="font-weight:bold">y</span></span><span style="font-family:monospace">)</span>). 
+As a specific example, assume that the following data is obtained by
+measuring the temperature every three hours:
+</p><div class="center">
+	<table border=1  style="border-spacing:0;" class="cellpadding1"><tr><td style="text-align:right;border:solid 1px;white-space:nowrap" >hour of the day</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >0</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >3</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >6</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >9</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >12</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >15</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >18</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >21</td></tr>
+<tr><td style="text-align:right;border:solid 1px;white-space:nowrap" >temperature (<sup>∘</sup>C)</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >11</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >10</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >17</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >24</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >32</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >26</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >23</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >19</td></tr>
+<tr><td style="text-align:right;border:solid 1px;white-space:nowrap" >	</td></tr>
+</table>
+</div><p>
+Furthermore, assume that an estimate of the temperature at 13:45 is
+required. To obtain a trigonometric interpolation of the data:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">tp:=triginterp([11,10,17,24,32,26,23,19],x=0..21)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">81</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">+
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">8</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">−21 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">−42</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell">cos</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">12</td></tr>
+</table></td><td class="dcell">
+π  <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">8</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">−11 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">−12</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">12</td></tr>
+</table></td><td class="dcell">
+π  <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> cos</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell"> π  <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">−</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">7</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> sin</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell"> π  <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">8</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">21 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">−42</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell">cos</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">
+π  <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">8</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">−11 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">+12</td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">
+π  <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">cos</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> π  <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+Now a temperature at 13:45 hrs can be approximated with the value of
+<span style="font-family:monospace">tp</span> for <span style="font-style:italic">x</span>=13.75.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">tp | x=13.75</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">29.4863181684
+</td></tr>
+</table><p>If one of the input parameters is inexact, the result will be inexact
+too. For example:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">Digits:=3:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">triginterp([11,10,17,24,32,26,23,19],x=0..21.0)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">20.2−8.96 cos</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.262 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−3.44 sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.262 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+
+0.75 cos</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.524 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">1.75 sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.524 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−1.54 cos</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.785 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−
+0.445 sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.785 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+
+0.5 cos</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1.05 <span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<hr>
+<a href="cascmd_en321.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en323.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

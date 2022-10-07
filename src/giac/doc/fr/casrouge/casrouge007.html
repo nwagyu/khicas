@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Des programmes tres simples pour les Statistiques</title>
+</head>
+<body >
+<a href="casrouge006.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge008.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec166" class="chapter">Chapitre 7  Des programmes tres simples pour les Statistiques</h1>
+<h2 id="sec167" class="section">7.1  Simulation du lancer d’une pièce</h2>
+<p>
+On veut tirer au hasard 0 ou 1 (par exemple 0=pile et 1=face).<br>
+On utilise la fonction <span style="font-family:monospace">rand(n)</span> qui renvoie un entier aléatoire 
+uniformément distribué dans <span style="font-family:monospace">0.. n-1</span>.<br>
+On tape :
+</p><pre class="verbatim">tirage_piece():=rand(2);
+</pre>
+<h2 id="sec168" class="section">7.2  Simulation d’un dé</h2>
+<p>
+On veut tirer au hasard un nombre entier dans [1.. 6].<br>
+On utilise la fonction <span style="font-family:monospace">rand(n)</span> qui renvoie un entier aléatoire 
+uniformément distribué dans <span style="font-family:monospace">0.. n-1</span>.<br>
+On tape :
+</p><pre class="verbatim">tirage_de():=1+rand(6);
+</pre>
+<h2 id="sec169" class="section">7.3  Simulation d’une variable aléatoire</h2>
+<p>
+On tire au hasard un nombre entier <span style="font-style:italic">n</span> de [0,1,2,3].<br>
+On tire au hasard un nombre réel <span style="font-style:italic">m</span> de [0,1[.<br>
+On veut simuler une variable aléatoire <span style="font-style:italic">X</span> qui vaut 
+la partie entière de <span style="font-style:italic">m</span>*<span style="font-style:italic">n</span>.<br>
+On utilise la fonction <span style="font-family:monospace">rand(p,n)</span> qui renvoie un réel aléatoire 
+uniformément distribué dans <span style="font-family:monospace">[p.. n[</span>.<br>
+On tape :
+</p><pre class="verbatim">X():={
+local n;
+n:=rand(4);
+return floor(n*rand(0,1));
+}
+</pre><p>
+Quelle est la fonction de répartition de <span style="font-style:italic">X</span> ?
+<span style="font-style:italic">X</span> vaut :<br>
+0 si ((<span style="font-style:italic">n</span>=0 ou <span style="font-style:italic">n</span>=1) et <span style="font-style:italic">m</span> ∈ [0,1[) ou (<span style="font-style:italic">n</span>=2 et <span style="font-style:italic">m</span> ∈ [0,0.5[) ou 
+(<span style="font-style:italic">n</span>=3 et <span style="font-style:italic">m</span> ∈ [0,1/3[)<br>
+1 si (<span style="font-style:italic">n</span>=2 et <span style="font-style:italic">m</span> ∈ [0.5,1[) ou (<span style="font-style:italic">n</span>=3 et <span style="font-style:italic">m</span> ∈ [1/3,2/3[)<br>
+2 si <span style="font-style:italic">n</span>=3 et <span style="font-style:italic">m</span> ∈ [2/3,1[<br>
+On a donc :<br>
+Proba(<span style="font-style:italic">X</span>=0)=1/4+1/4+1/4*1/2+1/4*1/3=17/24<br>
+Proba(<span style="font-style:italic">X</span>=1)=1/4*1/2+1/4*1/3=5/24<br>
+Proba(<span style="font-style:italic">X</span>=2)=1/4*1/3=1/12<br>
+On vérifie que l’on a : 17/24+5/24+1/12=1
+</p>
+<h2 id="sec170" class="section">7.4  Simulation d’une variable aléatoire</h2>
+<p>
+On tire au hasard un nombre entier <span style="font-style:italic">n</span> de [1,2,3].<br>
+On veut simuler une variable aléatoire <span style="font-style:italic">Y</span> qui vaut ∑<sub><span style="font-style:italic">j</span>=1</sub><sup><span style="font-style:italic">n</span></sup><span style="font-style:italic">j</span>.<br>
+On tape :
+</p><pre class="verbatim">Y():={
+local n,j,x;
+n:=1+rand(3);
+x:=0;
+pour j de 1 jusque n faire
+x:=x+j;
+fpour;
+return x;
+}:;
+</pre><p>
+Quelle est la fonction de répartition de <span style="font-style:italic">Y</span> ?
+<span style="font-style:italic">Y</span> vaut :<br>
+1 si <span style="font-style:italic">n</span>=1<br>
+3 si <span style="font-style:italic">n</span>=2<br>
+6 si <span style="font-style:italic">n</span>=3<br>
+On a donc :<br>
+Proba(<span style="font-style:italic">X</span>=1))=1/3<br>
+Proba(<span style="font-style:italic">X</span>=3))=1/3<br>
+Proba(<span style="font-style:italic">X</span>=6))=1/3<br>
+On aurait pu aussi simuler cette loi en tapant :
+</p><pre class="verbatim">Z():={
+local n;
+n:=rand(3);
+si n==0 alors return 1 fsi;
+return 3*n;
+}:;
+</pre>
+<h2 id="sec171" class="section">7.5  Comment simplifier √<span style="text-decoration:overline"><span style="font-style:italic">a</span></span><span style="text-decoration:overline">+√</span><span style="text-decoration:overline"><span style="font-style:italic">b</span></span>  lorsque (<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>)∈ ℕ<sup>2</sup></h2>
+<p>
+On veut écrire √<span style="text-decoration:overline"><span style="font-style:italic">a</span></span><span style="text-decoration:overline">+√</span><span style="text-decoration:overline"><span style="font-style:italic">b</span></span> sous la forme √<span style="text-decoration:overline"><span style="font-style:italic">x</span></span><span style="text-decoration:overline">/2</span>+√<span style="text-decoration:overline"><span style="font-style:italic">y</span></span><span style="text-decoration:overline">/2</span> bien 
+sur quand cela est possible.<br>
+Si √<span style="text-decoration:overline"><span style="font-style:italic">x</span></span><span style="text-decoration:overline">/2</span>+√<span style="text-decoration:overline"><span style="font-style:italic">y</span></span><span style="text-decoration:overline">/2</span>=√<span style="text-decoration:overline"><span style="font-style:italic">a</span></span><span style="text-decoration:overline">+√</span><span style="text-decoration:overline"><span style="font-style:italic">b</span></span> on a :<br>
+(√<span style="text-decoration:overline"><span style="font-style:italic">x</span></span><span style="text-decoration:overline">/2</span>+√<span style="text-decoration:overline"><span style="font-style:italic">y</span></span><span style="text-decoration:overline">/2</span>)<sup>2</sup>=<span style="font-style:italic">a</span>+√<span style="text-decoration:overline"><span style="font-style:italic">b</span></span>=(<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>)/2+√<span style="text-decoration:overline"><span style="font-style:italic">xy</span></span><br>
+d’où <span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>=2<span style="font-style:italic">a</span> et <span style="font-style:italic">xy</span>=<span style="font-style:italic">b</span><br>
+donc <span style="font-style:italic">x</span> et <span style="font-style:italic">y</span> sont solutions de l’équation <span style="font-style:italic">X</span><sup>−</sup>2<span style="font-style:italic">aX</span>+<span style="font-style:italic">b</span>=0<br>
+donc si <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">b</span> est un carré parfait i.e. <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">b</span>=<span style="font-style:italic">c</span><sup>2</sup> avec <span style="font-style:italic">c</span> entier on a :<br>
+<span style="font-style:italic">x</span>=<span style="font-style:italic">a</span>+<span style="font-style:italic">c</span> et <span style="font-style:italic">y</span>=<span style="font-style:italic">a</span>−<span style="font-style:italic">c</span><br>
+Donc si <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">b</span> est un carré parfait on a si <span style="font-style:italic">a</span><sup>2</sup>−<span style="font-style:italic">b</span>=<span style="font-style:italic">c</span><sup>2</sup> :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:0em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">a</span>+</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:0;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">b</span></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">=</td><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:2em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span>+<span style="font-style:italic">c</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:2em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span>−<span style="font-style:italic">c</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2(<span style="font-style:italic">a</span>+<span style="font-style:italic">c</span>)</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2(<span style="font-style:italic">a</span>−<span style="font-style:italic">c</span>)</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table><p>
+On tape la fonction <span style="font-family:monospace">simply</span> qui doit avoir <span style="font-family:monospace">r=sqrt(a+sqrt(b))</span> comme 
+paramètre où <span style="font-family:monospace">b</span> est sans facteur carré :
+</p><pre class="verbatim">simply(r):={
+local f,a,b,c,d;
+si sommet(r)=='^' alors
+  f:=feuille(r);
+  a,d:=feuille(f[0]);
+  si type(a)==integer alors
+  b:=feuille(d)[0];
+  c:=sqrt(a^2-b);
+  si (round(c))^2==a^2-b alors 
+    retourne sqrt((a+c)/2)+sqrt((a-c)/2) 
+  fsi;
+  sinon 
+  d,a:=feuille(f[0]);
+  b:=feuille(d)[0];
+  c:=sqrt(a^2-b);
+  si (round(c))^2==a^2-b alors 
+    retourne sqrt((a+c)/2)+sqrt((a-c)/2) 
+  fsi;
+  fsi;
+fsi;
+retourne r;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">simply(sqrt(9+sqrt(17)))</span><br>
+ou <br>
+<span style="font-family:monospace">simply(sqrt(sqrt(17)+9))</span><br>
+On obtient :<br>
+<span style="font-family:monospace">(sqrt(34))/2+(sqrt(2))/2</span>
+on tape la fonction <span style="font-family:monospace">simplyf</span> qui doit avoir comme paramètre
+<span style="font-family:monospace">r</span> de la forme <span style="font-family:monospace">sqrt(a+s*sqrt(b))</span> ou <span style="font-family:monospace">sqrt(a+sqrt(b))</span>:
+</p><pre class="verbatim">simplyf(r):={
+local f,a,b,c,d,s,sb;
+si sommet(r)=='^' alors
+  f:=feuille(r);
+  a,d:=feuille(f[0]);
+  si type(a)==integer alors
+     f:=feuille(d);
+    si f[1]==1/2 alors 
+      s:=1;
+      b:=f[0];
+    sinon
+      s,sb:=f;
+      si type(s)==integer alors
+        b:=feuille(sb)[0];
+      sinon
+       sb,s:=f;
+       b:=feuille(sb)[0];
+      fsi;
+    fsi;
+    c:=sqrt(a^2-s^2*b);
+    si (round(c))^2==a^2-s^2*b alors 
+      retourne sqrt((a+c)/2)+sqrt((a-c)/2); 
+    fsi;
+  sinon
+    d,a:=feuille(f[0]);
+    f:=feuille(d);
+    si f[1]==1/2 alors 
+      b:=f[0];
+      s:=1;
+    sinon
+      s,sb:=f;
+      si type(s)==integer alors
+        b:=feuille(sb)[0];
+      sinon
+       sb,s:=f;
+       b:=feuille(sb)[0];
+      fsi;
+    fsi;
+    c:=sqrt(a^2-s^2*b);
+    si (round(c))^2==a^2-s^2*b alors 
+      retourne sqrt((a+c)/2)+sqrt((a-c)/2); 
+    fsi;
+  fsi;
+fsi;
+retourne r;
+}:;
+</pre><p>
+On tape (car <span style="font-family:monospace">Xcas</span> remplace <span style="font-family:monospace">sqrt(128)</span> par <span style="font-family:monospace">8*sqrt(2)</span> :<br>
+<span style="font-family:monospace">simplyf(sqrt(18+sqrt(128)))</span><br>
+ou <br>
+<span style="font-family:monospace">simplyf(sqrt(sqrt(128)+18))</span><br>
+ou <br>
+<span style="font-family:monospace">simplyf(sqrt(8*sqrt(2)+18))</span><br>
+ou <br>
+<span style="font-family:monospace">simplyf(sqrt(18+8*sqrt(2)))</span><br>
+ou <br>
+<span style="font-family:monospace">simplyf(sqrt(sqrt(2)*8+18))</span><br>
+ou <br>
+<span style="font-family:monospace">simplyf(sqrt(18+sqrt(2)*8))</span><br>
+On obtient :<br>
+<span style="font-family:monospace">4+sqrt(2)</span>
+On tape :<br>
+<span style="font-family:monospace">simplyf(sqrt(194320499737857776523212040+19713979797994*sqrt(97160249868928888261606031)))</span><br>
+On obtient :<br>
+<span style="font-family:monospace">sqrt(97160249868928888261606031)+9856989898997</span></p>
+<hr>
+<a href="casrouge006.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge008.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

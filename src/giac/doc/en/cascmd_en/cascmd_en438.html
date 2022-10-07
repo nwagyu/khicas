@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sorting: sort
+</title>
+</head>
+<body >
+<a href="cascmd_en437.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en439.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1016" class="subsection">5.40.18  Sorting: <span style="font-family:monospace">sort</span>
+<a id="hevea_default723"></a></h3>
+<p>The <span style="font-family:monospace">sort</span> command sorts lists and expression in various ways.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sort</span> takes one mandatory argument and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list or expression.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">f</span>, a boolean function of two variables
+(by default, <span style="font-style:italic">f</span> if the function <span style="font-family:monospace">(x,y) -&gt; x&lt;=y</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">sort(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">f</span><span style="font-family:monospace">)</span> (for a list <span style="font-style:italic">L</span>) returns a copy of 
+<span style="font-style:italic">L</span> sorted according to the order given by <span style="font-style:italic">f</span>. By default, this
+means that it will be sorted in increasing order.
+</li><li class="li-itemize"><span style="font-family:monospace">sort(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">f</span><span style="font-family:monospace">)</span> (for an expression <span style="font-style:italic">L</span>) returns a copy of
+<span style="font-style:italic">L</span> with the terms in sums and products collected and sorted.
+</li></ul><p>
+Note that using <span style="font-family:monospace">(x,y)-&gt;x&gt;=y</span> for <span style="font-style:italic">f</span> will 
+to sort the list in decreasing order.
+This may also be used to sort a list of lists
+(that <span style="font-family:monospace">sort</span> with one argument does not know how to sort).</p><h4 id="sec1017" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sort([3,4,2])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,3,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sort(exp(2*ln(x))+x*y-x+y*x+2*x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 <span style="font-style:italic">x</span> <span style="font-style:italic">y</span>+<span style="font-style:italic">e</span><sup>2 ln<span style="font-style:italic">x</span></sup>+<span style="font-style:italic">x</span>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">simplify(exp(2*ln(x))+x*y-x+y*x+2*x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+2 <span style="font-style:italic">x</span> <span style="font-style:italic">y</span>+<span style="font-style:italic">x</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sort([3,4,2],(x,y)-&gt;x&gt;=y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,3,2</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en437.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en439.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

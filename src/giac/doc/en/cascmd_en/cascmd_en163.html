@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Product of two permutations: p1op2 c1op2 p1oc2 c1oc2
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en162.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en164.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec336" class="subsection">5.9.9  Product of two permutations: <span style="font-family:monospace">p1op2</span> <span style="font-family:monospace">c1op2</span> <span style="font-family:monospace">p1oc2</span> <span style="font-family:monospace">c1oc2</span>
+<a id="hevea_default275"></a>
+<a id="hevea_default276"></a>
+<a id="hevea_default277"></a>
+<a id="hevea_default278"></a></h3>
+<p>Permutations are functions, and so can be composed. Since cycles can
+be represented differently than other permutations, there are commands
+for composing permutations of different types.</p><p><br>
+</p><p><span style="font-weight:bold">Warning.</span><br>
+Composition is done using the standard mathematical notation; that is,
+the function given as the second argument is performed first.</p><p><br>
+</p><p>The <span style="font-family:monospace">p1op2</span> command composes two permutations.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">p1op2</span> takes two arguments:<br>
+ <span style="font-style:italic">p</span><sub>1</sub> and <span style="font-style:italic">p</span><sub>2</sub>, permutations.
+</li><li class="li-itemize"><span style="font-family:monospace">p1op2(</span><span style="font-style:italic">p</span><sub>1</sub>,<span style="font-style:italic">p</span><sub>2</sub><span style="font-family:monospace">)</span> returns the permutation <span style="font-style:italic">p</span><sub>1</sub>∘ <span style="font-style:italic">p</span><sub>2</sub>
+obtained by composition.
+</li></ul><h4 id="sec337" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">p1op2([3,4,5,2,0,1],[2,0,1,4,3,5])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,3,4,0,2,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">c1op2</span> command composes a cycle and a permutation.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">c1op2</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">c</span><sub>1</sub>, a cycle.
+</li><li class="li-itemize"><span style="font-style:italic">p</span><sub>2</sub>, a permutation.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">c1op2(</span><span style="font-style:italic">c</span><sub>1</sub>,<span style="font-style:italic">p</span><sub>2</sub><span style="font-family:monospace">)</span> returns the permutation <span style="font-style:italic">c</span><sub>1</sub>∘ <span style="font-style:italic">p</span><sub>2</sub>
+obtained by composition.
+</li></ul><h4 id="sec338" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">c1op2([3,4,5],[2,0,1,4,3,5])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,0,1,5,4,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">p1oc2</span> command composes a permutation and a cycle.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">p1oc2</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">p</span><sub>1</sub>, a permutation.
+</li><li class="li-itemize"><span style="font-style:italic">c</span><sub>2</sub>, a cycle.
+</li></ul>
+<span style="font-family:monospace">p1oc2(</span><span style="font-style:italic">p</span><sub>1</sub>,<span style="font-style:italic">c</span><sub>2</sub><span style="font-family:monospace">)</span> returns the permutation
+<span style="font-style:italic">p</span><sub>1</sub>∘ <span style="font-style:italic">c</span><sub>2</sub> obtained by composition.
+</li></ul><h4 id="sec339" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">p1oc2([3,4,5,2,0,1],[2,0,1])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,5,3,2,0,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">c1oc2</span> command composes two cycles.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">c1oc2</span> takes two arguments:<br>
+ <span style="font-style:italic">c</span><sub>1</sub> and <span style="font-style:italic">c</span><sub>2</sub>, cycles.
+</li><li class="li-itemize"><span style="font-family:monospace">c1oc2(</span><span style="font-style:italic">c</span><sub>1</sub>,<span style="font-style:italic">c</span><sub>2</sub><span style="font-family:monospace">)</span> returns the permutation <span style="font-style:italic">c</span><sub>1</sub>∘ <span style="font-style:italic">c</span><sub>2</sub>
+obtained by composition.
+</li></ul><h4 id="sec340" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">c1oc2([3,4,5],[2,0,1])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,0,4,5,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en162.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en164.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

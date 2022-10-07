@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The elementary row operations</title>
+</head>
+<body >
+<a href="cascmd_en485.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en487.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1191" class="subsection">5.45.11  The elementary row operations</h3>
+<h4 id="sec1192" class="subsubsection">Adding a row to another row: <span style="font-family:monospace">rowAdd</span>
+<a id="hevea_default831"></a></h4>
+<p>The <span style="font-family:monospace">rowAdd</span> command adds one row of a matrix to another row.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rowAdd</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, two integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">rowAdd(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns the matrix obtained
+by replacing in <span style="font-style:italic">A</span>, the row of index <span style="font-style:italic">n</span>2 by the sum of the rows of
+index <span style="font-style:italic">n</span>1 and <span style="font-style:italic">n</span>2.
+</li></ul><h4 id="sec1193" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">rowAdd([[1,2],[3,4]],0,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1194" class="subsubsection">Multiplying a row by an expression: <span style="font-family:monospace">mRow</span> <span style="font-family:monospace">scale</span> <span style="font-family:monospace">SCALE</span>
+<a id="hevea_default832"></a>
+<a id="hevea_default833"></a>
+<a id="hevea_default834"></a></h4>
+<p>The <span style="font-family:monospace">mRow</span>, <span style="font-family:monospace">scale</span> and <span style="font-family:monospace">SCALE</span> commands multiply
+a row of a matrix by an expression. </p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">mRow</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, an integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">mRow(</span><span style="font-style:italic">expr</span>,<span style="font-style:italic">A</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the matrix
+obtained by replacing in <span style="font-style:italic">A</span>, the row of index <span style="font-style:italic">n</span> by the product of
+the row of index <span style="font-style:italic">n</span> by <span style="font-style:italic">expr</span>.
+</li></ul><h4 id="sec1195" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">mRow(12,[[1,2],[3,4]],1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >36</td><td style="text-align:center;white-space:nowrap" >48</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">scale</span> command is the same as <span style="font-family:monospace">mRow</span> except that it
+takes the arguments in a different order.<br>
+<span style="font-family:monospace">SCALE</span> is a synonym for <span style="font-family:monospace">scale</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">scale</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, an integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">scale(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">expr</span>,<span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the matrix
+obtained by replacing in <span style="font-style:italic">A</span>, the row of index <span style="font-style:italic">n</span> by the product of
+the row of index <span style="font-style:italic">n</span> by <span style="font-style:italic">expr</span>.
+</li></ul><h4 id="sec1196" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">scale([[1,2],[3,4]],12,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >36</td><td style="text-align:center;white-space:nowrap" >48</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1197" class="subsubsection">Adding <span style="font-style:italic">k</span> times a row to an another row: <span style="font-family:monospace">mRowAdd</span> <span style="font-family:monospace">scaleadd</span> <span style="font-family:monospace">SCALEADD</span>
+<a id="hevea_default835"></a>
+<a id="hevea_default836"></a>
+<a id="hevea_default837"></a></h4>
+<p>The <span style="font-family:monospace">mRowAdd</span>, <span style="font-family:monospace">scaleadd</span> and <span style="font-family:monospace">SCALEADD</span> commands
+add a multiple of one row of a matrix to another.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">mRowAdd</span> takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">k</span>, a real number.
+</li><li class="li-itemize"><span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, two integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">mRowAdd(</span><span style="font-style:italic">k</span>,<span style="font-style:italic">A</span>,<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns the matrix
+obtained by replacing in <span style="font-style:italic">A</span>, the row with index <span style="font-style:italic">n</span><sub>2</sub> by the sum
+of the row with index <span style="font-style:italic">n</span><sub>2</sub> and <span style="font-style:italic">k</span> times the row with index <span style="font-style:italic">n</span><sub>1</sub>.
+</li></ul><h4 id="sec1198" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">mRowAdd(1.1,[[5,7],[3,4],[1,2]],1,2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4.3</td><td style="text-align:center;white-space:nowrap" >6.4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>The <span style="font-family:monospace">scaleadd</span> command is the same as <span style="font-family:monospace">mRowAdd</span> except
+that it takes the arguments in a different order.<br>
+<span style="font-family:monospace">SCALEADD</span> is a synonym for <span style="font-family:monospace">scaleadd</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">scaleadd</span> takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">k</span>, a real number.
+</li><li class="li-itemize"><span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, two integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">scaleadd(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">k</span>,<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns the matrix
+obtained by replacing in <span style="font-style:italic">A</span>, the row with index <span style="font-style:italic">n</span><sub>2</sub> by the sum
+of the row with index <span style="font-style:italic">n</span><sub>2</sub> and <span style="font-style:italic">k</span> times the row with index <span style="font-style:italic">n</span><sub>1</sub>.
+</li></ul><h4 id="sec1199" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">scaleadd([[5,7],[3,4],[1,2]],1.1,1,2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4.3</td><td style="text-align:center;white-space:nowrap" >6.4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1200" class="subsubsection">Exchanging two rows: <span style="font-family:monospace">rowSwap</span> <span style="font-family:monospace">rowswap</span> <span style="font-family:monospace">swaprow</span>
+<a id="hevea_default838"></a>
+<a id="hevea_default839"></a>
+<a id="hevea_default840"></a></h4>
+<p>The <span style="font-family:monospace">rowSwap</span> command switches two rows in a matrix.<br>
+<span style="font-family:monospace">rowswap</span> and <span style="font-family:monospace">swaprow</span> are synonyms for <span style="font-family:monospace">rowSwap</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rowSwap</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">rowSwap(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns the matrix obtained
+by exchanging in <span style="font-style:italic">A</span>, the row with index <span style="font-style:italic">n</span><sub>1</sub> with the row with
+index <span style="font-style:italic">n</span><sub>2</sub>.
+</li></ul><h4 id="sec1201" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">rowSwap([[1,2],[3,4]],0,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1202" class="subsubsection">Exchanging two columns: <span style="font-family:monospace">colSwap</span> <span style="font-family:monospace">colswap</span> <span style="font-family:monospace">swapcol</span>
+<a id="hevea_default841"></a>
+<a id="hevea_default842"></a>
+<a id="hevea_default843"></a></h4>
+<p>The <span style="font-family:monospace">colSwap</span> command switches two columns in a matrix.<br>
+<span style="font-family:monospace">colswap</span> and <span style="font-family:monospace">swapcol</span> are synonyms for <span style="font-family:monospace">colSwap</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">colSwap</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix.
+</li><li class="li-itemize"><span style="font-style:italic">n</span><sub>1</sub> and <span style="font-style:italic">n</span><sub>2</sub>, integers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">colSwap(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub><span style="font-family:monospace">)</span> returns the matrix obtained
+by exchanging in <span style="font-style:italic">A</span>, the column with index <span style="font-style:italic">n</span><sub>1</sub> with the column with
+index <span style="font-style:italic">n</span><sub>2</sub>.
+</li></ul><h4 id="sec1203" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">colSwap([[1,2],[3,4]],0,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en485.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en487.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

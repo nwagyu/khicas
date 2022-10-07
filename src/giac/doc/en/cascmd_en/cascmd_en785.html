@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Commands for global display features</title>
+</head>
+<body >
+<a href="cascmd_en784.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en786.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2015" class="subsection">13.3.3  Commands for global display features</h3>
+<h4 id="sssec:addlegend" class="subsubsection">Adding a legend: <span style="font-family:monospace">legend</span>
+<a id="hevea_default1468"></a></h4>
+<p>The <span style="font-family:monospace">legend</span> command creates a legend on the screen.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">legend</span> takes two mandatory arguments and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">pos</span>, either be a point or a
+list of two integers giving the number of pixels from the upper left
+hand corner, specifying the position to put the legend.
+</li><li class="li-itemize"><span style="font-style:italic">legend</span>, a string or a variable.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">quad</span>, which can be one of
+<span style="font-family:monospace">quadrant1</span>, <span style="font-family:monospace">quadrant2</span>, <span style="font-family:monospace">quadrant3</span> or 
+<span style="font-family:monospace">quadrant4</span>. This indicates where to put the legend
+relative to the point (by default, it is <span style="font-family:monospace">quadrant1</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">legend(</span><span style="font-style:italic">pos,legend</span> ⟨<span style="font-style:italic">quad</span>⟩<span style="font-family:monospace">)</span>
+draws the legend at the requested position.
+</li></ul><h4 id="sec2017" class="subsubsection">Example</h4>
+<p>
+To put "hello" to the upper left of the point
+(1,1):<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">legend(1+i,"hello",quadrant3)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">legend(1+i,quadrant3,"hello")</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en153.png">
+</div>
+<h4 id="sssec:display" class="subsubsection">Changing various features:<span style="font-family:monospace">display</span> <span style="font-family:monospace">color</span>
+<a id="hevea_default1469"></a>
+<a id="hevea_default1470"></a>
+</h4>
+<p>The <span style="font-family:monospace">display</span> command changes the properties of graphics; the
+same properties that can also be changed with the <span style="font-family:monospace">display</span> and
+<span style="font-family:monospace">color</span> parameters (see Section <a href="cascmd_en784.html#sssec%3Alocalfeatures">13.3.2</a>). The
+<span style="font-family:monospace">color</span> command a synonym for the <span style="font-family:monospace">display</span> command.</p><p>The <span style="font-family:monospace">display</span> command draws objects with specified
+properties.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">display</span> takes one mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+Optionally, <span style="font-style:italic">command</span>, a command to draw an object.
+</li><li class="li-itemize"><span style="font-style:italic">arg</span>, which can be a possible value of the
+<span style="font-family:monospace">display</span> parameter (see Section <a href="cascmd_en784.html#sssec%3Alocalfeatures">13.3.2</a>) or 
+<span style="font-family:monospace">hidden_name</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">display(</span><span style="font-style:italic">command,arg</span><span style="font-family:monospace">)</span> draws the
+object given by <span style="font-style:italic">command</span> with the property given by
+<span style="font-style:italic">arg</span>, or draws the object without a label if
+<span style="font-style:italic">arg</span>=<span style="font-family:monospace">hidden_name</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">display(</span><span style="font-style:italic">arg</span><span style="font-family:monospace">)</span> applies the property
+given by <span style="font-style:italic">arg</span> to all subsequent objects; <span style="font-family:monospace">display(0)</span>
+resets the display parameters.
+</li></ul><h4 id="sec2019" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">display(triangle(0,1,1+i),red)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">triangle(0,1,1+i,display=red)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en154.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">triangle(0,1,1+i,display=filled)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">display(triangle(0,1,1+i),filled)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en155.png">
+</div>
+</li><li class="li-itemize">By default, if a geometric object is named,
+the drawing is labeled.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">A:= triangle(0,1,1+i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en156.png">
+</div>
+Creating the object with the <span style="font-family:monospace">display</span> command and the
+<span style="font-family:monospace">hidden_name</span> argument will draw it without the label.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">display(A:= triangle(0,1,1+i),hidden_name)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en157.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en784.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en786.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

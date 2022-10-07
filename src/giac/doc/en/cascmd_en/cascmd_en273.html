@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Rewriting an expression with different options: convert convertir =&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en272.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en274.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:convert" class="subsection">5.23.26  Rewriting an expression with different options: <span style="font-family:monospace">convert</span> <span style="font-family:monospace">convertir</span> <span style="font-family:monospace">=&gt;</span>
+
+<a id="hevea_default472"></a>
+<a id="hevea_default473"></a>
+<a id="hevea_default474"></a>
+<a id="hevea_default475"></a>
+<a id="hevea_default476"></a>
+<a id="hevea_default477"></a>
+<a id="hevea_default478"></a>
+<a id="hevea_default479"></a>
+<a id="hevea_default480"></a>
+<a id="hevea_default481"></a>
+<a id="hevea_default482"></a>
+<a id="hevea_default483"></a>
+<a id="hevea_default484"></a>
+<a id="hevea_default485"></a>
+<a id="hevea_default486"></a>
+<a id="hevea_default487"></a>
+<a id="hevea_default488"></a>
+<a id="hevea_default489"></a>
+<a id="hevea_default490"></a></h3>
+<p><span style="font-family:monospace">Xcas</span> has many commands to convert expressions into different
+forms; the <span style="font-family:monospace">convert</span> command (or its infixed version
+<span style="font-family:monospace">=&gt;</span>) is a different way to call many of these functions.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convert</span> takes two or more arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-style:italic">option</span>, an option specifying which rewrite rules to
+use. A third argument might be necessary for some options.
+Possible values of <span style="font-style:italic">option</span> are:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sin</span>, to convert an expression like <span style="font-family:monospace">trigsin</span>
+(see Section <a href="cascmd_en270.html#ssec%3Atrigsin">5.23.23</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">cos</span>, to convert an expression like <span style="font-family:monospace">trigcos</span>
+(see Section <a href="cascmd_en271.html#ssec%3Atrigcos">5.23.24</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">sincos</span>, to convert an expression like <span style="font-family:monospace">sincos</span>
+(see Section <a href="cascmd_en260.html#ssec%3Asincos">5.23.13</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">trig</span>, to convert an expression like <span style="font-family:monospace">sincos</span>
+(see Section <a href="cascmd_en260.html#ssec%3Asincos">5.23.13</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">tan</span>, to convert an expression like <span style="font-family:monospace">halftan</span>
+(see Section <a href="cascmd_en266.html#ssec%3Ahalftan">5.23.19</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">exp</span>, to convert an expression like <span style="font-family:monospace">trig2exp</span>
+(see Section <a href="cascmd_en268.html#ssec%3Atrig2exp">5.23.21</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">ln</span>, to convert an expression like <span style="font-family:monospace">trig2exp</span>
+(see Section <a href="cascmd_en268.html#ssec%3Atrig2exp">5.23.21</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">expln</span>, to convert an expression like <span style="font-family:monospace">trig2exp</span>
+(see Section <a href="cascmd_en268.html#ssec%3Atrig2exp">5.23.21</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">string</span>, to convert a expression into a string.
+</li><li class="li-itemize"><span style="font-family:monospace">matrix</span>, to convert a list of lists into a matrix.
+</li><li class="li-itemize"><span style="font-family:monospace">array</span>, to turn a table into an array (see
+Section <a href="cascmd_en495.html#ssec%3Aspmatrices">5.46.1</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">polynom</span>, to convert a series (see Section <a href="cascmd_en395.html#ssec%3Ataylor">5.36.2</a>)
+into a polynomial
+by removing the remainder (see Section <a href="cascmd_en313.html#ssec%3Aconvertpoly">5.27.25</a>) or
+to convert a list representing a polynomial into a polynomial
+in internal sparse multivariate form (see
+Section <a href="cascmd_en290.html#ssec%3Amultipoly">5.27.2</a> and Section <a href="cascmd_en294.html#ssec%3Apolytrans">5.27.6</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">parfrac</span> (or <span style="font-family:monospace">partfrac</span> or <span style="font-family:monospace">fullparfrac</span>), to convert a rational
+function into its partial fraction decomposition (see
+Section <a href="cascmd_en364.html#ssec%3Aconvertparf">5.32.9</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">interval</span>, to convert an expression which evaluates to a
+number into an interval (see Section <a href="cascmd_en409.html#ssec%3Anumb2intvl">5.38.8</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">list</span> (or no argument), to convert a polynomial in
+internal sparse multivariate format (see Section <a href="cascmd_en290.html#ssec%3Amultipoly">5.27.2</a>)
+into a list.
+</li><li class="li-itemize"><span style="font-style:italic">unit</span>, a unit, to convert a unit object to a new
+compatible unit (see Section <a href="cascmd_en732.html#sec%3Aconvertunit">11.1.4</a>).
+</li></ul>
+The values of <span style="font-style:italic">option</span> that require a third argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">contfrac</span>, to convert a number into a continued
+fraction. (See Section <a href="cascmd_en132.html#ssec%3Aconvertdfc">5.7.7</a>.) The third argument
+will be the name of a variable to store the continued fraction
+into (which must be quoted the variable was assigned).
+</li><li class="li-itemize"><span style="font-family:monospace">base</span>, to convert a number into a different base
+(beginning with the units digit). If <span style="font-family:monospace">expr</span> is a number,
+then the third argument will be base to convert to (see
+Section <a href="cascmd_en094.html#sec%3Aconvertbase">5.4.2</a>), if <span style="font-style:italic">expr</span> is a list of
+numbers, then the third argument will be the base to convert
+from (and <span style="font-style:italic">expr</span> will be a list of the digits in this
+base, starting with the units digit).
+</li></ul>
+Finally, if <span style="font-style:italic">expr</span> is an expression with units (see
+Section <a href="cascmd_en729.html#ssec%3Aunits">11.1.1</a>), then <span style="font-style:italic">option</span> can be new units to convert to
+(see Section <a href="cascmd_en732.html#sec%3Aconvertunit">11.1.4</a>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">convert(</span><span style="font-style:italic">expr,option[,extraop]</span><span style="font-family:monospace">)</span>
+returns the expression with the requested conversions done.
+</li></ul><h4 id="sec633" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert(1.2,confrac,’fc’)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,5</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+and <span style="font-family:monospace">fc</span> contains the continued fraction equal to 1.2.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert(123,base,10)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,2,1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert([3,2,1],base,10)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">123
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert(1000_g,_kg)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.0 <span style="font-style:italic">kg</span>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en272.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en274.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Centered cubes: centered_cube
+</title>
+</head>
+<body >
+<a href="cascmd_en974.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en976.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2453" class="subsection">14.17.2  Centered cubes: <span style="font-family:monospace">centered_cube</span>
+<a id="hevea_default1682"></a></h3>
+<p>The <span style="font-family:monospace">centered_cube</span> command draws a cube.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">centered_cube</span> takes three arguments:<br>
+ <span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">C</span>, three points.
+</li><li class="li-itemize"><span style="font-family:monospace">centered_cube(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">C</span><span style="font-family:monospace">)</span> returns and draws the cube
+centered at <span style="font-style:italic">A</span> with a vertex at <span style="font-style:italic">B</span> and plane of symmetry <span style="font-style:italic">ABC</span>.
+This plane of symmetry has an edge of the cube containing <span style="font-style:italic">B</span>, the
+other endpoint of this edge is on the same side of line <span style="font-style:italic">AB</span> as <span style="font-style:italic">C</span>.
+</li></ul><h4 id="sec2454" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">centered_cube([0,0,0],[3,3,3],[0,1,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en373.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">centered_cube([0,0,0],[3,3,3],[0,-1,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en374.png">
+</div>
+</li></ul><p>Note that there are two cubes centered at <span style="font-style:italic">A</span> with a vertex at
+<span style="font-style:italic">B</span> and with a plane of symmetry <span style="font-style:italic">ABC</span>. Each cube has
+an edge containing <span style="font-style:italic">B</span> that’s contained in plane of symmetry,
+these edges are on opposite sides of the line <span style="font-style:italic">AB</span>. The cube
+that <span style="font-family:monospace">cube(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">C</span><span style="font-family:monospace">)</span> returns is the cube whose edge is on the
+same side of <span style="font-style:italic">AB</span> as the point <span style="font-style:italic">C</span>.</p>
+<hr>
+<a href="cascmd_en974.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en976.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

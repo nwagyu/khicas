@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>String defined by the ASCII codes of its characters: char
+</title>
+</head>
+<body >
+<a href="cascmd_en084.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en086.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec156" class="subsection">5.3.9  String defined by the ASCII codes of its characters: <span style="font-family:monospace">char</span>
+<a id="hevea_default157"></a></h3>
+<p>The <span style="font-family:monospace">char</span> command translates ASCII codes to strings.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">char</span> takes one argument:<br>
+ <span style="font-style:italic">c</span>, an integer representing an ASCII code or a list of ASCII codes.
+</li><li class="li-itemize"><span style="font-family:monospace">char(</span><span style="font-style:italic">c</span><span style="font-family:monospace">)</span> returns the string whose character has ASCII code
+<span style="font-style:italic">c</span> or whose characters have ASCII codes the elements of the list <span style="font-style:italic">c</span>.<br>
+</li></ul><h4 id="sec157" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">char([97,98,99,100])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"abcd"
+</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">char(97)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"a"
+</td></tr>
+</table><p><br>
+</p><p>Note that there are 256 ASCII codes, 0 through 255. If <span style="font-family:monospace">asc</span>
+is given an integer <span style="font-style:italic">c</span> not in that range, it will use the integer in
+that range which equals <span style="font-style:italic">c</span> modulo 256.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">char(353)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"a"
+</td></tr>
+</table><p>
+because 353−256=97.</p>
+<hr>
+<a href="cascmd_en084.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en086.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

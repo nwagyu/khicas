@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Changing the order of execution: goto label
+
+</title>
+</head>
+<body >
+<a href="cascmd_en760.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en762.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1948" class="subsection">12.3.8  Changing the order of execution: <span style="font-family:monospace">goto</span> <span style="font-family:monospace">label</span>
+<a id="hevea_default1410"></a>
+<a id="hevea_default1411"></a></h3>
+<p>The <span style="font-family:monospace">goto</span> command will tell a program to jump to a different
+spot in a program, where the spot needs to have been marked with
+<span style="font-family:monospace">label</span>. They both must have the same argument, which is
+simply a sequence of characters.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">label</span> takes one argument:<br>
+ <span style="font-style:italic">mark</span>, a sequence of characters.
+</li><li class="li-itemize"><span style="font-family:monospace">label(</span><span style="font-style:italic">mark</span><span style="font-family:monospace">)</span> labels the position in
+the program with <span style="font-style:italic">mark</span>.
+</li></ul><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">goto</span> takes one argument:<br>
+ <span style="font-style:italic">mark</span>, a sequence of characters.
+</li><li class="li-itemize"><span style="font-family:monospace">goto(</span><span style="font-family:monospace">mark</span><span style="font-family:monospace">)</span> goes to the part of the
+program labeled with <span style="font-style:italic">mark</span>.
+</li></ul><h4 id="sec1949" class="subsubsection">Example</h4>
+<p>
+The following program
+will add the terms of the harmonic series until the term is less than
+some specified value <span style="font-family:monospace">eps</span> and print the result.
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">harmsum(eps):= {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  local S, j;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  S:= 0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  j:= 0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  label(spot);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  j:= j + 1;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  S:= S + 1/j;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  if (1/j &gt;= eps) goto (spot);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  print(S);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  return 0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">}</span></td></tr>
+</table>
+</div>
+<hr>
+<a href="cascmd_en760.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en762.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

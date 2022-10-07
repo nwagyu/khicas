@@ -1,0 +1,1114 @@
+// Using locale /usr/share/locale/
+// setlocale returns 0
+// /usr/share/locale/
+// giac
+// UTF-8
+// Maximum number of parallel threads 2
+Added 0 synonyms
+"Done",
+// Time 0.04
+1,
+// Time 0
+1,
+// Time 0
+"Done",
+// Time 0
+182,
+// Time 0
+284,
+// Time 0.03
+[],
+// Time 0
+[],
+// Time 0
+[],
+// Time 0
+[],
+// Time 0
+Integration independent test suites, Hearn 284
+0,
+// Time 0
+pointer(0x269B4A0,0),
+// Time 0
+0.06,
+// Time 0
+f:1+x+x^2
+1,1+x+x^2,x,1,x
+fgh:[1,1+x+x^2,x+x^2/2+x^3/3,0]
+f:x^2*(x+2*x^2)^2
+2,x^2*(x+2*x^2)^2,x,3,x
+fgh:[2,x^2*(x+2*x^2)^2,4/7*x^7+2/3*x^6+1/5*x^5,0]
+f:x*(1+2*x+x^2)
+3,x*(1+2*x+x^2),x,2,x
+fgh:[3,x*(1+2*x+x^2),1/4*x^4+2/3*x^3+1/2*x^2,0]
+f:1/x
+4,1/x,x,1,x
+fgh:[4,1/x,ln(abs(x)),0]
+f:(1+x)^3/(-1+x)^4
+5,(1+x)^3/(-1+x)^4,x,2,x
+fgh:[5,(1+x)^3/(-1+x)^4,(-36*x^2+36*x-16)*1/6/(x-1)^3+ln(abs(x-1)),0]
+f:1/(-1+x)/x/(1+x)^2
+6,1/(-1+x)/x/(1+x)^2,x,2,x
+fgh:[6,1/(-1+x)/x/(1+x)^2,-ln(abs(x))+1/4*ln(abs(x-1))+3/4*ln(abs(x+1))-2*1/4/(x+1),0]
+f:(b+a*x)/(-p+x)/(-q+x)
+7,(b+a*x)/(-p+x)/(-q+x),x,2,x
+fgh:[7,(b+a*x)/(-p+x)/(-q+x),(b+a*q)/(-p+q)*ln(abs(x-q))+(b+a*p)/(p-q)*ln(abs(x-p)),0]
+f:1/(c+b*x+a*x^2)
+8,1/(c+b*x+a*x^2),x,2,x
+fgh:[8,1/(c+b*x+a*x^2),2/sqrt(-b^2+4*a*c)*atan((2*a*x+b)/sqrt(-b^2+4*a*c)),0]
+f:(b+a*x)/(1+x^2)
+9,(b+a*x)/(1+x^2),x,3,x
+fgh:[9,(b+a*x)/(1+x^2),1/2*a*ln(x^2+1)+b*atan(x),0]
+f:1/(3-2*x+x^2)
+10,1/(3-2*x+x^2),x,2,x
+fgh:[10,1/(3-2*x+x^2),2/(2*sqrt(2))*atan((x-1)/sqrt(2)),0]
+f:1/(-1+x)^2/(1+x^2)^2
+11,1/(-1+x)^2/(1+x^2)^2,x,6,x
+fgh:[11,1/(-1+x)^2/(1+x^2)^2,-1/2*ln(abs(x-1))+1/4*ln(x^2+1)+1/4*atan(x)+(-x^2-x)/(4*(x^3-x^2+x-1)),0]
+f:x/(-a+x)/(-b+x)/(-c+x)
+12,x/(-a+x)/(-b+x)/(-c+x),x,2,x
+fgh:[12,x/(-a+x)/(-b+x)/(-c+x),c/(a*b-a*c-b*c+c^2)*ln(abs(x-c))+b/(-a*b+a*c+b^2-b*c)*ln(abs(x-b))+a/(a^2-a*b-a*c+b*c)*ln(abs(x-a)),0]
+f:x/(a^2+x^2)/(b^2+x^2)
+13,x/(a^2+x^2)/(b^2+x^2),x,4,x
+fgh:[13,x/(a^2+x^2)/(b^2+x^2),1/2*(1/(a^2-b^2)*ln(x^2+b^2)+1/(-a^2+b^2)*ln(x^2+a^2)),0]
+f:x^2/(a^2+x^2)/(b^2+x^2)
+14,x^2/(a^2+x^2)/(b^2+x^2),x,3,x
+fgh:[14,x^2/(a^2+x^2)/(b^2+x^2),-2*b^2/((a^2-b^2)*2*b)*atan(x/b)+2*a^2/((a^2-b^2)*2*a)*atan(x/a),0]
+f:x/(-1+x)/(1+x^2)
+15,x/(-1+x)/(1+x^2),x,5,x
+fgh:[15,x/(-1+x)/(1+x^2),1/2*ln(abs(x-1))-1/4*ln(x^2+1)+1/2*atan(x),0]
+f:x/(1+x^3)
+16,x/(1+x^3),x,6,x
+fgh:[16,x/(1+x^3),1/6*ln(x^2-x+1)-sqrt(3)/3*atan(-(x-1/2)/(sqrt(3)/2))-1/3*ln(abs(x+1)),0]
+f:x^3/(-1+x)^2/(1+x^3)
+17,x^3/(-1+x)^2/(1+x^3),x,3,x
+fgh:[17,x^3/(-1+x)^2/(1+x^3),-1/12*ln(abs(x+1))-1/3*ln(x^2-x+1)+3/4*ln(abs(x-1))-2*1/4/(x-1),0]
+f:1/(1+x^4)
+18,1/(1+x^4),x,9,x
+fgh:[18,1/(1+x^4),-sqrt(2)/8*ln(x^2-sqrt(2)*x+1)+sqrt(2)/4*atan((x-sqrt(2)/2)/(sqrt(2)/2))+sqrt(2)/8*ln(x^2+sqrt(2)*x+1)+sqrt(2)/4*atan((x-(-sqrt(2))/2)/(sqrt(2)/2)),0]
+f:x^2/(1+x^4)
+19,x^2/(1+x^4),x,9,x
+fgh:[19,x^2/(1+x^4),sqrt(2)/8*ln(x^2-sqrt(2)*x+1)+sqrt(2)/4*atan((x-sqrt(2)/2)/(sqrt(2)/2))-sqrt(2)/8*ln(x^2+sqrt(2)*x+1)+sqrt(2)/4*atan((x-(-sqrt(2))/2)/(sqrt(2)/2)),0]
+f:1/(1+x^2+x^4)
+20,1/(1+x^2+x^4),x,9,x
+fgh:[20,1/(1+x^2+x^4),-1/4*ln(x^2-x+1)+1/(2*sqrt(3))*atan((2*x-1)/sqrt(3))+1/4*ln(x^2+x+1)+1/(2*sqrt(3))*atan((2*x+1)/sqrt(3)),0]
+f:(a+b*x)^p
+21,(a+b*x)^p,x,1,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[21,(a+b*x)^p,(a+b*x)^(p+1)/(b*(p+1)),0]
+f:x*(a+b*x)^p
+22,x*(a+b*x)^p,x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[22,x*(a+b*x)^p,(-a^2*exp(p*ln(a+b*x))+a*b*p*x*exp(p*ln(a+b*x))+b^2*p*x^2*exp(p*ln(a+b*x))+b^2*x^2*exp(p*ln(a+b*x)))/(b^2*p^2+3*b^2*p+2*b^2),0]
+f:x^2*(a+b*x)^p
+23,x^2*(a+b*x)^p,x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[23,x^2*(a+b*x)^p,(2*a^3*exp(p*ln(a+b*x))-2*a^2*b*p*x*exp(p*ln(a+b*x))+a*b^2*p^2*x^2*exp(p*ln(a+b*x))+a*b^2*p*x^2*exp(p*ln(a+b*x))+b^3*p^2*x^3*exp(p*ln(a+b*x))+3*b^3*p*x^3*exp(p*ln(a+b*x))+2*b^3*x^3*exp(p*ln(a+b*x)))/(b^3*p^3+6*b^3*p^2+11*b^3*p+6*b^3),0]
+f:1/(a+b*x)
+24,1/(a+b*x),x,1,x
+fgh:[24,1/(a+b*x),1/b*ln(abs(x*b+a)),0]
+f:1/(a+b*x)^2
+25,1/(a+b*x)^2,x,1,x
+fgh:[25,1/(a+b*x)^2,-1/(b*(x*b+a)),0]
+f:x/(a+b*x)
+26,x/(a+b*x),x,2,x
+fgh:[26,x/(a+b*x),x/b-a/b^2*ln(abs(x*b+a)),0]
+f:x^2/(a+b*x)
+27,x^2/(a+b*x),x,2,x
+fgh:[27,x^2/(a+b*x),(1/2*x^2*b-x*a)/b^2+a^2/b^3*ln(abs(x*b+a)),0]
+f:1/x/(a+b*x)
+28,1/x/(a+b*x),x,3,x
+fgh:[28,1/x/(a+b*x),1/a*ln(abs(x))-b/(a*b)*ln(abs(x*b+a)),0]
+f:1/x^2/(a+b*x)
+29,1/x^2/(a+b*x),x,2,x
+fgh:[29,1/x^2/(a+b*x),b^2/(a^2*b)*ln(abs(x*b+a))-b/a^2*ln(abs(x))-a/a^2/x,0]
+f:1/x^2/(a+b*x)^2
+30,1/x^2/(a+b*x)^2,x,2,x
+fgh:[30,1/x^2/(a+b*x)^2,-2*b/a^3*ln(abs(x))+2*b^2/(a^3*b)*ln(abs(x*b+a))-(2*x*b+a)/(a^2*(x^2*b+x*a)),0]
+f:1/(c^2+x^2)
+31,1/(c^2+x^2),x,1,x
+fgh:[31,1/(c^2+x^2),2/(2*c)*atan(x/c),0]
+f:1/(c^2-x^2)
+32,1/(c^2-x^2),x,1,x
+fgh:[32,1/(c^2-x^2),-1/(2*c)*ln(abs(x-c))+1/(2*c)*ln(abs(x+c)),0]
+f:1/(-1+2*x^3)
+33,1/(-1+2*x^3),x,6,x
+fgh:[33,1/(-1+2*x^3),-4^(1/3)/12*ln(x^2+(1/2)^(1/3)*x+(1/2)^(1/3)*(1/2)^(1/3))-(1/2)^(1/3)*sqrt(3)/3*atan((x+1/2*(1/2)^(1/3))/(sqrt(3)/2*(1/2)^(1/3)))+(1/2)^(1/3)/3*ln(abs(x-(1/2)^(1/3))),0]
+f:1/(-2+x^3)
+34,1/(-2+x^3),x,6,x
+fgh:[34,1/(-2+x^3),-2^(1/3)/12*ln(x^2+2^(1/3)*x+2^(1/3)*2^(1/3))-2^(1/3)*sqrt(3)/6*atan((x+1/2*2^(1/3))/(sqrt(3)/2*2^(1/3)))+2^(1/3)/6*ln(abs(x-2^(1/3))),0]
+f:1/(-b+a*x^3)
+35,1/(-b+a*x^3),x,6,x
+fgh:[35,1/(-b+a*x^3),-(a^2*b)^(1/3)/(6*a*b)*ln(x^2+(b/a)^(1/3)*x+(b/a)^(1/3)*(b/a)^(1/3))-(a^2*b)^(1/3)/(sqrt(3)*a*b)*atan((x+1/2*(b/a)^(1/3))/(sqrt(3)/2*(b/a)^(1/3)))+(b/a)^(1/3)/(3*b)*ln(abs(x-(b/a)^(1/3))),0]
+f:1/(-2+x^4)
+36,1/(-2+x^4),x,3,x
+fgh:[36,1/(-2+x^4),2^(1/4)/8*ln(abs(x-2^(1/4)))-2^(1/4)/8*ln(abs(x+2^(1/4)))-2^(1/4)/4*atan(x/2^(1/4)),0]
+f:1/(-1+5*x^4)
+37,1/(-1+5*x^4),x,3,x
+fgh:[37,1/(-1+5*x^4),(5^(1/4))^3/20*ln(abs(x-(1/5)^(1/4)))-(5^(1/4))^3/20*ln(abs(x+(1/5)^(1/4)))-(5^(1/4))^3/10*atan(x/(1/5)^(1/4)),0]
+f:1/(7+3*x^4)
+38,1/(7+3*x^4),x,9,x
+fgh:[38,1/(7+3*x^4),-756^(1/4)/168*ln(x^2-(7/3)^(1/4)*sqrt(2)*x+(7/3)^(1/4)*(7/3)^(1/4))+756^(1/4)/84*atan((x-sqrt(2)/2*(7/3)^(1/4))/(sqrt(2)/2*(7/3)^(1/4)))+756^(1/4)/168*ln(x^2+(7/3)^(1/4)*sqrt(2)*x+(7/3)^(1/4)*(7/3)^(1/4))+756^(1/4)/84*atan((x-(-sqrt(2))/2*(7/3)^(1/4))/(sqrt(2)/2*(7/3)^(1/4))),0]
+f:1/(-1+3*x^2+x^4)
+39,1/(-1+3*x^2+x^4),x,3,x
+fgh:[39,1/(-1+3*x^2+x^4),sqrt(26*(sqrt(13)+3))/52*ln(abs(x-sqrt((-3+sqrt(13))/2)))-sqrt(26*(sqrt(13)+3))/52*ln(abs(x+sqrt((-3+sqrt(13))/2)))-sqrt(26*(sqrt(13)-3))/26*atan(x/sqrt(-(-3-sqrt(13))/2)),0]
+f:1/(-1-3*x^2+x^4)
+40,1/(-1-3*x^2+x^4),x,3,x
+fgh:[40,1/(-1-3*x^2+x^4),sqrt(26*(sqrt(13)-3))/52*ln(abs(x-sqrt((3+sqrt(13))/2)))-sqrt(26*(sqrt(13)-3))/52*ln(abs(x+sqrt((3+sqrt(13))/2)))-sqrt(26*(sqrt(13)+3))/26*atan(x/sqrt(-(3-sqrt(13))/2)),0]
+f:1/(1-3*x^2+x^4)
+41,1/(1-3*x^2+x^4),x,3,x
+fgh:[41,1/(1-3*x^2+x^4),1/4*ln(abs(x^2-x-1))-1/(4*sqrt(5))*ln(abs((2*x-1-sqrt(5))/(2*x-1+sqrt(5))))-1/4*ln(abs(x^2+x-1))-1/(4*sqrt(5))*ln(abs((2*x+1-sqrt(5))/(2*x+1+sqrt(5)))),0]
+f:1/(1-4*x^2+x^4)
+42,1/(1-4*x^2+x^4),x,3,x
+fgh:[42,1/(1-4*x^2+x^4),(3*sqrt(2)-sqrt(6))/24*ln(abs(-sqrt(6)/2-sqrt(2)/2+x))+(-3*sqrt(2)+sqrt(6))/24*ln(abs(x+sqrt(6)/2+sqrt(2)/2))-(3*sqrt(2)+sqrt(6))/24*ln(abs(-sqrt(6)/2+sqrt(2)/2+x))-(-3*sqrt(2)-sqrt(6))/24*ln(abs(x+sqrt(6)/2-sqrt(2)/2)),0]
+f:1/(1+4*x^2+x^4)
+43,1/(1+4*x^2+x^4),x,3,x
+fgh:[43,1/(1+4*x^2+x^4),(3*sqrt(2)+sqrt(6))/12*atan(x/(sqrt(6)/2-sqrt(2)/2))-(3*sqrt(2)-sqrt(6))/12*atan(x/(sqrt(6)/2+sqrt(2)/2)),0]
+f:1/(2+x^2+x^4)
+44,1/(2+x^2+x^4),x,0,x
+fgh:[44,1/(2+x^2+x^4),(-2^(1/4)*sqrt(2*(-sqrt(2)+4))*sqrt(7)-2^(1/4)*sqrt(2*(sqrt(2)+4)))/(32*sqrt(7))*ln(x^2-2*2^(1/4)*sqrt((1-sqrt(2)/4)/2)*x+2^(1/4)*2^(1/4))+(-2^(1/4)*sqrt(2*(-sqrt(2)+4))+2^(1/4)*sqrt(2*(sqrt(2)+4))*sqrt(7))/(16*sqrt(7))*atan((x-sqrt((1-sqrt(2)/4)/2)*2^(1/4))/(sqrt((1+sqrt(2)/4)/2)*2^(1/4)))+(2^(1/4)*sqrt(2*(-sqrt(2)+4))*sqrt(7)+2^(1/4)*sqrt(2*(sqrt(2)+4)))/(32*sqrt(7))*ln(x^2+2*2^(1/4)*sqrt((1-sqrt(2)/4)/2)*x+2^(1/4)*2^(1/4))+(2^(1/4)*sqrt(2*(-sqrt(2)+4))-2^(1/4)*sqrt(2*(sqrt(2)+4))*sqrt(7))/(16*sqrt(7))*atan(-(x+sqrt((1-sqrt(2)/4)/2)*2^(1/4))/(sqrt((1+sqrt(2)/4)/2)*2^(1/4))),0]
+f:1/(2-x^2+x^4)
+45,1/(2-x^2+x^4),x,0,x
+fgh:[45,1/(2-x^2+x^4),(2^(1/4)*sqrt(2*(-sqrt(2)+4))-2^(1/4)*sqrt(2*(sqrt(2)+4))*sqrt(7))/(32*sqrt(7))*ln(x^2-2*2^(1/4)*sqrt((sqrt(2)/4+1)/2)*x+2^(1/4)*2^(1/4))+(2^(1/4)*sqrt(2*(-sqrt(2)+4))*sqrt(7)+2^(1/4)*sqrt(2*(sqrt(2)+4)))/(16*sqrt(7))*atan((x-sqrt((sqrt(2)/4+1)/2)*2^(1/4))/(sqrt((1-sqrt(2)/4)/2)*2^(1/4)))+(-2^(1/4)*sqrt(2*(-sqrt(2)+4))+2^(1/4)*sqrt(2*(sqrt(2)+4))*sqrt(7))/(32*sqrt(7))*ln(x^2+2*2^(1/4)*sqrt((sqrt(2)/4+1)/2)*x+2^(1/4)*2^(1/4))+(-2^(1/4)*sqrt(2*(-sqrt(2)+4))*sqrt(7)-2^(1/4)*sqrt(2*(sqrt(2)+4)))/(16*sqrt(7))*atan(-(x+sqrt((sqrt(2)/4+1)/2)*2^(1/4))/(sqrt((1-sqrt(2)/4)/2)*2^(1/4))),0]
+f:1/(-1+x^6)
+46,1/(-1+x^6),x,10,x
+fgh:[46,1/(-1+x^6),1/6*ln(abs(x-1))-1/6*ln(abs(x+1))+1/12*ln(x^2-x+1)-sqrt(3)/6*atan((x-1/2)/(sqrt(3)/2))-1/12*ln(x^2+x+1)-sqrt(3)/6*atan((x+1/2)/(sqrt(3)/2)),0]
+f:1/(-2+x^6)
+47,1/(-2+x^6),x,10,x
+fgh:[47,1/(-2+x^6),2^(1/6)/12*ln(abs(x-2^(1/6)))-2^(1/6)/12*ln(abs(x+2^(1/6)))+2^(1/6)/24*ln(x^2-2^(1/6)*x+2^(1/6)*2^(1/6))-2^(1/6)*sqrt(3)/12*atan((x-1/2*2^(1/6))/(sqrt(3)/2*2^(1/6)))-2^(1/6)/24*ln(x^2+2^(1/6)*x+2^(1/6)*2^(1/6))-2^(1/6)*sqrt(3)/12*atan((x+1/2*2^(1/6))/(sqrt(3)/2*2^(1/6))),0]
+f:1/(2+x^6)
+48,1/(2+x^6),x,10,x
+fgh:[48,1/(2+x^6),-2^(1/6)*sqrt(3)/24*ln(x^2-2^(1/6)*sqrt(3)*x+2^(1/6)*2^(1/6))+2^(1/6)/12*atan((x-sqrt(3)/2*2^(1/6))/(1/2*2^(1/6)))+2^(1/6)/6*atan(x/2^(1/6))+2^(1/6)*sqrt(3)/24*ln(x^2+2^(1/6)*sqrt(3)*x+2^(1/6)*2^(1/6))+2^(1/6)/12*atan((x-(-sqrt(3))/2*2^(1/6))/(1/2*2^(1/6))),0]
+f:1/(1+x^8)
+49,1/(1+x^8),x,19,x
+fgh:[49,1/(1+x^8),-sqrt(sqrt(2)+2)/16*ln(x^2-sqrt(2+sqrt(2))*x+1)+sqrt(-sqrt(2)+2)/8*atan((x-sqrt(2+sqrt(2))/2)/(sqrt(2-sqrt(2))/2))-sqrt(-sqrt(2)+2)/16*ln(x^2-sqrt(2-sqrt(2))*x+1)+sqrt(sqrt(2)+2)/8*atan((x-sqrt(2-sqrt(2))/2)/(sqrt(2+sqrt(2))/2))+sqrt(-sqrt(2)+2)/16*ln(x^2+sqrt(2-sqrt(2))*x+1)+sqrt(sqrt(2)+2)/8*atan((x+sqrt(2-sqrt(2))/2)/(sqrt(2+sqrt(2))/2))+sqrt(sqrt(2)+2)/16*ln(x^2+sqrt(2+sqrt(2))*x+1)+sqrt(-sqrt(2)+2)/8*atan((x+sqrt(2+sqrt(2))/2)/(sqrt(2-sqrt(2))/2)),0]
+f:1/(-1+x^8)
+50,1/(-1+x^8),x,13,x
+fgh:[50,1/(-1+x^8),1/8*ln(abs(x-1))-1/8*ln(abs(x+1))+sqrt(2)/16*ln(x^2-sqrt(2)*x+1)-sqrt(2)/8*atan((x-sqrt(2)/2)/(sqrt(2)/2))-1/4*atan(x)-sqrt(2)/16*ln(x^2+sqrt(2)*x+1)-sqrt(2)/8*atan((x-(-sqrt(2))/2)/(sqrt(2)/2)),0]
+f:1/(1-x^4+x^8)
+51,1/(1-x^4+x^8),x,19,x
+fgh:[51,1/(1-x^4+x^8),-sqrt(6)/24*ln(x^2+(-sqrt(2)-sqrt(6))/2*x+1)+sqrt(6)/12*atan((x-(sqrt(6)+sqrt(2))/4)/((sqrt(6)-sqrt(2))/4))-sqrt(6)/24*ln(x^2+(sqrt(2)-sqrt(6))/2*x+1)+sqrt(6)/12*atan((x-(sqrt(6)-sqrt(2))/4)/((sqrt(6)+sqrt(2))/4))+sqrt(6)/24*ln(x^2+(-sqrt(2)+sqrt(6))/2*x+1)+sqrt(6)/12*atan((x-(sqrt(2)-sqrt(6))/4)/((sqrt(6)+sqrt(2))/4))+sqrt(6)/24*ln(x^2+(sqrt(2)+sqrt(6))/2*x+1)+sqrt(6)/12*atan((x-(-sqrt(6)-sqrt(2))/4)/((sqrt(6)-sqrt(2))/4)),0]
+f:x^7/(1+x^12)
+52,x^7/(1+x^12),x,7,x
+fgh:[52,x^7/(1+x^12),1/4*(1/6*ln(x^8-x^4+1)+sqrt(3)/3*atan((x^4-1/2)/sqrt(3)*2)-1/3*ln(x^4+1)),0]
+f:ln(x)
+53,ln(x),x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+Exchanging arguments
+fgh:[53,ln(x),x*ln(x)-x,0]
+f:x*ln(x)
+54,x*ln(x),x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[54,x*ln(x),-1/4*x^2+1/2*x^2*ln(x),0]
+f:x^2*ln(x)
+55,x^2*ln(x),x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[55,x^2*ln(x),-1/9*x^3+1/3*x^3*ln(x),0]
+f:x^p*ln(x)
+56,x^p*ln(x),x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[56,x^p*ln(x),x^(p+1)/(p+1)*ln(x)+integrate(-x^(p+1)/(p*x+x),x),false]
+f:ln(x)^2
+57,ln(x)^2,x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[57,ln(x)^2,x*ln(x)^2-2*x*ln(x)+2*x,0]
+f:x^9*ln(x)^11
+58,x^9*ln(x)^11,x,11,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[58,x^9*ln(x)^11,1/10*x^10*ln(x)^11-11/100*x^10*ln(x)^10+11/100*x^10*ln(x)^9-99/1000*x^10*ln(x)^8+99/1250*x^10*ln(x)^7-693/12500*x^10*ln(x)^6+2079/62500*x^10*ln(x)^5-2079/125000*x^10*ln(x)^4+2079/312500*x^10*ln(x)^3-6237/3125000*x^10*ln(x)^2-6237/156250000*x^10+6237/15625000*x^10*ln(x),0]
+f:ln(x)^2/x
+59,ln(x)^2/x,x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+Exchanging arguments
+fgh:[59,ln(x)^2/x,ln(x)^3/3,0]
+f:1/ln(x)
+60,1/ln(x),x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+Exchanging arguments
+fgh:[60,1/ln(x),Ei(ln(x)),0]
+f:1/ln(1+x)
+61,1/ln(1+x),x,2,x
+Auto-assuming [x>-1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[61,1/ln(1+x),Ei(ln(x+1)),0]
+f:1/x/ln(x)
+62,1/x/ln(x),x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[62,1/x/ln(x),ln(abs(ln(x))),0]
+f:1/x^2/ln(x)^2
+63,1/x^2/ln(x)^2,x,3,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[63,1/x^2/ln(x)^2,-1/(ln(x)*x)+integrate(-1/(ln(x)*x^2),x),false]
+f:ln(x)^p/x
+64,ln(x)^p/x,x,2,x
+Auto-assuming [x>0,x>1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[64,ln(x)^p/x,ln(x)^(p+1)/(p+1),0]
+f:(b+a*x)*ln(x)
+65,(b+a*x)*ln(x),x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[65,(b+a*x)*ln(x),-1/4*a*x^2-b*x+1/2*a*x^2*ln(x)+b*x*ln(x),0]
+f:(b+a*x)^2*ln(x)
+66,(b+a*x)^2*ln(x),x,4,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[66,(b+a*x)^2*ln(x),-1/9*a^2*x^3-1/2*a*b*x^2-b^2*x+1/3*a^2*x^3*ln(x)+b^2*x*ln(x)+a*b*x^2*ln(x),0]
+f:ln(x)/(b+a*x)^2
+67,ln(x)/(b+a*x)^2,x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[67,ln(x)/(b+a*x)^2,1/(a*b)*ln(abs(x))-a/(a^2*b)*ln(abs(x*a+b))-1/(a*(x*a+b))*ln(x),0]
+f:x*ln(b+a*x)
+68,x*ln(b+a*x),x,3,x
+Auto-assuming [a>0,b>0,x>0]
+Run purge([a,b,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[68,x*ln(b+a*x),b*(a*x+b)/a^2-1/4*(a*x+b)^2/a^2+1/2*ln(a*x+b)*(a*x+b)^2/a^2-b*ln(a*x+b)*(a*x+b)/a^2,0]
+f:x^2*ln(b+a*x)
+69,x^2*ln(b+a*x),x,3,x
+Auto-assuming [a>0,b>0,x>0]
+Run purge([a,b,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[69,x^2*ln(b+a*x),-b^2*(a*x+b)/a^3-1/9*(a*x+b)^3/a^3+1/2*b*(a*x+b)^2/a^3+1/3*ln(a*x+b)*(a*x+b)^3/a^3-b*ln(a*x+b)*(a*x+b)^2/a^3+b^2*ln(a*x+b)*(a*x+b)/a^3,0]
+f:ln(a^2+x^2)
+70,ln(a^2+x^2),x,3,x
+fgh:[70,ln(a^2+x^2),x*ln(a^2+x^2)-2*(x-2*a^2/(2*a)*atan(x/a)),0]
+f:x*ln(a^2+x^2)
+71,x*ln(a^2+x^2),x,3,x
+fgh:[71,x*ln(a^2+x^2),1/2*(-a^2-x^2+(a^2+x^2)*ln(a^2+x^2)),0]
+f:x^2*ln(a^2+x^2)
+72,x^2*ln(a^2+x^2),x,4,x
+fgh:[72,x^2*ln(a^2+x^2),x^3/3*ln(a^2+x^2)-2*((3*x^3-9*x*a^2)/27+2*a^4/(3*2*a)*atan(x/a)),0]
+f:x^4*ln(a^2+x^2)
+73,x^4*ln(a^2+x^2),x,4,x
+fgh:[73,x^4*ln(a^2+x^2),x^5/5*ln(a^2+x^2)-2*((125*x^5-625/3*x^3*a^2+625*x*a^4)/3125-2*a^6/(5*2*a)*atan(x/a)),0]
+f:ln(-a^2+x^2)
+74,ln(-a^2+x^2),x,3,x
+fgh:[74,ln(-a^2+x^2),x*ln(-a^2+x^2)+2*(-a/2*ln(abs(x-a))+a/2*ln(abs(x+a))-x),0]
+f:ln(ln(ln(ln(x))))
+75,ln(ln(ln(ln(x)))),x,0,x
+Auto-assuming [x>0,x>1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[75,ln(ln(ln(ln(x)))),x*ln(ln(ln(ln(x))))+integrate(-x/ln(x)/ln(ln(ln(x)))/ln(ln(x))/x,x),false]
+f:sin(x)
+76,sin(x),x,1,x
+Exchanging arguments
+fgh:[76,sin(x),-cos(x),0]
+f:cos(x)
+77,cos(x),x,1,x
+Exchanging arguments
+fgh:[77,cos(x),sin(x),0]
+f:tan(x)
+78,tan(x),x,1,x
+fgh:[78,tan(x),-ln(abs(cos(x))),0]
+f:1/tan(x)
+79,1/tan(x),x,1,x
+fgh:[79,1/tan(x),1/2*ln(tan(x)^2)-1/2*ln(tan(x)^2+1),0]
+f:1/(1+tan(x))^2
+80,1/(1+tan(x))^2,x,2,x
+fgh:[80,1/(1+tan(x))^2,-1/4*ln(tan(x)^2+1)+1/2*ln(abs(tan(x)+1))-1/2/(tan(x)+1),0]
+f:1/cos(x)
+81,1/cos(x),x,1,x
+fgh:[81,1/cos(x),2*(-1/8*ln(abs(sin(x)+1/sin(x)-2))+1/8*ln(abs(sin(x)+1/sin(x)+2))),0]
+f:1/sin(x)
+82,1/sin(x),x,1,x
+fgh:[82,1/sin(x),2/2*ln(abs(tan(x/2))),0]
+f:sin(x)^2
+83,sin(x)^2,x,2,x
+fgh:[83,sin(x)^2,1/2*x-1/4*sin(2*x),0]
+f:x^3*sin(x^2)
+84,x^3*sin(x^2),x,3,x
+fgh:[84,x^3*sin(x^2),1/2*(-x^2*cos(x^2)+sin(x^2)),0]
+f:sin(x)^3
+85,sin(x)^3,x,2,x
+fgh:[85,sin(x)^3,-cos(x)+cos(x)^3/3,0]
+f:sin(x)^p
+86,sin(x)^p,x,1,x
+Auto-assuming [((x>(-pi)) and (x<pi)),((x>0) and (x<pi))]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[86,sin(x)^p,integrate(exp(p*ln(sin(x))),x),false]
+f:cos(x)*(1+sin(x)^2)^2
+87,cos(x)*(1+sin(x)^2)^2,x,3,x
+fgh:[87,cos(x)*(1+sin(x)^2)^2,sin(x)^5/5+2*sin(x)^3/3+sin(x),0]
+f:cos(x)^2
+88,cos(x)^2,x,2,x
+fgh:[88,cos(x)^2,1/2*x+1/4*sin(2*x),0]
+f:cos(x)^3
+89,cos(x)^3,x,2,x
+fgh:[89,cos(x)^3,sin(x)-sin(x)^3/3,0]
+f:1/cos(x)^2
+90,1/cos(x)^2,x,2,x
+fgh:[90,1/cos(x)^2,2/2*tan(x),0]
+f:sin(x)*sin(2*x)
+91,sin(x)*sin(2*x),x,1,x
+fgh:[91,sin(x)*sin(2*x),2*sin(x)^3/3,0]
+f:x*sin(x)
+92,x*sin(x),x,2,x
+fgh:[92,x*sin(x),-x*cos(x)+sin(x),0]
+f:x^2*sin(x)
+93,x^2*sin(x),x,3,x
+fgh:[93,x^2*sin(x),(-x^2+2)*cos(x)+2*x*sin(x),0]
+f:x*sin(x)^2
+94,x*sin(x)^2,x,2,x
+fgh:[94,x*sin(x)^2,-1/8*cos(2*x)-2*x/8*sin(2*x)+1/2*x^2/2,0]
+f:x^2*sin(x)^2
+95,x^2*sin(x)^2,x,4,x
+fgh:[95,x^2*sin(x)^2,-4*x/16*cos(2*x)-(4*x^2-2)/16*sin(2*x)+1/3*x^3/2,0]
+f:x*sin(x)^3
+96,x*sin(x)^3,x,3,x
+fgh:[96,x*sin(x)^3,-3*x/4*cos(x)+3/4*sin(x)+3*x/36*cos(3*x)-1/36*sin(3*x),0]
+f:x*cos(x)
+97,x*cos(x),x,2,x
+fgh:[97,x*cos(x),cos(x)+x*sin(x),0]
+f:x^2*cos(x)
+98,x^2*cos(x),x,3,x
+fgh:[98,x^2*cos(x),2*x*cos(x)-(-x^2+2)*sin(x),0]
+f:x*cos(x)^2
+99,x*cos(x)^2,x,2,x
+fgh:[99,x*cos(x)^2,1/8*cos(2*x)+2*x/8*sin(2*x)+1/2*x^2/2,0]
+f:x^2*cos(x)^2
+100,x^2*cos(x)^2,x,4,x
+fgh:[100,x^2*cos(x)^2,4*x/16*cos(2*x)-(-4*x^2+2)/16*sin(2*x)+1/3*x^3/2,0]
+f:x*cos(x)^3
+101,x*cos(x)^3,x,3,x
+fgh:[101,x*cos(x)^3,3/4*cos(x)+3*x/4*sin(x)+1/36*cos(3*x)+3*x/36*sin(3*x),0]
+f:sin(x)/x
+102,sin(x)/x,x,1,x
+Exchanging arguments
+fgh:[102,sin(x)/x,Si(x),0]
+f:cos(x)/x
+103,cos(x)/x,x,1,x
+Exchanging arguments
+fgh:[103,cos(x)/x,Ci(x),0]
+f:sin(x)/x^2
+104,sin(x)/x^2,x,2,x
+fgh:[104,sin(x)/x^2,(x*Ci(x)-sin(x))/x,0]
+f:sin(x)^2/x
+105,sin(x)^2/x,x,3,x
+fgh:[105,sin(x)^2/x,-1/2*Ci(2*x)+1/2*ln(x),0]
+f:tan(x)^3
+106,tan(x)^3,x,2,x
+fgh:[106,tan(x)^3,1/2*(tan(x)^2-ln(tan(x)^2+1)),0]
+f:sin(a+b*x)
+107,sin(a+b*x),x,1,x
+fgh:[107,sin(a+b*x),-cos(a+b*x)/b,0]
+f:cos(a+b*x)
+108,cos(a+b*x),x,1,x
+fgh:[108,cos(a+b*x),sin(a+b*x)/b,0]
+f:tan(a+b*x)
+109,tan(a+b*x),x,1,x
+fgh:[109,tan(a+b*x),-ln(abs(cos(a+b*x)))/b,0]
+f:1/tan(a+b*x)
+110,1/tan(a+b*x),x,1,x
+fgh:[110,1/tan(a+b*x),2/b*(1/4*ln(abs(1-cos(a+b*x))/abs(1+cos(a+b*x)))-1/2*ln(abs((1-cos(a+b*x))/(1+cos(a+b*x))+1))),0]
+f:1/sin(a+b*x)
+111,1/sin(a+b*x),x,1,x
+fgh:[111,1/sin(a+b*x),2/b/2*ln(abs(tan((b*x+a)/2))),0]
+f:1/cos(a+b*x)
+112,1/cos(a+b*x),x,1,x
+fgh:[112,1/cos(a+b*x),2/b*(-1/8*ln(abs(sin(a+b*x)+1/sin(a+b*x)-2))+1/8*ln(abs(sin(a+b*x)+1/sin(a+b*x)+2))),0]
+f:sin(a+b*x)^2
+113,sin(a+b*x)^2,x,2,x
+fgh:[113,sin(a+b*x)^2,1/2*x-4*b/(4*b)^2*sin(2*a+2*b*x),0]
+f:sin(a+b*x)^3
+114,sin(a+b*x)^3,x,2,x
+fgh:[114,sin(a+b*x)^3,-cos(a+b*x)/b+(cos(a+b*x)/b*b)^3/b*1/3,0]
+f:cos(a+b*x)^2
+115,cos(a+b*x)^2,x,2,x
+fgh:[115,cos(a+b*x)^2,1/2*x+4*b/(4*b)^2*sin(2*a+2*b*x),0]
+f:cos(a+b*x)^3
+116,cos(a+b*x)^3,x,2,x
+fgh:[116,cos(a+b*x)^3,1/b*(sin(a+b*x)-sin(a+b*x)^3/3),0]
+f:1/cos(a+b*x)^2
+117,1/cos(a+b*x)^2,x,2,x
+fgh:[117,1/cos(a+b*x)^2,2/b/2*tan(a+b*x),0]
+f:1/(1+cos(x))
+118,1/(1+cos(x)),x,1,x
+fgh:[118,1/(1+cos(x)),2*tan(x/2)/2,0]
+f:1/(1-cos(x))
+119,1/(1-cos(x)),x,1,x
+fgh:[119,1/(1-cos(x)),-2/(2*tan(x/2)),0]
+f:1/(1+sin(x))
+120,1/(1+sin(x)),x,1,x
+fgh:[120,1/(1+sin(x)),-2/(tan(x/2)+1),0]
+f:1/(1-sin(x))
+121,1/(1-sin(x)),x,1,x
+fgh:[121,1/(1-sin(x)),-2/(tan(x/2)-1),0]
+f:1/(a+b*sin(x))
+122,1/(a+b*sin(x)),x,3,x
+fgh:[122,1/(a+b*sin(x)),2*2/(2*sqrt(a^2-b^2))*(atan((a*tan(x/2)+b)/sqrt(a^2-b^2))+pi*sign(a)*floor(x/2/pi+1/2)),0]
+f:1/(a+cos(x)+b*sin(x))
+123,1/(a+cos(x)+b*sin(x)),x,3,x
+fgh:[123,1/(a+cos(x)+b*sin(x)),2*2/(2*sqrt(a^2-b^2-1))*(atan((a*tan(x/2)+b-tan(x/2))/sqrt(a^2-b^2-1))+pi*sign(2*a-2)*floor(x/2/pi+1/2)),0]
+f:x^2*sin(a+b*x)^2
+124,x^2*sin(a+b*x)^2,x,4,x
+fgh:[124,x^2*sin(a+b*x)^2,-4*x*b*16*b^3/(-16*b^3)^2*cos(2*a+2*b*x)-(4*x^2*b^2-2)*16*b^3/(-16*b^3)^2*sin(2*a+2*b*x)+1/3*x^3/2,0]
+f:cos(x)*cos(2*x)
+125,cos(x)*cos(2*x),x,1,x
+fgh:[125,cos(x)*cos(2*x),1/2*sin(x)+1/6*sin(3*x),0]
+f:x^2*cos(a+b*x)^2
+126,x^2*cos(a+b*x)^2,x,4,x
+fgh:[126,x^2*cos(a+b*x)^2,4*x*b*16*b^3/(-16*b^3)^2*cos(2*a+2*b*x)-(-4*x^2*b^2+2)*16*b^3/(-16*b^3)^2*sin(2*a+2*b*x)+1/3*x^3/2,0]
+f:1/tan(x)^3
+127,1/tan(x)^3,x,2,x
+fgh:[127,1/tan(x)^3,1/2*ln(tan(x)^2+1)-1/2*ln(tan(x)^2)+(tan(x)^2-1)/2/tan(x)^2,0]
+f:x^3*tan(x)^4
+128,x^3*tan(x)^4,x,17,x
+nock
+fgh:[128,x^3*tan(x)^4,integrate(x^3*tan(x)^4,x),false]
+f:x^3*tan(x)^6
+129,x^3*tan(x)^6,x,34,x
+nock
+fgh:[129,x^3*tan(x)^6,integrate(x^3*tan(x)^6,x),false]
+f:x*tan(x)^2
+130,x*tan(x)^2,x,3,x
+fgh:[130,x*tan(x)^2,-1/2*x^2+x*tan(x)+1/2*ln(4/(tan(x)^2+1)),0]
+f:cos(3*x)*sin(2*x)
+131,cos(3*x)*sin(2*x),x,1,x
+fgh:[131,cos(3*x)*sin(2*x),-1/10*cos(5*x)+1/2*cos(x),0]
+f:cos(x)^2*sin(x)^2
+132,cos(x)^2*sin(x)^2,x,3,x
+fgh:[132,cos(x)^2*sin(x)^2,1/8*x-1/32*sin(4*x),0]
+f:1/cos(x)^2/sin(x)^2
+133,1/cos(x)^2/sin(x)^2,x,3,x
+fgh:[133,1/cos(x)^2/sin(x)^2,tan(x)-1/tan(x),0]
+f:d^x*sin(x)
+134,d^x*sin(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[134,d^x*sin(x),exp(x*ln(d))*(-1/(ln(d)^2+1)*cos(x)+ln(d)/(ln(d)^2+1)*sin(x)),0]
+f:d^x*cos(x)
+135,d^x*cos(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[135,d^x*cos(x),exp(x*ln(d))*(ln(d)/(ln(d)^2+1)*cos(x)+1/(ln(d)^2+1)*sin(x)),0]
+f:d^x*x*sin(x)
+136,d^x*x*sin(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[136,d^x*x*sin(x),exp(x*ln(d))*((-(x*ln(d)-1)*2*ln(d)/((ln(d)^2-1)^2+(2*ln(d))^2)+x*(ln(d)^2-1)/((ln(d)^2-1)^2+(2*ln(d))^2))*cos(x)+((x*ln(d)-1)*(ln(d)^2-1)/((ln(d)^2-1)^2+(2*ln(d))^2)+x*2*ln(d)/((ln(d)^2-1)^2+(2*ln(d))^2))*sin(x)),0]
+f:d^x*x*cos(x)
+137,d^x*x*cos(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[137,d^x*x*cos(x),exp(x*ln(d))*(((x*ln(d)-1)*(ln(d)^2-1)/((ln(d)^2-1)^2+(2*ln(d))^2)+x*2*ln(d)/((ln(d)^2-1)^2+(2*ln(d))^2))*cos(x)-(-(x*ln(d)-1)*2*ln(d)/((ln(d)^2-1)^2+(2*ln(d))^2)+x*(ln(d)^2-1)/((ln(d)^2-1)^2+(2*ln(d))^2))*sin(x)),0]
+f:d^x*x^2*sin(x)
+138,d^x*x^2*sin(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[138,d^x*x^2*sin(x),exp(x*ln(d))*(((x^2*ln(d)^2-x^2-2*x*ln(d)+2)*(-3*ln(d)^2+1)/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2)+(2*x^2*ln(d)-2*x)*(ln(d)^3-3*ln(d))/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2))*cos(x)+((x^2*ln(d)^2-x^2-2*x*ln(d)+2)*(ln(d)^3-3*ln(d))/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2)-(2*x^2*ln(d)-2*x)*(-3*ln(d)^2+1)/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2))*sin(x)),0]
+f:d^x*x^2*cos(x)
+139,d^x*x^2*cos(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[139,d^x*x^2*cos(x),exp(x*ln(d))*(((x^2*ln(d)^2-x^2-2*x*ln(d)+2)*(ln(d)^3-3*ln(d))/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2)-(2*x^2*ln(d)-2*x)*(-3*ln(d)^2+1)/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2))*cos(x)-((x^2*ln(d)^2-x^2-2*x*ln(d)+2)*(-3*ln(d)^2+1)/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2)+(2*x^2*ln(d)-2*x)*(ln(d)^3-3*ln(d))/((ln(d)^3-3*ln(d))^2+(3*ln(d)^2-1)^2))*sin(x)),0]
+f:d^x*x^3*sin(x)
+140,d^x*x^3*sin(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[140,d^x*x^3*sin(x),exp(x*ln(d))*(((x^3*ln(d)^3-3*x^3*ln(d)-3*x^2*ln(d)^2+3*x^2+6*x*ln(d)-6)*(-4*ln(d)^3+4*ln(d))/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2)+(3*x^3*ln(d)^2-x^3-6*x^2*ln(d)+6*x)*(ln(d)^4-6*ln(d)^2+1)/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2))*cos(x)+((x^3*ln(d)^3-3*x^3*ln(d)-3*x^2*ln(d)^2+3*x^2+6*x*ln(d)-6)*(ln(d)^4-6*ln(d)^2+1)/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2)-(3*x^3*ln(d)^2-x^3-6*x^2*ln(d)+6*x)*(-4*ln(d)^3+4*ln(d))/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2))*sin(x)),0]
+f:d^x*x^3*cos(x)
+141,d^x*x^3*cos(x),x,0,x
+Auto-assuming [d>0]
+Run purge([d]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[141,d^x*x^3*cos(x),exp(x*ln(d))*(((x^3*ln(d)^3-3*x^3*ln(d)-3*x^2*ln(d)^2+3*x^2+6*x*ln(d)-6)*(ln(d)^4-6*ln(d)^2+1)/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2)-(3*x^3*ln(d)^2-x^3-6*x^2*ln(d)+6*x)*(-4*ln(d)^3+4*ln(d))/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2))*cos(x)-((x^3*ln(d)^3-3*x^3*ln(d)-3*x^2*ln(d)^2+3*x^2+6*x*ln(d)-6)*(-4*ln(d)^3+4*ln(d))/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2)+(3*x^3*ln(d)^2-x^3-6*x^2*ln(d)+6*x)*(ln(d)^4-6*ln(d)^2+1)/((ln(d)^4-6*ln(d)^2+1)^2+(4*ln(d)^3-4*ln(d))^2))*sin(x)),0]
+f:sin(x)*sin(2*x)*sin(3*x)
+142,sin(x)*sin(2*x)*sin(3*x),x,5,x
+fgh:[142,sin(x)*sin(2*x)*sin(3*x),4*cos(x)^6/3-5*cos(x)^4/2+cos(x)^2,0]
+f:cos(x)*cos(2*x)*cos(3*x)
+143,cos(x)*cos(2*x)*cos(3*x),x,5,x
+fgh:[143,cos(x)*cos(2*x)*cos(3*x),1/4*x+1/8*sin(2*x)+1/16*sin(4*x)+1/24*sin(6*x),0]
+f:x^2*sin(k*x)^3
+144,x^2*sin(k*x)^3,x,6,x
+fgh:[144,x^2*sin(k*x)^3,(-3*x^2*k^2+6)*4*k^3/(-4*k^3)^2*cos(k*x)+6*x*k*4*k^3/(-4*k^3)^2*sin(k*x)+(9*x^2*k^2-2)*108*k^3/(-108*k^3)^2*cos(3*k*x)-6*x*k*108*k^3/(-108*k^3)^2*sin(3*k*x),0]
+f:x*cos(x)*cos(k/sin(x))/sin(x)^2
+145,x*cos(x)*cos(k/sin(x))/sin(x)^2,x,0,x
+nock
+fgh:[145,x*cos(x)*cos(k/sin(x))/sin(x)^2,integrate(x*cos(x)*cos(k/sin(x))/sin(x)^2,x),false]
+f:cos(x)/sin(x)/tan(1/2*x)
+146,cos(x)/sin(x)/tan(1/2*x),x,4,x
+fgh:[146,cos(x)/sin(x)/tan(1/2*x),2*2*(tan(1/2*x/2)/8-1/8/tan(1/2*x/2)-1/2*x/2),0]
+f:sin(a*x)/(b+c*sin(a*x))^2
+147,sin(a*x)/(b+c*sin(a*x))^2,x,5,x
+fgh:[147,sin(a*x)/(b+c*sin(a*x))^2,2/a*((tan(a*x/2)*c+b)/((c^2-b^2)*(tan(a*x/2)^2*b+2*tan(a*x/2)*c+b))+2*c/((c^2-b^2)*2*sqrt(b^2-c^2))*(atan((b*tan(a*x/2)+c)/sqrt(b^2-c^2))+pi*sign(b)*floor(a*x/2/pi+1/2))),0]
+f:sin(ln(x))
+148,sin(ln(x)),x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[148,sin(ln(x)),-1/2*x*cos(ln(x))+1/2*x*sin(ln(x)),0]
+f:cos(ln(x))
+149,cos(ln(x)),x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[149,cos(ln(x)),1/2*x*cos(ln(x))+1/2*x*sin(ln(x)),0]
+f:exp(x)
+150,exp(x),x,1,x
+Exchanging arguments
+fgh:[150,exp(x),exp(x),0]
+f:a^x
+151,a^x,x,1,x
+Auto-assuming [a>0]
+Run purge([a]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[151,a^x,1/ln(a)*a^x,0]
+f:exp(a*x)
+152,exp(a*x),x,1,x
+fgh:[152,exp(a*x),exp(a*x)/a,0]
+f:exp(a*x)/x
+153,exp(a*x)/x,x,1,x
+Exchanging arguments
+fgh:[153,exp(a*x)/x,Ei(a*x),0]
+f:1/(a+b*exp(m*x))
+154,1/(a+b*exp(m*x)),x,4,x
+fgh:[154,1/(a+b*exp(m*x)),1/m*(1/a*m*x-b/b/a*ln(abs(exp(m*x)*b+a))),0]
+f:exp(2*x)/(1+exp(x))
+155,exp(2*x)/(1+exp(x)),x,3,x
+fgh:[155,exp(2*x)/(1+exp(x)),exp(x)-ln(exp(x)+1),0]
+f:exp(2*x+a*x)
+156,exp(2*x+a*x),x,2,x
+fgh:[156,exp(2*x+a*x),exp(2*x+a*x)/(2+a),0]
+f:1/(b/exp(m*x)+a*exp(m*x))
+157,1/(b/exp(m*x)+a*exp(m*x)),x,2,x
+fgh:[157,1/(b/exp(m*x)+a*exp(m*x)),1/sqrt(a*b)*atan(a*exp(m*x)/sqrt(a*b))/m,0]
+f:exp(a*x)*x
+158,exp(a*x)*x,x,2,x
+fgh:[158,exp(a*x)*x,(x*a-1)/a^2*exp(a*x),0]
+f:exp(x)*x^20
+159,exp(x)*x^20,x,21,x
+fgh:[159,exp(x)*x^20,(x^20-20*x^19+380*x^18-6840*x^17+116280*x^16-1860480*x^15+27907200*x^14-390700800*x^13+5079110400*x^12-60949324800*x^11+670442572800*x^10-6704425728000*x^9+60339831552000*x^8-482718652416000*x^7+3379030566912000*x^6-20274183401472000*x^5+101370917007360000*x^4-405483668029440000*x^3+1216451004088320000*x^2-2432902008176640000*x+2432902008176640000)*exp(x),0]
+f:a^x/b^x
+160,a^x/b^x,x,2,x
+Auto-assuming [a>0,b>0]
+Run purge([a,b]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[160,a^x/b^x,integrate(a^x/b^x,x),false]
+f:a^x*b^x
+161,a^x*b^x,x,2,x
+Auto-assuming [a>0,b>0]
+Run purge([a,b]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[161,a^x*b^x,1/(ln(a)+ln(b))*exp(x*ln(a)+x*ln(b)),0]
+f:a^x/x^2
+162,a^x/x^2,x,2,x
+Auto-assuming [a>0]
+Run purge([a]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[162,a^x/x^2,integrate(a^x/x^2,x),false]
+f:a^x*x/(1+b*x)^2
+163,a^x*x/(1+b*x)^2,x,5,x
+Auto-assuming [a>0]
+Run purge([a]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[163,a^x*x/(1+b*x)^2,integrate(a^x*x/(1+b*x)^2,x),false]
+f:exp(a*x)*x/(1+a*x)^2
+164,exp(a*x)*x/(1+a*x)^2,x,1,x
+fgh:[164,exp(a*x)*x/(1+a*x)^2,exp(a*x)/(a^3*x+a^2),0]
+f:k^(x^2)*x
+165,k^(x^2)*x,x,1,x
+Auto-assuming [k>0]
+Run purge([k]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[165,k^(x^2)*x,1/2/ln(k)*k^(x^2),0]
+f:exp(x^2)
+166,exp(x^2),x,1,x
+fgh:[166,exp(x^2),sqrt(pi)/(-i)/2*erf((-i)*x),0]
+f:exp(x^2)*x
+167,exp(x^2)*x,x,1,x
+fgh:[167,exp(x^2)*x,1/2*exp(x^2),0]
+f:exp(1/x)*(1+x)/x^4
+168,exp(1/x)*(1+x)/x^4,x,7,x
+fgh:[168,exp(1/x)*(1+x)/x^4,-(1/x)^2*exp(1/x)+1/x*exp(1/x)-exp(1/x),0]
+f:exp(1-exp(x^2)*x+2*x^2)*(x+2*x^3)/(1-exp(x^2)*x)^2
+169,exp(1-exp(x^2)*x+2*x^2)*(x+2*x^3)/(1-exp(x^2)*x)^2,x,-3,x
+fgh:[169,exp(1-exp(x^2)*x+2*x^2)*(x+2*x^3)/(1-exp(x^2)*x)^2,-exp(1)*exp(2*x^2-x*exp(x^2))/(x*exp(x^2)^3-exp(x^2)^2),0]
+f:exp(exp(exp(exp(x))))
+170,exp(exp(exp(exp(x)))),x,1,x
+nock
+fgh:[170,exp(exp(exp(exp(x)))),integrate(exp(exp(exp(exp(x))))/exp(x)*exp(x),x),false]
+f:exp(x)*ln(x)
+171,exp(x)*ln(x),x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[171,exp(x)*ln(x),exp(x)*ln(x)-Ei(x),0]
+f:exp(x)*x*ln(x)
+172,exp(x)*x*ln(x),x,5,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[172,exp(x)*x*ln(x),Ei(x)-exp(x)+(x-1)*exp(x)*ln(x),0]
+f:exp(2*x)*x
+173,exp(2*x)*x,x,3,x
+fgh:[173,exp(2*x)*x,(2*x-1)/4*exp(2*x),0]
+f:2*x+x^2*sqrt(2)
+174,2*x+x^2*sqrt(2),x,1,x
+fgh:[174,2*x+x^2*sqrt(2),2*x^2/2+sqrt(2)*x^3/3,0]
+f:ln(x)/sqrt(b+a*x)
+175,ln(x)/sqrt(b+a*x),x,4,x
+Auto-assuming [x>0,a>0,b>0,x>0]
+Run purge([x,a,b]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[175,ln(x)/sqrt(b+a*x),2/a*(sqrt(a*x+b)*ln((a*x+b-b)/a)+2*(-sqrt(a*x+b)-b/2/sqrt(b)*ln((2*sqrt(a*x+b)-2*sqrt(b))/(2*sqrt(a*x+b)+2*sqrt(b))))),0]
+f:sqrt(a+b*x)*sqrt(c+d*x)
+176,sqrt(a+b*x)*sqrt(c+d*x),x,5,x
+Auto-assuming [b>0,a>0,x>0,d>0,c>0,x>0]
+Run purge([b,a,x,d,c]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[176,sqrt(a+b*x)*sqrt(c+d*x),1/b*(2*b/b/b*(2*(8*d^2*1/64/d^2*sqrt(a+b*x)*sqrt(a+b*x)-(-4*b*d*c+20*d^2*a)*1/64/d^2)*sqrt(a+b*x)*sqrt(-a*b*d+b^2*c+b*d*(a+b*x))+2*(-3*a^2*b*d^2+2*a*b^2*c*d+b^3*c^2)/16/d/sqrt(b*d)*ln(abs(sqrt(-a*b*d+b^2*c+b*d*(a+b*x))-sqrt(b*d)*sqrt(a+b*x))))+2*a/b*(1/2*sqrt(a+b*x)*sqrt(-a*b*d+b^2*c+b*d*(a+b*x))+2*(a*b*d-b^2*c)/4/sqrt(b*d)*ln(abs(sqrt(-a*b*d+b^2*c+b*d*(a+b*x))-sqrt(b*d)*sqrt(a+b*x))))),0]
+f:sqrt(a+b*x)
+177,sqrt(a+b*x),x,1,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[177,sqrt(a+b*x),sqrt(a+b*x)*(a+b*x)/(b*3/2),0]
+f:x*sqrt(a+b*x)
+178,x*sqrt(a+b*x),x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[178,x*sqrt(a+b*x),1/b*(2*b*(1/5*sqrt(a+b*x)*(a+b*x)^2-2/3*sqrt(a+b*x)*(a+b*x)*a+sqrt(a+b*x)*a^2)/b^2+2*a/b*(sqrt(a+b*x)*(a+b*x)/3-a*sqrt(a+b*x))),0]
+f:x^2*sqrt(a+b*x)
+179,x^2*sqrt(a+b*x),x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[179,x^2*sqrt(a+b*x),1/b*(2*b*(1/7*sqrt(a+b*x)*(a+b*x)^3-3/5*sqrt(a+b*x)*(a+b*x)^2*a+sqrt(a+b*x)*(a+b*x)*a^2-sqrt(a+b*x)*a^3)/b^3+2*a*(1/5*sqrt(a+b*x)*(a+b*x)^2-2/3*sqrt(a+b*x)*(a+b*x)*a+sqrt(a+b*x)*a^2)/b^2),0]
+f:sqrt(a+b*x)/x
+180,sqrt(a+b*x)/x,x,3,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[180,sqrt(a+b*x)/x,2*sqrt(a+b*x)+2*a/2/sqrt(a)*ln((2*sqrt(a+b*x)-2*sqrt(a))/(2*sqrt(a+b*x)+2*sqrt(a))),0]
+f:sqrt(a+b*x)/x^2
+181,sqrt(a+b*x)/x^2,x,3,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[181,sqrt(a+b*x)/x^2,1/b*(sqrt(a+b*x)*b^2/(-a-b*x+a)+b^2/2/sqrt(a)*ln((2*sqrt(a+b*x)-2*sqrt(a))/(2*sqrt(a+b*x)+2*sqrt(a)))),0]
+f:1/sqrt(a+b*x)
+182,1/sqrt(a+b*x),x,1,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[182,1/sqrt(a+b*x),2/b*sqrt(a+b*x),0]
+f:x/sqrt(a+b*x)
+183,x/sqrt(a+b*x),x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[183,x/sqrt(a+b*x),2/b^2*(sqrt(a+b*x)*(a+b*x)/3-a*sqrt(a+b*x)),0]
+f:x^2/sqrt(a+b*x)
+184,x^2/sqrt(a+b*x),x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[184,x^2/sqrt(a+b*x),2/b*(1/5*sqrt(a+b*x)*(a+b*x)^2-2/3*sqrt(a+b*x)*(a+b*x)*a+sqrt(a+b*x)*a^2)/b^2,0]
+f:1/x/sqrt(a+b*x)
+185,1/x/sqrt(a+b*x),x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[185,1/x/sqrt(a+b*x),1/sqrt(a)*ln((2*sqrt(a+b*x)-2*sqrt(a))/(2*sqrt(a+b*x)+2*sqrt(a))),0]
+f:1/x^2/sqrt(a+b*x)
+186,1/x^2/sqrt(a+b*x),x,3,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[186,1/x^2/sqrt(a+b*x),2/b*(-sqrt(a+b*x)*b^2/2/a/(a+b*x-a)-b^2/2/a/2/sqrt(a)*ln((2*sqrt(a+b*x)-2*sqrt(a))/(2*sqrt(a+b*x)+2*sqrt(a)))),0]
+f:(a+b*x)^(1/2*p)
+187,(a+b*x)^(1/2*p),x,1,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[187,sqrt((a+b*x)^p),(a+b*x)^(1/2*p+1)/(b*(1/2*p+1)),0]
+f:x*(a+b*x)^(1/2*p)
+188,x*(a+b*x)^(1/2*p),x,2,x
+Auto-assuming [b>0,a>0,x>0]
+Run purge([b,a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[188,x*sqrt((a+b*x)^p),(-4*a^2*exp(p*ln(a+b*x)/2)+2*a*b*p*x*exp(p*ln(a+b*x)/2)+2*b^2*p*x^2*exp(p*ln(a+b*x)/2)+4*b^2*x^2*exp(p*ln(a+b*x)/2))/(b^2*p^2+6*b^2*p+8*b^2),0]
+f:atan((2*x-sqrt(2))/sqrt(2))
+189,atan((2*x-sqrt(2))/sqrt(2)),x,6,x
+fgh:[189,atan((2*x-sqrt(2))/sqrt(2)),((2*x-sqrt(2))/sqrt(2)*atan((2*x-sqrt(2))/sqrt(2))-ln(((2*x-sqrt(2))/sqrt(2))^2+1)/2)/(2/sqrt(2)),0]
+f:1/sqrt(-1+x^2)
+190,1/sqrt(-1+x^2),x,2,x
+Auto-assuming [x>1]
+fgh:[190,1/sqrt(-1+x^2),-ln(-sqrt(x^2-1)+x),0]
+f:sqrt(x)*sqrt(1+x)
+191,sqrt(x)*sqrt(1+x),x,4,x
+Auto-assuming [x>0,x>-1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[191,sqrt(x)*sqrt(1+x),2*(2*(1/8*sqrt(x)*sqrt(x)+1/16)*sqrt(x)*sqrt(x+1)+1/8*ln(sqrt(x+1)-sqrt(x))),0]
+f:sin(sqrt(x))
+192,sin(sqrt(x)),x,3,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[192,sin(sqrt(x)),2*(-sqrt(x)*cos(sqrt(x))+sin(sqrt(x))),0]
+f:x/((1-x^2)^(1/8))^9
+193,x/((1-x^2)^(1/8))^9,x,1,x
+Auto-assuming [((x>-1) and (x<1))]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[193,x/((1-x^2)^(1/8))^9,4/(-x^2+1)^(1/8),0]
+f:x/sqrt(1-x^4)
+194,x/sqrt(1-x^4),x,2,x
+Auto-assuming [((x>-1) and (x<1))]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[194,x/sqrt(1-x^4),1/2*asin(x^2),0]
+f:1/x/sqrt(1+x^4)
+195,1/x/sqrt(1+x^4),x,3,x
+fgh:[195,1/x/sqrt(1+x^4),1/2*(1/2*ln(sqrt(x^4+1)-1)-1/2*ln(sqrt(x^4+1)+1)),0]
+f:x/sqrt(1+x^2+x^4)
+196,x/sqrt(1+x^2+x^4),x,3,x
+fgh:[196,x/sqrt(1+x^2+x^4),-1/2*ln(2*(sqrt(x^4+x^2+1)-x^2)-1),0]
+f:1/x/sqrt(-1+x^2-x^4)
+197,1/x/sqrt(-1+x^2-x^4),x,3,x
+nock
+fgh:[197,1/x/sqrt(-1+x^2-x^4),integrate(1/2/x^2/sqrt(-x^4+x^2-1)*2*x,x),false]
+f:(1+x)/(1-x)^2/sqrt(1+x^2)
+198,(1+x)/(1-x)^2/sqrt(1+x^2),x,1,x
+fgh:[198,(1+x)/(1-x)^2/sqrt(1+x^2),2*(sqrt(x^2+1)-x-1)/(-(sqrt(x^2+1)-x)^2-2*(sqrt(x^2+1)-x)+1),0]
+f:1/sqrt(1+x^2)
+199,1/sqrt(1+x^2),x,1,x
+fgh:[199,1/sqrt(1+x^2),-ln(sqrt(x^2+1)-x),0]
+f:1/2*(sqrt(x)*sqrt(1+x)+sqrt(x)*sqrt(2+x)+sqrt(1+x)*sqrt(2+x))/sqrt(x)/sqrt(1+x)/sqrt(2+x)
+200,1/2*(sqrt(x)*sqrt(1+x)+sqrt(x)*sqrt(2+x)+sqrt(1+x)*sqrt(2+x))/sqrt(x)/sqrt(1+x)/sqrt(2+x),x,3,x
+Auto-assuming [x>0,x>-1,x>-2]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+Warning, choosing root of [1,0,%%%{-4,[2]%%%}+%%%{-6,[0]%%%},0,1] at parameters values [0]
+Warning, choosing root of [1,0,%%%{-4,[2]%%%}+%%%{-6,[0]%%%},0,1] at parameters values [0]
+Warning, choosing root of [1,0,%%%{-4,[2]%%%}+%%%{-6,[0]%%%},0,1] at parameters values [0]
+nock
+fgh:[200,1/2*(sqrt(x)*sqrt(1+x)+sqrt(x)*sqrt(2+x)+sqrt(1+x)*sqrt(2+x))/sqrt(x)/sqrt(1+x)/sqrt(2+x),integrate(1/2*(2*sqrt(x)*sqrt(x+1)+2*sqrt(x)*sqrt(x+2)+2*sqrt(x+1)*sqrt(x+2))/sqrt(x+1)/sqrt(x+2)/2*(sqrt(x))^-1,x),false]
+f:1/2*(-2*sqrt(1+x^3)+5*x^4*sqrt(1+x^3)-3*x^2*sqrt(1-2*x+x^5))/sqrt(1+x^3)/sqrt(1-2*x+x^5)
+201,1/2*(-2*sqrt(1+x^3)+5*x^4*sqrt(1+x^3)-3*x^2*sqrt(1-2*x+x^5))/sqrt(1+x^3)/sqrt(1-2*x+x^5),x,5,x
+Auto-assuming [x>-1,x>1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+Warning, integration of abs or sign assumes constant sign by intervals (correct if the argument is real):
+Check [abs(t_nostep)]
+nock
+fgh:[201,1/2*(-2*sqrt(1+x^3)+5*x^4*sqrt(1+x^3)-3*x^2*sqrt(1-2*x+x^5))/sqrt(1+x^3)/sqrt(1-2*x+x^5),integrate(1/2*(-2*sqrt(x^3+1)+5*x^4*sqrt(x^3+1)-3*x^2*sqrt(x^5-2*x+1))/sqrt(x^3+1)/sqrt(x^5-2*x+1),x),false]
+f:10/sqrt(-4+x^2)+1/sqrt(-1+x^2)
+202,10/sqrt(-4+x^2)+1/sqrt(-1+x^2),x,5,x
+Auto-assuming [x>2]
+fgh:[202,10/sqrt(-4+x^2)+1/sqrt(-1+x^2),-10*ln(-sqrt(x^2-4)+x)-ln(-sqrt(x^2-1)+x),0]
+f:sqrt(x+sqrt(a^2+x^2))/x
+203,sqrt(x+sqrt(a^2+x^2))/x,x,6,x
+nock
+fgh:[203,sqrt(x+sqrt(a^2+x^2))/x,integrate(sqrt(sqrt(a^2+x^2)+x)/x,x),false]
+f:3/2*x^2/(1+x^3+sqrt(1+x^3))
+204,3/2*x^2/(1+x^3+sqrt(1+x^3)),x,4,x
+Auto-assuming [x>-1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[204,3/2*x^2/(1+x^3+sqrt(1+x^3)),3/2*2/3*ln(sqrt(x^3+1)+1),0]
+f:1/sqrt(-alpha^2+2*h*r^2)
+205,1/sqrt(-alpha^2+2*h*r^2),r,2,r
+Auto-assuming [h>0,h>0]
+Run purge([h,r]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[205,1/sqrt(-alpha^2+2*h*r^2),-1/sqrt(2)/sqrt(h)*ln(abs(sqrt(-alpha^2+2*h*r^2)-sqrt(2*h)*r)),0]
+f:1/r/sqrt(-alpha^2-eps^2+2*h*r^2)
+206,1/r/sqrt(-alpha^2-eps^2+2*h*r^2),r,3,r
+Auto-assuming [h>0,h>0]
+Run purge([h,r]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[206,1/r/sqrt(-alpha^2-eps^2+2*h*r^2),1/2/h*2*h*2/2/sqrt(alpha^2+eps^2)*atan(sqrt(-alpha^2-eps^2+2*h*r^2)/sqrt(alpha^2+eps^2)),0]
+f:1/r/sqrt(-alpha^2-2*k*r+2*h*r^2)
+207,1/r/sqrt(-alpha^2-2*k*r+2*h*r^2),r,2,r
+Auto-assuming [h>0,h>0]
+Run purge([h,r]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[207,1/r/sqrt(-alpha^2-2*k*r+2*h*r^2),4*1/2/alpha*atan((sqrt(-alpha^2+2*h*r^2-2*k*r)-sqrt(2*h)*r)/alpha),0]
+f:1/r/sqrt(-alpha^2-eps^2-2*k*r+2*h*r^2)
+208,1/r/sqrt(-alpha^2-eps^2-2*k*r+2*h*r^2),r,2,r
+Auto-assuming [h>0,h>0]
+Run purge([h,r]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[208,1/r/sqrt(-alpha^2-eps^2-2*k*r+2*h*r^2),2/sqrt(alpha^2+eps^2)*atan((sqrt(-alpha^2-eps^2+2*h*r^2-2*k*r)-sqrt(2*h)*r)/sqrt(alpha^2+eps^2)),0]
+f:r/sqrt(-alpha^2+2*exp(1)*r^2)
+209,r/sqrt(-alpha^2+2*exp(1)*r^2),r,1,r
+fgh:[209,r/sqrt(-alpha^2+2*exp(1)*r^2),1/2/exp(1)*sqrt(-alpha^2+2*r^2*exp(1)),0]
+f:r/sqrt(-alpha^2-eps^2+2*exp(1)*r^2)
+210,r/sqrt(-alpha^2-eps^2+2*exp(1)*r^2),r,1,r
+fgh:[210,r/sqrt(-alpha^2-eps^2+2*exp(1)*r^2),1/2/exp(1)*sqrt(-alpha^2-eps^2+2*r^2*exp(1)),0]
+f:r/sqrt(-alpha^2+2*exp(1)*r^2-2*k*r^4)
+211,r/sqrt(-alpha^2+2*exp(1)*r^2-2*k*r^4),r,3,r
+fgh:[211,r/sqrt(-alpha^2+2*exp(1)*r^2-2*k*r^4),-1/2/sqrt(2)/sqrt(-k)*ln(abs(-sqrt(2)*sqrt(-k)*(sqrt(-alpha^2-2*k*r^4+2*r^2*exp(1))-sqrt(-2*k)*r^2)+exp(1))),0]
+f:r/sqrt(-alpha^2-2*k*r+2*exp(1)*r^2)
+212,r/sqrt(-alpha^2-2*k*r+2*exp(1)*r^2),r,3,r
+fgh:[212,r/sqrt(-alpha^2-2*k*r+2*exp(1)*r^2),2/(4*exp(1))*sqrt(-alpha^2-2*k*r+2*r^2*exp(1))-2*k/4/sqrt(2)/exp(1/2)/exp(1)*ln(abs(sqrt(2)*(sqrt(-alpha^2-2*k*r+2*r^2*exp(1))-sqrt(2*exp(1))*r)*exp(1/2)+k)),0]
+f:1/r/sqrt(-alpha^2+2*h*r^2-2*k*r^4)
+213,1/r/sqrt(-alpha^2+2*h*r^2-2*k*r^4),r,3,r
+fgh:[213,1/r/sqrt(-alpha^2+2*h*r^2-2*k*r^4),1/alpha*atan((sqrt(-alpha^2+2*h*r^2-2*k*r^4)-sqrt(-2*k)*r^2)/alpha),0]
+f:1/r/sqrt(-alpha^2-eps^2+2*h*r^2-2*k*r^4)
+214,1/r/sqrt(-alpha^2-eps^2+2*h*r^2-2*k*r^4),r,3,r
+fgh:[214,1/r/sqrt(-alpha^2-eps^2+2*h*r^2-2*k*r^4),1/sqrt(alpha^2+eps^2)*atan((sqrt(-alpha^2-eps^2+2*h*r^2-2*k*r^4)-sqrt(-2*k)*r^2)/sqrt(alpha^2+eps^2)),0]
+f:a*cos(5+3*x)*sin(5+3*x)^2
+215,a*cos(5+3*x)*sin(5+3*x)^2,x,3,x
+fgh:[215,a*cos(5+3*x)*sin(5+3*x)^2,a/3*sin(5+3*x)^3/3,0]
+f:ln(x^2)/x^3
+216,ln(x^2)/x^3,x,1,x
+Auto-assuming [x>0]
+fgh:[216,ln(x^2)/x^3,2*(-1/(2*x^2)*ln(x)-1/(4*x^2)),0]
+f:x*sin(a+x)
+217,x*sin(a+x),x,2,x
+fgh:[217,x*sin(a+x),-x*cos(a+x)+sin(a+x),0]
+f:(-1+(1-x)*ln(x))/exp(x)/ln(x)^2
+218,(-1+(1-x)*ln(x))/exp(x)/ln(x)^2,x,1,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[218,(-1+(1-x)*ln(x))/exp(x)/ln(x)^2,x*exp(-x)/ln(x),0]
+f:x^3/(b+a*x^2)
+219,x^3/(b+a*x^2),x,3,x
+fgh:[219,x^3/(b+a*x^2),1/2*(x^2/a-b/a^2*ln(abs(x^2*a+b))),0]
+f:sqrt(x)/sqrt(1+x)/(1+x)^3
+220,sqrt(x)/sqrt(1+x)/(1+x)^3,x,2,x
+Auto-assuming [x>0,x>-1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[220,sqrt(x)/sqrt(1+x)/(1+x)^3,4*(1/15*sqrt(x)*sqrt(x)+1/6)*sqrt(x)*sqrt(x)*sqrt(x)*sqrt(x+1)/(x+1)^3,0]
+f:1/x/(1+x)
+221,1/x/(1+x),x,3,x
+fgh:[221,1/x/(1+x),ln(abs(x))-ln(abs(x+1)),0]
+f:1/sqrt(x)/(-1+2*x)
+222,1/sqrt(x)/(-1+2*x),x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[222,1/sqrt(x)/(-1+2*x),2*(sqrt(2)/4*ln(abs(sqrt(x)-sqrt(2)/2))-sqrt(2)/4*ln(sqrt(x)+sqrt(2)/2)),0]
+f:sqrt(x)*(1+x^2)
+223,sqrt(x)*(1+x^2),x,2,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[223,sqrt(x)*(1+x^2),2*sqrt(x)*x^3/7+2*sqrt(x)*x/3,0]
+f:(-a+x)^(1/3)/x
+224,(-a+x)^(1/3)/x,x,5,x
+Auto-assuming [a<0,x>0]
+Run purge([a,x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[224,(-a+x)^(1/3)/x,-(-a)^(1/3)/2*ln(((-a+x)^(1/3))^2+(-a)^(1/3)*(-a+x)^(1/3)+(-a)^(1/3)*(-a)^(1/3))-sqrt(3)*(-a)^(1/3)*atan(((-a+x)^(1/3)+1/2*(-a)^(1/3))/sqrt(3)*2/(-a)^(1/3))+3*a*(-a)^(1/3)/(3*a)*ln(abs((-a+x)^(1/3)-(-a)^(1/3)))+3*(-a+x)^(1/3),0]
+f:x*sinh(x)
+225,x*sinh(x),x,2,x
+Warning, the test a==b is performed by checking
+that the internal representation of 'regroup'(a-b) is not 0.
+Therefore a==b may return false even if a and b are mathematically equal,
+if they have different internal representations.
+You can explicitly call a simplification function like simplify(a-b)==0 to avoid this.
+fgh:[225,x*sinh(x),1/2*((x-1)*exp(x)+(x+1)*exp(-x)),(x*exp(x)^2-2*x*exp(x)*sinh(x)-x)/(2*exp(x))]
+f:x*cosh(x)
+226,x*cosh(x),x,2,x
+fgh:[226,x*cosh(x),1/2*((x-1)*exp(x)+(-x-1)*exp(-x)),(-2*x*cosh(x)*exp(x)+x*exp(x)^2+x)/(2*exp(x))]
+f:sinh(2*x)/cosh(2*x)
+227,sinh(2*x)/cosh(2*x),x,1,x
+fgh:[227,sinh(2*x)/cosh(2*x),-x+1/2*ln(exp(2*x)^2+1),(cosh(2*x)*exp(2*x)^2-cosh(2*x)-exp(2*x)^2*sinh(2*x)-sinh(2*x))/(cosh(2*x)*exp(2*x)^2+cosh(2*x))]
+f:(-1+I*eps*sinh(x))/(I*a-x+I*eps*cosh(x))
+228,(-1+I*eps*sinh(x))/(I*a-x+I*eps*cosh(x)),x,1,x
+fgh:[228,(-1+I*eps*sinh(x))/(I*a-x+I*eps*cosh(x)),-x+ln(2*I*a*exp(x)+I*eps*exp(x)^2+I*eps-2*x*exp(x)),(I^2*a*eps*exp(x)^2-2*I^2*a*eps*exp(x)*sinh(x)-I^2*a*eps+I^2*eps^2*cosh(x)*exp(x)^2-I^2*eps^2*cosh(x)-I^2*eps^2*exp(x)^2*sinh(x)-I^2*eps^2*sinh(x)-I*eps*x*exp(x)^2+2*I*eps*x*exp(x)*sinh(x)+I*eps*x-2*I*eps*cosh(x)*exp(x)+I*eps*exp(x)^2+I*eps)/(2*I^2*a^2*exp(x)+2*I^2*a*eps*cosh(x)*exp(x)+I^2*a*eps*exp(x)^2+I^2*a*eps+I^2*eps^2*cosh(x)*exp(x)^2+I^2*eps^2*cosh(x)-4*I*a*x*exp(x)-2*I*eps*x*cosh(x)*exp(x)-I*eps*x*exp(x)^2-I*eps*x+2*x^2*exp(x))]
+f:cos(x)^2*sin(3+2*x)
+229,cos(x)^2*sin(3+2*x),x,4,x
+fgh:[229,cos(x)^2*sin(3+2*x),-1/4*cos(2*x+3)-1/16*cos(4*x+3)+1/4*sin(3)*x,0]
+f:x*atan(x)
+230,x*atan(x),x,3,x
+fgh:[230,x*atan(x),-x/2+1/2*atan(x)+x^2/2*atan(x),0]
+f:x*atan(1/x)
+231,x*atan(1/x),x,3,x
+fgh:[231,x*atan(1/x),1/2*x+1/2*atan(1/x)+(-x)^2/2*atan(1/x),0]
+f:x*ln(a+x^2)
+232,x*ln(a+x^2),x,3,x
+fgh:[232,x*ln(a+x^2),1/2*(-a-x^2+(a+x^2)*ln(a+x^2)),0]
+f:cos(x)*sin(a+x)
+233,cos(x)*sin(a+x),x,3,x
+fgh:[233,cos(x)*sin(a+x),-1/4*cos(a+2*x)+1/2*sin(a)*x,0]
+f:cos(a+x)*sin(x)
+234,cos(a+x)*sin(x),x,3,x
+fgh:[234,cos(a+x)*sin(x),-1/4*cos(a+2*x)-1/2*sin(a)*x,0]
+f:sqrt(2)*abs(cos(x/2-pi/4))
+235,sqrt(2)*abs(cos(x/2-pi/4)),x,1,x
+Warning, integration of abs or sign assumes constant sign by intervals (correct if the argument is real):
+Check [abs(cos(x/2-pi/4))]
+Discontinuities at zeroes of cos(x/2-pi/4) were not checked
+fgh:[235,sqrt(2)*abs(cos(x/2-pi/4)),sqrt(2)*2*sin(1/4*(-pi+2*x))*sign(cos(-1/4*pi+1/2*x)),0]
+f:sqrt(1-sin(x))
+236,sqrt(1-sin(x)),x,1,x
+Auto-assuming [((x>(-pi)) and (x<pi)),((x>(pi/2)) and (x<pi))]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[236,sqrt(1-sin(x)),-sqrt(2)*2*cos(x/2-pi/4),0]
+f:sqrt(1+cos(x))
+237,sqrt(1+cos(x)),x,1,x
+Auto-assuming [((x>(-pi)) and (x<pi)),((x>(-pi)) and (x<pi))]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[237,sqrt(1+cos(x)),sqrt(2)*2*sin(x/2),0]
+f:sqrt(1-cos(x))
+238,sqrt(1-cos(x)),x,1,x
+Auto-assuming [((x>(-pi)) and (x<pi)),((x>0) and (x<pi))]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[238,sqrt(1-cos(x)),-sqrt(2)*2*cos(x/2),0]
+f:1/(-sqrt(-1+x)+sqrt(x))
+239,1/(-sqrt(-1+x)+sqrt(x)),x,3,x
+Auto-assuming [x>0,x>1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[239,1/(-sqrt(-1+x)+sqrt(x)),2*(1/3*sqrt(x-1)*(x-1)+2*(1/6*sqrt(x-1)*sqrt(x-1)+1/6)*sqrt(x)),0]
+f:1/(1-sqrt(1+x))
+240,1/(1-sqrt(1+x)),x,4,x
+Auto-assuming [x>-1]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[240,1/(1-sqrt(1+x)),-2*(sqrt(x+1)+ln(abs(sqrt(x+1)-1))),0]
+f:x/sqrt(36+x^4)
+241,x/sqrt(36+x^4),x,2,x
+fgh:[241,x/sqrt(36+x^4),-1/2*ln(sqrt(x^4+36)-x^2),0]
+f:1/(x^(1/3)+sqrt(x))
+242,1/(x^(1/3)+sqrt(x)),x,4,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[242,1/(x^(1/3)+sqrt(x)),6*(1/3*x^(1/6)*x^(1/3)-1/2*x^(1/3)+x^(1/6)-ln(x^(1/6)+1)),0]
+f:ln(2+3*x^2)
+243,ln(2+3*x^2),x,3,x
+fgh:[243,ln(2+3*x^2),x*ln(2+3*x^2)-6*(x/3-4/(3*2*sqrt(6))*atan(3*x/sqrt(6))),0]
+f:cos(x)/sin(x)
+244,cos(x)/sin(x),x,1,x
+fgh:[244,cos(x)/sin(x),ln(abs(sin(x))),0]
+f:(cos(x)/sin(x))^4
+245,(cos(x)/sin(x))^4,x,3,x
+fgh:[245,(cos(x)/sin(x))^4,2*((256/3*tan(x/2)^3-1280*tan(x/2))/4096+(15*tan(x/2)^2-1)/(48*tan(x/2)^3)+x/2),0]
+f:tanh(x)
+246,tanh(x),x,1,x
+fgh:[246,tanh(x),-x+ln(exp(2*x)+1),(-exp(2*x)*tanh(x)+exp(2*x)-tanh(x)-1)/(exp(2*x)+1)]
+f:1/tanh(x)
+247,1/tanh(x),x,1,x
+fgh:[247,1/tanh(x),-x+ln(abs(exp(2*x)-1)),(exp(2*x)*tanh(x)-exp(2*x)+tanh(x)+1)/(exp(2*x)*tanh(x)-tanh(x))]
+f:b^x
+248,b^x,x,1,x
+Auto-assuming [b>0]
+Run purge([b]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[248,b^x,1/ln(b)*b^x,0]
+f:sqrt(2+1/x^4+x^4)
+249,sqrt(2+1/x^4+x^4),x,4,x
+Auto-assuming [x>0]
+fgh:[249,sqrt(2+1/x^4+x^4),1/3*x^3-1/x,0]
+f:(1+2*x)/(2+3*x)
+250,(1+2*x)/(2+3*x),x,2,x
+fgh:[250,(1+2*x)/(2+3*x),2*x/3-1/9*ln(abs(3*x+2)),0]
+f:x*ln(x+sqrt(1+x^2))
+251,x*ln(x+sqrt(1+x^2)),x,3,x
+fgh:[251,x*ln(x+sqrt(1+x^2)),-2/8*x*sqrt(x^2+1)-1/4*ln(sqrt(x^2+1)-x)+x^2/2*ln(x+sqrt(1+x^2)),0]
+f:x*(1+exp(x)*sin(x))^2
+252,x*(1+exp(x)*sin(x))^2,x,14,x
+fgh:[252,x*(1+exp(x)*sin(x))^2,1/2*x^2+exp(x)*(-(2*x-2)/2*cos(x)+2*x/2*sin(x))+(2*x-1)/8*exp(2*x)+exp(2*x)*(-2*x/16*cos(2*x)+(-2*x+1)/16*sin(2*x)),0]
+f:exp(x)*x*cos(x)
+253,exp(x)*x*cos(x),x,4,x
+fgh:[253,exp(x)*x*cos(x),exp(x)*(x/2*cos(x)+(x-1)/2*sin(x)),0]
+f:1/(-3+x)^4
+254,1/(-3+x)^4,x,1,x
+fgh:[254,1/(-3+x)^4,-1/(3*(x-3)^3),0]
+f:x/(-1+x^3)
+255,x/(-1+x^3),x,6,x
+fgh:[255,x/(-1+x^3),-1/6*ln(x^2+x+1)+sqrt(3)/3*atan((x+1/2)/(sqrt(3)/2))+1/3*ln(abs(x-1)),0]
+f:x/(-1+x^4)
+256,x/(-1+x^4),x,2,x
+fgh:[256,x/(-1+x^4),1/2*(1/2*ln(abs(x^2-1))-1/2*ln(x^2+1)),0]
+f:(1+x^3)*ln(x)/(2+x^4)
+257,(1+x^3)*ln(x)/(2+x^4),x,10,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+nock
+fgh:[257,(1+x^3)*ln(x)/(2+x^4),integrate((1+x^3)*ln(x)/(2+x^4),x),false]
+f:ln(x)+ln(1+x)+ln(2+x)
+258,ln(x)+ln(1+x)+ln(2+x),x,6,x
+Auto-assuming [x>0,x>-1,x>-2]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[258,ln(x)+ln(1+x)+ln(2+x),x*ln(x)-x-1-x+(1+x)*ln(1+x)-2-x+(2+x)*ln(2+x),0]
+f:1/(5+x^3)
+259,1/(5+x^3),x,6,x
+fgh:[259,1/(5+x^3),-5^(1/3)/30*ln(x^2-5^(1/3)*x+5^(1/3)*5^(1/3))-5^(1/3)*sqrt(3)/15*atan(-(x-1/2*5^(1/3))/(sqrt(3)/2*5^(1/3)))+5^(1/3)/15*ln(abs(x+5^(1/3))),0]
+f:1/sqrt(1+x^2)
+260,1/sqrt(1+x^2),x,1,x
+fgh:[260,1/sqrt(1+x^2),-ln(sqrt(x^2+1)-x),0]
+f:sqrt(3+x^2)
+261,sqrt(3+x^2),x,2,x
+fgh:[261,sqrt(3+x^2),2/4*x*sqrt(x^2+3)-3/2*ln(sqrt(x^2+3)-x),0]
+f:x/(1+x)^2
+262,x/(1+x)^2,x,2,x
+fgh:[262,x/(1+x)^2,1/(x+1)+ln(abs(x+1)),0]
+f:asin(x)
+263,asin(x),x,2,x
+fgh:[263,asin(x),x*asin(x)+sqrt(1-x^2),0]
+f:x^2*asin(x)
+264,x^2*asin(x),x,4,x
+fgh:[264,x^2*asin(x),1/12*x*asin(x)-1/9*sqrt(-x^2+1)*(-x^2+1)+1/3*sqrt(-x^2+1)+1/4*x*asin(x)-1/3*x*asin(x)*(-x^2+1),0]
+f:(1/cos(x))^2/(1+(1/cos(x))^2-3*tan(x))
+265,(1/cos(x))^2/(1+(1/cos(x))^2-3*tan(x)),x,4,x
+fgh:[265,(1/cos(x))^2/(1+(1/cos(x))^2-3*tan(x)),ln(abs(tan(x)-2))-ln(abs(tan(x)-1)),0]
+f:1/(1/cos(x))^2
+266,1/(1/cos(x))^2,x,2,x
+fgh:[266,1/(1/cos(x))^2,2*(tan(x)/(4*(tan(x)^2+1))+1/4*x),0]
+f:(-2-3*x+5*x^2)/(-2+x)/x^2
+267,(-2-3*x+5*x^2)/(-2+x)/x^2,x,2,x
+fgh:[267,(-2-3*x+5*x^2)/(-2+x)/x^2,3*ln(abs(x-2))+2*ln(abs(x))-1/x,0]
+f:1/sqrt(9+4*x^2)
+268,1/sqrt(9+4*x^2),x,1,x
+fgh:[268,1/sqrt(9+4*x^2),-1/2*ln(sqrt(4*x^2+9)-2*x),0]
+f:1/sqrt(4+x^2)
+269,1/sqrt(4+x^2),x,1,x
+fgh:[269,1/sqrt(4+x^2),-ln(sqrt(x^2+4)-x),0]
+f:1/(10-12*x+9*x^2)
+270,1/(10-12*x+9*x^2),x,2,x
+fgh:[270,1/(10-12*x+9*x^2),2/(6*sqrt(6))*atan((3*x-2)/sqrt(6)),0]
+f:1/(x^4-2*x^5+2*x^6-2*x^7+x^8)
+271,1/(x^4-2*x^5+2*x^6-2*x^7+x^8),x,3,x
+fgh:[271,1/(x^4-2*x^5+2*x^6-2*x^7+x^8),1/4*ln(x^2+1)-5/2*ln(abs(x-1))+2*ln(abs(x))+(-15*x^3+6*x^2+4*x+2)*1/6/x^3/(x-1),0]
+f:(d+c*x+b*x^2+a*x^3)/(-3+x)/x/(1+x)
+272,(d+c*x+b*x^2+a*x^3)/(-3+x)/x/(1+x),x,2,x
+fgh:[272,(d+c*x+b*x^2+a*x^3)/(-3+x)/x/(1+x),-d/3*ln(abs(x))+(d+3*c+9*b+27*a)/12*ln(abs(x-3))+(d-c+b-a)/4*ln(abs(x+1))+x*a,0]
+f:1/(2-ln(1+x^2))^5
+273,1/(2-ln(1+x^2))^5,x,0,x
+nock
+fgh:[273,1/(2-ln(1+x^2))^5,(ln(x^2+1)^3*x^8-10*ln(x^2+1)^3*x^4-24*ln(x^2+1)^3*x^2-15*ln(x^2+1)^3-4*ln(x^2+1)^2*x^8+2*ln(x^2+1)^2*x^6+66*ln(x^2+1)^2*x^4+150*ln(x^2+1)^2*x^2+90*ln(x^2+1)^2+12*ln(x^2+1)*x^8-8*ln(x^2+1)*x^6-152*ln(x^2+1)*x^4-312*ln(x^2+1)*x^2-180*ln(x^2+1)+32*x^8+56*x^6+120*x^4+216*x^2+120)/(384*ln(x^2+1)^4*x^7-3072*ln(x^2+1)^3*x^7+9216*ln(x^2+1)^2*x^7-12288*ln(x^2+1)*x^7+6144*x^7)+integrate((-x^8-30*x^4-120*x^2-105)/(384*ln(x^2+1)*x^8-768*x^8),x),false]
+f:exp(x^2)/x+2*exp(x^2)*x*ln(x)+(-2+ln(x))/(x+ln(x)^2)^2+(1+1/x+2*ln(x)/x)/(x+ln(x)^2)
+274,exp(x^2)/x+2*exp(x^2)*x*ln(x)+(-2+ln(x))/(x+ln(x)^2)^2+(1+1/x+2*ln(x)/x)/(x+ln(x)^2),x,9,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[274,exp(x^2)/x+2*exp(x^2)*x*ln(x)+(-2+ln(x))/(x+ln(x)^2)^2+(1+1/x+2*ln(x)/x)/(x+ln(x)^2),1/2*Ei(x^2)+2*(1/2*exp(x^2)*ln(x)-1/4*Ei(x^2))+ln(x)/(-ln(x)^2-x)+ln(x)/(-ln(x)^2-x)+ln(x)/(-ln(x)^2-x)+ln(x+ln(x)^2),(2*x*ln(x)-2*x+2*ln(x)^2)/(x^3+2*x^2*ln(x)^2+x*ln(x)^4)]
+f:x^4*exp(1/2*x+x*z)*sin(pi*z)^4
+275,x^4*exp(1/2*x+x*z)*sin(pi*z)^4,z,4,z
+fgh:[275,x^4*exp(1/2*x+x*z)*sin(pi*z)^4,x^4*(3/(8*x)*exp((2*x*z+x)/2)+exp((2*x*z+x)/2)*(-2*x/((2*x)^2+(4*pi)^2)*cos(2*pi*z)-4*pi/((2*x)^2+(4*pi)^2)*sin(2*pi*z))+exp((2*x*z+x)/2)*(8*x/((8*x)^2+(32*pi)^2)*cos(4*pi*z)+32*pi/((8*x)^2+(32*pi)^2)*sin(4*pi*z))),0]
+f:erf(x)
+276,erf(x),x,1,x
+fgh:[276,erf(x),x*erf(x)+2*sqrt(pi)/pi/2*exp(-x^2),0]
+f:erf(a+x)
+277,erf(a+x),x,1,x
+fgh:[277,erf(a+x),x*erf(a+x)-2*sqrt(pi)/pi*(-1/2*exp(-(a^2+2*a*x+x^2))-a*sqrt(pi)/2*erf(x+2*a/2)),0]
+f:(-8-8*x-x^2-3*x^3+7*x^4+4*x^5+2*x^6)/(-1+2*x^2)^2/sqrt(1+2*x^2+4*x^3+x^4)
+278,(-8-8*x-x^2-3*x^3+7*x^4+4*x^5+2*x^6)/(-1+2*x^2)^2/sqrt(1+2*x^2+4*x^3+x^4),x,-10,x
+Auto-assuming [x>-1]
+nock
+fgh:[278,(-8-8*x-x^2-3*x^3+7*x^4+4*x^5+2*x^6)/(-1+2*x^2)^2/sqrt(1+2*x^2+4*x^3+x^4),integrate((2*((1/4*x+1/2)*x+9/8)+(-x^3-15/2*x^2+9*x+41/4)/(-4*x^4+4*x^2-1))/sqrt(x^4+4*x^3+2*x^2+1),x),false]
+f:(1+2*y)*sqrt(1-5*y-5*y^2)/y/(1+y)/(2+y)/sqrt(1-y-y^2)
+279,(1+2*y)*sqrt(1-5*y-5*y^2)/y/(1+y)/(2+y)/sqrt(1-y-y^2),y,-2,y
+Auto-assuming [((y>((-sqrt(5)-1)/2)) and (y<((sqrt(5)-1)/2))),((y>((-3*sqrt(5)-5)/10)) and (y<((3*sqrt(5)-5)/10)))]
+Run purge([y]); or purge(unquote(assumptions)) to clear auto-assumptions
+Warning, choosing root of [1,0,%%%{12,[2]%%%}+%%%{12,[1]%%%}+%%%{-4,[0]%%%},0,%%%{16,[4]%%%}+%%%{32,[3]%%%}+%%%{16,[2]%%%}] at parameters values [-1.10398528981]
+Warning, choosing root of [1,0,%%%{12,[2]%%%}+%%%{-12,[1]%%%}+%%%{-4,[0]%%%},0,%%%{16,[4]%%%}+%%%{-32,[3]%%%}+%%%{16,[2]%%%}] at parameters values [-0.749351240389]
+nock
+fgh:[279,(1+2*y)*sqrt(1-5*y-5*y^2)/y/(1+y)/(2+y)/sqrt(1-y-y^2),integrate((1+2*y)*sqrt(-5*y^2-5*y+1)/y/(1+y)/(2+y)/sqrt(-y^2-y+1),y),false]
+f:x*(-sqrt(-4+x^2)+x^2*sqrt(-4+x^2)-4*sqrt(-1+x^2)+x^2*sqrt(-1+x^2))/(4-5*x^2+x^4)/(1+sqrt(-4+x^2)+sqrt(-1+x^2))
+280,x*(-sqrt(-4+x^2)+x^2*sqrt(-4+x^2)-4*sqrt(-1+x^2)+x^2*sqrt(-1+x^2))/(4-5*x^2+x^4)/(1+sqrt(-4+x^2)+sqrt(-1+x^2)),x,1,x
+Auto-assuming [x>2]
+fgh:[280,x*(-sqrt(-4+x^2)+x^2*sqrt(-4+x^2)-4*sqrt(-1+x^2)+x^2*sqrt(-1+x^2))/(4-5*x^2+x^4)/(1+sqrt(-4+x^2)+sqrt(-1+x^2)),1/2*ln(abs(sqrt(x^2-4)-1))+2*(-1/4*ln(sqrt(x^2-1)-sqrt(x^2-4))-1/4*ln(abs(sqrt(x^2-1)-sqrt(x^2-4)-1))+1/4*ln(abs(sqrt(x^2-1)-sqrt(x^2-4)+3))),0]
+f:-sqrt(2)*sqrt(1+4*x+2*x^2+x^4)+x*(2*sqrt(2)-1)
+281,-sqrt(2)*sqrt(1+4*x+2*x^2+x^4)+x*(2*sqrt(2)-1),x,-1,x
+Auto-assuming [x>(rootof([[3,0,40,-52,120],[1,0,16,0,64,0,176]])/104)]
+nock
+fgh:[281,-sqrt(2)*sqrt(1+4*x+2*x^2+x^4)+x*(2*sqrt(2)-1),-sqrt(2)*2/6*x*sqrt(x^4+2*x^2+4*x+1)+(2*sqrt(2)-1)*x^2/2+integrate(-sqrt(2)*2*((1/3*x+1)*x+1/3)/sqrt(x^4+2*x^2+4*x+1),x),false]
+f:1/384*(pi^2*(-3*mc^8+4*mc^9+24*mc^6*x-48*mc^7*x-144*mc^5*x^2-24*mc^2*x^3+176*mc^3*x^3+3*x^4+12*mc*x^4)+12*mc^3*pi^2*(3*mc-12*mc^2-8*x)*x^2*ln(x/mc^2))/exp(x/y)/x^2
+282,1/384*(pi^2*(-3*mc^8+4*mc^9+24*mc^6*x-48*mc^7*x-144*mc^5*x^2-24*mc^2*x^3+176*mc^3*x^3+3*x^4+12*mc*x^4)+12*mc^3*pi^2*(3*mc-12*mc^2-8*x)*x^2*ln(x/mc^2))/exp(x/y)/x^2,x,20,x
+Auto-assuming [x>0]
+Run purge([x]); or purge(unquote(assumptions)) to clear auto-assumptions
+fgh:[282,1/384*(pi^2*(-3*mc^8+4*mc^9+24*mc^6*x-48*mc^7*x-144*mc^5*x^2-24*mc^2*x^3+176*mc^3*x^3+3*x^4+12*mc*x^4)+12*mc^3*pi^2*(3*mc-12*mc^2-8*x)*x^2*ln(x/mc^2))/exp(x/y)/x^2,1/384*(-4*mc^9*pi^2*x*Ei(-x/y)-4*mc^9*pi^2*y*exp(-x/y)+3*mc^8*pi^2*x*Ei(-x/y)+3*mc^8*pi^2*y*exp(-x/y)-48*mc^7*pi^2*x*y*Ei(-x/y)+24*mc^6*pi^2*x*y*Ei(-x/y)-144*mc^5*pi^2*x*y^2*Ei(-x/y)+144*mc^5*pi^2*x*y^2*exp(-x/y)*ln(x/mc^2)+144*mc^5*pi^2*x*y^2*exp(-x/y)+36*mc^4*pi^2*x*y^2*Ei(-x/y)-36*mc^4*pi^2*x*y^2*exp(-x/y)*ln(x/mc^2)+96*mc^3*pi^2*x^2*y^2*exp(-x/y)*ln(x/mc^2)-176*mc^3*pi^2*x^2*y^2*exp(-x/y)-96*mc^3*pi^2*x*y^3*Ei(-x/y)+96*mc^3*pi^2*x*y^3*exp(-x/y)*ln(x/mc^2)-80*mc^3*pi^2*x*y^3*exp(-x/y)+24*mc^2*pi^2*x^2*y^2*exp(-x/y)+24*mc^2*pi^2*x*y^3*exp(-x/y)-12*mc*pi^2*x^3*y^2*exp(-x/y)-24*mc*pi^2*x^2*y^3*exp(-x/y)-24*mc*pi^2*x*y^4*exp(-x/y)-3*pi^2*x^3*y^2*exp(-x/y)-6*pi^2*x^2*y^3*exp(-x/y)-6*pi^2*x*y^4*exp(-x/y))/(x*y),0]
+f:sin(2*x)/cos(x)
+283,sin(2*x)/cos(x),x,2,x
+Exchanging arguments
+fgh:[283,sin(2*x)/cos(x),-2*cos(x),0]
+f:(3+3*x-4*x^2-4*x^3-7*x^6+4*x^7+10*x^8+7*x^13)/(1+2*x-x^2-4*x^3-2*x^4-2*x^7-2*x^8+x^14)
+284,(3+3*x-4*x^2-4*x^3-7*x^6+4*x^7+10*x^8+7*x^13)/(1+2*x-x^2-4*x^3-2*x^4-2*x^7-2*x^8+x^14),x,-5,x
+fgh:[284,(3+3*x-4*x^2-4*x^3-7*x^6+4*x^7+10*x^8+7*x^13)/(1+2*x-x^2-4*x^3-2*x^4-2*x^7-2*x^8+x^14),(-7*sqrt(2)*ln(abs(x^7+x^2*sqrt(2)+x*sqrt(2)-x-1))+7*sqrt(2)*ln(abs(x^7-x^2*sqrt(2)-x*sqrt(2)-x-1)))/14+1/2*ln(abs(x^14-2*x^8-2*x^7-2*x^4-4*x^3-x^2+2*x+1)),0]
+
+Evaluation time: 5.27
+"Done",
+// Time 5.27
+1,
+// Time 0
+1,
+// Time 0
+Integration independent test suites, Hearn ,tests: ,284,, integration failures: ,20,[56,63,75,86,128,129,145,160,162,163,170,197,200,201,203,257,273,278,279,281],, simplification failures: ,7,[225,226,227,228,246,247,274],, not cheked: ,0,[],, assumptions: ,0,[]
+0
+// Time 0
+// Total time 5.34

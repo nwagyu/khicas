@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The point in the plane: point
+</title>
+</head>
+<body >
+<a href="cascmd_en787.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en789.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dpoint" class="subsection">13.6.2  The point in the plane: <span style="font-family:monospace">point</span>
+<a id="hevea_default1473"></a></h3>
+<p>See Section <a href="cascmd_en894.html#ssec%3A3dpoint">14.4.1</a> for points in space.</p><p>In the 2-d geometry screen in point mode, clicking on a point with the
+left mouse button will choose that point. Points chosen this way are
+automatically named, first with <span style="font-family:monospace">A</span>, then <span style="font-family:monospace">B</span>, etc.</p><p>Alternatively, the <span style="font-family:monospace">point</span> command chooses a point.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">point</span> takes one or two arguments:<br>
+ <span style="font-style:italic">coords</span>, where <span style="font-style:italic">coords</span> can be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>, a sequence of two coordinates.
+</li><li class="li-itemize">[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>], a list of two coordinates.
+</li><li class="li-itemize"><span style="font-style:italic">a</span>+<span style="font-style:italic">bi</span>, the affix of the point.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">point(</span><span style="font-style:italic">coords</span><span style="font-family:monospace">)</span> returns and draws the point
+with the given coordinates.
+</li></ul><h4 id="sec2026" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= point(2,1)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= point([2,1])</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= point(2 + i)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en163.png">
+</div><p>
+The marker used to indicate the point can be changed; see
+Section <a href="cascmd_en784.html#sssec%3Alocalfeatures">13.3.2</a>.</p><p><br>
+</p><p>If the <span style="font-family:monospace">point</span> command has two numbers for arguments, at least
+one of which is complex but not real, then it will choose two points.</p><h4 id="sec2027" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= point(1,2*i)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">A:= point([1,2*i])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en164.png">
+</div><p>
+There are two points named <span style="font-family:monospace">A</span>; one with affix 1 and
+one with affix <span style="font-family:monospace">2i</span>.</p>
+<hr>
+<a href="cascmd_en787.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en789.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

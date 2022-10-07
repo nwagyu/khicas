@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Exact values of rational roots of a polynomial: rationalroot
+</title>
+</head>
+<body >
+<a href="cascmd_en344.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en346.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec801" class="subsection">5.29.7  Exact values of rational roots of a polynomial: <span style="font-family:monospace">rationalroot</span>
+<a id="hevea_default596"></a></h3>
+<p>The <span style="font-family:monospace">rationalroot</span> command finds rational roots of polynomials.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">rationalroot</span> takes one mandatory and two optional
+arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a polynomial.
+</li><li class="li-itemize">Optionally, α and β, two real numbers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">rationalroot(</span><span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns the list
+of the value of the rational roots of <span style="font-style:italic">P</span> without
+multiplicity.
+</li><li class="li-itemize"><span style="font-family:monospace">rationalroot(</span><span style="font-style:italic">P</span>,α,β<span style="font-family:monospace">)</span> returns the list
+of the rational roots of <span style="font-style:italic">P</span> which are in the interval
+[α,β].
+</li></ul><h4 id="sec802" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Find the rational roots of 2*<span style="font-style:italic">x</span><sup>3</sup>−3*<span style="font-style:italic">x</span><sup>2</sup>−8*<span style="font-style:italic">x</span>+12:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rationalroot(2*x^3-3*x^2-8*x+12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">2,−2,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the rational roots of 2*<span style="font-style:italic">x</span><sup>3</sup>−3*<span style="font-style:italic">x</span><sup>2</sup>−8*<span style="font-style:italic">x</span>+12 in [1,2]:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rationalroot(2*x^3-3*x^2-8*x+12,1,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">2,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the rational roots of 2*<span style="font-style:italic">x</span><sup>3</sup>−3*<span style="font-style:italic">x</span><sup>2</sup>+8*<span style="font-style:italic">x</span>−12:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rationalroot(2*x^3-3*x^2+8*x-12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the rational roots of 2*<span style="font-style:italic">x</span><sup>3</sup>−3*<span style="font-style:italic">x</span><sup>2</sup>+8*<span style="font-style:italic">x</span>−12:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rationalroot(2*x^3-3*x^2+8*x-12)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the rational roots of (3*<span style="font-style:italic">x</span>−2)<sup>2</sup>*(2<span style="font-style:italic">x</span>+1)=18*<span style="font-style:italic">x</span><sup>3</sup>−15*<span style="font-style:italic">x</span><sup>2</sup>−4*<span style="font-style:italic">x</span>+4:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">rationalroot(18*x^3-15*x^2-4*x+4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en344.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en346.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

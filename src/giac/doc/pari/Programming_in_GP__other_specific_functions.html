@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Programming in GP: other specific functions</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:gp_program"></div>
+<h2 class="center">Programming in GP: other specific functions</h2>
+
+<p></p>
+<p></p>
+<p>
+  In addition to the general PARI functions, it is necessary to have some
+functions which will be of use specifically for <code>gp</code>, though a few of these
+can be accessed under library mode. Before we start describing these, we recall
+the difference between <em>strings</em> and <em>keywords</em> (see
+Section se:strings): the latter don't get expanded at all, and you can type
+them without any enclosing quotes. The former are dynamic objects, where
+everything outside quotes gets immediately expanded.</p>
+<p>
+<hr>
+<div id="se:Strprintf"></div>
+<div id="Strprintf"></div>
+<h4>Strprintf(<em>fmt</em>, {x}*)</h4>
+<p>
+Returns a string built from the remaining arguments according to the
+format fmt. The format consists of ordinary characters (not %), printed
+unchanged, and conversions specifications. See <code><a href="Programming_in_GP__other_specific_functions.html#se:printf"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">printf</a></code>.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:addhelp"></div>
+<div id="addhelp"></div>
+<h4>addhelp(<em>sym</em>, <em>str</em>)</h4>
+<p>
+Changes the help message for the symbol <code>sym</code>. The string <em>str</em>
+is expanded on the spot and stored as the online help for <code>sym</code>. It is
+recommended to document global variables and user functions in this way,
+although <code>gp</code> will not protest if you don't.</p>
+<p>
+You can attach a help text to an alias, but it will never be
+shown: aliases are expanded by the <code>?</code> help operator and we get the help
+of the symbol the alias points to. Nothing prevents you from modifying the
+help of built-in PARI functions. But if you do, we would like to hear why you
+needed it!</p>
+<p>
+Without <code><a href="Programming_in_GP__other_specific_functions.html#se:addhelp"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">addhelp</a></code>, the standard help for user functions consists of its
+name and definition.</p>
+<p>
+</p><pre class="code">  gp&gt; f(x) = x^2;
+  gp&gt; ?f
+  f =
+    (x)-&gt;x^2
+  
+</pre><p>
+Once addhelp is applied to f, the function code is no
+longer included. It can still be consulted by typing the function name:</p>
+<p>
+</p><pre class="code">  gp&gt; addhelp(f, "Square")
+  gp&gt; ?f
+  Square
+  
+  gp&gt; f
+  %2 = (x)-&gt;x^2
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>addhelp</b>(const char *sym, const char *str)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alarm"></div>
+<div id="alarm"></div>
+<h4>alarm({s = 0}, {<em>code</em>})</h4>
+<p>
+If <em>code</em> is omitted, trigger an <em>e_ALARM</em> exception after s
+seconds, cancelling any previously set alarm; stop a pending alarm if s = 
+0 or is omitted.</p>
+<p>
+Otherwise, if s is positive, the function evaluates <em>code</em>,
+aborting after s seconds. The return value is the value of <em>code</em> if
+it ran to completion before the alarm timeout, and a <code>t_ERROR</code> object
+otherwise.</p>
+<p>
+</p><pre class="code">    ? p = nextprime(10^25); q = nextprime(10^26); N = p*q;
+    ? E = alarm(1, factor(N));
+    ? type(E)
+    %3 = "t_ERROR"
+    ? print(E)
+    %4 = error("alarm interrupt after 964 ms.")
+    ? alarm(10, factor(N));   \\ enough time
+    %5 =
+    [ 10000000000000000000000013 1]
+  
+    [100000000000000000000000067 1]
+</pre><p>
+Here is a more involved example: the function
+<code>timefact(N,sec)</code> below tries to factor N and gives up after <em>sec</em>
+seconds, returning a partial factorization.</p>
+<p>
+</p><pre class="code">  \\ Time-bounded partial factorization
+  default(factor_add_primes,1);
+  timefact(N,sec)=
+  {
+    F = alarm(sec, factor(N));
+    if (type(F) == "t_ERROR", factor(N, 2^24), F);
+  }
+</pre><p>
+We either return the factorization directly, or replace the
+<code>t_ERROR</code> result by a simple bounded factorization <code>factor(N, 2^24)</code>.
+Note the <code>factor_add_primes</code> trick: any prime larger than 2<sup>24</sup>
+discovered while attempting the initial factorization is stored and
+remembered. When the alarm rings, the subsequent bounded factorization finds
+it right away.</p>
+<p>
+<b>Caveat.</b> It is not possible to set a new alarm <em>within</em>
+another <code><a href="Programming_in_GP__other_specific_functions.html#se:alarm"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">alarm</a></code> code: the new timer erases the parent one.</p>
+<p>
+The library syntax is <code>GEN <b>gp_alarm</b>(long s, GEN code = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:alias"></div>
+<div id="alias"></div>
+<h4>alias(<em>newsym</em>, <em>sym</em>)</h4>
+<p>
+Defines the symbol <em>newsym</em> as an alias for the symbol <em>sym</em>:</p>
+<p>
+</p><pre class="code">  ? alias("det", "matdet");
+  ? det([1,2;3,4])
+  %1 = -2
+</pre><p></p>
+<p>
+You are not restricted to ordinary functions, as in the above example:
+to alias (from/to) member functions, prefix them with `<code>_.</code>';
+to alias operators, use their internal name, obtained by writing
+<code>_</code> in lieu of the operators argument: for instance, <code>_!</code> and
+<code>!_</code> are the internal names of the factorial and the
+logical negation, respectively.</p>
+<p>
+</p><pre class="code">  ? alias("mod", "_.mod");
+  ? alias("add", "_+_");
+  ? alias("_.sin", "sin");
+  ? mod(Mod(x,x^4+1))
+  %2 = x^4 + 1
+  ? add(4,6)
+  %3 = 10
+  ? Pi.sin
+  %4 = 0.E-37
+</pre><p></p>
+<p>
+Alias expansion is performed directly by the internal GP compiler.
+Note that since alias is performed at compilation-time, it does not
+require any run-time processing, however it only affects GP code
+compiled <em>after</em> the alias command is evaluated. A slower but more
+flexible alternative is to use variables. Compare</p>
+<p>
+</p><pre class="code">  ? fun = sin;
+  ? g(a,b) = intnum(t=a,b,fun(t));
+  ? g(0, Pi)
+  %3 = 2.0000000000000000000000000000000000000
+  ? fun = cos;
+  ? g(0, Pi)
+  %5 = 1.8830410776607851098 E-39
+</pre><p></p>
+<p>
+with</p>
+<p>
+</p><pre class="code">  ? alias(fun, sin);
+  ? g(a,b) = intnum(t=a,b,fun(t));
+  ? g(0,Pi)
+  %2 = 2.0000000000000000000000000000000000000
+  ? alias(fun, cos);  \\ Oops. Does not affect *previous* definition!
+  ? g(0,Pi)
+  %3 = 2.0000000000000000000000000000000000000
+  ? g(a,b) = intnum(t=a,b,fun(t)); \\ Redefine, taking new alias into account
+  ? g(0,Pi)
+  %5 = 1.8830410776607851098 E-39
+</pre><p></p>
+<p></p>
+<p>
+A sample alias file <code>misc/gpalias</code> is provided with
+the standard distribution.</p>
+<p>
+The library syntax is <code>void <b>alias0</b>(const char *newsym, const char *sym)</code>.</p>
+<p>
+
+<hr>
+<div id="se:allocatemem"></div>
+<div id="allocatemem"></div>
+<h4>allocatemem({s = 0})</h4>
+<p>
+This special operation changes the stack size <em>after</em>
+initialization. x must be a non-negative integer. If x &gt; 0, a new stack
+of at least x bytes is allocated. We may allocate more than x bytes if
+x is way too small, or for alignment reasons: the current formula is
+max(16*ceil{x/16}, 500032) bytes.</p>
+<p>
+If x = 0, the size of the new stack is twice the size of the old one.</p>
+<p>
+This command is much more useful if <code>parisizemax</code> is non-zero, and we
+describe this case first. With <code>parisizemax</code> enabled, there are three
+sizes of interest:</p>
+<p>
+<b>*</b> a virtual stack size, <code>parisizemax</code>, which is an absolute upper
+limit for the stack size; this is set by <code>default(parisizemax, ...)</code>.</p>
+<p>
+<b>*</b> the desired typical stack size, <code>parisize</code>, that will grow as
+needed, up to <code>parisizemax</code>; this is set by <code>default(parisize, ...)</code>.</p>
+<p>
+<b>*</b> the current stack size, which is less that <code>parisizemax</code>,
+typically equal to <code>parisize</code> but possibly larger and increasing
+dynamically as needed; <code><a href="Programming_in_GP__other_specific_functions.html#se:allocatemem"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">allocatemem</a></code> allows to change that one
+explicitly.</p>
+<p>
+The <code><a href="Programming_in_GP__other_specific_functions.html#se:allocatemem"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">allocatemem</a></code> command forces stack
+usage to increase temporarily (up to <code>parisizemax</code> of course); for
+instance if you notice using <code>\gm2</code> that we seem to collect garbage a
+lot, e.g.</p>
+<p>
+</p><pre class="code">  ? \gm2
+    debugmem = 2
+  ? default(parisize,"32M")
+   ***   Warning: new stack size = 32000000 (30.518 Mbytes).
+  ? bnfinit('x^2+10^30-1)
+   *** bnfinit: collecting garbage in hnffinal, i = 1.
+   *** bnfinit: collecting garbage in hnffinal, i = 2.
+   *** bnfinit: collecting garbage in hnffinal, i = 3.
+</pre><p>
+and so on for hundred of lines. Then, provided the
+<code>breakloop</code> default is set, you can interrupt the computation, type
+<code>allocatemem(100*10^6)</code> at the break loop prompt, then let the
+computation go on by typing <code> &lt;Enter&gt; </code>. Back at the <code>gp</code> prompt,
+the desired stack size of <code>parisize</code> is restored. Note that changing either
+<code>parisize</code> or <code>parisizemax</code> at the break loop prompt would interrupt
+the computation, contrary to the above.</p>
+<p>
+In most cases, <code>parisize</code> will increase automatically (up to
+<code>parisizemax</code>) and there is no need to perform the above maneuvers.
+But that the garbage collector is sufficiently efficient that
+a given computation can still run without increasing the stack size,
+albeit very slowly due to the frequent garbage collections.</p>
+<p>
+<b>Deprecated: when <code>parisizemax.</b> is unset</code>
+This is currently still the default behavior in order not to break backward
+compatibility. The rest of this section documents the
+behavior of <code><a href="Programming_in_GP__other_specific_functions.html#se:allocatemem"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">allocatemem</a></code> in that (deprecated) situation: it becomes a
+synonym for <code>default(parisize,...)</code>. In that case, there is no
+notion of a virtual stack, and the stack size is always equal to
+<code>parisize</code>. If more memory is needed, the PARI stack overflows, aborting
+the computation.</p>
+<p>
+Thus, increasing <code>parisize</code> via <code><a href="Programming_in_GP__other_specific_functions.html#se:allocatemem"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">allocatemem</a></code> or
+<code>default(parisize,...)</code> before a big computation is important.
+Unfortunately, either must be typed at the <code>gp</code> prompt in
+interactive usage, or left by itself at the start of batch files.
+They cannot be used meaningfully in loop-like constructs, or as part of a
+larger expression sequence, e.g</p>
+<p>
+</p><pre class="code">     allocatemem(); x = 1;   \\  This will not set <code>x</code>!
+</pre><p></p>
+<p>
+In fact, all loops are immediately exited, user functions terminated, and
+the rest of the sequence following <code>allocatemem()</code> is silently
+discarded, as well as all pending sequences of instructions. We just go on
+reading the next instruction sequence from the file we are in (or from the
+user). In particular, we have the following possibly unexpected behavior: in</p>
+<p>
+</p><pre class="code">     read("file.gp"); x = 1
+</pre><p>
+were <code>file.gp</code> contains an <code><a href="Programming_in_GP__other_specific_functions.html#se:allocatemem"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">allocatemem</a></code> statement,
+the <code>x = 1</code> is never executed, since all pending instructions in the
+current sequence are discarded.</p>
+<p>
+The reason for these unfortunate side-effects is that, with
+<code>parisizemax</code> disabled, increasing the stack size physically
+moves the stack, so temporary objects created during the current expression
+evaluation are not correct anymore. (In particular byte-compiled expressions,
+which are allocated on the stack.) To avoid accessing obsolete pointers to
+the old stack, this routine ends by a <code>longjmp</code>.</p>
+<p>
+The library syntax is <code>void <b>gp_allocatemem</b>(GEN s = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:apply"></div>
+<div id="apply"></div>
+<h4>apply(f, A)</h4>
+<p>
+Apply the <code>t_CLOSURE</code> <code>f</code> to the entries of <code>A</code>. If <code>A</code>
+is a scalar, return <code>f(A)</code>. If <code>A</code> is a polynomial or power series,
+apply <code>f</code> on all coefficients. If <code>A</code> is a vector or list, return
+the elements f(x) where x runs through <code>A</code>. If <code>A</code> is a matrix,
+return the matrix whose entries are the f(<code>A[i,j]</code>).</p>
+<p>
+</p><pre class="code">  ? apply(x-&gt;x^2, [1,2,3,4])
+  %1 = [1, 4, 9, 16]
+  ? apply(x-&gt;x^2, [1,2;3,4])
+  %2 =
+  [1 4]
+  
+  [9 16]
+  ? apply(x-&gt;x^2, 4*x^2 + 3*x+ 2)
+  %3 = 16*x^2 + 9*x + 4
+</pre><p>
+Note that many functions already act componentwise on
+vectors or matrices, but they almost never act on lists; in this
+case, <code><a href="Programming_in_GP__other_specific_functions.html#se:apply"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">apply</a></code> is a good solution:</p>
+<p>
+</p><pre class="code">  ? L = List([Mod(1,3), Mod(2,4)]);
+  ? lift(L)
+    ***   at top-level: lift(L)
+    ***                 ^ &mdash;  &mdash; -
+    *** lift: incorrect type in lift.
+  ? apply(lift, L);
+  %2 = List([1, 2])
+</pre><p></p>
+<p>
+<b>Remark.</b> For v a <code>t_VEC</code>, <code>t_COL</code>, <code>t_LIST</code> or <code>t_MAT</code>,
+the alternative set-notations</p>
+<p>
+</p><pre class="code">  [g(x) | x &lt;- v, f(x)]
+  [x | x &lt;- v, f(x)]
+  [g(x) | x &lt;- v]
+</pre><p></p>
+<p>
+are available as shortcuts for</p>
+<p>
+</p><pre class="code">  apply(g, select(f, Vec(v)))
+  select(f, Vec(v))
+  apply(g, Vec(v))
+</pre><p>
+respectively:</p>
+<p>
+</p><pre class="code">  ? L = List([Mod(1,3), Mod(2,4)]);
+  ? [ lift(x) | x&lt;-L ]
+  %2 = [1, 2]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>genapply</b>(void *E, GEN (*fun)(void*,GEN), GEN a)</code>.</p>
+<p>
+
+<hr>
+<div id="se:call"></div>
+<div id="call"></div>
+<h4>call(f, A)</h4>
+<p>
+A = [a<sub>1</sub>,..., a<sub>n</sub>] being a vector and f being a function, returns the
+evaluation of f(a<sub>1</sub>,...,a<sub>n</sub>).
+f can also be the name of a built-in GP function.
+If # A = 1, <code><a href="Programming_in_GP__other_specific_functions.html#se:call"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">call</a></code>(f,A) = <code><a href="Programming_in_GP__other_specific_functions.html#se:apply"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">apply</a></code>(f,A)[1].
+If f is variadic, the variadic arguments must grouped in a vector in
+the last component of A.</p>
+<p>
+This function is useful</p>
+<p>
+<b>*</b> when writing a variadic function, to call another one:</p>
+<p>
+</p><pre class="code">  fprintf(file,format,args[..]) = write(file,call(Strprintf,[format,args]))
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> when dealing with function arguments with unspecified arity</p>
+<p>
+The function below implements a global memoization interface:</p>
+<p>
+</p><pre class="code">  memo=Map();
+  memoize(f,A[..])=
+  {
+    my(res);
+    if(!mapisdefined(memo, [f,A], &res),
+      res = call(f,A);
+      mapput(memo,[f,A],res));
+   res;
+  }
+</pre><p></p>
+<p>
+for example:</p>
+<p>
+</p><pre class="code">  ? memoize(factor,2^128+1)
+  %3 = [59649589127497217,1;5704689200685129054721,1]
+  ? ##
+    ***   last result computed in 76 ms.
+  ? memoize(factor,2^128+1)
+  %4 = [59649589127497217,1;5704689200685129054721,1]
+  ? ##
+    ***   last result computed in 0 ms.
+  ? memoize(ffinit,3,3)
+  %5 = Mod(1,3)*x^3+Mod(1,3)*x^2+Mod(1,3)*x+Mod(2,3)
+  ? fibo(n)=if(n==0,0,n==1,1,memoize(fibo,n-2)+memoize(fibo,n-1));
+  ? fibo(100)
+  %7 = 354224848179261915075
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> to call operators through their internal names without using
+<code><a href="Programming_in_GP__other_specific_functions.html#se:alias"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">alias</a></code></p>
+<p>
+</p><pre class="code">  matnbelts(M) = call("_*_",matsize(M))
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>call0</b>(GEN f, GEN A)</code>.</p>
+<p>
+
+<hr>
+<div id="se:default"></div>
+<div id="default"></div>
+<h4>default({<em>key</em>}, {<em>val</em>})</h4>
+<p>
+Returns the default corresponding to keyword <em>key</em>. If <em>val</em> is
+present, sets the default to <em>val</em> first (which is subject to string
+expansion first). Typing <code>default()</code> (or <code>\d</code>) yields the complete
+default list as well as their current values. See Section se:defaults for an
+introduction to GP defaults, Section <a href="GP_defaults.html#se:gp_defaults"
+    onClick="parent.itemFrame.location='cont_GP_defaults.html'">se:gp_defaults</a> for a
+list of available defaults, and Section se:meta for some shortcut
+alternatives. Note that the shortcuts are meant for interactive use and
+usually display more information than <code><a href="Programming_in_GP__other_specific_functions.html#se:default"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">default</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>default0</b>(const char *key = NULL, const char *val = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:errname"></div>
+<div id="errname"></div>
+<h4>errname(E)</h4>
+<p>
+Returns the type of the error message <code>E</code> as a string.</p>
+<p>
+The library syntax is <code>GEN <b>errname</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:error"></div>
+<div id="error"></div>
+<h4>error({<em>str</em>}*)</h4>
+<p>
+Outputs its argument list (each of
+them interpreted as a string), then interrupts the running <code>gp</code> program,
+returning to the input prompt. For instance</p>
+<p>
+</p><pre class="code">  error("n = ", n, " is not squarefree!")
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:extern"></div>
+<div id="extern"></div>
+<h4>extern(<em>str</em>)</h4>
+<p>
+The string <em>str</em> is the name of an external command (i.e.&nbsp;one you
+would type from your UNIX shell prompt). This command is immediately run and
+its output fed into <code>gp</code>, just as if read from a file.</p>
+<p>
+The library syntax is <code>GEN <b>gpextern</b>(const char *str)</code>.</p>
+<p>
+
+<hr>
+<div id="se:externstr"></div>
+<div id="externstr"></div>
+<h4>externstr(<em>str</em>)</h4>
+<p>
+The string <em>str</em> is the name of an external command (i.e.&nbsp;one you
+would type from your UNIX shell prompt). This command is immediately run and
+its output is returned as a vector of GP strings, one component per output
+line.</p>
+<p>
+The library syntax is <code>GEN <b>externstr</b>(const char *str)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fileclose"></div>
+<div id="fileclose"></div>
+<h4>fileclose(n)</h4>
+<p>
+Close the file descriptor n, created via <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code> or
+<code><a href="Programming_in_GP__other_specific_functions.html#se:fileextern"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileextern</a></code>. Finitely many files can be opened at a given time,
+closing them recycles file descriptors and avoids running out of them:</p>
+<p>
+</p><pre class="code">  ? n = 0; while(n++, fileopen("/tmp/test", "w"))
+   ***   at top-level: n=0;while(n++,fileopen("/tmp/test","w"))
+   ***                               ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** fileopen: error opening requested file: `/tmp/test'.
+   ***   Break loop: type 'break' to go back to GP prompt
+  break&gt; n
+  65533
+</pre><p>
+This is a limitation of the operating system and does not
+depend on PARI: if you open too many files in <code>gp</code> without closing them,
+the operating system will also prevent unrelated applications from opening
+files. Independently, your operating system (e.g. Windows) may prevent other
+applications from accessing or deleting your file while it is opened by
+<code>gp</code>. Quitting <code>gp</code> implicitly calls this function on all opened
+file descriptors.</p>
+<p>
+On files opened for writing, this function also forces a write of all
+buffered data to the file system and completes all pending write operations.
+This function is implicitly called for all open file descriptors when
+exiting <code>gp</code> but it is cleaner and safer to call it explicitly, for
+instance in case of a <code>gp</code> crash or general system failure, which could
+cause data loss.</p>
+<p>
+</p><pre class="code">  ? n = fileopen("./here");
+  ? while(l = fileread(n), print(l));
+  ? fileclose(n);
+  
+  ? n = fileopen("./there", "w");
+  ? for (i = 1, 100, filewrite(n, i^2+1))
+  ? fileclose(n)
+</pre><p>
+Until a <code><a href="Programming_in_GP__other_specific_functions.html#se:fileclose"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileclose</a></code>, there is no guarantee that the file on disk
+contains all the expected data from previous <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code>s. (And even
+then the operating system may delay the actual write to hardware.)</p>
+<p>
+Closing a file twice raises an exception:</p>
+<p>
+</p><pre class="code">  ? n = fileopen("/tmp/test");
+  ? fileclose(n)
+  ? fileclose(n)
+   ***   at top-level: fileclose(n)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; 
+   *** fileclose: invalid file descriptor 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>gp_fileclose</b>(long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fileextern"></div>
+<div id="fileextern"></div>
+<h4>fileextern(<em>str</em>)</h4>
+<p>
+The string <em>str</em> is the name of an external command, i.e.&nbsp;one you
+would type from your UNIX shell prompt. This command is immediately run and
+the function returns a file descriptor attached to the command output as if
+it were read from a file.</p>
+<p>
+</p><pre class="code">  ? n = fileextern("ls -l");
+  ? while(l = filereadstr(n), print(l))
+  ? fileclose(n)
+</pre><p>
+If the <code>secure</code> default is set, this function will raise
+en exception.</p>
+<p>
+The library syntax is <code>long <b>gp_fileextern</b>(const char *str)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fileflush"></div>
+<div id="fileflush"></div>
+<h4>fileflush({n})</h4>
+<p>
+Flushes the file descriptor n, created via <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code> or
+<code><a href="Programming_in_GP__other_specific_functions.html#se:fileextern"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileextern</a></code>. On files opened for writing, this function forces a write
+of all buffered data to the file system and completes all pending write
+operations. This function is implicitly called by <code><a href="Programming_in_GP__other_specific_functions.html#se:fileclose"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileclose</a></code> but you may
+want to call it explicitly at synchronization points, for instance after
+writing a large result to file and before printing diagnostics on screen.
+(In order to be sure that the file contains the expected content on
+inspection.)</p>
+<p>
+If n is omitted, flush all descriptors to output streams.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? n = fileopen("./here", "w");
+  ? for (i = 1, 10^5,      \
+      filewrite(n, i^2+1); \
+      if (i % 10000 == 0, fileflush(n)))
+</pre><p>
+Until a <code><a href="Programming_in_GP__other_specific_functions.html#se:fileflush"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileflush</a></code> or <code><a href="Programming_in_GP__other_specific_functions.html#se:fileclose"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileclose</a></code>, there is no guarantee
+that the file contains all the expected data from previous <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code>s.</p>
+<p>
+The library syntax is <code>void <b>gp_fileflush0</b>(GEN n = NULL)</code>.
+But the direct and more specific variant
+<code>void <b>gp_fileflush</b>(long n)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:fileopen"></div>
+<div id="fileopen"></div>
+<h4>fileopen(<em>path</em>, <em>mode</em>)</h4>
+<p>
+Open the file pointed to by 'path' and return a file descriptor which
+can be used with other file functions.</p>
+<p>
+The mode can be</p>
+<p>
+<b>*</b> <code>"r"</code> (default): open for reading; allow <code><a href="Programming_in_GP__other_specific_functions.html#se:fileread"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileread</a></code> and
+<code><a href="Programming_in_GP__other_specific_functions.html#se:filereadstr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filereadstr</a></code>.</p>
+<p>
+<b>*</b> <code>"w"</code>: open for writing, discarding existing content; allow
+<code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code>, <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite1"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite1</a></code>.</p>
+<p>
+<b>*</b> <code>"a"</code>: open for writing, appending to existing content; same
+operations allowed as <code>"w"</code>.</p>
+<p>
+Eventually, the file should be closed and the descriptor recycled using
+<code><a href="Programming_in_GP__other_specific_functions.html#se:fileclose"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileclose</a></code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? n = fileopen("./here");  \\ "r" by default
+  ? while (l = filereadstr(n), print(l))  \\ print successive lines
+  ? fileclose(n) \\ done
+</pre><p>
+In <em>read</em> mode, raise an exception if the file does not
+exist or the user does not have read permission. In <em>write</em> mode, raise
+an exception if the file cannot be written to. Trying to read or write to a
+file that was not opend with the right mode raises an exception.</p>
+<p>
+</p><pre class="code">  ? n = fileopen("./read", "r");
+  ? filewrite(n, "test")      \\ not open for writing
+   ***   at top-level: filewrite(n,"test")
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; -
+   *** filewrite: invalid file descriptor 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>gp_fileopen</b>(const char *path, const char *mode)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fileread"></div>
+<div id="fileread"></div>
+<h4>fileread(n)</h4>
+<p>
+Read a logical line from the file attached to the descriptor n, opened
+for reading with <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code>. Return 0 at end of file.</p>
+<p>
+A logical line is a full command as it is prepared by gp's
+preprocessor (skipping blanks and comments or assembling multiline commands
+between braces) before being fed to the interpreter. The function
+<code><a href="Programming_in_GP__other_specific_functions.html#se:filereadstr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filereadstr</a></code> would read a <em>raw</em> line exactly as input, up to the
+next carriage return <code>\n</code>.</p>
+<p>
+Compare raw lines</p>
+<p>
+</p><pre class="code">  ? n = fileopen("examples/bench.gp");
+  ? while(l = filereadstr(n), print(l));
+  {
+    u=v=p=q=1;
+    for (k=1, 2000,
+      [u,v] = [v,u+v];
+      p *= v; q = lcm(q,v);
+      if (k%50 == 0,
+        print(k, " ", log(p)/log(q))
+      )
+    )
+  }
+</pre><p>
+and logical lines</p>
+<p>
+</p><pre class="code">  ? n = fileopen("examples/bench.gp");
+  ? while(l = fileread(n), print(l));
+  u=v=p=q=1;for(k=1,2000,[u,v]=[v,u+v];p*=v;q=lcm(q,v);[...]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gp_fileread</b>(long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:filereadstr"></div>
+<div id="filereadstr"></div>
+<h4>filereadstr(n)</h4>
+<p>
+Read a raw line from the file attached to the descriptor n, opened
+for reading with <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code>, discarding the terminating newline.
+In other words the line is read exactly as input, up to the
+next carriage return <code>\n</code>. By comparison, <code><a href="Programming_in_GP__other_specific_functions.html#se:fileread"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileread</a></code> would
+read a logical line, as assembled by gp's preprocessor (skipping blanks
+and comments for instance).</p>
+<p>
+The library syntax is <code>GEN <b>gp_filereadstr</b>(long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:filewrite"></div>
+<div id="filewrite"></div>
+<h4>filewrite(n, s)</h4>
+<p>
+Write the string s to the file attached to descriptor n, ending with
+a newline. The file must have been opened with <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code> in
+<code>"w"</code> or <code>"a"</code> mode. There is no guarantee that s is completely
+written to disk until <code>fileclose(n)</code> is executed, which is automatic
+when quitting <code>gp</code>.</p>
+<p>
+If the newline is not desired, use <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite1"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite1</a></code>.</p>
+<p>
+<b>Variant.</b> The high-level function <code><a href="Programming_in_GP__other_specific_functions.html#se:write"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">write</a></code> is expensive when many
+consecutive writes are expected because it cannot use buffering. The low-level
+interface <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code> / <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code> / <code><a href="Programming_in_GP__other_specific_functions.html#se:fileclose"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileclose</a></code> is more efficient:</p>
+<p>
+</p><pre class="code">  ? f = "/tmp/bigfile";
+  ? for (i = 1, 10^5, write(f, i^2+1))
+  time = 240 ms.
+  
+  ? v = vector(10^5, i, i^2+1);
+  time = 10 ms. \\ computing the values is fast
+  ? write("/tmp/bigfile2",v)
+  time = 12 ms. \\ writing them in one operation is fast
+  
+  ? n = fileopen("/tmp/bigfile", "w");
+  ? for (i = 1, 10^5, filewrite(n, i^2+1))
+  time = 24 ms.  \\ low-level write is ten times faster
+  ? fileclose(n);
+</pre><p>
+In the final example, the file needs not be in a consistent
+state until the ending <code><a href="Programming_in_GP__other_specific_functions.html#se:fileclose"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileclose</a></code> is evaluated, e.g. some lines might be
+half-written or not present at all even though the corresponding
+<code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code> was executed already. Both a single high-level <code><a href="Programming_in_GP__other_specific_functions.html#se:write"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">write</a></code>
+and a succession of low-level <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code>s achieve the same efficiency,
+but the latter is often more natural. In fact, concatenating naively
+the entries to be written is quadratic in the number of entries, hence
+much more expensive than the original write operations:</p>
+<p>
+</p><pre class="code">  ? v = []; for (i = 1, 10^5, v = concat(v,i))
+  time = 1min, 41,456 ms.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>gp_filewrite</b>(long n, const char *s)</code>.</p>
+<p>
+
+<hr>
+<div id="se:filewrite1"></div>
+<div id="filewrite1"></div>
+<h4>filewrite1(n, s)</h4>
+<p>
+Write the string s to the file attached to descriptor n.
+The file must have been opened with <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code> in <code>"w"</code> or <code>"a"</code>
+mode.</p>
+<p>
+If you want to append a newline at the end of s, you can use
+<code>Str(s,"\n")</code> or <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code>.</p>
+<p>
+The library syntax is <code>void <b>gp_filewrite1</b>(long n, const char *s)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fold"></div>
+<div id="fold"></div>
+<h4>fold(f, A)</h4>
+<p>
+Apply the <code>t_CLOSURE</code> <code>f</code> of arity 2 to the entries of <code>A</code>,
+in order to return <code>f(...f(f(A[1],A[2]),A[3])...,A[#A])</code>.</p>
+<p>
+</p><pre class="code">  ? fold((x,y)-&gt;x*y, [1,2,3,4])
+  %1 = 24
+  ? fold((x,y)-&gt;[x,y], [1,2,3,4])
+  %2 = [[[1, 2], 3], 4]
+  ? fold((x,f)-&gt;f(x), [2,sqr,sqr,sqr])
+  %3 = 256
+  ? fold((x,y)-&gt;(x+y)/(1-x*y),[1..5])
+  %4 = -9/19
+  ? bestappr(tan(sum(i=1,5,atan(i))))
+  %5 = -9/19
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>fold0</b>(GEN f, GEN A)</code>.
+Also available is
+<code>GEN <b>genfold</b>(void *E, GEN (*fun)(void*,GEN, GEN), GEN A)</code>.</p>
+<p>
+
+<hr>
+<div id="se:getabstime"></div>
+<div id="getabstime"></div>
+<h4>getabstime()</h4>
+<p>
+Returns the CPU time (in milliseconds) elapsed since <code>gp</code> startup.
+This provides a reentrant version of <code><a href="Programming_in_GP__other_specific_functions.html#se:gettime"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">gettime</a></code>:</p>
+<p>
+</p><pre class="code">  my (t = getabstime());
+  ...
+  print("Time: ", getabstime() - t);
+</pre><p></p>
+<p>
+For a version giving wall-clock time, see <code><a href="Programming_in_GP__other_specific_functions.html#se:getwalltime"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">getwalltime</a></code>.</p>
+<p>
+The library syntax is <code>long <b>getabstime</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:getenv"></div>
+<div id="getenv"></div>
+<h4>getenv(s)</h4>
+<p>
+Return the value of the environment variable <code>s</code> if it is defined, otherwise return 0.</p>
+<p>
+The library syntax is <code>GEN <b>gp_getenv</b>(const char *s)</code>.</p>
+<p>
+
+<hr>
+<div id="se:getheap"></div>
+<div id="getheap"></div>
+<h4>getheap()</h4>
+<p>
+Returns a two-component row vector giving the
+number of objects on the heap and the amount of memory they occupy in long
+words. Useful mainly for debugging purposes.</p>
+<p>
+The library syntax is <code>GEN <b>getheap</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:getrand"></div>
+<div id="getrand"></div>
+<h4>getrand()</h4>
+<p>
+Returns the current value of the seed used by the
+pseudo-random number generator <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:random"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">random</a></code>. Useful mainly for debugging
+purposes, to reproduce a specific chain of computations. The returned value
+is technical (reproduces an internal state array), and can only be used as an
+argument to <code><a href="Programming_in_GP__other_specific_functions.html#se:setrand"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">setrand</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>getrand</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:getstack"></div>
+<div id="getstack"></div>
+<h4>getstack()</h4>
+<p>
+Returns the current value of <code>top</code>-<code>avma</code>, i.e.&nbsp;the number of
+bytes used up to now on the stack. Useful mainly for debugging purposes.</p>
+<p>
+The library syntax is <code>long <b>getstack</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:gettime"></div>
+<div id="gettime"></div>
+<h4>gettime()</h4>
+<p>
+Returns the CPU time (in milliseconds) used since either the last call to
+<code><a href="Programming_in_GP__other_specific_functions.html#se:gettime"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">gettime</a></code>, or to the beginning of the containing GP instruction (if
+inside <code>gp</code>), whichever came last.</p>
+<p>
+For a reentrant version, see <code><a href="Programming_in_GP__other_specific_functions.html#se:getabstime"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">getabstime</a></code>.</p>
+<p>
+For a version giving wall-clock time, see <code><a href="Programming_in_GP__other_specific_functions.html#se:getwalltime"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">getwalltime</a></code>.</p>
+<p>
+The library syntax is <code>long <b>gettime</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:getwalltime"></div>
+<div id="getwalltime"></div>
+<h4>getwalltime()</h4>
+<p>
+Returns the time (in milliseconds) elapsed since
+00:00:00 UTC Thursday 1, January 1970 (the Unix epoch).</p>
+<p>
+</p><pre class="code">  my (t = getwalltime());
+  ...
+  print("Time: ", getwalltime() - t);
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>getwalltime</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:global"></div>
+<div id="global"></div>
+<h4>global(<em>list</em> <em>of</em> <em>variables</em>)</h4>
+<p>
+Obsolete. Scheduled for deletion.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:inline"></div>
+<div id="inline"></div>
+<h4>inline(x, ..., z)</h4>
+<p>
+(Experimental) declare x,..., z as inline variables. Such variables
+behave like lexically scoped variable (see my()) but with unlimited scope.
+It is however possible to exit the scope by using <code>uninline()</code>.
+When used in a GP script, it is recommended to call <code>uninline()</code> before
+the script's end to avoid inline variables leaking outside the script.</p>
+<p>
+
+<hr>
+<div id="se:input"></div>
+<div id="input"></div>
+<h4>input()</h4>
+<p>
+Reads a string, interpreted as a GP expression,
+from the input file, usually standard input (i.e.&nbsp;the keyboard). If a
+sequence of expressions is given, the result is the result of the last
+expression of the sequence. When using this instruction, it is useful to
+prompt for the string by using the <code><a href="Programming_in_GP__other_specific_functions.html#se:print1"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">print1</a></code> function. Note that in the
+present version 2.19 of <code>pari.el</code>, when using <code>gp</code> under GNU Emacs (see
+Section se:emacs) one <em>must</em> prompt for the string, with a string
+which ends with the same prompt as any of the previous ones (a <code>"? "</code>
+will do for instance).</p>
+<p>
+The library syntax is <code>GEN <b>gp_input</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:install"></div>
+<div id="install"></div>
+<h4>install(<em>name</em>, <em>code</em>, {<em>gpname</em>}, {<em>lib</em>})</h4>
+<p>
+Loads from dynamic library <em>lib</em> the function <em>name</em>. Assigns to it
+the name <em>gpname</em> in this <code>gp</code> session, with <em>prototype</em>
+<em>code</em> (see below). If <em>gpname</em> is omitted, uses <em>name</em>.
+If <em>lib</em> is omitted, all symbols known to <code>gp</code> are available: this
+includes the whole of <code>libpari.so</code> and possibly others (such as
+<code>libc.so</code>).</p>
+<p>
+Most importantly, <code><a href="Programming_in_GP__other_specific_functions.html#se:install"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">install</a></code> gives you access to all non-static functions
+defined in the PARI library. For instance, the function</p>
+<p>
+</p><pre class="code">    GEN addii(GEN x, GEN y)
+</pre><p>
+adds two PARI integers, and is not directly accessible under
+<code>gp</code> (it is eventually called by the <code>+</code> operator of course):</p>
+<p>
+</p><pre class="code">  ? install("addii", "GG")
+  ? addii(1, 2)
+  %1 = 3
+</pre><p></p>
+<p>
+It also allows to add external functions to the <code>gp</code> interpreter.
+For instance, it makes the function <code><a href="Programming_in_GP__other_specific_functions.html#se:system"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">system</a></code> obsolete:</p>
+<p>
+</p><pre class="code">  ? install(system, vs, sys,/*omitted*/)
+  ? sys("ls gp*")
+  gp.c            gp.h            gp_rl.c
+</pre><p>
+This works because <code><a href="Programming_in_GP__other_specific_functions.html#se:system"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">system</a></code> is part of <code>libc.so</code>,
+which is linked to <code>gp</code>. It is also possible to compile a shared library
+yourself and provide it to gp in this way: use <code>gp2c</code>, or do it manually
+(see the <code>modules_build</code> variable in <code>pari.cfg</code> for hints).</p>
+<p>
+Re-installing a function will print a warning and update the prototype code
+if needed. However, it will not reload a symbol from the library, even if the
+latter has been recompiled.</p>
+<p>
+<b>Prototype.</b> We only give a simplified description here, covering
+most functions, but there are many more possibilities. The full documentation
+is available in <code>libpari.dvi</code>, see</p>
+<p>
+</p><pre class="code">    ??prototype
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> First character <code>i</code>, <code>l</code>, <code>v</code> : return type int / long /
+void. (Default: <code>GEN</code>)</p>
+<p>
+<b>*</b> One letter for each mandatory argument, in the same order as they appear
+in the argument list: <code>G</code> (<code>GEN</code>), <code>&</code>
+(<code>GEN*</code>), <code>L</code> (<code>long</code>), <code>s</code> (<code>char *</code>), <code>n</code>
+(variable).</p>
+<p>
+<b>*</b> <code>p</code> to supply <code>realprecision</code> (usually <code>long prec</code> in the
+ argument list), <code>P</code> to supply <code>seriesprecision</code>
+ (usually <code>long precdl</code>).</p>
+<p>
+We also have special constructs for optional arguments and default
+ values:</p>
+<p>
+<b>*</b> <code>DG</code> (optional <code>GEN</code>, <code>NULL</code> if omitted),</p>
+<p>
+<b>*</b> <code>D&</code> (optional <code>GEN*</code>, <code>NULL</code> if omitted),</p>
+<p>
+<b>*</b> <code>Dn</code> (optional variable, -1 if omitted),</p>
+<p>
+For instance the prototype corresponding to</p>
+<p>
+</p><pre class="code">    long issquareall(GEN x, GEN *n = NULL)
+</pre><p>
+is <code>lGD&</code>.</p>
+<p>
+<b>Caution.</b> This function may not work on all systems, especially
+when <code>gp</code> has been compiled statically. In that case, the first use of an
+installed function will provoke a Segmentation Fault (this should never
+happen with a dynamically linked executable). If you intend to use this
+function, please check first on some harmless example such as the one above
+that it works properly on your machine.</p>
+<p>
+The library syntax is <code>void <b>gpinstall</b>(const char *name, const char *code, const char *gpname, const char *lib)</code>.</p>
+<p>
+
+<hr>
+<div id="se:kill"></div>
+<div id="kill"></div>
+<h4>kill(<em>sym</em>)</h4>
+<p>
+Restores the symbol <code>sym</code> to its "undefined" status, and deletes any
+help messages attached to <code>sym</code> using <code><a href="Programming_in_GP__other_specific_functions.html#se:addhelp"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">addhelp</a></code>. Variable names
+remain known to the interpreter and keep their former priority: you cannot
+make a variable "less important" by killing it!</p>
+<p>
+</p><pre class="code">  ? z = y = 1; y
+  %1 = 1
+  ? kill(y)
+  ? y            \\ restored to ``undefined'' status
+  %2 = y
+  ? variable()
+  %3 = [x, y, z] \\ but the variable name y is still known, with y &gt; z !
+</pre><p></p>
+<p>
+For the same reason, killing a user function (which is an ordinary
+variable holding a <code>t_CLOSURE</code>) does not remove its name from the list of
+variable names.</p>
+<p>
+If the symbol is attached to a variable  &mdash;  user functions being an
+important special case  &mdash; , one may use the quote operator
+<code>a = 'a</code> to reset variables to their starting values. However, this
+will not delete a help message attached to <code>a</code>, and is also slightly
+slower than <code>kill(a)</code>.</p>
+<p>
+</p><pre class="code">  ? x = 1; addhelp(x, "foo"); x
+  %1 = 1
+  ? x = 'x; x   \\ same as 'kill', except we don't delete help.
+  %2 = x
+  ? ?x
+  foo
+</pre><p></p>
+<p>
+On the other hand, <code><a href="Programming_in_GP__other_specific_functions.html#se:kill"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">kill</a></code> is the only way to remove aliases and installed
+functions.</p>
+<p>
+</p><pre class="code">  ? alias(fun, sin);
+  ? kill(fun);
+  
+  ? install(addii, GG);
+  ? kill(addii);
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>kill0</b>(const char *sym)</code>.</p>
+<p>
+
+<hr>
+<div id="se:listcreate"></div>
+<div id="listcreate"></div>
+<h4>listcreate({n})</h4>
+<p>
+This function is obsolete, use <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:List"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">List</a></code>.</p>
+<p>
+Creates an empty list. This routine used to have a mandatory argument,
+which is now ignored (for backward compatibility).</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:listinsert"></div>
+<div id="listinsert"></div>
+<h4>listinsert(L, x, n)</h4>
+<p>
+Inserts the object x at
+position n in L (which must be of type <code>t_LIST</code>). This has
+complexity O(#L - n + 1): all the
+remaining elements of <em>list</em> (from position n+1 onwards) are shifted
+to the right.</p>
+<p>
+The library syntax is <code>GEN <b>listinsert</b>(GEN L, GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:listkill"></div>
+<div id="listkill"></div>
+<h4>listkill(L)</h4>
+<p>
+Obsolete, retained for backward compatibility. Just use <code>L = List()</code>
+instead of <code>listkill(L)</code>. In most cases, you won't even need that, e.g.
+local variables are automatically cleared when a user function returns.</p>
+<p>
+The library syntax is <code>void <b>listkill</b>(GEN L)</code>.</p>
+<p>
+
+<hr>
+<div id="se:listpop"></div>
+<div id="listpop"></div>
+<h4>listpop(<em>list</em>, {n})</h4>
+<p>
+Removes the n-th element of the list
+<em>list</em> (which must be of type <code>t_LIST</code>). If n is omitted,
+or greater than the list current length, removes the last element.
+If the list is already empty, do nothing. This runs in time O(#L - n + 1).</p>
+<p>
+The library syntax is <code>void <b>listpop0</b>(GEN list, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:listput"></div>
+<div id="listput"></div>
+<h4>listput(<em>list</em>, x, {n})</h4>
+<p>
+Sets the n-th element of the list
+<em>list</em> (which must be of type <code>t_LIST</code>) equal to x. If n is omitted,
+or greater than the list length, appends x. The function returns the
+inserted element.</p>
+<p>
+</p><pre class="code">  ? L = List();
+  ? listput(L, 1)
+  %2 = 1
+  ? listput(L, 2)
+  %3 = 2
+  ? L
+  %4 = List([1, 2])
+</pre><p></p>
+<p></p>
+<p>
+You may put an element into an occupied cell (not changing the
+list length), but it is easier to use the standard <code>list[n] = x</code>
+construct.</p>
+<p>
+</p><pre class="code">  ? listput(L, 3, 1) \\ insert at position 1
+  %5 = 3
+  ? L
+  %6 = List([3, 2])
+  ? L[2] = 4 \\ simpler
+  %7 = List([3, 4])
+  ? L[10] = 1  \\ can't insert beyond the end of the list
+   ***   at top-level: L[10]=1
+   ***                  ^ &mdash;  &mdash; 
+   ***   non-existent component: index &gt; 2
+  ? listput(L, 1, 10) \\ but listput can
+  %8 = 1
+  ? L
+  %9 = List([3, 2, 1])
+</pre><p></p>
+<p></p>
+<p>
+This function runs in time O(#L) in the worst case (when the list must
+be reallocated), but in time O(1) on average: any number of successive
+<code><a href="Programming_in_GP__other_specific_functions.html#se:listput"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">listput</a></code>s run in time O(#L), where #L denotes the list
+<em>final</em> length.</p>
+<p>
+The library syntax is <code>GEN <b>listput0</b>(GEN list, GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:listsort"></div>
+<div id="listsort"></div>
+<h4>listsort(L, {<em>flag</em> = 0})</h4>
+<p>
+Sorts the <code>t_LIST</code> <em>list</em> in place, with respect to the (somewhat
+arbitrary) universal comparison function <code><a href="Standard_monadic_or_dyadic_operators.html#se:cmp"
+    onClick="parent.itemFrame.location='cont_Standard_monadic_or_dyadic_operators.html'">cmp</a></code>. In particular, the
+ordering is the same as for sets and <code><a href="Vectors__matrices__linear_algebra_and_sets.html#se:setsearch"
+    onClick="parent.itemFrame.location='cont_Vectors__matrices__linear_algebra_and_sets.html'">setsearch</a></code> can be used on a sorted
+list.</p>
+<p>
+</p><pre class="code">  ? L = List([1,2,4,1,3,-1]); listsort(L); L
+  %1 = List([-1, 1, 1, 2, 3, 4])
+  ? setsearch(L, 4)
+  %2 = 6
+  ? setsearch(L, -2)
+  %3 = 0
+</pre><p>
+This is faster than the <code><a href="Vectors__matrices__linear_algebra_and_sets.html#se:vecsort"
+    onClick="parent.itemFrame.location='cont_Vectors__matrices__linear_algebra_and_sets.html'">vecsort</a></code> command since the list
+is sorted in place: no copy is made. No value returned.</p>
+<p>
+If <em>flag</em> is non-zero, suppresses all repeated coefficients.</p>
+<p>
+The library syntax is <code>void <b>listsort</b>(GEN L, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:localbitprec"></div>
+<div id="localbitprec"></div>
+<h4>localbitprec(p)</h4>
+<p>
+Set the real precision to p bits in the dynamic scope. All computations
+are performed as if <code>realbitprecision</code> was p:
+transcendental constants (e.g.&nbsp;<code><a href="Transcendental_functions.html#se:Pi"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Pi</a></code>) and
+conversions from exact to floating point inexact data use p bits, as well as
+iterative routines implicitly using a floating point
+accuracy as a termination criterion (e.g.&nbsp;<code><a href="Sums__products__integrals_and_similar_functions.html#se:solve"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">solve</a></code> or <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>).
+But <code>realbitprecision</code> itself is unaffected
+and is "unmasked" when we exit the dynamic (<em>not</em> lexical) scope.
+In effect, this is similar to</p>
+<p>
+</p><pre class="code">  my(bit = default(realbitprecision));
+  default(realbitprecision,p);
+  ...
+  default(realbitprecision, bit);
+</pre><p>
+but is both less cumbersome, cleaner (no need to manipulate
+a global variable, which in fact never changes and is only temporarily masked)
+and more robust: if the above computation is interrupted or an exception
+occurs, <code>realbitprecision</code> will not be restored as intended.</p>
+<p>
+Such <code><a href="Programming_in_GP__other_specific_functions.html#se:localbitprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localbitprec</a></code> statements can be nested, the innermost one taking
+precedence as expected. Beware that <code><a href="Programming_in_GP__other_specific_functions.html#se:localbitprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localbitprec</a></code> follows the semantic of
+<code>local</code>, not <code>my</code>: a subroutine called from <code><a href="Programming_in_GP__other_specific_functions.html#se:localbitprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localbitprec</a></code> scope
+uses the local accuracy:</p>
+<p>
+</p><pre class="code">  ? f()=bitprecision(1.0);
+  ? f()
+  %2 = 128
+  ? localbitprec(1000); f()
+  %3 = 1024
+</pre><p>
+Note that the bit precision of <em>data</em> (<code>1.0</code> in the
+above example) increases by steps of 64 (32 on a 32-bit machine) so we get
+1024 instead of the expected 1000; <code><a href="Programming_in_GP__other_specific_functions.html#se:localbitprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localbitprec</a></code> bounds the
+relative error exactly as specified in functions that support that
+granularity (e.g.&nbsp;<code><a href="_L_minusfunctions.html#se:lfun"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfun</a></code>), and rounded to the next multiple of 64
+(resp.&nbsp;32) everywhere else.</p>
+<p>
+<b>Warning.</b> Changing <code>realbitprecision</code> or <code>realprecision</code>
+in programs is deprecated in favor of <code><a href="Programming_in_GP__other_specific_functions.html#se:localbitprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localbitprec</a></code> and
+<code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code>. Think about the <code>realprecision</code> and
+<code>realbitprecision</code> defaults as interactive commands for the <code>gp</code>
+interpreter, best left out of GP programs. Indeed, the above rules imply that
+mixing both constructs yields surprising results:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \p38
+  ? localprec(19); default(realprecision,1000);  Pi
+  %1 = 3.141592653589793239
+  ? \p
+    realprecision = 1001 significant digits (1000 digits displayed)
+</pre><p>
+Indeed, <code>realprecision</code> itself is ignored within
+<code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code> scope, so <code><a href="Transcendental_functions.html#se:Pi"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Pi</a></code> is computed to a low accuracy. And when
+we leave the <code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code> scope, <code>realprecision</code> only regains precedence,
+it is not "restored" to the original value.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:localprec"></div>
+<div id="localprec"></div>
+<h4>localprec(p)</h4>
+<p>
+Set the real precision to p in the dynamic scope. All computations
+are performed as if <code>realprecision</code> was p:
+transcendental constants (e.g.&nbsp;<code><a href="Transcendental_functions.html#se:Pi"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Pi</a></code>) and
+conversions from exact to floating point inexact data use p decimal
+digits, as well as iterative routines implicitly using a floating point
+accuracy as a termination criterion (e.g.&nbsp;<code><a href="Sums__products__integrals_and_similar_functions.html#se:solve"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">solve</a></code> or <code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>).
+But <code>realprecision</code> itself is unaffected
+and is "unmasked" when we exit the dynamic (<em>not</em> lexical) scope.
+In effect, this is similar to</p>
+<p>
+</p><pre class="code">  my(prec = default(realprecision));
+  default(realprecision,p);
+  ...
+  default(realprecision, prec);
+</pre><p>
+but is both less cumbersome, cleaner (no need to manipulate
+a global variable, which in fact never changes and is only temporarily masked)
+and more robust: if the above computation is interrupted or an exception
+occurs, <code>realprecision</code> will not be restored as intended.</p>
+<p>
+Such <code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code> statements can be nested, the innermost one taking
+precedence as expected. Beware that <code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code> follows the semantic of
+<code>local</code>, not <code>my</code>: a subroutine called from <code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code> scope
+uses the local accuracy:</p>
+<p>
+</p><pre class="code">  ? f()=precision(1.);
+  ? f()
+  %2 = 38
+  ? localprec(19); f()
+  %3 = 19
+</pre><p></p>
+<p>
+<b>Warning.</b> Changing <code>realprecision</code> itself in programs is
+now deprecated in favor of <code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code>. Think about the
+<code>realprecision</code> default as an interactive command for the <code>gp</code>
+interpreter, best left out of GP programs. Indeed, the above rules
+imply that mixing both constructs yields surprising results:</p>
+<p>
+</p><pre class="code">  ? \p38
+  ? localprec(19); default(realprecision,100);  Pi
+  %1 = 3.141592653589793239
+  ? \p
+      realprecision = 115 significant digits (100 digits displayed)
+</pre><p>
+Indeed, <code>realprecision</code> itself is ignored within
+<code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code> scope, so <code><a href="Transcendental_functions.html#se:Pi"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Pi</a></code> is computed to a low accuracy. And when
+we leave <code><a href="Programming_in_GP__other_specific_functions.html#se:localprec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">localprec</a></code> scope, <code>realprecision</code> only regains precedence,
+it is not "restored" to the original value.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:mapdelete"></div>
+<div id="mapdelete"></div>
+<h4>mapdelete(M, x)</h4>
+<p>
+Removes x from the domain of the map M.</p>
+<p>
+</p><pre class="code">  ? M = Map(["a",1; "b",3; "c",7]);
+  ? mapdelete(M,"b");
+  ? Mat(M)
+  ["a" 1]
+  
+  ["c" 7]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>mapdelete</b>(GEN M, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mapget"></div>
+<div id="mapget"></div>
+<h4>mapget(M, x)</h4>
+<p>
+Returns the image of x by the map M.</p>
+<p>
+</p><pre class="code">  ? M=Map(["a",23;"b",43]);
+  ? mapget(M,"a")
+  %2 = 23
+  ? mapget(M,"b")
+  %3 = 43
+</pre><p>
+Raises an exception when the key x is not present in M.</p>
+<p>
+</p><pre class="code">  ? mapget(M,"c")
+    ***   at top-level: mapget(M,"c")
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; -
+    *** mapget: non-existent component in mapget: index not in map
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mapget</b>(GEN M, GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mapisdefined"></div>
+<div id="mapisdefined"></div>
+<h4>mapisdefined(M, x, {&z})</h4>
+<p>
+Returns true (1) if <code>x</code> has an image by the map M, false (0)
+otherwise. If <code>z</code> is present, set <code>z</code> to the image of x, if it exists.</p>
+<p>
+</p><pre class="code">  ? M1 = Map([1, 10; 2, 20]);
+  ? mapisdefined(M1,3)
+  %1 = 0
+  ? mapisdefined(M1, 1, &z)
+  %2 = 1
+  ? z
+  %3 = 10
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+</p><pre class="code">  ? M2 = Map(); N = 19;
+  ? for (a=0, N-1, mapput(M2, a^3%N, a));
+  ? {for (a=0, N-1,
+       if (mapisdefined(M2, a, &b),
+         printf("%d is the cube of %d mod %d\n",a,b,N)));}
+  0 is the cube of 0 mod 19
+  1 is the cube of 11 mod 19
+  7 is the cube of 9 mod 19
+  8 is the cube of 14 mod 19
+  11 is the cube of 17 mod 19
+  12 is the cube of 15 mod 19
+  18 is the cube of 18 mod 19
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mapisdefined</b>(GEN M, GEN x, GEN *z = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mapput"></div>
+<div id="mapput"></div>
+<h4>mapput(M, x, y)</h4>
+<p>
+Associates x to y in the map M. The value y can be retrieved
+with <code><a href="Programming_in_GP__other_specific_functions.html#se:mapget"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">mapget</a></code>.</p>
+<p>
+</p><pre class="code">  ? M = Map();
+  ? mapput(M, "foo", 23);
+  ? mapput(M, 7718, "bill");
+  ? mapget(M, "foo")
+  %4 = 23
+  ? mapget(M, 7718)
+  %5 = "bill"
+  ? Vec(M)  \\ keys
+  %6 = [7718, "foo"]
+  ? Mat(M)
+  %7 =
+  [ 7718 "bill"]
+  
+  ["foo"     23]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>mapput</b>(GEN M, GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:print"></div>
+<div id="print"></div>
+<h4>print({<em>str</em>}*)</h4>
+<p>
+Outputs its arguments in raw format ending with a newline.
+The arguments are converted to strings following the rules in
+Section se:strings.</p>
+<p>
+</p><pre class="code">  ? m = matid(2);
+  ? print(m)  \\ raw format
+  [1, 0; 0, 1]
+  ? printp(m) \\ prettymatrix format
+  
+  [1 0]
+  
+  [0 1]
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:print1"></div>
+<div id="print1"></div>
+<h4>print1({<em>str</em>}*)</h4>
+<p>
+Outputs its arguments in raw
+format, without ending with a newline. Note that you can still embed newlines
+within your strings, using the <code>\n</code> notation&nbsp;!
+The arguments are converted to strings following the rules in
+Section se:strings.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:printf"></div>
+<div id="printf"></div>
+<h4>printf(<em>fmt</em>, {x}*)</h4>
+<p>
+This function is based on the C library command of the same name.
+It prints its arguments according to the format <em>fmt</em>, which specifies how
+subsequent arguments are converted for output. The format is a
+character string composed of zero or more directives:</p>
+<p>
+<b>*</b> ordinary characters (not <code>%</code>), printed unchanged,</p>
+<p>
+<b>*</b> conversions specifications (<code>%</code> followed by some characters)
+which fetch one argument from the list and prints it according to the
+specification.</p>
+<p>
+More precisely, a conversion specification consists in a <code>%</code>, one or more
+optional flags (among <code>#</code>, <code>0</code>, <code>-</code>, <code>+</code>, ` '), an optional
+decimal digit string specifying a minimal field width, an optional precision
+in the form of a period (`<code>.</code>') followed by a decimal digit string, and
+the conversion specifier (among <code>d</code>,<code>i</code>, <code>o</code>, <code>u</code>,
+<code>x</code>,<code>X</code>, <code>p</code>, <code>e</code>,<code>E</code>, <code>f</code>, <code>g</code>,<code>G</code>, <code>s</code>).</p>
+<p>
+<b>The flag characters.</b> The character <code>%</code> is followed by zero or
+more of the following flags:</p>
+<p>
+<b>*</b> <code>#</code>: the value is converted to an "alternate form". For
+<code>o</code> conversion (octal), a <code>0</code> is prefixed to the string. For <code>x</code>
+and <code>X</code> conversions (hexa), respectively <code>0x</code> and <code>0X</code> are
+prepended. For other conversions, the flag is ignored.</p>
+<p>
+<b>*</b> <code>0</code>: the value should be zero padded. For
+<code>d</code>,
+<code>i</code>,
+<code>o</code>,
+<code>u</code>,
+<code>x</code>,
+<code>X</code>
+<code>e</code>,
+<code>E</code>,
+<code>f</code>,
+<code>F</code>,
+<code>g</code>, and
+<code>G</code> conversions, the value is padded on the left with zeros rather than
+blanks. (If the <code>0</code> and <code>-</code> flags both appear, the <code>0</code> flag is
+ignored.)</p>
+<p>
+<b>*</b> <code>-</code>: the value is left adjusted on the field boundary. (The
+default is right justification.) The value is padded on the right with
+blanks, rather than on the left with blanks or zeros. A <code>-</code> overrides a
+<code>0</code> if both are given.</p>
+<p>
+<b>*</b> <code>` '</code> (a space): a blank is left before a positive number
+produced by a signed conversion.</p>
+<p>
+<b>*</b> <code>+</code>: a sign (+ or -) is placed before a number produced by a
+signed conversion. A <code>+</code> overrides a space if both are used.</p>
+<p>
+<b>The field width.</b> An optional decimal digit string (whose first
+digit is non-zero) specifying a <em>minimum</em> field width. If the value has
+fewer characters than the field width, it is padded with spaces on the left
+(or right, if the left-adjustment flag has been given). In no case does a
+small field width cause truncation of a field; if the value is wider than
+the field width, the field is expanded to contain the conversion result.
+Instead of a decimal digit string, one may write <code>*</code> to specify that the
+field width is given in the next argument.</p>
+<p>
+<b>The precision.</b> An optional precision in the form of a period
+(`<code>.</code>') followed by a decimal digit string. This gives
+the number of digits to appear after the radix character for <code>e</code>,
+<code>E</code>, <code>f</code>, and <code>F</code> conversions, the maximum number of significant
+digits for <code>g</code> and <code>G</code> conversions, and the maximum number of
+characters to be printed from an <code>s</code> conversion.
+Instead of a decimal digit string, one may write <code>*</code> to specify that the
+field width is given in the next argument.</p>
+<p>
+<b>The length modifier.</b> This is ignored under <code>gp</code>, but
+necessary for <code>libpari</code> programming. Description given here for
+completeness:</p>
+<p>
+<b>*</b> <code>l</code>: argument is a <code>long</code> integer.</p>
+<p>
+<b>*</b> <code>P</code>: argument is a <code>GEN</code>.</p>
+<p>
+<b>The conversion specifier.</b> A character that specifies the type of
+conversion to be applied.</p>
+<p>
+<b>*</b> <code>d</code>, <code>i</code>: a signed integer.</p>
+<p>
+<b>*</b> <code>o</code>, <code>u</code>, <code>x</code>, <code>X</code>: an unsigned integer, converted
+to unsigned octal (<code>o</code>), decimal (<code>u</code>) or hexadecimal (<code>x</code> or
+<code>X</code>) notation. The letters <code>abcdef</code> are used for <code>x</code>
+conversions;  the letters <code>ABCDEF</code> are used for <code>X</code> conversions.</p>
+<p>
+<b>*</b> <code>e</code>, <code>E</code>: the (real) argument is converted in the style
+<code>[ -]d.ddd e[ -]dd</code>, where there is one digit before the decimal point,
+and the number of digits after it is equal to the precision; if the
+precision is missing, use the current <code>realprecision</code> for the total
+number of printed digits. If the precision is explicitly 0, no decimal-point
+character appears. An <code>E</code> conversion uses the letter <code>E</code> rather
+than <code>e</code> to introduce the exponent.</p>
+<p>
+<b>*</b> <code>f</code>, <code>F</code>: the (real) argument is converted in the style
+<code>[ -]ddd.ddd</code>, where the number of digits after the decimal point
+is equal to the precision; if the precision is missing, use the current
+<code>realprecision</code> for the total number of printed digits. If the precision
+is explicitly 0, no decimal-point character appears. If a decimal point
+appears, at least one digit appears before it.</p>
+<p>
+<b>*</b> <code>g</code>, <code>G</code>: the (real) argument is converted in style
+<code>e</code> or <code>f</code> (or <code>E</code> or <code>F</code> for <code>G</code> conversions)
+<code>[ -]ddd.ddd</code>, where the total number of digits printed
+is equal to the precision; if the precision is missing, use the current
+<code>realprecision</code>. If the precision is explicitly 0, it is treated as 1.
+Style <code>e</code> is used when
+the decimal exponent is  &lt; -4, to print <code>0.</code>, or when the integer
+part cannot be decided given the known significant digits, and the <code>f</code>
+format otherwise.</p>
+<p>
+<b>*</b> <code>c</code>: the integer argument is converted to an unsigned char, and the
+resulting character is written.</p>
+<p>
+<b>*</b> <code>s</code>: convert to a character string. If a precision is given, no
+more than the specified number of characters are written.</p>
+<p>
+<b>*</b> <code>p</code>: print the address of the argument in hexadecimal (as if by
+<code>%#x</code>).</p>
+<p>
+<b>*</b> <code>%</code>: a <code>%</code> is written. No argument is converted. The complete
+conversion specification is <code>%%</code>.</p>
+<p>
+Examples:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? printf("floor: %d, field width 3: %3d, with sign: %+3d\n", Pi, 1, 2);
+  floor: 3, field width 3:   1, with sign:  +2
+  
+  ? printf("%.5g %.5g %.5g\n",123,123/456,123456789);
+  123.00 0.26974 1.2346 e8
+  
+  ? printf("%-2.5s:%2.5s:%2.5s\n", "P", "PARI", "PARIGP");
+  P :PARI:PARIG
+  
+  \\ min field width and precision given by arguments
+  ? x = 23; y=-1/x; printf("x=%+06.2f y=%+0*.*f\n", x, 6, 2, y);
+  x=+23.00 y=-00.04
+  
+  \\ minimum fields width 5, pad left with zeroes
+  ? for (i = 2, 5, printf("%05d\n", 10^i))
+  00100
+  01000
+  10000
+  100000  \\  don't truncate fields whose length is larger than the minimum width
+  ? printf("%.2f  |%06.2f|", Pi,Pi)
+  3.14  |  3.14|
+</pre><p>
+All numerical conversions apply recursively to the entries
+of vectors and matrices:</p>
+<p>
+</p><pre class="code">  ? printf("%4d", [1,2,3]);
+  [   1,   2,   3]
+  ? printf("%5.2f", mathilbert(3));
+  [ 1.00  0.50  0.33]
+  
+  [ 0.50  0.33  0.25]
+  
+  [ 0.33  0.25  0.20]
+</pre><p></p>
+<p>
+<b>Technical note.</b> Our implementation of <code><a href="Programming_in_GP__other_specific_functions.html#se:printf"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">printf</a></code>
+deviates from the C89 and C99 standards in a few places:</p>
+<p>
+<b>*</b> whenever a precision is missing, the current <code>realprecision</code> is
+used to determine the number of printed digits (C89: use 6 decimals after
+the radix character).</p>
+<p>
+<b>*</b> in conversion style <code>e</code>, we do not impose that the
+exponent has at least two digits; we never write a <code>+</code> sign in the
+exponent; 0 is printed in a special way, always as <code>0.E<em>exp</em></code>.</p>
+<p>
+<b>*</b> in conversion style <code>f</code>, we switch to style <code>e</code> if the
+exponent is greater or equal to the precision.</p>
+<p>
+<b>*</b> in conversion <code>g</code> and <code>G</code>, we do not remove trailing zeros
+ from the fractional part of the result; nor a trailing decimal point;
+ 0 is printed in a special way, always as <code>0.E<em>exp</em></code>.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:printp"></div>
+<div id="printp"></div>
+<h4>printp({<em>str</em>}*)</h4>
+<p>
+Outputs its arguments in prettymatrix format, ending with a
+newline. The arguments are converted to strings following the rules in
+Section se:strings.</p>
+<p>
+</p><pre class="code">  ? m = matid(2);
+  ? print(m)  \\ raw format
+  [1, 0; 0, 1]
+  ? printp(m) \\ prettymatrix format
+  
+  [1 0]
+  
+  [0 1]
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:printsep"></div>
+<div id="printsep"></div>
+<h4>printsep(<em>sep</em>, {<em>str</em>}*)</h4>
+<p>
+Outputs its arguments in raw format, ending with a newline.
+The arguments are converted to strings following the rules in
+Section se:strings. Successive entries are separated by <em>sep</em>:</p>
+<p>
+</p><pre class="code">  ? printsep(":", 1,2,3,4)
+  1:2:3:4
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:printsep1"></div>
+<div id="printsep1"></div>
+<h4>printsep1(<em>sep</em>, {<em>str</em>}*)</h4>
+<p>
+Outputs its arguments in raw format, without ending with a
+newline. The arguments are converted to strings following the rules in
+Section se:strings. Successive entries are separated by <em>sep</em>:</p>
+<p>
+</p><pre class="code">  ? printsep1(":", 1,2,3,4);print("|")
+  1:2:3:4|
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:printtex"></div>
+<div id="printtex"></div>
+<h4>printtex({<em>str</em>}*)</h4>
+<p>
+Outputs its arguments in TeX format. This output can then be
+used in a TeX manuscript. The arguments are converted to strings following
+the rules in Section se:strings.
+The printing is done on the standard output. If you want to print it to a
+file you should use <code><a href="Programming_in_GP__other_specific_functions.html#se:writetex"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">writetex</a></code> (see there).</p>
+<p>
+Another possibility is to enable the <code><a href="Transcendental_functions.html#se:log"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">log</a></code> default
+(see&nbsp;Section se:defaults).
+You could for instance do:</p>
+<p></p>
+<p>
+</p><pre class="code">  default(logfile, "new.tex");
+  default(log, 1);
+  printtex(result);
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:quit"></div>
+<div id="quit"></div>
+<h4>quit({<em>status</em> = 0})</h4>
+<p>
+Exits <code>gp</code> and return to the system with exit status
+<code>status</code>, a small integer. A non-zero exit status normally indicates
+abnormal termination. (Note: the system actually sees only
+<code>status</code> mod 256, see your man pages for <code>exit(3)</code> or <code>wait(2)</code>).</p>
+<p>
+
+<hr>
+<div id="se:read"></div>
+<div id="read"></div>
+<h4>read({<em>filename</em>})</h4>
+<p>
+Reads in the file
+<em>filename</em> (subject to string expansion). If <em>filename</em> is
+omitted, re-reads the last file that was fed into <code>gp</code>. The return
+value is the result of the last expression evaluated.</p>
+<p>
+If a GP <code>binary file</code> is read using this command (see
+Section <a href="Programming_in_GP__other_specific_functions.html#se:writebin"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">se:writebin</a>), the file is loaded and the last object in the file
+is returned.</p>
+<p>
+In case the file you read in contains an <code><a href="Programming_in_GP__other_specific_functions.html#se:allocatemem"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">allocatemem</a></code> statement (to be
+generally avoided), you should leave <code><a href="Programming_in_GP__other_specific_functions.html#se:read"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">read</a></code> instructions by themselves,
+and not part of larger instruction sequences.</p>
+<p>
+<b>Variants.</b> <code><a href="Programming_in_GP__other_specific_functions.html#se:readvec"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">readvec</a></code> allows to read a whole file at once;
+<code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code> followed by either <code><a href="Programming_in_GP__other_specific_functions.html#se:fileread"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileread</a></code> (evaluated lines) or
+<code><a href="Programming_in_GP__other_specific_functions.html#se:filereadstr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filereadstr</a></code> (lines as non-evaluated strings) allows to read a file
+one line at a time.</p>
+<p>
+The library syntax is <code>GEN <b>gp_read_file</b>(const char *filename)</code>.</p>
+<p>
+
+<hr>
+<div id="se:readstr"></div>
+<div id="readstr"></div>
+<h4>readstr({<em>filename</em>})</h4>
+<p>
+Reads in the file <em>filename</em> and return a vector of GP strings,
+each component containing one line from the file. If <em>filename</em> is
+omitted, re-reads the last file that was fed into <code>gp</code>.</p>
+<p>
+The library syntax is <code>GEN <b>readstr</b>(const char *filename)</code>.</p>
+<p>
+
+<hr>
+<div id="se:readvec"></div>
+<div id="readvec"></div>
+<h4>readvec({<em>filename</em>})</h4>
+<p>
+Reads in the file
+<em>filename</em> (subject to string expansion). If <em>filename</em> is
+omitted, re-reads the last file that was fed into <code>gp</code>. The return
+value is a vector whose components are the evaluation of all sequences
+of instructions contained in the file. For instance, if <em>file</em> contains</p>
+<p>
+</p><pre class="code">  1
+  2
+  3
+</pre><p></p>
+<p>
+then we will get:</p>
+<p>
+</p><pre class="code">  ? \r a
+  %1 = 1
+  %2 = 2
+  %3 = 3
+  ? read(a)
+  %4 = 3
+  ? readvec(a)
+  %5 = [1, 2, 3]
+</pre><p></p>
+<p>
+In general a sequence is just a single line, but as usual braces and
+<code>\</code> may be used to enter multiline sequences.</p>
+<p>
+The library syntax is <code>GEN <b>gp_readvec_file</b>(const char *filename)</code>.
+The underlying library function
+<code>GEN <b>gp_readvec_stream</b>(FILE *f)</code> is usually more flexible.</p>
+<p>
+
+<hr>
+<div id="se:select"></div>
+<div id="select"></div>
+<h4>select(f, A, {<em>flag</em> = 0})</h4>
+<p>
+We first describe the default behavior, when <em>flag</em> is 0 or omitted.
+Given a vector or list <code>A</code> and a <code>t_CLOSURE</code> <code>f</code>, <code><a href="Programming_in_GP__other_specific_functions.html#se:select"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">select</a></code>
+returns the elements x of <code>A</code> such that f(x) is non-zero. In other
+words, <code>f</code> is seen as a selection function returning a boolean value.</p>
+<p>
+</p><pre class="code">  ? select(x-&gt;isprime(x), vector(50,i,i^2+1))
+  %1 = [2, 5, 17, 37, 101, 197, 257, 401, 577, 677, 1297, 1601]
+  ? select(x-&gt;(x&lt;100), %)
+  %2 = [2, 5, 17, 37]
+</pre><p>
+returns the primes of the form i^2+1 for some i &leq; 50,
+then the elements less than 100 in the preceding result. The <code><a href="Programming_in_GP__other_specific_functions.html#se:select"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">select</a></code>
+function also applies to a matrix <code>A</code>, seen as a vector of columns, i.e. it
+selects columns instead of entries, and returns the matrix whose columns are
+the selected ones.</p>
+<p>
+<b>Remark.</b> For v a <code>t_VEC</code>, <code>t_COL</code>, <code>t_LIST</code> or <code>t_MAT</code>,
+the alternative set-notations</p>
+<p>
+</p><pre class="code">  [g(x) | x &lt;- v, f(x)]
+  [x | x &lt;- v, f(x)]
+  [g(x) | x &lt;- v]
+</pre><p></p>
+<p>
+are available as shortcuts for</p>
+<p>
+</p><pre class="code">  apply(g, select(f, Vec(v)))
+  select(f, Vec(v))
+  apply(g, Vec(v))
+</pre><p>
+respectively:</p>
+<p>
+</p><pre class="code">  ? [ x | x &lt;- vector(50,i,i^2+1), isprime(x) ]
+  %1 = [2, 5, 17, 37, 101, 197, 257, 401, 577, 677, 1297, 1601]
+</pre><p></p>
+<p></p>
+<p>
+If <em>flag</em> = 1, this function returns instead the <em>indices</em> of
+the selected elements, and not the elements themselves (indirect selection):</p>
+<p>
+</p><pre class="code">  ? V = vector(50,i,i^2+1);
+  ? select(x-&gt;isprime(x), V, 1)
+  %2 = Vecsmall([1, 2, 4, 6, 10, 14, 16, 20, 24, 26, 36, 40])
+  ? vecextract(V, %)
+  %3 = [2, 5, 17, 37, 101, 197, 257, 401, 577, 677, 1297, 1601]
+</pre><p></p>
+<p>
+The following function lists the elements in (&Zopf;/N&Zopf;)<sup>*</sup>:</p>
+<p>
+</p><pre class="code">  ? invertibles(N) = select(x-&gt;gcd(x,N) == 1, [1..N])
+</pre><p></p>
+<p></p>
+<p>
+Finally</p>
+<p>
+</p><pre class="code">  ? select(x-&gt;x, M)
+</pre><p>
+selects the non-0 entries in <code>M</code>. If the latter is a
+<code>t_MAT</code>, we extract the matrix of non-0 columns. Note that <em>removing</em>
+entries instead of selecting them just involves replacing the selection
+function <code>f</code> with its negation:</p>
+<p>
+</p><pre class="code">  ? select(x-&gt;!isprime(x), vector(50,i,i^2+1))
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>genselect</b>(void *E, long (*fun)(void*,GEN), GEN a)</code>. Also available
+is <code>GEN <b>genindexselect</b>(void *E, long (*fun)(void*, GEN), GEN a)</code>,
+corresponding to <em>flag</em> = 1.</p>
+<p>
+
+<hr>
+<div id="se:self"></div>
+<div id="self"></div>
+<h4>self()</h4>
+<p>
+Return the calling function or closure as a <code>t_CLOSURE</code> object.
+This is useful for defining anonymous recursive functions.</p>
+<p>
+</p><pre class="code">  ? (n-&gt;if(n==0,1,n*self()(n-1)))(5)
+  %1 = 120
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>pari_self</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:setrand"></div>
+<div id="setrand"></div>
+<h4>setrand(n)</h4>
+<p>
+Reseeds the random number generator using the seed n. No value is
+returned. The seed is a small positive integer 0 &lt; n &lt; 2<sup>64</sup> used to
+generate deterministically a suitable state array. All gp session start
+by an implicit <code>setrand(1)</code>, so resetting the seed to this value allows
+to replay all computations since the session start. Alternatively,
+running a randomized computation starting by <code><a href="Programming_in_GP__other_specific_functions.html#se:setrand"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">setrand</a></code>(n)
+twice with the same n will generate the exact same output.</p>
+<p>
+In the other direction, including a call to <code>setrand(getwalltime())</code>
+from your gprc will cause GP to produce different streams of random numbers
+in each session. (Unix users may want to use <code>/dev/urandom</code> instead
+of <code><a href="Programming_in_GP__other_specific_functions.html#se:getwalltime"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">getwalltime</a></code>.)</p>
+<p>
+For debugging purposes, one can also record a particular random state
+using <code><a href="Programming_in_GP__other_specific_functions.html#se:getrand"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">getrand</a></code> (the value is encoded as a huge integer) and feed it to
+<code><a href="Programming_in_GP__other_specific_functions.html#se:setrand"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">setrand</a></code>:</p>
+<p>
+</p><pre class="code">  ? state = getrand(); \\ record seed
+  ...
+  ? setrand(state); \\ we can now replay the exact same computations
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>setrand</b>(GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:system"></div>
+<div id="system"></div>
+<h4>system(<em>str</em>)</h4>
+<p>
+<em>str</em> is a string representing a system command. This command is
+executed, its output written to the standard output (this won't get into your
+logfile), and control returns to the PARI system. This simply calls the C
+<code><a href="Programming_in_GP__other_specific_functions.html#se:system"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">system</a></code> command.</p>
+<p>
+The library syntax is <code>void <b>gpsystem</b>(const char *str)</code>.</p>
+<p>
+
+<hr>
+<div id="se:trap"></div>
+<div id="trap"></div>
+<h4>trap({e}, {<em>rec</em>}, <em>seq</em>)</h4>
+<p>
+This function is obsolete, use <code><a href="Programming_in_GP__control_statements.html#se:iferr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">iferr</a></code>, which has a nicer and much
+more powerful interface. For compatibility's sake we now describe the
+<em>obsolete</em> function <code><a href="Programming_in_GP__other_specific_functions.html#se:trap"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">trap</a></code>.</p>
+<p>
+This function tries to
+evaluate <em>seq</em>, trapping runtime error e, that is effectively preventing
+it from aborting computations in the usual way; the recovery sequence
+<em>rec</em> is executed if the error occurs and the evaluation of <em>rec</em>
+becomes the result of the command. If e is omitted, all exceptions are
+trapped. See Section se:errorrec for an introduction to error recovery
+under <code>gp</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \\  trap division by 0
+  ? inv(x) = trap (e_INV, INFINITY, 1/x)
+  ? inv(2)
+  %1 = 1/2
+  ? inv(0)
+  %2 = INFINITY
+</pre><p></p>
+<p>
+Note that <em>seq</em> is effectively evaluated up to the point that produced
+the error, and the recovery sequence is evaluated starting from that same
+context, it does not "undo" whatever happened in the other branch (restore
+the evaluation context):</p>
+<p>
+</p><pre class="code">  ? x = 1; trap (, /* recover: */ x, /* try: */ x = 0; 1/x)
+  %1 = 0
+</pre><p></p>
+<p></p>
+<p>
+<b>Note.</b> The interface is currently not adequate for trapping
+individual exceptions. In the current version <b>2.12.1</b>, the following keywords
+are recognized, but the name list will be expanded and changed in the
+future (all library mode errors can be trapped: it's a matter of defining
+the keywords to <code>gp</code>):</p>
+<p>
+<code>e_ALARM</code>: alarm time-out</p>
+<p>
+<code>e_ARCH</code>: not available on this architecture or operating system</p>
+<p>
+<code>e_STACK</code>: the PARI stack overflows</p>
+<p>
+<code>e_INV</code>: impossible inverse</p>
+<p>
+<code>e_IMPL</code>: not yet implemented</p>
+<p>
+<code>e_OVERFLOW</code>: all forms of arithmetic overflow, including length
+or exponent overflow (when a larger value is supplied than the
+implementation can handle).</p>
+<p>
+<code>e_SYNTAX</code>: syntax error</p>
+<p>
+<code>e_MISC</code>: miscellaneous error</p>
+<p>
+<code>e_TYPE</code>: wrong type</p>
+<p>
+<code>e_USER</code>: user error (from the <code><a href="Programming_in_GP__other_specific_functions.html#se:error"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">error</a></code> function)</p>
+<p>
+The library syntax is <code>GEN <b>trap0</b>(const char *e = NULL, GEN rec = NULL, GEN seq = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:type"></div>
+<div id="type"></div>
+<h4>type(x)</h4>
+<p>
+This is useful only under <code>gp</code>. Returns the internal type name of
+the PARI object x as a  string. Check out existing type names with the
+metacommand <code>\t</code>. For example <code>type(1)</code> will return "<code>t_INT</code>".</p>
+<p>
+The library syntax is <code>GEN <b>type0</b>(GEN x)</code>.
+The macro <code>typ</code> is usually simpler to use since it returns a
+<code>long</code> that can easily be matched with the symbols <code>t_*</code>. The name
+<code><a href="Programming_in_GP__other_specific_functions.html#se:type"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">type</a></code> was avoided since it is a reserved identifier for some compilers.</p>
+<p>
+
+<hr>
+<div id="se:uninline"></div>
+<div id="uninline"></div>
+<h4>uninline()</h4>
+<p>
+(Experimental) Exit the scope of all current <code><a href="Programming_in_GP__other_specific_functions.html#se:inline"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">inline</a></code> variables.</p>
+<p>
+
+<hr>
+<div id="se:version"></div>
+<div id="version"></div>
+<h4>version()</h4>
+<p>
+Returns the current version number as a <code>t_VEC</code> with three integer
+components (major version number, minor version number and patchlevel);
+if your sources were obtained through our version control system, this will
+be followed by further more precise arguments, including
+e.g.&nbsp;a&nbsp;<code>git</code> <em>commit hash</em>.</p>
+<p>
+This function is present in all versions of PARI following releases 2.3.4
+(stable) and 2.4.3 (testing).</p>
+<p>
+Unless you are working with multiple development versions, you probably only
+care about the 3 first numeric components. In any case, the <code><a href="Standard_monadic_or_dyadic_operators.html#se:lex"
+    onClick="parent.itemFrame.location='cont_Standard_monadic_or_dyadic_operators.html'">lex</a></code> function
+offers a clever way to check against a particular version number, since it will
+compare each successive vector entry, numerically or as strings, and will not
+mind if the vectors it compares have different lengths:</p>
+<p>
+</p><pre class="code">     if (lex(version(), [2,3,5]) &gt;= 0,
+       \\ code to be executed if we are running 2.3.5 or more recent.
+     ,
+       \\ compatibility code
+     );
+</pre><p>
+On a number of different machines, <code>version()</code> could return either of</p>
+<p>
+</p><pre class="code">   %1 = [2, 3, 4]    \\ released version, stable branch
+   %1 = [2, 4, 3]    \\ released version, testing branch
+   %1 = [2, 6, 1, 15174, ""505ab9b"] \\ development
+</pre><p></p>
+<p></p>
+<p>
+In particular, if you are only working with released versions, the first
+line of the gp introductory message can be emulated by</p>
+<p>
+</p><pre class="code">     [M,m,p] = version();
+     printf("GP/PARI CALCULATOR Version %s.%s.%s", M,m,p);
+</pre><p>
+If you <em>are</em> working with many development versions of
+ PARI/GP, the 4th and/or 5th components can be profitably included in the
+ name of your logfiles, for instance.</p>
+<p>
+<b>Technical note.</b> For development versions obtained via <code>git</code>,
+ the 4th and 5th components are liable to change eventually, but we document
+ their current meaning for completeness. The 4th component counts the number
+ of reachable commits in the branch (analogous to <code>svn</code>'s revision
+ number), and the 5th is the <code>git</code> commit hash. In particular, <code><a href="Standard_monadic_or_dyadic_operators.html#se:lex"
+    onClick="parent.itemFrame.location='cont_Standard_monadic_or_dyadic_operators.html'">lex</a></code>
+ comparison still orders correctly development versions with respect to each
+ others or to released versions (provided we stay within a given branch,
+ e.g. <code>master</code>)!</p>
+<p>
+The library syntax is <code>GEN <b>pari_version</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:warning"></div>
+<div id="warning"></div>
+<h4>warning({<em>str</em>}*)</h4>
+<p>
+Outputs the message "user warning"
+and the argument list (each of them interpreted as a string).
+If colors are enabled, this warning will be in a different color,
+making it easy to distinguish.</p>
+<p>
+</p><pre class="code">  warning(n, " is very large, this might take a while.")
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:whatnow"></div>
+<div id="whatnow"></div>
+<h4>whatnow(<em>key</em>)</h4>
+<p>
+If keyword <em>key</em> is the name of a function that was present in GP
+version 1.39.15, outputs the new function name and syntax, if it
+changed at all. Functions that where introduced since then, then modified
+are also recognized.</p>
+<p>
+</p><pre class="code">  ? whatnow("mu")
+  New syntax: mu(n) ===&gt; moebius(n)
+  
+  moebius(x): Moebius function of x.
+  
+  ? whatnow("sin")
+  This function did not change
+</pre><p>
+When a function was removed and the underlying functionality
+is not available under a compatible interface, no equivalent is mentioned:</p>
+<p>
+</p><pre class="code">  ? whatnow("buchfu")
+  This function no longer exists
+</pre><p>
+(The closest equivalent would be to set <code>K = bnfinit(T)</code>
+then access <code>K.fu</code>.)</p>
+<p>
+
+<hr>
+<div id="se:write"></div>
+<div id="write"></div>
+<h4>write(<em>filename</em>, {<em>str</em>}*)</h4>
+<p>
+Writes (appends) to <em>filename</em> the remaining arguments, and appends a
+newline (same output as <code><a href="Programming_in_GP__other_specific_functions.html#se:print"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">print</a></code>).</p>
+<p>
+<b>Variant.</b> The high-level function <code><a href="Programming_in_GP__other_specific_functions.html#se:write"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">write</a></code> is expensive when many
+consecutive writes are expected because it cannot use buffering. The low-level
+interface <code><a href="Programming_in_GP__other_specific_functions.html#se:fileopen"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileopen</a></code> / <code><a href="Programming_in_GP__other_specific_functions.html#se:filewrite"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">filewrite</a></code> / <code><a href="Programming_in_GP__other_specific_functions.html#se:fileclose"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">fileclose</a></code> is more efficient.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:write1"></div>
+<div id="write1"></div>
+<h4>write1(<em>filename</em>, {<em>str</em>}*)</h4>
+<p>
+Writes (appends) to <em>filename</em> the remaining arguments without a
+trailing newline (same output as <code><a href="Programming_in_GP__other_specific_functions.html#se:print1"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">print1</a></code>).</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:writebin"></div>
+<div id="writebin"></div>
+<h4>writebin(<em>filename</em>, {x})</h4>
+<p>
+Writes (appends) to
+<em>filename</em> the object x in binary format. This format is not human
+readable, but contains the exact internal structure of x, and is much
+faster to save/load than a string expression, as would be produced by
+<code><a href="Programming_in_GP__other_specific_functions.html#se:write"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">write</a></code>. The binary file format includes a magic number, so that such a
+file can be recognized and correctly input by the regular <code><a href="Programming_in_GP__other_specific_functions.html#se:read"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">read</a></code> or <code>\r</code>
+function. If saved objects refer to polynomial variables that are not
+defined in the new session, they will be displayed as <code>tn</code> for some
+integer n (the attached variable number).
+Installed functions and history objects can not be saved via this function.</p>
+<p>
+If x is omitted, saves all user variables from the session, together with
+their names. Reading such a "named object" back in a <code>gp</code> session will set
+the corresponding user variable to the saved value. E.g after</p>
+<p>
+</p><pre class="code">  x = 1; writebin("log")
+</pre><p></p>
+<p>
+reading <code><a href="Transcendental_functions.html#se:log"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">log</a></code> into a clean session will set <code>x</code> to 1.
+The relative variables priorities (see Section se:priority) of new variables
+set in this way remain the same (preset variables retain their former
+priority, but are set to the new value). In particular, reading such a
+session log into a clean session will restore all variables exactly as they
+were in the original one.</p>
+<p>
+Just as a regular input file, a binary file can be compressed
+using <code>gzip</code>, provided the file name has the standard <code>.gz</code>
+extension.</p>
+<p>
+In the present implementation, the binary files are architecture dependent
+and compatibility with future versions of <code>gp</code> is not guaranteed. Hence
+binary files should not be used for long term storage (also, they are
+larger and harder to compress than text files).</p>
+<p>
+The library syntax is <code>void <b>gpwritebin</b>(const char *filename, GEN x = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:writetex"></div>
+<div id="writetex"></div>
+<h4>writetex(<em>filename</em>, {<em>str</em>}*)</h4>
+<p>
+As <code><a href="Programming_in_GP__other_specific_functions.html#se:write"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">write</a></code>, in TeX format.</p>
+<p></p>
+<p>
+
+<hr>
+</body>

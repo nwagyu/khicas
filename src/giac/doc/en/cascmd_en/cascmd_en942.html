@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if two lines or two spheres in space are orthogonal: is_orthogonal
+</title>
+</head>
+<body >
+<a href="cascmd_en941.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en943.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dcheckorth" class="subsection">14.13.5  Checking if two lines or two spheres in space are orthogonal: <span style="font-family:monospace">is_orthogonal</span>
+<a id="hevea_default1648"></a></h3>
+<p>See Section <a href="cascmd_en879.html#ssec%3A2dcheckorth">13.16.13</a> for checking for orthogonality in
+two-dimensional geometry.</p><p>The <span style="font-family:monospace">is_orthogonal</span> command determines whether or not two
+objects are orthogonal.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_orthogonal</span> takes two arguments:<br>
+ <span style="font-style:italic">L</span>,<span style="font-style:italic">P</span>, which can be two lines, two spheres, two planes or a line and
+a plane. 
+</li><li class="li-itemize"><span style="font-family:monospace">is_orthogonal(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">1</span> is the
+objects are orthogonal; it returns <span style="font-family:monospace">0</span> otherwise.
+</li></ul><h4 id="sec2390" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_orthogonal(line([2,3,-2],[-1,-1,-1]),line([1,0,0],[1,2,8]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_orthogonal(line([2,3,-2],[-1,-1,-1]),plane([-1,-1,-1],[-1,0,3],[-2,0,0]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">is_orthogonal(plane([0,0,0],[1,2,-3],[1,1,-2]),</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >        <span style="font-family:monospace">plane([-1,-1,-1],[1,2,-3],[0,0,0]))</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_orthogonal(sphere([0,0,0],sqrt(2)),sphere([2,0,0],sqrt(2)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en941.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en943.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

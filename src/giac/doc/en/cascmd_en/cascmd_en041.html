@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Export to presentation or content MathML: export_mathml
+</title>
+</head>
+<body >
+<a href="cascmd_en040.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en042.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec61" class="subsection">2.7.7  Export to presentation or content MathML: <span style="font-family:monospace">export_mathml</span>
+<a id="hevea_default30"></a></h3>
+<p>You can translate the result of an expression into various types of
+MathML with the <span style="font-family:monospace">export_mathml</span> command.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">export_mathml</span> takes one mandatory argument and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">format</span>, which can be <span style="font-family:monospace">content</span> or
+<span style="font-family:monospace">display</span>, specifying what output format should be used.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">export_mathml(</span><span style="font-style:italic">expr </span> ⟨<span style="font-style:italic">
+,format</span>⟩<span style="font-family:monospace">)</span> returns the result of evaluating
+<span style="font-style:italic">expr</span> written in MathML, with a single
+<span style="font-family:monospace">math</span> block which will be a <span style="font-family:monospace">semantics</span> block.
+<ul class="itemize"><li class="li-itemize">
+With no second argument, the <span style="font-family:monospace">semantics</span> block will
+contain both presentation and content MathML.
+</li><li class="li-itemize">With a second argument of <span style="font-family:monospace">content</span>, the
+<span style="font-family:monospace">semantics</span> block will only contain the content MathML.
+</li><li class="li-itemize">With a second argument of <span style="font-family:monospace">display</span>, the
+<span style="font-family:monospace">semantics</span> block will only contain the presentation MathML.
+</li></ul>
+</li></ul><h4 id="sec62" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">xml_print(export_mathml(a+2*b))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;math xmlns='http://www.w3.org/1998/Math/MathML'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;semantics&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;mrow xref='id5'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mi xref='id1'&gt;a&lt;/mi&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mo&gt;+&lt;/mo&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mrow xref='id4'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;mn xref='id2'&gt;2&lt;/mn&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;mo&gt;&amp;it;&lt;/mo&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;mi xref='id3'&gt;b&lt;/mi&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;/mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;/mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;annotation-xml encoding='MathML-Content'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;apply id='id5'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;plus/&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;ci id='id1'&gt;a&lt;/ci&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;apply id='id4'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>            &lt;times/&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>            &lt;cn id='id2' type='integer'&gt;2&lt;/cn&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>            &lt;ci id='id3'&gt;b&lt;/ci&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;/apply&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;/apply&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;/annotation-xml&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;annotation encoding='giac'&gt;a+2*b&lt;/annotation&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;/semantics&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;/math&gt;</code></td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">xml_print(export_mathml(a+2*b,content))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;math xmlns='http://www.w3.org/1998/Math/MathML'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;apply id='id5'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;plus/&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;ci id='id1'&gt;a&lt;/ci&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;apply id='id4'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;times/&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;cn id='id2' type='integer'&gt;2&lt;/cn&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;ci id='id3'&gt;b&lt;/ci&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;/apply&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;/apply&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;/math&gt;</code>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">xml_print(export_mathml(a+2*b,display))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;math xmlns='http://www.w3.org/1998/Math/MathML'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;mi&gt;a&lt;/mi&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;mo&gt;+&lt;/mo&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mn&gt;2&lt;/mn&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mo&gt;&amp;it;&lt;/mo&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mi&gt;b&lt;/mi&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;/mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;/mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;/math&gt;</code>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">s:=export_mathml(1/(x^2+1),display):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">xml_print(s)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;math mode='display' xmlns='http://www.w3.org/1998/Math/MathML'&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;mfrac&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;mn&gt;1&lt;/mn&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;msup&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;mi&gt;x&lt;/mi&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>          &lt;mn&gt;2&lt;/mn&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;/msup&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mo&gt;+&lt;/mo&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>        &lt;mn&gt;1&lt;/mn&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      &lt;/mrow&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    &lt;/mfrac&gt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  &lt;/math&gt;</code></td></tr>
+</table>
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en040.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en042.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

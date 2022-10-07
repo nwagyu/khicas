@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The χ2 distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en673.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en675.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:chisquare" class="subsection">8.4.9  The χ<sup>2</sup> distribution
+</h3>
+<h4 id="sec1714" class="subsubsection">The probability density function for the χ<sup>2</sup> distribution: <span style="font-family:monospace">chisquare</span>
+<a id="hevea_default1227"></a></h4>
+<p>The χ<sup>2</sup> distribution with <span style="font-style:italic">n</span> degrees of freedom has density
+function given by 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:chisq"></a>
+χ<sup>2</sup>(<span style="font-style:italic">n</span>,<span style="font-style:italic">x</span>) = </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup><span style="font-style:italic">n</span>/2−1</sup><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span>/2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2<sup><span style="font-style:italic">n</span>/2</sup>Γ(<span style="font-style:italic">n</span>/2)</td></tr>
+</table></td><td class="dcell">
+    (6)</td></tr>
+</table><p>
+The <span style="font-family:monospace">chisquare</span> command computes this density function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">chisquare</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">chisquare(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the χ<sup>2</sup>
+density function with <span style="font-style:italic">n</span> degrees of freedom, given in (<a href="#eq%3Achisq">6</a>).
+</li></ul><h4 id="sec1715" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">chisquare(5,2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >π </td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">· 2<sup>2</sup></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table><p>
+which can be numerically approximated by:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">evalf(chisquare(5,2))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.138369165807
+</td></tr>
+</table>
+<h4 id="sec1716" class="subsubsection">The cumulative distribution function for the χ<sup>2</sup> distribution: <span style="font-family:monospace">chisquare_cdf</span>
+<a id="hevea_default1228"></a></h4>
+<p>The <span style="font-family:monospace">chisquare_cdf</span> command computes
+the cumulative distribution function for the χ<sup>2</sup> distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">chisquare_cdf</span> takes two mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">y</span>, a real number. 
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">chisquare_cdf(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) for the χ<sup>2</sup> distribution with <span style="font-style:italic">n</span>
+degrees of freedom.
+</li><li class="li-itemize"><span style="font-family:monospace">chisquare_cdf(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> &lt; <span style="font-style:italic">y</span>).
+</li></ul><h4 id="sec1717" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chisquare_cdf(5,11)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.948620016517
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chisquare_cdf(3,1,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.22884525243
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1718" class="subsubsection">The inverse distribution function for the χ<sup>2</sup> distribution: <span style="font-family:monospace">chisquare_icdf</span>
+<a id="hevea_default1229"></a></h4>
+<p>The <span style="font-family:monospace">chisquare_icdf</span> command computes
+the inverse distribution for the χ<sup>2</sup> distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">chisquare_icdf</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number between 0 and 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">chisquare_icdf(</span><span style="font-style:italic">n</span>, <span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for the χ<sup>2</sup> distribution with <span style="font-style:italic">n</span> degrees of
+freedom; namely, the value of <span style="font-style:italic">x</span> for which 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) = <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1719" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">chisquare_icdf(5,0.95)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">11.0704976935
+</td></tr>
+</table>
+<h4 id="sec1720" class="subsubsection">The upper tail cumulative function for the χ<sup>2</sup> distribution: <span style="font-family:monospace">UTPC</span>
+<a id="hevea_default1230"></a></h4>
+<p>The <span style="font-family:monospace">UTPC</span> (the Upper Tail Probability - Chi-square
+distribution)
+computes Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>) for the χ<sup>2</sup> distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">UTPC</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">UTPC(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns
+Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>) for the χ<sup>2</sup> distribution with <span style="font-style:italic">n</span>
+degrees of freedom.
+</li></ul><h4 id="sec1721" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">UTPC(5,11)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.0513799834831
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en673.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en675.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if a point is on an object in the plane: is_element
+</title>
+</head>
+<body >
+<a href="cascmd_en866.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en868.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2diselem" class="subsection">13.16.1  Checking if a point is on an object in the plane: <span style="font-family:monospace">is_element</span>
+<a id="hevea_default1568"></a></h3>
+<p>See Section <a href="cascmd_en938.html#ssec%3A3diselem">14.13.1</a> for checking elements in three-dimensional
+geometry.</p><p>The <span style="font-family:monospace">is_element</span> command determines whether or not a point is
+on a geometric object.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_element</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point.
+</li><li class="li-itemize"><span style="font-style:italic">G</span>, a geometric object.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">is_element(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">G</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">1</span> if <span style="font-style:italic">P</span> is an element of
+<span style="font-style:italic">G</span> and returns <span style="font-family:monospace">0</span> otherwise.
+</li></ul><h4 id="sec2203" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_element(-1-i, line(0,1+i))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_element(i, line(0,1+i))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en866.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en868.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

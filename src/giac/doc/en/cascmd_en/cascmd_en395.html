@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Series expansion: taylor series
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en394.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en396.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:taylor" class="subsection">5.36.2  Series expansion: <span style="font-family:monospace">taylor</span> <span style="font-family:monospace">series</span>
+<a id="hevea_default659"></a><a id="hevea_default660"></a>
+<a id="hevea_default661"></a>
+</h3>
+<p>The <span style="font-family:monospace">taylor</span> command finds Taylor expansions.<br>
+<span style="font-family:monospace">series</span> is a synonym for <span style="font-family:monospace">taylor</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">taylor</span> takes one mandatory and
+four optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression depending on a variable.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the variable (by default <span style="font-family:monospace">x</span>).
+</li><li class="li-itemize">Optionally <span style="font-style:italic">n</span>, an integer, the order of the series expansion
+(by default <span style="font-family:monospace">5</span>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">a</span>, the center of the Taylor expansion (by
+default 0). This can be combined with the optional <span style="font-style:italic">x</span> by
+replacing <span style="font-style:italic">x</span> by <span style="font-style:italic">x</span>=<span style="font-style:italic">a</span>.
+</li><li class="li-itemize"><span style="font-style:italic">dir</span>, a direction, which can be <span style="font-family:monospace">-1</span> or
+<span style="font-family:monospace">1</span>, for unidirectional series expansion, or <span style="font-family:monospace">0</span> (for
+bidirectional series expansion) (by default <span style="font-family:monospace">0</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">taylor(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">,</span><span style="font-style:italic">x</span>  ⟨,<span style="font-style:italic">a</span>,<span style="font-style:italic">n</span><span style="font-style:italic">dir</span>⟩<span style="font-family:monospace">)</span>
+returns the Taylor expansion of <span style="font-style:italic">expr</span> about <span style="font-style:italic">a</span> or order <span style="font-style:italic">n</span>;
+consisting of a polynomial in <span style="font-style:italic">x</span>−<span style="font-style:italic">a</span> plus a remainder of the form
+of the form:
+<div class="center">
+(<span style="font-style:italic">x</span>−<span style="font-style:italic">a</span>)<span style="font-family:monospace">^</span><span style="font-style:italic">n</span><span style="font-family:monospace"> * order_size(</span><span style="font-style:italic">x</span>−<span style="font-style:italic">a</span><span style="font-family:monospace">)</span>
+</div>
+where <span style="font-family:monospace">order_size</span> is a function such that,
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">∀ <span style="font-style:italic">r</span>&gt;0,    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">&nbsp;</td></tr>
+<tr><td class="dcell" style="text-align:center">lim</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>→ 0</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup><span style="font-style:italic">r</span></sup> order_size(<span style="font-style:italic">x</span>) = 0 
+</td></tr>
+</table>
+</li></ul><p>
+For regular series expansion, <span style="font-family:monospace">order_size</span> is a bounded function,
+but for non regular series expansion, it might tend slowly to
+infinity, for example like a power of ln(<span style="font-style:italic">x</span>).</p><h4 id="sec913" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">taylor(sin(x),x=1,2)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">series(sin(x),x=1,2)</span>
+</div><p>
+<span style="font-style:italic">or (be careful with the order of the arguments!):</span>
+</p><div class="center">
+<span style="font-family:monospace">taylor(sin(x),x,2,1)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">series(sin(x),x,2,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+cos</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup>+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>3</sup> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+The order returned by <span style="font-family:monospace">taylor</span> may
+be smaller than <span style="font-style:italic">n</span> if cancellations between numerator and denominator
+occur, for example consider
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>3</sup>+sin(<span style="font-style:italic">x</span>)<sup>3</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−sin(<span style="font-style:italic">x</span>)</td></tr>
+</table></td></tr>
+</table><p> 
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">taylor(x^3+sin(x)^3/(x-sin(x)),x=0,5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">6−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">27</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">10</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span><sup>3</sup>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">711</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1400</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>4</sup>+<span style="font-style:italic">x</span><sup>6</sup> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table><div class="center">
+<span style="font-family:monospace">6+-27/10*x^2+x^3*order_size(x)</span>
+</div><p>
+which is only a 2nd degree expansion.
+Indeed the numerator and denominator valuation is 3, hence you lose 3
+orders. To get order 4, you should use <span style="font-style:italic">n</span>=7.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">taylor(x^3+sin(x)^3/(x-sin(x)),x=0,7)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">6−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">27</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">10</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span><sup>3</sup>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">711</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1400</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>4</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">737</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">14000</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>6</sup>+<span style="font-style:italic">x</span><sup>8</sup> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table><div class="center"><span style="font-family:monospace">6+-27/10*x^2+x^3+711/1400*x^4+x^5*order_size(x)</span></div><p>
+a fourth degree expansion.</p><h4 id="sec914" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Find a 4th-order expansion of cos(2<span style="font-style:italic">x</span>)<sup>2</sup> in the vicinity of
+<span style="font-style:italic">x</span>=π/6. <br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">taylor(cos(2*x)^2,x=pi/6, 4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+2 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">8</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">3</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">8</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">4</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">5</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize">Find a 5th-order series expansion of arctan(<span style="font-style:italic">x</span>) in the vicinity of
+<span style="font-style:italic">x</span>=+∞.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">series(atan(x),x=+infinity,5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">3</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">5</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">6</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+Note that the expansion variable and the argument of the
+<span style="font-family:monospace">order_size</span> function is
+ <span style="font-style:italic">h</span>=1/<span style="font-style:italic">x</span> →<sub><span style="font-style:italic">x</span>→ + ∞</sub> 0 .
+</li><li class="li-itemize">Find a 2nd-order expansion of (2<span style="font-style:italic">x</span>−1)<span style="font-style:italic">e</span><sup>1/<span style="font-style:italic">x</span>−1</sup> in the vicinity of
+<span style="font-family:monospace">x=+</span>∞.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">series((2*x-1)*exp(1/(x-1)),x=+infinity,3)
+</span></div>
+<span style="font-style:italic">Output (only a 1st-order series expansion):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">−1</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+1+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">17</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">3</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+Note that this is only a 1st order expansion. To get a 2nd-order
+series expansion in 1/<span style="font-style:italic">x</span>:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">series((2*x-1)*exp(1/(x-1)),x=+infinity,4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">−1</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+1+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">17</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">47</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">12</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">3</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">4</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize">Find a 2nd-order series expansion of (2<span style="font-style:italic">x</span>−1)<span style="font-style:italic">e</span><sup>1/<span style="font-style:italic">x</span>−1</sup> in the vicinity
+of <span style="font-family:monospace">x=-</span>∞.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">series((2*x-1)*exp(1/(x-1)),x=-infinity,4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−2 </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">−1</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+1+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">17</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">47</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">12</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">3</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">4</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize">Find a 2nd-order series expansion of (1+<span style="font-style:italic">x</span>)<sup>1/<span style="font-style:italic">x</span></sup>/<span style="font-style:italic">x</span><sup>3</sup>  in
+the vicinity of <span style="font-style:italic">x</span>=0<sup>+</sup>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">series((1+x)^(1/x)/x^3,x=0,2,1)</span>
+</div>
+(Note that this is a one-sided series expansion, since
+<span style="font-style:italic">dir</span><span style="font-family:monospace">=1</span>.)
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span> <span style="font-style:italic">x</span><sup>−3</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">e</span> <span style="font-style:italic">x</span><sup>−2</sup>+<span style="font-style:italic">x</span><sup>−1</sup> <span style="font-style:italic">order</span>_<span style="font-style:italic">size</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en394.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en396.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

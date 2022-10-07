@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>k-means clustering: kmeans</title>
+</head>
+<body >
+<a href="cascmd_en697.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en699.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:kmeans" class="subsection">9.1.2  <span style="font-style:italic">k</span>-means clustering: <span style="font-family:monospace">kmeans</span></h3>
+<p>
+<a id="hevea_default1284"></a></p><p>The <span style="font-family:monospace">kmeans</span> command is an efficient implementation of <span style="font-style:italic">k</span>-means algorithm
+for clustering numerical multidimensional data.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">kmeans</span> accepts one or more input arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">data</span>, which must be a list of 2D points or
+<span style="font-style:italic">m</span>-dimensional Euclidean points entered as vectors.
+For <span style="font-style:italic">n</span> such points, <span style="font-style:italic">data</span> should be a <span style="font-style:italic">n</span>× <span style="font-style:italic">m</span> matrix.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">opt</span>, a sequence of options which may contain the following:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">k</span> or <span style="font-family:monospace">count=</span><span style="font-style:italic">k</span> or <span style="font-family:monospace">count=</span><span style="font-style:italic">k</span><sub><span style="font-style:italic">l</span></sub><span style="font-family:monospace">..</span><span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub>,
+where <span style="font-style:italic">k</span> is a positive integer specifying the number of clusters and <span style="font-style:italic">k</span><sub><span style="font-style:italic">l</span></sub>..<span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub>
+is an interval specifying minimal and maximal number of clusters (by default, unset).
+</li><li class="li-itemize"><span style="font-family:monospace">count_inf=</span><span style="font-style:italic">k</span><sub><span style="font-style:italic">l</span></sub>, where <span style="font-style:italic">k</span><sub><span style="font-style:italic">l</span></sub> is a positive integer
+specifying the minimal number of clusters (by default, <span style="font-style:italic">k</span><sub><span style="font-style:italic">l</span></sub>=2).
+</li><li class="li-itemize"><span style="font-family:monospace">count_sup=</span><span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub>, where <span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub> is a positive integer
+specifying the maximal number of clusters (by default, <span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub>=<span style="font-style:italic">n</span>−1).
+</li><li class="li-itemize"><span style="font-family:monospace">limit=</span><span style="font-style:italic">N</span>, where <span style="font-style:italic">N</span> is a positive integer
+specifying the maximal number of iterations for the <span style="font-style:italic">k</span>-means algorithm (by default, <span style="font-style:italic">N</span>=100).
+</li><li class="li-itemize"><span style="font-family:monospace">index=</span><span style="font-style:italic">str</span>, where <span style="font-style:italic">str</span> is a string or a list of strings
+specifying the index functions used to find the optimal number of clusters automatically.
+Available indices are: <span style="font-family:monospace">ball-hall</span>, <span style="font-family:monospace">banfeld-raftery</span>,
+<span style="font-family:monospace">calinski-harabasz</span>, <span style="font-family:monospace">davies-bouldin</span>, <span style="font-family:monospace">det</span>, <span style="font-family:monospace">ksq-detW</span>,
+<span style="font-family:monospace">log-det</span>, <span style="font-family:monospace">log-ss</span>, <span style="font-family:monospace">pbm</span>, <span style="font-family:monospace">ratkowsky-lance</span>,
+<span style="font-family:monospace">ray-turi</span>, <span style="font-family:monospace">scott-symons</span>, <span style="font-family:monospace">trace-W</span>, <span style="font-family:monospace">trace-WiB</span> and <span style="font-family:monospace">all</span>
+(note that you must surround these names by double-quotes).
+For details, see Desgraupes (2017)<sup><a id="text9" href="cascmd_en701.html#note9">1</a></sup>.
+<span style="font-style:italic">str</span> may also take a boolean value, in which case either no index is used
+(<span style="font-style:italic">str</span><span style="font-family:monospace">=false</span>) or the Calinski-Harabasz index is used (<span style="font-style:italic">str</span><span style="font-family:monospace">=true</span>).
+By default, Hartigan’s criterion is used to determine the optimal number of clusters if <span style="font-style:italic">k</span>
+is not given.
+</li><li class="li-itemize"><span style="font-family:monospace">output=</span><span style="font-style:italic">out</span>, where <span style="font-style:italic">out</span> is one of the following:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">part</span>, for outputting the partition of the data into clusters.
+</li><li class="li-itemize"><span style="font-family:monospace">list</span>, for outputting the list of cluster indices for data points (the default).
+</li><li class="li-itemize"><span style="font-family:monospace">plot</span>, for outputting a colored visualization of data points with additional
+specifications given in <span style="font-family:monospace">display</span> option (see below). Note that this is possible only with
+two- and three-dimensional data.
+</li><li class="li-itemize"><span style="font-family:monospace">count</span>, for outputting only the number of clusters.
+</li><li class="li-itemize"><span style="font-family:monospace">index</span>, for outputting the list of values of the (first) used index.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">display=</span><span style="font-style:italic">disp</span>, where <span style="font-style:italic">disp</span> is a configuration for plot output
+(by default, points are drawn as dots of width 2).
+</li></ul>
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">kmeans</span> applies the Hartigan-Wong implementation of <span style="font-style:italic">k</span>-means algorithm, which is fast
+and suitable for large datasets.
+</li><li class="li-itemize"><span style="font-family:monospace">kmeans</span> does not support custom distance functions.
+If you want to cluster the data by using a distance function other than the Euclidean distance,
+use the <span style="font-family:monospace">cluster</span> command (see Section <a href="cascmd_en697.html#sec%3Ahclust">9.1.1</a>).
+</li><li class="li-itemize">If more than one index is computed in a clustering process, then the optimal number of clusters
+is decided by voting: the number which was selected by most indices is used.
+</li></ul><h4 id="sec1812" class="subsubsection">Example</h4>
+<ul class="itemize"><li class="li-itemize">
+In this example, we cluster some random gaussian data and use
+the Calinski-Harabasz index for choosing the optimal number of clusters.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">d:=5:; n:=2500:; data:=[]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">C:=[[5,6],[14,10],[27,5],[10,21],[30,-2]]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">R:=[[2,2.5],[1.2,1],[3,3],[2,1.8],[1,0.5]]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">for k from 1 to n do</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  j:=rand(d);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  x:=sample(randvar(normal,C[j][0],R[j][0]));</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  y:=sample(randvar(normal,C[j][1],R[j][1]));</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  data:=append(data,[x,y]);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">od:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">kmeans(data,index="calinski-harabasz",output=plot)</span>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en135.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en697.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en699.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

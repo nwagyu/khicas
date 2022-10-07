@@ -1,0 +1,48 @@
+giac/KhiCAS sur TI nspire CX 
+============================
+Pour cross-compiler KhiCAS, il faut installer le SDK de ndless
+https://hackspire.org/index.php/C_and_assembly_development_introduction
+
+Ensuite installer GMP, MPFR, MPFI les versions importent peu mais autant prendre les plus recentes. Il suffit de prendre les archives standard (https://gmplib.org/, https://www.mpfr.org/, https://gforge.inria.fr/frs/?group_id=157), a cross-compiler, ce qui peut se faire avec les instructions suivantes
+    #! /bin/bash
+    export CC=nspire-gcc
+    export CXX=nspire-g++
+    export LD=nspire-ld
+    export AR=arm-none-eabi-ar
+    export AS=nspire-as
+puis pour compiler GMP
+    ./configure --host=arm-none-eabi
+installer a la main gmp*h dans chemin_vers_ndless-sdk/toolchain/install/include et libgmp.a vers chemin_vers_ndless-sdk/toolchain/install/lib
+puis pour compiler MPFR
+    ./configure --with-gmp=chemin_vers_ndless-sdk/toolchain/install --host=arm-none-eabi
+meme procedure d'install et compilation de MPFI de maniere analogue.
+
+Puis recuperer le source a jour de giac,
+https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac/giac-1.6.0.tar.bz2
+cp config.h.nspire config.h
+editer Makefile.nspire pour s'adapter a votre installation locale et faire
+make -f Makefile.nspire
+
+Si vous faites des modifications et que vous voulez executer en pas a pas au debuggueur:
+* a faire une fois: installez firebird-emu 
+https://github.com/nspire-emus/firebird. 
+Installer sur l'emulateur les fichiers de boot et de flash de votre 
+nspire CX. Puis envoyez avec firebird-send ndless 4.5.0 pour la nspire 
+(https://tiplanet.org/forum/viewtopic.php?t=20446), activez ndless. 
+Faites deux sauvegardes (dont une de snapshot pour redemarrer firebird-emu).
+* apres chaque compilation: envoyez l'executable giac.tns sur l'emulateur. 
+Tapez alors dans un shell la commande 
+    arm-none-eabi-gdb -ex "target remote localhost:3333" giac.elf
+ou dans emacs: Esc x gdb (enter) puis
+    arm-none-eabi-gdb -i=mi -ex "target remote localhost:3333" giac.elf
+Cela doit interrompre l'emulateur (affichage grise). Mettez un point 
+d'arret dans votre code source (dans emacs Ctrl-X Ctrl-A Ctrl-B sur 
+la ligne souhaitee, dans gdb avec la commande b pour break, b nom de fonction
+ou b nom de ficher source:numero de ligne) et tapez c (cont). 
+Ensuite lorsque le point d'arret est atteint vous pouvez executer en pas 
+a pas comme avec une session gdb normale
+(p print, n next, s step into, u until, c continue, etc.). 
+Dans le repertoire src de giac, il y a un fichier .gdbinit qui contient 
+une macro fort utile pour afficher des variables de type gen, 
+c'est v (comme voir) qui s'utilise comme p mais au lieu d'afficher 
+la variable comme une structure C, il l'affiche comme dans Xcas.

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: GP Keyboard Shortcuts</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body ><h3>GP Line Editor: Readline</h3>
+<p>
+In the following, <code>C-</code> stands for "the <code>Control</code> key combined with
+another" and the same for <code>M-</code> with the <code>Meta</code> key; generally
+<code>C-</code> combinations act on characters, while the <code>M-</code> ones operate on
+words. The <code>Meta</code> key might be called <code>Alt</code> on some keyboards, will
+display a black diamond on most others, and can safely be replaced by
+<code>Esc</code> in any case.</p>
+<p>
+Typing any ordinary key inserts text where the cursor stands, the arrow keys
+enabling you to move in the line. There are many more movement commands,
+which will be familiar to the Emacs user, for instance <code>C-a</code>/<code>C-e</code>
+will take you to the start/end of the line, <code>M-b</code>/<code>M-f</code> move the
+cursor backward/forward by a word, etc. Just press the <code> &lt;Return&gt; </code> key at
+any point to send your command to <code>gp</code>.</p>
+<p>
+  All the commands you type at the <code>gp</code> prompt are stored in a history,
+a multiline command being saved as a single concatenated line. The Up and Down
+arrows (or <code>C-p</code>/<code>C-n</code>) will move you through the history,
+<code>M- &lt; </code>/<code>M- &gt; </code> sending you to the start/end of the history.
+<code>C-r</code>/<code>C-s</code> will start an incremental backward/forward search. You
+can kill text (<code>C-k</code> kills till the end of line, <code>M-d</code> to the end of
+current word) which you can then yank back using the <code>C-y</code> key (<code>M-y</code>
+will rotate the kill-ring). <code>C-_</code> will undo your last changes
+incrementally (<code>M-r</code> undoes all changes made to the current line).
+<code>C-t</code> and <code>M-t</code> will transpose the character (word) preceding the
+cursor and the one under the cursor.</p>
+<p>
+  Keeping the <code>M-</code> key down while you enter an integer (a minus sign
+meaning reverse behavior) gives an argument to your next readline command
+(for instance <code>M-- C-k</code> will kill text back to the start of line). If you
+prefer Vi-style editing, <code>M-C-j</code> will toggle you to Vi mode.</p>
+<p>
+  Of course you can change all these default bindings. For that you need to
+create a file named <code>.inputrc</code> in your home directory. For instance
+(notice the embedding conditional in case you would want specific bindings
+for <code>gp</code>):</p>
+<p></p>
+<p>
+</p><pre class="code">  $if Pari-GP
+    set show-all-if-ambiguous
+    "\C-h": backward-delete-char
+    "\e\C-h": backward-kill-word
+    "\C-xd": dump-functions
+    (: "\C-v()\C-b"       #  can be annoying when copy-pasting!
+    [: "\C-v[]\C-b"
+  $endif
+</pre><p></p>
+<p>
+<code>C-x C-r</code> will re-read this init file, incorporating any
+changes made to it during the current session.</p>
+<p>
+<b>Note.</b> By default, <code>(</code> and <code>[</code> are bound to the function
+<code>pari-matched-insert</code> which, if "electric parentheses" are enabled
+(default: off) will automatically insert the matching closure (respectively
+<code>)</code> and <code>]</code>). This behavior can be toggled on and off by giving
+the numeric argument -2 to <code>(</code> (<code>M--2(</code>), which is useful if you
+want, e.g to copy-paste some text into the calculator. If you do not want a
+toggle, you can use <code>M--0</code> / <code>M--1</code> to specifically switch it on or
+off).</p>
+<p>
+<b>Note.</b> In some versions of readline (2.1 for instance), the
+<code>Alt</code> or <code>Meta</code> key can give funny results (output 8-bit accented
+characters for instance). If you do not want to fall back to the <code>Esc</code>
+combination, put the following two lines in your <code>.inputrc</code>:</p>
+<p></p>
+<p>
+</p><pre class="code">    set convert-meta on
+    set output-meta off
+</pre><p></p>
+<p></p>
+<p>
+<b>Command completion and online help.</b> Hitting
+<code> &lt;TAB&gt; </code> will complete words for you. This mechanism is context-dependent:
+<code>gp</code> will strive to only give you meaningful completions in a given
+context (it will fail sometimes, but only under rare and restricted
+conditions).</p>
+<p>
+  For instance, shortly after a <code>~</code>, we expect a user name, then a
+path to some file. Directly after <code>default(</code> has been typed, we would
+expect one of the <code><a href="Programming_in_GP__other_specific_functions.html#se:default"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">default</a></code> keywords. After a '.', we expect a member
+keyword. And generally of course, we expect any GP symbol which may be found
+in the hashing lists: functions (both yours and GP's), and variables.</p>
+<p>
+  If, at any time, only one completion is meaningful, <code>gp</code> will provide it
+together with</p>
+<p>
+<b>*</b> an ending comma if we are completing a default,</p>
+<p>
+<b>*</b> a pair of parentheses if we are completing a function name. In
+that case hitting <code> &lt;TAB&gt; </code> again will provide the argument list as given
+by the online help. (Recall that you can always undo the effect
+of the preceding keys by hitting <code>C-_</code>; this applies here.)</p>
+<p>
+Otherwise, hitting <code> &lt;TAB&gt; </code> once more will give you the list of possible
+completions. Just experiment with this mechanism as often as possible,
+you will probably find it very convenient. For instance, you can obtain
+<code>default(seriesprecision,10)</code>, just by hitting <code>def &lt;TAB&gt; se &lt;TAB&gt; 10</code>,
+which saves 18 keystrokes (out of 27).</p>
+<p>
+  Hitting <code>M-h</code> will give you the usual short online help concerning the
+word directly beneath the cursor, <code>M-H</code> will yield the extended help
+corresponding to the <code>help</code> default program (usually opens a dvi
+previewer, or runs a primitive tex-to-ASCII program). None of these disturb
+the line you were editing.</p>
+<p>
+</body>

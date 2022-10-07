@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Univariate global minimization on a segment: find_minimum</title>
+</head>
+<body >
+<a href="cascmd_en549.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en551.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1379" class="subsection">5.53.1  Univariate global minimization on a segment: <span style="font-family:monospace">find_minimum</span></h3>
+<p>
+<a id="hevea_default941"></a></p><p>The <span style="font-family:monospace">find_minimum</span> command is used for global minimization of a continuous
+function on a segment.</p><p><span style="font-family:monospace">find_minimum</span> takes between three and five arguments:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">f</span>, a continuous univariate function or expression.
+</li><li class="li-itemize"><span style="font-style:italic">a</span>, a real number.
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, a real number such that <span style="font-style:italic">a</span>&lt;<span style="font-style:italic">b</span>.
+</li><li class="li-itemize">Optionally, a sequence of one or two numbers being either:
+<ul class="itemize"><li class="li-itemize">
+ε∈⟨ 0,1⟩, the optimality tolerance (by default, ε=ε<sub>0</sub><sup>2/3</sup>, where ε<sub>0</sub> is the number returned by
+the command <span style="font-family:monospace">epsilon</span>), or
+</li><li class="li-itemize"><span style="font-style:italic">n</span>∈ℤ, the maximum number of iterations (<span style="font-style:italic">n</span>≥ 1 is required)
+for Brent’s method subroutine (by default, <span style="font-style:italic">n</span>=100).
+</li></ul>
+</li></ul><p><span style="font-family:monospace">find_minimum</span> applies a modification of Brent’s algorithm which usually finds a global
+minimum, even when <span style="font-style:italic">f</span> has many local extrema.
+The original Brent’s method is used as a subroutine which is applied recursively by
+partitioning the search interval. Each instance is allowed the maximum of <span style="font-style:italic">n</span> iterations.</p><h4 id="sec1380" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+We minimize a function which has several local extrema, one of which is global.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(x):=Airy_Ai(x+sin(x))+cos(x^2):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">x0:=find_minimum(f(x),-5,5)</span>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−3.96344565209 </td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plot(f(x),x=-5..5); point(x0,f(x0),display=point_width_3+point_point+red)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en015.png">
+</div>
+</li><li class="li-itemize">The objective function in the example below is unimodal,
+with a single local minimum which is also the global minimum.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(x):=besselJ(x,2)/Gamma(x+1)+(x+1)^sin(x):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">x0:=find_minimum(f(x),0,10)</span>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4.82843934915 </td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plot(f(x),x=0..10); point(x0,f(x0),display=point_width_3+point_point+red)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en016.png">
+</div>
+</li><li class="li-itemize">The following function is continuous but not differentiable.
+It has three local and only one global minimum at <span style="font-style:italic">x</span><sub>0</sub>=−1. Note that we are passing the function
+itself as the first argument. Also, the parameters ε and <span style="font-style:italic">n</span> are set to 10<sup>−5</sup>
+and 30, respectively.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(x):=(min(sqrt(abs(x+4))-1,sqrt(abs(x+1))-1005/1000,sqrt(abs(x-3))+1/2):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">x0:=find_minimum(f,-5,5,1e-5,30)</span>
+</td></tr>
+</table></div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−0.999998230068 </td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plot(f(x),x=-5..5,xstep=5e-4); point(x0,f(x0),display=point_width_3+point_point+red)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en017.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en549.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en551.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

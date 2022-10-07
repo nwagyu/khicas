@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Plotting functions</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">Plotting functions</h2>
+
+<p></p>
+<p></p>
+<p>  Although plotting is not even a side purpose of PARI, a number of plotting
+functions are provided. There are three types of graphic functions.</p>
+<p>
+<hr>
+<div id="Highminuslevel_plotting_functions"></div>
+<h4>High-level plotting functions</h4>
+<p> (all the functions starting with
+<code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code>) in which the user has little to do but explain what type of plot
+he wants, and whose syntax is similar to the one used in the preceding
+section.</p>
+<p>
+
+<hr>
+<div id="Lowminuslevel_plotting_functions"></div>
+<h4>Low-level plotting functions</h4>
+<p> (called <em>rectplot</em> functions,
+sharing the prefix <code><a href="Plotting_functions.html#se:plot"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plot</a></code>), where every drawing primitive (point, line,
+box, etc.) is specified by the user. These low-level functions work as
+follows. You have at your disposal 16 virtual windows which are filled
+independently, and can then be physically ORed on a single window at
+user-defined positions. These windows are numbered from 0 to 15, and must be
+initialized before being used by the function <code><a href="Plotting_functions.html#se:plotinit"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotinit</a></code>, which specifies
+the height and width of the virtual window (called a <em>rectwindow</em> in the
+sequel). At all times, a virtual cursor (initialized at [0,0]) is attached
+to the window, and its current value can be obtained using the function
+<code><a href="Plotting_functions.html#se:plotcursor"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotcursor</a></code>.</p>
+<p>
+A number of primitive graphic objects (called <em>rect</em> objects) can then
+be drawn in these windows, using a default color attached to that window
+(which can be changed using the <code><a href="Plotting_functions.html#se:plotcolor"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotcolor</a></code> function) and only the part
+of the object which is inside the window will be drawn, with the exception of
+polygons and strings which are drawn entirely. The ones sharing the prefix
+<code>plotr</code> draw relatively to the current position of the virtual cursor,
+the others use absolute coordinates. Those having the prefix <code><a href="Plotting_functions.html#se:plotrecth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotrecth</a></code>
+put in the rectwindow a large batch of rect objects corresponding to the
+output of the related <code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code> function.</p>
+<p>
+   Finally, the actual physical drawing is done using <code><a href="Plotting_functions.html#se:plotdraw"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotdraw</a></code>. The
+rectwindows are preserved so that further drawings using the same windows at
+different positions or different windows can be done without extra work. To
+erase a window, use <code><a href="Plotting_functions.html#se:plotkill"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotkill</a></code>. It is not possible to partially erase a
+window: erase it completely, initialize it again, then fill it with the
+graphic objects that you want to keep.</p>
+<p>
+   In addition to initializing the window, you may use a scaled window to
+avoid unnecessary conversions. For this, use <code><a href="Plotting_functions.html#se:plotscale"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotscale</a></code>. As long as this
+function is not called, the scaling is simply the number of pixels, the
+origin being at the upper left and the y-coordinates going downwards.</p>
+<p>
+   Plotting functions are platform independent, but a number of graphical
+drivers are available for screen output: X11-windows (including
+Openwindows and Motif), Windows's Graphical Device Interface, the Qt and
+FLTK graphical libraries and one may even write the graphical objects to a
+PostScript or SVG file and use an external viewer to open it. The physical
+window opened by <code><a href="Plotting_functions.html#se:plotdraw"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotdraw</a></code> or any of the <code>ploth*</code> functions is
+completely separated from <code>gp</code> (technically, a <code>fork</code> is done, and
+the non-graphical memory is immediately freed in the child process), which
+means you can go on working in the current <code>gp</code> session, without having
+to kill the window first. This window can be closed, enlarged or reduced
+using the standard window manager functions. No zooming procedure is
+implemented though.</p>
+<p>
+
+<hr>
+<div id="Functions_for_PostScript_or_SVG_output"></div>
+<h4>Functions for PostScript or SVG output</h4>
+<p> in the same way that
+<code><a href="Programming_in_GP__other_specific_functions.html#se:printtex"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">printtex</a></code> allows you to have a TeX output
+corresponding to printed results, the functions <code><a href="Plotting_functions.html#se:plotexport"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotexport</a></code>,
+<code><a href="Plotting_functions.html#se:plothexport"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plothexport</a></code> and <code><a href="Plotting_functions.html#se:plothrawexport"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plothrawexport</a></code> convert a plot to a character
+string in either <code>PostScript</code> or <code>Scalable Vector Graphics</code> format.
+This string can then be written to a file in the customary way, using
+<code><a href="Programming_in_GP__other_specific_functions.html#se:write"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">write</a></code>. These export routines are available even if no Graphic Library is.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:parploth"></div>
+<div id="parploth"></div>
+<h4>parploth(X = a, b, <em>expr</em>, {<em>flags</em> = 0}, {n = 0})</h4>
+<p>
+High precision plot of the function y = f(x) represented by the expression
+<em>expr</em>, x going from a to b. This opens a specific window (which is
+killed whenever you click on it), and returns a four-component vector giving
+the coordinates of the bounding box in the form
+[<em>xmin</em>,<em>xmax</em>,<em>ymin</em>,<em>ymax</em>].</p>
+<p>
+<b>Important note.</b> <code><a href="Plotting_functions.html#se:parploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">parploth</a></code> may evaluate <code>expr</code> thousands of
+times; given the relatively low resolution of plotting devices, few
+significant digits of the result will be meaningful. Hence you should keep
+the current precision to a minimum (e.g.&nbsp;9) before calling this function.</p>
+<p>
+n specifies the number of reference point on the graph, where a value of 0
+means we use the hardwired default values (1000 for general plot, 1500 for
+parametric plot, and 8 for recursive plot).</p>
+<p>
+If no <em>flag</em> is given, <em>expr</em> is either a scalar expression f(X), in which
+case the plane curve y = f(X) will be drawn, or a vector
+[f<sub>1</sub>(X),...,f<sub>k</sub>(X)], and then all the curves y = f<sub>i</sub>(X) will be drawn in
+the same window.</p>
+<p>
+The binary digits of <em>flag</em> mean:</p>
+<p>
+<b>*</b> 1 = <code>Parametric</code>: <em>parametric plot</em>. Here <em>expr</em> must
+be a vector with an even number of components. Successive pairs are then
+understood as the parametric coordinates of a plane curve. Each of these are
+then drawn.</p>
+<p>
+For instance:</p>
+<p>
+</p><pre class="code">  parploth(X=0,2*Pi,[sin(X),cos(X)], "Parametric")
+  parploth(X=0,2*Pi,[sin(X),cos(X)])
+  parploth(X=0,2*Pi,[X,X,sin(X),cos(X)], "Parametric")
+</pre><p>
+draw successively a circle, two entwined sinusoidal curves
+and a circle cut by the line y = x.</p>
+<p>
+<b>*</b> 2 = <code>Recursive</code>: <em>recursive plot</em>. If this flag is set,
+only <em>one</em> curve can be drawn at a time, i.e.&nbsp;<em>expr</em> must be either a
+two-component vector (for a single parametric curve, and the parametric flag
+<em>has</em> to be set), or a scalar function. The idea is to choose pairs of
+successive reference points, and if their middle point is not too far away
+from the segment joining them, draw this as a local approximation to the
+curve. Otherwise, add the middle point to the reference points. This is
+fast, and usually more precise than usual plot. Compare the results of</p>
+<p>
+</p><pre class="code">  parploth(X=-1,1, sin(1/X), "Recursive")
+  parploth(X=-1,1, sin(1/X))
+</pre><p></p>
+<p>
+for instance. But beware that if you are extremely unlucky, or choose too few
+reference points, you may draw some nice polygon bearing little resemblance
+to the original curve. For instance you should <em>never</em> plot recursively
+an odd function in a symmetric interval around 0. Try</p>
+<p>
+</p><pre class="code">  parploth(x = -20, 20, sin(x), "Recursive")
+</pre><p></p>
+<p>
+to see why. Hence, it's usually a good idea to try and plot the same curve
+with slightly different parameters.</p>
+<p>
+The other values toggle various display options:</p>
+<p>
+<b>*</b> 4 = <code>no_Rescale</code>: do not rescale plot according to the
+computed extrema. This is used in conjunction with <code><a href="Plotting_functions.html#se:plotscale"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotscale</a></code> when
+graphing multiple functions on a rectwindow (as a <code><a href="Plotting_functions.html#se:plotrecth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotrecth</a></code> call):</p>
+<p>
+</p><pre class="code">    s = plothsizes();
+    plotinit(0, s[2]-1, s[2]-1);
+    plotscale(0, -1,1, -1,1);
+    plotrecth(0, t=0,2*Pi, [cos(t),sin(t)], "Parametric|no_Rescale")
+    plotdraw([0, -1,1]);
+</pre><p></p>
+<p>
+This way we get a proper circle instead of the distorted ellipse produced by</p>
+<p>
+</p><pre class="code">    parploth(t=0,2*Pi, [cos(t),sin(t)], "Parametric")
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> 8 = <code>no_X_axis</code>: do not print the x-axis.</p>
+<p>
+<b>*</b> 16 = <code>no_Y_axis</code>: do not print the y-axis.</p>
+<p>
+<b>*</b> 32 = <code>no_Frame</code>: do not print frame.</p>
+<p>
+<b>*</b> 64 = <code>no_Lines</code>: only plot reference points, do not join them.</p>
+<p>
+<b>*</b> 128 = <code>Points_too</code>: plot both lines and points.</p>
+<p>
+<b>*</b> 256 = <code>Splines</code>: use splines to interpolate the points.</p>
+<p>
+<b>*</b> 512 = <code>no_X_ticks</code>: plot no x-ticks.</p>
+<p>
+<b>*</b> 1024 = <code>no_Y_ticks</code>: plot no y-ticks.</p>
+<p>
+<b>*</b> 2048 = <code>Same_ticks</code>: plot all ticks with the same length.</p>
+<p>
+<b>*</b> 4096 = <code>Complex</code>: is a parametric plot but where each member of
+<code>expr</code> is considered a complex number encoding the two coordinates of a
+point. For instance:</p>
+<p>
+</p><pre class="code">  parploth(X=0,2*Pi,exp(I*X), "Complex")
+  parploth(X=0,2*Pi,[(1+I)*X,exp(I*X)], "Complex")
+</pre><p>
+will draw respectively a circle and a circle cut by the line
+y = x.</p>
+<p>
+The library syntax is <code><b>parploth</b>(GEN a,GEN b,GEN code, long flag, long n, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plot"></div>
+<div id="plot"></div>
+<h4>plot(X = a, b, <em>expr</em>, {<em>Ymin</em>}, {<em>Ymax</em>})</h4>
+<p>
+Crude ASCII plot of the function represented by expression <em>expr</em>
+from a to b, with <em>Y</em> ranging from <em>Ymin</em> to <em>Ymax</em>. If
+<em>Ymin</em> (resp. <em>Ymax</em>) is not given, the minimum (resp. the maximum)
+of the computed values of the expression is used instead.</p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:plotbox"></div>
+<div id="plotbox"></div>
+<h4>plotbox(w, <em>x2</em>, <em>y2</em>, {<em>filled</em> = 0})</h4>
+<p>
+Let (x1,y1) be the current position of the virtual cursor. Draw in the
+rectwindow w the outline of the rectangle which is such that the points
+(x1,y1) and (x2,y2) are opposite corners. Only the part of the rectangle
+which is in w is drawn. The virtual cursor does <em>not</em> move.
+If <em>filled</em> = 1, fill the box.</p>
+<p>
+The library syntax is <code>void <b>plotbox</b>(long w, GEN x2, GEN y2, long filled)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotclip"></div>
+<div id="plotclip"></div>
+<h4>plotclip(w)</h4>
+<p>
+`clips' the content of rectwindow w, i.e remove all parts of the
+drawing that would not be visible on the screen. Together with
+<code><a href="Plotting_functions.html#se:plotcopy"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotcopy</a></code> this function enables you to draw on a scratchpad before
+committing the part you're interested in to the final picture.</p>
+<p>
+The library syntax is <code>void <b>plotclip</b>(long w)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotcolor"></div>
+<div id="plotcolor"></div>
+<h4>plotcolor(w, c)</h4>
+<p>
+Set default color to c in rectwindow w. Return [R,G,B] value attached
+to color. Possible values for c are</p>
+<p>
+<b>*</b> a <code>t_VEC</code> or <code>t_VECSMALL</code> [R,G,B] giving the color RGB value
+(all 3 values are between 0 and 255), e.g. <code>[250,235,215]</code> or
+equivalently <code>[0xfa, 0xeb, 0xd7]</code> for <code>antiquewhite</code>;</p>
+<p>
+<b>*</b> a <code>t_STR</code> giving a valid colour name (see the <code>rgb.txt</code>
+file in X11 distributions), e.g. <code>"antiquewhite"</code> or an RGV
+value given by a <code>#</code> followed by 6 hexadecimal digits, e.g.
+<code>"#faebd7"</code> for <code>antiquewhite</code>;</p>
+<p>
+<b>*</b> a <code>t_INT</code>, an index in the <code>graphcolormap</code> default, factory
+setting are</p>
+<p>
+1 = black, 2 = blue, 3 = violetred, 4 = red, 5 = green, 6 = grey, 7 = gainsborough.</p>
+<p>
+but this can be extended if needed.</p>
+<p>
+</p><pre class="code">  ? plotinit(0,100,100);
+  ? plotcolor(0, "turquoise")
+  %2 = [64, 224, 208]
+  ? plotbox(0, 50,50,1);
+  ? plotmove(0, 50,50);
+  ? plotcolor(0, 2) \\ blue
+  %4 = [0, 0, 255]
+  ? plotbox(0, 50,50,1);
+  ? plotdraw(0);
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>plotcolor</b>(long w, GEN c)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotcopy"></div>
+<div id="plotcopy"></div>
+<h4>plotcopy(<em>sourcew</em>, <em>destw</em>, <em>dx</em>, <em>dy</em>, {<em>flag</em> = 0})</h4>
+<p>
+Copy the contents of rectwindow <em>sourcew</em> to rectwindow <em>destw</em>
+with offset (dx,dy). If flag's bit 1 is set, dx and dy express fractions of
+the size of the current output device, otherwise dx and dy are in pixels. dx
+and dy are relative positions of northwest corners if other bits of flag
+vanish, otherwise of: 2: southwest, 4: southeast, 6: northeast corners</p>
+<p>
+The library syntax is <code>void <b>plotcopy</b>(long sourcew, long destw, GEN dx, GEN dy, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotcursor"></div>
+<div id="plotcursor"></div>
+<h4>plotcursor(w)</h4>
+<p>
+Give as a 2-component vector the current
+(scaled) position of the virtual cursor corresponding to the rectwindow w.</p>
+<p>
+The library syntax is <code>GEN <b>plotcursor</b>(long w)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotdraw"></div>
+<div id="plotdraw"></div>
+<h4>plotdraw(w, {<em>flag</em> = 0})</h4>
+<p>
+Physically draw the rectwindow w. More generally,
+w can be of the form [w<sub>1</sub>,x<sub>1</sub>,y<sub>1</sub>,w<sub>2</sub>,x<sub>2</sub>,y<sub>2</sub>,...] (number of
+components must be divisible by 3; the windows w<sub>1</sub>, w<sub>2</sub>, etc.&nbsp;are
+physically placed with their upper left corner at physical position
+(x<sub>1</sub>,y<sub>1</sub>), (x<sub>2</sub>,y<sub>2</sub>),...respectively, and are then drawn together.
+Overlapping regions will thus be drawn twice, and the windows are considered
+transparent. Then display the whole drawing in a window on your screen.
+If <em>flag</em> != 0, x<sub>1</sub>, y<sub>1</sub> etc. express fractions of the size of the
+current output device</p>
+<p>
+The library syntax is <code>void <b>plotdraw</b>(GEN w, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotexport"></div>
+<div id="plotexport"></div>
+<h4>plotexport(<em>fmt</em>, <em>list</em>, {<em>flag</em> = 0})</h4>
+<p>
+Draw list of rectwindows as in <code>plotdraw(list,flag)</code>, returning
+the resulting picture as a character string which can then be written to
+a file. The format <code>fmt</code> is either <code>"ps"</code> (PostScript output)
+or <code>"svg"</code> (Scalable Vector Graphics).</p>
+<p></p>
+<p>
+</p><pre class="code">   ? plotinit(0, 100, 100);
+   ? plotbox(0, 50, 50);
+   ? plotcolor(0, 2);
+   ? plotbox(0, 30, 30);
+   ? plotdraw(0); \\ watch result on screen
+   ? s = plotexport("svg, 0);
+   ? write("graph.svg", s); \\ dump result to file
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>plotexport</b>(GEN fmt, GEN list, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:ploth"></div>
+<div id="ploth"></div>
+<h4>ploth(X = a, b, <em>expr</em>, {<em>flags</em> = 0}, {n = 0})</h4>
+<p>
+High precision plot of the function y = f(x) represented by the expression
+<em>expr</em>, x going from a to b. This opens a specific window (which is
+killed whenever you click on it), and returns a four-component vector giving
+the coordinates of the bounding box in the form
+[<em>xmin</em>,<em>xmax</em>,<em>ymin</em>,<em>ymax</em>].</p>
+<p>
+<b>Important note.</b> <code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code> may evaluate <code>expr</code> thousands of
+times; given the relatively low resolution of plotting devices, few
+significant digits of the result will be meaningful. Hence you should keep
+the current precision to a minimum (e.g.&nbsp;9) before calling this function.</p>
+<p>
+n specifies the number of reference point on the graph, where a value of 0
+means we use the hardwired default values (1000 for general plot, 1500 for
+parametric plot, and 8 for recursive plot).</p>
+<p>
+If no <em>flag</em> is given, <em>expr</em> is either a scalar expression f(X), in which
+case the plane curve y = f(X) will be drawn, or a vector
+[f<sub>1</sub>(X),...,f<sub>k</sub>(X)], and then all the curves y = f<sub>i</sub>(X) will be drawn in
+the same window.</p>
+<p>
+The binary digits of <em>flag</em> mean:</p>
+<p>
+<b>*</b> 1 = <code>Parametric</code>: <em>parametric plot</em>. Here <em>expr</em> must
+be a vector with an even number of components. Successive pairs are then
+understood as the parametric coordinates of a plane curve. Each of these are
+then drawn.</p>
+<p>
+For instance:</p>
+<p>
+</p><pre class="code">  ploth(X=0,2*Pi,[sin(X),cos(X)], "Parametric")
+  ploth(X=0,2*Pi,[sin(X),cos(X)])
+  ploth(X=0,2*Pi,[X,X,sin(X),cos(X)], "Parametric")
+</pre><p>
+draw successively a circle, two entwined sinusoidal curves
+and a circle cut by the line y = x.</p>
+<p>
+<b>*</b> 2 = <code>Recursive</code>: <em>recursive plot</em>. If this flag is set,
+only <em>one</em> curve can be drawn at a time, i.e.&nbsp;<em>expr</em> must be either a
+two-component vector (for a single parametric curve, and the parametric flag
+<em>has</em> to be set), or a scalar function. The idea is to choose pairs of
+successive reference points, and if their middle point is not too far away
+from the segment joining them, draw this as a local approximation to the
+curve. Otherwise, add the middle point to the reference points. This is
+fast, and usually more precise than usual plot. Compare the results of</p>
+<p>
+</p><pre class="code">  ploth(X=-1,1, sin(1/X), "Recursive")
+  ploth(X=-1,1, sin(1/X))
+</pre><p></p>
+<p>
+for instance. But beware that if you are extremely unlucky, or choose too few
+reference points, you may draw some nice polygon bearing little resemblance
+to the original curve. For instance you should <em>never</em> plot recursively
+an odd function in a symmetric interval around 0. Try</p>
+<p>
+</p><pre class="code">  ploth(x = -20, 20, sin(x), "Recursive")
+</pre><p></p>
+<p>
+to see why. Hence, it's usually a good idea to try and plot the same curve
+with slightly different parameters.</p>
+<p>
+The other values toggle various display options:</p>
+<p>
+<b>*</b> 4 = <code>no_Rescale</code>: do not rescale plot according to the
+computed extrema. This is used in conjunction with <code><a href="Plotting_functions.html#se:plotscale"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotscale</a></code> when
+graphing multiple functions on a rectwindow (as a <code><a href="Plotting_functions.html#se:plotrecth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotrecth</a></code> call):</p>
+<p>
+</p><pre class="code">    s = plothsizes();
+    plotinit(0, s[2]-1, s[2]-1);
+    plotscale(0, -1,1, -1,1);
+    plotrecth(0, t=0,2*Pi, [cos(t),sin(t)], "Parametric|no_Rescale")
+    plotdraw([0, -1,1]);
+</pre><p></p>
+<p>
+This way we get a proper circle instead of the distorted ellipse produced by</p>
+<p>
+</p><pre class="code">    ploth(t=0,2*Pi, [cos(t),sin(t)], "Parametric")
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> 8 = <code>no_X_axis</code>: do not print the x-axis.</p>
+<p>
+<b>*</b> 16 = <code>no_Y_axis</code>: do not print the y-axis.</p>
+<p>
+<b>*</b> 32 = <code>no_Frame</code>: do not print frame.</p>
+<p>
+<b>*</b> 64 = <code>no_Lines</code>: only plot reference points, do not join them.</p>
+<p>
+<b>*</b> 128 = <code>Points_too</code>: plot both lines and points.</p>
+<p>
+<b>*</b> 256 = <code>Splines</code>: use splines to interpolate the points.</p>
+<p>
+<b>*</b> 512 = <code>no_X_ticks</code>: plot no x-ticks.</p>
+<p>
+<b>*</b> 1024 = <code>no_Y_ticks</code>: plot no y-ticks.</p>
+<p>
+<b>*</b> 2048 = <code>Same_ticks</code>: plot all ticks with the same length.</p>
+<p>
+<b>*</b> 4096 = <code>Complex</code>: is a parametric plot but where each member of
+<code>expr</code> is considered a complex number encoding the two coordinates of a
+point. For instance:</p>
+<p>
+</p><pre class="code">  ploth(X=0,2*Pi,exp(I*X), "Complex")
+  ploth(X=0,2*Pi,[(1+I)*X,exp(I*X)], "Complex")
+</pre><p>
+will draw respectively a circle and a circle cut by the line
+y = x.</p>
+<p>
+The library syntax is <code><b>ploth</b>(void *E, GEN (*eval)(void*, GEN), GEN a, GEN b, long flags, long n, long prec)</code>,</p>
+<p>
+
+<hr>
+<div id="se:plothexport"></div>
+<div id="plothexport"></div>
+<h4>plothexport(<em>fmt</em>, X = a, b, <em>expr</em>, {<em>flags</em> = 0}, {n = 0})</h4>
+<p>
+Plot of expression <em>expr</em>, X goes from a to b in high
+resolution, returning the resulting picture as a character string which can
+then be written to a file.</p>
+<p>
+The format <code>fmt</code> is either <code>"ps"</code> (PostScript output) or <code>"svg"</code>
+(Scalable Vector Graphics). All other parameters and flags are as in
+<code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code>.</p>
+<p></p>
+<p>
+</p><pre class="code">   ? s = plothexport("svg", x=1,10, x^2+3);
+   ? write("graph.svg", s);
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code><b>plothexport</b>(GEN fmt, void *E, GEN (*eval)(void*, GEN), GEN a, GEN b, long flags, long n, long prec)</code>,</p>
+<p>
+
+<hr>
+<div id="se:plothraw"></div>
+<div id="plothraw"></div>
+<h4>plothraw(X, Y, {<em>flag</em> = 0})</h4>
+<p>
+Given X and Y two vectors of equal length, plots (in
+high precision) the points whose (x,y)-coordinates are given in
+X and Y. Automatic positioning and scaling is done, but
+with the same scaling factor on x and y. If <em>flag</em> is 1, join points,
+other non-0 flags toggle display options and should be combinations of bits
+2^k, k &geq; 3 as in <code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>plothraw</b>(GEN X, GEN Y, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plothrawexport"></div>
+<div id="plothrawexport"></div>
+<h4>plothrawexport(<em>fmt</em>, X, Y, {<em>flag</em> = 0})</h4>
+<p>
+Given X and Y two vectors of equal length, plots (in high precision)
+the points whose (x,y)-coordinates are given in X and Y, returning the
+resulting picture as a character string which can then be written to a file.
+The format <code>fmt</code> is either <code>"ps"</code> (PostScript output) or <code>"svg"</code>
+(Scalable Vector Graphics).</p>
+<p>
+Automatic positioning and scaling is done, but with the same scaling factor
+on x and y. If <em>flag</em> is 1, join points, other non-0 flags toggle display
+options and should be combinations of bits 2^k, k &geq; 3 as in
+<code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>plothrawexport</b>(GEN fmt, GEN X, GEN Y, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plothsizes"></div>
+<div id="plothsizes"></div>
+<h4>plothsizes({<em>flag</em> = 0})</h4>
+<p>
+Return data corresponding to the output window
+in the form of a 8-component vector: window width and height, sizes for ticks
+in horizontal and vertical directions (this is intended for the <code>gnuplot</code>
+interface and is currently not significant), width and height of characters,
+width and height of display, if applicable. If display has no sense, e.g.
+for svg plots or postscript plots, then width and height of display are set
+to 0.</p>
+<p>
+If <em>flag</em> = 0, sizes of ticks and characters are in
+pixels, otherwise are fractions of the screen size</p>
+<p>
+The library syntax is <code>GEN <b>plothsizes</b>(long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotinit"></div>
+<div id="plotinit"></div>
+<h4>plotinit(w, {x}, {y}, {<em>flag</em> = 0})</h4>
+<p>
+Initialize the rectwindow w,
+destroying any rect objects you may have already drawn in w. The virtual
+cursor is set to (0,0). The rectwindow size is set to width x and height
+y; omitting either x or y means we use the full size of the device
+in that direction.
+If <em>flag</em> = 0, x and y represent pixel units. Otherwise, x and y
+are understood as fractions of the size of the current output device (hence
+must be between 0 and 1) and internally converted to pixels.</p>
+<p>
+The plotting device imposes an upper bound for x and y, for instance the
+number of pixels for screen output. These bounds are available through the
+<code><a href="Plotting_functions.html#se:plothsizes"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plothsizes</a></code> function. The following sequence initializes in a portable
+way (i.e independent of the output device) a window of maximal size, accessed
+through coordinates in the [0,1000]  x [0,1000] range:</p>
+<p></p>
+<p>
+</p><pre class="code">  s = plothsizes();
+  plotinit(0, s[1]-1, s[2]-1);
+  plotscale(0, 0,1000, 0,1000);
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>plotinit</b>(long w, GEN x = NULL, GEN y = NULL, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotkill"></div>
+<div id="plotkill"></div>
+<h4>plotkill(w)</h4>
+<p>
+Erase rectwindow w and free the corresponding memory. Note that if you
+want to use the rectwindow w again, you have to use <code><a href="Plotting_functions.html#se:plotinit"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotinit</a></code> first
+to specify the new size. So it's better in this case to use <code><a href="Plotting_functions.html#se:plotinit"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotinit</a></code>
+directly as this throws away any previous work in the given rectwindow.</p>
+<p>
+The library syntax is <code>void <b>plotkill</b>(long w)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotlines"></div>
+<div id="plotlines"></div>
+<h4>plotlines(w, X, Y, {<em>flag</em> = 0})</h4>
+<p>
+Draw on the rectwindow w
+the polygon such that the (x,y)-coordinates of the vertices are in the
+vectors of equal length X and Y. For simplicity, the whole
+polygon is drawn, not only the part of the polygon which is inside the
+rectwindow. If <em>flag</em> is non-zero, close the polygon. In any case, the
+virtual cursor does not move.</p>
+<p>
+X and Y are allowed to be scalars (in this case, both have to).
+There, a single segment will be drawn, between the virtual cursor current
+position and the point (X,Y). And only the part thereof which
+actually lies within the boundary of w. Then <em>move</em> the virtual cursor
+to (X,Y), even if it is outside the window. If you want to draw a
+line from (x1,y1) to (x2,y2) where (x1,y1) is not necessarily the
+position of the virtual cursor, use <code>plotmove(w,x1,y1)</code> before using this
+function.</p>
+<p>
+The library syntax is <code>void <b>plotlines</b>(long w, GEN X, GEN Y, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotlinetype"></div>
+<div id="plotlinetype"></div>
+<h4>plotlinetype(w, <em>type</em>)</h4>
+<p>
+This function is obsolete and currently a no-op.</p>
+<p>
+Change the type of lines subsequently plotted in rectwindow w.
+<em>type</em> -2 corresponds to frames, -1 to axes, larger values may
+correspond to something else. w = -1 changes highlevel plotting.</p>
+<p>
+The library syntax is <code>void <b>plotlinetype</b>(long w, long type)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotmove"></div>
+<div id="plotmove"></div>
+<h4>plotmove(w, x, y)</h4>
+<p>
+Move the virtual cursor of the rectwindow w to position (x,y).</p>
+<p>
+The library syntax is <code>void <b>plotmove</b>(long w, GEN x, GEN y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotpoints"></div>
+<div id="plotpoints"></div>
+<h4>plotpoints(w, X, Y)</h4>
+<p>
+Draw on the rectwindow w the
+points whose (x,y)-coordinates are in the vectors of equal length X and
+Y and which are inside w. The virtual cursor does <em>not</em> move. This
+is basically the same function as <code><a href="Plotting_functions.html#se:plothraw"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plothraw</a></code>, but either with no scaling
+factor or with a scale chosen using the function <code><a href="Plotting_functions.html#se:plotscale"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotscale</a></code>.</p>
+<p>
+As was the case with the <code><a href="Plotting_functions.html#se:plotlines"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotlines</a></code> function, X and Y are allowed to
+be (simultaneously) scalar. In this case, draw the single point (X,Y) on
+the rectwindow w (if it is actually inside w), and in any case
+<em>move</em> the virtual cursor to position (x,y).</p>
+<p>
+If you draw few points in the rectwindow, they will be hard to see; in
+this case, you can use filled boxes instead. Compare:</p>
+<p>
+</p><pre class="code">  ? plotinit(0, 100,100); plotpoints(0, 50,50);
+  ? plotdraw(0)
+  ? plotinit(1, 100,100); plotmove(1,48,48); plotrbox(1, 4,4, 1);
+  ? plotdraw(1)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>plotpoints</b>(long w, GEN X, GEN Y)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotpointsize"></div>
+<div id="plotpointsize"></div>
+<h4>plotpointsize(w, <em>size</em>)</h4>
+<p>
+This function is obsolete. It is currently a no-op.</p>
+<p>
+Changes the "size" of following points in rectwindow w. If w = -1,
+change it in all rectwindows.</p>
+<p>
+The library syntax is <code>void <b>plotpointsize</b>(long w, GEN size)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotpointtype"></div>
+<div id="plotpointtype"></div>
+<h4>plotpointtype(w, <em>type</em>)</h4>
+<p>
+This function is obsolete and currently a no-op.</p>
+<p>
+change the type of points subsequently plotted in rectwindow w.
+<em>type</em> = -1 corresponds to a dot, larger values may correspond to
+something else. w = -1 changes highlevel plotting.</p>
+<p>
+The library syntax is <code>void <b>plotpointtype</b>(long w, long type)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotrbox"></div>
+<div id="plotrbox"></div>
+<h4>plotrbox(w, <em>dx</em>, <em>dy</em>, {<em>filled</em>})</h4>
+<p>
+Draw in the rectwindow w the outline of the rectangle which is such
+that the points (x1,y1) and (x1+dx,y1+dy) are opposite corners, where
+(x1,y1) is the current position of the cursor. Only the part of the
+rectangle which is in w is drawn. The virtual cursor does <em>not</em> move.
+If <em>filled</em> = 1, fill the box.</p>
+<p>
+The library syntax is <code>void <b>plotrbox</b>(long w, GEN dx, GEN dy, long filled)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotrecth"></div>
+<div id="plotrecth"></div>
+<h4>plotrecth(w, X = a, b, <em>expr</em>, {<em>flag</em> = 0}, {n = 0})</h4>
+<p>
+Writes to rectwindow w the curve output of
+<code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code>(w,X = a,b,<em>expr</em>,<em>flag</em>,n). Returns a vector for the bounding box.</p>
+<p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:plotrecthraw"></div>
+<div id="plotrecthraw"></div>
+<h4>plotrecthraw(w, <em>data</em>, {<em>flags</em> = 0})</h4>
+<p>
+Plot graph(s) for
+<em>data</em> in rectwindow w. <em>flag</em> has the same significance here as in
+<code><a href="Plotting_functions.html#se:ploth"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">ploth</a></code>, though recursive plot is no more significant.</p>
+<p>
+<em>data</em> is a vector of vectors, each corresponding to a list a coordinates.
+If parametric plot is set, there must be an even number of vectors, each
+successive pair corresponding to a curve. Otherwise, the first one contains
+the x coordinates, and the other ones contain the y-coordinates
+of curves to plot.</p>
+<p>
+The library syntax is <code>GEN <b>plotrecthraw</b>(long w, GEN data, long flags)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotrline"></div>
+<div id="plotrline"></div>
+<h4>plotrline(w, <em>dx</em>, <em>dy</em>)</h4>
+<p>
+Draw in the rectwindow w the part of the segment
+(x1,y1)-(x1+dx,y1+dy) which is inside w, where (x1,y1) is the current
+position of the virtual cursor, and move the virtual cursor to
+(x1+dx,y1+dy) (even if it is outside the window).</p>
+<p>
+The library syntax is <code>void <b>plotrline</b>(long w, GEN dx, GEN dy)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotrmove"></div>
+<div id="plotrmove"></div>
+<h4>plotrmove(w, <em>dx</em>, <em>dy</em>)</h4>
+<p>
+Move the virtual cursor of the rectwindow w to position
+(x1+dx,y1+dy), where (x1,y1) is the initial position of the cursor
+(i.e.&nbsp;to position (dx,dy) relative to the initial cursor).</p>
+<p>
+The library syntax is <code>void <b>plotrmove</b>(long w, GEN dx, GEN dy)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotrpoint"></div>
+<div id="plotrpoint"></div>
+<h4>plotrpoint(w, <em>dx</em>, <em>dy</em>)</h4>
+<p>
+Draw the point (x1+dx,y1+dy) on the rectwindow w (if it is inside
+w), where (x1,y1) is the current position of the cursor, and in any case
+move the virtual cursor to position (x1+dx,y1+dy).</p>
+<p>
+If you draw few points in the rectwindow, they will be hard to see; in
+this case, you can use filled boxes instead. Compare:</p>
+<p>
+</p><pre class="code">  ? plotinit(0, 100,100); plotrpoint(0, 50,50); plotrpoint(0, 10,10);
+  ? plotdraw(0)
+  
+  ? thickpoint(w,x,y)= plotmove(w,x-2,y-2); plotrbox(w,4,4,1);
+  ? plotinit(1, 100,100); thickpoint(1, 50,50); thickpoint(1, 60,60);
+  ? plotdraw(1)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>void <b>plotrpoint</b>(long w, GEN dx, GEN dy)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotscale"></div>
+<div id="plotscale"></div>
+<h4>plotscale(w, <em>x1</em>, <em>x2</em>, <em>y1</em>, <em>y2</em>)</h4>
+<p>
+Scale the local coordinates of the rectwindow w so that x goes from
+x1 to x2 and y goes from y1 to y2 (x2 &lt; x1 and y2 &lt; y1 being
+allowed). Initially, after the initialization of the rectwindow w using
+the function <code><a href="Plotting_functions.html#se:plotinit"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotinit</a></code>, the default scaling is the graphic pixel count,
+and in particular the y axis is oriented downwards since the origin is at
+the upper left. The function <code><a href="Plotting_functions.html#se:plotscale"
+    onClick="parent.itemFrame.location='cont_Plotting_functions.html'">plotscale</a></code> allows to change all these
+defaults and should be used whenever functions are graphed.</p>
+<p>
+The library syntax is <code>void <b>plotscale</b>(long w, GEN x1, GEN x2, GEN y1, GEN y2)</code>.</p>
+<p>
+
+<hr>
+<div id="se:plotstring"></div>
+<div id="plotstring"></div>
+<h4>plotstring(w, x, {<em>flags</em> = 0})</h4>
+<p>
+Draw on the rectwindow w the String x (see Section se:strings), at
+the current position of the cursor.</p>
+<p>
+<em>flag</em> is used for justification: bits 1 and 2 regulate horizontal alignment:
+left if 0, right if 2, center if 1. Bits 4 and 8 regulate vertical
+alignment: bottom if 0, top if 8, v-center if 4. Can insert additional small
+gap between point and string: horizontal if bit 16 is set, vertical if bit
+32 is set (see the tutorial for an example).</p>
+<p>
+The library syntax is <code>void <b>plotstring</b>(long w, const char *x, long flags)</code>.</p>
+<p>
+
+<hr>
+<div id="se:psdraw"></div>
+<div id="psdraw"></div>
+<h4>psdraw(<em>list</em>, {<em>flag</em> = 0})</h4>
+<p>
+This function is obsolete, use plotexport and write the result to file.</p>
+<p>
+The library syntax is <code>void <b>psdraw</b>(GEN list, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:psploth"></div>
+<div id="psploth"></div>
+<h4>psploth(X = a, b, <em>expr</em>, {<em>flags</em> = 0}, {n = 0})</h4>
+<p>
+This function is obsolete, use plothexport and write the result to file.</p>
+<p>
+The library syntax is <code>GEN <b>psploth0</b>(GEN X, GEN b, GEN expr, long flags, long n, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:psplothraw"></div>
+<div id="psplothraw"></div>
+<h4>psplothraw(<em>listx</em>, <em>listy</em>, {<em>flag</em> = 0})</h4>
+<p>
+This function is obsolete, use plothrawexport and write the result to file.</p>
+<p>
+The library syntax is <code>GEN <b>psplothraw</b>(GEN listx, GEN listy, long flag)</code>.</p>
+<p>
+
+<hr>
+</body>

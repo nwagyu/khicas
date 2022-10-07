@@ -1,0 +1,21 @@
+#! /bin/sh
+export CC=/usr/bin/gcc # set to gcc-4.7 if gcc-4.4 avail, also in micropython/xcas/Makefile
+export CXX=/usr/bin/g++
+export LD_LIBRARY_PATH=/usr/lib/i386-linux-gnu/
+export LDFLAGS=/usr/lib/i386-linux-gnu/libGL.so.1
+#cd ~/tmp
+#rm -rf giac-0.6.1
+#tar xvfz ~/giac/giac-1.1.4.tar.gz
+#cd debian
+#cp -f rules.pari rules
+#cd ..
+#export CXXFLAGS='-g -L/usr/local/lib'
+#export CXXFLAGS='-DSMARTPTR64 -D_I386_ -O2'
+#mv debian debiannew
+#mv debianold debian
+#mv debiannew debianold
+dpkg-buildpackage -rfakeroot
+#mv debian debiannew
+#mv debianold debian
+#mv debiannew debianold
+#dpkg-buildpackage -us -uc -rfakeroot

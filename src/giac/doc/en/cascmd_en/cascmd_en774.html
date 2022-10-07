@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Starting the debugger: debug sst in sst_in cont kill break breakpoint halt rmbrk rmbreakpoint watch rmwtch
+
+
+
+
+
+
+
+
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en773.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en775.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1990" class="subsection">12.5.1  Starting the debugger: <span style="font-family:monospace">debug</span> <span style="font-family:monospace">sst</span> <span style="font-family:monospace">in</span> <span style="font-family:monospace">sst_in</span> <span style="font-family:monospace">cont</span> <span style="font-family:monospace">kill</span> <span style="font-family:monospace">break</span> <span style="font-family:monospace">breakpoint</span> <span style="font-family:monospace">halt</span> <span style="font-family:monospace">rmbrk</span> <span style="font-family:monospace">rmbreakpoint</span> <span style="font-family:monospace">watch</span> <span style="font-family:monospace">rmwtch</span>
+<a id="hevea_default1435"></a>
+<a id="hevea_default1436"></a>
+<a id="hevea_default1437"></a>
+<a id="hevea_default1438"></a>
+<a id="hevea_default1439"></a>
+<a id="hevea_default1440"></a>
+<a id="hevea_default1441"></a>
+<a id="hevea_default1442"></a>
+<a id="hevea_default1443"></a>
+<a id="hevea_default1444"></a>
+<a id="hevea_default1445"></a>
+<a id="hevea_default1446"></a>
+<a id="hevea_default1447"></a></h3>
+<p>The <span style="font-family:monospace">debug</span> command starts the <span style="font-family:monospace">Xcas</span> debugger.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">debug</span> takes one argument:<br>
+ <span style="font-style:italic">fn(arg)</span>, a function and its argument.
+</li><li class="li-itemize"><span style="font-family:monospace">debug(</span><span style="font-style:italic">fn(arg)</span><span style="font-family:monospace">)</span>
+brings up a debug window which contains a pane with the program with
+the current line highlighted, an <span style="font-family:monospace">eval</span> entry box,
+a pane with the program including the breakpoints, a row of buttons,
+and a pane keeping track of the values of variables.
+</li></ul><p>
+By default, the
+value of all variables in the program are in this pane. The buttons
+are shortcuts for entering commands in the <span style="font-family:monospace">eval</span> box, but you
+can enter other commands in the <span style="font-family:monospace">eval</span> box to change the values
+of variables or to run a command in the context of the program.</p><h4 id="sec1991" class="subsubsection">Example</h4>
+<p>
+With the <span style="font-family:monospace">sumprod</span> program:
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">sumprod(a,b):= {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">local s, p;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">s:= a + b;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">p:= a*b;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">return [s,p];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">}</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">debug(sumprod(2,3))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en142.png">
+</div><p><br>
+</p><p>The debug window has the following buttons:
+</p><dl class="description"><dt class="dt-description">
+<span style="font-weight:bold">sst</span></dt><dd class="dd-description"> This button will run the
+<span style="font-family:monospace">sst</span> command, which takes no arguments and runs the
+highlighted line in the program before moving to the next line.</dd><dt class="dt-description"><span style="font-weight:bold">in</span></dt><dd class="dd-description">
+This button will run the
+<span style="font-family:monospace">sst_in</span> command, which takes no argument and runs one step in
+the program or a user defined function used in the program.</dd><dt class="dt-description"><span style="font-weight:bold">cont</span></dt><dd class="dd-description"> This button will run the
+<span style="font-family:monospace">cont</span> command, which takes no arguments and runs the commands
+from the highlighted line to a breakpoint.</dd><dt class="dt-description"><span style="font-weight:bold">kill</span></dt><dd class="dd-description"> This button will run the
+<span style="font-family:monospace">kill</span> command, which exits the debugger.</dd><dt class="dt-description"><span style="font-weight:bold">break</span></dt><dd class="dd-description"> This button will put the command
+<span style="font-family:monospace">breakpoint</span> in the <span style="font-family:monospace">eval</span> box, with default arguments
+of the current program and the current line. It sets a breakpoint at
+the given line of the given program. Alternatively, if you click on a
+line in the program in the top pane, you will get the
+<span style="font-family:monospace">breakpoint</span> command with that program and the line you clicked
+on.<p>You can set a breakpoint when you write a program with the
+<span style="font-family:monospace">halt()</span> command. When a program has a <span style="font-family:monospace">halt</span> command,
+then running the program will bring up the debugger. If you want to
+debug the program, though, it is still better to use the debug
+command. Also, you should remove any <span style="font-family:monospace">halt</span> commands when you
+are done debugging.</p></dd><dt class="dt-description"><span style="font-weight:bold">rmbrk</span></dt><dd class="dd-description"> This button will put the command
+<span style="font-family:monospace">rmbreakpoint</span> in the <span style="font-family:monospace">eval</span> box , with default
+arguments of the current program and the current line. It removes a
+breakpoint at the given line of the given program. Alternatively, you
+can click on the line in the program in the top pane with the bookmark
+you want to remove.</dd><dt class="dt-description"><span style="font-weight:bold">watch</span></dt><dd class="dd-description"> This button will put the command
+<span style="font-family:monospace">watch</span> in the <span style="font-family:monospace">eval</span> box, without the arguments filled
+in. It takes a list of variables as arguments, and will keep track of
+the values of these variables in the variable pane.</dd><dt class="dt-description"><span style="font-weight:bold">rmwtch</span></dt><dd class="dd-description"> This button will put the
+command <span style="font-family:monospace">rmwatch</span><a id="hevea_default1448"></a> in the <span style="font-family:monospace">eval</span> box
+without the arguments filled in. The arguments are the variables you
+want to remove from the watch list.
+</dd></dl>
+<hr>
+<a href="cascmd_en773.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en775.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

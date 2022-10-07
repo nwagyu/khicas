@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The hyperbola in the plane: hyperbola
+</title>
+</head>
+<body >
+<a href="cascmd_en836.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en838.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dhyperbola" class="subsection">13.12.2  The hyperbola in the plane: <span style="font-family:monospace">hyperbola</span>
+<a id="hevea_default1528"></a></h3>
+<p>See Section <a href="cascmd_en927.html#ssec%3A3dhyperbola">14.11.2</a> for hyperbolas in space.</p><p>The <span style="font-family:monospace">hyperbola</span> command draws hyperbolas and other conic
+sections.</p><p><span style="font-family:monospace">hyperbola</span> can take parameters in different forms.
+</p><ul class="itemize"><li class="li-itemize">
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">hyperbola</span> can take one argument:<br>
+ <span style="font-style:italic">eqn</span>, a second degree equation in the
+variables <span style="font-family:monospace">x</span> and <span style="font-family:monospace">y</span> (or an expression which will be set to zero).
+</li><li class="li-itemize"><span style="font-family:monospace">hyperbola(</span><span style="font-style:italic">eqn</span><span style="font-family:monospace">)</span> returns and draws
+the conic section given by the equation <span style="font-style:italic">eqn</span>.
+</li></ul><h4 id="sec2135" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">hyperbola(x^2 - 2*y^2 - 1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en237.png">
+</div></li><li class="li-itemize"><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">hyperbola</span> can take three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>, two points.
+</li><li class="li-itemize"><span style="font-style:italic">C</span>, a point or a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">hyperbola(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">C</span><span style="font-family:monospace">)</span> returns and draws the hyperbola
+with foci <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> and passing through <span style="font-style:italic">C</span> (if <span style="font-style:italic">C</span> is a point) or
+whose semi-major axis has length <span style="font-style:italic">C</span> (if <span style="font-style:italic">C</span> is a real number).
+</li></ul>
+Note that if the third argument is a point on the real axis, the
+real affix of the point won’t work, it needs to be specified with
+the <span style="font-family:monospace">point</span> command.<h4 id="sec2136" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">hyperbola(-i,i,i+1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en238.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">hyperbola(-i,i,1/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en239.png">
+</div>
+</li></ul></li></ul>
+<hr>
+<a href="cascmd_en836.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en838.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

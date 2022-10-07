@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Conversions and similar elementary functions or commands</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:conversion"></div>
+<h2 class="center">Conversions and similar elementary functions or commands</h2>
+
+<p></p>
+<p></p>
+<p></p>
+<p>Many of the conversion functions are rounding or truncating operations. In
+this case, if the argument is a rational function, the result is the
+Euclidean quotient of the numerator by the denominator, and if the argument
+is a vector or a matrix, the operation is done componentwise. This will not
+be restated for every function.</p>
+<p>
+<hr>
+<div id="se:Col"></div>
+<div id="Col"></div>
+<h4>Col(x, {n})</h4>
+<p>
+Transforms the object x into a column vector. The dimension of the
+resulting vector can be optionally specified via the extra parameter n.</p>
+<p>
+If n is omitted or 0, the dimension depends on the type of x; the
+vector has a single component, except when x is</p>
+<p>
+<b>*</b> a vector or a quadratic form (in which case the resulting vector
+is simply the initial object considered as a row vector),</p>
+<p>
+<b>*</b> a polynomial or a power series. In the case of a polynomial, the
+coefficients of the vector start with the leading coefficient of the
+polynomial, while for power series only the significant coefficients are
+taken into account, but this time by increasing order of degree.
+In this last case, <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vec</a></code> is the reciprocal function of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Pol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Pol</a></code> and
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Ser"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Ser</a></code> respectively,</p>
+<p>
+<b>*</b> a matrix (the column of row vector comprising the matrix is returned),</p>
+<p>
+<b>*</b> a character string (a vector of individual characters is returned).</p>
+<p>
+In the last two cases (matrix and character string), n is meaningless and
+must be omitted or an error is raised. Otherwise, if n is given, 0
+entries are appended at the end of the vector if n &gt; 0, and prepended at
+the beginning if n &lt; 0. The dimension of the resulting vector is |n|.</p>
+<p>
+See ??Vec for examples.</p>
+<p>
+The library syntax is <code>GEN <b>gtocol0</b>(GEN x, long n)</code>.
+<code>GEN <b>gtocol</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:Colrev"></div>
+<div id="Colrev"></div>
+<h4>Colrev(x, {n})</h4>
+<p>
+As <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Col"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Col</a></code>(x, -n), then reverse the result. In particular,
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Colrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Colrev</a></code> is the reciprocal function of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Polrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Polrev</a></code>: the
+coefficients of the vector start with the constant coefficient of the
+polynomial and the others follow by increasing degree.</p>
+<p>
+The library syntax is <code>GEN <b>gtocolrev0</b>(GEN x, long n)</code>.
+<code>GEN <b>gtocolrev</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:List"></div>
+<div id="List"></div>
+<h4>List({x = []})</h4>
+<p>
+Transforms a (row or column) vector x into a list, whose components are
+the entries of x. Similarly for a list, but rather useless in this case.
+For other types, creates a list with the single element x. Note that,
+except when x is omitted, this function creates a small memory leak; so,
+either initialize all lists to the empty list, or use them sparingly.</p>
+<p>
+The library syntax is <code>GEN <b>gtolist</b>(GEN x = NULL)</code>.
+The variant <code>GEN <b>mklist</b>(void)</code> creates an empty list.</p>
+<p>
+
+<hr>
+<div id="se:Map"></div>
+<div id="Map"></div>
+<h4>Map({x})</h4>
+<p>
+A "Map" is an associative array, or dictionary: a data
+type composed of a collection of (<em>key</em>, <em>value</em>) pairs, such that
+each key appears just once in the collection. This function
+converts the matrix [a<sub>1</sub>,b<sub>1</sub>;a<sub>2</sub>,b<sub>2</sub>;...;a<sub>n</sub>,b<sub>n</sub>] to the map a<sub>i</sub><code> &longmapsto; </code>
+b<sub>i</sub>.</p>
+<p>
+</p><pre class="code">  ? M = Map(factor(13!));
+  ? mapget(M,3)
+  %2 = 5
+</pre><p>
+If the argument x is omitted, creates an empty map, which
+may be filled later via <code><a href="Programming_in_GP__other_specific_functions.html#se:mapput"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">mapput</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>gtomap</b>(GEN x = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:Mat"></div>
+<div id="Mat"></div>
+<h4>Mat({x = []})</h4>
+<p>
+Transforms the object x into a matrix.
+If x is already a matrix, a copy of x is created.
+If x is a row (resp. column) vector, this creates a 1-row (resp.
+1-column) matrix, <em>unless</em> all elements are column (resp.&nbsp;row) vectors
+of the same length, in which case the vectors are concatenated sideways
+and the attached big matrix is returned.
+If x is a binary quadratic form, creates the attached 2 x 2
+matrix. Otherwise, this creates a 1 x 1 matrix containing x.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? Mat(x + 1)
+  %1 =
+  [x + 1]
+  ? Vec( matid(3) )
+  %2 = [[1, 0, 0]~, [0, 1, 0]~, [0, 0, 1]~]
+  ? Mat(%)
+  %3 =
+  [1 0 0]
+  
+  [0 1 0]
+  
+  [0 0 1]
+  ? Col( [1,2; 3,4] )
+  %4 = [[1, 2], [3, 4]]~
+  ? Mat(%)
+  %5 =
+  [1 2]
+  
+  [3 4]
+  ? Mat(Qfb(1,2,3))
+  %6 =
+  [1 1]
+  
+  [1 3]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gtomat</b>(GEN x = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:Mod"></div>
+<div id="Mod"></div>
+<h4>Mod(a, b)</h4>
+<p>
+In its basic form, creates an intmod or a polmod (a mod b); b must
+be an integer or a polynomial. We then obtain a <code>t_INTMOD</code> and a
+<code>t_POLMOD</code> respectively:</p>
+<p>
+</p><pre class="code">  ? t = Mod(2,17); t^8
+  %1 = Mod(1, 17)
+  ? t = Mod(x,x^2+1); t^2
+  %2 = Mod(-1, x^2+1)
+</pre><p>
+If a % b makes sense and yields a result of the
+appropriate type (<code>t_INT</code> or scalar/<code>t_POL</code>), the operation succeeds as
+well:</p>
+<p>
+</p><pre class="code">  ? Mod(1/2, 5)
+  %3 = Mod(3, 5)
+  ? Mod(7 + O(3^6), 3)
+  %4 = Mod(1, 3)
+  ? Mod(Mod(1,12), 9)
+  %5 = Mod(1, 3)
+  ? Mod(1/x, x^2+1)
+  %6 = Mod(-1, x^2+1)
+  ? Mod(exp(x), x^4)
+  %7 = Mod(1/6*x^3 + 1/2*x^2 + x + 1, x^4)
+</pre><p></p>
+<p>
+If a is a complex object, "base change" it to &Zopf;/b&Zopf; or K[x]/(b),
+which is equivalent to, but faster than, multiplying it by <code>Mod(1,b)</code>:</p>
+<p>
+</p><pre class="code">  ? Mod([1,2;3,4], 2)
+  %8 =
+  [Mod(1, 2) Mod(0, 2)]
+  
+  [Mod(1, 2) Mod(0, 2)]
+  ? Mod(3*x+5, 2)
+  %9 = Mod(1, 2)*x + Mod(1, 2)
+  ? Mod(x^2 + y*x + y^3, y^2+1)
+  %10 = Mod(1, y^2 + 1)*x^2 + Mod(y, y^2 + 1)*x + Mod(-y, y^2 + 1)
+</pre><p></p>
+<p></p>
+<p>
+This function is not the same as x <code>%</code> y, the result of which
+has no knowledge of the intended modulus y. Compare</p>
+<p>
+</p><pre class="code">  ? x = 4 % 5; x + 1
+  %1 = 5
+  ? x = Mod(4,5); x + 1
+  %2 = Mod(0,5)
+</pre><p>
+Note that such "modular" objects can be lifted via <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:lift"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">lift</a></code> or
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:centerlift"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">centerlift</a></code>. The modulus of a <code>t_INTMOD</code> or <code>t_POLMOD</code> z can
+be recovered via <code>z.mod</code>.</p>
+<p>
+The library syntax is <code>GEN <b>gmodulo</b>(GEN a, GEN b)</code>.</p>
+<p>
+
+<hr>
+<div id="se:Pol"></div>
+<div id="Pol"></div>
+<h4>Pol(t, {v = 'x})</h4>
+<p>
+Transforms the object t into a polynomial with main variable v. If t
+is a scalar, this gives a constant polynomial. If t is a power series with
+non-negative valuation or a rational function, the effect is similar to
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>, i.e.&nbsp;we chop off the O(X^k) or compute the Euclidean
+quotient of the numerator by the denominator, then change the main variable
+of the result to v.</p>
+<p>
+The main use of this function is when t is a vector: it creates the
+polynomial whose coefficients are given by t, with t[1] being the leading
+coefficient (which can be zero). It is much faster to evaluate
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Pol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Pol</a></code> on a vector of coefficients in this way, than the corresponding
+formal expression a<sub>n</sub> X^n +...+ a<sub>0</sub>, which is evaluated naively exactly
+as written (linear versus quadratic time in n). <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Polrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Polrev</a></code> can be used if
+one wants x[1] to be the constant coefficient:</p>
+<p>
+</p><pre class="code">  ? Pol([1,2,3])
+  %1 = x^2 + 2*x + 3
+  ? Polrev([1,2,3])
+  %2 = 3*x^2 + 2*x + 1
+</pre><p></p>
+<p>
+The reciprocal function of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Pol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Pol</a></code> (resp.&nbsp;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Polrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Polrev</a></code>) is <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vec</a></code> (resp.&nbsp;
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vecrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vecrev</a></code>).</p>
+<p>
+</p><pre class="code">  ? Vec(Pol([1,2,3]))
+  %1 = [1, 2, 3]
+  ? Vecrev( Polrev([1,2,3]) )
+  %2 = [1, 2, 3]
+</pre><p></p>
+<p></p>
+<p>
+<b>Warning.</b> This is <em>not</em> a substitution function. It will not
+transform an object containing variables of higher priority than&nbsp;v.</p>
+<p>
+</p><pre class="code">  ? Pol(x + y, y)
+    ***   at top-level: Pol(x+y,y)
+    ***                 ^ &mdash;  &mdash;  &mdash; -
+    *** Pol: variable must have higher priority in gtopoly.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gtopoly</b>(GEN t, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:Polrev"></div>
+<div id="Polrev"></div>
+<h4>Polrev(t, {v = 'x})</h4>
+<p>
+Transform the object t into a polynomial
+with main variable v. If t is a scalar, this gives a constant polynomial.
+If t is a power series, the effect is identical to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>, i.e.&nbsp;it
+chops off the O(X^k).</p>
+<p>
+The main use of this function is when t is a vector: it creates the
+polynomial whose coefficients are given by t, with t[1] being the
+constant term. <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Pol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Pol</a></code> can be used if one wants t[1] to be the leading
+coefficient:</p>
+<p>
+</p><pre class="code">  ? Polrev([1,2,3])
+  %1 = 3*x^2 + 2*x + 1
+  ? Pol([1,2,3])
+  %2 = x^2 + 2*x + 3
+</pre><p></p>
+<p>
+The reciprocal function of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Pol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Pol</a></code> (resp.&nbsp;<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Polrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Polrev</a></code>) is <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vec</a></code> (resp.&nbsp;
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vecrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vecrev</a></code>).</p>
+<p>
+The library syntax is <code>GEN <b>gtopolyrev</b>(GEN t, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:Qfb"></div>
+<div id="Qfb"></div>
+<h4>Qfb(a, b, c, {D = 0.})</h4>
+<p>
+Creates the binary quadratic form
+ax^2+bxy+cy^2. If b^2-4ac &gt; 0, initialize Shanks' distance
+function to D. Negative definite forms are not implemented,
+use their positive definite counterpart instead.</p>
+<p>
+The library syntax is <code>GEN <b>Qfb0</b>(GEN a, GEN b, GEN c, GEN D = NULL, long prec)</code>.
+Also available are
+<code>GEN <b>qfi</b>(GEN a, GEN b, GEN c)</code> (assumes b^2-4ac &lt; 0) and
+<code>GEN <b>qfr</b>(GEN a, GEN b, GEN c, GEN D)</code> (assumes b^2-4ac &gt; 0).</p>
+<p>
+
+<hr>
+<div id="se:Ser"></div>
+<div id="Ser"></div>
+<h4>Ser(s, {v = 'x}, {d = <em>seriesprecision</em>})</h4>
+<p>
+Transforms the object s into a power series with main variable v
+(x by default) and precision (number of significant terms) equal to
+d &geq; 0 (d = <code>seriesprecision</code> by default). If s is a
+scalar, this gives a constant power series in v with precision <code>d</code>.
+If s is a polynomial, the polynomial is truncated to d terms if needed</p>
+<p>
+</p><pre class="code">  ? \ps
+    seriesprecision = 16 significant terms
+  ? Ser(1)  \\ 16 terms by default
+  %1 = 1 + O(x^16)
+  ? Ser(1, 'y, 5)
+  %2 = 1 + O(y^5)
+  ? Ser(x^2,, 5)
+  %3 = x^2 + O(x^7)
+  ? T = polcyclo(100)
+  %4 = x^40 - x^30 + x^20 - x^10 + 1
+  ? Ser(T, 'x, 11)
+  %5 = 1 - x^10 + O(x^11)
+</pre><p>
+The function is more or less equivalent with multiplication by
+1 + O(v^d) in theses cases, only faster.</p>
+<p>
+For the remaining types, vectors and power series, we first explain what
+occurs if d is omitted. In this case, the function uses exactly the amount
+of information given in the input:</p>
+<p>
+<b>*</b> If s is already a power series in v, we return it verbatim;</p>
+<p>
+<b>*</b> If s is a vector, the coefficients of the vector are
+understood to be the coefficients of the power series starting from the
+constant term (as in <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Polrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Polrev</a></code>(x)); in other words we convert
+<code>t_VEC</code> / <code>t_COL</code> to the power series whose significant terms are exactly
+given by the vector entries.</p>
+<p>
+On the other hand, if d is explicitly given, we abide by its value
+and return a series, truncated or extended with zeros as needed, with
+d significant terms.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? v = [1,2,3];
+  ? Ser(v, t) \\ 3 terms: seriesprecision is ignored!
+  %7 = 1 + 2*t + 3*t^2 + O(t^3)
+  ? Ser(v, t, 7)  \\ 7 terms as explicitly requested
+  %8 = 1 + 2*t + 3*t^2 + O(t^7)
+  ? s = 1+x+O(x^2);
+  ? Ser(s)
+  %10 = 1 + x + O(x^2)  \\ 2 terms: seriesprecision is ignored
+  ? Ser(s, x, 7)  \\ extend to 7 terms
+  %11 = 1 + x + O(x^7)
+  ? Ser(s, x, 1)  \\ truncate to 1 term
+  %12 = 1 + O(x)
+</pre><p></p>
+<p>
+The warning given for <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Pol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Pol</a></code> also applies here: this is not a substitution
+function.</p>
+<p>
+The library syntax is <code>GEN <b>Ser0</b>(GEN s, long v = -1, GEN d = NULL, long precdl)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:Set"></div>
+<div id="Set"></div>
+<h4>Set({x = []})</h4>
+<p>
+Converts x into a set, i.e.&nbsp;into a row vector, with strictly increasing
+entries with respect to the (somewhat arbitrary) universal comparison function
+<code><a href="Standard_monadic_or_dyadic_operators.html#se:cmp"
+    onClick="parent.itemFrame.location='cont_Standard_monadic_or_dyadic_operators.html'">cmp</a></code>. Standard container types <code>t_VEC</code>, <code>t_COL</code>, <code>t_LIST</code> and
+<code>t_VECSMALL</code> are converted to the set with corresponding elements. All
+others are converted to a set with one element.</p>
+<p>
+</p><pre class="code">  ? Set([1,2,4,2,1,3])
+  %1 = [1, 2, 3, 4]
+  ? Set(x)
+  %2 = [x]
+  ? Set(Vecsmall([1,3,2,1,3]))
+  %3 = [1, 2, 3]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gtoset</b>(GEN x = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:Str"></div>
+<div id="Str"></div>
+<h4>Str({x}*)</h4>
+<p>
+Converts its argument list into a
+single character string (type <code>t_STR</code>, the empty string if x is omitted).
+To recover an ordinary <code>GEN</code> from a string, apply <code><a href="Polynomials_and_power_series.html#se:eval"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">eval</a></code> to it. The
+arguments of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Str"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Str</a></code> are evaluated in string context, see Section se:strings.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? x2 = 0; i = 2; Str(x, i)
+  %1 = "x2"
+  ? eval(%)
+  %2 = 0
+</pre><p></p>
+<p>
+This function is mostly useless in library mode. Use the pair
+<code>strtoGEN</code>/<code>GENtostr</code> to convert between <code>GEN</code> and <code>char*</code>.
+The latter returns a malloced string, which should be freed after usage.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:Strchr"></div>
+<div id="Strchr"></div>
+<h4>Strchr(x)</h4>
+<p>
+Converts x to a string, translating each integer
+into a character.</p>
+<p>
+</p><pre class="code">  ? Strchr(97)
+  %1 = "a"
+  ? Vecsmall("hello world")
+  %2 = Vecsmall([104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100])
+  ? Strchr(%)
+  %3 = "hello world"
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>Strchr</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:Strexpand"></div>
+<div id="Strexpand"></div>
+<h4>Strexpand({x}*)</h4>
+<p>
+Converts its argument list into a
+single character string (type <code>t_STR</code>, the empty string if x is omitted).
+Then perform environment expansion, see Section se:envir.
+This feature can be used to read environment variable values.</p>
+<p>
+</p><pre class="code">  ? Strexpand("$HOME/doc")
+  %1 = "/home/pari/doc"
+</pre><p></p>
+<p></p>
+<p>
+The individual arguments are read in string context, see Section se:strings.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:Strtex"></div>
+<div id="Strtex"></div>
+<h4>Strtex({x}*)</h4>
+<p>
+Translates its arguments to TeX
+format, and concatenates the results into a single character string (type
+<code>t_STR</code>, the empty string if x is omitted).</p>
+<p>
+The individual arguments are read in string context, see Section se:strings.</p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:Vec"></div>
+<div id="Vec"></div>
+<h4>Vec(x, {n})</h4>
+<p>
+Transforms the object x into a row vector. The dimension of the
+resulting vector can be optionally specified via the extra parameter n.
+If n is omitted or 0, the dimension depends on the type of x; the
+vector has a single component, except when x is</p>
+<p>
+<b>*</b> a vector or a quadratic form: returns the initial object considered as a
+row vector,</p>
+<p>
+<b>*</b> a polynomial or a power series: returns a vector consisting of the
+coefficients. In the case of a polynomial, the coefficients of the vector
+start with the leading coefficient of the polynomial, while for power series
+only the significant coefficients are taken into account, but this time by
+increasing order of degree. In particular the valuation is ignored
+(which makes the function useful for series of negative valuation):</p>
+<p>
+</p><pre class="code">  ? Vec(3*x^2 + x)
+  %1 = [3, 1, 0]
+  ? Vec(x^2 + 3*x^3 + O(x^5))
+  %2 = [1, 3, 0]
+  ? Vec(x^-2 + 3*x^-1 + O(x))
+  %3 = [1, 3, 0]
+</pre><p>
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vec</a></code> is the reciprocal function of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Pol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Pol</a></code> for a
+polynomial and of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Ser"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Ser</a></code> for power series of valuation 0.</p>
+<p>
+<b>*</b> a matrix: returns the vector of columns comprising the matrix,</p>
+<p>
+</p><pre class="code">  ? m = [1,2,3;4,5,6]
+  %4 =
+  [1 2 3]
+  
+  [4 5 6]
+  ? Vec(m)
+  %5 = [[1, 4]~, [2, 5]~, [3, 6]~]
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> a character string: returns the vector of individual characters,</p>
+<p>
+</p><pre class="code">  ? Vec("PARI")
+  %6 = ["P", "A", "R", "I"]
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> a map: returns the vector of the domain of the map,</p>
+<p>
+<b>*</b> an error context (<code>t_ERROR</code>): returns the error components, see
+<code><a href="Programming_in_GP__control_statements.html#se:iferr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">iferr</a></code>.</p>
+<p>
+In the last four cases (matrix, character string, map, error), n is
+meaningless and must be omitted or an error is raised. Otherwise, if n is
+given, 0 entries are appended at the end of the vector if n &gt; 0, and
+prepended at the beginning if n &lt; 0. The dimension of the resulting vector
+is |n|. This allows to write a conversion function for series that
+takes positive valuations into account:</p>
+<p>
+</p><pre class="code">  ? serVec(s) = Vec(s, -serprec(s,variable(s)));
+  ? Vec(x^2 + 3*x^3 + O(x^5))
+  %2 = [0, 0, 1, 3, 0]
+</pre><p>
+(That function is not intended for series of negative valuation.)</p>
+<p>
+The library syntax is <code>GEN <b>gtovec0</b>(GEN x, long n)</code>.
+<code>GEN <b>gtovec</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:Vecrev"></div>
+<div id="Vecrev"></div>
+<h4>Vecrev(x, {n})</h4>
+<p>
+As <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vec</a></code>(x, -n), then reverse the result. In particular,
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vecrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vecrev</a></code> is the reciprocal function of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Polrev"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Polrev</a></code>: the
+coefficients of the vector start with the constant coefficient of the
+polynomial and the others follow by increasing degree.</p>
+<p>
+The library syntax is <code>GEN <b>gtovecrev0</b>(GEN x, long n)</code>.
+<code>GEN <b>gtovecrev</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:Vecsmall"></div>
+<div id="Vecsmall"></div>
+<h4>Vecsmall(x, {n})</h4>
+<p>
+Transforms the object x into a row vector of type <code>t_VECSMALL</code>. The
+dimension of the resulting vector can be optionally specified via the extra
+parameter n.</p>
+<p>
+This acts as <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Vec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Vec</a></code>(x,n), but only on a limited set of objects:
+the result must be representable as a vector of small integers.
+If x is a character string, a vector of individual characters in ASCII
+encoding is returned (<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Strchr"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Strchr</a></code> yields back the character string).</p>
+<p>
+The library syntax is <code>GEN <b>gtovecsmall0</b>(GEN x, long n)</code>.
+<code>GEN <b>gtovecsmall</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:binary"></div>
+<div id="binary"></div>
+<h4>binary(x)</h4>
+<p>
+Outputs the vector of the binary digits of |x|. Here x can be an
+integer, a real number (in which case the result has two components, one for
+the integer part, one for the fractional part) or a vector/matrix.</p>
+<p>
+</p><pre class="code">  ? binary(10)
+  %1 = [1, 0, 1, 0]
+  
+  ? binary(3.14)
+  %2 = [[1, 1], [0, 0, 1, 0, 0, 0, [...]]
+  
+  ? binary([1,2])
+  %3 = [[1], [1, 0]]
+</pre><p>
+By convention, 0 has no digits:</p>
+<p>
+</p><pre class="code">  ? binary(0)
+  %4 = []
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>binaire</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bitand"></div>
+<div id="bitand"></div>
+<h4>bitand(x, y)</h4>
+<p>
+Bitwise <code>and</code>
+of two integers x and y, that is the integer
+&sum;<sub>i</sub> (x<sub>i</sub>&nbsp;<code>and</code>&nbsp;y<sub>i</sub>) 2^i</p>
+<p>
+Negative numbers behave 2-adically, i.e.&nbsp;the result is the 2-adic limit
+of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:bitand"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">bitand</a></code>(x<sub>n</sub>,y<sub>n</sub>), where x<sub>n</sub> and y<sub>n</sub> are non-negative integers
+tending to x and y respectively. (The result is an ordinary integer,
+possibly negative.)</p>
+<p></p>
+<p>
+</p><pre class="code">  ? bitand(5, 3)
+  %1 = 1
+  ? bitand(-5, 3)
+  %2 = 3
+  ? bitand(-5, -3)
+  %3 = -7
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gbitand</b>(GEN x, GEN y)</code>.
+Also available is
+<code>GEN <b>ibitand</b>(GEN x, GEN y)</code>, which returns the bitwise <em>and</em>
+of |x| and |y|, two integers.</p>
+<p>
+
+<hr>
+<div id="se:bitneg"></div>
+<div id="bitneg"></div>
+<h4>bitneg(x, {n = -1})</h4>
+<p>
+bitwise negation of an integer x,
+truncated to n bits, n &geq; 0, that is the integer
+&sum;<sub>i = 0</sub><sup>n-1</sup> <code>not</code>(x<sub>i</sub>) 2^i.
+The special case n = -1 means no truncation: an infinite sequence of
+leading 1 is then represented as a negative number.</p>
+<p>
+See Section <a href="Conversions_and_similar_elementary_functions_or_commands.html#se:bitand"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">se:bitand</a> for the behavior for negative arguments.</p>
+<p>
+The library syntax is <code>GEN <b>gbitneg</b>(GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bitnegimply"></div>
+<div id="bitnegimply"></div>
+<h4>bitnegimply(x, y)</h4>
+<p>
+Bitwise negated imply of two integers x and
+y (or <code>not</code> (x ==&gt; y)), that is the integer &sum;
+(x<sub>i</sub>&nbsp;<code>and not</code>(y<sub>i</sub>)) 2^i</p>
+<p>
+See Section <a href="Conversions_and_similar_elementary_functions_or_commands.html#se:bitand"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">se:bitand</a> for the behavior for negative arguments.</p>
+<p>
+The library syntax is <code>GEN <b>gbitnegimply</b>(GEN x, GEN y)</code>.
+Also available is
+<code>GEN <b>ibitnegimply</b>(GEN x, GEN y)</code>, which returns the bitwise negated
+imply of |x| and |y|, two integers.</p>
+<p>
+
+<hr>
+<div id="se:bitor"></div>
+<div id="bitor"></div>
+<h4>bitor(x, y)</h4>
+<p>
+bitwise (inclusive)
+<code>or</code> of two integers x and y, that is the integer &sum;
+(x<sub>i</sub>&nbsp;<code>or</code>&nbsp;y<sub>i</sub>) 2^i</p>
+<p>
+See Section <a href="Conversions_and_similar_elementary_functions_or_commands.html#se:bitand"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">se:bitand</a> for the behavior for negative arguments.</p>
+<p>
+The library syntax is <code>GEN <b>gbitor</b>(GEN x, GEN y)</code>.
+Also available is
+<code>GEN <b>ibitor</b>(GEN x, GEN y)</code>, which returns the bitwise <em>ir</em>
+of |x| and |y|, two integers.</p>
+<p>
+
+<hr>
+<div id="se:bitprecision"></div>
+<div id="bitprecision"></div>
+<h4>bitprecision(x, {n})</h4>
+<p>
+The function behaves differently according to whether n is
+present and positive or not. If n is missing, the function returns the
+(floating point) precision in bits of the PARI object x. If x is an
+exact object, the function returns <code>+oo</code>.</p>
+<p>
+</p><pre class="code">  ? bitprecision(exp(1e-100))
+  %1 = 512                 \\ 512 bits
+  ? bitprecision( [ exp(1e-100), 0.5 ] )
+  %2 = 128                 \\ minimal accuracy among components
+  ? bitprecision(2 + x)
+  %3 = +oo                  \\ exact object
+</pre><p></p>
+<p></p>
+<p>
+If n is present and positive, the function creates a new object equal to x
+with the new bit-precision roughly n. In fact, the smallest multiple of 64
+(resp.&nbsp;32 on a 32-bit machine) larger than or equal to n.</p>
+<p>
+For x a vector or a matrix, the operation is
+done componentwise; for series and polynomials, the operation is done
+coefficientwise. For real x, n is the number of desired significant
+<em>bits</em>. If n is smaller than the precision of x, x is truncated,
+otherwise x is extended with zeros. For exact or non-floating point types,
+no change.</p>
+<p>
+</p><pre class="code">  ? bitprecision(Pi, 10)    \\ actually 64 bits ~ 19 decimal digits
+  %1 = 3.141592653589793239
+  ? bitprecision(1, 10)
+  %2 = 1
+  ? bitprecision(1 + O(x), 10)
+  %3 = 1 + O(x)
+  ? bitprecision(2 + O(3^5), 10)
+  %4 = 2 + O(3^5)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>bitprecision0</b>(GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bittest"></div>
+<div id="bittest"></div>
+<h4>bittest(x, n)</h4>
+<p>
+Outputs the n-th bit of x starting
+from the right (i.e.&nbsp;the coefficient of 2^n in the binary expansion of x).
+The result is 0 or 1.</p>
+<p>
+</p><pre class="code">  ? bittest(7, 0)
+  %1 = 1 \\ the bit 0 is 1
+  ? bittest(7, 2)
+  %2 = 1 \\ the bit 2 is 1
+  ? bittest(7, 3)
+  %3 = 0 \\ the bit 3 is 0
+</pre><p></p>
+<p>
+See Section <a href="Conversions_and_similar_elementary_functions_or_commands.html#se:bitand"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">se:bitand</a> for the behavior at negative arguments.</p>
+<p>
+The library syntax is <code>GEN <b>gbittest</b>(GEN x, long n)</code>.
+For a <code>t_INT</code> x, the variant <code>long <b>bittest</b>(GEN x, long n)</code> is
+generally easier to use, and if furthermore n &geq; 0 the low-level function
+<code>ulong <b>int_bit</b>(GEN x, long n)</code> returns <code>bittest(abs(x),n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bitxor"></div>
+<div id="bitxor"></div>
+<h4>bitxor(x, y)</h4>
+<p>
+Bitwise (exclusive) <code>or</code>
+of two integers x and y, that is the integer
+&sum; (x<sub>i</sub>&nbsp;<code>xor</code>&nbsp;y<sub>i</sub>) 2^i</p>
+<p>
+See Section <a href="Conversions_and_similar_elementary_functions_or_commands.html#se:bitand"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">se:bitand</a> for the behavior for negative arguments.</p>
+<p>
+The library syntax is <code>GEN <b>gbitxor</b>(GEN x, GEN y)</code>.
+Also available is
+<code>GEN <b>ibitxor</b>(GEN x, GEN y)</code>, which returns the bitwise <em>xor</em>
+of |x| and |y|, two integers.</p>
+<p>
+
+<hr>
+<div id="se:ceil"></div>
+<div id="ceil"></div>
+<h4>ceil(x)</h4>
+<p>
+Ceiling of x. When x is in &Ropf;, the result is the
+smallest integer greater than or equal to x. Applied to a rational
+function, <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:ceil"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">ceil</a></code>(x) returns the Euclidean quotient of the numerator by
+the denominator.</p>
+<p>
+The library syntax is <code>GEN <b>gceil</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:centerlift"></div>
+<div id="centerlift"></div>
+<h4>centerlift(x, {v})</h4>
+<p>
+Same as <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:lift"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">lift</a></code>, except that <code>t_INTMOD</code> and <code>t_PADIC</code> components
+are lifted using centered residues:</p>
+<p>
+<b>*</b> for a <code>t_INTMOD</code> x &in;  &Zopf;/n&Zopf;, the lift y is such that
+-n/2 &lt; y &leq; n/2.</p>
+<p>
+<b>*</b>  a <code>t_PADIC</code> x is lifted in the same way as above (modulo
+p^<code>padicprec(x)</code>) if its valuation v is non-negative; if not, returns
+the fraction p^v <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:centerlift"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">centerlift</a></code>(x p<sup>-v</sup>); in particular, rational
+reconstruction is not attempted. Use <code><a href="Arithmetic_functions.html#se:bestappr"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">bestappr</a></code> for this.</p>
+<p>
+For backward compatibility, <code>centerlift(x,'v)</code> is allowed as an alias
+for <code>lift(x,'v)</code>.</p>
+<p>
+The library syntax is <code><b>centerlift</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:characteristic"></div>
+<div id="characteristic"></div>
+<h4>characteristic(x)</h4>
+<p>
+Returns the characteristic of the base ring over which x is defined (as
+defined by <code>t_INTMOD</code> and <code>t_FFELT</code> components). The function raises an
+exception if incompatible primes arise from <code>t_FFELT</code> and <code>t_PADIC</code>
+components.</p>
+<p>
+</p><pre class="code">  ? characteristic(Mod(1,24)*x + Mod(1,18)*y)
+  %1 = 6
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>characteristic</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:component"></div>
+<div id="component"></div>
+<h4>component(x, n)</h4>
+<p>
+Extracts the n-th-component of x. This is to be understood
+as follows: every PARI type has one or two initial code words. The
+components are counted, starting at 1, after these code words. In particular
+if x is a vector, this is indeed the n-th-component of x, if
+x is a matrix, the n-th column, if x is a polynomial, the
+n-th coefficient (i.e.&nbsp;of degree n-1), and for power series,
+the n-th significant coefficient.</p>
+<p>
+For polynomials and power series, one should rather use <code><a href="Polynomials_and_power_series.html#se:polcoeff"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polcoeff</a></code>, and
+for vectors and matrices, the <code>[]</code> operator. Namely, if x is a
+vector, then <code>x[n]</code> represents the n-th component of x. If
+x is a matrix, <code>x[m,n]</code> represents the coefficient of row <code>m</code> and
+column <code>n</code> of the matrix, <code>x[m,]</code> represents the m-th
+<em>row</em> of x, and <code>x[,n]</code> represents the n-th
+<em>column</em> of x.</p>
+<p>
+Using of this function requires detailed knowledge of the structure of the
+different PARI types, and thus it should almost never be used directly.
+Some useful exceptions:</p>
+<p>
+</p><pre class="code">      ? x = 3 + O(3^5);
+      ? component(x, 2)
+      %2 = 81   \\ p^(p-adic accuracy)
+      ? component(x, 1)
+      %3 = 3    \\ p
+      ? q = Qfb(1,2,3);
+      ? component(q, 1)
+      %5 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>compo</b>(GEN x, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:conj"></div>
+<div id="conj"></div>
+<h4>conj(x)</h4>
+<p>
+Conjugate of x. The meaning of this
+is clear, except that for real quadratic numbers, it means conjugation in the
+real quadratic field. This function has no effect on integers, reals,
+intmods, fractions or p-adics. The only forbidden type is polmod
+(see <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:conjvec"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">conjvec</a></code> for this).</p>
+<p>
+The library syntax is <code>GEN <b>gconj</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:conjvec"></div>
+<div id="conjvec"></div>
+<h4>conjvec(z)</h4>
+<p>
+Conjugate vector representation of z. If z is a
+polmod, equal to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Mod"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Mod</a></code>(a,T), this gives a vector of length
+degree(T) containing:</p>
+<p>
+<b>*</b> the complex embeddings of z if T has rational coefficients,
+i.e.&nbsp;the a(r[i]) where r = <code><a href="Polynomials_and_power_series.html#se:polroots"
+    onClick="parent.itemFrame.location='cont_Polynomials_and_power_series.html'">polroots</a></code>(T);</p>
+<p>
+<b>*</b> the conjugates of z if T has some intmod coefficients;</p>
+<p>
+if z is a finite field element, the result is the vector of
+conjugates [z,z^p,z<sup>p^2</sup>,...,z<sup>p^{n-1</sup>}] where n = degree(T).</p>
+<p>
+If z is an integer or a rational number, the result is&nbsp;z. If
+z is a (row or column) vector, the result is a matrix whose columns are
+the conjugate vectors of the individual elements of z.</p>
+<p>
+The library syntax is <code>GEN <b>conjvec</b>(GEN z, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:denominator"></div>
+<div id="denominator"></div>
+<h4>denominator(f, {D})</h4>
+<p>
+Denominator of f. The meaning of this is clear when f is a rational number
+or function. If f is an integer or a polynomial, it is treated as a rational
+number or function, respectively, and the result is equal to 1. For
+polynomials, you probably want to use</p>
+<p>
+</p><pre class="code">  denominator( content(f) )
+</pre><p>
+instead. As for modular objects, <code>t_INTMOD</code> and <code>t_PADIC</code>
+have denominator 1, and the denominator of a <code>t_POLMOD</code> is the
+denominator of its lift.</p>
+<p>
+If f is a recursive structure, for instance a vector or matrix, the lcm
+of the denominators of its components (a common denominator) is computed.
+This also applies for <code>t_COMPLEX</code>s and <code>t_QUAD</code>s.</p>
+<p>
+<b>Warning.</b> Multivariate objects are created according to variable
+priorities, with possibly surprising side effects (x/y is a polynomial, but
+y/x is a rational function). See Section se:priority.</p>
+<p>
+The optional argument D allows to control over which ring we compute the
+denominator and get a more predictable behaviour:</p>
+<p>
+<b>*</b> 1: we only consider the underlying &Qopf;-structure and the
+denominator is a (positive) rational integer</p>
+<p>
+<b>*</b> a simple variable, say <code>'x</code>: all entries as rational functions
+in K(x) and the denominator is a polynomial in x.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? f = x + 1/y + 1/2;
+  ? denominator(f) \\ a t_POL in x
+  %2 = 1
+  ? denominator(f, 1) \\ Q-denominator
+  %3 = 2
+  ? denominator(f, x) \\ as a t_POL in x, seen above
+  %4 = 1
+  ? denominator(f, y) \\ as a rational function in y
+  %5 = 2*y
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>denominator</b>(GEN f, GEN D = NULL)</code>.
+Also available are
+<code>GEN <b>denom</b>(GEN x)</code>  which implements the not very useful default
+behaviour (D is <code>NULL</code>) and <code>GEN <b>Q_denom</b>(GEN x)</code> (D = 1).</p>
+<p>
+
+<hr>
+<div id="se:digits"></div>
+<div id="digits"></div>
+<h4>digits(x, {b = 10})</h4>
+<p>
+Outputs the vector of the digits of |x| in base b, where x and b are
+integers (b = 10 by default). See <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:fromdigits"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">fromdigits</a></code> for the reverse
+operation.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? digits(123)
+  %1 = [1, 2, 3, 0]
+  
+  ? digits(10, 2) \\ base 2
+  %2 = [1, 0, 1, 0]
+</pre><p>
+By convention, 0 has no digits:</p>
+<p>
+</p><pre class="code">  ? digits(0)
+  %3 = []
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>digits</b>(GEN x, GEN b = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:exponent"></div>
+<div id="exponent"></div>
+<h4>exponent(x)</h4>
+<p>
+When x is a <code>t_REAL</code>, the result is the binary exponent e of x.
+For a non-zero x, this is the unique integer e such that
+2^e &leq; |x| &lt; 2<sup>e+1</sup>. For a real 0, this returns the PARI exponent e
+attached to x (which may represent any floating-point number less than
+2^e in absolute value).</p>
+<p>
+</p><pre class="code">  ? exponent(Pi)
+  %1 = 1
+  ? exponent(4.0)
+  %2 = 2
+  ? exponent(0.0)
+  %3 = -128
+  ? default(realbitprecision)
+  %4 = 128
+</pre><p>
+This definition extends naturally to non-zero integers,
+and the exponent of an exact 0 is -<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code> by convention.</p>
+<p>
+For convenience, we <em>define</em> the exponent of a <code>t_FRAC</code> a/b as
+the difference of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:exponent"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">exponent</a></code>(a) and <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:exponent"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">exponent</a></code>(b); note that,
+if e' denotes the exponent of <code>a/b * 1.0</code>, then the exponent e
+we return is either e' or e'+1, thus 2<sup>e+1</sup> is an upper bound for
+|a/b|.</p>
+<p>
+</p><pre class="code">  ? [ exponent(9), exponent(10), exponent(9/10), exponent(9/10*1.) ]
+  %5 = [3, 3, 0, -1]
+</pre><p></p>
+<p></p>
+<p>
+For a PARI object of type <code>t_COMPLEX</code>, <code>t_POL</code>, <code>t_SER</code>, <code>t_VEC</code>,
+<code>t_COL</code>, <code>t_MAT</code> this returns the largest exponent found among the
+components of x. Hence 2<sup>e+1</sup> is a quick upper bound for the sup norm
+of real matrices or polynomials; and 2<sup>e+(3/2)</sup> for complex ones.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? exponent(3*x^2 + 15*x - 100)
+  %5 = 6
+  ? exponent(0)
+  %6 = -oo
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gpexponent</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:floor"></div>
+<div id="floor"></div>
+<h4>floor(x)</h4>
+<p>
+Floor of x. When x is in &Ropf;, the result is the
+largest integer smaller than or equal to x. Applied to a rational function,
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:floor"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">floor</a></code>(x) returns the Euclidean quotient of the numerator by the
+denominator.</p>
+<p>
+The library syntax is <code>GEN <b>gfloor</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:frac"></div>
+<div id="frac"></div>
+<h4>frac(x)</h4>
+<p>
+Fractional part of x. Identical to
+x-floor(x). If x is real, the result is in [0,1[.</p>
+<p>
+The library syntax is <code>GEN <b>gfrac</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fromdigits"></div>
+<div id="fromdigits"></div>
+<h4>fromdigits(x, {b = 10})</h4>
+<p>
+Gives the integer formed by the elements of x seen as the digits of a
+number in base b (b = 10 by default).  This is the reverse of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:digits"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">digits</a></code>:</p>
+<p>
+</p><pre class="code">  ? digits(1234,5)
+  %1 = [1,4,4,1,4]
+  ? fromdigits([1,4,4,1,4],5)
+  %2 = 1234
+</pre><p>
+By convention, 0 has no digits:</p>
+<p>
+</p><pre class="code">  ? fromdigits([])
+  %3 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>fromdigits</b>(GEN x, GEN b = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:imag"></div>
+<div id="imag"></div>
+<h4>imag(x)</h4>
+<p>
+Imaginary part of x. When x is a quadratic number, this is the
+coefficient of &omega; in the "canonical" integral basis (1,&omega;).</p>
+<p>
+The library syntax is <code>GEN <b>gimag</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:length"></div>
+<div id="length"></div>
+<h4>length(x)</h4>
+<p>
+Length of x; <code>#</code>x is a shortcut for <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:length"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">length</a></code>(x).
+This is mostly useful for</p>
+<p>
+<b>*</b> vectors: dimension (0 for empty vectors),</p>
+<p>
+<b>*</b> lists: number of entries (0 for empty lists),</p>
+<p>
+<b>*</b> matrices: number of columns,</p>
+<p>
+<b>*</b> character strings: number of actual characters (without
+trailing <code>\0</code>, should you expect it from C <code>char*</code>).</p>
+<p>
+</p><pre class="code">   ? #"a string"
+   %1 = 8
+   ? #[3,2,1]
+   %2 = 3
+   ? #[]
+   %3 = 0
+   ? #matrix(2,5)
+   %4 = 5
+   ? L = List([1,2,3,4]); #L
+   %5 = 4
+</pre><p></p>
+<p></p>
+<p>
+The routine is in fact defined for arbitrary GP types, but is awkward and
+useless in other cases: it returns the number of non-code words in x, e.g.
+the effective length minus 2 for integers since the <code>t_INT</code> type has two code
+words.</p>
+<p>
+The library syntax is <code>long <b>glength</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lift"></div>
+<div id="lift"></div>
+<h4>lift(x, {v})</h4>
+<p>
+If v is omitted, lifts intmods from &Zopf;/n&Zopf; in &Zopf;,
+p-adics from &Qopf;<sub>p</sub> to &Qopf; (as <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>), and polmods to
+polynomials. Otherwise, lifts only polmods whose modulus has main
+variable&nbsp;v. <code>t_FFELT</code> are not lifted, nor are List elements: you may
+convert the latter to vectors first, or use <code>apply(lift,L)</code>. More
+generally, components for which such lifts are meaningless (e.g. character
+strings) are copied verbatim.</p>
+<p>
+</p><pre class="code">  ? lift(Mod(5,3))
+  %1 = 2
+  ? lift(3 + O(3^9))
+  %2 = 3
+  ? lift(Mod(x,x^2+1))
+  %3 = x
+  ? lift(Mod(x,x^2+1))
+  %4 = x
+</pre><p></p>
+<p>
+Lifts are performed recursively on an object components, but only
+by <em>one level</em>: once a <code>t_POLMOD</code> is lifted, the components of
+the result are <em>not</em> lifted further.</p>
+<p>
+</p><pre class="code">  ? lift(x * Mod(1,3) + Mod(2,3))
+  %4 = x + 2
+  ? lift(x * Mod(y,y^2+1) + Mod(2,3))
+  %5 = y*x + Mod(2, 3)   \\  do you understand this one?
+  ? lift(x * Mod(y,y^2+1) + Mod(2,3), 'x)
+  %6 = Mod(y, y^2 + 1)*x + Mod(Mod(2, 3), y^2 + 1)
+  ? lift(%, y)
+  %7 = y*x + Mod(2, 3)
+</pre><p>
+To recursively lift all components not only by one level,
+but as long as possible, use <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:liftall"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">liftall</a></code>. To lift only <code>t_INTMOD</code>s and
+<code>t_PADIC</code>s components, use <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:liftint"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">liftint</a></code>. To lift only <code>t_POLMOD</code>s
+components, use <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:liftpol"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">liftpol</a></code>. Finally, <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:centerlift"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">centerlift</a></code> allows to lift
+<code>t_INTMOD</code>s and <code>t_PADIC</code>s using centered residues (lift of smallest
+absolute value).</p>
+<p>
+The library syntax is <code>GEN <b>lift0</b>(GEN x, long v = -1)</code> where <code>v</code> is a variable number.
+Also available is <code>GEN <b>lift</b>(GEN x)</code> corresponding to
+<code>lift0(x,-1)</code>.</p>
+<p>
+
+<hr>
+<div id="se:liftall"></div>
+<div id="liftall"></div>
+<h4>liftall(x)</h4>
+<p>
+Recursively lift all components of x from &Zopf;/n&Zopf; to &Zopf;,
+from &Qopf;<sub>p</sub> to &Qopf; (as <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>), and polmods to
+polynomials. <code>t_FFELT</code> are not lifted, nor are List elements: you may
+convert the latter to vectors first, or use <code>apply(liftall,L)</code>. More
+generally, components for which such lifts are meaningless (e.g. character
+strings) are copied verbatim.</p>
+<p>
+</p><pre class="code">  ? liftall(x * (1 + O(3)) + Mod(2,3))
+  %1 = x + 2
+  ? liftall(x * Mod(y,y^2+1) + Mod(2,3)*Mod(z,z^2))
+  %2 = y*x + 2*z
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>liftall</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:liftint"></div>
+<div id="liftint"></div>
+<h4>liftint(x)</h4>
+<p>
+Recursively lift all components of x from &Zopf;/n&Zopf; to &Zopf; and
+from &Qopf;<sub>p</sub> to &Qopf; (as <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>).
+<code>t_FFELT</code> are not lifted, nor are List elements: you may
+convert the latter to vectors first, or use <code>apply(liftint,L)</code>. More
+generally, components for which such lifts are meaningless (e.g. character
+strings) are copied verbatim.</p>
+<p>
+</p><pre class="code">  ? liftint(x * (1 + O(3)) + Mod(2,3))
+  %1 = x + 2
+  ? liftint(x * Mod(y,y^2+1) + Mod(2,3)*Mod(z,z^2))
+  %2 = Mod(y, y^2 + 1)*x + Mod(Mod(2*z, z^2), y^2 + 1)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>liftint</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:liftpol"></div>
+<div id="liftpol"></div>
+<h4>liftpol(x)</h4>
+<p>
+Recursively lift all components of x which are polmods to
+polynomials. <code>t_FFELT</code> are not lifted, nor are List elements: you may
+convert the latter to vectors first, or use <code>apply(liftpol,L)</code>. More
+generally, components for which such lifts are meaningless (e.g. character
+strings) are copied verbatim.</p>
+<p>
+</p><pre class="code">  ? liftpol(x * (1 + O(3)) + Mod(2,3))
+  %1 = (1 + O(3))*x + Mod(2, 3)
+  ? liftpol(x * Mod(y,y^2+1) + Mod(2,3)*Mod(z,z^2))
+  %2 = y*x + Mod(2, 3)*z
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>liftpol</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:norm"></div>
+<div id="norm"></div>
+<h4>norm(x)</h4>
+<p>
+Algebraic norm of x, i.e.&nbsp;the product of x with
+its conjugate (no square roots are taken), or conjugates for polmods. For
+vectors and matrices, the norm is taken componentwise and hence is not the
+L^2-norm (see <code><a href="Vectors__matrices__linear_algebra_and_sets.html#se:norml2"
+    onClick="parent.itemFrame.location='cont_Vectors__matrices__linear_algebra_and_sets.html'">norml2</a></code>). Note that the norm of an element of
+&Ropf; is its square, so as to be compatible with the complex norm.</p>
+<p>
+The library syntax is <code>GEN <b>gnorm</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:numerator"></div>
+<div id="numerator"></div>
+<h4>numerator(f, {D})</h4>
+<p>
+Numerator of f. This is defined as <code>f * denominator(f,D)</code>, see
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:denominator"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">denominator</a></code> for details. The optional argument D allows to control
+over which ring we compute the denominator:</p>
+<p>
+<b>*</b> 1: we only consider the underlying &Qopf;-structure and the
+denominator is a (positive) rational integer</p>
+<p>
+<b>*</b> a simple variable, say <code>'x</code>: all entries as rational functions
+in K(x) and the denominator is a polynomial in x.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? f = x + 1/y + 1/2;
+  ? numerator(f) \\ a t_POL in x
+  %2 = x + ((y + 2)/(2*y))
+  ? numerator(f, 1) \\ Q-denominator is 2
+  %3 = x + ((y + 2)/y)
+  ? numerator(f, y) \\ as a rational function in y
+  %5 = 2*y*x + (y + 2)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>numerator</b>(GEN f, GEN D = NULL)</code>.
+Also available are
+<code>GEN <b>numer</b>(GEN x)</code>  which implements the not very useful default
+behaviour (D is <code>NULL</code>) and
+<code>GEN <b>Q_remove_denom</b>(GEN x, GEN *ptd)</code> (D = 1) and also returns the
+denominator (coding 1 as <code>NULL</code>).</p>
+<p>
+
+<hr>
+<div id="se:oo"></div>
+<div id="oo"></div>
+<h4>oo</h4>
+<p>
+Returns an object meaning + oo , for use in functions such as
+<code><a href="Sums__products__integrals_and_similar_functions.html#se:intnum"
+    onClick="parent.itemFrame.location='cont_Sums__products__integrals_and_similar_functions.html'">intnum</a></code>. It can be negated (<code>-oo</code> represents - oo ), and
+compared to real numbers (<code>t_INT</code>, <code>t_FRAC</code>, <code>t_REAL</code>), with the
+expected meaning: + oo  is greater than any real number and - oo  is
+smaller.</p>
+<p>
+The library syntax is <code>GEN <b>mkoo</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:padicprec"></div>
+<div id="padicprec"></div>
+<h4>padicprec(x, p)</h4>
+<p>
+Returns the absolute p-adic precision of the object x; this is the
+minimum precision of the components of x. The result is <code>+oo</code> if x
+is an exact object (as a p-adic):</p>
+<p>
+</p><pre class="code">  ? padicprec((1 + O(2^5)) * x + (2 + O(2^4)), 2)
+  %1 = 4
+  ? padicprec(x + 2, 2)
+  %2 = +oo
+  ? padicprec(2 + x + O(x^2), 2)
+  %3 = +oo
+</pre><p>
+The function raises an exception if it encounters
+an object incompatible with p-adic computations:</p>
+<p>
+</p><pre class="code">  ? padicprec(O(3), 2)
+   ***   at top-level: padicprec(O(3),2)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** padicprec: inconsistent moduli in padicprec: 3 != 2
+  
+  ? padicprec(1.0, 2)
+   ***   at top-level: padicprec(1.0,2)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; -
+   *** padicprec: incorrect type in padicprec (t_REAL).
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gppadicprec</b>(GEN x, GEN p)</code>.
+Also available is the function <code>long <b>padicprec</b>(GEN x, GEN p)</code>,
+which returns <code>LONG_MAX</code> if x = 0 and the p-adic precision as a
+<code>long</code> integer.</p>
+<p>
+
+<hr>
+<div id="se:precision"></div>
+<div id="precision"></div>
+<h4>precision(x, {n})</h4>
+<p>
+The function behaves differently according to whether n is
+present and positive or not. If n is missing, the function returns the
+floating point precision in decimal digits of the PARI object x. If x
+has no floating point component, the function returns <code>+oo</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? precision(exp(1e-100))
+  %1 = 154                \\ 154 significant decimal digits
+  ? precision(2 + x)
+  %2 = +oo                \\ exact object
+  ? precision(0.5 + O(x))
+  %3 = 38                 \\ floating point accuracy, NOT series precision
+  ? precision( [ exp(1e-100), 0.5 ] )
+  %4 = 38                 \\ minimal accuracy among components
+</pre><p></p>
+<p></p>
+<p>
+If n is present, the function creates a new object equal to x with a new
+floating point precision n: n is the number of desired significant
+<em>decimal</em> digits. If n is smaller than the precision of a <code>t_REAL</code>
+component of x, it is truncated, otherwise it is extended with zeros.
+For non-floating point types, no change.</p>
+<p>
+The library syntax is <code>GEN <b>precision0</b>(GEN x, long n)</code>.
+Also available are <code>GEN <b>gprec</b>(GEN x, long n)</code> and
+<code>long <b>precision</b>(GEN x)</code>. In both, the accuracy is expressed in
+<em>words</em> (32-bit or 64-bit depending on the architecture).</p>
+<p>
+
+<hr>
+<div id="se:random"></div>
+<div id="random"></div>
+<h4>random({N = 2<sup>31</sup>})</h4>
+<p>
+Returns a random element in various natural sets depending on the
+argument N.</p>
+<p>
+<b>*</b> <code>t_INT</code>: returns an integer
+uniformly distributed between 0 and N-1. Omitting the argument
+is equivalent to <code>random(2^31)</code>.</p>
+<p>
+<b>*</b> <code>t_REAL</code>: returns a real number in [0,1[ with the same accuracy as
+N (whose mantissa has the same number of significant words).</p>
+<p>
+<b>*</b> <code>t_INTMOD</code>: returns a random intmod for the same modulus.</p>
+<p>
+<b>*</b> <code>t_FFELT</code>: returns a random element in the same finite field.</p>
+<p>
+<b>*</b> <code>t_VEC</code> of length 2, N = [a,b]: returns an integer uniformly
+distributed between a and b.</p>
+<p>
+<b>*</b> <code>t_VEC</code> generated by <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> over a finite field k
+(coefficients are <code>t_INTMOD</code>s modulo a prime or <code>t_FFELT</code>s): returns a
+"random" k-rational <em>affine</em> point on the curve. More precisely
+if the curve has a single point (at infinity!) we return it; otherwise
+we return an affine point by drawing an abscissa uniformly at
+random until <code><a href="Elliptic_curves.html#se:ellordinate"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellordinate</a></code> succeeds. Note that this is definitely not a
+uniform distribution over E(k), but it should be good enough for
+applications.</p>
+<p>
+<b>*</b> <code>t_POL</code> return a random polynomial of degree at most the degree of N.
+The coefficients are drawn by applying <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:random"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">random</a></code> to the leading
+coefficient of N.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? random(10)
+  %1 = 9
+  ? random(Mod(0,7))
+  %2 = Mod(1, 7)
+  ? a = ffgen(ffinit(3,7), 'a); random(a)
+  %3 = a^6 + 2*a^5 + a^4 + a^3 + a^2 + 2*a
+  ? E = ellinit([3,7]*Mod(1,109)); random(E)
+  %4 = [Mod(103, 109), Mod(10, 109)]
+  ? E = ellinit([1,7]*a^0); random(E)
+  %5 = [a^6 + a^5 + 2*a^4 + 2*a^2, 2*a^6 + 2*a^4 + 2*a^3 + a^2 + 2*a]
+  ? random(Mod(1,7)*x^4)
+  %6 = Mod(5, 7)*x^4 + Mod(6, 7)*x^3 + Mod(2, 7)*x^2 + Mod(2, 7)*x + Mod(5, 7)
+  
+</pre><p></p>
+<p>
+These variants all depend on a single internal generator, and are
+independent from your operating system's random number generators.
+A random seed may be obtained via <code><a href="Programming_in_GP__other_specific_functions.html#se:getrand"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">getrand</a></code>, and reset
+using <code><a href="Programming_in_GP__other_specific_functions.html#se:setrand"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">setrand</a></code>: from a given seed, and given sequence of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:random"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">random</a></code>s,
+the exact same values will be generated. The same seed is used at each
+startup, reseed the generator yourself if this is a problem. Note that
+internal functions also call the random number generator; adding such a
+function call in the middle of your code will change the numbers produced.</p>
+<p>
+<b>Technical note.</b>
+Up to
+version 2.4 included, the internal generator produced pseudo-random numbers
+by means of linear congruences, which were not well distributed in arithmetic
+progressions. We now
+use Brent's XORGEN algorithm, based on Feedback Shift Registers, see
+<code>http://wwwmaths.anu.edu.au/~brent/random.html</code>. The generator has period
+2<sup>4096</sup>-1, passes the Crush battery of statistical tests of L'Ecuyer and
+Simard, but is not suitable for cryptographic purposes: one can reconstruct
+the state vector from a small sample of consecutive values, thus predicting
+the entire sequence.</p>
+<p>
+The library syntax is <code>GEN <b>genrand</b>(GEN N = NULL)</code>.</p>
+<p>
+ Also available: <code>GEN <b>ellrandom</b>(GEN E)</code> and <code>GEN <b>ffrandom</b>(GEN a)</code>.</p>
+<p>
+
+<hr>
+<div id="se:real"></div>
+<div id="real"></div>
+<h4>real(x)</h4>
+<p>
+Real part of x. In the case where x is a quadratic number, this is the
+coefficient of 1 in the "canonical" integral basis (1,&omega;).</p>
+<p>
+The library syntax is <code>GEN <b>greal</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:round"></div>
+<div id="round"></div>
+<h4>round(x, {&e})</h4>
+<p>
+If x is in &Ropf;, rounds x to the nearest integer (rounding to
++ oo  in case of ties), then and sets e to the number of error bits,
+that is the binary exponent of the difference between the original and the
+rounded value (the "fractional part"). If the exponent of x is too large
+compared to its precision (i.e.&nbsp;e &gt; 0), the result is undefined and an error
+occurs if e was not given.</p>
+<p>
+<b>Important remark.</b> Contrary to the other truncation functions,
+this function operates on every coefficient at every level of a PARI object.
+For example
+truncate((2.4*X^2-1.7)/(X)) = 2.4*X,
+whereas
+round((2.4*X^2-1.7)/(X)) = (2*X^2-2)/(X).
+An important use of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:round"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">round</a></code> is to get exact results after an approximate
+computation, when theory tells you that the coefficients must be integers.</p>
+<p>
+The library syntax is <code>GEN <b>round0</b>(GEN x, GEN *e = NULL)</code>.
+Also available are <code>GEN <b>grndtoi</b>(GEN x, long *e)</code> and
+<code>GEN <b>ground</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:serchop"></div>
+<div id="serchop"></div>
+<h4>serchop(s, {n = 0})</h4>
+<p>
+Remove all terms of degree strictly less than n in series s. When
+the series contains no terms of degree  &lt; n, return O(x^n).</p>
+<p>
+</p><pre class="code">  ? s = 1/x + x + 2*x^2 + O(x^3);
+  ? serchop(s)
+  %2 = x + 2*x^3 + O(x^3)
+  ? serchop(s, 2)
+  %3 = 2*x^2 + O(x^3)
+  ? serchop(s, 100)
+  %4 = O(x^100)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>serchop</b>(GEN s, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:serprec"></div>
+<div id="serprec"></div>
+<h4>serprec(x, v)</h4>
+<p>
+Returns the absolute precision of x with respect to power series
+in the variable v; this is the
+minimum precision of the components of x. The result is <code>+oo</code> if x
+is an exact object (as a series in v):</p>
+<p>
+</p><pre class="code">  ? serprec(x + O(y^2), y)
+  %1 = 2
+  ? serprec(x + 2, x)
+  %2 = +oo
+  ? serprec(2 + x + O(x^2), y)
+  %3 = +oo
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gpserprec</b>(GEN x, long v)</code> where <code>v</code> is a variable number.
+Also available is <code>long <b>serprec</b>(GEN x, GEN p)</code>, which returns
+<code>LONG_MAX</code> if x = 0, otherwise the series precision as a <code>long</code> integer.</p>
+<p>
+
+<hr>
+<div id="se:simplify"></div>
+<div id="simplify"></div>
+<h4>simplify(x)</h4>
+<p>
+This function simplifies x as much as it can. Specifically, a complex or
+quadratic number whose imaginary part is the integer 0 (i.e.&nbsp;not <code>Mod(0,2)</code>
+or <code>0.E-28</code>) is converted to its real part, and a polynomial of degree 0
+is converted to its constant term. Simplifications occur recursively.</p>
+<p>
+This function is especially useful before using arithmetic functions,
+which expect integer arguments:</p>
+<p>
+</p><pre class="code">  ? x = 2 + y - y
+  %1 = 2
+  ? isprime(x)
+    ***   at top-level: isprime(x)
+    ***                 ^ &mdash;  &mdash;  &mdash; -
+    *** isprime: not an integer argument in an arithmetic function
+  ? type(x)
+  %2 = "t_POL"
+  ? type(simplify(x))
+  %3 = "t_INT"
+</pre><p></p>
+<p>
+Note that GP results are simplified as above before they are stored in the
+history. (Unless you disable automatic simplification with <code>\y</code>, that is.)
+In particular</p>
+<p>
+</p><pre class="code">  ? type(%1)
+  %4 = "t_INT"
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>simplify</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sizebyte"></div>
+<div id="sizebyte"></div>
+<h4>sizebyte(x)</h4>
+<p>
+Outputs the total number of bytes occupied by the tree representing the
+PARI object x.</p>
+<p>
+The library syntax is <code>long <b>gsizebyte</b>(GEN x)</code>.
+Also available is <code>long <b>gsizeword</b>(GEN x)</code> returning a
+number of <em>words</em>.</p>
+<p>
+
+<hr>
+<div id="se:sizedigit"></div>
+<div id="sizedigit"></div>
+<h4>sizedigit(x)</h4>
+<p>
+This function is DEPRECATED, essentially meaningless, and provided for
+backwards compatibility only. Don't use it!</p>
+<p>
+outputs a quick upper bound for the number of decimal digits of (the
+components of) x, off by at most 1. More precisely, for a positive
+integer x, it computes (approximately) the ceiling of
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:floor"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">floor</a></code>(1 + log<sub>2</sub> x) log<sub>10</sub>2,</p>
+<p>
+To count the number of decimal digits of a positive integer x, use
+<code>#digits(x)</code>. To estimate (recursively) the size of x, use
+<code>normlp(x)</code>.</p>
+<p>
+The library syntax is <code>long <b>sizedigit</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:truncate"></div>
+<div id="truncate"></div>
+<h4>truncate(x, {&e})</h4>
+<p>
+Truncates x and sets e to the number of
+error bits. When x is in &Ropf;, this means that the part after the decimal
+point is chopped away, e is the binary exponent of the difference between
+the original and the truncated value (the "fractional part"). If the
+exponent of x is too large compared to its precision (i.e.&nbsp;e &gt; 0), the
+result is undefined and an error occurs if e was not given. The function
+applies componentwise on vector / matrices; e is then the maximal number of
+error bits. If x is a rational function, the result is the "integer part"
+(Euclidean quotient of numerator by denominator) and e is not set.</p>
+<p>
+Note a very special use of <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>: when applied to a power series, it
+transforms it into a polynomial or a rational function with denominator
+a power of X, by chopping away the O(X^k). Similarly, when applied to
+a p-adic number, it transforms it into an integer or a rational number
+by chopping away the O(p^k).</p>
+<p>
+The library syntax is <code>GEN <b>trunc0</b>(GEN x, GEN *e = NULL)</code>.
+The following functions are also available: <code>GEN <b>gtrunc</b>(GEN x)</code>
+and <code>GEN <b>gcvtoi</b>(GEN x, long *e)</code>.</p>
+<p>
+
+<hr>
+<div id="se:valuation"></div>
+<div id="valuation"></div>
+<h4>valuation(x, p)</h4>
+<p>
+Computes the highest
+exponent of p dividing x. If p is of type integer, x must be an
+integer, an intmod whose modulus is divisible by p, a fraction, a
+q-adic number with q = p, or a polynomial or power series in which case the
+valuation is the minimum of the valuation of the coefficients.</p>
+<p>
+If p is of type polynomial, x must be of type polynomial or rational
+function, and also a power series if x is a monomial. Finally, the
+valuation of a vector, complex or quadratic number is the minimum of the
+component valuations.</p>
+<p>
+If x = 0, the result is <code>+oo</code> if x is an exact object. If x is a
+p-adic numbers or power series, the result is the exponent of the zero.
+Any other type combinations gives an error.</p>
+<p>
+The library syntax is <code>GEN <b>gpvaluation</b>(GEN x, GEN p)</code>.
+Also available is
+<code>long <b>gvaluation</b>(GEN x, GEN p)</code>, which returns <code>LONG_MAX</code> if x = 0
+and the valuation as a <code>long</code> integer.</p>
+<p>
+
+<hr>
+<div id="se:varhigher"></div>
+<div id="varhigher"></div>
+<h4>varhigher(<em>name</em>, {v})</h4>
+<p>
+Return a variable <em>name</em> whose priority is higher
+than the priority of v (of all existing variables if v is omitted).
+This is a counterpart to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varlower"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varlower</a></code>.</p>
+<p>
+</p><pre class="code">  ? Pol([x,x], t)
+   ***   at top-level: Pol([x,x],t)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; 
+   *** Pol: incorrect priority in gtopoly: variable x &lt;= t
+  ? t = varhigher("t", x);
+  ? Pol([x,x], t)
+  %3 = x*t + x
+</pre><p>
+This routine is useful since new GP variables directly
+created by the interpreter always have lower priority than existing
+GP variables. When some basic objects already exist in a variable
+that is incompatible with some function requirement, you can now
+create a new variable with a suitable priority instead of changing variables
+in existing objects:</p>
+<p>
+</p><pre class="code">  ? K = nfinit(x^2+1);
+  ? rnfequation(K,y^2-2)
+   ***   at top-level: rnfequation(K,y^2-2)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** rnfequation: incorrect priority in rnfequation: variable y &gt;= x
+  ? y = varhigher("y", x);
+  ? rnfequation(K, y^2-2)
+  %3 = y^4 - 2*y^2 + 9
+</pre><p></p>
+<p>
+<b>Caution 1.</b>
+The <em>name</em> is an arbitrary character string, only used for display
+purposes and need not be related to the GP variable holding the result, nor
+to be a valid variable name. In particular the <em>name</em> can
+not be used to retrieve the variable, it is not even present in the parser's
+hash tables.</p>
+<p>
+</p><pre class="code">  ? x = varhigher("#");
+  ? x^2
+  %2 = #^2
+</pre><p></p>
+<p>
+<b>Caution 2.</b> There are a limited number of variables and if no
+existing variable with the given display name has the requested
+priority, the call to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varhigher"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varhigher</a></code> uses up one such slot. Do not create
+new variables in this way unless it's absolutely necessary,
+reuse existing names instead and choose sensible priority requirements:
+if you only need a variable with higher priority than x, state so
+rather than creating a new variable with highest priority.</p>
+<p>
+</p><pre class="code">  \\ quickly use up all variables
+  ? n = 0; while(1,varhigher("tmp"); n++)
+   ***   at top-level: n=0;while(1,varhigher("tmp");n++)
+   ***                             ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; -
+   *** varhigher: no more variables available.
+   ***   Break loop: type 'break' to go back to GP prompt
+  break&gt; n
+  65510
+  \\ infinite loop: here we reuse the same 'tmp'
+  ? n = 0; while(1,varhigher("tmp", x); n++)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>varhigher</b>(const char *name, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:variable"></div>
+<div id="variable"></div>
+<h4>variable({x})</h4>
+<p>
+Gives the main variable of the object x (the variable with the highest
+priority used in x), and p if x is a p-adic number. Return 0 if
+x has no variable attached to it.</p>
+<p>
+</p><pre class="code">  ? variable(x^2 + y)
+  %1 = x
+  ? variable(1 + O(5^2))
+  %2 = 5
+  ? variable([x,y,z,t])
+  %3 = x
+  ? variable(1)
+  %4 = 0
+</pre><p>
+The construction</p>
+<p>
+</p><pre class="code">     if (!variable(x),...)
+</pre><p>
+can be used to test whether a variable is attached to x.</p>
+<p>
+If x is omitted, returns the list of user variables known to the
+interpreter, by order of decreasing priority. (Highest priority is initially
+x, which come first until <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varhigher"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varhigher</a></code> is used.) If <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varhigher"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varhigher</a></code>
+or <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varlower"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varlower</a></code> are used, it is quite possible to end up with different
+variables (with different priorities) printed in the same way: they
+will then appear multiple times in the output:</p>
+<p>
+</p><pre class="code">  ? varhigher("y");
+  ? varlower("y");
+  ? variable()
+  %4 = [y, x, y]
+</pre><p>
+Using <code>v = variable()</code> then <code>v[1]</code>, <code>v[2]</code>,
+etc.&nbsp;allows to recover and use existing variables.</p>
+<p>
+The library syntax is <code>GEN <b>gpolvar</b>(GEN x = NULL)</code>.
+However, in library mode, this function should not be used for x
+non-<code>NULL</code>, since <code>gvar</code> is more appropriate. Instead, for
+x a p-adic (type <code>t_PADIC</code>), p is gel(x,2); otherwise, use
+<code>long <b>gvar</b>(GEN x)</code> which returns the variable number of x if
+it exists, <code>NO_VARIABLE</code> otherwise, which satisfies the property
+<code>varncmp</code>(<code>NO_VARIABLE</code>, v) &gt; 0 for all valid variable number
+v, i.e. it has lower priority than any variable.</p>
+<p>
+
+<hr>
+<div id="se:variables"></div>
+<div id="variables"></div>
+<h4>variables({x})</h4>
+<p>
+Returns the list of all variables occuring in object x (all user
+variables known to the interpreter if x is omitted), sorted by
+decreasing priority.</p>
+<p>
+</p><pre class="code">  ? variables([x^2 + y*z + O(t), a+x])
+  %1 = [x, y, z, t, a]
+</pre><p>
+The construction</p>
+<p>
+</p><pre class="code">     if (!variables(x),...)
+</pre><p>
+can be used to test whether a variable is attached to x.</p>
+<p>
+If <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varhigher"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varhigher</a></code> or <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varlower"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varlower</a></code> are used, it is quite possible to end up
+with different variables (with different priorities) printed in the same
+way: they will then appear multiple times in the output:</p>
+<p>
+</p><pre class="code">  ? y1 = varhigher("y");
+  ? y2 = varlower("y");
+  ? variables(y*y1*y2)
+  %4 = [y, y, y]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>variables_vec</b>(GEN x = NULL)</code>.</p>
+<p>
+Also available is <code>GEN <b>variables_vecsmall</b>(GEN x)</code> which returns
+the (sorted) variable numbers instead of the attached monomials of degree 1.</p>
+<p>
+
+<hr>
+<div id="se:varlower"></div>
+<div id="varlower"></div>
+<h4>varlower(<em>name</em>, {v})</h4>
+<p>
+Return a variable <em>name</em> whose priority is lower
+than the priority of v (of all existing variables if v is omitted).
+This is a counterpart to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varhigher"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varhigher</a></code>.</p>
+<p>
+New GP variables directly created by the interpreter always
+have lower priority than existing GP variables, but it is not easy
+to check whether an identifier is currently unused, so that the
+corresponding variable has the expected priority when it's created!
+Thus, depending on the session history, the same command may fail or succeed:</p>
+<p>
+</p><pre class="code">  ? t; z;  \\ now t &gt; z
+  ? rnfequation(t^2+1,z^2-t)
+   ***   at top-level: rnfequation(t^2+1,z^
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** rnfequation: incorrect priority in rnfequation: variable t &gt;= t
+</pre><p>
+Restart and retry:</p>
+<p>
+</p><pre class="code">  ? z; t;  \\ now z &gt; t
+  ? rnfequation(t^2+1,z^2-t)
+  %2 = z^4 + 1
+</pre><p>
+It is quite annoying for package authors, when trying to
+define a base ring, to notice that the package may fail for some users
+depending on their session history. The safe way to do this is as follows:</p>
+<p>
+</p><pre class="code">  ? z; t;  \\ In new session: now z &gt; t
+  ...
+  ? t = varlower("t", 'z);
+  ? rnfequation(t^2+1,z^2-2)
+  %2 = z^4 - 2*z^2 + 9
+  ? variable()
+  %3 = [x, y, z, t]
+</pre><p></p>
+<p></p>
+<p>
+</p><pre class="code">  ? t; z;  \\ In new session: now t &gt; z
+  ...
+  ? t = varlower("t", 'z); \\ create a new variable, still printed "t"
+  ? rnfequation(t^2+1,z^2-2)
+  %2 = z^4 - 2*z^2 + 9
+  ? variable()
+  %3 = [x, y, t, z, t]
+</pre><p>
+Now both constructions succeed. Note that in the
+first case, <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varlower"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varlower</a></code> is essentially a no-op, the existing variable t
+has correct priority. While in the second case, two different variables are
+displayed as <code>t</code>, one with higher priority than z (created in the first
+ line) and another one with lower priority (created by <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varlower"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varlower</a></code>).</p>
+<p>
+<b>Caution 1.</b>
+The <em>name</em> is an arbitrary character string, only used for display
+purposes and need not be related to the GP variable holding the result, nor
+to be a valid variable name. In particular the <em>name</em> can
+not be used to retrieve the variable, it is not even present in the parser's
+hash tables.</p>
+<p>
+</p><pre class="code">  ? x = varlower("#");
+  ? x^2
+  %2 = #^2
+</pre><p></p>
+<p>
+<b>Caution 2.</b> There are a limited number of variables and if no
+existing variable with the given display name has the requested
+priority, the call to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:varlower"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">varlower</a></code> uses up one such slot. Do not create
+new variables in this way unless it's absolutely necessary,
+reuse existing names instead and choose sensible priority requirements:
+if you only need a variable with higher priority than x, state so
+rather than creating a new variable with highest priority.</p>
+<p>
+</p><pre class="code">  \\ quickly use up all variables
+  ? n = 0; while(1,varlower("x"); n++)
+   ***   at top-level: n=0;while(1,varlower("x");n++)
+   ***                             ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; -
+   *** varlower: no more variables available.
+   ***   Break loop: type 'break' to go back to GP prompt
+  break&gt; n
+  65510
+  \\ infinite loop: here we reuse the same 'tmp'
+  ? n = 0; while(1,varlower("tmp", x); n++)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>varlower</b>(const char *name, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+</body>

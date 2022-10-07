@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Convex hulls: convexhull
+</title>
+</head>
+<body >
+<a href="cascmd_en826.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en828.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2107" class="subsection">13.10.5  Convex hulls: <span style="font-family:monospace">convexhull</span>
+<a id="hevea_default1518"></a></h3>
+<p>The <span style="font-family:monospace">convexhull</span> command uses the Graham scanning algorithm to
+find the convex hull of a set of points.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convexhull</span> takes an unspecified number of arguments:<br>
+ <span style="font-style:italic">points</span>, a sequence or list of points.
+</li><li class="li-itemize"><span style="font-family:monospace">convexhull(</span><span style="font-style:italic">points</span><span style="font-family:monospace">)</span> 
+returns the vertices of the convex hull of the points.
+</li></ul><h4 id="sec2108" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">convexhull(0,1,1+i,1+2i,-1-i,1-3i,-2+i)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1−3 <span style="font-style:italic">i</span>,1+2 <span style="font-style:italic">i</span>,−2+<span style="font-style:italic">i</span>,−1−<span style="font-style:italic">i</span>
+</td></tr>
+</table><p><br>
+</p><p>To draw the hull, you can use the <span style="font-family:monospace">polygon</span> command with the
+output of <span style="font-family:monospace">convexhull</span> (see Section <a href="cascmd_en825.html#ssec%3A2dgenpolygon">13.10.3</a>).</p><h4 id="sec2109" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">polygon(convexhull(0,1,1+i,1+2i,-1-i,1-3i,-2+i))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en221.png">
+</div>
+<hr>
+<a href="cascmd_en826.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en828.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

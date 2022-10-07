@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Generating a random walks: randmarkov
+</title>
+</head>
+<body >
+<a href="cascmd_en689.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en691.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1794" class="subsection">8.4.25  Generating a random walks: <span style="font-family:monospace">randmarkov</span>
+<a id="hevea_default1278"></a></h3>
+<p>The <span style="font-family:monospace">randmarkov</span> command generates random walks or creates
+stochastic matrices.</p><p>To generate a random walk:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">randmarkov</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">M</span>, a transition matrix for a Markov chain.
+</li><li class="li-itemize"><span style="font-style:italic">i</span><sub>0</sub>, an initial state.
+</li><li class="li-itemize"><span style="font-style:italic">n</span>, a positive integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">randmarkov(</span><span style="font-style:italic">M</span>,<span style="font-style:italic">i</span><sub>0</sub>,<span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns a
+a random walk (given as a vector) starting at <span style="font-style:italic">i</span><sub>0</sub> and
+taking <span style="font-style:italic">n</span> random steps, where each step is a transition with
+probabilities given by <span style="font-style:italic">M</span>.
+</li></ul><h4 id="sec1795" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">randmarkov([[0,1/2,0,1/2],[0,1,0,0],[1/4,1/4,1/4,1/4],[0,0,1/2,1/2]],2,10)</span>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2,3,2,0,3,2,2,0,3,2,0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>To create a stochastic matrix:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">randmarkov</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">v</span>, a vector of length <span style="font-style:italic">p</span>.
+</li><li class="li-itemize"><span style="font-style:italic">i</span><sub>0</sub>, the number of transient states.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">randmatrix(</span><span style="font-style:italic">v</span>,<span style="font-style:italic">i</span><sub>0</sub><span style="font-family:monospace">)</span> returns a stochastic matrix with
+<span style="font-style:italic">p</span> recurrent loops (given by <span style="font-style:italic">v</span>) and <span style="font-style:italic">i</span><sub>0</sub> transient states.
+</li></ul><h4 id="sec1796" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">randmarkov([1,2],2)</span>
+</div><p>
+<span style="font-style:italic">Output (for example):</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.289031975209</td><td style="text-align:center;white-space:nowrap" >0.710968024791</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.46230383289</td><td style="text-align:center;white-space:nowrap" >0.53769616711</td><td style="text-align:center;white-space:nowrap" >0.0</td><td style="text-align:center;white-space:nowrap" >0.0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.259262238137</td><td style="text-align:center;white-space:nowrap" >0.149948861946</td><td style="text-align:center;white-space:nowrap" >0.143448150524</td><td style="text-align:center;white-space:nowrap" >0.242132758802</td><td style="text-align:center;white-space:nowrap" >0.205207990592</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.231568633749</td><td style="text-align:center;white-space:nowrap" >0.145429586345</td><td style="text-align:center;white-space:nowrap" >0.155664673778</td><td style="text-align:center;white-space:nowrap" >0.282556511895</td><td style="text-align:center;white-space:nowrap" >0.184780594232</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<hr>
+<a href="cascmd_en689.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en691.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

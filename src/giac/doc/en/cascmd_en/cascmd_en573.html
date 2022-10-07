@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Solving AX=b: simult
+</title>
+</head>
+<body >
+<a href="cascmd_en572.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en574.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1430" class="subsection">5.56.4  Solving <span style="font-style:italic">AX</span>=<span style="font-style:italic">b</span>: <span style="font-family:monospace">simult</span>
+<a id="hevea_default971"></a></h3>
+<p>The <span style="font-family:monospace">simult</span> command can solve a linear system of equations or 
+several linear systems of equations with the same matrix of
+coefficients (see also <a href="cascmd_en572.html#ssec%3Arref">5.56.3</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">simult</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix (the matrix of coefficients of a system).
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, a column vector (representing the right hand side of
+the system) or a matrix (where each column represents the right
+hand side of an equation).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">simult(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns a column vector of the
+solutions (or a matrix where each column is the column vector of a
+solution).
+</li></ul><h4 id="sec1431" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Solve
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎧<br>
+⎨<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" >  3<span style="font-style:italic">x</span> + <span style="font-style:italic">y</span></td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:right;white-space:nowrap" >−2 </td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >  3<span style="font-style:italic">x</span> +2<span style="font-style:italic">y</span></td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:right;white-space:nowrap" >2 
+</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">simult([[3,1],[3,2]],[[-2],[2]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<div class="center"><span style="font-family:monospace">[[-2],[4]]</span></div>
+Hence <span style="font-style:italic">x</span>=−2 and <span style="font-style:italic">y</span>=4 is the solution.
+</li><li class="li-itemize">Solve
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎧<br>
+⎨<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" >3<span style="font-style:italic">x</span> + <span style="font-style:italic">y</span></td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:right;white-space:nowrap" >−2 </td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >3
+<span style="font-style:italic">x</span> +2<span style="font-style:italic">y</span></td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:right;white-space:nowrap" >2 
+</td></tr>
+</table></td></tr>
+</table>
+and
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎧<br>
+⎨<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" >3<span style="font-style:italic">x</span> + <span style="font-style:italic">y</span></td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:right;white-space:nowrap" >1 </td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >3<span style="font-style:italic">x</span> +2<span style="font-style:italic">y</span></td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:right;white-space:nowrap" >2 
+</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">simult([[3,1],[3,2]],[[-2,1],[2,2]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−2</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+So <span style="font-style:italic">x</span>=−2 and <span style="font-style:italic">y</span>=4 is the solution of the first system of equations
+and <span style="font-style:italic">x</span>=0 and <span style="font-style:italic">y</span>=1 is the solution of the second system.
+</li></ul>
+<hr>
+<a href="cascmd_en572.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en574.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

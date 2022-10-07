@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Divergence: divergence
+</title>
+</head>
+<body >
+<a href="cascmd_en236.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en238.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec557" class="subsection">5.21.4  Divergence: <span style="font-family:monospace">divergence</span>
+<a id="hevea_default437"></a></h3>
+<p>Recall that the divergence of a vector field
+<span style="font-weight:bold"><span style="font-style:italic">F</span></span>=[<span style="font-style:italic">F</span><sub>1</sub>,…,<span style="font-style:italic">F</span><sub><span style="font-style:italic">n</span></sub>] with variables [<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>]
+is 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">÷ <span style="font-weight:bold"><span style="font-style:italic">F</span></span> = </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">∂ <span style="font-style:italic">F</span><sub>1</sub></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sub>1</sub></td></tr>
+</table></td><td class="dcell"> + ⋯ +</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">∂ <span style="font-style:italic">F</span><sub><span style="font-style:italic">n</span></sub></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub></td></tr>
+</table></td><td class="dcell"> 
+</td></tr>
+</table><p>The <span style="font-family:monospace">divergence</span> command computes the divergence of a vector field.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">divergence</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">F</span>, a vector field given as a list [<span style="font-style:italic">F</span><sub>1</sub>,…,<span style="font-style:italic">F</span><sub><span style="font-style:italic">n</span></sub>] of
+expressions.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of the variable names.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">divergence(</span><span style="font-style:italic">F</span><span style="font-style:italic">,vars</span><span style="font-family:monospace">)</span> returns the
+divergence of the vector field <span style="font-style:italic">F</span>.
+</li></ul><h4 id="sec558" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">divergence([x*z,-y^2,2*x^y],[x,y,z])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−2 <span style="font-style:italic">y</span>+<span style="font-style:italic">z</span>
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en236.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en238.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

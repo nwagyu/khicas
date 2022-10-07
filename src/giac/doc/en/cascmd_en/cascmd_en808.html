@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Tangents to curves in the plane: tangent
+</title>
+</head>
+<body >
+<a href="cascmd_en807.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en809.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dtangents" class="subsection">13.7.7  Tangents to curves in the plane: <span style="font-family:monospace">tangent</span>
+<a id="hevea_default1499"></a></h3>
+<p>See Section <a href="cascmd_en911.html#ssec%3A3dtangents">14.6.3</a> for tangents in space.</p><p>The <span style="font-family:monospace">tangent</span> command finds tangents to curves.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">tangent</span> takes one or two arguments:<br>
+ <ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a curve.
+</li><li class="li-itemize"><span style="font-style:italic">p</span>, a point.
+</li></ul>
+or
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">e</span>, a point defined with <span style="font-family:monospace">element</span> (see
+Section <a href="cascmd_en801.html#ssec%3Aelement">13.6.15</a>) using a curve and parameter value.
+</li></ul>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">tangent(</span><span style="font-style:italic">C</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> (or <span style="font-family:monospace">tangent(</span><span style="font-style:italic">e</span><span style="font-family:monospace">)</span>)
+returns and draws the list of lines tangent to the
+curve passing through the given point.
+</li></ul><h4 id="sec2066" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">tangent(circle(0,1),1+i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en187.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">t:= element(0..pi,pi/4):; A:= element(circle(0,1),t):; tangent(A)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en188.png">
+</div>
+</li></ul><p><br>
+</p><p>When <span style="font-family:monospace">tangent</span> is called with an element, the tangent will
+change along with the point on the element.</p>
+<hr>
+<a href="cascmd_en807.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en809.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

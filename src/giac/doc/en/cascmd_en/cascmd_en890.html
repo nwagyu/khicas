@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Loci: locus
+</title>
+</head>
+<body >
+<a href="cascmd_en889.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en891.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2252" class="subsection">13.18.1  Loci: <span style="font-family:monospace">locus</span>
+<a id="hevea_default1592"></a></h3>
+<p>The <span style="font-family:monospace">locus</span> command draws the locus of points determined by
+geometric objects moving in the plane, where the object depends on a
+point moving along a curve. It can draw a locus of points which
+depends on points on a curve, or the envelope of a family of lines
+depending on points on a curve.</p>
+<h4 id="sec2253" class="subsubsection">The locus of points depending on points on a curve.</h4>
+<p>For drawing the locus of points depending on points on a curve:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">locus</span> takes two mandatory arguments and
+two optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">var</span><sub>1</sub>, a variable name which has already been
+assigned to a point, which itself is a function of
+<span style="font-style:italic">var</span><sub>2</sub>, the second argument.
+</li><li class="li-itemize"><span style="font-style:italic">var</span><sub>2</sub>, a variable name which is assigned to 
+<span style="font-family:monospace">element(</span><span style="font-style:italic">C</span><span style="font-family:monospace">)</span> for some curve <span style="font-style:italic">C</span> (see
+Section <a href="cascmd_en801.html#ssec%3Aelement">13.6.15</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">t</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>, where <span style="font-style:italic">t</span> is the parameter of the
+curve <span style="font-style:italic">C</span>. (You can double check the name of the parameter for a
+curve <span style="font-style:italic">C</span> with the command <span style="font-family:monospace">parameq(</span><span style="font-style:italic">C</span><span style="font-family:monospace">)</span>.)
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">tstep=</span><span style="font-style:italic">s</span>, to set the step size for the
+parameter <span style="font-style:italic">t</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">locus(</span><span style="font-style:italic">var</span><sub>1</sub><span style="font-style:italic">,var</span><sub>2</sub> ⟨<span style="font-family:monospace">tstep=</span><span style="font-style:italic">c</span>⟩<span style="font-family:monospace">)</span>
+draws the locus of points formed by <span style="font-style:italic">var</span><sub>1</sub>, as
+<span style="font-style:italic">var</span><sub>2</sub> traces over the curve <span style="font-style:italic">C</span>.<br>
+ With the optional arguments, <span style="font-style:italic">C</span> is limited to the part
+parameterized from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>, with a step size of <span style="font-style:italic">c</span>.
+</li></ul><h4 id="sec2254" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">P:= element(line(i, i+1))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">G:= isobarycenter(-1,1,P)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">locus(G,P)</span>
+</td></tr>
+</table>
+</div>
+This will draw the set of isobarycenters of the triangles with vertices
+<span style="font-family:monospace">-1</span>, <span style="font-family:monospace">1</span> and <span style="font-family:monospace">P</span>, where <span style="font-family:monospace">P</span> ranges over
+the line through <span style="font-family:monospace">i</span> and <span style="font-family:monospace">i+1</span>.
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en284.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">locus(G,P,t=-3..3,tstep=0.1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en285.png">
+</div>
+</li></ul>
+<h4 id="sec2255" class="subsubsection">The envelope of a family of lines which depend on points on a curve.</h4>
+<p>For drawing the envelope of a family of lines which depend on points
+on a curve:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">locus</span> takes two mandatory arguments and
+two optional arguments.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">var</span><sub>1</sub>, a variable name which has already been
+assigned to a line, which itself is a function of <span style="font-style:italic">var</span><sub>2</sub>,
+the second argument.
+</li><li class="li-itemize"><span style="font-style:italic">var</span><sub>2</sub>, a variable name which has already been
+assigned to <span style="font-family:monospace">element(</span><span style="font-style:italic">C</span><span style="font-family:monospace">)</span> for some curve <span style="font-style:italic">C</span> (see
+Section <a href="cascmd_en801.html#ssec%3Aelement">13.6.15</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">t</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>, where <span style="font-style:italic">t</span> is the parameter of the
+curve <span style="font-style:italic">C</span>. (You can double check the name of the parameter for a
+curve <span style="font-style:italic">C</span> with the command <span style="font-family:monospace">parameq(</span><span style="font-style:italic">C</span><span style="font-family:monospace">)</span>.)
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">tstep=</span><span style="font-style:italic">s</span>, to set the step size for the
+parameter <span style="font-style:italic">t</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">locus(</span><span style="font-style:italic">var</span><sub>1</sub><span style="font-style:italic">,var</span><sub>2</sub> ⟨<span style="font-family:monospace">tstep=</span><span style="font-style:italic">c</span>⟩<span style="font-family:monospace">)</span>
+draws the envelope of lines formed by <span style="font-style:italic">var</span><sub>1</sub>, as
+<span style="font-style:italic">var</span><sub>2</sub> traces over the curve <span style="font-style:italic">C</span>.<br>
+ With the optional arguments, <span style="font-style:italic">C</span> is limited to the part
+parameterized from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>, with a step size of <span style="font-style:italic">c</span>.
+</li></ul><h4 id="sec2256" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">F:= point(1)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">H:= element(line(x=0))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">d:= perpen_bisector(F,H)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">locus(d,H)</span></td></tr>
+</table>
+</div>
+This will draw the envelope of the family of perpendicular bisectors
+of the segments from the point <span style="font-family:monospace">1</span> to the points on the line
+<span style="font-family:monospace">x=0</span>.<br>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en286.png">
+</div>
+</li><li class="li-itemize">To draw the envelope of a family of lines which depend on a parameter,
+such as the lines given by the equations <table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span> + <span style="font-style:italic">x</span> tan(<span style="font-style:italic">t</span>) − 2sin(<span style="font-style:italic">t</span>)=0
+</td></tr>
+</table> over the parameter <span style="font-style:italic">t</span>, the parameter can be regarded as the
+affixes of points on the line <span style="font-style:italic">y</span>=0.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">H:= element(line(y=0))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">D:= line(y + x*tan(affix(H)) - 2*sin(affix(H)))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">locus(D,H)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en287.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">locus(D,H,t=0..pi)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en288.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en889.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en891.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

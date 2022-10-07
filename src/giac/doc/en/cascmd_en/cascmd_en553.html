@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Solving general nonlinear programming problems: nlpsolve
+</title>
+</head>
+<body >
+<a href="cascmd_en552.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en554.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1385" class="subsection">5.53.4  Solving general nonlinear programming problems: <span style="font-family:monospace">nlpsolve</span>
+<a id="hevea_default945"></a></h3>
+<p><span style="font-family:monospace">nlpsolve</span> computes the optimum of a multivariate objective function subject
+to equality and/or inequality constraints with continuous and/or integer variables.
+</p><dl class="description"><dt class="dt-description">
+<span style="font-weight:bold">Input syntax.</span></dt><dd class="dd-description"> <span style="font-family:monospace">nlpsolve</span> takes the following arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">obj</span> or <span style="font-style:italic">fname</span>, an expression to optimize or
+a string containing the path to a problem file.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">constr</span>, a list of equality and
+inequality constraints. Double-bounded constraints in form
+<span style="font-style:italic">a</span>≤ <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)≤ <span style="font-style:italic">b</span> can be entered as <span style="font-family:monospace">f(x)=a..b</span> instead
+of two inequalities.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">bd</span>, a sequence of variable boundaries
+<span style="font-family:monospace">x=a..b</span> where <span style="font-style:italic">a</span>∈ℝ∪{−∞} and
+<span style="font-style:italic">b</span>∈ℝ∪{+∞}, <span style="font-style:italic">b</span>≥ <span style="font-style:italic">a</span>.
+If several variables have the same upper and lower
+bounds, one can enter <span style="font-family:monospace">[x,y,...]=a..b</span>. If the
+bounds are stored in a two-column matrix, consider using the conversion
+routine <span style="font-family:monospace">box_constraints</span> (see Section <a href="cascmd_en409.html#ssec%3Anumb2intvl">5.38.8</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">opt</span>, a sequence of options in which each
+option may be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">maximize=</span><span style="font-style:italic">bool</span> or
+<span style="font-family:monospace">nlp_maximize=</span><span style="font-style:italic">bool</span>,
+where <span style="font-style:italic">bool</span> can be <span style="font-family:monospace">true</span> or <span style="font-family:monospace">false</span>.
+Just <span style="font-family:monospace">maximize</span> or <span style="font-family:monospace">nlp_maximize</span>
+is equivalent to <span style="font-family:monospace">maximize=true</span>. (By default,
+<span style="font-family:monospace">maximize=false</span>, i.e. the objective is minimized.)
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_initialpoint=</span><span style="font-style:italic">pt</span>, where <span style="font-style:italic">pt</span>
+is a starting point for the solver or a list of starting points,
+each of which is given in the form [<span style="font-style:italic">x</span>=<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">y</span>=<span style="font-style:italic">y</span><sub>0</sub>,…]. 
+Alternatively, <span style="font-style:italic">pt</span> may be an initial search rectangle specified by
+[<span style="font-style:italic">x</span>=<span style="font-style:italic">x</span><sub><span style="font-style:italic">min</span></sub>..<span style="font-style:italic">x</span><sub><span style="font-style:italic">max</span></sub>,<span style="font-style:italic">y</span>=<span style="font-style:italic">y</span><sub><span style="font-style:italic">min</span></sub>..<span style="font-style:italic">y</span><sub><span style="font-style:italic">max</span></sub>,…]
+which serves as a frame for automatic generation of starting points.
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_method=</span><span style="font-style:italic">meth</span>, which is a string or a list specifying the method
+of optimization. Available methods are:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">nelder-mead</span> or <span style="font-family:monospace">nm</span>, the simplex method of Nelder and Mead,
+modified so that it can handle variable bounds and (in)equality constraints;
+see Luersen, Riche, and Guyon (2003).
+</li><li class="li-itemize"><span style="font-family:monospace">differential-evolution</span> or <span style="font-family:monospace">de</span>, the method of differential evolution,
+modified so it can handle bounds, (in)equalities and integrality constraints;
+see Lampinen and Zelinka (2000).
+</li><li class="li-itemize"><span style="font-family:monospace">interior-point</span> or <span style="font-family:monospace">ipt</span>, the interior-point method which requires
+the objective and constraint derivatives, and can handle (mixed) integer nonlinear problems.
+If GSL routines are available, then unconstrained problems are solved by
+BGFS method which is faster.
+</li><li class="li-itemize"><span style="font-family:monospace">cobyla</span> or <span style="font-family:monospace">cbl</span>, the (derivative-free) COBYLA algorithm.
+</li></ul>
+Note that these names must be entered with double quotes, i.e. as strings. Some parameters
+can be set for individual methods; to do so, <span style="font-style:italic">meth</span> should be a list in which the
+leading element is the method specification, followed by one or more entries of the form
+"<span style="font-style:italic">param</span>"=<span style="font-style:italic">value</span>, where <span style="font-style:italic">param</span> can be one of the following
+(see below for detailed explanations on values):
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">cross-probability</span>, which specifies the probability of mutation in differential
+evolution, where <span style="font-style:italic">value</span>=<span style="font-style:italic">p</span>∈⟨ 0,1⟩ (by default, <span style="font-style:italic">p</span>=0.5).
+</li><li class="li-itemize"><span style="font-family:monospace">scale</span>, which specifies the scaling factor for differential evolution (by default,
+it is computed automatically from <span style="font-family:monospace">cross-probability</span> by using the formula of Zaharie (2002)).
+</li><li class="li-itemize"><span style="font-family:monospace">reflect-ratio</span>, which specifies the simplex reflection factor in Nelder-Mead
+method (by default 1).
+</li><li class="li-itemize"><span style="font-family:monospace">expand-ratio</span>, which specifies the simplex expansion factor in Nelder-Mead
+method (by default 2).
+</li><li class="li-itemize"><span style="font-family:monospace">contract-ratio</span>, which specifies the simplex contraction factor in Nelder-Mead
+method (by default 0.5).
+</li><li class="li-itemize"><span style="font-family:monospace">shrink-ratio</span>, which specifies the simplex shrinking factor in Nelder-Mead
+method (by default 0.5).
+</li><li class="li-itemize"><span style="font-family:monospace">size</span>, which specifies the initial simplex size for Nelder-Mead method (by default, it is computed automatically by using the variable bounds).
+</li><li class="li-itemize"><span style="font-family:monospace">step</span>, which specifies initial step for BGFS method or adaptive penalty step for
+Nelder-Mead method (by default, it is set to 1 for BGFS and to 0.01 for Nelder &amp; Mead).
+</li><li class="li-itemize"><span style="font-family:monospace">search-points</span>, which specifies the number of agents in differential evolution
+(by default 10<span style="font-style:italic">n</span>, where <span style="font-style:italic">n</span> is the number of variables) or the number of points for determining
+PDH clusters (by default 1000√<span style="text-decoration:overline"><span style="font-style:italic">n</span></span>).
+</li><li class="li-itemize"><span style="font-family:monospace">postprocess</span>, which specifies whether the result obtained by differential evolution or
+Nelder-Mead method should be refined by a local method, where <span style="font-style:italic">value</span> is a boolean value
+(by default, <span style="font-style:italic">value</span>=<span style="font-family:monospace">true</span>).
+</li></ul>
+The optimization method is determined automatically if <span style="font-style:italic">meth</span> is not set (see below).
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_precision=</span>ε for some ε&gt;0, which
+sets the optimality tolerance for the solver (by default, ε=<span style="font-family:monospace">epsilon()</span><sup>2/3</sup>).
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_tolerance=</span>δ for some δ&gt;0,
+which sets the feasibility tolerance for the solver (by default, δ=10<sup>−5</sup>).
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_presolve=</span><span style="font-style:italic">bool</span>, where <span style="font-style:italic">bool</span> can be
+either <span style="font-family:monospace">true</span> or <span style="font-family:monospace">false</span>. This option enables/disables the
+preprocessing step which attempts to reduce the number of decision
+variables by solving subsets of equality constraints which are all linear
+in certain subsets of variables, substituting the results, and
+repeating the process until no further reduction can be made.
+(In particular, fixed variables are removed.)
+After solving the presolved problem, the removed variables
+are substituted back to the solution.
+(By default, <span style="font-family:monospace">nlp_presolve=true</span>.)
+</li><li class="li-itemize"><span style="font-family:monospace">border=</span><span style="font-style:italic">bool</span>, where <span style="font-style:italic">bool</span> is a boolean value.
+This enables or disables finding variable bounds automatically. (By default,
+<span style="font-family:monospace">border=true</span>.)
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_integervariables=</span><span style="font-style:italic">lst</span>, where <span style="font-style:italic">lst</span>
+is a list of problem variables that are supposed to take integral values (empty by default).
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_binaryvariables=</span><span style="font-style:italic">lst</span>, where <span style="font-style:italic">lst</span>
+is a list of problem variables that are supposed to take binary (0-1)
+values (empty by default).
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_iterationlimit=</span><span style="font-style:italic">N</span> for a positive integer <span style="font-style:italic">N</span>, which sets the
+maximum number of iterations allowed for the solver (by default, <span style="font-style:italic">N</span>=250).
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_verbose=</span><span style="font-style:italic">v</span>, where <span style="font-style:italic">v</span> is an integer specifying the verbosity level:
+0 – no messages, 1 – only errors, 2 – errors and warnings, 3 – all messages (by default, <span style="font-style:italic">v</span>=1).
+</li><li class="li-itemize"><span style="font-family:monospace">cluster=</span><span style="font-style:italic">k</span> or <span style="font-style:italic">bool</span>, where <span style="font-style:italic">k</span>≥ 2 is an integer and <span style="font-style:italic">bool</span> is
+either <span style="font-family:monospace">true</span> or <span style="font-family:monospace">false</span>, which specifies
+whether the initial points should be determined by k-means clustering a large number of random points
+at which the objective Hessian is positive definite (this works only if the interior-point
+method is used), called PDH (Positive Definite Hessian) points.
+The number of generated points can be specified by setting the
+<span style="font-family:monospace">search-points</span> parameter. If <span style="font-family:monospace">cluster=true</span>, the number of clusters is determined
+automatically using the Hartigan criterion. If <span style="font-style:italic">k</span> is set, then <span style="font-style:italic">k</span> clusters are generated.
+Cluster centers are subsequently used as the initial points. (By default, <span style="font-family:monospace">cluster=false</span>.)
+</li><li class="li-itemize"><span style="font-family:monospace">convex</span> or <span style="font-family:monospace">convex=</span><span style="font-style:italic">bool</span>,
+where <span style="font-style:italic">bool</span> can be either <span style="font-family:monospace">true</span> or <span style="font-family:monospace">false</span>.
+This specifies whether the input problem should be treated as being convex.
+If this option is set, then the convexity check is not performed, speeding up the execution.
+(By default, convexity of the problem is determined automatically only if it is relevant for
+choosing a suitable optimization method.)
+</li><li class="li-itemize"><span style="font-family:monospace">assume=</span><span style="font-style:italic">asmp</span>, where <span style="font-style:italic">asmp</span> may be one
+of the following:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">nlp_nonnegative</span>, which restricts all variables to
+nonnegative values (existing positive lower bounds are kept, however),
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_nonnegint</span> or <span style="font-family:monospace">nonnegint</span>, which forces
+all variables to take nonnegative integer values,
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_integer</span> or <span style="font-family:monospace">integer</span>, which forces
+all variables to take integer values,
+</li><li class="li-itemize"><span style="font-family:monospace">nlp_binary</span>, which forces all variables to take
+0-1 values.
+</li></ul>
+</li></ul>
+</li></ul>
+</dd><dt class="dt-description"><span style="font-weight:bold">Entering problems directly.</span></dt><dd class="dd-description">
+<span style="font-family:monospace">nlpsolve(</span><span style="font-style:italic">obj</span> ⟨,<span style="font-style:italic">constr,bd,opt</span>⟩<span style="font-family:monospace">)</span>
+returns a list [<span style="font-style:italic">optobj,optdec</span>], where <span style="font-style:italic">optobj</span>
+is the optimal value of <span style="font-style:italic">obj</span> and <span style="font-style:italic">optdec</span>
+is a list of of optimal values of the decision variables. If the optimization
+fails, then <span style="font-style:italic">optobj</span> is the error message and <span style="font-style:italic">optdec</span> is
+the last point on the path the solver takes in attempt to find the
+optimal objective value. If the problem is infeasible or if the solver fails
+to find a feasible point, then an error is returned.
+</dd><dt class="dt-description"><span style="font-weight:bold">Loading problems from files.</span></dt><dd class="dd-description">
+<span style="font-family:monospace">nlpsolve(</span><span style="font-style:italic">fname</span> ⟨,<span style="font-style:italic">opt</span>⟩<span style="font-family:monospace">)</span>
+solves the problem written in the file pointed to by <span style="font-style:italic">fname</span>, which must be
+written in the AMPL modeling language (such files commonly have the extension <span style="font-family:monospace">.mod</span>).
+<span style="font-family:monospace">nlpsolve</span> contains a very basic parser for such files and is able to read
+problem variables, objective and constraints. For example, problems from
+<a href="https://www.minlplib.org/instances.html"><span style="font-family:monospace">https://www.minlplib.org/instances.html</span></a> can be loaded this way. Solver parameters
+can be specified in <span style="font-style:italic">opt</span>.
+</dd><dt class="dt-description"><span style="font-weight:bold">Automatic selection of the optimization method.</span></dt><dd class="dd-description">
+If objective and constraints are twice differentiable, then interior-point method is used.
+If no initial point is provided and there are only box constraints, then differential evolution
+is applied first to find a good starting point. In the non-differentiable case, <span style="font-family:monospace">nlpsolve</span>
+applies the Nelder-Mead method and switches to differential evolution in the case of failure.
+In case of integrality constraints, as well as in the case of a box-constrained problem without
+additional constraints and initial point(s), differential evolution is selected.
+Linear problems are solved by calling the <span style="font-family:monospace">lpsolve</span> command,
+while univariate optimization on a segment is performed by using Brent’s algorithm.
+</dd><dt class="dt-description"><span style="font-weight:bold">Local vs. global optimization.</span></dt><dd class="dd-description">
+When an initial point is provided, <span style="font-family:monospace">nlpsolve</span> acts like a local optimizer.
+Without initial point(s), it uses a multistart technique in attempt to
+find the global minimum: starting points are automatically generated by using
+the probabilistic restart technique described by Luersen, Riche, and Guyon (2003) until the
+maximum number of iterations is reached. This technique avoids previously generated points
+and also the points of convergence, while keeping relatively close to them; thus, the search
+space is examined in a probabilistic but systematic way. An exception is the method of
+differential evolution, which is a “global” method by design, however not a true one;
+the initial population is generated uniformly if the search space is compact.
+</dd><dt class="dt-description"><span style="font-weight:bold">Automatic detection of variable bounds.</span></dt><dd class="dd-description">
+If the constraint derivatives are available, <span style="font-family:monospace">nlpsolve</span> determines rough bounds
+of the decision variables, and is thus able to detect whether the search domain is compact.
+In particular, this information is used by the probabilistic restart technique.
+</dd><dt class="dt-description"><span style="font-weight:bold">(Mixed) integer optimization.</span></dt><dd class="dd-description">
+When integrality constraints are provided, <span style="font-family:monospace">nlpsolve</span> applies a suitable method for finding
+integer-feasible solutions. For differentiable input, the branch&amp;bound method is used, unless
+the problem is convex, in which case the outer-approximation method is used. In the non-differentiable
+case, differential evolution is applied.
+</dd></dl><h4 id="sec1386" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+The continuous function <span style="font-style:italic">f</span> defined by
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=min{</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >|<span style="font-style:italic">x</span>+4|</td></tr>
+</table></td><td class="dcell">−1,</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >|<span style="font-style:italic">x</span>+1|</td></tr>
+</table></td><td class="dcell">−1.005,</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >|<span style="font-style:italic">x</span>−3|</td></tr>
+</table></td><td class="dcell">+0.5}, </td></tr>
+</table>
+has a unique global minimum in [−5,5] at <span style="font-style:italic">x</span>=−1, with <span style="font-style:italic">f</span>(−1)=1.005.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">nlpsolve(min(sqrt(abs(x+4))-1,sqrt(abs(x+1))-1.005,sqrt(abs(x-3))+0.5),x=-5..5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[−1.0049992998,[<span style="font-style:italic">x</span>=−1.0]] </td></tr>
+</table>
+</li><li class="li-itemize">Minimize <span style="font-style:italic">z</span>=<span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">x</span><sub>4</sub> (<span style="font-style:italic">x</span><sub>1</sub>+<span style="font-style:italic">x</span><sub>2</sub>+<span style="font-style:italic">x</span><sub>3</sub>)+<span style="font-style:italic">x</span><sub>3</sub> subject to
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >  <span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">x</span><sub>2</sub> <span style="font-style:italic">x</span><sub>3</sub> <span style="font-style:italic">x</span><sub>4</sub></td><td style="text-align:left;white-space:nowrap" >≥ 25,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > <span style="font-style:italic">x</span><sub>1</sub><sup>2</sup>+<span style="font-style:italic">x</span><sub>2</sub><sup>2</sup>+<span style="font-style:italic">x</span><sub>3</sub><sup>2</sup></td><td style="text-align:left;white-space:nowrap" >= 40,
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+where 1≤ <span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>≤ 5, <span style="font-style:italic">i</span>=1,2,3,4.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">nlpsolve(x1*x4*(x1+x2+x3)+x3,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [x1*x2*x3*x4-25&gt;=0,x1^2+x2^2+x3^2+x4^2-40=0],</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [x1,x2,x3,x4]=1..5)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[17.0140172892,[<span style="font-style:italic">x</span><sub>1</sub>=1.0,<span style="font-style:italic">x</span><sub>2</sub>=4.74299973362,<span style="font-style:italic">x</span><sub>3</sub>=3.82114985829,<span style="font-style:italic">x</span><sub>4</sub>=1.3794083106]]
+</td></tr>
+</table>
+</li><li class="li-itemize">Minimize <span style="font-style:italic">z</span>=(<span style="font-style:italic">x</span><sub>1</sub>−1)<sup>2</sup>+(<span style="font-style:italic">x</span><sub>1</sub>−<span style="font-style:italic">x</span><sub>2</sub>)<sup>2</sup>+(<span style="font-style:italic">x</span><sub>3</sub>−1)<sup>2</sup>+(<span style="font-style:italic">x</span><sub>4</sub>−1)<sup>4</sup>+(<span style="font-style:italic">x</span><sub>5</sub>−1)<sup>6</sup> subject to
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >  <span style="font-style:italic">x</span><sub>1</sub><sup>2</sup> <span style="font-style:italic">x</span><sub>4</sub>+sin(<span style="font-style:italic">x</span><sub>4</sub>−<span style="font-style:italic">x</span><sub>5</sub>)</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">=2</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">x</span><sub>2</sub>+<span style="font-style:italic">x</span><sub>3</sub><sup>4</sup> <span style="font-style:italic">x</span><sub>4</sub><sup>2</sup></td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">=8+</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">.
+</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">nlpsolve((x1-1)^2+(x1-x2)^2+(x3-1)^2+(x4-1)^4+(x5-1)^6,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [x1^2*x4+sin(x4-x5)=2*sqrt(2),x2+x3^4*x4^2=8+sqrt(2)])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >[0.241505128809,[<span style="font-style:italic">x</span><sub>1</sub></td><td style="text-align:left;white-space:nowrap" >=1.16617119669,<span style="font-style:italic">x</span><sub>2</sub>=1.18211040318,<span style="font-style:italic">x</span><sub>3</sub>=1.3802572722,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span><sub>4</sub></td><td style="text-align:left;white-space:nowrap" >=1.50603586392,<span style="font-style:italic">x</span><sub>5</sub>=0.610913318325]]
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Maximize <span style="font-style:italic">z</span>=3<span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">x</span><sub>2</sub>−<span style="font-style:italic">x</span><sub>1</sub>+6<span style="font-style:italic">x</span><sub>2</sub> subject to 5<span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">x</span><sub>2</sub>−4<span style="font-style:italic">x</span><sub>1</sub>−4.5<span style="font-style:italic">x</span><sub>2</sub>≤ 32, where 1≤ <span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>≤ 5 are integers.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">nlpsolve(3x1*x2-x1+6x2,[5x1*x2-4x1-4.5x2&lt;=32],</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [x1,x2]=1..5,assume=integer,maximize)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[58.0,[<span style="font-style:italic">x</span><sub>1</sub>=2.0,<span style="font-style:italic">x</span><sub>2</sub>=5.0]]
+</td></tr>
+</table>
+</li><li class="li-itemize">Maximize <span style="font-style:italic">z</span>=2<span style="font-style:italic">x</span><sub>1</sub>+3<span style="font-style:italic">x</span><sub>2</sub>+6<span style="font-style:italic">x</span><sub>3</sub>−2<span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">x</span><sub>2</sub>−<span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">x</span><sub>3</sub>−4<span style="font-style:italic">x</span><sub>2</sub> <span style="font-style:italic">x</span><sub>3</sub> where all variables
+are binary.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">nlpsolve(2x1+3x2+6x3-2x1*x2-x1*x3-4x2*x3,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  assume=nlp_binary,maximize)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[7.0,[<span style="font-style:italic">x</span><sub>1</sub>=1.0,<span style="font-style:italic">x</span><sub>2</sub>=0,<span style="font-style:italic">x</span><sub>3</sub>=1.0]]
+</td></tr>
+</table>
+</li><li class="li-itemize">Minimize <span style="font-style:italic">z</span>=5<span style="font-style:italic">y</span>−2ln(<span style="font-style:italic">x</span>+1) subject to
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span>/2</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:left;white-space:nowrap" >≤ 1,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+−2ln(<span style="font-style:italic">x</span>+1)−<span style="font-style:italic">y</span>+2.5</td><td style="text-align:left;white-space:nowrap" >≤ 0,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span></td><td style="text-align:left;white-space:nowrap" >≤ 4,
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+where <span style="font-style:italic">x</span>∈[0,2] and <span style="font-style:italic">y</span>∈[1,3] is integer.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">nlpsolve(5y-2*ln(x+1),</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [exp(x/2)-sqrt(y)/2-1&lt;=0,-2*ln(x+1)-y+2.5&lt;=0,x+y-4&lt;=0],</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  x=0..2,y=1..3,nlp_integervariables=[y])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[8.54528930252,[<span style="font-style:italic">x</span>=1.06959999348,<span style="font-style:italic">y</span>=2.0]]
+</td></tr>
+</table>
+</li><li class="li-itemize">Minimize <span style="font-style:italic">z</span>=<span style="font-style:italic">x</span><sub>1</sub><sup>2</sup>+<span style="font-style:italic">x</span><sub>2</sub><sup>2</sup>+3<span style="font-style:italic">x</span><sub>3</sub><sup>2</sup>+4<span style="font-style:italic">x</span><sub>4</sub><sup>2</sup>+2<span style="font-style:italic">x</span><sub>5</sub><sup>2</sup>−8<span style="font-style:italic">x</span><sub>1</sub>−2<span style="font-style:italic">x</span><sub>2</sub>−3<span style="font-style:italic">x</span><sub>3</sub>−<span style="font-style:italic">x</span><sub>4</sub>−2<span style="font-style:italic">x</span><sub>5</sub>
+subject to
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">x</span><sub>1</sub>+<span style="font-style:italic">x</span><sub>2</sub>+<span style="font-style:italic">x</span><sub>3</sub>+<span style="font-style:italic">x</span><sub>4</sub>+<span style="font-style:italic">x</span><sub>5</sub></td><td style="text-align:left;white-space:nowrap" >≤ 400,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span><sub>1</sub>+2<span style="font-style:italic">x</span><sub>2</sub>+2<span style="font-style:italic">x</span><sub>3</sub>+<span style="font-style:italic">x</span><sub>4</sub>+6<span style="font-style:italic">x</span><sub>5</sub></td><td style="text-align:left;white-space:nowrap" >≤ 800,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+2<span style="font-style:italic">x</span><sub>1</sub>+<span style="font-style:italic">x</span><sub>2</sub>+6<span style="font-style:italic">x</span><sub>3</sub></td><td style="text-align:left;white-space:nowrap" >≤ 200,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span><sub>3</sub>+<span style="font-style:italic">x</span><sub>4</sub>+5<span style="font-style:italic">x</span><sub>5</sub></td><td style="text-align:left;white-space:nowrap" >≤ 200,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span><sub>1</sub>+<span style="font-style:italic">x</span><sub>2</sub>+<span style="font-style:italic">x</span><sub>3</sub>+<span style="font-style:italic">x</span><sub>4</sub>+<span style="font-style:italic">x</span><sub>5</sub></td><td style="text-align:left;white-space:nowrap" >≥ 55,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span><sub>1</sub>+<span style="font-style:italic">x</span><sub>2</sub>+<span style="font-style:italic">x</span><sub>3</sub>+<span style="font-style:italic">x</span><sub>4</sub></td><td style="text-align:left;white-space:nowrap" >≥ 48,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span><sub>2</sub>+<span style="font-style:italic">x</span><sub>4</sub>+<span style="font-style:italic">x</span><sub>5</sub></td><td style="text-align:left;white-space:nowrap" >≥ 34,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+6<span style="font-style:italic">x</span><sub>1</sub>+7<span style="font-style:italic">x</span><sub>5</sub></td><td style="text-align:left;white-space:nowrap" >≥ 104,
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+where 0≤ <span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>≤ 99 are integers for <span style="font-style:italic">i</span>=1,…,5.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">obj:=x1^2+x2^2+3x3^2+4x4^2+2x5^2-8x1-2x2-3x3-x4-2x5;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">constr:=[x1+x2+x3+x4+x5&lt;=400,x1+2x2+2x3+x4+6x5&lt;=800,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">         2x1+x2+6x3&lt;=200,x3+x4+5x5&lt;=200,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">         x1+x2+x3+x4+x5&gt;=55,x1+x2+x3+x4&gt;=48,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">         x2+x4+x5&gt;=34,6x1+7x5&gt;=104];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">nlpsolve(obj,constr,[x1,x2,x3,x4,x5]=0..99,assume=integer)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[807.0,[<span style="font-style:italic">x</span><sub>1</sub>=16.0,<span style="font-style:italic">x</span><sub>2</sub>=22.0,<span style="font-style:italic">x</span><sub>3</sub>=5.0,<span style="font-style:italic">x</span><sub>4</sub>=5.0,<span style="font-style:italic">x</span><sub>5</sub>=7.0]]
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-weight:bold">“Black box” objective example.</span> Minimize the function
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>)=</td><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎧<br>
+⎪<br>
+⎪<br>
+⎪<br>
+⎨<br>
+⎪<br>
+⎪<br>
+⎪<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">x</span><sub>2</sub></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left"><span style="font-style:italic">x</span><sub>1</sub></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">t</span></sup><span style="font-style:italic">t</span><sup><span style="font-style:italic">a</span></sup>sin(<span style="font-style:italic">t</span>+<span style="font-style:italic">x</span><sub>1</sub>)cos(2<span style="font-style:italic">t</span>−<span style="font-style:italic">x</span><sub>2</sub>)<span style="font-style:italic">d</span><span style="font-style:italic">t</span>,</td></tr>
+</table></td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span><sub>1</sub>&lt;<span style="font-style:italic">x</span><sub>2</sub>,</td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >0,</td><td style="text-align:left;white-space:nowrap" >otherwise</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+for 0≤ <span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>≤ 10 and <span style="font-style:italic">a</span>=2.<br>
+<span style="font-style:italic">Input:</span>
+<blockquote class="quote">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f:=proc(x1,x2,a)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  local t; purge(t);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  if x1&lt;x2 then</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">    return approx(int(exp(-t)*t^a*sin(t+x1)*cos(2t-x2),t=x1..x2));</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  else</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">    return 0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  fi;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">end:;</span>
+</td></tr>
+</table>
+</blockquote>
+<div class="center">
+<span style="font-family:monospace">nlpsolve(quote(f(x1,x2,2)),[x1,x2]=0..10)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.445124159544,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=2.15550857079,<span style="font-style:italic">x</span><sub>2</sub>=5.66106529292</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+Since <span style="font-family:monospace">f</span> is programmatic, it cannot be differentiated symbolically,
+hence differential evolution is selected for minimization (note that the problem is box-constrained and
+we provided no initial points). Also, observe that our procedure <span style="font-family:monospace">f</span> has three input arguments,
+so we have to quote the first argument in <span style="font-family:monospace">nlpsolve</span> in order to fix the parameter <span style="font-style:italic">a</span> to 2.
+(This technique should be used for “black box” objectives possibly requiring parameter specifications.)
+To visualize the minimum of <span style="font-style:italic">f</span>, input:
+<div class="center">
+<span style="font-family:monospace">plot3d(quote(f(x1,x2,2)),x1=0..5,x2=0..10,display=filled+yellow)</span>
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en552.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en554.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

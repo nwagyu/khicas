@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Boolean operators: or xor and not</title>
+</head>
+<body >
+<a href="cascmd_en070.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en072.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:bool" class="subsection">5.1.4  Boolean operators: <span style="font-family:monospace">or</span><a id="hevea_default130"></a> <span style="font-family:monospace">xor</span><a id="hevea_default131"></a> <span style="font-family:monospace">and</span><a id="hevea_default132"></a> <span style="font-family:monospace">not</span><a id="hevea_default133"></a><a id="hevea_default134"></a><a id="hevea_default135"></a><a id="hevea_default136"></a></h3>
+<p>Booleans can be combined to form new booleans. For example, with
+<span style="font-family:monospace">and</span>: the statement “<span style="font-style:italic">boolean 1</span> <span style="font-family:monospace">and</span>
+<span style="font-style:italic">boolean 2</span>” is true if both <span style="font-style:italic">boolean 1</span> and
+<span style="font-style:italic">boolean 2</span> are true, otherwise the statement is false.</p><p><span style="font-family:monospace">Xcas</span> has the standard boolean operators, as follows (<span style="font-style:italic">a</span> and
+<span style="font-style:italic">b</span> are two booleans):
+</p><dl class="description"><dt class="dt-description">
+<span style="font-weight:bold"><span style="font-family:monospace">or</span></span><span style="font-weight:bold"> (or </span><span style="font-weight:bold"><span style="font-family:monospace">||</span></span><span style="font-weight:bold">)</span></dt><dd class="dd-description"> <br>
+ These are infixed operators.
+<span style="font-family:monospace">(</span><span style="font-style:italic">a</span><span style="font-family:monospace"> or </span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> (or <span style="font-family:monospace">(</span><span style="font-style:italic">a</span><span style="font-family:monospace"> ||
+</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span>) returns <span style="font-family:monospace">0</span> (or <span style="font-family:monospace">false</span>) if <span style="font-style:italic">a</span>
+and <span style="font-style:italic">b</span> are both equal to 0 (or <span style="font-family:monospace">false</span>) and returns
+<span style="font-family:monospace">1</span> (or <span style="font-family:monospace">true</span>) otherwise.
+</dd><dt class="dt-description"><span style="font-weight:bold"><span style="font-family:monospace">xor</span></span></dt><dd class="dd-description"> <br>
+ This is an infixed operator. It is the “exclusive or”
+operator, meaning “one or the other but not both”.
+<span style="font-family:monospace">(</span><span style="font-style:italic">a</span><span style="font-family:monospace"> xor </span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">1</span> if <span style="font-style:italic">a</span>
+is equal to 1 and <span style="font-style:italic">b</span> is equal to 0 or if <span style="font-style:italic">a</span> is equal
+to 0 and <span style="font-style:italic">b</span> is equal to 1, and returns 0 if <span style="font-style:italic">a</span> and
+<span style="font-style:italic">b</span> are both equal to 0 or if <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span> are
+both equal to 1.
+</dd><dt class="dt-description"><span style="font-weight:bold"><span style="font-family:monospace">and</span></span><span style="font-weight:bold"> (or </span><span style="font-weight:bold"><span style="font-family:monospace">&amp;&amp;</span></span><span style="font-weight:bold">)</span></dt><dd class="dd-description"> <br>
+ These are infixed operators.
+<span style="font-family:monospace">(</span><span style="font-style:italic">a</span><span style="font-family:monospace"> and </span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> (or <span style="font-family:monospace">(</span><span style="font-style:italic">a</span><span style="font-family:monospace"> &amp;&amp;
+</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span>) returns <span style="font-family:monospace">1</span> (or <span style="font-family:monospace">true</span>) if <span style="font-style:italic">a</span>
+and <span style="font-style:italic">b</span> are both equal to 1 (or <span style="font-family:monospace">true</span>) and returns
+<span style="font-family:monospace">0</span> (or <span style="font-family:monospace">false</span>) otherwise.
+</dd><dt class="dt-description"><span style="font-weight:bold"><span style="font-family:monospace">not</span></span></dt><dd class="dd-description"> <br>
+ This is a prefixed operator.
+<span style="font-family:monospace">not(</span><span style="font-style:italic">a</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">1</span> (or <span style="font-family:monospace">true</span>) if <span style="font-style:italic">a</span>
+is equal to 0 (or <span style="font-family:monospace">false</span>), and <span style="font-family:monospace">0</span> (or
+<span style="font-family:monospace">false</span>) if <span style="font-style:italic">a</span> is equal to 1 (or <span style="font-family:monospace">true</span>).
+</dd></dl><h4 id="sec124" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1&gt;=0 or 1&lt;0</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1&gt;=0 xor 1&gt;0</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">1&gt;=0 and 1&gt;0</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">not(0==0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en070.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en072.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Integration by parts</title>
+</head>
+<body >
+<a href="cascmd_en230.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en232.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec540" class="subsection">5.20.5  Integration by parts</h3>
+<p>Recall the integration by parts formula: </p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>)<span style="font-style:italic">dx</span> =
+<span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)−</td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">u</span>′(<span style="font-style:italic">x</span>)<span style="font-style:italic">dx</span>.  </td></tr>
+</table><p> If you want to integrate a function
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) by parts, you need to specify how to write <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) as
+<span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>), which you can do by either specifying <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>) or <span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>).
+The result will be in the form <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) + ∫<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">dx</span>, where
+<span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>) and <span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>)=−<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">u</span>′(<span style="font-style:italic">x</span>).</p><p>In some cases, to finish an integral you need to integrate by parts
+more than once. After one integrating by parts once and getting
+<span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) + ∫<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">dx</span>, you may have to integrate ∫<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>) <span style="font-style:italic">dx</span> by
+parts and add <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) to the result.</p><p><span style="font-family:monospace">Xcas</span> has two commands for integrating by parts:
+<span style="font-family:monospace">ibpdv</span> (where you specify <span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)) and <span style="font-family:monospace">ibpu</span> (where you
+specify <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)), both of which return the result as a list
+[<span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>),<span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>)]. Both of these commands allow you to keep track of the
+function <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) you may need to add to the result of a subsequent
+integration by parts.</p>
+<h4 id="sec541" class="subsubsection"><span style="font-family:monospace">ibpdv</span> <a id="hevea_default427"></a></h4>
+<p>The <span style="font-family:monospace">ibpdv</span> command is used to search the primitive of an
+expression written as <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>) by specifying <span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ibpdv</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">uvprime</span>, an expression which you can think of as <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)
+<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>), or<br>
+ <span style="font-family:monospace">[</span><span style="font-style:italic">Fexpr,uvprime</span><span style="font-family:monospace">]</span>, a list of two expressions,
+where again you can think of <span style="font-style:italic">uvprime</span> as <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>), and
+<span style="font-style:italic">Fexpr</span> represents the function <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) that you can add to the
+result of integrating by parts.
+</li><li class="li-itemize"><span style="font-style:italic">vexpr</span>, an expression you can think of as <span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>). If
+<span style="font-style:italic">vexpr</span> is <span style="font-family:monospace">0</span>, then instead of integrating by parts,
+the expression <span style="font-style:italic">uvprime</span> is integrated as a whole (this can
+be useful for finishing a multi-step integration by parts problem).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">ibpdv(</span><span style="font-style:italic">uvprime,vexpr)</span><span style="font-family:monospace">)</span> (or
+<span style="font-family:monospace">ibpdv(</span><span style="font-style:italic">[Fexpr,uvprime],vexpr)</span><span style="font-family:monospace">)</span>) returns:
+<ul class="itemize"><li class="li-itemize">
+If <span style="font-style:italic">vexpr</span> is not <span style="font-family:monospace">0</span>:<br>
+ [<span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>),−<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">u</span>′(<span style="font-style:italic">x</span>)] (or [<span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>)+<span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>) <span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>),−<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">u</span>′(<span style="font-style:italic">x</span>)] if the
+first argument is a list).
+</li><li class="li-itemize">If <span style="font-family:monospace">vexpr</span> is <span style="font-family:monospace">0</span>:<br>
+ <span style="font-style:italic">G</span>(<span style="font-style:italic">x</span>) (or <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) + <span style="font-style:italic">G</span>(<span style="font-style:italic">x</span>), if the first argument is a list), where
+<span style="font-style:italic">G</span>(<span style="font-style:italic">x</span>) is a primitive of <span style="font-style:italic">uvprime</span>.
+</li></ul>
+</li></ul><p>
+Hence, <span style="font-family:monospace">ibpdv</span> returns the terms computed in an integration by parts,
+with the possibility of doing several <span style="font-family:monospace">ibpdv</span>s successively.<br>
+When the answer of <span style="font-family:monospace">ibpdv(u(x)*v’(x),v(x))</span> is computed, to obtain a
+primitive of <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>) <span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>), it remains to
+compute the integral of the second term of this answer and then to sum this
+integral with the first term of this answer: to do this, just use
+<span style="font-family:monospace">ibpdv</span> command with the answer as first argument and
+a new <span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>) (or 0 to terminate the integration) as second argument.</p><h4 id="sec542" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv(ln(x),x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+<span style="font-style:italic">then:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv([x*ln(x),-1],0)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv(ans(),0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−<span style="font-style:italic">x</span>+<span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>
+</td></tr>
+</table><p><span style="font-weight:bold">Remark.</span><br>
+When the first argument of <span style="font-family:monospace">ibpdv</span> is a list of two elements,
+<span style="font-family:monospace">ibpdv</span> works only on the last element of this list and adds
+the integrated term to the first element of this list. (therefore it
+is possible to do several <span style="font-family:monospace">ibpdv</span>s successively).</p><h4 id="sec543" class="subsubsection">Example</h4>
+<p>
+To evaluate ∫(ln(<span style="font-style:italic">x</span>))<sup>2</sup><span style="font-style:italic">dx</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv((ln(x))^2,x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span> ln<sup>2</sup><span style="font-style:italic">x</span>,−2 ln<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+It remains to integrate <span style="font-family:monospace">-(2*ln(x))</span>:<br>
+<span style="font-style:italic">Input:</span><br>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv([x*(ln(x))^2,-(2*log(x))],x)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv(ans(),x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span> ln<sup>2</sup><span style="font-style:italic">x</span>−2 <span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>,2</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+And now it remains to integrate <span style="font-family:monospace">2</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv([x*(ln(x))^2+x*(-(2*log(x))),2],0)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpdv(ans(),0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span> ln<sup>2</sup><span style="font-style:italic">x</span>−2 <span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>+2 <span style="font-style:italic">x</span>
+</td></tr>
+</table>
+<h4 id="sec544" class="subsubsection"><span style="font-family:monospace">ibpu</span> <a id="hevea_default428"></a></h4>
+<p>The <span style="font-family:monospace">ibpu</span> command is used to search the primitive of an
+expression written as <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>) by specifying <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ibpu</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">uvprime</span>, an expression which you can think of as <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)
+<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>), or<br>
+ <span style="font-family:monospace">[</span><span style="font-style:italic">Fexpr,uvprime</span><span style="font-family:monospace">]</span>, a list of two expressions,
+where again you can think of <span style="font-style:italic">uvprime</span> as <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>), and
+<span style="font-style:italic">Fexpr</span> represents the function <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) that you can add to the
+result of integrating by parts.
+</li><li class="li-itemize"><span style="font-style:italic">uexpr</span>, an expression you can think of as <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>). If
+<span style="font-style:italic">uexpr</span> is <span style="font-family:monospace">0</span>, then instead of integrating by parts,
+the expression <span style="font-style:italic">uvprime</span> is integrated as a whole (this can
+be useful for finishing a multi-step integration by parts problem).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">ibpu(</span><span style="font-style:italic">uvprime,uexpr</span><span style="font-family:monospace">)</span> (or
+<span style="font-family:monospace">ibpu(</span><span style="font-style:italic">[Fexpr,uvprime],uexpr</span><span style="font-family:monospace">)</span>) returns:
+<ul class="itemize"><li class="li-itemize">
+If <span style="font-family:monospace">uexpr</span> is not <span style="font-family:monospace">0</span>:<br>
+ [<span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>),−<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">u</span>′(<span style="font-style:italic">x</span>)] (or [<span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>)+<span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>) <span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>),−<span style="font-style:italic">v</span>(<span style="font-style:italic">x</span>)<span style="font-style:italic">u</span>′(<span style="font-style:italic">x</span>)] if the
+first argument is a list).
+</li><li class="li-itemize">If <span style="font-family:monospace">uexpr</span> is <span style="font-family:monospace">0</span>:<br>
+ <span style="font-style:italic">G</span>(<span style="font-style:italic">x</span>) (or <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) + <span style="font-style:italic">G</span>(<span style="font-style:italic">x</span>), if the first argument is a list), where
+<span style="font-style:italic">G</span>(<span style="font-style:italic">x</span>) is a primitive of <span style="font-style:italic">uvprime</span>.
+</li></ul>
+</li></ul><p>
+Hence, <span style="font-family:monospace">ibpu</span> returns the terms computed in an integration by parts,
+with the possibility of doing several <span style="font-family:monospace">ibpu</span>s successively.<br>
+When the answer of <span style="font-family:monospace">ibpu(u(x)*v’(x),u(x))</span> is computed, to obtain a
+primitive of <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>) <span style="font-style:italic">v</span>′(<span style="font-style:italic">x</span>), it remains to
+compute the integral of the second term of this answer and then to sum this
+integral with the first term of this answer: to do this, just use the
+<span style="font-family:monospace">ibpu</span> command with the answer as first argument and
+a new <span style="font-style:italic">u</span>(<span style="font-style:italic">x</span>) (or 0 to terminate the integration) as second argument.</p><h4 id="sec545" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu(ln(x),ln(x))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>,−1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+<span style="font-style:italic">then:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu([x*ln(x),-1],0)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu(ans(),0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−<span style="font-style:italic">x</span>+<span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>
+</td></tr>
+</table><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+When the first argument of <span style="font-family:monospace">ibpu</span> is a list of two elements,
+<span style="font-family:monospace">ibpu</span> works only on the last element of this list and adds the
+integrated term to the first element of this list. Therefore it is
+possible to do several <span style="font-family:monospace">ibpu</span>s successively, similarly to how
+you can do several <span style="font-family:monospace">ibpdv</span>s successively.</p><h4 id="sec546" class="subsubsection">Example</h4>
+<p>
+To evaluate ∫(ln(<span style="font-style:italic">x</span>))<sup>2</sup><span style="font-style:italic">dx</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu((ln(x))^2,(ln(x))^2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span> ln<sup>2</sup><span style="font-style:italic">x</span>,−2 ln<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+It remains to integrate <span style="font-family:monospace">-(2*ln(x))</span>:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu([x*(ln(x))^2,-(2*ln(x))],ln(x))</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu(ans(),ln(x))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span> ln<sup>2</sup><span style="font-style:italic">x</span>−2 <span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>,2</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+Finally, it remains to integrate <span style="font-family:monospace">2</span>:
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu([x*(ln(x))^2+x*(-(2*ln(x))),2],0)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">ibpu(ans(),0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span> ln<sup>2</sup><span style="font-style:italic">x</span>−2 <span style="font-style:italic">x</span> ln<span style="font-style:italic">x</span>+2 <span style="font-style:italic">x</span>
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en230.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en232.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

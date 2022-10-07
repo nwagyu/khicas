@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Evaluating booleans: evalb
+</title>
+</head>
+<body >
+<a href="cascmd_en073.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en075.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec130" class="subsection">5.1.7  Evaluating booleans: <span style="font-family:monospace">evalb</span>
+<a id="hevea_default139"></a></h3>
+<p>The Maple command <span style="font-family:monospace">evalb</span> evaluates a boolean expression (see
+Section <a href="index.html#sec%3Aboolean">5.1</a>). Since <span style="font-family:monospace">Xcas</span> evaluates booleans
+automatically, it includes a <span style="font-family:monospace">evalb</span> command only here for
+compatibility and is equivalent to <span style="font-family:monospace">eval</span> (see
+Section <a href="cascmd_en179.html#ssec%3Aeval">5.12.1</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">evalb</span> takes one argument:<br>
+ <span style="font-style:italic">bool</span>, a boolean expression.
+</li><li class="li-itemize"><span style="font-family:monospace">evalb()</span><span style="font-style:italic">bool</span><span style="font-family:monospace">)</span> returns 1 if
+<span style="font-style:italic">bool</span> is true and returns 0 otherwise.
+</li></ul><h4 id="sec131" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">evalb(sqrt(2)&gt;1.41)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sqrt(2)&gt;1.41</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">evalb(sqrt(2)&gt;1.42)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">sqrt(2)&gt;1.42</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en073.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en075.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

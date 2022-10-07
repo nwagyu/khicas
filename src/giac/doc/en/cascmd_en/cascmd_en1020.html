@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>An example: static noise removal by spectral subtraction
+</title>
+</head>
+<body >
+<a href="cascmd_en1019.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1021.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2545" class="subsection">15.2.28  An example: static noise removal by spectral subtraction
+<a id="hevea_default1730"></a></h3>
+<p>In this section, you use <span style="font-family:monospace">Xcas</span> to implement a simple algorithm for static
+noise removal based on the spectral subtraction method. For a
+theoretical overview see the paper "Noise Reduction Based on Modified
+Spectral Subtraction Method" by Ekaterina Verteletskaya and Boris
+Simak (2011), <em>International Journal of Computer Science</em>, 38:1
+(<a href="https://pdfs.semanticscholar.org/c212/84207dcf8e95b8b44d0ce703f9fe23b28f2a.pdf">PDF</a>).</p><p>Efficiency of the spectral subtraction method largely depends on
+a good noise spectrum estimate. Below is the code for a function
+<span style="font-family:monospace">noiseprof</span> that takes <span style="font-family:monospace">data</span> and <span style="font-family:monospace">wlen</span> as its
+arguments. These are, respectively, a signal chunk containing only
+noise and the window length for signal segmentation (the best values
+are powers of two, such as 256, 512 or 1024). The function returns an
+estimate of the noise power spectrum obtained by averaging the power
+spectra of a (not too large) number of distinct chunks of
+<span style="font-family:monospace">data</span> of length <span style="font-family:monospace">wlen</span>. The Hamming window function is
+applied prior to FFT.
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>noiseprof(data,wlen):={</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  local N,h,dx,x,v,cnt;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  N:=length(data);</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  h:=wlen/2;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  dx:=min(h,max(1,(N-wlen)/100));</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  v:=[0$wlen];</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  cnt:=0;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  for (x:=h;x&lt;N-h;x+=dx) \{</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    v+=abs(fft(hamming_window(</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>                 mid(data,floor(x)-h,wlen)))).^2;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    cnt++;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  \};</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  return 1.0/cnt*v;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>\}:;</code>
+</td></tr>
+</table>
+</div><p>The main function is <span style="font-family:monospace">noisered</span>, which takes three arguments:
+the input signal <span style="font-family:monospace">data</span>, the noise power spectrum <span style="font-family:monospace">np</span>
+and the "spectral floor" parameter <span style="font-family:monospace">beta</span> (β, the minimum
+power level). The function performs subtraction of the noise spectrum
+in chunks of length <span style="font-family:monospace">wlen</span> (the length of list <span style="font-family:monospace">np</span>)
+using the overlap-and-add approach with Hamming window function. For
+details see Section 3A of the paper "Speech Enhancement using Spectral
+Subtraction-type Algorithms: A Comparison and Simulation Study" by
+Navneet Upadhyay and Abhijit Karmakar (2015), <em>Procedia Computer
+Science</em>, vol. 54, pp. 574–584
+(<a href="https://core.ac.uk/download/pdf/81218023.pdf">PDF</a>).
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>noisered(data,np,beta):={</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  local wlen,h,N,L,padded,out,j,k,s,ds,r,alpha;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  wlen:=length(np);</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  N:=length(data);</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  h:=wlen/2;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  L:=0;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  repeat L+=wlen; until L&gt;=N;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  padded:=concat(data,[0$(L-N)]);</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  out:=[0$L];</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  for (k:=0;k&lt;L-wlen;k+=h) {</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    s:=fft(hamming_window(mid(padded,k,wlen)));</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    alpha:=max(1,4-3*sum(abs(s).^2)/(20*sum(np)));</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    r:=ifft(zip(max,abs(s).^2-alpha*np,beta*np).^(1/2)</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>            .*exp(i*arg(s)));</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    for (j:=0;j&lt;wlen;j++) {</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      out[k+j]+=re(r[j]);</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    };</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  };</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  return mid(out,0,N);</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>}:;</code>
+</td></tr>
+</table>
+</div><p>To demonstrate the efficiency of the algorithm, you can test it on a small
+speech sample with an audible amount of static noise. Assume that the
+corresponding <span style="font-family:monospace">wav</span> file <span style="font-family:monospace">noised.wav</span> is stored in the
+directory <span style="font-family:monospace">sounds</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">clip:=readwav("/path/to/sounds/noised.wav"):; plotwav(clip)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en420.png">
+</div><p>
+Speech starts after approximately 0.2 seconds of pure noise. You can
+use that part of the clip for obtaining an estimate of the noise power
+spectrum with <span style="font-family:monospace">wlen</span> set to 256.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">noise:=channel_data(clip,range=0.0..0.15):; np:=noiseprof(noise,256):;</span>
+</div><p>
+Now call the <span style="font-family:monospace">noisered</span> function with β=0.03:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">c:=noisered(channel_data(clip),np,0.03):; cleaned:=createwav(c):; plotwav(cleaned)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en421.png">
+</div><p>
+You can clearly see that the noise level is significantly lower than
+in the original clip. One can also use the <span style="font-family:monospace">playsnd</span> command to
+compare the input with the output by hearing, which reveals that the
+noise is still present but in a lesser degree (the parameter β
+controls how much noise is "left in"). </p><p>The algorithm implemented in this section is not particularly fast
+(removing the noise from a two and a half seconds long recording took
+20 seconds of computation time), but serves as a proof of concept and
+demonstrates the efficiency of noise removal.</p>
+<hr>
+<a href="cascmd_en1019.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1021.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Standard functions</title>
+</head>
+<body >
+<a href="cascmd_en212.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en214.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:standardfns" class="subsection">5.16.2  Standard functions</h3>
+<ul class="itemize"><li class="li-itemize">
+The <span style="font-family:monospace">max</span><a id="hevea_default362"></a> command finds the maximum of
+a sequence of real numbers.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">max</span> takes an arbitrary number of arguments:<br>
+ <span style="font-style:italic">seq</span>, a sequence (or list) of real numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">max(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns the largest number in the
+sequence <span style="font-style:italic">seq</span>.
+</li></ul><h4 id="sec454" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">max(0,1,2,-1,-2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2
+</td></tr>
+</table></li><li class="li-itemize">The <span style="font-family:monospace">min</span><a id="hevea_default363"></a> command finds the minimum of
+a sequence of real numbers.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">min</span> takes an arbitrary number of arguments:<br>
+ <span style="font-style:italic">seq</span>, a sequence (or list) of real numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">min(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns the smallest number in the
+sequence <span style="font-style:italic">seq</span>.
+</li></ul><h4 id="sec455" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">min(0,1,2,-1,-2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−2
+</td></tr>
+</table></li><li class="li-itemize">The <span style="font-family:monospace">abs</span><a id="hevea_default364"></a> command finds the absolute value of a real
+or complex number.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">abs</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a real or complex number.
+</li><li class="li-itemize"><span style="font-family:monospace">abs(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the absolute value of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec456" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">abs(-5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">abs(3+4*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">sign</span><a id="hevea_default365"></a> command finds the sign of a real
+number (+1 if it is positive, 0 if it is zero, and -1 if it is
+negative).
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sign</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize"><span style="font-family:monospace">sign(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the sign of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec457" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sign(-4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sign(0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">floor</span><a id="hevea_default366"></a> command finds the floor of a real
+number; namely, the largest integer less than or equal to the number.<br>
+<span style="font-family:monospace">iPart</span><a id="hevea_default367"></a>) is a synonym for <span style="font-family:monospace">floor</span>.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">floor</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize"><span style="font-family:monospace">floor(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the floor of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec458" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">floor(4.1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  4
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">floor(-4.1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −5
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">round</span><a id="hevea_default368"></a> command rounds a number to the
+nearest integer, rounding up in the case of a half-integer.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">round</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize"><span style="font-family:monospace">round(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the nearest integer to <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec459" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">round(3.4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">round(-3.4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">round(3.5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  4
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">ceil</span><a id="hevea_default369"></a> command finds the ceiling of a real
+number; namely, the smallest integer greater than or equal to the
+number.<br>
+<span style="font-family:monospace">ceiling</span> is a synonym for <span style="font-family:monospace">ceil</span>.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ceil</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize"><span style="font-family:monospace">ceil(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the ceiling of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec460" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ceiling(4.1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ceiling(-4.1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −4
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">frac</span><a id="hevea_default370"></a> command finds the
+fractional part of a number; informally, the part of the number to the
+right of the decimal point with the appropriate plus or minus sign.
+For a positive real number <span style="font-style:italic">x</span>, the fractional part is <span style="font-style:italic">x</span> minus the
+floor of <span style="font-style:italic">x</span>; for a negative real number <span style="font-style:italic">x</span>, the fractional part is
+<span style="font-style:italic">x</span> minus the ceiling of <span style="font-style:italic">x</span>.<br>
+<span style="font-family:monospace">fPart</span><a id="hevea_default371"></a> is a synonym for <span style="font-family:monospace">frac</span>.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">frac</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize"><span style="font-family:monospace">frac(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the fractional part
+of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec461" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">frac(3.24)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0.24
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">frac(-3.24)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −0.24
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">trunc</span><a id="hevea_default372"></a> command truncates a real
+number; namely, it removes the fractional part. The truncated number
+added to the fractional part will equal the original number.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">trunc</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize"><span style="font-family:monospace">trunc(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the truncated value of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec462" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">trunc(3.24)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">trunc(-3.24)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −3
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">id</span><a id="hevea_default373"></a> command is the identity function.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">id</span> takes one argument or a sequence of
+arguments:<br>
+ <span style="font-style:italic">seq</span>, whose elements can be any type.
+</li><li class="li-itemize"><span style="font-family:monospace">id(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">seq</span>.
+</li></ul><h4 id="sec463" class="subsubsection">Example</h4>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">id(a,1,"abc",[1,2,3])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">a</span>,1,<span style="font-family:monospace">"abc"</span>,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></li><li class="li-itemize">The <span style="font-family:monospace">sq</span><a id="hevea_default374"></a> command squares its argument.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sq</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, any object that can be multiplied by itself.
+</li><li class="li-itemize"><span style="font-family:monospace">sq(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">x</span><sup>2</sup>.
+</li></ul><h4 id="sec464" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sq(5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  25
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sq(x+y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+<span style="font-style:italic">y</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sq([[1,2],[3,4]])</span>
+</div>
+(This is a matrix product; see Section <a href="index.html#sec%3Adefmat">5.44</a>).<br>
+ <span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >        7</td><td style="text-align:center;white-space:nowrap" >10</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >        15</td><td style="text-align:center;white-space:nowrap" >22
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sq([1,2,3])</span>
+</div>
+(This is the dot product of [1,2,3] with itself.)<br>
+ <span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  14
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">sqrt</span><a id="hevea_default375"></a> command finds the square root of
+its argument.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">sqrt</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, any object for which the 1/2 power makes sense.
+</li><li class="li-itemize"><span style="font-family:monospace">sqrt(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">x</span><sup>1/2</sup>.
+</li></ul><h4 id="sec465" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sqrt(9)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">sqrt((x+y)^2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span>+<span style="font-style:italic">y</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">simplify(sqrt([[2,3],[3,5]]))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >        1</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >        1</td><td style="text-align:center;white-space:nowrap" >2
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul></li><li class="li-itemize">The <span style="font-family:monospace">surd</span><a id="hevea_default376"></a> command finds roots of quantities.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">surd</span> takes two arguments:<br>
+ <span style="font-style:italic">x</span> and <span style="font-style:italic">n</span>, numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">surd(</span><span style="font-style:italic">x</span><span style="font-family:monospace">,</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the <span style="font-style:italic">n</span>th root of <span style="font-style:italic">x</span>; i.e., <span style="font-style:italic">x</span><sup>1/<span style="font-style:italic">n</span></sup>.
+</li></ul><h4 id="sec466" class="subsubsection">Example</h4>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">surd(15.625,3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2.5
+</td></tr>
+</table></li><li class="li-itemize">The <span style="font-family:monospace">exp</span><a id="hevea_default377"></a> command computes the exponential
+function.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">exp</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a number.
+</li><li class="li-itemize"><span style="font-family:monospace">exp(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns <span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup>.
+</li></ul><h4 id="sec467" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">exp(1.0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2.71828182846
+</td></tr>
+</table></li><li class="li-itemize">The <span style="font-family:monospace">log</span><a id="hevea_default378"></a> command computes the natural
+logarithm function.<br>
+<span style="font-family:monospace">ln</span><a id="hevea_default379"></a> is a synonym for <span style="font-family:monospace">log</span>.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">log</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a number.
+</li><li class="li-itemize"><span style="font-family:monospace">log(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the natural logarithm
+of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec468" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">log(2.0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.69314718056
+</td></tr>
+</table></li><li class="li-itemize">The <span style="font-family:monospace">log10</span><a id="hevea_default380"></a> computes the the base-10
+logarithm.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">log10</span> takes one argument:<br>
+ <span style="font-style:italic">x</span>, a number.
+</li><li class="li-itemize"><span style="font-family:monospace">log10(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the base-10 logarithm of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec469" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">log10(1000)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3
+</td></tr>
+</table></li><li class="li-itemize">The <span style="font-family:monospace">logb</span><a id="hevea_default381"></a> computes the logarithm to a
+specified base.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">logb</span> takes two arguments:<br>
+ <span style="font-style:italic">x</span> and <span style="font-style:italic">b</span>, non-zero numbers.
+</li><li class="li-itemize"><span style="font-family:monospace">logb(</span><span style="font-style:italic">x</span><span style="font-family:monospace">,</span><span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns the base-<span style="font-style:italic">b</span> logarithm of <span style="font-style:italic">x</span>.
+</li></ul><h4 id="sec470" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">logb(10.0,2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3.32192809489
+</td></tr>
+</table></li><li class="li-itemize">The standard trigonometric functions:
+<ul class="itemize"><li class="li-itemize">
+The <span style="font-family:monospace">sin</span><a id="hevea_default382"></a> command is the sine function.
+</li><li class="li-itemize">The <span style="font-family:monospace">cos</span><a id="hevea_default383"></a> command is the cosine function.
+</li><li class="li-itemize">The <span style="font-family:monospace">tan</span><a id="hevea_default384"></a> command is the tangent function (<span style="font-family:monospace">tan(x)=
+sin(x)/cos(x)</span>).
+</li><li class="li-itemize">The <span style="font-family:monospace">cot</span><a id="hevea_default385"></a> command is the cotangent function (<span style="font-family:monospace">cot(x)=
+cos(x)/sin(x)</span>).
+</li><li class="li-itemize">The <span style="font-family:monospace">sec</span><a id="hevea_default386"></a> command is the secant function (<span style="font-family:monospace">sec(x)=
+1/cos(x)</span>).
+</li><li class="li-itemize">The <span style="font-family:monospace">csc</span><a id="hevea_default387"></a> command is the cosecant function (<span style="font-family:monospace">csc(x) =
+1/sin(x)</span>).
+</li><li class="li-itemize">These commands take one argument: <span style="font-style:italic">x</span>, a number.<br>
+ The number <span style="font-style:italic">x</span> will by default represent an angle measured in
+radians, but you can set <span style="font-family:monospace">Xcas</span> to use degrees (see
+Section <a href="cascmd_en023.html#ssec%3Aangles">2.5.3</a>) by setting the variable <span style="font-family:monospace">angle_radian</span>
+to 0; resetting it to 1 will change the angle measure to radians again.
+</li><li class="li-itemize"><span style="font-family:monospace">sin(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the sine of <span style="font-style:italic">x</span>.<h4 id="sec471" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">sin(pi/4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">sin(30)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">cos(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the cosine of <span style="font-style:italic">x</span>.<h4 id="sec472" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">cos(pi/6)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">cos(90)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    0
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">tan(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the tangent of <span style="font-style:italic">x</span>.<h4 id="sec473" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">tan(pi/4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">tan(60)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">cot(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the cotangent of <span style="font-style:italic">x</span>.<h4 id="sec474" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">cot(pi/6)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">cot(45)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    1
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">sec(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the secant of <span style="font-style:italic">x</span>.<h4 id="sec475" class="subsubsection">Example</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">sec(pi/3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    2
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">sec(30)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">csc(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the cosecant of <span style="font-style:italic">x</span>.<br>
+ <span style="font-weight:bold">Examples</span><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">csc(pi/4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">csc(30)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    2
+</td></tr>
+</table>
+</li></ul></li></ul></li><li class="li-itemize">The <span style="font-family:monospace">asin</span><a id="hevea_default388"></a>,
+<span style="font-family:monospace">acos</span><a id="hevea_default389"></a>,
+<span style="font-family:monospace">atan</span><a id="hevea_default390"></a>,
+<span style="font-family:monospace">acot</span><a id="hevea_default391"></a>, <span style="font-family:monospace">asec</span><a id="hevea_default392"></a>,
+<span style="font-family:monospace">acsc</span><a id="hevea_default393"></a> commands are the inverse
+trigonometric functions. The latter are defined by:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">asec(x) = acos(1/x)</span>,
+</li><li class="li-itemize"><span style="font-family:monospace">acsc(x) = asin(1/x)</span>,
+</li><li class="li-itemize"><span style="font-family:monospace">acot(x) = atan(1/x)</span>.
+</li></ul>
+<span style="font-family:monospace">arcsin</span><a id="hevea_default394"></a> is a synonym for <span style="font-family:monospace">asin</span>.<br>
+<span style="font-family:monospace">arccos</span><a id="hevea_default395"></a> is a synonym for <span style="font-family:monospace">acos</span>.<br>
+<span style="font-family:monospace">arctan</span><a id="hevea_default396"></a> is a synonym for <span style="font-family:monospace">atan</span>.
+<ul class="itemize"><li class="li-itemize">
+These functions take one argument: <span style="font-style:italic">x</span>, a number.<br>
+ They return a number which can represent an angle; by default,
+the angles will be in radians, but you can set <span style="font-family:monospace">Xcas</span> to
+use degrees (see Section <a href="cascmd_en023.html#ssec%3Aangles">2.5.3</a>) by setting the variable
+<span style="font-family:monospace">angle_radian</span> to 0; resetting it to 1 will change the
+angle measure to radians again.
+</li><li class="li-itemize"><span style="font-family:monospace">asin(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the arcsine of <span style="font-style:italic">x</span>.<h4 id="sec476" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">asin(1/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">asin(1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">acos(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the arccosine of <span style="font-style:italic">x</span>.<h4 id="sec477" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">acos(sqrt(3)/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">π
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">acos(-1/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  120
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">atan(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the arctangent of <span style="font-style:italic">x</span>.<h4 id="sec478" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">atan(sqrt(3))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">atan(1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  45
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">acot(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the arccotangent of <span style="font-style:italic">x</span>.<h4 id="sec479" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">acot(sqrt(3))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">acot(1/sqrt(3))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  60
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">asec(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the arcsecant of <span style="font-style:italic">x</span>.<h4 id="sec480" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">asec(1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">asec(sqrt(2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  45
+</td></tr>
+</table>
+</li></ul></li><li class="li-itemize"><span style="font-family:monospace">acsc(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the arccosecant of <span style="font-style:italic">x</span>.<h4 id="sec481" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 1):</span>
+<div class="center">
+<span style="font-family:monospace">acsc(1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input (with </span><span style="font-family:monospace">angle_radian</span><span style="font-style:italic"> equal to 0):</span>
+<div class="center">
+<span style="font-family:monospace">acsc(2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  30
+</td></tr>
+</table>
+</li></ul></li></ul></li><li class="li-itemize">The <span style="font-family:monospace">sinh</span><a id="hevea_default397"></a>, <span style="font-family:monospace">cosh</span><a id="hevea_default398"></a>,
+and <span style="font-family:monospace">tanh</span><a id="hevea_default399"></a> commands compute the hyperbolic
+sine, hyperbolic cosine, and hyperbolic tangent functions.
+<ul class="itemize"><li class="li-itemize">
+These functions take one argument:<br>
+ <span style="font-style:italic">x</span>, a number.
+</li><li class="li-itemize"><span style="font-family:monospace">sinh(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the hyperbolic sine of <span style="font-style:italic">x</span>.<h4 id="sec482" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sinh(1.0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1.17520119364
+</td></tr>
+</table></li><li class="li-itemize"><span style="font-family:monospace">cosh(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the hyperbolic cosine of <span style="font-style:italic">x</span>.<h4 id="sec483" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">cosh(0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table></li><li class="li-itemize"><span style="font-family:monospace">tanh(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the hyperbolic tangent of <span style="font-style:italic">x</span>.<h4 id="sec484" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">tanh(-1.0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −0.761594155956
+</td></tr>
+</table></li></ul>
+</li><li class="li-itemize">The <span style="font-family:monospace">asinh</span><a id="hevea_default400"></a>,
+<span style="font-family:monospace">acosh</span><a id="hevea_default401"></a>, and
+<span style="font-family:monospace">atanh</span><a id="hevea_default402"></a> commands compute the inverse
+hyperbolic functions.<br>
+ <span style="font-family:monospace">arcsinh</span><a id="hevea_default403"></a> is a synonym for
+<span style="font-family:monospace">asinh</span>.<br>
+ <span style="font-family:monospace">arccosh</span><a id="hevea_default404"></a> is a synonym for
+<span style="font-family:monospace">acosh</span>.<br>
+ <span style="font-family:monospace">arctanh</span><a id="hevea_default405"></a> is a synonym for
+<span style="font-family:monospace">atanh</span>.
+<ul class="itemize"><li class="li-itemize">
+These functions take one argument:<br>
+ <span style="font-style:italic">x</span>, a number.
+</li><li class="li-itemize"><span style="font-family:monospace">asinh(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the inverse hyperbolic sine of <span style="font-style:italic">x</span>.<h4 id="sec485" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">asinh(2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell">2+</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></li><li class="li-itemize"><span style="font-family:monospace">acosh(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the inverse hyperbolic cosine of <span style="font-style:italic">x</span>.<h4 id="sec486" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">acosh(1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table></li><li class="li-itemize"><span style="font-family:monospace">atanh(</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the inverse hyperbolic tangent of <span style="font-style:italic">x</span>.<h4 id="sec487" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">atanh(1/2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">3</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></li></ul>
+</li></ul>
+<hr>
+<a href="cascmd_en212.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en214.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

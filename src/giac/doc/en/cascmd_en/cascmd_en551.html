@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Exact global optimization: minimize maximize
+
+</title>
+</head>
+<body >
+<a href="cascmd_en550.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en552.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1381" class="subsection">5.53.2  Exact global optimization: <span style="font-family:monospace">minimize</span> <span style="font-family:monospace">maximize</span>
+<a id="hevea_default942"></a>
+<a id="hevea_default943"></a></h3>
+<p><span style="font-family:monospace">minimize</span> attempts to find, using analytical methods,
+the exact smallest value of a differentiable
+expression on a compact domain specified by (in)equality
+constraints.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">minimize</span> takes two mandatory arguments and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">obj</span>, a univariate or multivariate expression
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">constr</span>, list of constraints given by
+equalities, inequalities, and/or expressions assumed to be equal to 0.
+If there is only one constraint, it doesn’t have to be a list.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, list of variables. If there is only one
+variable, it doesn’t have to be a list. A variable can also include
+bounds, as in <span style="font-style:italic">x</span>=<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>.<p>Variables can also be given as <span style="font-style:italic">x</span>=<span style="font-style:italic">x</span><sub>0</sub>, <span style="font-style:italic">y</span>=<span style="font-style:italic">y</span><sub>0</sub> and so on,
+in which case the optimum is computed numerically by performing a local search
+from the specified point (<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">y</span><sub>0</sub>,…).
+</p></li><li class="li-itemize">Optionally, <span style="font-style:italic">location</span>, a keyword which may be
+<span style="font-family:monospace">coordinates</span>, <span style="font-family:monospace">locus</span> or <span style="font-family:monospace">point</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">minimize(</span><span style="font-style:italic">obj</span> ⟨<span style="font-style:italic">, constr
+</span>⟩<span style="font-style:italic">,vars</span> ⟨<span style="font-style:italic">,location</span>⟩<span style="font-family:monospace">)</span>
+returns the minimum value of <span style="font-family:monospace">obj</span> on the domain
+specified by constraints and/or bounding variables, or (if
+<span style="font-style:italic">location</span> is specified) a list consisting of the minimum value
+and the list of points where the minimum is achieved.<p>If the domain is not compact, the final result may be incorrect or
+meaningless. If the minimal value could not be found, then
+<span style="font-family:monospace">undef</span> is returned. In some cases, unboundeness of the
+objective function can be detected.</p><p>Note that <span style="font-family:monospace">minimize</span> respects the bound constraints set to variables
+by the <span style="font-family:monospace">assume</span> command.</p></li></ul><p>The <span style="font-family:monospace">maximize</span> command takes the same parameters as
+<span style="font-family:monospace">minimize</span>, but returns the global maximum of <span style="font-style:italic">obj</span> on
+the specified domain. </p><h4 id="sec1382" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">minimize(sin(x),[x=0..4])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">sin</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">4</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">minimize(x^4-x^2,x=-3..3,locus)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">minimize</span> and <span style="font-family:monospace">maximize</span> can handle absolute values and piecewise
+expressions in one or more variables.
+For example, we find global minimum and global maximum of the function
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">|2+<span style="font-style:italic">xy</span>−<span style="font-style:italic">y</span><sup>2</sup>|+|2<span style="font-style:italic">x</span>−<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">xy</span>+<span style="font-style:italic">y</span><sup>2</sup>|</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup></td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table>
+on the square [−1,1]×[−1,1].<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(x,y):=(abs(2+x*y-y^2)+abs(2x-x^2+x*y+y^2))/(1+x^2+y^2);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">minimize(f(x,y),[x=-1..1,y=-1..1]);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">maximize(f(x,y),[x=-1..1,y=-1..1]);</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+3</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">obj:=piecewise(x&lt;=-2,x+6,x&lt;=1,x^2,3/2-x/2);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">maximize(obj,x=-3..2)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4
+</td></tr>
+</table>
+</li><li class="li-itemize">Each constraint can be either an equality or a non-strict inequality.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">obj:=sqrt(x^2+y^2)-z;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">constr:=[x^2+y^2&lt;=16,x+y+z=10];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">minimize(obj,constr,[x,y,z])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−4 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">−6
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">minimize(x^2*(y+1)-2y,[y&lt;=2,sqrt(1+x^2)&lt;=y],[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−4
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">minimize</span> and <span style="font-family:monospace">maximize</span> are aware of implied constraints that
+restrict the natural domain of the objective function.
+In the following example, the constraint <span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span><sup>2</sup>≤ 1 is implied, and the
+minimum corresponds to any point on the unit circle.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">minimize(sqrt(1-x^2-y^2),[x,y],point)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">0,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">y</span><sup>2</sup>+1</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">y</span><sup>2</sup>+1</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">y</span></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">x</span><sup>2</sup>+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">x</span><sup>2</sup>+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">As another example, it is known that the natural domain of arc sine is
+the segment [−1,1].<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">minimize(asin(x),x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Constraints can be built from simpler ones by using
+logical conjunction and disjunction.
+The latter is suitable for specifying disconnected domains,
+as in the following example.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">minimize(x*y,[x^2+y^2&lt;=1,x&lt;=-3/4 or x&gt;=5/6],[x,y],point)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">3 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">16</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >7</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Symbolic constants are allowed in the objective and constraints.
+Note that they have to be either implied or assumed real numbers.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">assume(a&gt;0);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">maximize(x^2*y^2*z^2,x^2+y^2+z^2=a^2,[x,y,z])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span><sup>6</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">27</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">In the following example, we use <span style="font-family:monospace">minimize</span> to obtain the formula for
+computing the distance <span style="font-style:italic">d</span> between the point <span style="font-style:italic">P</span>=(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">c</span>) and the plane
+π given by the equation <span style="font-style:italic">Ax</span>+<span style="font-style:italic">By</span>+<span style="font-style:italic">Cz</span>+<span style="font-style:italic">D</span>=0. We accomplish this by finding
+a point (<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">y</span><sub>0</sub>,<span style="font-style:italic">z</span><sub>0</sub>)∈π which is closest to <span style="font-style:italic">P</span>.
+Since we are going to minimize <span style="font-style:italic">d</span><sup>2</sup>=(<span style="font-style:italic">x</span>−<span style="font-style:italic">a</span>)<sup>2</sup>+(<span style="font-style:italic">y</span>−<span style="font-style:italic">b</span>)<sup>2</sup>+(<span style="font-style:italic">z</span>−<span style="font-style:italic">c</span>)<sup>2</sup>,
+the distance is equal to the square root of the minimum.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">d:=minimize((x-a)^2+(y-b)^2+(z-c)^2,A*x+B*y+C*z+D=0,[x,y,z]):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">simplify(sqrt(d))</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">|<span style="font-style:italic">A</span> <span style="font-style:italic">a</span>+<span style="font-style:italic">B</span> <span style="font-style:italic">b</span>+<span style="font-style:italic">C</span> <span style="font-style:italic">c</span>+<span style="font-style:italic">D</span>|</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">A</span><sup>2</sup>+<span style="font-style:italic">B</span><sup>2</sup>+<span style="font-style:italic">C</span><sup>2</sup></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table>
+Note that the coordinates <span style="font-style:italic">x</span><sub>0</sub>, <span style="font-style:italic">y</span><sub>0</sub> and <span style="font-style:italic">z</span><sub>0</sub> can be obtained by
+passing <span style="font-family:monospace">point</span> as the fourth argument in <span style="font-family:monospace">minimize</span>.
+</li></ul>
+<hr>
+<a href="cascmd_en550.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en552.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

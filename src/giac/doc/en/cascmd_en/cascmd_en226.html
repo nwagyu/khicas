@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Numerical differentiation: numdiff</title>
+</head>
+<body >
+<a href="cascmd_en225.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en227.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec524" class="subsection">5.19.6  Numerical differentiation: <span style="font-family:monospace">numdiff</span><a id="hevea_default420"></a></h3>
+<p>The <span style="font-family:monospace">numdiff</span> command finds numerical approximations to
+derivatives.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">numdiff</span> takes three mandatory arguments and one
+optional argument.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">X</span>=[α<sub>0</sub>,α<sub>1</sub>,…,α<sub><span style="font-style:italic">n</span></sub>],
+<span style="font-style:italic">Y</span>=[β<sub>0</sub>,β<sub>1</sub>,…,β<sub><span style="font-style:italic">n</span></sub>], two lists of real numbers,
+where <span style="font-style:italic">n</span>≥ 1.
+</li><li class="li-itemize"><span style="font-style:italic">x</span><sub>0</sub>, a real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">m</span>, an integer or a sequence of integers (by default 1).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">numdiff(</span><span style="font-style:italic">X</span>,<span style="font-style:italic">Y</span>,<span style="font-style:italic">x</span><sub>0</sub> ⟨,<span style="font-style:italic">m</span>⟩<span style="font-family:monospace">)</span>
+returns an approximation of the <span style="font-style:italic">m</span>th derivative of a function <span style="font-style:italic">f</span>
+at <span style="font-style:italic">x</span><sub>0</sub>, or a sequence of derivatives of order given by the
+sequence <span style="font-style:italic">m</span>, where <span style="font-style:italic">f</span> has values given by <span style="font-style:italic">f</span>(α<sub><span style="font-style:italic">k</span></sub>)=β<sub><span style="font-style:italic">k</span></sub>,
+<span style="font-style:italic">k</span>=0,1,…,<span style="font-style:italic">n</span>.
+</li></ul><p>
+<span style="font-family:monospace">numdiff</span> uses Fornberg’s algorithm (1988) improved by Sadiq and Viswanath (2014).
+The complexity of the algorithm is <span style="font-style:italic">O</span>(<span style="font-style:italic">n</span><sup>2</sup><span style="font-style:italic">m</span>) in both time and space.</p><p>Note that α<sub>0</sub>,α<sub>1</sub>,…,α<sub><span style="font-style:italic">n</span></sub> do not have to be equally
+spaced, but they must be mutually different and input in ascending
+order. There are no restrictions on the choice of <span style="font-style:italic">x</span><sub>0</sub>.</p><p>Rounding errors are usually not damaging for <span style="font-style:italic">m</span>≤ 4. For higher <span style="font-style:italic">m</span>, consider
+providing exact input data.</p><h4 id="sec525" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Let <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=sin(<span style="font-style:italic">x</span>)<span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup>, <span style="font-style:italic">x</span>∈[0,1]. Sample this function
+at the points in
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">X</span>=[0,0.1,0.2,0.4,0.5,0.7,0.8,1] 
+</td></tr>
+</table>
+to approximate <span style="font-style:italic">f</span>″(1/π).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">f:=unapply(sin(x)*exp(-x),x):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">X:=[0,0.1,0.2,0.4,0.5,0.7,0.8,1]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Y:=apply(f,X):;</span>
+</td></tr>
+</table>
+</div>
+Now you can approximate the second derivative of <span style="font-style:italic">f</span> at the point
+<span style="font-style:italic">x</span><sub>0</sub>=1/π.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">x0:=1/pi:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">d:=numdiff(X,Y,x0,2)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−1.38167652799
+</td></tr>
+</table>
+Finally, compute the relative error of the obtained approximation.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">abs(d-f’’(x0))/abs(f’’(x0))*100</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2.82975186496×10<sup>−5</sup>
+</td></tr>
+</table>
+The result is expressed in percentages.
+</li><li class="li-itemize">Use a sequence of values for the parameter <span style="font-style:italic">m</span> to find a list of
+approximations of the respective derivatives at <span style="font-style:italic">x</span><sub>0</sub>. This is faster
+than calling <span style="font-family:monospace">numdiff</span> to approximate one derivative at a time.<br>
+Specifically, approximate the first, second and third derivative of
+the function
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=1−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td><td class="dcell">,   <span style="font-style:italic">x</span>∈[0,1], 
+</td></tr>
+</table>
+at the point <span style="font-style:italic">x</span><sub>0</sub>=0.57 by sampling <span style="font-style:italic">f</span> at 21 equidistant points in
+the segment [0,1].<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f:=unapply(1-1/(1+x^2),x)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">X:=[(0.05*k)$(k=0..20)]:; Y:=apply(f,X):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">numdiff(X,Y,0.57,1,2,3)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.649439427528,0.0217571104587,−2.99724196738</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+Actual values: <span style="font-style:italic">f</span>′(<span style="font-style:italic">x</span><sub>0</sub>)=0.649439427528,
+<span style="font-style:italic">f</span>″(<span style="font-style:italic">x</span><sub>0</sub>)=0.0217571104558 and <span style="font-style:italic">f</span>‴(<span style="font-style:italic">x</span><sub>0</sub>)=−2.99724196764.
+</li></ul><p><br>
+</p><p><span style="font-family:monospace">numdiff</span> can be used for generating custom finite-difference
+stencils for approximation of derivatives.</p><h4 id="sec526" class="subsubsection">Example</h4>
+<p>
+Let <span style="font-style:italic">X</span>=[−1,0,2,4], <span style="font-style:italic">Y</span>=[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">c</span>,<span style="font-style:italic">d</span>] and <span style="font-style:italic">x</span><sub>0</sub>=1. To obtain an
+approximation formula for the second derivative:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">numdiff([-1,0,2,4],[a,b,c,d],1,2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">a</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">b</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">d</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">10</td></tr>
+</table></td></tr>
+</table><p>
+The approximation is always a linear combination of elements in <span style="font-style:italic">Y</span>,
+regardless of <span style="font-style:italic">X</span>, <span style="font-style:italic">x</span><sub>0</sub> and <span style="font-style:italic">m</span>. </p><p><br>
+</p><p>Given the lists
+<span style="font-style:italic">X</span>=[α<sub>0</sub>,α<sub>1</sub>,…,α<sub><span style="font-style:italic">n</span></sub>] and <span style="font-style:italic">Y</span>=[β<sub>0</sub>,β<sub>1</sub>,…,β<sub><span style="font-style:italic">n</span></sub>],
+the Lagrange polynomial passing through points
+(α<sub><span style="font-style:italic">k</span></sub>,β<sub><span style="font-style:italic">k</span></sub>) where <span style="font-style:italic">k</span>=0,1,…,<span style="font-style:italic">n</span> can be obtained by setting
+<span style="font-style:italic">m</span>=0 and entering a symbol for <span style="font-style:italic">x</span><sub>0</sub>.</p><h4 id="sec527" class="subsubsection">Example</h4>
+<p>
+Let <span style="font-style:italic">X</span>=[−2,0,1] and <span style="font-style:italic">Y</span>=[2,4,1]:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">expand(numdiff([-2,0,1],[2,4,1],x,0))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">4</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span><sup>2</sup>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">x</span>+4
+</td></tr>
+</table><p>
+The same result is obtained by entering <span style="font-family:monospace">lagrange([-2,0,1],[2,4,1],x)</span>.</p>
+<hr>
+<a href="cascmd_en225.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en227.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

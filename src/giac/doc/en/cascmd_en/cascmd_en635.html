@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Histograms: histogram histogramme
+
+</title>
+</head>
+<body >
+<a href="cascmd_en634.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en636.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1582" class="subsection">8.1.10  Histograms: <span style="font-family:monospace">histogram</span> <span style="font-family:monospace">histogramme</span>
+<a id="hevea_default1141"></a>
+<a id="hevea_default1142"></a></h3>
+<p>Given a list of intervals and a number of points in each interval,
+such as is given by the output of the <span style="font-family:monospace">classes</span> command
+(see Section <a href="cascmd_en634.html#ssec%3Aclasses">8.1.9</a>), a histogram is a graph consisting of a
+box over each interval, where the height of each box is proportional
+to the number of points and the total area of the boxes is 1.
+The <span style="font-family:monospace">histogram</span> command draws histograms. The data can be
+sorted or unsorted.<br>
+<span style="font-family:monospace">histogramme</span> is a synonym for <span style="font-family:monospace">histogram</span>.</p><p>With sorted data:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">histogram</span> takes one argument:<br>
+ <span style="font-style:italic">L</span>, a list whose elements lists of a range <span style="font-style:italic">a</span>..<span style="font-style:italic">b</span> and a positive
+integer.
+</li><li class="li-itemize"><span style="font-family:monospace">histogram(</span><span style="font-style:italic">L</span><span style="font-family:monospace">)</span> draws a histogram for the data.
+</li></ul><h4 id="sec1583" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">histogram([[1.5..1.65,50],[1.65..1.7,20],[1.7..1.8,30]])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en107.png">
+</div><p>With unsorted data:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">histogram</span> takes one mandatory argument and two
+optional arguments.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list of numbers.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, numbers.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">histogram(</span><span style="font-style:italic">L</span> ⟨ <span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>⟩<span style="font-family:monospace">)</span> returns the
+histogram for <span style="font-family:monospace">classes(</span><span style="font-style:italic">L</span> ⟨ <span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>⟩<span style="font-family:monospace">)</span> (see 
+Section <a href="cascmd_en634.html#ssec%3Aclasses">8.1.9</a>).
+</li></ul><h4 id="sec1584" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">histogram([1,2,2.5,2.5,3],0.5,0.75)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en108.png">
+</div>
+<hr>
+<a href="cascmd_en634.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en636.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

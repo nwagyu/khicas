@@ -1,0 +1,1825 @@
+<html>
+
+<head>
+<title>TableaunoirXcas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0, minimum-scale=0.4, maximum-scale=1.0" />
+<!--
+user-scalable=no
+-->
+<link rel="stylesheet" type="text/css" href="magnets/style.css" />
+<script src="tableau.js"></script>
+</head>
+
+<body>
+
+<div id="controls">
+  <span id="mobile_controls">
+  <span class="spanlink" id='themailto'></span>
+  <button id="buttonMenu" class="bouton" onmousedown="event.preventDefault()" onclick="if (UI.focused!=0){ UI.open_menu();} else Menu.toggle();">&#x2630;</button>
+  <button id="buttonCancel" class="bouton"  onmousedown="event.preventDefault()"  title="Annule la derni&egrave;re action"  onclick="if (UI.focused!=0) UI.focused.undo(); else BoardManager.cancel();">↩</button>
+  <button id="buttonLeft" class="bouton"  onmousedown="event.preventDefault()" onclick="if (UI.focused!=0) UI.moveCaret(UI.focused,-1); else BoardManager.left();" title="Aller vers la gauche">←</button><button id="buttonRight" class="bouton" onmousedown="event.preventDefault()" onclick="if (UI.focused!=0) UI.moveCaret(UI.focused,1); else BoardManager.right();" title="Aller vers la droite">→</button>
+<button id="addmagnetbutton" class="bouton" title="Ajoute ou &eacute;value un magnet" onmousedown="event.preventDefault()" onclick="if (UI.focused!=0) UI.toggle($id('assistant_keys')); else {welcome.hidden=true;Welcome.hide();UI.addmagnet(container.scrollLeft, 100);}">+</button>
+  </span>
+  <span id="pc_controls">
+<div id="readonly_msg" style="display:none">Mode lecture seule. Taper w pour modifier.</div>
+  <button id="buttonMenu2" onmousedown="event.preventDefault()" onclick="if (UI.focused!=0){ UI.open_menu(); } else Menu.toggle();">Menu</button>
+  <button id="buttonCancel2" onmousedown="event.preventDefault()" title="Annule la derni&egrave;re action"  onclick="if (UI.focused!=0) UI.focused.undo(); else BoardManager.cancel();">↩ Annule</button>
+  <button id="buttonRedo" onmousedown="event.preventDefault()" title="Refaire la derni&egrave;re action" onclick="if (UI.focused!=0) UI.focused.redo(); else BoardManager.redo();">↪</button>
+  <button id="buttonLeft2" onmousedown="event.preventDefault()" onclick="if (UI.focused!=0) UI.moveCaret(UI.focused,-1); else BoardManager.left();" title="Aller vers le tableau &agrave; gauche">←</button>
+  <button id="buttonRight2" onmousedown="event.preventDefault()" onclick="if (UI.focused!=0) UI.moveCaret(UI.focused,1); else BoardManager.right();" title="Aller vers le tableau &agrave; droite">→</button>
+<span id="pc_controls_readonly_hidden">
+  <button id="buttonDivide" title="Diviser le tableau en deux">|</button><span>d</span>
+  <button id="addmagnetbutton2" title="Ajoute ou &eacute;value un magnet" onmousedown="event.preventDefault()" onclick="if (UI.focused!=0){ UI.toggle($id('assistant_keys'));} else {welcome.hidden=true;Welcome.hide();UI.addmagnet(container.scrollLeft, 100);}">Magnet</button>
+  <button id="buttonColors" title="Choisissez une couleur">🎨 </button>
+  <button id="buttonEraser" title="Bascule entre mode effacement et &eacute;criture">⌫</button><span>e</span>
+  <span class="spanlink"  style="display:none" id='themailtopc'></span>
+  <span class="spanlink"  style="display:none" id='thelink'></span>
+  <textarea id='theforumlink' style="display:none"></textarea>
+</span>
+ <button id="buttonCloseControls" title="Cacher la barre d'outils"
+  onclick="controls.hidden=true; welcome.hidden = true;">Cacher</button>
+  </span>
+</div>
+
+
+<div id="online_help" style="display:none">
+  <textarea cols="9" id="helptxt"
+  title="Aide courte sur un nom de commande" rows=1
+  onkeypress="if (event.keyCode!=13) return true;UI.addhelp('?',value); return false;"></textarea>
+  <button class="bouton" onmousedown="event.preventDefault()" title="Effacer"
+  onclick="var helptxt=$id('helptxt'); UI.backspace(helptxt);">&#x232b; </button>
+  <button class="bouton" onmousedown="event.preventDefault()" title="Fermer"
+  onclick="$id('online_help').style.display='none';">X</button>
+ <div id="helpoutput" style="backgroundColor:white"></div>
+</div>
+
+<div id="assistant_cas" style="display:none">
+  <div id="assistant_menu">
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_math').style.display='block';" title="">Math</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_arit').style.display='block';" title="">Arith.</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_rewrite').style.display='block';" title="">Alg&egrave;bre</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_calculus').style.display='block';" title="">Analyse</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_proba').style.display='block';" title="">Proba</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_graph').style.display='block';" title="">Graph</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_statgraph').style.display='block';" title="">Stats</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_prog').style.display='block';" title="">Prog</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="$id('assistant_cas').style.display='none';"  title="Close">X</button>
+  </div>
+
+  <div id="assistant_math" style="display:none">
+      <input type="button" class="bouton" name="add_cos"
+             id="add_cos"
+             value="cos" onmousedown="event.preventDefault()" onClick="UI.insert_focused(value+'(')" title="fonction cosinus, taper acos pour arccosinus">
+      <input type="button" class="bouton" name="add_sin" id="add_sin" value="sin" onmousedown="event.preventDefault()" onClick="UI.insert_focused(value+'(')" title="fonction sinus, taper asin pour arcinus">
+      <input type="button" class="bouton" name="add_tan"
+             id="add_tan"
+             value="tan" onmousedown="event.preventDefault()" onClick="UI.insert_focused(value+'(')" title="fonction tangente, taper atan pour arctangente">
+      <input type="button" class="bouton" name="add_ln"
+             id="add_ln"
+             value="ln" onmousedown="event.preventDefault()" onClick="UI.insert_focused(value+'(')" title="logarithme neperien">
+      <input type="button" class="bouton" name="add_ln"
+             id="add_log10"
+             value="log10" onmousedown="event.preventDefault()"
+      onClick="UI.insert_focused(value+'(')" title="log base 10">
+      <input type="button" class="bouton" name="add_ln"
+             id="add_exp"
+             value="exp" onmousedown="event.preventDefault()" onClick="UI.insert_focused(value+'(')" title="exponentielle">
+      <input type="button" class="bouton" name="add_ln"
+             id="add_floor"
+             value="floor" onmousedown="event.preventDefault()"
+      onClick="UI.insert_focused(value+'(')" title="partie enti&egrave;re">
+      <input type="button" class="bouton" name="add_round"
+             id="add_round"
+             value="round" onmousedown="event.preventDefault()" onClick="UI.insert_focused(value+'(')" title="arrondi">
+      <input type="button" class="bouton" name="add_^" id="add_^" value="^" onmousedown="event.preventDefault()" onClick="UI.insert_focused('^')">
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.close_menus()" title="Fermer">X</button></div>
+  </div>
+
+  <div id="assistant_proba" style="display:none">
+    <button class="bouton" title="Entier al&eacute;toire" onmousedown="event.preventDefault()" onclick="UI.insert_focused('randint(')">randint</button>
+    <button class="bouton" title="R&eacute;el al&eacute;toire" onmousedown="event.preventDefault()" onclick="UI.insert_focused('rand(')">rand</button>
+    <button class="bouton" title="Loi normale" onmousedown="event.preventDefault()" onclick="UI.insert_focused('normald')">norm</button>
+    <button class="bouton" title="Loi de Poisson" onmousedown="event.preventDefault()" onclick="UI.insert_focused('poisson')">poisson</button>
+    <button class="bouton" title="Loi exponentielle" onmousedown="event.preventDefault()" onclick="UI.insert_focused('exponentiald')">exp</button>
+    <button class="bouton" title="Suffixe distribution cumul&eacute;e" onmousedown="event.preventDefault()" onclick="UI.insert_focused('_cdf(')">cdf</button>
+    <button class="bouton" title="Suffixe distribution cumul&eacute;e inverse" onmousedown="event.preventDefault()" onclick="UI.insert_focused('_icdf(')">icdf</button>
+    <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.close_menus()" title="Fermer">X</button></div>
+  </div>
+  
+  <div id="assistant_arit" style="display:none">
+    <button class="bouton" title="Reste de la division euclidienne" onmousedown="event.preventDefault()" onclick="UI.insert_focused('irem(')">irem</button>
+    <button class="bouton" title="Quotient de la division euclidienne" onmousedown="event.preventDefault()" onclick="UI.insert_focused('iquo(')">iquo</button>
+    <button class="bouton" title="PGCD" onmousedown="event.preventDefault()" onclick="UI.insert_focused('gcd(')">gcd</button>
+    <button class="bouton" title="PPCM" onmousedown="event.preventDefault()" onclick="UI.insert_focused('lcm(')">lcm</button>
+    <button class="bouton" title="Identit&eacute; de B&eacute;zout" onmousedown="event.preventDefault()" onclick="UI.insert_focused('iegcd(')">iegcd</button>
+    <button class="bouton" title="Test de primalit&eacute;" onmousedown="event.preventDefault()" onclick="UI.insert_focused('isprime(')">isprime</button>
+    <button class="bouton" title="Nombre premier suivant" onmousedown="event.preventDefault()" onclick="UI.insert_focused('nextprime(')">next</button>
+    <button class="bouton" title="Factoriser entier" onmousedown="event.preventDefault()" onclick="UI.insert_focused('ifactor(')">ifactor</button>
+    <button class="bouton" title="Puissance modulaire rapide" onmousedown="event.preventDefault()" onclick="UI.insert_focused('powmod(')">powmod</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.close_menus()" title="Fermer">X</button></div>
+  </div>
+  
+  <div id="assistant_rewrite" style="display:none">
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('simplify(')" title="Tentative de simplifier une expression, par exemple simplify(sin(3x)/sin(x)). Essayez une commande comme ratnormal, normal ou de reecriture si simplify echoue.">simpl.</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('normal(')"
+  title="D&eacute;veloppe et r&eacute;duit au meme d&eacute;nominateur">normal
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('factor(')" title="Factorisation, par exemple factor(x^4-1). Utiliser cfactor pour factoriser sur C">factor</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('partfrac(')" title="D&eacute;composition en &eacute;l&eacute;ments simples. Utiliser cpartfrac pour d&eacute;composer sur C">partf</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('subst(')" title="Substituer">subst</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('reorder(')" title="Changer l'ordre des variables d'un polynome">reord</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('texpand(')"
+  title="D&eacute;veloppe sin/cos/tan/exp/ln">texpand
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('tlin(')"
+  title="Lin&eacute;rise les expressions trigonom&eacute;triques">tlin
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('trigsin(')"
+title="R&eacute;ecrire avec des sinus">→sin
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('trigcos(')"
+title="R&eacute;ecrire avec des cos">cos
+</button>
+<button class="bouton"
+onmousedown="event.preventDefault()" onclick="UI.insert_focused('halftan(')"
+title="R&eacute;ecrire en fonction de tan de l'angle moiti&eacute;">half
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('trigtan(')"
+title="R&eacute;ecrire avec des tan">tan
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.close_menus()" title="Fermer">X</button></div>
+
+<div id="assistant_calculus" style="display:none">
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="$id('assistant_rsolve').style.display='block';UI.set_focus('rsolveexpr')"
+          title="R&eacute;soudre une r&eacute;currence">r
+</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="$id('assistant_solve').style.display='block';UI.set_focus('solveexpr')"
+          title="R&eacute;soudre une &eacute;quation ou un syst&egrave;me">solve
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_limit').style.display='block';UI.set_focus('limitexpr')" title="limite d'une expression lorsqu'une variable tend vers une limite, par exemple limit(sin(x)/x,x,0). Utiliser un 4eme parametre egal a 1 ou -1 pour une limite a droite ou a gauche.">limit</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_diff').style.display='block';UI.set_focus('diffexpr')" title="Derivee d'une expression. Pour une fonction f, par exemple f(x):=sin(x^2), la derivee de f est f', par exemple g:=f' ou f'(2)">∂</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_series').style.display='block';UI.set_focus('seriesexpr')" title="series calcule le developpement de Taylor d'une expression lorsqu'une variable tend vers un point, par exemple series(sin(x),x=0,5,polynom). Si on omet polynom un terme de reste est renvoye. On peut specifier un developpement a droite ou a gauche en ajoutant 1 ou -1 avant polynom"> series</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_sum').style.display='block';UI.set_focus('sumexpr')" title="Somme d'une expression pour une variable entre deux bornes, par exemple ∑(k,k,1,n) ou ∑(1/n^2,n,1,inf)"> ∑</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_int').style.display='block';UI.set_focus('intexpr')"
+          title="Calcul d'int&eacute;grales, par exemple ∫(x^2*sin(x)*exp(x),x) ou ∫(1/(x^4+1),x,0,inf)">∫
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('ilaplace(')"
+          title="ilaplace: transform&eacute;e de Laplace inverse">i
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('laplace(')"
+          title="Transform&eacute;e de Laplace">laplace
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('odesolve(')"
+          title="odesolve: r&eacute;solution approch&eacute;e d'&eacute;quation diff&eacute;rentielles">o
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="$id('assistant_desolve').style.display='block';UI.set_focus('desolveexpr')"
+          title="R&eacute;solution exacte d'&eacute;quation diff&eacute;rentielle">desolve
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('ifft(')"
+          title="ifft: transform&eacute;e de Fourier rapide inverse">i
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('fft(')"
+          title="Transform&eacute;e de Fourier rapide">fft
+  </button>
+<!--
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('invztrans(')"
+          title="invztrans: transform&eacute;e en z inverse d'une fraction rationnelle">inv
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('ztrans(')"
+          title="Transform&eacute;e en z d'une suite">ztrans
+</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('grad(')"
+          title="Gradient">grad
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('hessian(')"
+          title="Hessien">hess
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('curl(')"
+          title="Rotationnel">rot
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('divergence(')"
+          title="Divergence">div
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('vpotential(')"
+          title="vpotential: potentiel vecteur">v
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('potential(')"
+          title="Potentiel">poten.
+  </button>
+-->
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.close_menus()" title="Fermer">X</button>
+</div>
+
+<div id="assistant_prog" style="display:none">
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="$id('assistant_def').style.display='block';UI.set_focus('funcname')" title="D&eacute;finition d'une fonction">&nbsp;def</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="UI.insert_focused('return ',0);" title="Test">ret</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="$id('assistant_test').style.display='block';UI.set_focus('sicond')" title="Test">if</button>
+  <!-- <button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('else :\n',0);"  title="Test">else</button> 
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="UI.insert_focused('while :\n',0);" title="Boucle tantque">while</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="UI.insert_focused('for i in range():\n',0);" title="Boucle pour">for</button>-->
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="$id('assistant_boucle').style.display='block';" title="Affiche">boucle</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="UI.insert_focused('print(',0)" title="Affiche">print</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="UI.insert_focused('input(',0)" title="Affiche">input</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="UI.menu_modules()" title="Affiche">import</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="UI.close_menus();" title="Fermer le menu">X</button>
+</div>
+
+<div id="assistant_modules" style="display:none">
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_math_module').style.display='block';" title="">math</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_arit_module').style.display='block';" title="">arit</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_linalg_module').style.display='block';" title="">linalg</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_graphic_module').style.display='block';" title="">graphic</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="UI.close_menus();$id('assistant_turtle_module').style.display='block';" title="">turtle</button>
+</div>
+
+<div id="assistant_math_module" style="display:none">
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('from math import *\n',0);"  title="">import</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('exp(',0);"  title="">exp</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('log(',0);"  title="">log</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('cos(',0);"  title="">cos</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('sin(',0);"  title="">sin</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('tan(',0);"  title="">tan</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('floor(',0);"  title="">floor</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('round(',0);"  title="">round</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('abs(',0);"  title="">abs</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('sqrt(',0);"  title="">sqrt</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('sign(',0);"  title="">sign</button>
+  <button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.menu_modules()" title="">x</button>
+</div>
+
+<div id="assistant_arit_module" style="display:none">
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('from arit import *\n',0);"  title="">import</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('ifactor(',0);"  title="">ifactor</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('isprime(',0);"  title="">isprime</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('gcd(',0);"  title="">gcd</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('iegcd(',0);"  title="">iegcd</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('pow(',0);"  title="pow(a,n,m) calcule a**n modulo n">pow</button>
+  <button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.menu_modules()" title="">x</button>
+</div>
+
+<div id="assistant_linalg_module" style="display:none">
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('from linalg import *\n',0);"  title="">import</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('matrix(',0);"  title="">matrix</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('add(',0);"  title="">add</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('sub(',0);"  title="">sub</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('mul(',0);"  title="">mul</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('inv(',0);"  title="">inv</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('rref(',0);"  title="">rref</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('det(',0);"  title="">det</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('eig(',0);"  title="">eig</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('transpose(',0);"  title="">transp</button>
+  <button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.menu_modules()" title="">x</button>
+</div>
+
+<div id="assistant_turtle_module" style="display:none">
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('from turtle import *\n',0);"  title="">import</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('reset(',0);"  title="">reset</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('forward(',0);"  title="">fd</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('left(',0);"  title="">left</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('right(',0);"  title="">right</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('pen(',0);"  title="">pen</button>
+<button class="bouton" onmousedown="event.preventDefault()"
+  title=". sur une ligne de commande pour afficher la tortue" onclick="UI.insert_focused(',',0);"  title="">.</button>
+  <button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.menu_modules()" title="">x</button>
+</div>
+
+<div id="assistant_graphic_module" style="display:none">
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('from graphic import *\n',0);"  title="">import</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('draw_pixel(',0);"  title="">pixel</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('draw_line(',0);"  title="">line</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('draw_rectangle(',0);"  title="">rect</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('fill_rect(',0);"  title="">filled</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('draw_circle(',0);"  title="">circle</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused('draw_filled_circle(,',0);"  title="">filled</button>
+<button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.insert_focused(';',0);"  title="; sur une ligne vide affiche le graphique">,</button>
+  <button class="bouton" onmousedown="event.preventDefault()"  onclick="UI.menu_modules()" title="">x</button>
+</div>
+
+<div id="assistant_solve" style="display:none">
+  R&eacute;soudre
+  <button class="bouton" id="solvex" title="Cliquez ici pour une r&eacute;solution approch&eacute;e"
+          onclick="style.display='none';$id('solvenum').style.display='inline'">exactement
+  </button>
+  <button class="bouton" style="display:none" id="solvenum" title="Cliquez ici pour une r&eacute;solution exacte"
+          onclick="style.display='none';$id('solvex').style.display='inline'">de mani&egrave;re approch&eacute;ee
+  </button>
+  <button class="bouton" id="solveR" title="Cliquez ici pour une r&eacute;solution sur C"
+          onclick="style.display='none';$id('solveC').style.display='inline'">sur R
+  </button>
+  <button class="bouton" style="display:none" id="solveC" title="Cliquez ici pour une r&eacute;solution sur R"
+          onclick="style.display='none';$id('solveR').style.display='inline'">sur C
+  </button>
+  <br>
+  l'&eacute;quation ou le syst&egrave;me
+  <br>
+  <textarea onclick="UI.focused=this;" style="font-size:large"
+            id="solveeq" title="Par exemple x^2-3x+1=0" rows=1
+            cols=30></textarea>
+  <br>
+  d'inconnue(s)
+  <textarea onclick="UI.focused=this;" style="font-size:large"
+            id="solvevar" title="Par exemple x" rows=1 cols=10></textarea>
+  <br>
+  <button class="bouton" onclick="UI.assistant_solve_ok();">Ok</button>
+  <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_solve').style.display='none'">Annul.</button>
+  <button class="bouton" onclick="$id('solveeq').value='';$id('solvevar').value='';">Effacer</button>
+  <button class="bouton" onclick="$id('solveeq').value='x^2-3x+1';$id('solvevar').value='x';">Exemple</button>
+  <button class="bouton" onclick="$id('solveeq').value='[2x^2-y^2=1,x+y=3]';$id('solvevar').value='[x,y]';">Syst&egrave;me</button>
+</div>
+<div id="assistant_suites" style="display:none">
+  Choisir entre
+  <button class="bouton"
+          onclick="$id('assistant_rsolve').style.display='none';$id('assistant_fixe').style.display='block';UI.set_focus('rsolveexpr') ">&eacute;tude approch&eacute;e de u_(n+1)=f(u_n)
+  </button>
+  ou
+  <button class="bouton"
+          onclick="$id('assistant_rsolve').style.display='block';$id('assistant_fixe').style.display='none';UI.set_focus('rsolveeq');">
+    trouver u_n en fonction de n
+  </button>
+  <button class="bouton"
+          onclick="UI.focused=UI.savefocused;$id('assistant_suites').style.display='none'">Annul.
+  </button>
+</div>
+  <div id="assistant_rsolve" style="display:none">
+    Relation(s) de r&eacute;currence
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolveeq" title="Par exemple u(n+1)===2*u(n)+3" rows=1
+              cols=40></textarea>
+    <br>
+    Suite(s) inconnue(s)
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolvevar" title="Par exemple u(n)" rows=1 cols=20>u(n)</textarea>
+    <br>
+    Conditions initiales
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolveinit" title="Par exemple u(0)===1" rows=1
+              cols=20>u(0)===1</textarea>
+    <br>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.set_focus('rsolveeq') ;UI.insert_focused('u(n+2)',0)">u(n+2)
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.set_focus('rsolveeq') ;UI.insert_focused('u(n+1)',0)">u(n+1)
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('u(n)',0)">u(n)
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.set_focus('rsolveeq') ;UI.insert_focused('u(n-1)',0)">u(n-1)
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.set_focus('rsolveinit') ;UI.insert_focused('u(0)===',0)">u(0)=
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.set_focus('rsolveinit');UI.insert_focused('u(1)===',0)">u(1)=
+    </button>
+    <br>
+    <button class="bouton"
+            onclick="UI.assistant_rsolve_ok();">Ok
+    </button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_suites').style.display='none'">Annul.</button>
+    <button class="bouton" onclick="$id('rsolveeq').value='';$id('rsolvevar').value='';$id('rsolveinit').value='';">Effacer</button>
+    <button class="bouton" onclick="$id('rsolveeq').value='u(n+1)===2*u(n)+3';$id('rsolvevar').value='u(n)';$id('rsolveinit').value='u(0)===1';">Arit-geo</button>
+    <button class="bouton" onclick="$id('rsolveeq').value='u(n+1)===(u(n)+2)/(u(n)+1)';$id('rsolvevar').value='u(n)';$id('rsolveinit').value='u(0)===1';">Fixe</button>
+    <button class="bouton" onclick="$id('rsolveeq').value='u(n+2)===u(n+1)+u(n)';$id('rsolvevar').value='u(n)';$id('rsolveinit').value='u(0)===1,u(1)===1';">Fibonacci</button>
+    <button class="bouton" onclick="$id('rsolveeq').value='[u(n+1)===3*v(n)+u(n),v(n+1)===v(n)+u(n)]';$id('rsolvevar').value='[u(n),v(n)]';$id('rsolveinit').value='u(0)===1,v(0)===2'">Syst&egrave;me</button>
+  </div>
+  <div id="assistant_fixe" style="display:none">
+    u_(n+1)=<textarea onkeyup="$id('rsolvefshadow').innerHTML=value;" onclick="UI.focused=this;" style="font-size:large"
+                      id="rsolvef" title="Nom de la fonction" rows=1
+                      cols=2>f</textarea>(u_n) avec
+    <span id="rsolvefshadow">f</span>(<textarea onclick="UI.focused=this;" style="font-size:large"
+                                                id="rsolvevarf" title="" rows=1 cols=2>x</textarea>):=
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolveexpr" title="Par exemple (x+2)/(x+1)" rows=1 cols=20></textarea>
+    et u(0)=
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolveu0" title="Par exemple 1" rows=1
+              cols=10></textarea>
+    <br>
+    Nombre de termes n=
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolven" title="Par exemple 10" rows=1
+              cols=3>10</textarea>
+    <br>
+    Repr&eacute;sentation graphique entre
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolvemin" title="Par exemple 0" rows=1
+              cols=3>0</textarea> et
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="rsolvemax" title="Par exemple 2" rows=1
+              cols=3>2</textarea>
+    <br>
+    <button class="bouton"
+            onclick="UI.assistant_fixe_ok();">Ok
+    </button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_suites').style.display='none'">Annul.</button>
+    <button class="bouton" onclick="$id('rsolvef').value='';$id('rsolvevarf').value='';$id('rsolveexpr').value='';$id('rsolveu0').value='';$id('rsolven').value='';$id('rsolvemin').value='';$id('rsolvemax').value='';">Effacer</button>
+    <button class="bouton" onclick="$id('rsolvef').value='f';$id('rsolvevarf').value='x';$id('rsolveexpr').value='(x+2)/(x+1)';$id('rsolveu0').value='1';$id('rsolven').value='10';$id('rsolvemin').value='1';$id('rsolvemax').value='2';">Exemple</button>
+  </div>
+
+  <div id="assistant_desolve" style="display:none">
+    &Eacute;quation diff&eacute;rentielle
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="desolveeq" title="Par exemple y'+t*y=t^2" rows=1
+              cols=40></textarea>
+    <br>
+    Variable
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="desolvevar" title="Par exemple t" rows=1 cols=3>t</textarea>,
+    inconnue
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="desolvey" title="Par exemple y" rows=1 cols=3>y</textarea>
+    <br>
+    Conditions initiales optionnelles
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="desolveinit" title="Par exemple y(0)=1,y'(0)=0" rows=1
+              cols=20></textarea>
+    <br>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.set_focus('desolveeq');UI.insert_focused('t',0)">t
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.set_focus('desolveeq') ;UI.insert_focused('y\'\'',0)">y''
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('y\'',0)">y'
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('y',0)">y
+    </button>
+    <br>
+    <button class="bouton"
+            onclick="UI.assistant_desolve_ok();">Ok
+    </button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_desolve').style.display='none'">Annul.</button>
+    <button class="bouton" onclick="$id('desolveeq').value='';$id('desolvevar').value='';$id('desolvey').value='';$id('desolveinit').value='';">Effacer</button>
+    <button class="bouton" onclick="$id('desolveeq').value='y\'+t*y=t';$id('desolvevar').value='t';$id('desolvey').value='y';$id('desolveinit').value='y(0)=2';">Ordre 1</button>
+    <button class="bouton" onclick="$id('desolveeq').value='y\'\'+y=t^2';$id('desolvevar').value='t';$id('desolvey').value='y';$id('desolveinit').value='y(0)=1,y\'(0)=0';">Ordre 2</button>
+    <button class="bouton" onclick="$id('desolveeq').value='y\'=[[1,2],[2,1]]*y+[t,t+1]';$id('desolvevar').value='t';$id('desolvey').value='y';$id('desolveinit').value='y(0)=[1,2]'">Syst&egrave;me</button>
+  </div>
+  <div id="assistant_series" style="display:none">
+    D&eacute;veloppement limit&eacute; <br>
+    expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="seriesexpr" title="Expression, par exemple sin(x)" rows=1></textarea><br>
+    variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="seriesvarname" title="Nom de variable, par exemple x" rows=1>x</textarea><br>
+    en <textarea onclick="UI.focused=this;" style="font-size:large"
+                 id="seriesvarlim" title="Point limite" rows=1></textarea><br>
+    ordre <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="seriesvarorder" title="Ordre" rows=1></textarea><br>
+    Polynome <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="seriesvarstep" title="L'option polynom supprime le terme de reste du d&eacute;veloppement" rows=1>polynom</textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_series_ok();">Ok</button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_series').style.display='none'">Annul.</button>
+    <button class="bouton"
+            onclick="$id('seriesexpr').value='';$id('seriesvarname').value='';$id('seriesvarlim').value='';$id('seriesvarorder').value='';">Effacer
+    </button>
+    <button class="bouton" onclick="$id('seriesexpr').value='sin(x)/x';$id('seriesvarname').value='x';$id('seriesvarlim').value='0';$id('seriesvarorder').value='5';$id('seriesvarstep').value='polynom';">Exemple</button>
+  </div>
+  <div id="assistant_limit" style="display:none">
+    Limite de :<br>
+    expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="limitexpr" title="Expression, par exemple sin(x)/x" rows=1></textarea><br>
+    variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="limitvarname" title="Nom de variable, par exemple x" rows=1>x</textarea><br>
+    en <textarea onclick="UI.focused=this;" style="font-size:large"
+                 id="limitvarlim" title="Valeur limite" rows=1></textarea><br>
+    Direction optionnelle <textarea onclick="UI.focused=this;" style="font-size:large"
+                                    id="limitvardir" title="-1: limite &agrave; gauche, 1: &agrave; droite" rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_limit_ok();">Ok</button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_limit').style.display='none'">Annul.</button>
+    <button class="bouton"
+            onclick="$id('limitexpr').value='';$id('limitvarname').value='';$id('limitvarlim').value='';$id('limitvardir').value='';">Effacer
+    </button>
+    <button class="bouton" onclick="$id('limitexpr').value='sin(x)/x';$id('limitvarname').value='x';$id('limitvarlim').value='0';$id('limitvardir').value='1';">Exemple</button>
+  </div>
+  <div id="assistant_int" style="display:none">
+    Int&eacute;grale de <br>
+    expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="intexpr" title="Expression, par exemple x^2" rows=1></textarea><br>
+    variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="intvarname" title="Nom de variable, par exemple x" rows=1>x</textarea><br>
+    de (optionnel) <textarea onclick="UI.focused=this;" style="font-size:large"
+                             id="intvarmin" title="Borne inf&eacute;rieure" rows=1></textarea><br>
+    &agrave; (optionnel) <textarea onclick="UI.focused=this;" style="font-size:large"
+                                   id="intvarmax" title="Borne sup&eacute;rieure" rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_int_ok();">Ok</button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_int').style.display='none'">Annul.</button>
+    <button class="bouton"
+            onclick="$id('intexpr').value='';$id('intvarname').value='';$id('intvarmin').value='';$id('intvarmax').value='';">Effacer
+    </button>
+    <button class="bouton" onclick="$id('intexpr').value='1/(1+x^2)^2';$id('intvarname').value='x';$id('intvarmin').value='';$id('intvarmax').value='';">Exemple 1</button>
+    <button class="bouton" onclick="$id('intexpr').value='1/(1+x^2)^2';$id('intvarname').value='x';$id('intvarmin').value='0';$id('intvarmax').value='1';">Exemple 2</button>
+  </div>
+  <div id="assistant_sum" style="display:none">
+    Somme de <br>
+    expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="sumexpr" title="Expression, par exemple j^2" rows=1></textarea><br>
+    variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="sumvarname" title="Nom de variable, par exemple j" rows=1>j</textarea><br>
+    de (optionnel) <textarea onclick="UI.focused=this;" style="font-size:large"
+                             id="sumvarmin" title="Borne inf&eacute;rieure" rows=1></textarea><br>
+    &agrave; (optionnel) <textarea onclick="UI.focused=this;" style="font-size:large"
+                                   id="sumvarmax" title="Borne sup&eacute;rieure" rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_sum_ok();">Ok</button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_sum').style.display='none'">Annul.</button>
+    <button class="bouton" onclick="$id('sumexpr').value='j^2';$id('sumvarname').value='j';$id('sumvarmin').value='0';$id('sumvarmax').value='n';">Exemple</button>
+    <button class="bouton"
+            onclick="$id('sumexpr').value='';$id('sumvarname').value='';$id('sumvarmin').value='';$id('sumvarmax').value='';">Effacer
+    </button>
+  </div>
+  <div id="assistant_diff" style="display:none">
+    D&eacute;riv&eacute;e de <br>
+    expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="diffexpr" title="Expression, par exemple sin(x)^2" rows=1></textarea><br>
+    variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="diffvarname" title="Nom de variable, par exemple x" rows=1>x</textarea><br>
+    Nombre de d&eacute;riv&eacute;es <textarea onclick="UI.focused=this;" style="font-size:large"
+                                               id="diffnumber" title="Valeur par d&eacute;faut 1" rows=1>1</textarea><br>
+    <br>
+    <button class="bouton" onclick="UI.assistant_diff_ok();">Ok</button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_diff').style.display='none'">Annul.</button>
+    <button class="bouton" onclick="$id('diffexpr').value='sin(x)^2';$id('diffvarname').value='x';$id('diffnumber').value='';">Exemple 1</button>
+    <button class="bouton" onclick="$id('diffexpr').value='sin(x^2)';$id('diffvarname').value='x';$id('diffnumber').value='5';">Exemple 2</button>
+    <button class="bouton"
+            onclick="$id('diffexpr').value='';$id('diffvarname').value='';$id('diffnumber').value='';">Effacer
+    </button>
+  </div>
+
+<div id="assistant_test" style="display:none">
+  Tests :
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused('==',0)">==
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused('!=',0)">!=
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused('<=',0)">&lt;=
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused('>=',0)">&gt;=
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused('<',0)">&lt
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused('>',0)">&gt
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused(' and ',0)">et
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused(' or ',0)">ou
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+          onclick="UI.insert_focused('!')">!
+  </button>
+  <br>
+  si <textarea onclick="UI.focused=this;" style="font-size:large"
+               id="sicond" title="Test, par exemple j!=0"
+               rows=1></textarea>
+  <br>
+  alors <textarea onclick="UI.focused=this;" style="font-size:large"
+                  id="sialors" title="Clause vraie, par exemple j:=-j;"
+                  rows=1></textarea>
+  <br>
+  sinon (optionnel) <textarea onclick="UI.focused=this;" style="font-size:large"
+                              id="sisinon" title="Clause fausse"
+                              rows=1></textarea>
+  <br>
+  <button class="bouton" onclick="UI.assistant_test_ok();">Ok</button>
+  <button class="bouton"
+          onclick="UI.focused=UI.savefocused;$id('assistant_test').style.display='none'">Annul.
+  </button>
+  <button class="bouton"
+          onclick="$id('sicond').value='';$id('sialors').value='';">Effacer
+  </button>
+  <button class="bouton"
+          onclick="$id('sicond').value='j<0';$id('sialors').value=UI.python_mode?'j=-j':'j:=-j;';">Exemple 1
+  </button>
+  <button class="bouton"
+          onclick="$id('sicond').value='j<0';$id('sialors').value=UI.python_mode?'absj=-j':'absj:=-j;';$id('sisinon').value=UI.python_mode?'absj=j':'absj:=j;';">Exemple 2
+  </button>
+</div>
+<div id="assistant_boucle" style="display:none">
+  Choisir <strong>type de boucle</strong>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="$id('assistant_pour').style.display='block';UI.set_focus('pourvarname'); $id('assistant_tantque').style.display='none';">pour</button>
+  ou
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="$id('assistant_pour').style.display='none';$id('assistant_tantque').style.display='block';UI.set_focus('tantquecond'); $id('tantquecond').focus();">tantque</button>
+  <div id="assistant_pour" style="display:none">
+    pour <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="pourvarname" title="Nom de variable, par exemple j" rows=1></textarea><br>
+    de <textarea onclick="UI.focused=this;" style="font-size:large"
+                 id="pourvarmin" title="Valeur de d&eacute;part" rows=1></textarea><br>
+    jusque <textarea onclick="UI.focused=this;" style="font-size:large"
+                     id="pourvarmax" title="Valeur de fin (non comprise en syntaxe Python, comprise en syntaxe Xcas)" rows=1></textarea><br>
+    pas optionnel <textarea onclick="UI.focused=this;" style="font-size:large"
+                            id="pourvarstep" title="on ajoute le pas &agrave; chaque it&eacute;ration, valeur par d&eacute;faut 1" rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_pour_ok();">Ok</button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_boucle').style.display='none';$id('assistant_pour').style.display='none'">Annul.</button>
+    <button class="bouton"
+            onclick="$id('pourvarname').value='';$id('pourvarmin').value='';$id('pourvarmax').value='';">Effacer
+    </button>
+    <button class="bouton" onclick="$id('pourvarname').value='j';$id('pourvarmin').value='1';$id('pourvarmax').value='10';">Exemple</button>
+  </div>
+  <div id="assistant_tantque" style="display:none">
+    Tests :
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('==',0)">==
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('!=',0)">!=
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('<=',0)">&lt;=
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('>=',0)">&gt;=
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('<',0)">&lt
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('>',0)">&gt
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused(' and ',0)">et
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused(' or ',0)">ou
+    </button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.insert_focused('!',0)">!
+    </button>
+    <br>
+    tantque <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="tantquecond" title="Test de continuation de la boucle"
+                      rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_tantque_ok();">Ok</button>
+    <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_boucle').style.display='none';$id('assistant_pour').style.display='none'">Annul.</button>
+  </div>
+  </div>
+<div id="assistant_def" style="display:none">
+  <strong>Nouvelle fonction</strong><br>
+  nom de la fonction <textarea onclick="UI.focused=this;" style="font-size:large" id="funcname" title="Nom de la fonction, par exemple f" rows=1>f</textarea><br>
+  liste des arguments <textarea onclick="UI.focused=this;" style="font-size:large" id="argsname" title="Arguments de la fonction s&eacute;par&eacute;s par des virgules" rows=1>x</textarea><br>
+  <span id="localvarspan">variables locales <textarea onclick="UI.focused=this;" style="font-size:large" id="localvars" title="Variables locales, s&eacute;par&eacute;es par des virgule. Laisser vide pour une fonction d&eacute;finie par une expression. Pour utiliser des variables locales formelles, purgez-les apr&egrave;s les avoir d&eacute;clar&eacute;." rows=1></textarea><br></span>
+  valeur renvoy&eacute;e <textarea onclick="UI.focused=this;" style="font-size:large" id="returnedvar" title="Valeur de retour" rows=1></textarea><br>
+  <button class="bouton" onclick="UI.assistant_def_ok();">Ok</button>
+  <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_prog').style.display='none'">Annul.</button>
+  <button class="bouton"
+          onclick="$id('funcname').value='';$id('argsname').value='';$id('localvars').value='';$id('returnedvar').value='';">Effacer
+  </button>
+  <button class="bouton" onclick="$id('funcname').value='f';$id('argsname').value='x,y';$id('localvars').value='';$id('returnedvar').value='x*y';">Exemple 1</button>
+  <button class="bouton" onclick="$id('funcname').value='f';$id('argsname').value='x,y';$id('localvars').value='z';$id('returnedvar').value='x*z';">Exemple 2</button>
+</div>
+<div id="assistant_seq" style="display:none">
+  Cr&eacute;ation d'une s&eacute;quence ou tableau de valeurs, <br>
+  expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="seqexpr" title="Expression, par exemple j^2" rows=1></textarea><br>
+  variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                     id="seqvarname" title="Nom de variable, par exemple j" rows=1></textarea><br>
+  de <textarea onclick="UI.focused=this;" style="font-size:large"
+               id="seqvarmin" title="Valeur de d&eacute;part" rows=1></textarea><br>
+  jusque <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="seqvarmax" title="Valeur de fin" rows=1></textarea><br>
+  Pas optionnel <textarea onclick="UI.focused=this;" style="font-size:large"
+                          id="seqvarstep" title="on ajoute le pas &agrave; chaque it&eacute;ration, valeur par d&eacute;faut 1" rows=1></textarea>
+  <br>
+  <button class="bouton" onclick="UI.assistant_seq_ok();">Ok</button>
+  <button class="bouton" onclick="UI.focused=UI.savefocused;$id('assistant_seq').style.display='none'">Annul.</button>
+  <button class="bouton" onclick="$id('seqexpr').value='j^2';$id('seqvarname').value='j';$id('seqvarmin').value='1';$id('seqvarmax').value='10';$id('seqvarstep').value=''">Exemple 1</button>
+  <button class="bouton" onclick="$id('seqexpr').value='[j,j^2]';$id('seqvarname').value='j';$id('seqvarmin').value='-2';$id('seqvarmax').value='2';$id('seqvarstep').value='0.25'">Exemple 2</button>
+  <button class="bouton"
+          onclick="$id('seqexpr').value='';$id('seqvarname').value='';$id('seqvarmin').value='';$id('seqvarmax').value='';$id('seqvarstep').value=''">Effacer
+  </button>
+</div>
+<div id="assistant_tabvar" style="display:none">
+  Choisir entre &eacute;tude de
+  <button class="bouton" onclick="$id('assistant_tabvarfunc').style.display='block';UI.xtn='x';$id('assistant_tabvarparam').style.display='none';UI.set_focus('tabvarfuncexpr')">fonction</button>
+  ou de
+  <button class="bouton"
+          onclick="$id('assistant_tabvarfunc').style.display='none';$id('assistant_tabvarparam').style.display='block';UI.xtn='t';UI.set_focus('tabvarparamexprx');">courbe
+    param&eacute;tr&eacute;e
+  </button>
+  <button class="bouton"
+          onclick="UI.focused=UI.savefocused;$id('assistant_tabvar').style.display='none'">Annul.
+  </button>
+  <br>
+  <div id="assistant_tabvarfunc" style="display:none">
+    &Eacute;tude de fonction (dans la console) et trac&eacute; de <br>
+    <textarea rows=1 cols=3 onclick="UI.focused=this;" style="font-size:large"
+              id="tabvarfuncname" title="Nom de fonction">f</textarea>(
+    <textarea rows=1 cols=2 onclick="UI.focused=this;" style="font-size:large"
+              id="tabvarfuncvarname" title="Nom de variable, par exemple x">x</textarea>)
+    :=<textarea onclick="UI.focused=this;" style="font-size:large"
+                id="tabvarfuncexpr" title="Expression, par exemple x^2" rows=1></textarea><br>
+    xmin <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="tabvarfuncvarmin" title="Minimum" rows=1>-4</textarea><br>
+    xmax <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="tabvarfuncvarmax" title="Maximum" rows=1>4</textarea><br>
+    xstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="tabvarfuncvarstep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.0625</textarea>
+    <br>
+    Option : <textarea onclick="UI.focused=this;" style="font-size:large"
+                       id="tabvarfuncopt" title="diff: pas de convexit&eacute;, plot: renvoie le graphe, tabvar: renvoie le tableau de variations, equation ou coordonnees: des points particuliers," rows=1>diff</textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_tabvarfunc_ok();">Ok</button>
+    <button class="bouton"
+            onclick="UI.focused=UI.savefocused;$id('assistant_tabvar').style.display='none'">Annul.
+    </button>
+    <button class="bouton"
+            onclick="$id('tabvarfuncname').value='';$id('tabvarfuncexpr').value='';$id('tabvarfuncvarname').value='';$id('tabvarfuncvarmin').value='';$id('tabvarfuncvarmax').value='';$id('tabvarfuncvarstep').value='';">Effacer
+    </button>
+    <button class="bouton" onclick="$id('tabvarfuncname').value='f';$id('tabvarfuncexpr').value='x/(x^2-1)';$id('tabvarfuncvarname').value='x';$id('tabvarfuncvarmin').value='-inf';$id('tabvarfuncvarmax').value='inf';">Exemple</button>
+    <button class="bouton"
+            onclick="$id('assistant_tabvar').style.display='none';$id('assistant_seq').style.display='block';$id('seqexpr').value= '['+$id('tabvarfuncvarname').value+','+$id('tabvarfuncexpr').value+']';$id('seqvarname').value=$id('tabvarfuncvarname').value;var tmp=$id('tabvarfuncvarmin').value; if(tmp=='-inf') tmp=-5;$id('seqvarmin').value=tmp;tmp=$id('tabvarfuncvarmax').value; if(tmp=='inf') tmp=5;$id('seqvarmax').value=tmp;$id('seqvarstep').value=$id('tabvarfuncxstep').value;">Tableau valeurs
+    </button>
+    .
+  </div>
+  <div id="assistant_tabvarparam" style="display:none">
+                <textarea onclick="UI.focused=this;" style="font-size:large"
+                          id="tabvarparamnamex" title="Nom de la fonction en abscisse"
+                          rows=1 cols=3>x1</textarea>
+    (<textarea onkeyup="$id('tabvarparamvarnameshadow').innerHTML=value;" onclick="UI.focused=this;" style="font-size:large"
+               id="tabvarparamvarname" title="Nom de variable, par exemple t"
+               rows=1 cols=2>t</textarea>):= <textarea onclick="UI.focused=this;" style="font-size:large"
+                                                       id="tabvarparamexprx" title="Expression de x(t), par exemple 2*cos(t)" rows=1></textarea><br>
+    <textarea onclick="UI.focused=this;" style="font-size:large"
+              id="tabvarparamnamey" title="Nom de la fonction en ordonn&eacute;e"
+              rows=1 cols=3>y1</textarea>(<span id="tabvarparamvarnameshadow">t</span>):= <textarea onclick="UI.focused=this;" style="font-size:large"
+                                                                                                    id="tabvarparamexpry" title="Expression de y(t), par exemple 3*sin(t)" rows=1></textarea><br>
+    tmin <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="tabvarparamvarmin" title="Valeur de d&eacute;part" rows=1>-4</textarea><br>
+    tmax <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="tabvarparamvarmax" title="Valeur de fin" rows=1>4</textarea><br>
+    tstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="tabvarparamvarstep" title="Pas entre 2 &eacute;valuations successives" rows=1>0.0625</textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_tabvarparam_ok();">Ok</button>
+    <button class="bouton"
+            onclick="UI.focused=UI.savefocused;$id('assistant_tabvar').style.display='none'">Annul.
+    </button>
+    <button class="bouton"
+            onclick="$id('tabvarparamnamex').value='';$id('tabvarparamnamey').value='';$id('tabvarparamexprx').value='';$id('tabvarparamexpry').value='';$id('tabvarparamvarname').value='';$id('tabvarparamvarnameshadow').innerHTML='';$id('tabvarparamvarmin').value='';$id('tabvarparamvarmax').value='';$id('tabvarparamvarstep').value='';">Effacer
+    </button>
+    <button class="bouton" onclick="$id('tabvarparamnamex').value='x1';$id('tabvarparamnamey').value='y1';$id('tabvarparamexprx').value='cos(2t)';$id('tabvarparamexprx').value='cos(2t)';$id('tabvarparamexpry').value='sin(3t)';$id('tabvarparamvarname').value='t';$id('tabvarparamvarnameshadow').innerHTML='t';$id('tabvarparamvarmin').value='-pi';$id('tabvarparamvarmax').value='pi';">Exemple</button>
+  </div>
+</div>
+
+<div id="assistant_graph" style="display:none">
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_plotfunc').style.display='block';UI.xtn='x';" title="Graphe d'une expression, par exemple plotfunc(sin(x),x===-5..5,xstep===0.1)">plot</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_plotparam').style.display='block';UI.xtn='t';" title="Graphe d'une courbe en parametriques, par exemple plotparam([cos(t),sin(t)],t=0..2*pi,tstep===0.1)">param</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_plotpolar').style.display='block';UI.xtn='t'; UI.set_focus('plotpolarexpr') ;"
+  title="Graphe en polaires, par exemple plotpolar(sin(3*t),t)">polar
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_plotimplicit').style.display='block';UI.set_focus('plotimplicitexprf') ;" title="Graphe d'une courbe implicite, par exemple plotimplicit(x^2+x*y+y^2=3)">impl.</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('plotcontour(')"
+title="Courbes de niveau d'une fonction de 2 variables">niveau
+</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onClick="$id('assistant_plotfield').style.display='block';UI.set_focus('plotfieldexprf') ;"
+  title="Champ des tangentes, par exemple plotfield(sin(t*y),[t===-5..5,y===-3..3],xstep===0.5,ystep===0.5))">field
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('plotode(')"
+  title="Graphe d'une solution d'&eacute;quation diff&eacute;rentielle">ode
+  </button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('plotarea(')"
+title="Aire sous la courbe">aire
+</button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('plotseq(')"
+  title="Graphe en toile d'araign&eacute;e d'une suite r&eacute;currente">u_n
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('plotlist(')"
+  title="Trac&eacute; des points (i,y_i) d'une liste [y_i]">list
+  </button>
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.close_menus()" title="Fermer">X</button>
+
+<div id="assistant_plotfunc" style="display:none;color:white">
+    <button class="bouton" onmousedown="event.preventDefault()"
+    onclick="$id('assistant_plotfunc1var').style.display='block';$id('assistant_plotfunc2var').style.display='none';UI.set_focus('plotfuncexpr');">Courbe</button>
+    <button class="bouton" onmousedown="event.preventDefault()" onclick="$id('assistant_plotfunc1var').style.display='none';$id('assistant_plotfunc2var').style.display='block';UI.set_focus('plotfunc2expr');">Surface</button>
+    <div id="assistant_plotfunc1var" style="display:none">
+      Expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                           id="plotfuncexpr" title="Expression, par exemple x^2" rows=1></textarea><br>
+      variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="plotfuncvarname" title="Nom de variable, par exemple x" rows=1>x</textarea><br>
+      xmin <textarea onclick="UI.focused=this;" style="font-size:large"
+                     id="plotfuncvarmin" title="Valeur de d&eacute;part" rows=1>-4</textarea><br>
+      xmax <textarea onclick="UI.focused=this;" style="font-size:large"
+                     id="plotfuncvarmax" title="Valeur de fin" rows=1>4</textarea><br>
+      xstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotfuncvarstep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.0625</textarea>
+      <br>
+      <button class="bouton" onclick="UI.assistant_plotfunc1var_ok();">Ok</button>
+      <button class="bouton" onmousedown="event.preventDefault()"
+              onclick="UI.restore_focus();$id('assistant_plotfunc').style.display='none'">Annul.
+      </button>
+      <button class="bouton"
+              onclick="$id('plotfuncexpr').value='';$id('plotfuncvarname').value='';$id('plotfuncvarmin').value='';$id('plotfuncvarmax').value='';$id('plotfuncvarstep').value='';">Effacer
+      </button>
+      <button class="bouton" onclick="$id('plotfuncexpr').value='x^2';$id('plotfuncvarname').value='x';$id('plotfuncvarmin').value='-4';$id('plotfuncvarmax').value='4';">Exemple</button>
+    </div>
+    <div id="assistant_plotfunc2var" style="display:none">
+      Expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                           id="plotfunc2expr" title="Expression, par exemple x^2-y^2" rows=1></textarea><br>
+      1&egrave;re variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                                     id="plotfunc2varx" title="Premi&egrave;re variable, par exemple x===-3..3" rows=1>x===-3..3</textarea><br>
+      2&egrave;me variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                                     id="plotfunc2vary" title="Deuxi&egrave;me variable, par exemple y===-3..3" rows=1>y===-3..3</textarea><br>
+      xstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotfunc2varxstep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea><br>
+      ystep <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotfunc2varystep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea>
+      <br>
+      <button class="bouton" onclick="UI.assistant_plotfunc2var_ok();">Ok</button>
+      <button class="bouton" onmousedown="event.preventDefault()"
+              onclick="UI.restore_focus();$id('assistant_plotfunc').style.display='none'">Annul.
+      </button>
+      <button onclick="$id('plotfunc2expr').value='';$id('plotfunc2varx').value='x';$id('plotfunc2vary').value='y';$id('plotfunc2varxstep').value='';$id('plotfunc2varystep').value='';">Effacer
+      </button>
+      <button onclick="$id('plotfunc2expr').value='x^2-y^2';$id('plotfunc2varx').value='x===-3..3';$id('plotfunc2vary').value='y===-3..3';$id('plotfunc2varxstep').value='0.25';$id('plotfunc2varystep').value='0.25';">Exemple</button>
+    </div>
+  </div>
+  <div id="assistant_plotparam" style="display:none;color:white">
+    <button class="bouton" onmousedown="event.preventDefault()" 
+            onclick="$id('assistant_plotparam1var').style.display='block';$id('assistant_plotparam2var').style.display='none';UI.set_focus('plotparamexprx');">Courbe
+    </button>
+    ou
+    <button class="bouton" onmousedown="event.preventDefault()" 
+            onclick="$id('assistant_plotparam1var').style.display='none';$id('assistant_plotparam2var').style.display='block';UI.set_focus('plotparam2exprx');">Surface
+    </button>
+    param&eacute;trique.
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.restore_focus();$id('assistant_plotparam').style.display='none'">Annul.
+    </button>
+    <br>
+    <div id="assistant_plotparam1var" style="display:none">
+      x(t)= <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotparamexprx" title="Expression de x(t), par exemple 2*cos(t)" rows=1></textarea><br>
+      y(t)= <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotparamexpry" title="Expression de y(t), par exemple 3*sin(t)" rows=1></textarea><br>
+      variable<textarea onclick="UI.focused=this;" style="font-size:large"
+                        id="plotparamvarname" title="Nom de variable, par exemple t" rows=1>t</textarea><br>
+      tmin <textarea onclick="UI.focused=this;" style="font-size:large"
+                     id="plotparamvarmin" title="Valeur de d&eacute;part" rows=1>-4</textarea><br>
+      tmax <textarea onclick="UI.focused=this;" style="font-size:large"
+                     id="plotparamvarmax" title="Valeur de fin" rows=1>4</textarea><br>
+      tstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotparamvarstep" title="Pas entre 2 &eacute;valuations successives" rows=1>0.0625</textarea>
+      <br>
+      <button class="bouton" onclick="UI.assistant_plotparam_ok();;">Ok</button>
+      <button class="bouton" onmousedown="event.preventDefault()"
+              onclick="UI.restore_focus();$id('assistant_plotparam').style.display='none'">Annul.
+      </button>
+      <button class="bouton"
+              onclick="$id('plotparamexprx').value='';$id('plotparamexpry').value='';$id('plotparamvarname').value='';$id('plotparamvarmin').value='';$id('plotparamvarmax').value='';$id('plotparamvarstep').value='';">Effacer
+      </button>
+      <button class="bouton" onclick="$id('plotparamexprx').value='cos(2t)';$id('plotparamexprx').value='cos(2t)';$id('plotparamexpry').value='sin(3t)';$id('plotparamvarname').value='t';$id('plotparamvarmin').value='-pi';$id('plotparamvarmax').value='pi';">Exemple</button>
+    </div>
+    <div id="assistant_plotparam2var" style="display:none">
+      x(u,v)= <textarea onclick="UI.focused=this;" style="font-size:large"
+                        id="plotparam2exprx" title="Expression, par exemple v*cos(u)" rows=1></textarea><br>
+      y(u,v)= <textarea onclick="UI.focused=this;" style="font-size:large"
+                        id="plotparam2expry" title="Expression, par exemple v*sin(u)" rows=1></textarea><br>
+      z(u,v)= <textarea onclick="UI.focused=this;" style="font-size:large"
+                        id="plotparam2exprz" title="Expression, par exemple v" rows=1></textarea><br>
+      1&egrave;re variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                                     id="plotparam2varx" title="Premi&egrave;re variable, par exemple u===-3..3" rows=1>u===-3..3</textarea><br>
+      2&egrave;me variable <textarea onclick="UI.focused=this;" style="font-size:large"
+                                     id="plotparam2vary" title="Deuxi&egrave;me variable, par exemple v===-3..3" rows=1>v===-3..3</textarea><br>
+      ustep <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotparam2varxstep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea><br>
+      vstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotparam2varystep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea>
+      <br>
+      <button class="bouton" onclick="UI.assistant_plotparam2var_ok();">Ok</button>
+      <button class="bouton" onmousedown="event.preventDefault()"
+              onclick="UI.restore_focus();$id('assistant_plotparam').style.display='none'">Annul.
+      </button>
+      <button class="bouton"
+              onclick="$id('plotparam2exprx').value='';$id('plotparam2expry').value='';$id('plotparam2exprz').value='';$id('plotparam2varx').value='u';$id('plotparam2vary').value='v';$id('plotparam2varxstep').value='';$id('plotparam2varystep').value='';">Effacer
+      </button>
+      <button class="bouton" onclick="$id('plotparam2exprx').value='v*cos(u)';$id('plotparam2expry').value='v*sin(u)';$id('plotparam2exprz').value='v';$id('plotparam2varx').value='u===-pi..pi';$id('plotparam2vary').value='v===-3..3';$id('plotparam2varxstep').value='pi/32';$id('plotparam2varystep').value='0.25';">Exemple</button>
+    </div>
+  </div>
+  <div id="assistant_plotimplicit" style="display:none;color:white">
+    f(x,y)= <textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotimplicitexprf" title="Expression, par exemple x^3+x-y^2-1" rows=1></textarea><br>
+    Variable x<textarea onclick="UI.focused=this;" style="font-size:large"
+                        id="plotimplicitvarx" title="Premi&egrave;re variable, par exemple x===-3..3" rows=1>x===-3..3</textarea><br>
+    Variable y<textarea onclick="UI.focused=this;" style="font-size:large"
+                        id="plotimplicitvary" title="Deuxi&egrave;me variable, par exemple y===-3..3" rows=1>y===-3..3</textarea><br>
+    xstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="plotimplicitvarxstep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea><br>
+    ystep <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="plotimplicitvarystep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea><br>
+    niveaux=<textarea onclick="UI.focused=this;" style="font-size:large"
+                      id="plotimplicitlevel" title="Niveaux &agrave; tracer: laisser vide pour 0 ou mettre une liste" rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_plotimplicit_ok();">Ok</button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.restore_focus();$id('assistant_plotimplicit').style.display='none'">Annul.
+    </button>
+    <button class="bouton"
+            onclick="$id('plotimplicitexprf').value='';$id('plotimplicitvarx').value='x';$id('plotimplicitvary').value='y';$id('plotimplicitvarxstep').value='';$id('plotimplicitvarystep').value='';$id('plotimplicitlevel').value=''">Effacer
+    </button>
+    <button class="bouton" onclick="$id('plotimplicitexprf').value='x^3-x-y^2-1';$id('plotimplicitvarx').value='x===-3..3';$id('plotimplicitvary').value='y===-3..3';$id('plotimplicitvarxstep').value='0.02';$id('plotimplicitvarystep').value='0.02';$id('plotimplicitlevel').value=''">Exemple 1</button>
+    <button class="bouton" onclick="$id('plotimplicitexprf').value='x^2-y^2';$id('plotimplicitvarx').value='x===-3..3';$id('plotimplicitvary').value='y===-3..3';$id('plotimplicitvarxstep').value='0.02';$id('plotimplicitvarystep').value='0.02';$id('plotimplicitlevel').value='[-3,-2,-1,0,1,2,3]'">Exemple 2</button>
+  </div>
+  <div id="assistant_plotfield" style="display:none;color:white">
+    Champ des tangentes pour une &eacute;quation dy/dt=f(t,y) ou un
+    syst&egrave;me autonome 2-d d[x,y]/dt=f(x,y)<br>
+    f=<textarea onclick="UI.focused=this;" style="font-size:large"
+                id="plotfieldexprf" title="Expression, par exemple x^3+x-y^2-1" rows=1></textarea><br>
+    Variable t (ou x)<textarea onclick="UI.focused=this;" style="font-size:large"
+                               id="plotfieldvarx" title="Premi&egrave;re variable, par exemple t===-3..3" rows=1>t===-3..3</textarea><br>
+    Variable y<textarea onclick="UI.focused=this;" style="font-size:large"
+                        id="plotfieldvary" title="Deuxi&egrave;me variable, par exemple y===-3..3" rows=1>y===-3..3</textarea><br>
+    xstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="plotfieldvarxstep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea><br>
+    ystep <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="plotfieldvarystep" title="Pas entre 2 &eacute;valuations successives de l'expression" rows=1>0.25</textarea><br>
+    init=<textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="plotfieldinit" title="Liste de conditions initiales optionnelles" rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_plotfield_ok();">Ok</button>
+    <button class="bouton" onmousedown="event.preventDefault()"
+            onclick="UI.restore_focus();$id('assistant_plotfield').style.display='none'">Annul.
+    </button>
+    <button class="bouton"
+            onclick="$id('plotfieldexprf').value='';$id('plotfieldvarx').value='x';$id('plotfieldvary').value='y';$id('plotfieldvarxstep').value='';$id('plotfieldvarystep').value='';$id('plotfieldinit').value=''">Effacer
+    </button>
+    <button class="bouton" onclick="$id('plotfieldexprf').value='sin(t*y)';$id('plotfieldvarx').value='t===-3..3';$id('plotfieldvary').value='y===-3..3';$id('plotfieldvarxstep').value='0.5';$id('plotfieldvarystep').value='0.5';$id('plotfieldinit').value='[[0,1],[0,2]]'">Exemple 1d</button>
+    <button class="bouton" onclick="$id('plotfieldexprf').value='[[0.2,-1],[1,0.2]]*[x,y]';$id('plotfieldvarx').value='x===-3..3';$id('plotfieldvary').value='y===-3..3';$id('plotfieldvarxstep').value='0.5';$id('plotfieldvarystep').value='0.5';$id('plotfieldinit').value='seq([0,j],j,-3,3)'">Exemple a 2d</button>
+    <button class="bouton" onclick="$id('plotfieldexprf').value='[[0.2,0.5],[0.5,0.2]]*[x,y]';$id('plotfieldvarx').value='x===-3..3';$id('plotfieldvary').value='y===-3..3';$id('plotfieldvarxstep').value='0.5';$id('plotfieldvarystep').value='0.5';$id('plotfieldinit').value='seq([0,j],j,-3,3)'">Exemple b 2d</button>
+  </div>
+  <div id="assistant_plotpolar" style="display:none;color:white">
+    Courbe en polaire <br>
+    expression <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="plotpolarexpr" title="Expression, par exemple sin(3*t)" rows=1></textarea><br>
+    variable θ <textarea onclick="UI.focused=this;" style="font-size:large"
+                         id="plotpolarvarname" title="Nom de variable, par exemple t" rows=1>t</textarea><br>
+    θmin <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="plotpolarvarmin" title="Valeur de d&eacute;part" rows=1></textarea><br>
+    θmax <textarea onclick="UI.focused=this;" style="font-size:large"
+                   id="plotpolarvarmax" title="Valeur de fin" rows=1></textarea><br>
+    θstep <textarea onclick="UI.focused=this;" style="font-size:large"
+                    id="plotpolarvarstep" title="Pas entre deux &eacute;valuations" rows=1></textarea>
+    <br>
+    <button class="bouton" onclick="UI.assistant_plotpolar_ok();">Ok</button>
+    <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.restore_focus();$id('assistant_plotpolar').style.display='none'">Annul.</button>
+    <button class="bouton"
+            onclick="$id('plotpolarexpr').value='';$id('plotpolarvarname').value='';$id('plotpolarvarmin').value='';$id('plotpolarvarmax').value='';$id('plotpolarvarstep').value='';">Effacer
+    </button>
+    <button class="bouton" onclick="$id('plotpolarexpr').value='sin(3*t)';$id('plotpolarvarname').value='t';$id('plotpolarvarmin').value='0';$id('plotpolarvarmax').value='pi';$id('plotpolarvarstep').value='';">Exemple</button>
+  </div>
+</div> <!-- closing assistant_graph -->
+
+
+<div id="assistant_statgraph" style="display:none">
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('moustache(')"
+  title="Boite &agrave; moustaches">moustache
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('histogram(')"
+  title="Histogramme">histo.
+  </button>
+  <button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('scatterplot(')"
+title="Nuage de points">nuage
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('polygonplot(')"
+title="Ligne polygonale donn&eacute;e par une liste de points">polyg.
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('linear_regression_plot(')"
+title="Droite de r&eacute;gression lin&eacute;aire">regr.
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.insert_focused('bar_plot(')"
+title="Diagramme batons">baton
+</button>
+<button class="bouton" onmousedown="event.preventDefault()" onclick="UI.close_menus()" title="Fermer">X</button>
+</div>
+
+</div>
+
+<div id="assistant_keys" style="display:none">
+  &nbsp;
+  &nbsp;
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="if (UI.focused!=0) UI.tableaueval(UI.focused);"
+  title="Indente ou compl&egrave;te">OK
+  </button>
+<button class="bouton" id="keyup" onmousedown="event.preventDefault()"
+  onClick="if (UI.focused!=0)  UI.moveCaretUpDown(UI.focused,-1);"
+  title=" ">↑</button>  
+<button class="bouton" onmousedown="event.preventDefault()"
+  onClick="if (UI.focused!=0) UI.moveCaretUpDown(UI.focused,1);"
+  title=" ">↓</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="if (UI.focused!=0) UI.indent_or_complete(UI.focused);"
+  title="Indente ou compl&egrave;te">→|</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="if (UI.focused!=0){ UI.completion(UI.focused,false); $id('online_help').style.display='block';}"
+  title="Aide">?</button>
+  <button class="bouton" onmousedown="event.preventDefault()"
+  onClick="if (UI.focused!=0) UI.backspace(UI.focused);"
+  title=" ">&#x232b;
+  </button>
+</div>  
+
+<div id="content">
+  <canvas id="canvasBackground" width=16384 height=1200 ></canvas>
+  <canvas id="canvas3d" width=0 height=0></canvas>
+<div id="container">
+<div id="magnets"></div>
+<svg id="svg" width=2500 height=800></svg>
+<div id="cursors"></div>
+<div id="palette" class="PaletteHide"></div>
+<div id="board">
+  <canvas width=2000 height=800 id="canvas"></canvas>
+</div>
+</div>
+</div>
+
+<div class="pageNumberHidden" id="pageNumber">1</div>
+<div id="welcome" style="display:none" class="MenuPanel">
+<div class="divMenuHide"><button onclick="welcome.hidden = true">X</button>Esc.</div>
+
+
+<h1>Bienvenue sur Tableaunoirxcas</h1>
+
+<div class="explanation">
+  L'utilisation de ce <em>tableau en ligne</em> est optimale avec une
+  <em>tablette graphique</em> et Firefox &agrave; jour.
+  Vos auditeurs se concentrent sur le
+  contenu si vous cachez la barre d'outils et utilisez les raccourcis
+  claviers. En fin de cours, vous pouvez partager votre tableau
+  sous la forme d'un lien HTML par email ou sur un forum.
+</div>
+
+<div class="explanation">
+  Si votre derni&egrave;re session de Tableaunoirxcas a plant&eacute;
+  pendant un calcul, vous pouvez la restaurer en cliquant
+  <button
+  onclick="UI.tableaucrashrestore('tableaunoirxcas');Menu.hide();">ici</button>
+</div>
+
+<div class="explanation">
+  Vous pouvez cr&eacute;er des <em>magnets</em>
+  (formes aimant&eacute;ees) et les d&eacute;placer,
+  comme sur un r&eacute;frig&eacute;rateur.
+  <br>
+  <img src="magnets/welcome_magnets.png">
+  <br>
+  Les magnets de type texte peuvent etre &eacute;valu&eacute;s
+  avec Giac/Xcas, MicroPython ou Javascript pour faire des calculs,
+  des graphiques ou des programmes.
+</div>
+
+  
+<div class="explanation">
+  <a target="_blank"
+  href="https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac/xcashtml.zip">
+  Tableaunoirxcas</a>
+  est un projet <em>open source</em> (licence GPL3)
+  maintenu par Bernard Parisse
+  qui permet d'&eacute;valuer des magnets
+  de <a target="_blank" rel="noopener noreferrer"
+  href="https://github.com/tableaunoir/tableaunoir">Tableaunoir</a>
+  d&eacute;velopp&eacute; par Francois Schwarzentruber
+  avec le syst&egrave;me de calcul formel
+  Giac/Xcas, ou avec <a target="_blank" href="https://micropython.org/">MicroPython</a> (Damien P. George et al) ou Javascript (moteur
+  <a target="_blank" href="https://bellard.org/quickjs/">QuickJS</a> de
+  Fabrice Bellard et Charlie Gordon).
+
+</div>
+
+</div>
+
+<div id="menu" class="menuHide MenuPanel">
+<div class="tabs">
+  <button class="tablink" id="defaultOpen" onclick="Menu.openPage('MyBlackboard', this)">⎕ Tableau</button>
+  <!-- <button class="tablink" onclick="Menu.openPage('Share',
+  this)">🔗 Partager</button> -->
+  <button class="tablink" onclick="Menu.openPage('Magnets', this)">🎊 Magnets</button>
+  
+  <button class="tablink" onclick="Menu.openPage('Options', this)">⚛ Options</button>
+
+  <button class="tablink" onclick="Menu.openPage('KeyboardShortcuts',
+  this)" id="defaultOpen">⌨ Raccourcis</button>
+  <button class="tablink" onclick="Menu.openPage('Help', this)" id="defaultOpen">? Aide</button>
+
+  <button class="tablink" onclick="Menu.openPage('About', this)"
+  id="defaultOpen">A propos</button>
+  <button class="tablink" onclick="Menu.hide();">OK</button>
+
+</div>
+<div>
+<div id="menucontent"></div>
+<div id="About" class="tabcontent">
+  <h2>A propos de Tableaunoirxcas</h2>
+<div class="explanation">
+  Tableaunoirxcas est un <em>tableau en ligne</em>
+  pour Firefox, Chrome ou Chromium (versions r&eacute;centes).
+  L'utilisation est optimale avec une
+  <em>tablette graphique</em>. Vos auditeurs se concentrent sur le
+  contenu si vous cachez la barre d'outils et utilisez les raccourcis
+  claviers.
+
+</div>
+
+<div class="explanation">
+  <img src="magnets/welcome_magnets.png" />
+  Vous pouvez cr&eacute;er des <em>magnets</em>
+  (formes aimant&eacute;ees) et les d&eacute;placer,
+  comme sur un r&eacute;frig&eacute;rateur.
+  Les magnets de type texte peuvent etre &eacute;valu&eacute;s
+  avec Giac/Xcas, MicroPython ou Javascript pour faire des calculs,
+  des graphiques ou des programmes.
+</div>
+
+<div class="explanation">
+  Tableaunoirxcas peut s'utiliser sans connexion Internet, il suffit d'extraire
+  <a target="_blank"
+  href="https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac/xcashtml.zip">
+  cette archive</a>  et ouvrir le fichier <tt>tableaufr.html</tt>.
+  <br>
+   Avec Firefox en local,
+		    il faut d&eacute;sactiver
+		    <tt>security.fileuri.strict_origin_policy</tt>
+		    dans <tt>about:config</tt>.
+  
+</div>
+  <!--
+<div class="explanation">
+  <img src="img/shareInEverybodyWritesMode.png" />
+  Blackboards are sharable in order to <em>collaborate</em> with your friends (feature still in
+  development). Open the menu!
+</div>
+  -->
+
+<div class="explanation">
+  <a target="_blank"
+  href="https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac/xcashtml.zip">
+  Tableaunoirxcas</a>
+  est un projet <em>open source</em> (licence GPL3)
+  maintenu par Bernard Parisse
+  qui marrie les fonctionnalit&eacute;s de
+  <a target="_blank"
+  href="https://www-fourier.univ-grenoble-alpes.fr/~parisse/xcasfr.html">
+  Xcas pour Firefox</a> avec les
+  fonctionnalit&eacute;s d'une version  pr&eacute;liminaire de
+    <a target="_blank" rel="noopener noreferrer"
+  href="https://github.com/tableaunoir/tableaunoir">Tableaunoir</a>
+  d&eacute;velopp&eacute; par Francois Schwarzentruber
+  (fork effectu&eacute; le 1er Novembre 2020). On peut faire des
+  calculs et graphiques avec Xcas, ou avec <a target="_blank"
+  href="https://micropython.org/">MicroPython</a> (Damien P. George et
+  al) ou avec Javascript (moteur
+  <a target="_blank" href="https://bellard.org/quickjs/">QuickJS</a> de
+  Fabrice Bellard et Charlie Gordon).
+</div>
+
+
+</div>
+
+<!-- <h2>Videos</h2>
+<a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=P6_lhqiPBow">Video of
+that presents tableaunoir (in french)</a>
+-->
+</div>
+
+<div id="MyBlackboard" class="tabcontent">
+  <span id="share_submenu" style="display:none;"> <h2>Partage</h2>
+  <span class="spanlink" id='themailtomenu'></span>
+  <span class="spanlink" id='thelinkmenu'></span>
+  <textarea id="forum_url" cols="60" rows="1" onkeypress="if (event.keyCode!=13){ return true; } event.preventDefault(); if (value=='') UI.eraseCookie('xcas_forum_url') ; else {UI.forum_url=value; UI.createCookie('xcas_forum_url',value);} this.blur();" >https://xcas.univ-grenoble-alpes.fr/forum/viewforum.php?f=25</textarea>
+  Avertissement <button id="warnlink_yes" onclick="UI.set_warnlink(true);">Oui</button>
+  <button id="warnlink_no" onclick="UI.set_warnlink(false);">Non</button> 
+  </span>
+  
+  <h2>Lecture seule</h2>
+<button id="readonly_yes" onclick="UI.set_readonly(true); Menu.hide();">Oui</button>
+  <button onclick="UI.set_readonly(true); BoardManager.cancel(0); Menu.hide();">Pr&eacute;sentation</button>
+  <button id="readonly_no" onclick="UI.set_readonly(false) ; BoardManager.redo(0); Menu.hide();">Non</button>
+
+
+  <h2>Export</h2>
+  <button id="png_export" onclick="UI.png_export($id('export_filename').value+'.png')">PNG</button>
+  <button id="pdf_export" onclick="UI.pdf_export($id('export_filename').value+'.pdf',0)">PDF</button>
+  <button id="pdf_export_inverted" onclick="UI.pdf_export($id('export_filename').value+'.pdf',1)">PDF invers&eacute;</button>
+  <textarea id="export_filename">tableau</textarea>
+  
+<h2>Sauvegardes</h2>
+<div class="menuDiv">
+  Nom: <input id="name" value="myblackboard"></input><button id="save"
+  onclick="LoadSave.save();Menu.hide();">Sauvegarder</button>
+  <br>
+  <input id="loadfileinput" accept=".tableaunoir" type="file"
+  title="Cliquer ici pour charger un tableau sauvegard&eacute;e"
+  onchange="LoadSave.loadFile((this.files)[0]);Menu.hide();">
+  <button onclick="LoadSave.loadFile(($id('loadfileinput').files)[0]);Menu.hide();">Charger</button>
+  ou faire un drag and drop d'un fichier <em>.tableaunoir</em> vers
+  l'application.
+  <br>
+  Restaurer la derni&egrave;re <button onclick="UI.tableaucrashrestore('tableaunoirxcas');Menu.hide();"> sauvegarde automatique</button>
+</div>
+
+  <h2>Effacer/Supprimer</h2>
+<div class="menuDiv">
+  <button class="buttonClear" id="blackboardClear">
+  le tableau</button>
+  <button onclick="UI.magnets_to_trash()" id="clear_magnet">
+  les magnets</button>
+</div>
+<h2>Ajouter un fonds</h2>
+<button id="buttonNoBackground">
+Pas de fonds</button>
+<button class="buttonMusicScore" id="buttonMusicScore">
+Port&eacute;e musicale</button>
+</div>
+
+<div id="Options" class="tabcontent">
+  <b>Xcas</b>
+  Angles:
+  <button id="angle_radian_yes" onclick="UI.radian(1);">Rad</button>
+  <button id="angle_radian_no" onclick="UI.radian(0);">Deg</button>  
+  <br>
+  Ex&eacute;cuter au chargement <button id="allow_exec_yes" onclick="UI.allow(true);">Oui</button>
+  <button id="allow_exec_no"
+  onclick="UI.allow(false);">Non</button>
+  <br>
+  <button id="controlsToggle" onclick="controls.hidden=!controls.hidden; Menu.hide()">
+  Montrer ou cacher la barre d'outils</button>
+  <button id="blackBoardSwitch" hidden>Tableau noir</button>
+  <button id="whiteBoardSwitch">Tableau blanc</button>
+  
+</div>
+
+<div id="KeyboardShortcuts" class="tabcontent">
+  <h2>Raccourcis clavier du tableau</h2>
+  
+<div class="menuDiv">
+  <table>
+    <tr>
+      <td><span class="keyboardkey">Echap</span> ou <span class="keyboardkey">F1</span></td>
+      <td>montre ou cache ce <em>menu</em></td>
+    </tr>
+      <td><span class="keyboardkey">h</span></td>
+      <td>cacher la <em>barre d'outils</em></td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">e</span></td>
+      <td>bascule entre craie et <em>chiffon</em></td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">c, C</span></td>
+      <td>change la <em>couleur</em> de la craie ou du magnet courant</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">d</span></td>
+      <td><em>divise</em> le tableau en 2</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">3</span></td>
+      <td><em>divise</em> le tableau en 3</td> 
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl+Z</span></td>
+      <td><em>annule</em> la derni&egrave;re action </td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl+Y</span> ou <span class="keyboardkey">Ctrl+Shift+Z</span>
+      </td>
+      <td><em>refaire</em> la derni&egrave;re action</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">←</span> <span class="keyboardkey">→</span>
+      </td>
+      <td><em>deplace</em> dans le tableau</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl+S</span></td>
+      <td><em>sauvegarde</em> le tableau </td>
+    </tr>
+  </table>
+  
+  <h2>Raccourcis clavier pour les magnets texte</h2>
+  
+  <table>
+    <tr>
+      <td><span class="keyboardkey">x</span> ou <span
+  class="keyboardkey">p</span> ou <span class="keyboardkey">j</span></td>
+      <td>Cr&eacute;ation d'un magnet qui sera &eacute;valu&eacute; par Xcas, MicroPython ou Javascript</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">l</span> ou <span class="keyboardkey">$</span></td>
+      <td>cr&eacute;e un nouveau magnet texte. On peut y mettre des $math&eacute;matiques$
+    en &eacute;crivant entre les $ de la syntaxe alg&eacute;brique Xcas qui sera traduite
+    en LaTeX/MathML (sans etre &eacute;valu&eacute;e)</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl + Entree</span></td>
+      <td><em>&eacute;value</em> un magnet ligne de commande
+	avec le dernier interpr&eacute;teur actif (Giac/Xcas ou MicroPython ou
+	Javascript),
+      ou traduit en LaTeX/MathML</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Echap</span></td>
+      <td><em>fin</em> de l'&eacute;dition d'un magnet</td> (sans &eacute;valuation)
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl + +</span></td>
+      <td><em>augmente</em> la taille du texte</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl + -</span></td>
+      <td><em>diminue</em> la taille du texte</td>
+    </tr>
+  </table>
+  
+  <h2>Raccourcis clavier magnet</h2>
+  <table>
+    <tr>
+      <td><span class="keyboardkey">Del</span></td>
+      <td><em>efface</em> le magnet courant</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl+x</span></td>
+      <td><em>coupe</em> le contenu d'un lacet dans un magnet</td> ou
+  efface le magnet courant.
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl+c</span></td>
+      <td><em>copie</em> le contenu d'un lacet dans un magnet</td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">m</span></td>
+      <td><em>coupe</em> le contenu d'un lacet dans un magnet /
+	<em>aplatit</em> le magnet courant vers le tableau
+      </td>
+    </tr>
+    <tr>
+      <td><span class="keyboardkey">Ctrl+v</span> </td>
+      <td><em>imprime</em> le magnet courant </td>
+    </tr>
+  </table>
+  
+  
+</div>
+</div>
+
+<div id="Share" class="tabcontent">
+<div class="warning" id="ShareGithub">
+  Warning: Share boards does not work since tableaunoir.github.io is
+  a showcase. You have to install tableaunoir on your own server, or you may try <a
+  href="http://tableaunoir.irisa.fr">http://tableaunoir.irisa.fr</a>
+  if it works!
+</div>
+<div class="warning">Warning: this functionnality is still under development and may not work perfectly.
+  In particular, magnets are not shared yet.
+</div>
+<div class="warning">Warning: The server will not save your board.
+</div>
+  
+<div id="shareAndJoin">
+  <h2>Make a shared board</h2>
+  
+  If you want some of your friends to see and modify your board, make a <em>shared</em> board.
+  <button id="shareButton">Make a shared board</button>
+    
+  </br />
+<div id="join">
+  <h2>Join an existing board</h2>
+  In order to <em>join</em> an existing shared board, type its URL:<br />
+  <input id="joinUrl" value=""></input>
+  <button id="joinButton">Join</button>
+</div>
+</div>
+
+<div hidden id="shareInfo">
+  <h2>Share with others</h2>
+  In order to <em>share</em> the board with your friends, give them the following URL:<br />
+  <input id="shareUrl" value=""></input>
+  
+<div hidden id="shareMode">
+  <h2>Share mode</h2>
+  <button id="shareInTeacherMode"><img src="img/shareInTeacherMode.png" /><br />You write and the
+  other users only see</button>
+  <button id="shareInEverybodyWritesMode"><img
+  src="img/shareInEverybodyWritesMode.png" /><br />All users can write</button>
+</div>
+
+<h2>Connected Users</h2>
+<div id="users"></div>
+
+</div>
+</div>
+<div id="Magnets" class="tabcontent">
+  <button id="order_magnets" onclick="UI.reorder_magnets();Menu.hide();">Ordonner</button>,
+  <button id="eval_all"
+  onclick="UI.exec_magnets(); Menu.hide();Welcome.hide();">ex&eacute;cuter</button>,
+  <button onclick="UI.magnets_to_trash()" >→ Corbeille
+  </button>:
+  <button id="restore_trash"
+  onclick="UI.restore_trash();Menu.hide();">restaurer</button> ou
+  <button id="empty_trash" onclick="UI.empty_trash();Menu.hide();">vider</button>.
+  <br>
+  Type
+  <button id="eval_xcas" onclick="UI.ckswitch('xcas',0);Welcome.hide();">Xcas
+  </button> (x)
+  <button id="eval_js"
+  onclick="UI.ckswitch('javascript',0);Welcome.hide();">Javascript </button> (j)
+  <button id="eval_mp"
+  onclick="UI.ckswitch('python',0);Welcome.hide();">Python</button> (p) ou
+  <button id="eval_comment" onclick="UI.ckswitch('comment',0);Welcome.hide();"
+  style="font-weight:900">Texte ($Math$)</button> (l).
+  Le type s'applique aux nouveaux magnets cr&eacute;&eacute;s avec le
+  bouton Magnet ou + sur  mobile.
+  <br>
+  Taper Echap pour annuler l'&eacute;dition
+  du magnet ou Ctrl-Enter pour <em>&eacute;valuer</em> le magnet.
+  Exemples:
+  <ul>
+    <li>taper <tt>x 1/3+2/7 Ctrl-Entree</tt> affiche le
+    r&eacute;sultat du calcul
+    <li>taper <tt>l x/2 Ctrl-Entree</tt> pour avoir la fraction x/2.
+    <li> taper <tt>x factor(x^4-1) Ctrl-Entree</tt>
+    renvoie x^4-1 factoris&eacute;
+    <li> taper <tt>x plot(sin(x)) Ctrl-Entree</tt> renvoie
+    le graphe de sin(x)
+    <li> <tt>x circle(0,1) Ctrl-Entree</tt> renvoie un cercle
+  </ul>
+  Pour les magnets Javascript, l'interpr&eacute;teur est <a
+  target="_blank" href="https://bellard.org/quickjs/">QuickJS</a>
+  en mode math, sauf si votre ligne de commande commence par
+  <tt>@</tt> (QuickJS sans le mode math) ou par <tt>@@</tt>
+  (interpr&eacute;teur du navigateur).
+  
+  <h2>Manipulations rapide des magnets</h2>
+  
+<div class="menuDiv">
+  <button id="magnetsArrange">Arranger les magnets sur le tableau</button>
+  <button id="magnetsCreateGraph">
+  Cr&eacute;er un graphe avec des magnets</button>
+</div>
+
+<br />
+
+
+
+
+<h2>Utilisation d'images existantes</h2>
+<div class="menuDiv">
+  Pour utiliser <em>des images existantes comme magnets</em>,
+  utilisez un magnet texte (taper l puis cliquez sur img et donnez l'URL de
+  la source) ou faites
+  du drag and drop de fichiers .png/.svg/.gif/.jpg (magnet non
+  partageable par lien mail ou forum)
+</div>
+
+<br />
+
+<h2>Collections de magnets pr&eacute;d&eacute;finis</h2>
+
+<div class="menuDiv">
+  <h3>Algorithms</h3>
+  <button class="magnetCollectionButton" id="magnetGS">Gale-Shapley algorithm</button>
+  <button class="magnetCollectionButton" id="magnetSorting">Sorting</button>
+  <button class="magnetCollectionButton" id="magnetBTrees">B trees</button>
+  <button class="magnetCollectionButton" id="magnetGraphNodes">Graph nodes</button>
+  <button class="magnetCollectionButton" id="magnetGraphSimCity">Simcity graph nodes</button>
+  <button class="magnetCollectionButton" id="magnetFloydsAlgorithm">Floyd's algorithm</button>
+  <!-- <button class="magnetCollectionButton"  id="magnetUnionFind">Union-find</button> -->
+  <h3>Complexity theory</h3>
+  <button class="magnetCollectionButton" id="magnetTilings">Tilings</button>
+</div>
+
+</div>
+<div id="Help" class="tabcontent">
+  <h2>Comment partager vos tableaux</h2>
+  <ul>
+    <li>
+  Depuis Menu/Tableau, ou depuis la barre d'outils sur PC,
+    vous pouvez <ul>
+      <li>envoyer un tableau par e-mail en cliquant sur l'icone
+      d'enveloppe
+      <li> poster un tableau sur le forum de Xcas
+  ou sur un forum compatible (phpbb, lesmathematiques.net, ...)
+  en cliquant sur le bouton F puis en collant le contenu du
+  presse-papier dans un sujet. Vous pouvez ainsi
+  mettre &agrave; disposition vos tableaux pour un enseignement comme
+      <a href="https://xcas.univ-grenoble-alpes.fr/forum/viewforum.php?f=37">ici</a>.
+    </ul>
+      Vous pouvez configurer l'adresse du forum depuis Menu/Tableau.
+  <li>
+  <strong>Attention:</strong> si vos tableaux contiennent beaucoup
+  d'&eacute;criture manuscrite (ou des images ins&eacute;r&eacute;es
+  par   glisser-d&eacute;poser), le lien g&eacute;n&eacute;r&eacute;
+  occupera beaucoup de place (50K ou plus). L'insertion d'un tel lien dans un email
+  peut faire croire aux syst&egrave;mes anti-spam qu'il s'agit d'un
+  spam, il vaut alors mieux poster le lien sur un forum. C'est pour cela
+  qu'un avertissement est affich&eacute; lorsque les liens de partage sont
+  cr&eacute;&eacute;s, vous pouvez d&eacute;sactiver cet avertissement.
+  <li>
+  <strong>Astuce:</strong> le lien <tt>x2</tt> permet de dupliquer un tableau sans
+  &eacute;valuer les magnets. Ainsi, si vous lancez un calcul qui
+  plante, vous pouvez facilement la corriger. Vous pouvez aussi
+  dupliquer les magnets d'un tableau dans Xcas pour Firefox avec
+    le lien Xcas.
+    <li> <strong>Remarque</strong>: les liens utilisent comme adresse
+    de base le contenu de la variable <tt>UI.base_url</tt> au
+    d&eacute;but du fichier
+    <tt>giactableau.js</tt>, vous pouvez le modifier pour utiliser un
+    autre serveur.
+  </ul>
+
+  <h2>Mode lecture seule et pr&eacute;sentation</h2>
+  Lorsque vous ouvrez un tableau existant, le mode lecture seule est
+  actif pour &eacute;viter une modification accidentelle. Si vous
+  voulez compl&eacute;ter un tableau existant, vous pouvez passer
+  en mode normal en tapant w (pour write) ou depuis Menu, sous-menu
+  Tableau. Vous pouvez aussi
+  depuis Menu/Tableau cliquer sur Pr&eacute;sentation, ce qui efface
+  toutes les &eacute;critures manuscrites, vous pouvez alors les faire
+  apparaitre progressivement en tapant sur y ou Ctrl-Y (une par une)
+  ou la touche d'espace (5 par 5). La touche z ou Ctrl-Z
+  permet de revenir en arri&egrave;re.
+  
+  <h2>Comment obtenir de l'aide sur une commande Xcas?</h2>
+  Lorsque vous &eacute;ditez un magnet Xcas, placez le curseur apr&egrave;s
+  un d&eacute;but de nom de commande et cliquez sur le bouton ?
+  Une petite liste de commandes est disponible par le Menu. Pour plus
+  de commandes, consultez
+  <a href="https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac/doc/index.html" target="_blank">
+  les manuels</a>
+  <br>
+  Astuce: si vous avez tap&eacute; le d&eacute;but d'un nom de
+  commande, la touche de tabulation ou le bouton →|
+  affichent les compl&eacute;tions.
+  
+  <h2>Comment cr&eacute;er un magnet &eacute;criture manuscrite?</h2>
+  <img src="magnets/createmagnet.gif" />
+  <ul>
+    <li>Tracez un contour autour de la partie &agrave; magn&eacute;tiser</li>
+    <li>Ensuite tapez <span class="keyboardkey">Ctrl+X</span> ou
+  appuyez sur le pointeur (souris ou stylet) dans le contour,
+  d&eacute;placez le pointeur d'un pixel, laissez appuy&eacute; quelques secondes.
+    </li>
+  </ul>
+
+  <h2>Comment cr&eacute;er des graphiques</h2>
+  Vous pouvez cr&eacute;er des graphiques dans un rep&egrave;re du
+  plan, ou en pixels ou avec un dessin de la tortue logo. Avec Xcas (raccourci
+  clavier x), il suffit d'utiliser une des commandes correspondantes,
+  par exemple
+  <ul>
+    <li> <tt>plot(sin(x))</tt>
+    <li> <tt>fill_rect(10,20,30,40,red); show_pixels()</tt><br>
+    Pour voir les pixels taper <tt>;</tt> dans un niveau vide.
+    <li> <tt>pour j in range(4) faire avance; tourne_gauche; fpour</tt>
+  </ul>
+  Avec MicroPython (raccourci clavier p comme Python),
+  il faut charger les modules correspondants.
+  Attention, sur le tableau noir, les trac&eacute;s avec les couleurs
+  par d&eacute;faut de matplotl sont en noir sur fonds noir, pensez
+  &agrave; changer la couleur de trac&eacute;.
+  <ul>
+    <li> <tt>from matplotl import *; plot([1,2,3],[2,6,4]); show()</tt><br>
+    Pour voir le graphe sans utiliser la commande <tt>show()</tt>,
+    taper <tt>,</tt> dans un niveau vide.
+    <li> <tt>from graphic import *;
+    fill_rect(10,20,30,40,red)</tt><br>
+    Pour voir les pixels taper <tt>;</tt> dans un niveau vide.
+    <li> <tt>from turtle import *; forward(20);</tt><br>
+    Pour voir la tortue taper <tt>.</tt> dans un niveau vide.
+  </ul>
+
+  
+</div>
+</div>
+<div class="divMenuHide"><button onclick="Menu.hide()">X</button>Esc.</div>
+</div>
+<div id="error" hidden></div>
+<div id="status">Downloading...</div>
+<div>
+  <progress value="0" max="100" id="progress" hidden=1></progress>
+</div>
+<div id="output" style="max-height: 200px; overflow:auto; background-color:white"></div>
+<div id="consolediv" style="display:none">
+  <button class="bouton" title="Effacer la console (Ctrl-N)" onclick="var field=$id('output');field.innerHTML='';$id('consolediv').style.display='none';">Efface</button>
+  <button class="bouton" title="Augmenter le nombre de lignes" onclick="var field=$id('output');var s=field.style.maxHeight; s=s.substr(0,s.length-2);s=eval(s)+20 ;s=s+'px';field.style.maxHeight =s ;">+</button>
+  <button class="bouton" title="Diminuer le nombre de lignes" onclick="var field=$id('output');var s=field.style.maxHeight; s=s.substr(0,s.length-2);s=Math.max(eval(s)-20,40) ;s=s+'px';field.style.maxHeight =s ;">-</button>
+</div>
+
+<script src="longhelp.js"></script>
+<script src="codemirror.js"></script>
+<link rel="stylesheet" href="codemirror.css">
+<link rel="stylesheet" href="show-hint.css">
+<script src="search.js"></script>
+<script src="searchcursor.js"></script>
+<script src="jump-to-line.js"></script>
+<script src="dialog.js"></script>
+<link rel="stylesheet" href="dialog.css">
+<script src="xcasmode.js"></script>
+<script src="python.js"></script>
+<script src="micropy.js"></script>
+<script src="matchbrackets.js"></script>
+<script src="show-hint.js"></script>
+
+<style type="text/css">
+  .CodeMirror {
+    border: 1px solid black;
+    height: auto;
+  }
+
+  dt {
+    font-family: monospace;
+    color: #666;
+  }
+</style>
+<script src="giactableau.js"></script>
+<script type='text/javascript'>
+    // $id('output').style.display = 'none';
+    // $id("config").reset();
+    // connect to canvas
+    var Module = {
+        // TOTAL_MEMORY:134217728,
+        worker: false,
+        htmlcheck: true,
+        htmlbuffer: '',
+        preRun: [],
+        postRun: [],
+        lastrefresh:0,
+        print_target:0,
+        print: function (text) {
+                var element=Module.print_target; if (element==0) return;
+                //console.log('Module.print',text);
+                if (text.length == 1 && text.charCodeAt(0) == 12) {
+                    element.innerHTML = '';
+                    return;
+                }
+                if (text.length >= 1 && text.charCodeAt(0) == 2) {
+                    console.log('STX');
+                    Module.htmlcheck = false;
+                    htmlbuffer = '';
+                    return;
+                }
+                if (text.length >= 1 && text.charCodeAt(0) == 3) {
+                    console.log('ETX');
+                    Module.htmlcheck = true; 
+                    // element.style.display = 'block';
+                    element.innerHTML += htmlbuffer;
+                    htmlbuffer = '';
+                    // element.scrollTop = 99999;
+                    return;
+                } 
+                if (Module.htmlcheck) {
+                    // These replacements are necessary if you render to raw HTML
+                    text = '' + text;
+                    console.log(text); 
+                    text = text.replace(/&/g, "&amp;");
+                    text = text.replace(/</g, "&lt;");
+                    text = text.replace(/>/g, "&gt;");
+                    text = text.replace(/\n/g, '<br>');
+                    text += '<br>';
+                    // var tmp = $id('consolediv');
+                    //if (tmp.style.display != 'block') {
+                        //tmp.style.display = 'block';
+                        //UI.set_config_width();
+                    //}
+                    // element.style.display = 'block';
+                    element.innerHTML += '<em>'+text+'</em>'; // element.value += text + "\n";
+                    // element.scrollTop = 99999; // focus on bottom
+                } else htmlbuffer += text;
+                // element.scrollIntoView();
+        },
+        printErr: function (text) {
+                console.log(text);
+        },
+        canvas: $id('canvas3d'),
+        setStatus: function (text) {
+            if (Module.setStatus.interval) clearInterval(Module.setStatus.interval);
+            var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+            var statusElement = $id('status');
+            var progressElement = $id('progress');
+            if (m) {
+                text = m[1];
+                progressElement.value = parseInt(m[2]) * 100;
+                progressElement.max = parseInt(m[4]) * 100;
+                progressElement.hidden = false;
+            } else {
+                progressElement.value = null;
+                progressElement.max = null;
+                progressElement.hidden = true;
+            }
+            statusElement.innerHTML = text;
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function (left) {
+            this.totalDependencies = Math.max(this.totalDependencies, left);
+            Module.setStatus(left ? 'Preparation... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'Telechargements termines.');
+        }
+    };
+    Module.setStatus('T&eacute;l&eacute;chargement et pr&eacute;paration (peut prendre 1 ou 2 minutes la premi&egrave;re fois)');
+    Module['onRuntimeInitialized'] = function () {
+        //alert('UI is ready');
+        UI.ready = true;
+        UI.caseval('set_language(1)');
+        var hashParams = window.location.hash.substr(1); 
+        if (hashParams.length>0){ UI.tableauloadlink(hashParams); } else {$id('welcome').style.display='block';}
+        b=document.getElementById('board');b.focus();
+    }
+</script>
+<script language="javascript" async>
+    //$id('thelink').innerHTML='<a href="'+UI.forum_url+'" target=_blank>Forum</a>';
+    CodeMirror.registerHelper("hintWords", "simplemode", UI.xcascmd);
+    var ua = window.navigator.userAgent;
+    var old_ie = ua.indexOf('MSIE ');
+    var new_ie = ua.indexOf('Trident/');
+    if ((old_ie > -1) || (new_ie > -1) || Boolean(window.chrome)) { //UI.usecm=false;
+        (function () {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            //script.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML";
+            script.src ="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+            script.id="MathJax-script"; console.log(script.src);
+            document.getElementsByTagName("head")[0].appendChild(script);
+        })();
+    }
+</script>
+
+<script async>
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var supported = (function () {
+        try {
+            if (typeof WebAssembly === "object" && typeof WebAssembly.instantiate === "function") {
+                var module = new WebAssembly.Module(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+                if (module instanceof WebAssembly.Module)
+                    return new WebAssembly.Instance(module) instanceof WebAssembly.Instance;
+            }
+        } catch (e) {}
+        return false;
+    })();
+    if (Boolean(window.chrome)){
+      UI.usemathjax=true;
+      if (UI.detectmob() || window.location.href.substr(0,4)=='file')
+      supported=false;
+    }
+    var webAssemblyAvailable = supported;
+    /*
+    if (Boolean(window.chrome)){
+    if (!UI.detectmob()) webAssemblyAvailable = !!window.WebAssembly && window.location.href.substr(0,4)!='file';
+    }
+    else {
+    var ua = window.navigator.userAgent;
+    var old_ie = ua.indexOf('MSIE ');
+    var new_ie = ua.indexOf('Trident/');
+    if (!UI.detectmob() && old_ie<=-1 && new_ie<=-1)
+      webAssemblyAvailable =!!window.WebAssembly;
+    } */
+    if (webAssemblyAvailable) {
+        var ck = UI.readCookie('xcas_wasm');
+        if (ck) {
+            //var form = $id('config');
+            //form.wasm_mode.checked = (ck == '1');
+            webAssemblyAvailable = (ck == '1') ;
+        }
+     }
+    //alert(webAssemblyAvailable?'true':'false');
+    console.log('wasm ', supported, webAssemblyAvailable);
+    if (webAssemblyAvailable) // fixme: enable
+        script.src = "giacwasm.js";
+    else
+        script.src = "giac.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+
+</script>
+<script src="html2canvas.js"></script>
+<script src="jspdf.umd.min.js"></script>
+
+<script language="javascript">
+UI.init_xcas();
+</script>
+	
+</body>

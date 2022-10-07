@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Continuous Fourier Transform: fourier ifourier addtable
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en285.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en287.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:cfourier" class="subsection">5.26.2  Continuous Fourier Transform: <span style="font-family:monospace">fourier</span> <span style="font-family:monospace">ifourier</span> <span style="font-family:monospace">addtable</span>
+<a id="hevea_default516"></a>
+<a id="hevea_default517"></a>
+<a id="hevea_default518"></a>
+</h3>
+<p>The Fourier transform of a function <span style="font-style:italic">f</span> is defined by
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:fourier-def"></a>
+<span style="font-style:italic">F</span>(<span style="font-style:italic">s</span>)=</td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">+∞</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">−∞</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">i</span> <span style="font-style:italic">s</span> <span style="font-style:italic">x</span></sup> <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) <span style="font-style:italic">d</span><span style="font-style:italic">x</span>,   <span style="font-style:italic">s</span>∈ℝ.
+    (5)</td></tr>
+</table><p>
+The <span style="font-family:monospace">fourier</span> command computes the Fourier transform.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">fourier</span> takes one mandatory argument and two optional
+arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression which defines a function
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">expr</span>.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the variable for <span style="font-style:italic">f</span> (by default
+<span style="font-family:monospace">x</span>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">s</span>, the variable for the Fourier
+transform (by default <span style="font-style:italic">x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">fourier(</span><span style="font-style:italic">expr</span> ⟨ ,<span style="font-style:italic">x</span>,<span style="font-style:italic">s</span>⟩) returns
+the Fourier transform <span style="font-style:italic">F</span>(<span style="font-style:italic">s</span>). If <span style="font-style:italic">s</span>
+is not given, then <span style="font-style:italic">x</span> will be used.
+</li></ul><p>The inverse Fourier transform, as its name implies, takes a Fourier
+transform <span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>) and returns the original function <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>). It is
+given by:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:ifourier-def"></a>
+<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2 π</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">+∞</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">−∞</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">i</span> <span style="font-style:italic">s</span> <span style="font-style:italic">x</span></sup> <span style="font-style:italic">F</span>(<span style="font-style:italic">s</span>) <span style="font-style:italic">d</span><span style="font-style:italic">s</span>.
+    (6)</td></tr>
+</table><p>
+The <span style="font-family:monospace">ifourier</span> command computes the inverse Fourier transform.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ifourier</span> takes one mandatory argument and two optional
+arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression which defines a function
+<span style="font-style:italic">F</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">expr</span>.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the variable for <span style="font-style:italic">F</span> (by default
+<span style="font-family:monospace">x</span>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">X</span>, the variable for the original
+function <span style="font-style:italic">f</span> (by default <span style="font-style:italic">x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">ifourier(</span><span style="font-style:italic">expr</span> ⟨ ,<span style="font-style:italic">x</span>,<span style="font-style:italic">X</span>⟩<span style="font-family:monospace">)</span> returns
+the inverse Fourier transform <span style="font-style:italic">f</span>(<span style="font-style:italic">X</span>). If <span style="font-style:italic">X</span>
+is not given, then <span style="font-style:italic">x</span> will be used.
+</li></ul><p>Note the similarity between the definitions of the Fourier transform
+(equation (<a href="#eq%3Afourier-def">5</a>)) and its inverse (equation
+(<a href="#eq%3Aifourier-def">6</a>)). To compute the inverse transformation of
+<span style="font-style:italic">F</span>(<span style="font-style:italic">s</span>), it is enough to compute the Fourier transform with function
+<span style="font-style:italic">F</span>(<span style="font-style:italic">s</span>)/2π and using the variables <span style="font-style:italic">s</span> and <span style="font-style:italic">x</span> instead of <span style="font-style:italic">x</span>
+and <span style="font-style:italic">s</span>, and replacing <span style="font-style:italic">x</span> with −<span style="font-style:italic">x</span> in the result.</p><h4 id="sec666" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Arbitrary rational functions can be transformed. For example,
+we find the Fourier transform of <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">x</span>/<span style="font-style:italic">x</span><sup>3</sup>−19 <span style="font-style:italic">x</span>+30.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">F:=fourier(x/(x^3-19x+30),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">56</td></tr>
+</table></td><td class="dcell"> π  <span style="font-style:italic">sign</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">16 <span style="font-style:italic">i</span> <span style="font-style:italic">e</span><sup>−2 <span style="font-style:italic">i</span> <span style="font-style:italic">s</span></sup>
+−21 <span style="font-style:italic">i</span> <span style="font-style:italic">e</span><sup>−3 <span style="font-style:italic">i</span> <span style="font-style:italic">s</span></sup>
++5 <span style="font-style:italic">i</span> <span style="font-style:italic">e</span><sup>5 <span style="font-style:italic">i</span> <span style="font-style:italic">s</span></sup></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifourier(F,s,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>3</sup>−19 <span style="font-style:italic">x</span>+30</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Find the transform of  <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">x</span><sup>2</sup>+1/<span style="font-style:italic">x</span><sup>2</sup>−1:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">F:=fourier((x^2+1)/(x^2-1),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 π  </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">δ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−<span style="font-style:italic">sign</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">sin<span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifourier(F,s,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>+1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>−1</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p>A range of other (generalized) functions and distributions can be
+transformed, as demonstrated in the following examples. If
+<span style="font-family:monospace">fourier</span> does not know how to transform a function, it returns
+the unevaluated integral (<a href="#eq%3Afourier-def">5</a>). In these cases you
+may try to evaluate the result using <span style="font-family:monospace">eval</span>.</p><h4 id="sec667" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(3x^2+2x+1,x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 π  </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">δ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+2 <span style="font-style:italic">i</span> δ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>,1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−3 δ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>,2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(Dirac(x-1)+Dirac(x+1),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 cos<span style="font-style:italic">s</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(exp(-2*abs(x-1)),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">4 <span style="font-style:italic">e</span><sup>−<span style="font-style:italic">i</span> <span style="font-style:italic">s</span></sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span><sup>2</sup>+4</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(atan(1/(2x^2)),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 π  <span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell"> sin</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span></td></tr>
+</table></td></tr>
+</table>
+<div class="center">
+<span style="font-family:monospace">2*pi*sin(s/2)*exp(-abs(s)/2)/s
+</span></div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(BesselJ(3,x),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">s</span> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">4 <span style="font-style:italic">s</span><sup>2</sup>−3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">i</span> <span style="font-style:italic">sign</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+<span style="font-style:italic">i</span> <span style="font-style:italic">sign</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">s</span><sup>2</sup>+1</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">F:=fourier(sin(x)*sign(x),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span><sup>2</sup>−1</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifourier(F,s,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">sign</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">sin<span style="font-style:italic">x</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(log(abs(x)),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">π  </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2 γ  δ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎪<br>
+⎪</td><td class="dcell">+1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(rect(x),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 sin</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(exp(-abs(x))*sinc(x),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">arctan</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">−arctan</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>−1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(1/sqrt(abs(x)),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >π </td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">F:=fourier(1/cosh(2x),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> π  <span style="font-style:italic">s</span></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell">+<span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> π  <span style="font-style:italic">s</span></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifourier(F,s,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">e</span><sup>−2 <span style="font-style:italic">x</span></sup>+<span style="font-style:italic">e</span><sup>2 <span style="font-style:italic">x</span></sup></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(Airy_Ai(x/2),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 <span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">8</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">i</span> <span style="font-style:italic">s</span><sup>3</sup></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">F:=fourier(Gamma(1+i*x/3),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">6 π  <span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">3 <span style="font-style:italic">s</span>+<span style="font-style:italic">e</span><sup>−3 <span style="font-style:italic">s</span></sup></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifourier(F,s,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">Γ</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">i</span> <span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">F:=fourier(atan(x/4)/x,x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">π  <span style="font-style:italic">ugamma</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0,4 </td><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎪<br>
+⎪</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ifourier(F,s,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">arctan</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">assume(a&gt;0)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">fourier(exp(-a*x^2+b),x,s)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span></td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >π </td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4 <span style="font-style:italic">a</span></td></tr>
+</table></td><td class="dcell">+<span style="font-style:italic">b</span></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span></td></tr>
+</table></td></tr>
+</table>
+</li></ul><p>The Fourier transform behaves nicely when combined with convolutions.
+Recall the <em>convolution</em> (see Section <a href="cascmd_en1000.html#ssec%3Aconvolution">15.2.8</a>) of two
+functions <span style="font-style:italic">f</span> and <span style="font-style:italic">g</span> is 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">(<span style="font-style:italic">f</span>∗ <span style="font-style:italic">g</span>)(<span style="font-style:italic">x</span>) = </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">+∞</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">−∞</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>) <span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>−<span style="font-style:italic">t</span>) <span style="font-style:italic">d</span><span style="font-style:italic">t</span> 
+</td></tr>
+</table><p> 
+If <span style="color:red"><span style="font-style:italic">F</span></span>(<span style="font-style:italic">f</span>) represents the Fourier transform of a function <span style="font-style:italic">f</span>,
+then the convolution theorem states 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="color:red"><span style="font-style:italic">F</span></span>(<span style="font-style:italic">f</span>∗ <span style="font-style:italic">g</span>) = <span style="color:red"><span style="font-style:italic">F</span></span>(<span style="font-style:italic">f</span>)·<span style="color:red"><span style="font-style:italic">F</span></span>(<span style="font-style:italic">g</span>). 
+</td></tr>
+</table><h4 id="sec668" class="subsubsection">Example</h4>
+<p>
+In this example, the convolution theorem will be used to compute the
+convolution of <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">e</span><sup>−|<span style="font-style:italic">x</span>|</sup>  with itself.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">F:=fourier(exp(-abs(x)),x,s)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span><sup>2</sup>+1</td></tr>
+</table></td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ifourier(F^2,s,x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−<span style="font-style:italic">x</span> θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span></sup>+<span style="font-style:italic">x</span> θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">x</span></sup>+<span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+The above result is the desired convolution
+(<span style="font-style:italic">f</span>∗ <span style="font-style:italic">f</span>)(<span style="font-style:italic">x</span>)=∫<sub>−∞</sub><sup>+∞</sup><span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>) <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>−<span style="font-style:italic">t</span>) <span style="font-style:italic">d</span><span style="font-style:italic">t</span>.</p><p><br>
+</p><p>Piecewise functions can be transformed if defined as
+</p><div class="center">
+<span style="font-family:monospace">piecewise(</span><span style="font-style:italic">x</span>&lt;<span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">f</span><sub>1</sub>,<span style="font-style:italic">x</span>&lt;<span style="font-style:italic">a</span><sub>2</sub>,<span style="font-style:italic">f</span><sub>2</sub>,…,<span style="font-style:italic">x</span>&lt;<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">f</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">f</span><sub>0</sub><span style="font-family:monospace">)</span>
+</div><p>
+for appropriate functions <span style="font-style:italic">f</span><sub>0</sub>,…,<span style="font-style:italic">f</span><sub><span style="font-style:italic">n</span></sub>
+and <span style="font-style:italic">a</span><sub>1</sub>,<span style="font-style:italic">a</span><sub>2</sub>,…,<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub>  are real numbers such that 
+<span style="font-style:italic">a</span><sub>1</sub>&lt;<span style="font-style:italic">a</span><sub>2</sub>&lt;⋯&lt;<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span></sub> . Inequalities may be strict or non-strict.</p><h4 id="sec669" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f:=piecewise(x&lt;=-1,exp(x+1),x&lt;=1,1,exp(2-2x))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">F:=fourier(f,x,s)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3 <span style="font-style:italic">s</span> cos<span style="font-style:italic">s</span>−<span style="font-style:italic">i</span> <span style="font-style:italic">s</span> sin<span style="font-style:italic">s</span>+4 sin<span style="font-style:italic">s</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">s</span> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>−2 <span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span>+<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table><p>
+You can obtain the original function <span style="font-style:italic">f</span> from the above result by
+applying <span style="font-family:monospace">ifourier</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ifourier(F,s,x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span>+1</sup>+θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-style:italic">e</span><sup>−2 <span style="font-style:italic">x</span>+2</sup>−θ</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table><p>
+You can verify that the above expression is equal to <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) by
+plotting them.</p><p><br>
+</p><p>Some algebraic transformations of a function behave predictably under
+the Fourier transform. For example, if <span style="font-style:italic">g</span>(<span style="font-style:italic">x</span>) = <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>−<span style="font-style:italic">a</span>), then
+<span style="color:red"><span style="font-style:italic">F</span></span>(<span style="font-style:italic">g</span>)(<span style="font-style:italic">s</span>) = <span style="font-style:italic">e</span><sup>−2π <span style="font-style:italic">i</span> <span style="font-style:italic">a</span> <span style="font-style:italic">s</span></sup><span style="color:red"><span style="font-style:italic">F</span></span>(<span style="font-style:italic">f</span>)(<span style="font-style:italic">s</span>). The
+<span style="font-family:monospace">addtable</span> command lets you assign a function name to the
+Fourier (or Laplace<a id="hevea_default519"></a>, see Section <a href="cascmd_en581.html#ssec%3Alaplace">5.57.2</a>)
+transform of another function name, without specifying the either
+function. This allows you to alter the original function and see the
+effect on the Fourier (or Laplace) transform.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">addtable</span><a id="hevea_default520"></a> takes five arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">transform</span>, which can be <span style="font-family:monospace">fourier</span> or
+<span style="font-family:monospace">laplace</span> and indicates the type of transform.
+</li><li class="li-itemize"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>), where <span style="font-style:italic">f</span> is a symbol representing an
+unspecified function of the variable <span style="font-style:italic">x</span>.
+</li><li class="li-itemize"><span style="font-style:italic">F</span>(<span style="font-style:italic">s</span>), where <span style="font-style:italic">F</span> is a symbol representing the
+transform of <span style="font-style:italic">f</span> and <span style="font-style:italic">s</span> is the new variable.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, the variable used by <span style="font-style:italic">f</span>.
+</li><li class="li-itemize"><span style="font-style:italic">s</span>, the variable used by <span style="font-style:italic">F</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">addtable(</span><span style="font-style:italic">transform</span>,<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>),<span style="font-style:italic">F</span>(<span style="font-style:italic">s</span>),<span style="font-style:italic">x</span>,<span style="font-style:italic">s</span><span style="font-family:monospace">)</span>
+returns 1 if <span style="font-style:italic">F</span> is assigned as the transform of <span style="font-style:italic">f</span>, and 0
+otherwise. In the case that <span style="font-style:italic">F</span> is assigned as the transform
+of <span style="font-style:italic">f</span>, then the transform (<span style="font-family:monospace">fourier</span> or <span style="font-family:monospace">laplace</span>) of
+manipulations of <span style="font-style:italic">f</span> will be returned in terms of <span style="font-style:italic">F</span> and conversely.
+</li></ul><h4 id="sec670" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">addtable(fourier,y(x),Y(s),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(y(a*x+b),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">i</span> <span style="font-style:italic">b</span> <span style="font-style:italic">s</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">Y</span></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">s</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">a</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(Y(x),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 π  <span style="font-style:italic">y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">addtable(fourier,g(x,t),G(s,t),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fourier(g(x/2,3*t),x,s)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 <span style="font-style:italic">G</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2 <span style="font-style:italic">s</span>,3 <span style="font-style:italic">t</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>Fourier transforms can be used for solving linear differential
+equations with constant coefficients. For example, to obtain a
+particular solution to the equation 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>)+4 <span style="font-style:italic">y</span><sup>(4)</sup>(<span style="font-style:italic">x</span>)=δ(<span style="font-style:italic">x</span>),
+</td></tr>
+</table><p> 
+where  δ  is the Dirac delta function, you can first
+transform both sides of the above equation.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L:=fourier(y(x)+4*diff(y(x),x,4),x,s); R:=fourier(Dirac(x),x,s)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">4 <span style="font-style:italic">s</span><sup>4</sup> <span style="font-style:italic">Y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">+<span style="font-style:italic">Y</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">s</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,1
+</td></tr>
+</table><p>
+Then you can solve the equation <span style="font-style:italic">L</span>=<span style="font-style:italic">R</span> for <span style="font-style:italic">Y</span>(<span style="font-style:italic">s</span>). Generally, you should
+apply <span style="font-family:monospace">csolve</span> instead of <span style="font-family:monospace">solve</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">sol:=csolve(L=R,Y(s))[0]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4 <span style="font-style:italic">s</span><sup>4</sup>+1</td></tr>
+</table></td></tr>
+</table><p>
+Finally, you can apply <span style="font-family:monospace">ifourier</span> to obtain <span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>).<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">ifourier(sol,s,x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">cos</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">+sin</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪</td><td class="dcell"><span style="font-style:italic">x</span></td><td class="dcell">⎪<br>
+⎪</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table><p>
+The above solution can be combined with solutions of the corresponding
+homogeneous equation to obtain the general solution.</p>
+<hr>
+<a href="cascmd_en285.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en287.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

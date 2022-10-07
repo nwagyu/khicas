@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>3-d graph</title>
+</head>
+<body >
+<a href="cascmd_en597.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en599.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:plotfunc3" class="subsection">7.4.2  3-d graph</h3>
+<h4 id="sec1495" class="subsubsection">Two variable functions</h4>
+<p>The <span style="font-family:monospace">plotfunc</span> can draw the graphs of two-variable function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">plotfunc</span> takes two mandatory argument and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression defining a function of two
+variables or a list of such expressions.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of the variable names,
+possibly with bounds. If the variable is given as
+<span style="font-style:italic">var=a..b</span>, the graph will be drawn for that range of that
+variable, otherwise it will be graphed over the default interval 
+(see Section <a href="cascmd_en028.html#ssec%3Aconfgraph">2.5.8</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">xstep</span>, which can be
+<span style="font-family:monospace">xstep=</span><span style="font-style:italic">n</span> to specify the discretization
+step in the <span style="font-style:italic">x</span> direction.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">ystep</span>, which can be
+<span style="font-family:monospace">ystep=</span><span style="font-style:italic">m</span> to specify the discretization
+step in the <span style="font-style:italic">y</span> direction.
+</li><li class="li-itemize">Instead of <span style="font-style:italic">xstep</span> and <span style="font-family:monospace">ystep</span>, you could use
+the option <span style="font-family:monospace">nstep=</span><span style="font-style:italic">n</span> to specify the number of points used to 
+graph.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">plotfunc(</span><span style="font-style:italic">expr,vars</span> ⟨<span style="font-style:italic">xstep,ystep</span>⟩<span style="font-family:monospace">)</span>
+draws the graph.
+</li></ul><h4 id="sec1496" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x^2+y^2,[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en034.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x*y,[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en035.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc([x*y-10,x*y,x*y+10],[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en036.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x*sin(y),[x=0..2,y=-pi..pi])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en037.png">
+</div>
+</li><li class="li-itemize">As an example where you specify the <span style="font-style:italic">x</span> and <span style="font-style:italic">y</span> discretization step
+with <span style="font-family:monospace">xstep</span> and <span style="font-family:monospace">ystep</span>:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x*sin(y),[x=0..2,y=-pi..pi],xstep=1,ystep=0.5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en038.png">
+</div>
+</li><li class="li-itemize">Alternatively you can specify
+the number of points used for the representation of the
+function with <span style="font-family:monospace">nstep</span> instead of <span style="font-family:monospace">xstep</span> and
+<span style="font-family:monospace">ystep</span>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x*sin(y),[x=0..2,y=-pi..pi],nstep=300)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en039.png">
+</div>
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Remarks:</span>
+</p><ul class="itemize"><li class="li-itemize">
+Like any 3-d scene, the viewpoint may be modified by rotation
+around the <span style="font-family:monospace">x</span> axis, the <span style="font-family:monospace">y</span> axis or the
+<span style="font-family:monospace">z</span> axis, either by dragging the mouse inside the graphic
+window (push the mouse outside the parallelepiped used for
+the representation), or with the shortcuts
+<span style="font-family:monospace">x</span>, <span style="font-family:monospace">X</span>, <span style="font-family:monospace">y</span>, <span style="font-family:monospace">Y</span>, <span style="font-family:monospace">z</span> and <span style="font-family:monospace">Z</span>.
+</li><li class="li-itemize">If you want to print a graph or get a L<sup>A</sup>T<sub>E</sub>X translation, use the graph
+menu<br>
+<span style="font-family:monospace">Menu</span>▸<span style="font-family:monospace">print</span>▸<span style="font-family:monospace">Print(with
+Latex)</span>
+</li></ul>
+<h4 id="sssec:plotfunc3d" class="subsubsection">3-d graph with rainbow colors</h4>
+<p>If the expression with two variables is purely
+imaginary, <span style="font-style:italic">i</span><span style="font-style:italic">expr</span>, then <span style="font-family:monospace">plotfunc</span> 
+will still draw the graph, but the color will depend on the height
+<span style="font-style:italic">z</span>=<span style="font-style:italic">expr</span> resulting in a rainbow colored surface. This
+provides you with an easy way to find points having the same third
+coordinate.</p><h4 id="sec1498" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">plotfunc(i*x*sin(y),[x=0..2,y=-pi..pi])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en040.png">
+</div>
+<h4 id="ssec:plotfunc4" class="subsubsection">4-d graph</h4>
+<p>If <span style="font-style:italic">expr</span> is a complex valued expression whose real part is not
+identically zero on the discretization mesh, then 
+<span style="font-family:monospace">plotfunc</span> will draw the surface
+<span style="font-style:italic">z</span>=<span style="font-family:monospace">abs(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span>, where
+<span style="font-family:monospace">arg(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> determines the color from the
+rainbow. This gives you an easy way to see the points 
+having the same argument. Note that if the real part of <span style="font-style:italic">expr</span>
+is zero on the discretization mesh, then it will look purely imaginary
+to <span style="font-family:monospace">plotfunc</span> and will represented with rainbow colors, as in
+Section <a href="#sssec%3Aplotfunc3d">7.4.2</a>.</p><h4 id="sec1500" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc((x+i*y)^2,[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en041.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc((x+i*y)^2,[x,y], display=filled)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en042.png">
+</div>
+</li><li class="li-itemize">You can specify the range of variation of <span style="font-style:italic">x</span> and <span style="font-style:italic">y</span> and the number of
+discretization points.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc((x+i*y)^2,[x=-1..1,y=-2..2], nstep=900,display=filled)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en043.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en597.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en599.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

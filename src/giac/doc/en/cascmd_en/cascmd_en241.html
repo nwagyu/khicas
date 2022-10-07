@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Determining where a function is convex: convex
+</title>
+</head>
+<body >
+<a href="cascmd_en240.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en242.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:convex" class="subsection">5.21.8  Determining where a function is convex: <span style="font-family:monospace">convex</span>
+<a id="hevea_default441"></a></h3>
+<p>The <span style="font-family:monospace">convex</span> command determines where a function is convex.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convex</span> takes two mandatory arguments and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression which is at least twice
+differentiable, which specifies a function <span style="font-style:italic">f</span>.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, the variable or list of variables in the expression.
+Some variables may depend on a common
+independent parameter, say <span style="font-style:italic">t</span>, when entered as e.g. <span style="font-style:italic">x</span>(<span style="font-style:italic">t</span>) instead of
+<span style="font-style:italic">x</span>. The first derivatives of such variables, when encountered in <span style="font-style:italic">f</span>,
+are treated as independent parameters of the function.
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">simplify</span>, which enables advanced
+simplification of the intermediate symbolic expressions and the final result.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">convex(</span><span style="font-style:italic">expr,vars</span> ⟨ ,<span style="font-family:monospace">simplify=</span><span style="font-style:italic">bool</span>⟩<span style="font-family:monospace">)</span>
+returns:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">true</span>, if the function is convex on the entire
+domain.
+</li><li class="li-itemize"><span style="font-family:monospace">false</span>, if the function is nowhere convex.
+</li><li class="li-itemize">otherwise, the list of inequalities specifying the domain
+on which the function is convex.
+</li></ul>
+</li><li class="li-itemize">The <span style="font-family:monospace">convex</span> command operates by computing the Hessian <span style="font-style:italic">H</span><sub><span style="font-style:italic">f</span></sub> of <span style="font-style:italic">f</span>
+(see Section <a href="cascmd_en236.html#ssec%3Ahessian">5.21.3</a>) and its LDL factorization.
+If the resulting block-diagonal matrix is positive semidefinite,
+then <span style="font-style:italic">H</span><sub><span style="font-style:italic">f</span></sub> is positive semidefinite and <span style="font-style:italic">f</span> is hence convex.
+</li><li class="li-itemize">Advanced simplification can be applied when generating
+convexity conditions by passing the <span style="font-family:monospace">simplify</span> argument.
+By default, only basic simplification is applied by using
+the <span style="font-family:monospace">ratnormal</span> command.
+</li><li class="li-itemize">The function <span style="font-style:italic">f</span> concave if and only if the function <span style="font-style:italic">g</span>=−<span style="font-style:italic">f</span> is convex.
+</li></ul><h4 id="sec566" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convex(3*exp(x)+5x^4-ln(x),x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">true</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convex(x^2+y^2+3z^2-x*y+2x*z+y*z,[x,y,z])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">true</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convex(x1^3+2x1^2+2*x1*x2+x2^2/2-8x1-2x2-8,[x1,x2],simplify)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>≥ 0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">In the example below, we find the values of <span style="font-style:italic">a</span>∈ℝ for which the function
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span>)=<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span> <span style="font-style:italic">z</span>+<span style="font-style:italic">a</span> <span style="font-style:italic">y</span> <span style="font-style:italic">z</span>+<span style="font-style:italic">z</span><sup>2</sup></td></tr>
+</table> is convex.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convex(x^2+x*z+a*y*z+z^2,[x,y,z])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">false</span>
+</td></tr>
+</table>
+Note that the function is convex for <span style="font-style:italic">a</span>=0. However, the <span style="font-family:monospace">convex</span>
+command does not support equalities as convexity constraints.
+</li><li class="li-itemize">For the next example, find all values <span style="font-style:italic">a</span>∈ℝ for which the
+function
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span>)=<span style="font-style:italic">x</span><sup>2</sup>+2 <span style="font-style:italic">y</span><sup>2</sup>+<span style="font-style:italic">a</span> <span style="font-style:italic">z</span><sup>2</sup>−2 <span style="font-style:italic">x</span> <span style="font-style:italic">y</span>+2 <span style="font-style:italic">x</span> <span style="font-style:italic">z</span>−6 <span style="font-style:italic">y</span> <span style="font-style:italic">z</span>
+</td></tr>
+</table>
+is convex on ℝ<sup>3</sup>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convex(x^2+2y^2+a*z^2-2x*y+2x*z-6y*z,[x,y,z],simplify)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">a</span>≥ 5</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the set <span style="font-style:italic">S</span>⊂ℝ<sup>2</sup> on which the function
+<span style="font-style:italic">f</span>:ℝ<sup>2</sup>→ℝ defined by 
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>)=exp(<span style="font-style:italic">x</span><sub>1</sub>)+exp(<span style="font-style:italic">x</span><sub>2</sub>)+<span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">x</span><sub>2</sub> 
+</td></tr>
+</table> 
+is convex.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">condition:=convex(exp(x1)+exp(x2)+x1*x2,[x1,x2],simplify)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span><sub>1</sub></sup> <span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span><sub>2</sub></sup>−1≥ 0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span><br>
+<div class="center">
+<span style="font-family:monospace">lin(condition)</span>
+</div>
+(See Section <a href="cascmd_en277.html#ssec%3Alin">5.24.4</a>.)<br>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">x</span><sub>1</sub>+<span style="font-style:italic">x</span><sub>2</sub></sup>−1≥ 0</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+From here you conclude that <span style="font-style:italic">f</span> is convex when <span style="font-style:italic">x</span><sub>1</sub>+<span style="font-style:italic">x</span><sub>2</sub>≥ 0. The
+set <span style="font-style:italic">S</span> is therefore the half-space defined by this inequality.
+</li></ul><p><br>
+</p><p>The algorithm respects the assumptions that may be set upon variables.
+Therefore, the convexity of a given function can be checked on a
+particular domain.</p><h4 id="sec567" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">assume(x1&gt;0),assume(x2&gt;0):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">convex(exp(x1)+exp(x2)+x1*x2,[x1,x2])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">true</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">assume(x&gt;=0 and x&lt;=pi/4):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">convex(exp(y)*sec(x)^3-z,[x,y,z])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">true</span>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en240.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en242.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

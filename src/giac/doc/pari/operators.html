@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: GP Operators</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body ><h3>GP Operators and their Priorities</h3>
+<p></p>
+<p>
+Loosely speaking, an operator is a function, usually
+attached to basic arithmetic operations, whose name contains only
+non-alphanumeric characters. For instance <code>+</code> or <code>-</code>, but also
+<code> = </code> or <code> += </code>, or even <code>[ ]</code> (the selection operator). As all
+functions, operators take arguments, and return a value; <em>assignment</em>
+operators also have side effects: besides returning a value, they change the
+value of some variable.</p>
+<p>
+Each operator has a fixed and unchangeable priority, which means that, in
+a given expression, the operations with the highest priority is performed
+first. Unless mentioned otherwise, operators at the same priority level are
+left-associative (performed from left to right), unless they are assignments,
+in which case they are right-associative. Anything enclosed between
+parenthesis is considered a complete subexpression, and is resolved
+recursively, independently of the surrounding context. For instance,</p>
+<p>
+</p><pre class="code">    a + b + c    --&gt;   (a + b) + c     \\  left-associative
+    a = b = c    --&gt;   a = (b = c)     \\  right-associative
+</pre><p></p>
+<p>
+Assuming that <em>op</em><sub>1</sub>, <em>op</em><sub>2</sub>, <em>op</em><sub>3</sub> are
+binary operators with increasing priorities (think of <code>+</code>,
+<code>*</code>, <code>^</code>),
+ x&nbsp;<em>op</em><sub>1</sub>&nbsp;y&nbsp;<em>op</em><sub>2</sub>&nbsp;z&nbsp;<em>op</em><sub>2</sub>&nbsp;x&nbsp;<em>op</em><sub>3</sub>&nbsp;y  is
+equivalent to  x&nbsp;<em>op</em><sub>1</sub>&nbsp;((y&nbsp;<em>op</em><sub>2</sub>&nbsp;z)&nbsp;<em>op</em><sub>2</sub>&nbsp;
+(x&nbsp;<em>op</em><sub>3</sub>&nbsp;y)).</p>
+<p>
+GP contains many different operators, either unary (having only
+one argument) or binary, plus a few special selection operators. Unary
+operators are defined as either <em>prefix</em>  or <em>postfix</em>, meaning
+that they respectively precede (<em>op</em>&nbsp;x) and follow (x&nbsp;<em>op</em>) their
+single argument. Some symbols are syntactically correct in both positions,
+like <code>!</code>, but then represent different operators: the <code>!</code> symbol
+represents the negation and factorial operators when in prefix and postfix
+position respectively. Binary operators all use the (infix) syntax
+x&nbsp;<em>op</em>&nbsp;y.</p>
+<p>
+Most operators are standard (<code>+</code>, <code>%</code>, <code> = </code>), some are
+borrowed from the C language (<code>++</code>, <code> &lt;&lt; </code>), and a few are
+specific to GP (<code>\</code>, <code>#</code>). Beware that some GP operators differ
+slightly from their C counterparts. For instance, GP's postfix <code>++</code>
+returns the <em>new</em> value, like the prefix <code>++</code> of&nbsp;C, and the binary
+shifts <code> &lt;&lt; </code>, <code> &gt;&gt; </code> have a priority which is different from (higher
+than) that of their C counterparts. When in doubt, just surround everything
+by parentheses; besides, your code will be more legible.</p>
+<p>
+Here is the list of available operators, ordered by decreasing
+priority, binary and left-associative unless mentioned otherwise. An
+expression is an <em>lvalue</em> if something can be assigned to it. (The name
+comes from left-value, to the left of a <code> = </code> operator; e.g.
+<code>x</code>, or <code>v[1]</code> are lvalues, but <code>x + 1</code> is not.)</p>
+<p></p>
+<p>
+<b>*</b> Priority 14</p>
+<p>
+<code>:</code> as in <code>x:small</code>, is used to indicate to the GP2C compiler that the
+variable on the left-hand side always contains objects of the type specified
+on the right hand-side (here, a small integer) in order to produce more
+efficient or more readable C code. This is ignored by GP.</p>
+<p></p>
+<p>
+<b>*</b> Priority 13
+<code>( )</code> is the function call operator. If f is a closure and <em>args</em>
+is a comma-separated list of arguments (possibly empty),
+f<code>(<em>args</em>)</code> evaluates f on those arguments.</p>
+<p>
+<b>*</b> Priority 12</p>
+<p>
+<code>++</code> and <code>--</code> (unary, postfix): if x is an <code>lvalue</code>,
+<code>x++</code> assigns the value x+1 to x, then returns the new value of
+x. This corresponds to the C statement <code>++x</code>: there is no prefix
+<code>++</code> operator in GP. <code>x--</code> does the same with x-1. These
+operators are not associative, i.e. <code>x++++</code> is invalid, since
+<code>x++</code> is not an lvalue.</p>
+<p>
+<b>*</b> Priority 11</p>
+<p>
+<code>.</code><em>member</em> (unary, postfix): <code>x.<em>member</em></code> extracts
+<em>member</em> from structure x (see&nbsp;Section se:member).</p>
+<p>
+<code>[ ]</code> is the selection operator. <code>x[i]</code> returns the i-th
+component of vector x; <code>x[i,j]</code>, <code>x[,j]</code> and
+<code>x[i,]</code> respectively return the entry of coordinates (i,j), the
+j-th column, and the i-th row of matrix x. If the assignment operator
+(<code> = </code>) immediately follows a sequence of selections, it assigns its right
+hand side to the selected component. E.g <code>x[1][1] = 0</code> is valid; but
+beware that <code>(x[1])[1] = 0</code> is not (because the parentheses force the
+complete evaluation of <code>x[1]</code>, and the result is not modifiable).</p>
+<p>
+<b>*</b> Priority 10</p>
+<p>
+<code>'</code> (unary, postfix): derivative with respect to the main variable.
+If f is a function (<code>t_CLOSURE</code>), f' is allowed and defines a new
+function, which will perform numerical derivation when evaluated
+at a scalar x; this is defined as (f(x+&varepsilon;) - f(x-&varepsilon;)) /
+2&varepsilon; for a suitably small epsilon depending on current precision.</p>
+<p>
+</p><pre class="code">  ? (x^2 + y*x + y^2)'  \\  derive with respect to main variable <code>x</code>
+  %1 = 2*x + y
+  ? SIN = cos'
+  %2 = cos'
+  ? SIN(Pi/6)         \\  numerical derivation
+  %3 = -0.5000000000000000000000000000
+  ? cos'(Pi/6)        \\  works directly: no need for intermediate <code>SIN</code>
+  %4 = -0.5000000000000000000000000000
+</pre><p></p>
+<p></p>
+<p>
+<code>~</code> (unary, postfix): vector/matrix transpose.</p>
+<p>
+<code>!</code> (unary, postfix): factorial. x<code>!</code> = x(x-1)...1.</p>
+<p>
+<code>!</code> (unary, prefix): logical <em>not</em>. <code>!x</code> returns 1 if x is
+equal to 0 (specifically, if <code>gequal0(x) == 1</code>), and 0 otherwise.</p>
+<p>
+<b>*</b> Priority 9</p>
+<p>
+<code>#</code> (unary, prefix): cardinality; <code>#x</code> returns <code>length(x)</code>.</p>
+<p>
+<b>*</b> Priority 8</p>
+<p>
+<code>^</code>: powering. This operator is right associative:
+<code>2^3^4</code> is understood as <code>2^(3^4)</code>.</p>
+<p>
+<b>*</b> Priority 7</p>
+<p>
+<code>+</code>, <code>-</code> (unary, prefix): <code>-</code> toggles the sign of its argument,
+<code>+</code> has no effect whatsoever.</p>
+<p>
+<b>*</b> Priority 6</p>
+<p>
+<code>*</code>: multiplication.</p>
+<p>
+<code>/</code>: exact division (<code>3/2</code> yields 3/2, not 1.5).</p>
+<p>
+<code>\</code>, <code>%</code>: Euclidean quotient and remainder, i.e.&nbsp;if x = 
+qy + r, then <code>x <code>\ </code> y</code> = q, <code>x%y</code> = r. If x and y
+are scalars, then q is an integer and r satisfies 0 &leq; r &lt; |y|; if x
+and y are polynomials, then q and r are polynomials such that deg r &lt; 
+deg y and the leading terms of r and x have the same sign.</p>
+<p>
+<code>\/</code>: rounded Euclidean quotient for integers (rounded towards
++ oo  when the exact quotient would be a half-integer).</p>
+<p>
+<code> &lt;&lt; </code>, <code> &gt;&gt; </code>: left and right binary shift. By definition,
+<code>x &lt;&lt; n</code>&nbsp; = &nbsp;x * 2^n if n &gt; 0, and <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:truncate"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">truncate</a></code>(x 2<sup>-n</sup>) otherwise.
+Right shift is defined by <code>x &gt;&gt; n</code>&nbsp; = &nbsp;<code>x &lt;&lt; (-n)</code>.</p>
+<p>
+<b>*</b> Priority 5</p>
+<p>
+<code>+</code>, <code>-</code>: addition/subtraction.</p>
+<p>
+<b>*</b> Priority 4</p>
+<p>
+<code> &lt; </code>, <code> &gt; </code>, <code> &lt;= </code>, <code> &gt;= </code>: the usual comparison operators,
+returning 1 for <code>true</code> and 0 for <code>false</code>. For instance,
+<code>x &lt;= 1</code> returns 1 if x &leq; 1 and 0 otherwise.</p>
+<p>
+<code> &lt;&gt; </code>, <code> != </code>: test for (exact) inequality.</p>
+<p>
+<code> == </code>: test for (exact) equality. <code>t_QFR</code> having the same coefficients
+but a different distance component are tested as equal.</p>
+<p>
+<code> === </code>: test whether two objects are identical component-wise. This is
+stricter than <code> == </code>: for instance, the integer 0, a 0 polynomial or a
+vector with 0 entries, are all tested equal by <code> == </code>, but they are not
+identical.</p>
+<p>
+<b>*</b> Priority 3</p>
+<p>
+<code>&&</code>: logical <em>and</em>.</p>
+<p>
+<code>||</code>: logical (inclusive) <em>or</em>. Any sequence of logical
+<em>or</em> and <em>and</em> operations is evaluated from left to right,
+and aborted as soon as the final truth value is known. Thus, for instance,</p>
+<p>
+</p><pre class="code">    x == 0 || test(1/x)
+</pre><p></p>
+<p>
+will never produce an error since <code>test(1/x)</code> is not even evaluated
+when the first test is true (hence the final truth value is true). Similarly</p>
+<p>
+</p><pre class="code">    type(p) == "t_INT" && isprime(p)
+</pre><p></p>
+<p>
+does not evaluate <code>isprime(p)</code> if <code>p</code> is not an integer.</p>
+<p>
+<b>*</b> Priority 2</p>
+<p>
+<code> = </code> (assignment, <em>lvalue</em> <code> = </code> <em>expr</em>). The result of
+<code>x&nbsp; = &nbsp;y</code> is the value of the expression&nbsp;y, which is also assigned to
+the variable&nbsp;<code>x</code>. This assignment operator is right-associative. This is
+<em>not</em> the equality test operator; a statement like <code>x&nbsp; = &nbsp;1</code> is always
+true (i.e.&nbsp;non-zero), and sets <code>x</code> to&nbsp;1; the equality test would be
+<code>x == 1</code>. The right hand side of the assignment operator is evaluated
+before the left hand side.</p>
+<p>
+It is crucial that the left hand-side be an <em>lvalue</em> there, it avoids
+ambiguities in expressions like <code>1 + x = 1</code>. The latter evaluates as
+<code>1 + (x = 1)</code>, not as <code>(1 + x) = 1</code>, even though the priority of
+<code> = </code> is lower than the priority of <code>+</code>: <code>1 + x</code> is not an lvalue.</p>
+<p>
+If the expression cannot be parsed in a way where the left hand side is an
+lvalue, raise an error.</p>
+<p>
+</p><pre class="code">  ? x + 1 = 1
+    ***   syntax error, unexpected '=', expecting $end or ';': x+1=1
+    ***                                                           ^--
+</pre><p></p>
+<p>
+Assignment to all variables is a deep copy: after x = y, modifying a
+component of y will <em>not</em> change x. To globals it is a full copy to
+the heap. Space used by local objects in local variables is released when
+they go out of scope or when the value changes in local scope. Assigning a
+value to a vector or matrix entry allocates room for that entry only (on the
+heap).</p>
+<p></p>
+<p>
+<code><em>op</em> = </code>, where <em>op</em> is any binary operator
+among <code>+</code>, <code>-</code>, <code>*</code>, <code>%</code>, <code>/</code>, <code>\</code>, <code>\/</code>,
+<code> &lt;&lt; </code>, or
+<code> &gt;&gt; </code> (composed assignment <em>lvalue</em> <em>op</em><code> = </code> <em>expr</em>).
+The expression <code>x&nbsp;<em>op</em> = &nbsp;y</code> assigns (<code>x</code>&nbsp;<em>op</em>&nbsp;y)
+to&nbsp;<code>x</code>, and returns the new value of&nbsp;<code>x</code>. The result is <em>not</em>
+an <em>lvalue</em>; thus</p>
+<p>
+</p><pre class="code">    (x += 2) = 3
+</pre><p></p>
+<p>
+is invalid. These assignment operators are right-associative:</p>
+<p>
+</p><pre class="code">    ? x = 'x; x += x *= 2
+    %1 = 3*x
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> Priority 1
+<code>- &gt; </code> (function definition): <code>(<em>vars</em>)- &gt; <em>expr</em></code> returns a
+function object, of type <code>t_CLOSURE</code>.</p>
+<p>
+<b>Remark.</b> Use the <em>op</em><code> = </code> operators as often as possible
+since they make complex assignments more legible. Compare</p>
+<p>
+</p><pre class="code">  v[i+j-1] = v[i+j-1] + 1    --&gt;    v[i+j-1]++
+  
+  M[i,i+j] = M[i,i+j] * 2    --&gt;    M[i,i+j] *= 2
+</pre><p></p>
+<p></p>
+<p>
+<b>Remark about efficiency.</b> the operators <code>++</code>
+and <code>--</code> are usually a little more efficient than their expended
+counterpart:</p>
+<p>
+</p><pre class="code">  ? N = 10^7;
+  ? i = 0; for(k = 1, N, i=i+1)
+  time = 949 ms.
+  ? i = 0; for(k = 1, N, i++)
+  time = 933 ms.
+</pre><p>
+On the other hand, this is not the case for the
+<em>op</em><code> = </code> operators which may even be a little less efficient:</p>
+<p>
+</p><pre class="code">  ? i = 0; for(k = 1, N, i=i+10)
+  time = 949 ms.
+  ? i = 0; for(k = 1, N, i+=10)
+  time = 1,064 ms.
+</pre><p></p>
+<p></p>
+<p>
+</body>

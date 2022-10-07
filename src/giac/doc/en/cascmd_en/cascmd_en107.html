@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Test of pseudo-primality: is_pseudoprime
+</title>
+</head>
+<body >
+<a href="cascmd_en106.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en108.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec213" class="subsection">5.5.13  Test of pseudo-primality: <span style="font-family:monospace">is_pseudoprime</span>
+<a id="hevea_default193"></a></h3>
+<p>A <span style="font-style:italic">pseudo-prime</span> is a number with a large probability of being
+prime (cf. Rabin’s Algorithm and Miller-Rabin’s Algorithm in the
+Algorithmic part (menu
+<span style="font-family:monospace">Help</span>▸<span style="font-family:monospace">Manuals</span>▸<span style="font-family:monospace">Programming</span>)).
+For numbers less than 10<sup>14</sup>, pseudo-prime and prime are
+equivalent.</p><p>The <span style="font-family:monospace">is_pseudoprime</span> command is a test for a pseudo-prime.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_pseudoprime</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, an integer.
+</li><li class="li-itemize"><span style="font-family:monospace">is_pseudoprime(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">0</span>, <span style="font-family:monospace">1</span> or
+<span style="font-family:monospace">2</span>.
+<ul class="itemize"><li class="li-itemize">
+If it returns 0, then <span style="font-style:italic">n</span> is not prime. <br>
+ </li><li class="li-itemize">If it returns <span style="font-family:monospace">1</span>, then <span style="font-style:italic">n</span> is a prime.<br>
+ </li><li class="li-itemize">If it returns <span style="font-family:monospace">2</span>, then <span style="font-style:italic">n</span> is pseudo-prime (most
+probably prime).
+</li></ul>
+</li></ul><h4 id="sec214" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_pseudoprime(100003)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_pseudoprime(9856989898997)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  2
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_pseudoprime(14)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_pseudoprime(9856989898997789789)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  1
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en106.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en108.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

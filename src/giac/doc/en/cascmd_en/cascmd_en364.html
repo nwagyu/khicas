@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Partial fraction expansion: partfrac cpartfrac
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en363.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en365.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:convertparf" class="subsection">5.32.9  Partial fraction expansion: <span style="font-family:monospace">partfrac</span> <span style="font-family:monospace">cpartfrac</span>
+
+<a id="hevea_default616"></a>
+<a id="hevea_default617"></a></h3>
+<p>The <span style="font-family:monospace">partfrac</span> and <span style="font-family:monospace">cpartfrac</span> commands find the partial
+fraction expansion of a rational function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">partfrac</span> takes one argument:<br>
+ <span style="font-style:italic">rat</span>, a rational function.
+</li><li class="li-itemize"><span style="font-family:monospace">partfrac(</span><span style="font-style:italic">rat</span><span style="font-family:monospace">)</span> returns the partial
+fraction expansion of <span style="font-style:italic">rat</span>.<br>
+ The <span style="font-family:monospace">partfrac</span> command is equivalent to the <span style="font-family:monospace">convert</span>
+command (see Section <a href="cascmd_en273.html#ssec%3Aconvert">5.23.26</a>) with <span style="font-family:monospace">parfrac</span> (or
+<span style="font-family:monospace">partfrac</span> or <span style="font-family:monospace">fullparfrac</span>) as option.
+</li><li class="li-itemize"><span style="font-family:monospace">cpartfrac(</span><span style="font-style:italic">rat</span><span style="font-family:monospace">)</span> behaves just like 
+<span style="font-family:monospace">partfrac</span>, except that it always finds the partial fraction
+expansion over ℂ.
+</li></ul><h4 id="sec844" class="subsubsection">Example</h4>
+<p> 
+Find the partial fraction expansion of:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>5</sup>−2<span style="font-style:italic">x</span><sup>3</sup>+1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>4</sup>−2<span style="font-style:italic">x</span><sup>3</sup>+2<span style="font-style:italic">x</span><sup>2</sup>−2<span style="font-style:italic">x</span>+1</td></tr>
+</table></td></tr>
+</table><p>
+over the real numbers.
+<span style="font-style:italic">Input (in real mode):</span>
+</p><div class="center">
+<span style="font-family:monospace">partfrac((x^5-2*x^3+1)/(x^4-2*x^3+2*x^2-2*x+1))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>+2−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table><p>
+To find the partial fraction decomposition over the complex numbers,
+you can either put <span style="font-family:monospace">Xcas</span> in complex mode (see
+Section <a href="cascmd_en025.html#ssec%3Acomplex">2.5.5</a>) or use <span style="font-family:monospace">cpartfrac</span>.<br>
+<span style="font-style:italic">Input (in complex mode):</span>
+</p><div class="center">
+<span style="font-family:monospace">partfrac((x^5-2*x^3+1)/(x^4-2*x^3+2*x^2-2*x+1))</span>
+</div><p>
+<span style="font-style:italic">or, in real or complex mode:</span>
+</p><div class="center">
+<span style="font-family:monospace">cpartfrac((x^5-2*x^3+1)/(x^4-2*x^3+2*x^2-2*x+1))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>+2−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">−1−2 <span style="font-style:italic">i</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2−2 <span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2+<span style="font-style:italic">i</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2−2 <span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>−<span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+<hr>
+<a href="cascmd_en363.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en365.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

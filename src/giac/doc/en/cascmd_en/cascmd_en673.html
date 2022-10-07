@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Student’s distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en672.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en674.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:student" class="subsection">8.4.8  Student’s distribution
+</h3>
+<h4 id="sec1705" class="subsubsection">The probability density function for Student’s distribution: <span style="font-family:monospace">student</span> <span style="font-family:monospace">studentd</span>
+<a id="hevea_default1222"></a>
+<a id="hevea_default1223"></a></h4>
+<p>Student’s distribution (also called Student’s <span style="font-style:italic">t</span>-distribution or just
+the <span style="font-style:italic">t</span>-distribution) with <span style="font-style:italic">n</span> degrees of freedom has density function
+given by 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:student"></a> 
+<span style="font-family:monospace">student</span>(<span style="font-style:italic">n</span>,<span style="font-style:italic">x</span>) = 
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">Γ((<span style="font-style:italic">n</span>+1)/2)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">Γ(<span style="font-style:italic">n</span>/2)</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">n</span>π</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">1 + </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">−<span style="font-style:italic">n</span>−1/2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> 
+    (5)</td></tr>
+</table><p>
+where recall the Gamma function (see Section <a href="cascmd_en148.html#ssec%3Agamma">5.8.13</a>) is defined for <span style="font-style:italic">x</span>&gt;0 by 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">Γ(<span style="font-style:italic">x</span>) = </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">∞</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">0</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">e</span><sup>−<span style="font-style:italic">t</span></sup><span style="font-style:italic">t</span><sup><span style="font-style:italic">x</span>−1</sup><span style="font-style:italic">dx</span>.
+</td></tr>
+</table><p>
+The <span style="font-family:monospace">student</span> command finds the density function for Student’s
+distribution.<br>
+<span style="font-family:monospace">studentd</span> is a synonym for <span style="font-family:monospace">student</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">student</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+<span style="font-family:monospace">student(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the density function
+for Student’s distribution with <span style="font-style:italic">n</span> degrees of freedom at <span style="font-style:italic">x</span>, given
+in (<a href="#eq%3Astudent">5</a>).
+</li></ul><h4 id="sec1706" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">student(2,3)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >π </td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table style="border-spacing:0" class="cellpadding0"><tr><td ALIGN="right"><div CLASS="vbar" STYLE="height:2em;"></div></td></tr>
+<tr><td><span style="font-size:xx-large"><span style="font-size:150%">√</span></span></td></tr>
+</table></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">11</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td><td class="dcell"><sup>−1</sup></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">2 </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2 π </td></tr>
+</table></td><td class="dcell">· 11</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table><p>
+which can be numerically approximated by:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">evalf(student(2,3))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.0274101222343
+</td></tr>
+</table>
+<h4 id="sec1707" class="subsubsection">The cumulative distribution function for Student’s distribution: <span style="font-family:monospace">student_cdf</span>
+<a id="hevea_default1224"></a></h4>
+<p>The <span style="font-family:monospace">student_cdf</span> command computes
+the cumulative distribution function for Student’s distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">student_cdf</span> takes two mandatory arguments and one
+optional argument.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">y</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">student_cdf(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) for Student’s distribution with <span style="font-style:italic">n</span> degrees
+of freedom.
+</li><li class="li-itemize"><span style="font-family:monospace">student_cdf(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> ≤ <span style="font-style:italic">y</span>).
+</li></ul><h4 id="sec1708" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">student_cdf(5,2)</span>
+</div>
+<span style="font-style:italic">Input:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.949030260585
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">student_cdf(5,-2,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.89806052117
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1709" class="subsubsection">The inverse distribution function for Student’s distribution: <span style="font-family:monospace">student_icdf</span>
+<a id="hevea_default1225"></a></h4>
+<p>The <span style="font-family:monospace">student_icdf</span> command computes
+the inverse distribution for Student’s distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">student_icdf</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number between 0 and 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">student_icdf(</span><span style="font-style:italic">n</span>, <span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for Student’s distribution with <span style="font-style:italic">n</span> degrees of freedom;
+namely, the value of <span style="font-style:italic">x</span> for which Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) = <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1710" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">student_icdf(5,0.95)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2.01504837333
+</td></tr>
+</table>
+<h4 id="sec1711" class="subsubsection">The upper tail cumulative function for Student’s distribution: <span style="font-family:monospace">UTPT</span>
+<a id="hevea_default1226"></a></h4>
+<p>The <span style="font-family:monospace">UTPT</span> (the Upper Tail Probability - T distribution) 
+computes Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>) for Student’s distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">UTPT</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer (the degrees of freedom).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">UTPT(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns
+Prob(<span style="font-style:italic">X</span> &gt; <span style="font-style:italic">x</span>) for Student’s distribution with <span style="font-style:italic">n</span> degrees
+of freedom.
+</li></ul><h4 id="sec1712" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">UTPT(5,2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.0509697394149
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en672.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en674.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

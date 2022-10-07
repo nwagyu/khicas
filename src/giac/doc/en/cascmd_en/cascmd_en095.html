@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>GCD: gcd
+igcd Gcd
+</title>
+</head>
+<body >
+<a href="cascmd_en094.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en096.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:igcd" class="subsection">5.5.1  GCD: <span style="font-family:monospace">gcd</span><a id="hevea_default171"></a>
+<span style="font-family:monospace">igcd</span><a id="hevea_default172"></a> <span style="font-family:monospace">Gcd</span><a id="hevea_default173"></a>
+</h3>
+<p>The <span style="font-family:monospace">gcd</span> command finds the greatest common
+divisor (GCD) of a set of integers or polynomials. (See also
+Section <a href="cascmd_en329.html#ssec%3Agcd">5.28.5</a> for polynomials.) It can be called with one or two
+arguments.<br>
+<span style="font-style:italic">igcd</span> is a synonym for <span style="font-family:monospace">gcd</span>.</p><p><br>
+</p><p>With one argument:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">gcd</span> takes one argument:<br>
+ <span style="font-style:italic">seq</span>, a sequence or list of integers or polynomials.
+</li><li class="li-itemize"><span style="font-family:monospace">gcd(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns the GCD of the
+elements of <span style="font-style:italic">seq</span>.
+</li></ul><h4 id="sec184" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">gcd(18,15)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">gcd(18,15,21,36)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">gcd([18,15,21,36])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-family:monospace">Input:</span>
+<div class="center">
+<span style="font-family:monospace">gcd(-5-12*i,11-10*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3+2 <span style="font-style:italic">i</span>
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>With two arguments:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">gcd</span> takes two arguments:<br>
+ <span style="font-style:italic">s</span> and <span style="font-style:italic">t</span>, two lists of the same length containing integers or polynomials
+(alternatively, a matrix <span style="font-style:italic">m</span> with two rows whose elements are
+integers or polynomials).
+</li><li class="li-itemize"><span style="font-family:monospace">gcd(</span><span style="font-style:italic">s</span><span style="font-family:monospace">,</span><span style="font-style:italic">t</span><span style="font-family:monospace">)</span> (or <span style="font-family:monospace">gcd(</span><span style="font-style:italic">m</span><span style="font-family:monospace">)</span>) returns
+the list whose <span style="font-style:italic">k</span>th element is the GCD of the <span style="font-style:italic">k</span>th elements of <span style="font-style:italic">s</span> and
+<span style="font-style:italic">t</span> (or the <span style="font-style:italic">k</span>th column of <span style="font-style:italic">m</span>).
+</li></ul><h4 id="sec185" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">gcd([6,10,12],[21,5,8])</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">gcd([[6,10,12],[21,5,8]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">3,5,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the greatest common divisor of 4<span style="font-style:italic">n</span>+1 and 5<span style="font-style:italic">n</span>+3 when <span style="font-style:italic">n</span> ∈
+ℕ.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">f(n):=gcd(4*n+1,5*n+3)</span>
+</div>
+<span style="font-style:italic">then input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>essai(n):={</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  local j,a,L;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  L:=NULL;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  for (j:=-n;j&lt;n;j++) {</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    a:=f(j);</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    if (a!=1) {</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>      L:=L,[j,a];</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>    }</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  }</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>  return L;</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>}</code>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">then input:</span>
+<div class="center">
+<span style="font-family:monospace">essai(20)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−16,7</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−9,7</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−2,7</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,
+</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,7</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">12,7</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">19,7</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+From this information, a reasonable conjecture would be that
+gcd(4<span style="font-style:italic">n</span>+1,5<span style="font-style:italic">n</span>+3)=7 if <span style="font-style:italic">n</span>=7<span style="font-style:italic">k</span>−2 for some <span style="font-style:italic">k</span> ∈ ℤ and
+gcd(4<span style="font-style:italic">n</span>+1,5<span style="font-style:italic">n</span>+3)=1 otherwise.<p>Since gcd(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>) = gcd(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>−<span style="font-style:italic">c</span>· <span style="font-style:italic">a</span>) for integers <span style="font-style:italic">a</span>,<span style="font-style:italic">b</span> and <span style="font-style:italic">c</span>;
+we have gcd(4<span style="font-style:italic">n</span>+1,5<span style="font-style:italic">n</span>+3)=gcd(4<span style="font-style:italic">n</span>+1,5<span style="font-style:italic">n</span>+3−(4<span style="font-style:italic">n</span>+1)) =gcd(4<span style="font-style:italic">n</span>+1,<span style="font-style:italic">n</span>+2) =
+gcd(4<span style="font-style:italic">n</span>+1−4(<span style="font-style:italic">n</span>+2),<span style="font-style:italic">n</span>+2) = gcd(−7,<span style="font-style:italic">n</span>+2) = gcd(7,<span style="font-style:italic">n</span>+2), and so
+gcd(4<span style="font-style:italic">n</span>+1,5<span style="font-style:italic">n</span>+3)=7 if 7 divides <span style="font-style:italic">n</span>+2, namely <span style="font-style:italic">n</span>+2 = 7<span style="font-style:italic">k</span> or
+<span style="font-style:italic">n</span>=7<span style="font-style:italic">k</span>−2, and gcd(4<span style="font-style:italic">n</span>+1,5<span style="font-style:italic">n</span>+3)=1 otherwise. This proves the
+conjecture.
+</p></li></ul><p>The <span style="font-family:monospace">Gcd</span> command is the inert form of <span style="font-family:monospace">gcd</span>; namely, it
+evaluates to <span style="font-family:monospace">gcd</span>, for later evaluation.
+</p><h4 id="sec186" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Gcd(18,15)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">gcd</span></td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">18,15</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">eval(Gcd(18,15))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  3
+</td></tr>
+</table>
+(See Section <a href="cascmd_en179.html#ssec%3Aeval">5.12.1</a>.)
+</li></ul>
+<hr>
+<a href="cascmd_en094.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en096.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

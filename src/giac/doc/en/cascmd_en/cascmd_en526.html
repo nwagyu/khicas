@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Smith normal form in ℤ: ismith
+</title>
+</head>
+<body >
+<a href="cascmd_en525.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en527.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1295" class="subsection">5.48.14  Smith normal form in ℤ: <span style="font-family:monospace">ismith</span>
+<a id="hevea_default907"></a></h3>
+<p>A matrix <span style="font-style:italic">B</span> is in <em>Smith normal form</em>
+if the only non-zero entries are on the diagonal (for non-square
+matrices, this simply means that <span style="font-style:italic">b</span><sub><span style="font-style:italic">ij</span></sub>=0 for <span style="font-style:italic">i</span>≠ <span style="font-style:italic">j</span>) and 
+<span style="font-style:italic">b</span><sub><span style="font-style:italic">i</span>,<span style="font-style:italic">i</span></sub> divides <span style="font-style:italic">b</span><sub><span style="font-style:italic">i</span>+1,<span style="font-style:italic">i</span>+1</sub>. The elements <span style="font-style:italic">b</span><sub><span style="font-style:italic">i</span>,<span style="font-style:italic">i</span></sub> are called
+invariant factors and are used to describe the structure of finite
+abelian groups.</p><p>For any matrix <span style="font-style:italic">A</span> with coefficients in ℤ, there exist
+matrices <span style="font-style:italic">U</span> and <span style="font-style:italic">V</span>, invertible in ℤ, such that <span style="font-style:italic">B</span>=<span style="font-style:italic">U</span> <span style="font-style:italic">A</span> <span style="font-style:italic">V</span>
+is in Smith normal form and has coefficients in ℤ. The
+<span style="font-family:monospace">ismith</span> command finds the matrices <span style="font-style:italic">U</span>, <span style="font-style:italic">B</span> and <span style="font-style:italic">V</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ismith</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a matrix with coefficients in ℤ.
+</li><li class="li-itemize"><span style="font-family:monospace">ismith(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns a list [<span style="font-style:italic">U</span>,<span style="font-style:italic">B</span>,<span style="font-style:italic">V</span>] of three matrices 
+such that <span style="font-style:italic">B</span>=<span style="font-style:italic">UAV</span> is in Smith normal form and <span style="font-style:italic">U</span> and <span style="font-style:italic">V</span> are
+invertible in ℤ.
+</li></ul><h4 id="sec1296" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:=[[9,-36,30],[-36,192,-180],[30,-180,180]]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">U,B,V:=ismith(A)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >−3</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >6</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >20</td><td style="text-align:center;white-space:nowrap" >15</td><td style="text-align:center;white-space:nowrap" >12</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >12</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >60</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >24</td><td style="text-align:center;white-space:nowrap" >−30</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+The invariant factors are 3, 12 and 60.</p>
+<hr>
+<a href="cascmd_en525.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en527.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

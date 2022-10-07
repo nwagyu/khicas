@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Creating array of symbols: symbol_array</title>
+</head>
+<body >
+<a href="cascmd_en766.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en768.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1961" class="subsection">12.4.6  Creating array of symbols: <span style="font-family:monospace">symbol_array</span></h3>
+<p>
+<a id="hevea_default1420"></a></p><p>The <span style="font-family:monospace">symbol_array</span> command is used for creating multidimensional arrays of symbols.
+It takes two arguments:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">str</span>, a template string for symbol names.
+</li><li class="li-itemize"><span style="font-style:italic">dim</span>=<span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,…,<span style="font-style:italic">n</span><sub><span style="font-style:italic">m</span></sub>, a sequence of <span style="font-style:italic">m</span> positive integers.
+</li></ul><p>The return value is an array with <span style="font-style:italic">m</span> dimensions <span style="font-style:italic">n</span><sub>1</sub>,<span style="font-style:italic">n</span><sub>2</sub>,…,<span style="font-style:italic">n</span><sub><span style="font-style:italic">m</span></sub> with indexed symbols as elements.
+Symbols are created from the template string <span style="font-style:italic">str</span> by appending indices. Template string may contain
+<span style="font-style:italic">m</span> instances of the character <span style="font-family:monospace">’%’</span>, <span style="font-style:italic">k</span>th of which serves as the placeholder for the <span style="font-style:italic">k</span>th
+dimension index. If placeholders are omitted, indices are simply appended in case <span style="font-style:italic">m</span>=1,
+while in case <span style="font-style:italic">m</span>&gt;1 they are separated from <span style="font-style:italic">str</span> and each other by the underscore (<span style="font-family:monospace">’_’</span>).</p><p>The indices start from 0 in 0-based modes (such as the default mode in <span style="font-variant:small-caps">Xcas</span>) resp. from 1 in 1-based
+modes (such as the <span style="font-variant:small-caps">Maple</span> mode).</p><h4 id="sec1962" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">symbol_array("x",5)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,<span style="font-style:italic">x</span><sub>3</sub>,<span style="font-style:italic">x</span><sub>4</sub></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">symbol_array("a",2,3)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>0,0</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>0,1</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>0,2</sub></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>1,0</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>1,1</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>1,2</sub></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">maple_mode(1):; symbol_array("a%%",2,3)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">[[<span style="font-style:italic">a</span>11,<span style="font-style:italic">a</span>12,<span style="font-style:italic">a</span>13],[<span style="font-style:italic">a</span>21,<span style="font-style:italic">a</span>22,<span style="font-style:italic">a</span>23]] </td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">maple_mode(0):; s:=symbol_array("a%b%c%",2,3,4)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>1</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>2</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>1</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>2</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>1</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>2</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>0<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>1</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>2</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>0<span style="font-style:italic">c</span>3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>1</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>2</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>1<span style="font-style:italic">c</span>3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>0</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>1</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>2</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">s[1][2][3]</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">a</span>1<span style="font-style:italic">b</span>2<span style="font-style:italic">c</span>3 </td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en766.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en768.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

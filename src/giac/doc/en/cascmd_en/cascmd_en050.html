@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Sequences: seq[] ()</title>
+</head>
+<body >
+<a href="cascmd_en049.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en051.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:seqbasics" class="subsection">4.3.1  Sequences: <span style="font-family:monospace">seq[] ()</span><a id="hevea_default59"></a><a id="hevea_default60"></a></h3>
+<p>A sequence is represented by a sequence of elements separated by
+commas, without delimiters or with either parentheses (<span style="font-family:monospace">(</span> and
+<span style="font-family:monospace">)</span>) or <span style="font-family:monospace">seq[</span> and <span style="font-family:monospace">]</span> as delimiters, as in:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">1,2,3,4</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">(1,2,3,4)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">seq[1,2,3,4]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1,2,3,4
+</td></tr>
+</table><p>Note that the order of the elements of a sequence is significant. For
+example, if <span style="font-family:monospace">B:=(5,6,3,4)</span> and <span style="font-family:monospace">C:=(3,4,5,6)</span>, then
+<span style="font-family:monospace">B==C</span> returns <span style="font-family:monospace">false</span>.<br>
+(A value can be assigned to a variable with the <span style="font-family:monospace">:=</span> operator;
+see Section <a href="cascmd_en054.html#ssec%3Avarname">4.4.1</a>.
+Also, <span style="font-family:monospace">==</span> is the test for equality; see
+Section <a href="cascmd_en069.html#ssec%3Abooltests">5.1.2</a>.)</p><p>Note also that the expressions <span style="font-family:monospace">seq[</span>…<span style="font-family:monospace">]</span> and
+<span style="font-family:monospace">seq(</span>…<span style="font-family:monospace">)</span> are not the same (see Section <a href="cascmd_en412.html#ssec%3Amakeseq">5.39.2</a> for
+information on <span style="font-family:monospace">seq(</span>…<span style="font-family:monospace">)</span>). For example,
+<span style="font-family:monospace">seq([0,2])=(0,0)</span> and <span style="font-family:monospace">seq([0,1,1,5])=[0,0,0,0,0]</span>
+but<br>
+<span style="font-family:monospace">seq[0,2]=(0,2)</span> and <span style="font-family:monospace">seq[0,1,1,5]=(0,1,1,5)</span></p><p>See Section <a href="index.html#sec%3Aseq">5.39</a> for operations on sequences.</p>
+<hr>
+<a href="cascmd_en049.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en051.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

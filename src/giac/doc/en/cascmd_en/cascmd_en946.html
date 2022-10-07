@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if an object in space is an equilateral triangle: is_equilateral
+</title>
+</head>
+<body >
+<a href="cascmd_en945.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en947.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dcheckequilateral" class="subsection">14.13.9  Checking if an object in space is an equilateral triangle: <span style="font-family:monospace">is_equilateral</span>
+<a id="hevea_default1652"></a></h3>
+<p>See Section <a href="cascmd_en871.html#ssec%3A2dcheckequilateral">13.16.5</a> for checking for equilateral
+triangles in two-dimensional geometry.</p><p>The <span style="font-family:monospace">is_equilateral</span> command determines whether or not a
+geometric object is an equilateral triangle.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_equilateral</span> takes one argument:<br>
+ <span style="font-style:italic">G</span>, a geometric object or a sequence of three points assumed to be
+the vertices of a triangle.
+</li><li class="li-itemize"><span style="font-family:monospace">is_equilateral(</span><span style="font-style:italic">G</span><span style="font-family:monospace">)</span> returns <span style="font-family:monospace">1</span> if the object
+is an equilateral triangle and returns <span style="font-family:monospace">0</span> otherwise.
+</li></ul><h4 id="sec2398" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_equilateral([2,0,0],[0,0,0],[1,sqrt(3),0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">T:= triangle_equilateral([2,0,0],[0,0,0],[1,sqrt(3),0])</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">is_equilateral(T)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_equilateral([2,0,0],[0,2,0],[1,1,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en945.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en947.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

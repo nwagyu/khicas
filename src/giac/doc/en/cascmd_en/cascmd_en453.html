@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Making a matrix with a list: list2mat
+</title>
+</head>
+<body >
+<a href="cascmd_en452.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en454.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1051" class="subsection">5.40.33  Making a matrix with a list: <span style="font-family:monospace">list2mat</span>
+<a id="hevea_default742"></a></h3>
+<p>The <span style="font-family:monospace">listmat</span> command turns a list into a matrix by chopping up
+the list into separate rows.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">list2mat</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list.
+</li><li class="li-itemize"><span style="font-style:italic">p</span>, a postive integer.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">list2mat(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns the matrix whose first row
+consists of the first <span style="font-style:italic">p</span> elements of <span style="font-style:italic">L</span>, whose next row consists
+of the next <span style="font-style:italic">p</span> elements of <span style="font-style:italic">L</span>, etc. If there are not enough
+elements to fill up a row, <span style="font-family:monospace">0</span>s are added.
+</li></ul><h4 id="sec1052" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">list2mat([5,8,1,9,5,6],2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >8</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >9</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">list2mat([5,8,1,9],3)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >5</td><td style="text-align:center;white-space:nowrap" >8</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >9</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en452.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en454.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

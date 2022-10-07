@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Checking if two lines in the plane are perpendicular: is_perpendicular
+</title>
+</head>
+<body >
+<a href="cascmd_en877.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en879.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dcheckperp" class="subsection">13.16.12  Checking if two lines in the plane are perpendicular: <span style="font-family:monospace">is_perpendicular</span>
+<a id="hevea_default1579"></a></h3>
+<p>See Section <a href="cascmd_en941.html#ssec%3A3dcheckperp">14.13.4</a> for checking for perpendicularity in
+three-dimensional geometry.</p><p>The <span style="font-family:monospace">is_perpendicular</span> command determines whether or not two lines
+are perpendicular.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">is_perpendicular</span> takes two arguments:<br>
+ <span style="font-style:italic">L</span><sub>1</sub>,<span style="font-style:italic">L</span><sub>2</sub>, two lines.
+</li><li class="li-itemize"><span style="font-family:monospace">is_perpendicular(</span><span style="font-style:italic">L</span><sub>1</sub>,<span style="font-style:italic">L</span><sub>2</sub><span style="font-family:monospace">)</span> returns 1 if <span style="font-style:italic">L</span><sub>1</sub> and
+<span style="font-style:italic">L</span><sub>2</sub> are perpendicular and otherwise returns 0.
+</li></ul><h4 id="sec2225" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_perpendicular(line(0,1+i),line(i,1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">is_parallel(line(0,1+i),line(1+i,1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en877.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en879.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

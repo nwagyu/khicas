@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Moment generating functions for probability distributions: mgf
+</title>
+</head>
+<body >
+<a href="cascmd_en683.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en685.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1782" class="subsection">8.4.19  Moment generating functions for probability distributions: <span style="font-family:monospace">mgf</span>
+<a id="hevea_default1271"></a></h3>
+<p>The <span style="font-family:monospace">mgf</span> command finds the moment generating function
+for a probability distribution (such as normal, binomial, poisson,
+beta, gamma).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">mgf</span> takes one or more mandatory arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">distd</span>, the name of the function that finds the
+distribution’s density function.
+</li><li class="li-itemize"><span style="font-style:italic">parameters</span>, any parameters that would normally be passed
+to <span style="font-style:italic">distd</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">mgf(</span><span style="font-style:italic">distd,parameters</span><span style="font-family:monospace">)</span> returns an
+expression for the moment generating function for <span style="font-style:italic">distd</span>
+with parameters <span style="font-style:italic">parameters</span>.
+</li></ul><h4 id="sec1783" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Find the moment generating function for
+the standard normal distribution.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">mgf(normald,1,0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">e</span><sup><span style="font-style:italic">t</span></sup>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">mgf(binomial,n,p)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−<span style="font-style:italic">p</span>+<span style="font-style:italic">p</span> <span style="font-style:italic">e</span><sup><span style="font-style:italic">t</span></sup></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup><span style="font-style:italic">n</span></sup>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en683.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en685.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

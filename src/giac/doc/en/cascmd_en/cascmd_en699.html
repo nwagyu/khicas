@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Creating neural networks: neural_network</title>
+</head>
+<body >
+<a href="cascmd_en698.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en700.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec:nnet1" class="subsection">9.2.1  Creating neural networks: <span style="font-family:monospace">neural_network</span></h3>
+<p>
+<a id="hevea_default1285"></a></p><p>The command <span style="font-family:monospace">neural_network</span> is used for creating trainable feed-forward neural networks.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">neural_network</span> takes one mandatory argument and several optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">topology</span> or <span style="font-style:italic">net</span>, where <span style="font-style:italic">topology</span> is a vector of positive integers
+defining the number of neurons in each layer and <span style="font-style:italic">net</span> is an existing neural network.
+<ul class="itemize"><li class="li-itemize">
+If <span style="font-style:italic">topology</span> is given, then a neural network is constructed from scratch.
+The first number in <span style="font-style:italic">topology</span> is the size of the input layer and the last number is the size of
+the output layer. The numbers in between are sizes of the hidden layers. If <span style="font-style:italic">topology</span>
+contains only two numbers <span style="font-style:italic">m</span> and <span style="font-style:italic">n</span>, then a hidden layer of size 2(<span style="font-style:italic">m</span>+<span style="font-style:italic">n</span>)/3 is added automatically.
+The number of layers will be referred to as <span style="font-style:italic">L</span> below.
+</li><li class="li-itemize">If <span style="font-style:italic">net</span> is given, then a copy of <span style="font-style:italic">net</span> is constructed with optional
+modifications of the parameters as specified by the additional arguments (see below).
+</li></ul>
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">block_size=</span><span style="font-style:italic">bs</span>, where <span style="font-style:italic">bs</span> is a positive integer specifying
+the amount of samples that can be processed by the network at a time. This value can be set to
+the batch size or some smaller number for faster execution (by default, <span style="font-style:italic">bs</span>=1).
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">learning_rate=</span><span style="font-style:italic">rate</span>, where <span style="font-style:italic">rate</span> is a positive real
+number which is used as the learning rate of the network (by default, <span style="font-style:italic">rate</span>=0.001).
+Alternatively, <span style="font-style:italic">rate</span> can be a two-element vector
+<span style="font-family:monospace">[</span><span style="font-style:italic">rinit</span><span style="font-family:monospace">,</span><span style="font-style:italic">schedule</span><span style="font-family:monospace">]</span> where <span style="font-style:italic">rinit</span>=η<sub>0</sub>
+is the initial rate (a real number) and <span style="font-style:italic">schedule</span> is a function η(<span style="font-style:italic">t</span>), <span style="font-style:italic">t</span>∈ℤ
+which is used as the schedule multiplier for <span style="font-style:italic">rinit</span> (<span style="font-style:italic">t</span> is initially zero and increases
+by 1 after each weight update).
+In this case, the learning rate in iteration <span style="font-style:italic">t</span> is η<sub><span style="font-style:italic">t</span></sub>=η<sub>0</sub>η(<span style="font-style:italic">t</span>).
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">momentum=</span><span style="font-style:italic">mom</span>, where <span style="font-style:italic">mom</span> is a number µ∈[0,1)
+which specifies the momentum parameter of the network (it is usually set between 0.5 and 1.0).
+Alternatively, <span style="font-style:italic">mom</span> can be specified as a two-element vector [β<sub>1</sub>,β<sub>2</sub>] in which
+case Adam (adaptive moment estimation) method is used. To use Adam with the default (paper)
+parameters β<sub>1</sub>=0.9 and β<sub>2</sub>=0.999, simply set <span style="font-style:italic">mom</span> to <span style="font-family:monospace">adaptive</span>.
+(By default, µ=0, i.e. no momentum is used.)
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">func=</span><span style="font-style:italic">act</span>, where <span style="font-style:italic">act</span> is the activation function used in
+the hidden layers. It can be specified either as an univariate function
+(e.g. <span style="font-family:monospace">tanh</span> or <span style="font-family:monospace">logistic</span>) or a list in which the first element is a univariate
+function <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,…) with parameters <span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,…, and the other elements are the fixed
+values <span style="font-style:italic">a</span><sub>0</sub>,<span style="font-style:italic">b</span><sub>0</sub>,… of the parameters.
+In the latter case the value of <span style="font-style:italic">f</span> at <span style="font-style:italic">x</span> is obtained by computing <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">a</span><sub>0</sub>,<span style="font-style:italic">b</span><sub>0</sub>,…).
+ReLU activation is specified by the symbol <span style="font-family:monospace">ReLU</span>.
+By default, ReLU activation is used for regression models while tanh is used for
+classifiers (see below).
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">output=</span><span style="font-style:italic">outact</span>, where <span style="font-style:italic">outact</span> is the activation
+function used in the output layer. It is specified in the same way as the hidden activation
+function (see above). By default, identity is used in regression models, while sigmoid
+and softmax are used in binary and multi-class classifiers, repectively.
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">erf=</span><span style="font-style:italic">err</span>, where <span style="font-style:italic">err</span> is the error function used for
+network training. It is either a bivariate function <span style="font-style:italic">g</span>(<span style="font-weight:bold"><span style="font-style:italic">t</span></span>,<span style="font-weight:bold"><span style="font-style:italic">y</span></span>) or a list
+in which the first element is a function <span style="font-style:italic">g</span>(<span style="font-weight:bold"><span style="font-style:italic">t</span></span>,<span style="font-weight:bold"><span style="font-style:italic">y</span></span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,…)) with parameters
+<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,… and the other elements are the fixed values <span style="font-style:italic">a</span><sub>0</sub>,<span style="font-style:italic">b</span><sub>0</sub>,… of the parameters.
+In the latter case the error is computed as <span style="font-style:italic">f</span>(<span style="font-weight:bold"><span style="font-style:italic">t</span></span>,<span style="font-weight:bold"><span style="font-style:italic">y</span></span>,<span style="font-style:italic">a</span><sub>0</sub>,<span style="font-style:italic">b</span><sub>0</sub>,…). Here
+<span style="font-weight:bold"><span style="font-style:italic">t</span></span> is the expected output and <span style="font-weight:bold"><span style="font-style:italic">y</span></span> is the output read at the final layer of
+the network after forward-propagation of the input. By default, half mean squared distance is
+used in regression models while log-loss and cross-entropy are used in binary and
+multi-class classifiers, respectively. These error functions
+can be specified by using shorthands <span style="font-family:monospace">MSE</span>, <span style="font-family:monospace">log_loss</span> and <span style="font-family:monospace">cross_entropy</span>.
+The corresponding definitions are:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >      MSE:  </td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-weight:bold"><span style="font-style:italic">t</span></span>,<span style="font-weight:bold"><span style="font-style:italic">y</span></span>)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2<span style="font-style:italic">n</span></td></tr>
+</table></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">i</span>=1</td></tr>
+</table></td><td class="dcell">(<span style="font-style:italic">t</span><sub><span style="font-style:italic">i</span></sub>−<span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub>)<sup>2</sup>,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+log-loss:  </td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-weight:bold"><span style="font-style:italic">t</span></span>,<span style="font-weight:bold"><span style="font-style:italic">y</span></span>)=−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">i</span>=1</td></tr>
+</table></td><td class="dcell">(<span style="font-style:italic">t</span><sub><span style="font-style:italic">i</span></sub>log(<span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub>)+(1−<span style="font-style:italic">t</span><sub><span style="font-style:italic">i</span></sub>)log(1−<span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub>)),</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+cross-entropy:  </td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-weight:bold"><span style="font-style:italic">t</span></span>,<span style="font-weight:bold"><span style="font-style:italic">y</span></span>)=−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">n</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">i</span>=1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">t</span><sub><span style="font-style:italic">i</span></sub>log(<span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub>).
+</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">labels=</span><span style="font-style:italic">lab</span> or <span style="font-family:monospace">classes=</span><span style="font-style:italic">lab</span>,
+where <span style="font-style:italic">lab</span> is the list of labels
+corresponding to the output neurons. If this option is set, then the activation for hidden
+layers is set to <span style="font-family:monospace">tanh</span>, while the activation for the output layer is set to
+<span style="font-family:monospace">logistic</span> except with <span style="font-family:monospace">classes</span> and multiple labels, in which case the softmax activation
+is used. (By default, <span style="font-style:italic">lab</span> is unset, i.e. the network is a regression model.)
+With <span style="font-family:monospace">labels</span> the network becomes a multi-label classifier (multiple labels may be assigned
+to the output), while with <span style="font-family:monospace">classes</span> it becomes a binary/multi-class classifier
+(exactly one label is assigned to the output).
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">weights=</span><span style="font-style:italic">wi</span>, where <span style="font-style:italic">wi</span> is either a list of
+matrices containing initial weights for the model or a random variable used for generating
+initial weights automatically.
+<ul class="itemize"><li class="li-itemize">
+In the former case, <span style="font-style:italic">wi</span> is a list [<span style="font-style:italic">W</span><sup>(1)</sup>,<span style="font-style:italic">W</span><sup>(2)</sup>,…,<span style="font-style:italic">W</span><sup>(<span style="font-style:italic">L</span>−1)</sup>]
+where <span style="font-style:italic">W</span><sup>(<span style="font-style:italic">k</span>)</sup> is the matrix specifying the weights between the <span style="font-style:italic">k</span>th and (<span style="font-style:italic">k</span>+1)-th layer.
+The element <span style="font-style:italic">w</span><sub><span style="font-style:italic">ij</span></sub><sup>(<span style="font-style:italic">k</span>)</sup> is the weight corresponding to the link from the <span style="font-style:italic">i</span>th neuron in
+<span style="font-style:italic">k</span>th layer to the <span style="font-style:italic">j</span>th neuron in (<span style="font-style:italic">k</span>+1)-th layer. Optionally, the initial bias for
+the <span style="font-style:italic">k</span>th layer may be specified as an additional row in the matrix <span style="font-style:italic">W</span><sup>(<span style="font-style:italic">k</span>)</sup>.
+</li><li class="li-itemize">In the latter case, <span style="font-style:italic">wi</span> is either a constant or a random variable <span style="font-style:italic">X</span>
+as returned by the command
+<span style="font-family:monospace">randvar</span> which may optionally contain one or two symbolic parameters: <span style="font-style:italic">n</span><sub><span style="font-style:italic">in</span></sub>
+and optionally <span style="font-style:italic">n</span><sub><span style="font-style:italic">out</span></sub>, which correspond to the size of the preceding layer (“fan-in”)
+and the size of the next layer (“fan-out”). If symbols are present, then <span style="font-style:italic">wi</span> must be
+a list in which the first element is the random variable and other elements are the symbols
+(<span style="font-style:italic">n</span><sub><span style="font-style:italic">in</span></sub> first, then optionally <span style="font-style:italic">n</span><sub><span style="font-style:italic">out</span></sub>).
+These symbols are substituted by sizes of the <span style="font-style:italic">k</span>th and (<span style="font-style:italic">k</span>+1)-th layer, respectively.
+The commonly used initializations by He, Glorot and LeCun
+can be specified as strings <span style="font-family:monospace">"he"</span>, <span style="font-family:monospace">"glorot"</span> and <span style="font-family:monospace">"lecun"</span> with the suffix
+<span style="font-family:monospace">"-uniform"</span> resp. <span style="font-family:monospace">"-normal"</span> for uniform resp. Gaussian variant.
+</li></ul>
+By default, the uniform random variable
+<span style="font-style:italic">U</span>(−1/√<span style="text-decoration:overline"><span style="font-style:italic">n</span></span><sub><span style="text-decoration:overline"><span style="font-style:italic">in</span></span></sub>,1/√<span style="text-decoration:overline"><span style="font-style:italic">n</span></span><sub><span style="text-decoration:overline"><span style="font-style:italic">in</span></span></sub>) is
+used for weights initialization. Note that bias weights are always initialized to zero.
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">weight_decay=</span><span style="font-style:italic">wd</span>, where <span style="font-style:italic">wd</span> is a positive real number α
+or a list of <span style="font-style:italic">L</span>−1 such numbers [α<sub>1</sub>,α<sub>2</sub>,…,α<sub><span style="font-style:italic">L</span>−1</sub>]. These numbers are the
+<span style="font-style:italic">L</span><sup>2</sup>-regularization coefficients used in the model (by default, they are all equal to zero, i.e. no
+regularization is performed). If a single number α is given, then the coefficients for all
+layers are set to that value. If the list is given, then α<sub><span style="font-style:italic">k</span></sub> is used for the <span style="font-style:italic">k</span>th layer
+(α<sub><span style="font-style:italic">k</span></sub> is a weight decay coefficient for the weights in <span style="font-style:italic">W</span><sup>(<span style="font-style:italic">k</span>)</sup>). Note that regularization
+is not applied to bias weights.
+</li><li class="li-itemize">Optionally, <span style="font-family:monospace">title=</span><span style="font-style:italic">str</span>, where <span style="font-style:italic">str</span> is a string holding the name of
+the newtork which is printed alongside its one-line description (by default, network is not named).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">neural_network</span> returns the network object <span style="font-family:monospace">net</span> which can be trained by using the
+<span style="font-family:monospace">train</span> command (see Section <a href="cascmd_en700.html#ssec%3Atrain">9.2.2</a>). After the network is trained to a sufficient accuracy,
+the input <span style="font-family:monospace">inp</span> is processed by calling the command <span style="font-family:monospace">net(inp)</span> which returns the list
+of values in the final layer or output label(s) if the network is a classifier. <span style="font-family:monospace">inp</span> can also
+be a matrix, in which case each row is processed and the list of results is returned.
+Alternatively, you can pass two arguments to <span style="font-family:monospace">net</span> as in the command <span style="font-family:monospace">net(inp,res)</span> where
+<span style="font-family:monospace">res</span> is (the list of) expected output(s). The return value in this case is the (list of) error(s)
+made by the network in attempt to predict <span style="font-family:monospace">res</span>.
+</li><li class="li-itemize">Hyperparameters and other properties of the network <span style="font-family:monospace">net</span> can be fetched by using the command
+<span style="font-family:monospace">net[</span><span style="font-style:italic">property</span><span style="font-family:monospace">]</span>, where <span style="font-style:italic">property</span> is one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">block_size</span>, for obtaining the block size,
+</li><li class="li-itemize"><span style="font-family:monospace">learning_rate</span>, for obtaining the learning rate and possibly the schedule multiplier,
+</li><li class="li-itemize"><span style="font-family:monospace">labels</span>, for obtaining the list of output labels,
+</li><li class="li-itemize"><span style="font-family:monospace">momentum</span>, for obtaining the momentum/Adam parameter(s),
+</li><li class="li-itemize"><span style="font-family:monospace">title</span>, for obtaining the network name,
+</li><li class="li-itemize"><span style="font-family:monospace">topology</span>, for obtaining the network topology, i.e. the list of layer sizes,
+</li><li class="li-itemize"><span style="font-family:monospace">weight_decay</span>, for obtaining the list of <span style="font-style:italic">L</span><sup>2</sup>-regularization parameters,
+</li><li class="li-itemize"><span style="font-family:monospace">weights</span>, for obtaining the list of weight matrices (bias weights are contained in the
+last row in each of these matrices).
+</li></ul>
+To fetch the contents of the <span style="font-style:italic">k</span>th layer neurons, the command <span style="font-family:monospace">net[k]</span> can be used,
+where <span style="font-style:italic">k</span>∈{0,1,…,<span style="font-style:italic">L</span>−1}. This returns the layer as a matrix with the number of rows equal
+to the block size in which the <span style="font-style:italic">i</span>th row corresponds to the <span style="font-style:italic">i</span>th sample passed forward through the
+network. This is useful for e.g. obtaining hidden representations from autoencoders.
+</li><li class="li-itemize">Although <span style="font-family:monospace">neural_network</span> is flexible when it comes to custom activation and error
+functions, the resulting network is optimized for speed only when the options <span style="font-family:monospace">func</span>,
+<span style="font-family:monospace">output</span> and <span style="font-family:monospace">erf</span> are left unset, i.e. when the default activation/error function(s) are used.
+</li><li class="li-itemize">Networks can be saved to disk by using the command <span style="font-family:monospace">write</span> (see Section <a href="cascmd_en764.html#ssec%3Awrite">12.4.3</a>)
+and loaded by using the command <span style="font-family:monospace">read</span> (see Section <a href="cascmd_en066.html#ssec%3Aread">4.6.2</a>). This is useful for
+storing networks after training and loading them on demand.
+</li></ul><h4 id="sec1815" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">neural_network([2,3,1])</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">a neural network with input of size 2 and output of size 1 </td></tr>
+</table>
+</li><li class="li-itemize">In this example we use GELU activation <span style="font-style:italic">x</span>↦ <span style="font-style:italic">x</span>·Φ(<span style="font-style:italic">x</span>) for hidden neurons.
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">neural_network([2,3,1],func=unapply(x*normal_cdf(x),x))</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">a neural network with input of size 2 and output of size 1 </td></tr>
+</table>
+</li><li class="li-itemize">Here we define a penguin classifier. <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">net:=neural_network([10,15,7,3],classes=["adelie","chinstrap","gentoo"])</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">a classifier with input of size 10 and 3 classes </td></tr>
+</table>
+</li><li class="li-itemize">Now we create a copy of <span style="font-family:monospace">net</span> with block size changed to 10. <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">netcopy:=neural_network(net,block_size=10)</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">a classifier with input of size 10 and 3 classes </td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">netcopy[block_size]</span>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">10 </td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en698.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en700.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

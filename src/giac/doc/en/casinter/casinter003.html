@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casinter.css">
+<title>Level types</title>
+</head>
+<body >
+<a href="casinter002.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casinter004.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h2 id="sec3" class="section">3  Level types</h2>
+<p>
+Each session is a numbered collection of levels, each level 
+has a type: command line, comment, expression editor,
+spreadsheet, program, 2-d or
+3-d geometry, or logo-like turtle.</p>
+<h3 id="sec4" class="subsection">3.1  Command line</h3>
+<p>
+If no command line is available, you can get a new one by the 
+<code>Toolbox-&gt;New entry</code>
+menu. You can modify existing command lines or write in a new
+command line. The following shortcuts are available.
+</p><ul class="itemize"><li class="li-itemize">
+Tab: show completions.
+</li><li class="li-itemize">Enter: parse and evaluate the current command line. You can
+type Enter while the cursor is at any position. A new command line
+will be added if it was the last level of the session or if
+the next level is not a command line.
+</li><li class="li-itemize">Shift-Enter: make a new line in the current command line.
+</li><li class="li-itemize">Ctrl-C: copy the selection to the clipboard.
+</li><li class="li-itemize">Ctrl-V: paste the clipboard contents.
+</li><li class="li-itemize">Ctrl-X: cut and copy the selection to the clipboard.
+</li><li class="li-itemize">Ctrl-U: erase the command line without copying to the clipboard.
+</li><li class="li-itemize">Esc: erase the command line and copy it to the clipboard.
+</li><li class="li-itemize">Ctrl-Z: cancel the last edit command.
+</li><li class="li-itemize">Up and down: move in the current command line if it is a
+multiline command line.
+</li><li class="li-itemize">PageUp and PageDown: move to the previous or next level.
+</li><li class="li-itemize">Ctrl-Up and Ctrl-Down: replace the selection with the previous
+or next command that has been validated in a previous command line
+(history saving mechanism).
+</li></ul><p>
+When you evaluate a command line, a log output may be displayed
+(written in blue over white by default), followed by the answer, which
+might be an expression or a graphic (2-d or 3-d) widget if the
+answer is a graphic object (for lists, the widget type corresponds
+to the type of the last evaluated object).</p><p>If you do not want to see the answer displayed (for example if
+you store a large matrix in a variable), just finish
+your command line with <code>:;</code></p>
+<h3 id="sec5" class="subsection">3.2  Comments</h3>
+<p>
+Comments are inserted using the <code>Toolbox-&gt;New comment</code> menu.
+They are by default written in green instead of red over white.
+Comments are not evaluated when pressing Enter (the effect is to
+put the cursor to the next level).</p>
+<h3 id="sec6" class="subsection">3.3  Expression editor</h3>
+<p> <a id="sec:eqw"></a>
+Typing the shortcut <span style="font-family:monospace">Alt-e</span> 
+or using the menu <span style="font-family:monospace">Expression-&gt;New expression</span> will
+open an expression editor above the current level. The scientific
+keyboard should automatically appear (press the <span class="textboxed">x</span> button at the 
+top right of the keyboard if you don’t want it).</p><p>The expression editor lets you enter complex mathematical expression
+in 2-d like on a paper. 
+For example, suppose you want to enter
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>+1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>+2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">· </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell">3+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">4</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">5</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table><p>
+Open an expression editor (<span style="font-family:monospace">Alt-e</span>) then type
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">x</span>+1  ↑, this will select <span style="font-style:italic">x</span>+1
+</li><li class="li-itemize"><code>/</code> (for the division)
+</li><li class="li-itemize"><span style="font-style:italic">x</span>+2  ↑  ↑
+</li><li class="li-itemize">* 3 ↑ + 4 ↑ / x
+</li><li class="li-itemize">↑  ↑  ↑ <code>^</code> 5
+</li></ul><p>
+You can now move the selection in the tree of the expression
+with the arrows keys :
+</p><ul class="itemize"><li class="li-itemize">
+↑ moves up one level in the tree, that is select the
+function or operator with the current selection as argument 
+(it also selects the other arguments of the function/operator),
+</li><li class="li-itemize">↓ moves down one level in the three, that is select
+the first argument of the function/operator of the current selection,
+</li><li class="li-itemize">← or → selects the left or right sibling 
+of the current selection,
+</li><li class="li-itemize">Ctrl-← or Crtl-→ exchanges the current selection
+with its left or right sibling.
+</li></ul><p>Another example, let’s enter
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">+∞</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">0</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">1+<span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td><td class="dcell"> </td></tr>
+</table><p>
+Type <span style="font-family:monospace">Alt-e</span> to open a new expression editor.
+</p><ul class="itemize"><li class="li-itemize">
+Use the ∫ key on the scientific keyboard or <span style="font-family:monospace">Ctrl-R</span> on
+the keyboard to get an indefinite integral.
+</li><li class="li-itemize">Use the <code>,</code> key to switch to a definite integral. (To do the
+reverse operation, you can select each bound and press the backspace
+key).
+</li><li class="li-itemize">Use ↓ to replace 0 by the function <code>1/(1+x^2)</code>.</li><li class="li-itemize">Use ↑ and ← to select the upper bound.
+</li><li class="li-itemize">Use the ∞ key on the scientific keyboard to replace the 1.
+</li><li class="li-itemize">Use the Enter key to evaluate the integral.
+</li></ul><p>We now list the other special keys in the expression editor:
+</p><ul class="itemize"><li class="li-itemize">
+<code>"</code>: 
+Outside editor mode (no visible cursor), 
+edit the selection like in a command line, this is especially
+useful if you want to edit a function name.
+In editor mode, switch between considering the edit as a string
+and as a normal edit. 
+</li><li class="li-itemize"><code>,</code>: if a sequence is selected, add a 0 to the end of the
+sequence and select it. If the selection is not a sequence, creates
+a sequence of size 2 with first element the selection, init the second
+element to 0 and select it. You can move the newly created 0 in the
+sequence with Ctrl-→ and Ctrl-←.
+</li><li class="li-itemize"><code>(</code>: if a sequence is selected, make it the arguments to a
+user function, the name of the user function is initialized
+to <code>f</code> and selected (type the function name to replace 
+the <code>f</code> by your function name). If a vector is selected, it is replaced
+by a sequence.
+</li><li class="li-itemize"><code>[</code>: if a sequence is selected, it is replaced by a vector,
+if a vector is selected, an indexed vector/matrix position is created
+where the variable name of the vector/matrix is initialized to
+<code>m</code> and selected (type the matrix/list name to replace <code>m</code>).
+</li><li class="li-itemize">Keys in combination with the Ctrl key:
+<ul class="itemize"><li class="li-itemize">
+Ctrl-A: select All.
+</li><li class="li-itemize">Ctrl-C: copy the selection to the clipboard (like under windows).
+</li><li class="li-itemize">Ctrl-V: paste the selection from the clipboard.
+</li><li class="li-itemize">Ctrl-T: translate the selection to L<sup>A</sup>T<sub>E</sub>X and copy it to the clipboard
+(the translation is also copied to the <code>Msg</code> output, click
+on the <code>Msg</code> button to make it visible or hide it).
+</li><li class="li-itemize">Ctrl-E: evaluate the selection.
+</li><li class="li-itemize">Ctrl-F: factor the selection.
+</li><li class="li-itemize">Ctrl-N: apply normal to the selection.
+</li><li class="li-itemize">Ctrl-P: apply partfrac to the selection.
+</li><li class="li-itemize">Ctrl-I (or Tab key): completion key (open the position in the index at the function
+whose name begins the same).
+</li><li class="li-itemize">Ctrl-R: integral.
+</li><li class="li-itemize">Ctrl-S: simplify the selection.
+</li><li class="li-itemize">Ctrl-L: limit.
+</li><li class="li-itemize">Ctrl-D: derivative.
+</li><li class="li-itemize">Ctrl-Z: undo.
+</li><li class="li-itemize">Ctrl-Y: redo.
+</li></ul>
+</li></ul>
+<h3 id="sec7" class="subsection">3.4  Programs</h3>
+<p>
+Programs may be written in a command line if they are one or two
+lines long, but for more complex programs, it is a good idea to
+put them in a separate program level, using the
+<code>Prg-&gt;New program</code> menu. This will open an editor in
+a new level. Type your program (the <span style="font-family:monospace">Prg</span> menu may help you
+for the syntax of tests, loops, function definition, etc.), 
+and press the <span style="font-family:monospace">OK</span> button once completed. 
+If parsing is successful, you can test your program
+in any command line.</p><p>The <code>Prg</code> menu has items to open or
+import an existing (program) file inside the current text, save
+or export the current program (independently from the worksheet). 
+You can also use the menu 
+to insert programming structures. There are buttons to find the
+next occurence of a search string, to parse the current program
+(errors are displayed in the message area) and to save the
+program (the current filename is displayed at the right of the
+save button).</p><p>The keywords of the language are highlighted. In Xcas programming
+mode, the tab key may be used for indentation (experimental
+feature).</p><p>Tip: before pressing the <span style="font-family:monospace">OK</span> button, check the programming
+syntax by looking at the status area button
+in the middle at the top of the session. If you need
+to change the syntax, hit the status button and select the right syntax.</p>
+<h3 id="sec8" class="subsection">3.5  Geometry and graphics</h3>
+<p>
+A graphic output is made of a 2-d or 3-d scene with controls,
+it corresponds to a unique command line above it. 
+You can create some examples easily using the <span style="font-family:monospace">Graphic</span> menu.</p><p>A geometry figure is the display of a 2-d or 3-d graphic scene 
+representing the graphical objects of the command lines 
+that are on its left.
+</p><ul class="itemize"><li class="li-itemize">
+You can create some geometric objects using the mouse (points,
+lines, triangles, circles, etc.).
+</li><li class="li-itemize">Alternatively you can enter command lines, with the help
+of the Geo menu.
+</li><li class="li-itemize">Interactive geometry is implemented by moving points in pointer
+mode or by moving special objects called parameters or cursors. 
+</li></ul>
+<h4 id="sec9" class="subsubsection">3.5.1  Common features</h4>
+<p>
+The controls are common to 2-d, 3-d graphics or geometry. You can
+move left, right, up and down the window, redefine it using
+coordinates, zoom in and out, pause and restart an animation using the
+buttons and the <span style="font-family:monospace">M</span> menu at the right of the graphic, or 
+using the <span style="font-family:monospace">Graphic</span> menu.
+In 2-d, the coordinates 
+of the mouse are displayed while it is in the graphic area. 
+You can modify the visualization
+window with the mouse (drag to move, 
+use the scroll button for centered zoom in/out, or select an area with
+the right mouse button for an area zoom in).
+In 3-d,
+you can rotate the representation along the current x, y, z axis
+with a mouse drag outside of the scene rendering, or
+by using the x,X, y,Y and z,Z keys (if the focus is in the 3-d scene).</p><p>Note that the controls apply only to the visualization, not to the creation
+of graphic objects. For example, if you create a plot of a function,
+the discretisation parameters for this plot (e.g. minimal value for
+<span style="font-style:italic">x</span>) are fixed and will not change if you move the minimal visualisation
+value using the controls. You must recreate a graphical object if
+you did not correctly choose the parameters. For example if you
+run the command <code>plot(sin(x))</code>, the minimal value for computation
+of <span style="font-style:italic">x</span> will be the default value 
+(Xmin from the Geo configuration, -10 by default). If
+you move the minimal value of <span style="font-style:italic">x</span> for visualization below Xmin, you will
+not see the plot there. To see the plot below Xmin, you would have
+to specify something like <code>plot(sin(x),x=-20..0)</code> and validate
+the command line. This limitation does not apply to geometric objects
+(points, segments, lines and circles) 
+which will always be drawn if they are visible.</p><p>An <span style="font-family:monospace">M</span> menu is available below the controls (its items are also available
+from the top <span style="font-family:monospace">Graphic</span> menu), 
+it contains items to print
+and control the screen. You can export a graph to encapsulated
+postscript and to PNG (you must have the converting tools 
+netpbm or ImageMagic
+installed, this should be installed by the Xcas installer under Windows. If they
+are not installed under Linux, run your software installer or 
+open a Terminal
+and type <br>
+<code>sudo apt-get install imagemagick</code> <br>
+for Debian/Ubuntu distributions or<br>
+<code>sudo yum install imagemagick</code> <br>
+for Fedora-compatible distributions).</p><p>Titles and axis legends must be part of the command(s) that generate
+the graph or geometry window. For example, try this on a command line
+</p><div class="center">
+<code>f(t):=sin(t);title="Graph of f on a period",</code>
+<code>labels=["t","f(t)"],legend=["cm","m"],</code>
+<code>plot(f(t),t=-pi..pi,legend="f")</code>
+</div>
+<h4 id="sec10" class="subsubsection">3.5.2  2-d geometry</h4>
+<p>
+Use the <code>Geo-&gt;New figure 2d</code> menu to make a new 2-d geometry
+session. This will open a new level with a “subsession” (group of
+command lines) at the left,
+a 2-d screen in the middle, and the controls at the right. If there
+are parameters, they will be below the controls at the right.
+The subsession is a list of command line levels. Evaluation of
+a command line level will automatically reevaluate all levels
+below (i.e. with a higher level number), therefore if you use
+one level to define an object and modify the definition of this
+object later, all objects depending on this object will be modified.
+Modification of a level defining a point or a 1-d parameter can be
+done interactively with the mouse either in the geometry screen or in the
+parameter area (below the controls).</p><p>The geometry level has a mode, which affects how the mouse behaves.
+</p><ul class="itemize"><li class="li-itemize">
+In all modes, right-clicking (or double-clicking) on an object
+displays a dialog box so that you can easily modify the object
+attributes (or delete the object).
+</li><li class="li-itemize">In 2-d frame mode, draging the mouse will move the visualization window
+and scrolling will zoom in/out.
+</li><li class="li-itemize">In pointer mode, you can move an existing point, push the mouse 
+near the point (when the mouse is near enough, it will show
+a different cursor) and move the mouse, release it at the
+new postion.
+</li><li class="li-itemize">In point mode, the mouse can be used to define new
+points or segments. To define a new
+point, just click somewhere not near another point or segment. To
+define a segment, press the mouse button at the beginning, move
+the mouse, release the mouse at the end of the segment (if
+you release the mouse out of the screen, the segment will be
+cancelled). 
+</li><li class="li-itemize">You can draw a few more complex object with the mouse using
+the other modes, like triangles, circles, bisectors, .... 
+</li><li class="li-itemize">You may also type Xcas commands (from the Geo menu)
+in a command line at the left of the graphic. Each command may evaluate
+to a graphic object and be displayed or to a non graphical object which
+may be used later in the construction.
+</li></ul><p>
+To erase a geometrical object, right-click on it, select Delete
+or select its level in the
+subsession at the left, and use the <code>Edit-&gt;Delete selected levels</code>
+menu or Backspace key.</p><p>For example, you can click three points with the mouse (in point mode),
+this will create 3 levels with definitions for points A,B,C.
+Then you can make the circle containing A, B, C either by selecting
+the <code>Circles-&gt;circumcircle</code> mode and click on A,B,C
+or by entering in a command line the
+<code>circumcircle</code> command (menu <code>Geo-&gt;Circles-&gt;circumcircle</code>)<br>
+<code>c:=circumcircle(A,B,C)</code></p><p><span style="font-weight:bold">Remark: how to work with several figures in a tab</span><br>
+When you create objects in a figure with a mouse, 
+the name of the created object is
+automatically chosen. This name is shared between figures in the same
+tab so that they don’t interfere if you have several figures in the
+same tab. If you want to copy a part of a figure in another figure,
+enter in a level of the target figure
+the instruction <span style="font-family:monospace">eval([ ],1)</span> where you put inside the brackets
+the names of the objects to be copied (e.g. <span style="font-family:monospace">eval([A,B,AB],1)</span>
+will copy A, B and AB from a previous figure to the new figure). 
+If you change the initial figure (where A,
+etc. were defined), you must reevaluate the instruction in the target figure
+to reflect the changes (press Enter in the first level of the target figure).</p>
+<h4 id="sec11" class="subsubsection">3.5.3  Parameters</h4>
+<p>
+Parameters are real values which can move in a fixed interval, e.g.
+between -5 and +5. The real value may be changed by clicking on arrows
+below the controls at the right of the geometrical
+representation. There are two kinds of parameters: formal
+and numeric parameters. Formal parameters have a formal name
+which is used in all exact calculations, and a numeric value
+which is used for all numeric evaluations (including graphical representation
+of objects depending on the parameter). They can therefore be used
+to make an analytical proof of a geometric theorem using 
+the CAS engine while displaying
+a figure. Numeric parameters always evaluate to their numeric value, 
+they can
+not be used to make an analytic proof (only to make conjectures 
+like with most interactive geometry software).</p><p>To add a new parameter, use the <span style="font-family:monospace">Geo-&gt;Edit-&gt;Add parameter</span> menu.
+For example, add a level with <code>f(x):=a*x^2+b*x+c</code>
+then define 3 parameters named a, b, c and add the command
+<code>plot(f(x))</code>, then move one of them to see the 
+influence of each parameter
+on the shape of the parabola.
+You could also add a level <code>mini:=solve(diff(f(x),x))</code> and
+<code>M:=point(mini[0],f(mini[0]))</code> to display the minimum.
+Note that the coordinates of M are displayed in terms of a and b
+under the command line defining M at the left. You would have to add a level with
+<code>evalf(coordinates(M))</code> to see the current numeric value.</p>
+<h4 id="sec12" class="subsubsection">3.5.4  3-d rendering.</h4>
+<p>
+There are several options for 3-d graph rendering that can be
+configured by clicking on the cfg button. First, you have to choose
+between intrinsic colors or a scene viewed with 1 to 8 light spots, 
+see below.</p><p>Then you can choose the <span style="font-style:italic">x</span>, <span style="font-style:italic">y</span>, <span style="font-style:italic">z</span> range that will be visible.
+The position of the eye visualizing the scene can be changed by
+specifying a plane equation (normal to the vision direction). You
+can also easily change the viewpoint outside of
+the cfg configuration window either with the
+mouse (push outside of the parallelepiped, drag the mouse
+and release it at your option) or with the x,X, y,Y, z,Z keys to
+rotate around the <span style="font-style:italic">x</span>, <span style="font-style:italic">y</span> or <span style="font-style:italic">z</span> axis. </p><p>By using the r key or by selecting 
+<code>M-&gt;3-d-&gt;Rotate animation</code>,
+you can get a visualization animation by rotation around the
+origin. By default, it will rotate the viewpoint around the <span style="font-style:italic">z</span> axis
+but this is configurable from the <code>cfg</code> button. You can configure:
+</p><ul class="itemize"><li class="li-itemize">
+<code>Anim</code>: what will be animated, viewpoint if bit 8 is 1, 
+spot number 7 to 0 if bit 7 to 0 are set to 1. For example, 255 will
+move all spots leaving the viewpoint unchanged.
+</li><li class="li-itemize"><code>t</code>: interval between 2 redrawings.
+</li><li class="li-itemize"><code>n</code>: number of steps for a round trip.
+</li><li class="li-itemize"><code>x</code>, <code>y</code>, <code>z</code>: coordinates of the axes.
+</li><li class="li-itemize"><code>d</code>: normally 0, may be nonzero if you want also to move the
+number of images of a programmed animation.
+</li></ul><p>
+You can specify the axis of rotation in the command line defining the
+scene by 
+</p><div class="center">
+<code>gl_rotation_axis=[x,y,z]</code> 
+</div><p>
+where <code>x,y,z</code>
+are the coordinates of the axis of rotation.</p><p>Do not confuse visualization animation with programmed animation
+obtained by instructions like <code>animate, animate3d, animation</code>.</p>
+<h4 id="sec13" class="subsubsection">3.5.5  3-d spots</h4>
+<p>
+If you enable <code>Lights</code> in the <code>cfg</code> configuration of a 3-d
+graph, the scene will be rendered by the OpenGL lighting
+algorithm. You can enable 1 to 8 spots of light, each is configurable
+(buttons <code>L0</code> to <code>L7</code>). </p><p>Each spot has geometric properties: it may be a positional spot
+if <span style="font-style:italic">w</span>=1 or a directional spot if <span style="font-style:italic">w</span>=0
+</p><ul class="itemize"><li class="li-itemize">
+A positional spot (<span style="font-style:italic">w</span>=1) is
+at position <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span> and has a direction, defined by 
+<code>x-&gt;, y-&gt;, z-&gt;</code>. Light coming from a positional spot may
+be attenuated, the attenuation may depend on the distance between
+the spot and the object (with a quadratic, 
+<code>att0, att1, att2</code> in the spot configuration), and by the
+cosine of the angle between the spot direction and the segment
+spot-object to an exponent (<code>exp</code> in the spot configuration).
+In addition, the spot may light only inside a cone of angle
+configurable by the <code>cutoff</code> value (in degrees, use 180
+for no cutoff or a value between 0 and 90). An additional attenuation
+comes from the cosine of the angle incoming direction-normal to the
+object, so that zenithal lighting is maximal.
+</li><li class="li-itemize">A directional spot <span style="font-style:italic">w</span>=0 (emulating e.g. Sun light), does not
+attenuate (except for the angle between the direction of the
+spot and the normal). The direction is defined by <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span>.
+</li></ul><p>Objects from the scene may
+have their own properties with respect to three kinds of light:
+</p><ul class="itemize"><li class="li-itemize">
+ambient light,
+emulating light coming from all directions and diffused
+in all directions without attenuation, 
+</li><li class="li-itemize">diffuse light,
+emulating light coming from one direction and diffused in all directions
+with an attenuation factor proportional to the cosine of the
+angle of the incoming direction and the normal to the object,
+</li><li class="li-itemize">specular light,
+emulating light coming from one direction and reflected 
+preferentially in the direction symmetric with respect to
+the normal of the object.
+</li></ul><p>
+In addition, an object may have intrinsic light, called emission.
+Each property must be specified for 4 channels: r (red), b (blue)
+and g (green) for the colors, and a (alpha) for transparency (if
+you enable <code>Blending</code>).
+Object properties must be specified in their definition (on 
+the command line):
+</p><ul class="itemize"><li class="li-itemize">
+<code>gl_material=[gl_front,gl_ambient,[r,g,b,a]]</code><br>
+specifies the property for ambient light, use 
+<code>gl_diffuse</code>, <code>gl_specular</code> or <code>gl_emission</code>
+instead of <code>gl_ambient</code> for diffuse, specular or intrinsic
+light. Default is 0.2 for ambient, 0.8 for diffuse and 0 for emission
+on r,g,b channels and 1 on alpha channels.
+</li><li class="li-itemize"><code>gl_material=[gl_front,gl_shininess,n]</code><br>
+specifies the exponent <span style="font-style:italic">n</span> that will be used for specular light. The
+exponent is that of cos(θ), where θ is the angle
+between reflected incoming light and visualization direction (default
+is <span style="font-style:italic">n</span>=50).
+</li><li class="li-itemize"><code>gl_texture="filename"</code> specify an image filename that
+will be mapped on a sphere or a polygon or a parametric
+defined surface.
+</li></ul><p>Summing up, the formula for light on each channel is :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" > <span style="font-style:italic">l</span></td><td style="text-align:center;white-space:nowrap" >=</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">o</span><sub><span style="font-style:italic">e</span></sub>+ <span style="font-style:italic">o</span><sub><span style="font-style:italic">a</span></sub> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">8</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">j</span>=1</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">l</span><sub><span style="font-style:italic">a</span>,<span style="font-style:italic">j</span></sub> + <span style="font-style:italic">o</span><sub><span style="font-style:italic">s</span></sub> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">8</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">j</span>=1</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">l</span><sub><span style="font-style:italic">s</span>,<span style="font-style:italic">j</span></sub>
+cos(γ<sub><span style="font-style:italic">j</span></sub>)<sup><span style="font-style:italic">S</span></sup> + </td></tr>
+</table></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">+  <span style="font-style:italic">o</span><sub><span style="font-style:italic">d</span></sub> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">8</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">j</span>=1</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">l</span><sub><span style="font-style:italic">d</span>,<span style="font-style:italic">j</span></sub> 
+cos(α<sub><span style="font-style:italic">j</span></sub>)<sup><span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub></sup> cos(β<sub><span style="font-style:italic">j</span></sub>) </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span><sub>0,<span style="font-style:italic">j</span></sub>+<span style="font-style:italic">a</span><sub>1,<span style="font-style:italic">j</span></sub>
+<span style="font-style:italic">d</span><sub><span style="font-style:italic">j</span></sub>+<span style="font-style:italic">a</span><sub>2,<span style="font-style:italic">j</span></sub> <span style="font-style:italic">d</span><sub><span style="font-style:italic">j</span></sub><sup>2</sup></td></tr>
+</table></td><td class="dcell"> 
+</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table><p>
+where :
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">o</span><sub><span style="font-style:italic">e</span></sub>,<span style="font-style:italic">o</span><sub><span style="font-style:italic">a</span></sub>,<span style="font-style:italic">o</span><sub><span style="font-style:italic">d</span></sub>,<span style="font-style:italic">o</span><sub><span style="font-style:italic">s</span></sub> are the material properties with respect to
+ambiant, diffuse, specular light, <span style="font-style:italic">S</span> is the
+“shininess” (exponent for specular light),
+</li><li class="li-itemize"><span style="font-style:italic">l</span><sub><span style="font-style:italic">a</span>,<span style="font-style:italic">j</span></sub>,<span style="font-style:italic">l</span><sub><span style="font-style:italic">d</span>,<span style="font-style:italic">j</span></sub>,<span style="font-style:italic">l</span><sub><span style="font-style:italic">s</span>,<span style="font-style:italic">j</span></sub> are the properties of spot <span style="font-style:italic">j</span> for
+ambiant, diffuse and specular light,
+</li><li class="li-itemize"><span style="font-style:italic">a</span><sub>0,<span style="font-style:italic">j</span></sub>, <span style="font-style:italic">a</span><sub>1,<span style="font-style:italic">j</span></sub>, <span style="font-style:italic">a</span><sub>2,<span style="font-style:italic">j</span></sub> are attenuation coefficients
+of spot <span style="font-style:italic">j</span>, replaced by 1,0,0 if <span style="font-style:italic">w</span>=0 (no attenuation),
+</li><li class="li-itemize"><span style="font-style:italic">d</span><sub><span style="font-style:italic">j</span></sub> is the distance of spot <span style="font-style:italic">j</span> to the object,
+</li><li class="li-itemize">α<sub><span style="font-style:italic">j</span></sub> is the angle between the direction of spot <span style="font-style:italic">j</span> and the
+segment from spot <span style="font-style:italic">j</span> and the object, except if α<sub><span style="font-style:italic">j</span></sub> is
+greater to the angle of cutoff of spot <span style="font-style:italic">j</span> (α<sub><span style="font-style:italic">j</span></sub>=π/2), 
+or if <span style="font-style:italic">w</span>=0 (α<sub><span style="font-style:italic">j</span></sub>=0, no attenuation for directionnal light),
+</li><li class="li-itemize">β<sub><span style="font-style:italic">j</span></sub> is the angle between the segment spot <span style="font-style:italic">j</span>-object and
+the normal to the object (if <span style="font-style:italic">w</span>=0, replace spot <span style="font-style:italic">j</span>-object by
+the spot direction),
+</li><li class="li-itemize">γ<sub><span style="font-style:italic">j</span></sub> is the angle between the reflection of the direction 
+of the spot with respect to the normal of the object 
+and the segment’s object-eye.
+</li></ul>
+<h4 id="sec14" class="subsubsection">3.5.6  3-d geometry</h4>
+<p>
+3-d geometry is based on the same principles as 2-d geometry: a
+subsession at the left and the representation in the
+middle. Mouse interaction outside the representation will
+change the viewpoint, inside the representation it will depend
+on the mode: draw a point, a segment, ... according to the mouse
+plane displayed above (all mouse clicks are supposed to refer
+to this plane, which is perpendicular to the visualisation axis).</p>
+<h3 id="sec15" class="subsection">3.6  Spreadsheet</h3>
+<p>
+Use the <code>Spreadsheet-&gt;new spreadsheet</code> menu to add a spreadsheet level.
+You will see a small configuration screen where you can change
+the number of rows/columns, if an attached graph is displayed,
+and also a variable name that you can use to get values
+from command lines outside of the spreadsheet (using the matrix notation,
+e.g. <span style="font-family:monospace">a[1,2]</span> will return the value of the cell at row 2, column 3
+in <span style="font-family:monospace">xcas</span> syntax mode, or at row 1, column 2 in other syntax modes). 
+You can modify the spreadsheet configuration by clicking on the
+status line above the cells or with the 
+spreadsheet <code>File-&gt;variable name</code> menu later).
+If you have chosen to display the graph inside the spreadsheet
+configuration, it will dynamically
+display all cells that evaluate to a graphic object. 
+You may also display all the graphic
+objects of the spreadsheet in a separate window, either in 2-d or in 3-d by 
+clicking on the <span class="textboxed">2d</span> or <span class="textboxed">3d</span> button at the right of 
+the spreadsheet menu.</p><p>A cell may contain
+a fixed value (any valid Xcas object: integers, reals, symbols,
+algebraic objects, strings, ...) or a formula depending on other
+cells. The syntax for formulas is the same as for many spreadsheets, 
+begin with an <code>=</code>, then enter an algebraic expression where
+other cells are represented using a symbol made of the column
+name (e.g. A) and the row number (e.g. 1). When copying cells,
+cell dependance in a formula is considered relative
+unless you write a dollar ($) sign before the column name or
+row number. You can enter an area instead of a cell name, an area
+is always a rectangular area, it is made of two cell names separated
+by <code>..</code> representing opposite vertices of the rectangular area.</p><p>To enter a new value or formula in a cell, click on the cell, then
+enter your value or formula with the keyboard. As soon as you type
+a normal character, the focus will move from the sheet to the
+command line above the sheet. To help enter formula, you can use the mouse 
+to select a cell or a cell area. Once the value or formula is correct
+press the enter key to validate it. You can cancel your edit at
+any time by clicking on a different cell.</p><p>To modify a cell value, click on the cell so that the value or formula
+is displayed in the command line above, then click in the command line,
+modify it and press Enter.</p><p>You can move in the sheet using the mouse or the direction keys, or
+using the “goto” input value at the topleft of the sheet. Just enter
+a cell name then enter to move there. If the cell does not exist,
+the sheet will be enlarged to make it exist. You can also enter
+an area in the “goto” input value to select this area without the
+mouse. You must use the “goto” input value to make special
+selections that are not connected areas, for example <code>A1..B3,D,F</code> will
+“select” the subtable with rows 1 to 3 and columns A, B, D and F.
+You can copy and paste a rectangular area with the mouse like this:
+select the rectangular area with the mouse, click on the target cell,
+click on the command line, type Ctrl-U to erase the previous
+value then click on the middle button and type enter.</p><p>If you want to copy a cell formula to an area of the spreadsheet,
+press at the right bottom part of the cell (when the mouse is on the
+correct area of the cell, it will display a different cursor)
+and move the mouse over the area you want to
+copy, then release the mouse.
+You can also copy cells using a menu item in the spreadsheet
+<code>Edit</code> menu, you can either copy to the left, or to the bottom,
+or to a rectangular area previously selected with the mouse (in this
+case the cell which was below the mouse when you pressed the button
+will be copied to the rectangular area).</p><p>The spreadsheet can be saved, exported, imported, etc. using the
+spreadsheet <code>File</code> menu. The spreadsheet is also saved 
+as part of the session (but not as a standalone spreadsheet)
+when you save the whole session. When you load a session, the
+spreadsheet will not be evaluated automatically, you must reevaluate
+it with the <code>reeval</code> button explicitly (or modify one cell).</p><p>Xcas does not provide filters for native binary spreadsheet formats,
+but you can import spreadsheets from other software or data using
+copy/paste or by saving them in the CSV (comma separated values) text format:
+cells values must always be separated by the same character e.g. a comma, and
+another character should be used to start a new row like a newline.
+For example, you can select a spreadsheet area inside Open Office
+and paste it inside Xcas.
+If you want to import formulas instead of values,
+use the Tools-&gt;Option menu of Open Office, find the spreadsheet Display item
+and check Formulas. Select the area inside Open Office, then
+paste at the same upper left cell position inside Xcas.
+Alternatively you can save the spreadsheet in CSV format inside
+Open Office with the <code>File-&gt;Save as</code> 
+menu item, then select CSV in the choosebox below. 
+Then inside Xcas, use the <code>File-&gt;Insert CSV</code> menu item,
+select the file, change the separators if Xcas made a bad guess.
+Note that Xcas must use row notation starting
+at 1 instead of 0 for Open Office CSV formula import (this is the default).</p><p>Click on the status line or select inside the <code>Edit</code> menu
+for configuration and sheet modification operations. Configuration
+operations should be self-explanatory, except for matrix fill cells : 
+when entering a matrix in the command line, 
+you can choose between two modes, either the matrix will fill
+a rectangular area of cells, or it will fill only one cell.</p><p>The <code>Stats</code>
+menu is useful to make statistical plots in the corresponding graph.
+When you make a graph using this menu, you will have to select
+the data area where the statistic function will be applied (e.g.
+a polygonplot on <code>A1..B10</code>) and a target cell. The target
+cell is a regular cell which was empty and will contain the formula
+defining the graphic object that will be displayed. If you check the
+value box, the graph will not change later, but if you don’t check
+the value box and modify
+one data cell later, the graph will be updated like any cell 
+depending on this data cell would be.</p>
+<h3 id="sec16" class="subsection">3.7  Logo-like turtle</h3>
+<p>
+To add a turtle session, use the <code>Turtle-&gt; new turtle</code> menu.
+A logo level is made of three parts, the graphic display 
+in the middle, a subsession of command lines at the left
+and an editor at the right. Command lines are executed as in
+a main session (command lines below an evaluated command
+are not reevaluated unlike in a geometry session). The editor
+records all commands.</p><p>In a logo level, you can pilot a turtle, giving it orders like forward
+10 steps, turn left or right, etc. It will display a trace
+using a pen with a defined color. 
+You can use any language construction of Xcas to program the
+turtle’s moves. The current language uses French command names
+(e.g. avance=move forward, etc.), the most important commandnames
+are available by clicking on the buttonbar below the turtle screen
+(check that the cursor is on a command line before clicking on
+the button corresponding to the command you want to enter).
+Most commands have a default argument (e.g. 10 for avance),
+if you want to add parameters, do not add parentheses. Logo
+commands use the same syntax as the <code>return</code> statement,
+if you want to specify priorities, put parenthesis around
+the command and arguments, like this: <code>(hasard 10)</code>.</p>
+<hr>
+<a href="casinter002.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casinter004.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

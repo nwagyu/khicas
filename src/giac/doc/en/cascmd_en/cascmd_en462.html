@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Term by term sum of two lists: + .+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en461.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en463.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:pluslists" class="subsection">5.42.3  Term by term sum of two lists: <span style="font-family:monospace">+</span> <span style="font-family:monospace">.+</span>
+<a id="hevea_default761"></a>
+<a id="hevea_default762"></a>
+</h3>
+<p>The infixed operators <span style="font-family:monospace">+</span> and <span style="font-family:monospace">.+</span> as well as the
+prefixed operator <span style="font-family:monospace">’+’</span> return the term by term sum of two lists.
+If the two lists do not have the same size, the smaller list is padded
+with zeros.<br>
+Note the difference with sequences: if the infixed operator <span style="font-family:monospace">+</span>
+or the prefixed operator <span style="font-family:monospace">’+’</span> is applied to two sequences, it
+merges the sequences, hence return the sum of all the terms of the two
+sequences.</p><h4 id="sec1081" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span> 
+<div class="center">
+<span style="font-family:monospace">[1,2,3]+[4,3,5]</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">[1,2,3] .+[4,3,5]</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">’+’([1,2,3],[4,3,5])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,5,8</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">[1,2,3,4,5,6]+[4,3,5]</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">[1,2,3,4,5,6].+[4,3,5]</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">’+’([[1,2,3,4,5,6],[4,3,5]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,5,8,4,5,6</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Warning!</span><br>
+When the operator <span style="font-family:monospace">+</span> is prefixed, it should be quoted (<span style="font-family:monospace">’+’</span>).</p>
+<hr>
+<a href="cascmd_en461.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en463.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

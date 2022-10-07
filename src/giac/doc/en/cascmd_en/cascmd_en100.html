@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Matrix of factors: maple_ifactors
+</title>
+</head>
+<body >
+<a href="cascmd_en099.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en101.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec196" class="subsection">5.5.6  Matrix of factors: <span style="font-family:monospace">maple_ifactors</span>
+<a id="hevea_default178"></a></h3>
+<p>The <span style="font-family:monospace">maple_ifactors</span> command decomposes an integer into prime
+factors, and returns the result in Maple syntax.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">maple_ifactors</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, an integer or a list of integers.
+</li><li class="li-itemize"><span style="font-family:monospace">maple_ifactors(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> decomposes the integer <span style="font-style:italic">n</span>
+(or the integers of the list) into prime factors, given as a list
+following the Maple syntax; namely,
+a list starting with +1 or -1 (for the sign), then a matrix
+with 2 columns whose rows are the prime factors and their
+multiplicity (or a list of such lists).
+</li></ul><h4 id="sec197" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">maple_ifactors(90)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">1,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >                    2</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >                    3</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >                    5</td><td style="text-align:center;white-space:nowrap" >1
+</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">maple_ifactor([36,52])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >               1</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >                         2</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >                         3</td><td style="text-align:center;white-space:nowrap" >2
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >               1</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >                        2</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >                        13</td><td style="text-align:center;white-space:nowrap" >1
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en099.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en101.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

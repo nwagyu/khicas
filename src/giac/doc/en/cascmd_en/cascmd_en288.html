@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>An exercise with fft</title>
+</head>
+<body >
+<a href="cascmd_en287.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en289.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec678" class="subsection">5.26.4  An <span style="font-weight:bold">exercise</span> with <span style="font-family:monospace">fft</span></h3>
+<p>Given temperatures <span style="font-style:italic">T</span> at time <span style="font-style:italic">t</span>, in degrees Celcius:
+</p><div class="center">
+<table border=1  style="border-spacing:0;" class="cellpadding1"><tr><td style="text-align:right;border:solid 1px;white-space:nowrap" >t</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >0</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >3</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >6</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >9</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >12</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >15</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >19</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >21</td></tr>
+<tr><td style="text-align:right;border:solid 1px;white-space:nowrap" >T</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >11</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >10</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >17</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >24</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >32</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >26</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >23</td><td style="text-align:right;border:solid 1px;white-space:nowrap" >19</td></tr>
+</table>
+</div><p>
+What was the temperature at 13h45 ?</p><p>Here <span style="font-style:italic">N</span>=8=2*<span style="font-style:italic">m</span>. The interpolation polynomial is 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">p</span>(<span style="font-style:italic">t</span>)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">p</span><sub>−<span style="font-style:italic">m</span></sub>(exp(−2<span style="font-style:italic">i</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π <span style="font-style:italic">mt</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">24</td></tr>
+</table></td><td class="dcell">)+ exp(2<span style="font-style:italic">i</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π <span style="font-style:italic">mt</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">24</td></tr>
+</table></td><td class="dcell">))+
+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">m</span>−1</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span>=−<span style="font-style:italic">m</span>+1</td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub> exp(2<span style="font-style:italic">i</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π <span style="font-style:italic">kt</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">24</td></tr>
+</table></td><td class="dcell">) 
+</td></tr>
+</table><p> 
+and 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span></td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span>−1</td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-size:xx-large">∑</span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">k</span>=<span style="font-style:italic">j</span></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">T</span><sub><span style="font-style:italic">k</span></sub> exp(2<span style="font-style:italic">i</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π <span style="font-style:italic">k</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span></td></tr>
+</table></td><td class="dcell">) 
+</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">q:=1/8*fft([11,10,17,24,32,26,23,19])</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td></tr>
+</table></td><td style="text-align:left;white-space:nowrap" > 20.25,−4.48115530061+1.72227182413 <span style="font-style:italic">i</span>,0.375+0.875<span style="font-style:italic">i</span>,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" > −0.768844699385+0.222271824132, <span style="font-style:italic">i</span>,0.5,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" > −0.768844699385−0.222271824132, <span style="font-style:italic">i</span>,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"> 0.375−0.875<span style="font-style:italic">i</span>, −4.48115530061−1.72227182413<span style="font-style:italic">i</span></td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+hence:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">p</span><sub>0</sub>=20.25
+</li><li class="li-itemize"><span style="font-style:italic">p</span><sub>1</sub>=−4.48115530061+1.72227182413<span style="font-style:italic">i</span>=<span style="text-decoration:overline"><span style="font-style:italic">p</span></span><sub><span style="text-decoration:overline">−1</span></sub>,
+</li><li class="li-itemize"><span style="font-style:italic">p</span><sub>2</sub>=0.375+0.875<span style="font-style:italic">i</span>=<span style="text-decoration:overline"><span style="font-style:italic">p</span></span><sub><span style="text-decoration:overline">−2</span></sub>,
+</li><li class="li-itemize"><span style="font-style:italic">p</span><sub>3</sub>=−0.768844699385+0.222271824132<span style="font-style:italic">i</span>=<span style="text-decoration:overline"><span style="font-style:italic">p</span></span><sub><span style="text-decoration:overline">−3</span></sub>,
+</li><li class="li-itemize"><span style="font-style:italic">p</span><sub>4</sub>=0.5
+</li></ul><p>
+Indeed
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">q</span>=[<span style="font-style:italic">q</span><sub>0</sub>,… <span style="font-style:italic">q</span><sub><span style="font-style:italic">N</span>−1</sub>]=[<span style="font-style:italic">p</span><sub>0</sub>,..<span style="font-style:italic">p</span></td><td class="dcell"><table class="display"><tr><td class="dcell">&nbsp;</td></tr>
+<tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">−1</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">,<span style="font-style:italic">p</span></td><td class="dcell"><table class="display"><tr><td class="dcell">&nbsp;</td></tr>
+<tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">,..,<span style="font-style:italic">p</span><sub>−1</sub>]=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">F</span><sub><span style="font-style:italic">N</span></sub>([<span style="font-style:italic">y</span><sub>0</sub>,..<span style="font-style:italic">y</span><sub><span style="font-style:italic">N</span>−1</sub>])=</td><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-family:monospace">1</span></td></tr>
+<tr><td class="hbar"><span style="font-family:monospace"></span></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-family:monospace"><span style="font-style:italic">N</span></span></td></tr>
+</table></td><td class="dcell"><span style="font-family:monospace"><span style="font-style:italic">fft</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">y</span></span><span style="font-family:monospace">)</span></td></tr>
+</table></td><td class="dcell"> 
+</td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">pp:=[q[4],q[5],q[6],q[7],q[0],q[1],q[2],q[3]]</span>
+</div><p>
+Here, <span style="font-style:italic">p</span><sub><span style="font-style:italic">k</span></sub>=<span style="font-style:italic">pp</span>[<span style="font-style:italic">k</span>+4] for <span style="font-style:italic">k</span>=−4…3.
+It remains to compute the value of the interpolation polynomial at point
+<span style="font-style:italic">t</span>0=13.75=55/4.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">t0(j):=exp(2*i*pi*(13+3/4)/24*j)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">T0:=1/2*pp[0]*(t0(4)+t0(-4))+sum(pp[j+4]*t0(j),j,-3,3)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">evalf(re(T0))</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">29.4863181684
+</td></tr>
+</table><p>
+The temperature is predicted to be equal to 29.49 degrees Celsius.<br>
+</p><p><br>
+</p><p><span style="font-weight:bold">Remark.</span><br>
+Using the Lagrange interpolation polynomial (the polynomial is not
+periodic):<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">l1:=[0,3,6,9,12,15,18,21]</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">l2:=[11,10,17,24,32,26,23,19]</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">subst(lagrange(l1,l2,13+3/4),x=13+3/4)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">evalf(ans())</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">30.1144061688
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en287.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en289.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

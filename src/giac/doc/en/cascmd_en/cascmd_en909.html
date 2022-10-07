@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Planes in space: plane
+</title>
+</head>
+<body >
+<a href="cascmd_en908.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en910.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2310" class="subsection">14.6.1  Planes in space: <span style="font-family:monospace">plane</span>
+<a id="hevea_default1615"></a></h3>
+<p>The <span style="font-family:monospace">plane</span> command draws and returns a plane. It can take its
+arguments in different ways.</p><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">plane</span> can take three arguments:<br>
+ <span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span>,<span style="font-style:italic">R</span>, three points.
+</li><li class="li-itemize"><span style="font-family:monospace">plane(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span>,<span style="font-style:italic">R</span><span style="font-family:monospace">)</span> returns and draws the plane through
+<span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span> and <span style="font-style:italic">R</span>.
+</li></ul><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">plane</span> can take two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point.
+</li><li class="li-itemize"><span style="font-style:italic">L</span>, a line.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">plane(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns and draws the plane through
+<span style="font-style:italic">P</span> and <span style="font-style:italic">L</span>.
+</li></ul><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">plane</span> can take one argument:<br>
+ <span style="font-style:italic">eqn</span>, the equation of a plane.
+</li><li class="li-itemize"><span style="font-family:monospace">plane(</span><span style="font-style:italic">eqn</span><span style="font-family:monospace">)</span> returns and draws the
+plane with the given equation.
+</li></ul><h4 id="sec2311" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">plane(point(0,0,5),point(0,5,0),point(0,0,5))</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">plane(point(0,0,5),line(point(0,5,0),point(0,0,5)))</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">plane(x + y + z = 5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en314.png">
+</div>
+<hr>
+<a href="cascmd_en908.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en910.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

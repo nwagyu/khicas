@@ -1,0 +1,112 @@
+cp mpconfig.h ../py/mpconfig.h 
+micropylib.tgz + ajouter dans le repertoire py de l'information sur les lignes
+
+pour le scriptstore
+lexer.c desactiver *mp_lexer_new_from_file
+#if 0 && (MICROPY_READER_POSIX || MICROPY_READER_VFS)
+
+mp_lexer_t *mp_lexer_new_from_file(const char *filename) {
+    mp_reader_t reader;
+...
+}
+
+pour gerer les erreurs de parse
+parse.h: au debut extern int parser_errorline,parser_errorcol;
+parse.c: au debut int parser_errorline=0,parser_errorcol=0; (a mettre aussi avant un appel de mp_parse, dans main.c
+ligne 1056/7 mp_obj_exception_add_traceback(exc, lex->source_name, lex->tok_line, MP_QSTR_NULL); parser_errorline=lex->tok_line; parser_errorcol=lex->tok_column;
+
+renommer urandom en random dans extmod/modurandom.c py/objmodule.c
+
+import des fichiers: ajouter .tns dans py/buildimport.c apres .py
+
+pour apply dans py/objfun.c/.h declarer et enlever STATIC
+mp_obj_t fun_bc_call(mp_obj_t self_in, size_t n_args, size_t n_kw, const mp_obj_t *args);
+mp_obj_t fun_builtin_1_call(mp_obj_t self_in, size_t n_args, size_t n_kw, const mp_obj_t *args);
+
+modification dans py/objlist.c pour indiciage par tuple
+...
+STATIC mp_obj_t list_subscr(mp_obj_t self_in, mp_obj_t index, mp_obj_t value) {
+  if (mp_obj_get_type(index)==&mp_type_tuple){
+    size_t len;
+    mp_obj_t * elem;
+    mp_obj_get_array(index, &len, &elem);
+    if (len==0)
+      return self_in;
+    mp_obj_t curindex=elem[0];
+    if (len>1){
+      mp_obj_t cur=list_subscr(self_in,curindex,MP_OBJ_SENTINEL);
+      mp_obj_t r=mp_obj_new_tuple(len-1, elem+1);
+      return list_subscr(cur,r,value);
+    }
+    index=curindex;
+  }
+    if (value == MP_OBJ_NULL) {
+...
+
+meme chose dans py/objtuple.c
+...
+mp_obj_t mp_obj_tuple_subscr(mp_obj_t self_in, mp_obj_t index, mp_obj_t value) {
+  if (mp_obj_get_type(index)==&mp_type_tuple){
+    size_t len;
+    mp_obj_t * elem;
+    mp_obj_get_array(index, &len, &elem);
+    if (len==0)
+      return self_in;
+    mp_obj_t curindex=elem[0];
+    if (len>1){
+      mp_obj_t cur=mp_obj_tuple_subscr(self_in,curindex,MP_OBJ_SENTINEL);
+      mp_obj_t r=mp_obj_new_tuple(len-1, elem+1);
+      return mp_obj_tuple_subscr(cur,r,value);
+    }
+    index=curindex;
+  }
+    if (value == MP_OBJ_SENTINEL) {
+...
+
+modification dans py/modbuiltins.c pour round
+STATIC mp_obj_t mp_builtin_round(size_t n_args, const mp_obj_t *args) {
+...
+#if MICROPY_PY_BUILTINS_FLOAT
+    mp_int_t num_dig = 0;
+    if (n_args > 1) {
+        num_dig = mp_obj_get_int(args[1]);
+        mp_float_t val = mp_obj_get_float(o_in);
+        mp_float_t mult = 1;
+	if (num_dig>=0){
+	  for (int i=0;i<num_dig;++i)
+	    mult*=10;
+	}
+	else
+	  mult = MICROPY_FLOAT_C_FUN(pow)(10, num_dig);	  
+        // TODO may lead to overflow
+        mp_float_t rounded = MICROPY_FLOAT_C_FUN(nearbyint)(val * mult) / mult;
+        return mp_obj_new_float(rounded);
+    }
+    mp_float_t val = mp_obj_get_float(o_in);
+    if (val>-2147483648.0 && val<2147483648.0){
+      int v=val;
+      return mp_obj_new_int(v);
+    }
+    mp_float_t rounded = MICROPY_FLOAT_C_FUN(nearbyint)(val);
+    return mp_obj_new_int_from_float(rounded);
+#else
+...
+
+./mklib:
+make, attendre l'erreur de link
+make V=1 >& log
+ouvrir log et modifier la ligne de link et en faire une lib avec
+arm-none-eabi-ar cru libmicropy fichiers_objs
+(au lieu de nspire-gcc micropython fichiers_objs)
+copier libmicropy.a dans un repertoire lib de ndless-sdk
+
+Fonctions exportees
+int do_file(const char *file);
+char * micropy_init();
+int micropy_eval(const char * line);
+void  mp_deinit();
+Initialisation de MicroPython 
+  char * heap=micropy_init();
+Sortie:
+  mp_deinit(); free(heap);
+

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Solving equation(s): solve cSolve
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en568.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en570.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:solve" class="subsection">5.55.6  Solving equation(s): <span style="font-family:monospace">solve</span> <span style="font-family:monospace">cSolve</span>
+<a id="hevea_default965"></a>
+<a id="hevea_default966"></a>
+</h3>
+<p>The <span style="font-family:monospace">solve</span> command solves an equation or a system of
+polynomial equations. In real mode, <span style="font-family:monospace">solve</span> returns only real
+solutions; to have <span style="font-family:monospace">solve</span> return the complex solutions, switch
+to complex mode (e.g.by checking <span style="font-family:monospace">Complex</span> in the cas
+configuration, see Section <a href="cascmd_en025.html#ssec%3Acomplex">2.5.5</a>).</p><p>The <span style="font-family:monospace">cSolve</span> command is identical to <span style="font-family:monospace">solve</span>, except it
+returns the complex solutions whether in real mode or complex mode.</p><p>To solve an equation:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">solve</span> takes one mandatory argument and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">eqn</span>, an equation or expression assumed to be zero.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, a variable (by default, <span style="font-style:italic">x</span><span style="font-family:monospace">=x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">solve(</span><span style="font-style:italic">eqn</span><span style="font-family:monospace">,</span><span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the solution
+to the equation.
+</li></ul><p>
+For trigonometric equations, <span style="font-family:monospace">solve</span> returns by default the principal
+solutions. To have all the solutions check <span style="font-family:monospace">All_trig_sol</span> in the cas
+configuration (see Section <a href="cascmd_en027.html#ssec%3Aconfcomp">2.5.7</a>, item <a href="cascmd_en027.html#enum%3Atrig">19</a>).</p><p><span style="font-weight:bold">Examples</span>:
+</p><ul class="itemize"><li class="li-itemize">
+Solve <span style="font-style:italic">x</span><sup>4</sup>−1=3<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve(x^4-1=3)</span>
+</div>
+<span style="font-style:italic">Output (in real mode):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Output (in complex mode):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,<span style="font-style:italic">i</span></td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,−<span style="font-style:italic">i</span></td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+Also:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cSolve(x^4-1=3)</span>
+</div>
+<span style="font-style:italic">Output (in any mode):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">i</span>,</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">i</span></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve exp(<span style="font-style:italic">x</span>)=2<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve(exp(x)=2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Solve cos(2*<span style="font-style:italic">x</span>)=1/2<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve(cos(2*x)=1/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Output (with </span><span style="font-style:italic"><span style="font-family:monospace">All_trig_sol</span></span><span style="font-style:italic"> checked):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">6π <span style="font-style:italic">n</span><sub>0</sub> + π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">6π <span style="font-style:italic">n</span><sub>0</sub> − π </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>To solve a system of polynomial equations:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">solve</span> takes one mandatory argument and one optional
+argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">eqns</span>, a list of polynomial equations.
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of variables.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">solve(</span><span style="font-style:italic">eqns,vars</span><span style="font-family:monospace">)</span> returns the
+solutions to the system of equations.
+</li></ul><h4 id="sec1422" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Find <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span> such that <span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>=1,<span style="font-style:italic">x</span>−<span style="font-style:italic">y</span>=0<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve([x+y=1,x-y],[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span> such that <span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">y</span>=2,<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span><sup>2</sup>=2<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve([x^2+y=2,x+y^2=2],[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−2,−2</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+2</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,−</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td><td class="dcell">+1</td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+2</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<div class="center"><span style="font-family:monospace">[(sqrt(5)+1)/2,(1-sqrt(5))/2]]</span></div>
+</li><li class="li-itemize">Find <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span> such that <span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">y</span><sup>2</sup>=0,<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">z</span><sup>2</sup>=0<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve([x^2-y^2=0,x^2-z^2=0],[x,y,z])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>,−<span style="font-style:italic">x</span>,−<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>,<span style="font-style:italic">x</span>,−<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>,−<span style="font-style:italic">x</span>,<span style="font-style:italic">x</span></td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Find the intersection of a straight line
+(given by a list of equations) and a plane.<br>
+For example, let <span style="font-style:italic">D</span> be the straight line with cartesian equations
+[<span style="font-style:italic">y</span>−<span style="font-style:italic">z</span>=0,<span style="font-style:italic">z</span>−<span style="font-style:italic">x</span>=0] and let <span style="font-style:italic">P</span> the plane with equation <span style="font-style:italic">x</span>−1+<span style="font-style:italic">y</span>+<span style="font-style:italic">z</span>=0.
+Find the intersection of <span style="font-style:italic">D</span> and <span style="font-style:italic">P</span>.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">solve([[y-z=0,z-x=0],x-1+y+z=0],[x,y,z])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cSolve([-x^2+y=2,x^2+y],[x,y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−<span style="font-style:italic">i</span>,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">i</span>,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en568.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en570.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

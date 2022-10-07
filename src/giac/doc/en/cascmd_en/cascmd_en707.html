@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Approximating solution of an equation: newton
+</title>
+</head>
+<body >
+<a href="cascmd_en706.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en708.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1827" class="subsection">10.3.1  Approximating solution of an equation: <span style="font-family:monospace">newton</span>
+<a id="hevea_default1291"></a></h3>
+<p>The <span style="font-family:monospace">newton</span> command uses Newton’s method to approximate a
+solution to an equation.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">newton</span> takes one mandatory argument and four optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">ex</span>, an expression.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">var</span>, the variable used in this expression (by default
+<span style="font-family:monospace">x</span>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">a</span>, a number (by default 0)
+</li><li class="li-itemize">Optionally, є, a small number (by default <span style="font-family:monospace">1e-8</span>)
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">nbiter</span> (by default 12).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">newton(</span><span style="font-style:italic">ex,</span> ⟨<span style="font-style:italic">,var</span>,<span style="font-style:italic">a</span>,є,<span style="font-style:italic">nbiter</span>⟨<span style="font-family:monospace">)</span>
+returns an approximate solution of the equation <span style="font-style:italic">ex</span>=0 using
+the Newton algorithm with starting point <span style="font-style:italic">var=a</span>. 
+The maximum number of iterations is <span style="font-style:italic">nbiter</span> and
+the precision is є.
+</li></ul><h4 id="sec1828" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">newton(x^2-2,x,1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1.41421356237
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">newton(x^2-2,x,-1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−1.41421356237
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">newton(cos(x)-x,x,0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.739085133215
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en706.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en708.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

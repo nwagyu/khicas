@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Implicit differentiation: implicitdiff
+</title>
+</head>
+<body >
+<a href="cascmd_en224.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en226.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec520" class="subsection">5.19.5  Implicit differentiation: <span style="font-family:monospace">implicitdiff</span>
+<a id="hevea_default419"></a></h3>
+<p>The <span style="font-family:monospace">implicitdiff</span> command can differentiate implicitly defined
+functions or expressions containing implicitly defined functions. It
+has three different calling sequences.</p><p><br>
+</p><p>To implicitly differentiate dependent variables:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">implicitdiff</span> takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">constraints</span>, an equation or list of equations which
+implicitly define the dependent variables as functions of the
+independent variables; these will be of the form
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">g</span><sub><span style="font-style:italic">i</span></sub>(<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">y</span><sub>1</sub>,…,<span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub>)=0</td></tr>
+</table>
+for
+<span style="font-style:italic">i</span>=1,2,…,<span style="font-style:italic">m</span>, where <span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub> are the
+independent variables and <span style="font-style:italic">y</span><sub>1</sub>,…,<span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub> are the
+dependent variables.
+</li><li class="li-itemize"><span style="font-style:italic">depvars</span>, the list of dependent variables, where each
+dependent variable can optionally be written as a function of the
+<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub> or the name written as a function of the
+independent variables <span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub>(<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>). If there is only
+one dependent variable, this can be omitted.
+</li><li class="li-itemize"><span style="font-style:italic">y</span>, a dependent variable or a list of dependent variables to
+be differentiated.
+</li><li class="li-itemize"><span style="font-style:italic">diffvars</span>, a sequence of independent variables
+<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span><sub>1</sub></sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span><sub><span style="font-style:italic">k</span></sub></sub> with respect to differentiate.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">implicitdiff(</span><span style="font-style:italic">constraints </span> ⟨<span style="font-style:italic">,depvars
+</span>⟩<span style="font-style:italic">],y,diffvars</span><span style="font-family:monospace">)</span>
+returns the derivative (or list of derivatives) of <span style="font-style:italic">y</span> with respect to
+<span style="font-style:italic">diffvars</span>.
+</li></ul><h4 id="sec521" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">implicitdiff(x^2*y+y^2=1,y,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span> <span style="font-style:italic">y</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>+2 <span style="font-style:italic">y</span></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">implicitdiff([x^2+y=z,x+y*z=1],[y(x),z(x)],y,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">−2 <span style="font-style:italic">x</span> <span style="font-style:italic">y</span>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">y</span>+<span style="font-style:italic">z</span></td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p>To find a specified derivative of an expression containing
+implicitly defined functions:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">implicitdiff</span> takes four arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, a differentiable expression involving
+independent variables <span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>
+and dependent variables <span style="font-style:italic">y</span><sub>1</sub>,<span style="font-style:italic">y</span><sub>2</sub>,…,<span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub>.
+</li><li class="li-itemize"><span style="font-style:italic">constraints</span>, an equation or list of equations which
+implicitly define the dependent variables as functions of the
+independent variables; these will be of the form
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">g</span><sub><span style="font-style:italic">i</span></sub>(<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">y</span><sub>1</sub>,…,<span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub>)=0</td></tr>
+</table>
+for
+<span style="font-style:italic">i</span>=1,2,…,<span style="font-style:italic">m</span>.
+</li><li class="li-itemize"><span style="font-style:italic">depvars</span>, the dependent variable or list of dependent
+variables, where each dependent variable can either be the
+variable name <span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub> or the name written as a function of
+the independent variables <span style="font-style:italic">y</span><sub><span style="font-style:italic">i</span></sub>(<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>)).
+</li><li class="li-itemize"><span style="font-style:italic">diffvars</span>, a sequence of independent variables
+<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span><sub>1</sub></sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span><sub><span style="font-style:italic">k</span></sub></sub> with respect to which <span style="font-style:italic">expr</span> is differentiated.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">implicitdiff(</span><span style="font-style:italic">expr,implicitdef,depvars,diffvars</span><span style="font-family:monospace">)</span>
+returns the expression <span style="font-style:italic">expr</span> differentiated with respect to
+<span style="font-style:italic">diffvars</span>.
+</li></ul><h4 id="sec522" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">implicitdiff(x*y,-2x^3+15x^2*y+11y^3-24y=0,y(x),x)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span><sup>3</sup>−5 <span style="font-style:italic">x</span><sup>2</sup> <span style="font-style:italic">y</span>+11 <span style="font-style:italic">y</span><sup>3</sup>−8 <span style="font-style:italic">y</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5 <span style="font-style:italic">x</span><sup>2</sup>+11 <span style="font-style:italic">y</span><sup>2</sup>−8</td></tr>
+</table></td></tr>
+</table><p><br>
+</p><p>To find all <span style="font-style:italic">k</span>th order derivatives of an expression
+involving implicitly defined functions:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">implicitdiff</span> takes four mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, a differentiable expression involving
+independent variables <span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>
+and dependent variables <span style="font-style:italic">y</span><sub>1</sub>,<span style="font-style:italic">y</span><sub>2</sub>,…,<span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub>.
+</li><li class="li-itemize"><span style="font-style:italic">constraints</span>, an equation or list of equations which
+implicitly define the dependent variables as functions of the
+independent variables; these will be of the form
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">g</span><sub><span style="font-style:italic">i</span></sub>(<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">y</span><sub>1</sub>,…,<span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub>)=0</td></tr>
+</table> for
+<span style="font-style:italic">i</span>=1,2,…,<span style="font-style:italic">m</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">vars</span>, a list [<span style="font-style:italic">x</span><sub>1</sub>,…,<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>,<span style="font-style:italic">y</span><sub>1</sub>,…, <span style="font-style:italic">y</span><sub><span style="font-style:italic">m</span></sub>]
+of the independent and dependent variables
+entered as symbols in single list such that dependent variables
+come last.
+</li><li class="li-itemize"><span style="font-family:monospace">order=</span><span style="font-style:italic">k</span>, where <span style="font-style:italic">k</span> is the order of the derivatives
+to be taken.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">a</span>, a point where the partial derivatives
+should be evaluated at.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">implicitdiff(</span><span style="font-style:italic">expr,implicitdef,vars,</span><span style="font-family:monospace">order=</span><span style="font-style:italic">k</span>
+ ⟨,<span style="font-style:italic">a</span>⟩<span style="font-family:monospace">)</span>
+returns all partial derivatives of order <span style="font-style:italic">k</span>. If <span style="font-style:italic">k</span>=1 they are
+returned in a single list, which represents the gradient of
+<span style="font-family:monospace">expr</span> with respect to independent variables. If <span style="font-style:italic">k</span>=2 the
+corresponding Hessian matrix is returned (see Section <a href="cascmd_en236.html#ssec%3Ahessian">5.21.3</a>). 
+If <span style="font-style:italic">k</span>&gt;2, a table with
+keys in form <span style="font-family:monospace">[</span><span style="font-style:italic">k</span><sub>1</sub><span style="font-family:monospace">,</span><span style="font-style:italic">k</span><sub>2</sub><span style="font-family:monospace">,..,</span><span style="font-style:italic">k</span><sub><span style="font-style:italic">n</span></sub><span style="font-family:monospace">]</span>, where
+∑<sub><span style="font-style:italic">i</span>=1</sub><sup><span style="font-style:italic">n</span></sup><span style="font-style:italic">k</span><sub><span style="font-style:italic">i</span></sub>=<span style="font-style:italic">k</span>, is returned. Such a key corresponds to
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">∂<sup><span style="font-style:italic">k</span></sup> <span style="font-style:italic">f</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">∂ <span style="font-style:italic">var</span><sub>1</sub><sup><span style="font-style:italic">k</span><sub>1</sub></sup> ∂
+<span style="font-style:italic">var</span><sub>2</sub><sup><span style="font-style:italic">k</span><sub>2</sub></sup> ⋯ ∂ <span style="font-style:italic">var</span><sub><span style="font-style:italic">n</span></sub><sup><span style="font-style:italic">k</span><sub><span style="font-style:italic">n</span></sub></sup></td></tr>
+</table></td><td class="dcell">. </td></tr>
+</table>
+</li></ul><h4 id="sec523" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f:=x*y*z; g:=-2x^3+15x^2*y+11y^3-24y=0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">implicitdiff(f,g,[x,z,y],order=1)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">x</span><sup>3</sup> <span style="font-style:italic">z</span>−5 <span style="font-style:italic">x</span><sup>2</sup> <span style="font-style:italic">y</span> <span style="font-style:italic">z</span>+11 <span style="font-style:italic">y</span><sup>3</sup> <span style="font-style:italic">z</span>−8 <span style="font-style:italic">y</span> <span style="font-style:italic">z</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5 <span style="font-style:italic">x</span><sup>2</sup>+11 <span style="font-style:italic">y</span><sup>2</sup>−8</td></tr>
+</table></td><td class="dcell">,<span style="font-style:italic">x</span> <span style="font-style:italic">y</span></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">implicitdiff(f,g,[x,z,y],order=2,[1,-1,0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">         </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">64</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">9</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">         −</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">In the next example, the value of ∂<sup>4</sup> <span style="font-style:italic">f</span>/∂ <span style="font-style:italic">x</span><sup>4</sup>
+is computed at the point (<span style="font-style:italic">x</span>=0,<span style="font-style:italic">y</span>=0,<span style="font-style:italic">z</span>).<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">pd:=implicitdiff(f,g,[x,z,y],order=4,[0,z,0]);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">pd[4,0]</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">−2 <span style="font-style:italic">z</span>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en224.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en226.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

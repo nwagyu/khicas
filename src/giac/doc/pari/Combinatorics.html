@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Combinatorics</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:combinat"></div>
+<h2 class="center">Combinatorics</h2>
+
+<p></p>
+<p>
+Permutations are represented in gp as <code>t_VECSMALL</code>s and can be input
+directly as <code>Vecsmall([1,3,2,4])</code> or obtained from the iterator
+<code><a href="Programming_in_GP__control_statements.html#se:forperm"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">forperm</a></code>:</p>
+<p>
+</p><pre class="code">  ? forperm(3, p, print(p))  \\ iterate through S<sub>3</sub>
+  Vecsmall([1, 2, 3])
+  Vecsmall([1, 3, 2])
+  Vecsmall([2, 1, 3])
+  Vecsmall([2, 3, 1])
+  Vecsmall([3, 1, 2])
+  Vecsmall([3, 2, 1])
+</pre><p></p>
+<p></p>
+<p>
+Permutations can be multiplied via <code>*</code>, raised to some power using
+<code>^</code>, inverted using <code>^(-1)</code>, conjugated as
+<code>p * q * p^(-1)</code>. Their order and signature is available via
+<code><a href="Combinatorics.html#se:permorder"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">permorder</a></code> and <code><a href="Combinatorics.html#se:permsign"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">permsign</a></code>.</p>
+<p>
+<hr>
+<div id="se:binomial"></div>
+<div id="binomial"></div>
+<h4>binomial(x, {k})</h4>
+<p>
+binomial coefficient binom{x}{k}.
+Here k must be an integer, but x can be any PARI object.</p>
+<p>
+</p><pre class="code">  ? binomial(4,2)
+  %1 = 6
+  ? n = 4; vector(n+1, k, binomial(n,k-1))
+  %2 = [1, 4, 6, 4, 1]
+</pre><p>
+The argument k may be omitted if x = n is a
+non-negative integer; in this case, return the vector with n+1
+components whose k+1-th entry is <code><a href="Combinatorics.html#se:binomial"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">binomial</a></code>(n,k)</p>
+<p>
+</p><pre class="code">  ? binomial(4)
+  %3 = [1, 4, 6, 4, 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>binomial0</b>(GEN x, GEN k = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:fibonacci"></div>
+<div id="fibonacci"></div>
+<h4>fibonacci(x)</h4>
+<p>
+x-th Fibonacci number.</p>
+<p>
+The library syntax is <code>GEN <b>fibo</b>(long x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:hammingweight"></div>
+<div id="hammingweight"></div>
+<h4>hammingweight(x)</h4>
+<p>
+If x is a <code>t_INT</code>, return the binary Hamming weight of |x|. Otherwise
+x must be of type <code>t_POL</code>, <code>t_VEC</code>, <code>t_COL</code>, <code>t_VECSMALL</code>, or
+<code>t_MAT</code> and the function returns the number of non-zero coefficients of
+x.</p>
+<p>
+</p><pre class="code">  ? hammingweight(15)
+  %1 = 4
+  ? hammingweight(x^100 + 2*x + 1)
+  %2 = 3
+  ? hammingweight([Mod(1,2), 2, Mod(0,3)])
+  %3 = 2
+  ? hammingweight(matid(100))
+  %4 = 100
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>hammingweight</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:numbpart"></div>
+<div id="numbpart"></div>
+<h4>numbpart(n)</h4>
+<p>
+Gives the number of unrestricted partitions of
+n, usually called p(n) in the literature; in other words the number of
+nonnegative integer solutions to a+2b+3c+.. .= n. n must be of type
+integer and n &lt; 10<sup>15</sup> (with trivial values p(n) = 0 for n &lt; 0 and
+p(0) = 1). The algorithm uses the Hardy-Ramanujan-Rademacher formula.
+To explicitly enumerate them, see <code><a href="Combinatorics.html#se:partitions"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">partitions</a></code>.</p>
+<p>
+The library syntax is <code>GEN <b>numbpart</b>(GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:numtoperm"></div>
+<div id="numtoperm"></div>
+<h4>numtoperm(n, k)</h4>
+<p>
+Generates the k-th permutation (as a row vector of length n) of the
+numbers 1 to n. The number k is taken modulo n!, i.e.&nbsp;inverse
+function of <code><a href="Combinatorics.html#se:permtonum"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">permtonum</a></code>. The numbering used is the standard lexicographic
+ordering, starting at 0.</p>
+<p>
+The library syntax is <code>GEN <b>numtoperm</b>(long n, GEN k)</code>.</p>
+<p>
+
+<hr>
+<div id="se:partitions"></div>
+<div id="partitions"></div>
+<h4>partitions(k, {a = k}, {n = k})</h4>
+<p>
+Returns the vector of partitions of the integer k as a sum of positive
+integers (parts); for k &lt; 0, it returns the empty set <code>[]</code>, and for k
+ = 0 the trivial partition (no parts). A partition is given by a
+<code>t_VECSMALL</code>, where parts are sorted in nondecreasing order:</p>
+<p>
+</p><pre class="code">  ? partitions(3)
+  %1 = [Vecsmall([3]), Vecsmall([1, 2]), Vecsmall([1, 1, 1])]
+</pre><p>
+correspond to 3, 1+2 and 1+1+1. The number
+of (unrestricted) partitions of k is given
+by <code><a href="Combinatorics.html#se:numbpart"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">numbpart</a></code>:</p>
+<p>
+</p><pre class="code">  ? #partitions(50)
+  %1 = 204226
+  ? numbpart(50)
+  %2 = 204226
+</pre><p></p>
+<p></p>
+<p>
+Optional parameters n and a are as follows:</p>
+<p>
+<b>*</b> n = <em>nmax</em> (resp. n = [<em>nmin</em>,<em>nmax</em>]) restricts
+partitions to length less than <em>nmax</em> (resp. length between
+<em>nmin</em> and nmax), where the <em>length</em> is the number of nonzero
+entries.</p>
+<p>
+<b>*</b> a = <em>amax</em> (resp. a = [<em>amin</em>,<em>amax</em>]) restricts the parts
+to integers less than <em>amax</em> (resp. between <em>amin</em> and
+<em>amax</em>).</p>
+<p>
+</p><pre class="code">  ? partitions(4, 2)  \\ parts bounded by 2
+  %1 = [Vecsmall([2, 2]), Vecsmall([1, 1, 2]), Vecsmall([1, 1, 1, 1])]
+  ? partitions(4,, 2) \\ at most 2 parts
+  %2 = [Vecsmall([4]), Vecsmall([1, 3]), Vecsmall([2, 2])]
+  ? partitions(4,[0,3], 2) \\ at most 2 parts
+  %3 = [Vecsmall([4]), Vecsmall([1, 3]), Vecsmall([2, 2])]
+</pre><p></p>
+<p>
+By default, parts are positive and we remove zero entries unless
+amin &leq; 0, in which case nmin is ignored and we fix #X = <em>nmax</em>:</p>
+<p>
+</p><pre class="code">  ? partitions(4, [0,3])  \\ parts between 0 and 3
+  %1 = [Vecsmall([0, 0, 1, 3]), Vecsmall([0, 0, 2, 2]),\
+        Vecsmall([0, 1, 1, 2]), Vecsmall([1, 1, 1, 1])]
+  ? partitions(1, [0,3], [2,4]) \\ no partition with 2 to 4 non-zero parts
+  %2 = []
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>partitions</b>(long k, GEN a = NULL, GEN n = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:permorder"></div>
+<div id="permorder"></div>
+<h4>permorder(x)</h4>
+<p>
+Given a permutation x on n elements, return its order.</p>
+<p>
+</p><pre class="code">  ? p = Vecsmall([3,1,4,2,5]);
+  ? p^2
+  %2 = Vecsmall([4,3,2,1,5])
+  ? p^4
+  %3 = Vecsmall([1,2,3,4,5])
+  ? permorder(p)
+  %4 = 4
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>permorder</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:permsign"></div>
+<div id="permsign"></div>
+<h4>permsign(x)</h4>
+<p>
+Given a permutation x on n elements, return its signature.</p>
+<p>
+</p><pre class="code">  ? p = Vecsmall([3,1,4,2,5]);
+  ? permsign(p)
+  %2 = -1
+  ? permsign(p^2)
+  %3 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>permsign</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:permtonum"></div>
+<div id="permtonum"></div>
+<h4>permtonum(x)</h4>
+<p>
+Given a permutation x on n elements, gives the number k such that
+x = <code>numtoperm(n,k)</code>, i.e.&nbsp;inverse function of <code><a href="Combinatorics.html#se:numtoperm"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">numtoperm</a></code>.
+The numbering used is the standard lexicographic ordering, starting at 0.</p>
+<p>
+The library syntax is <code>GEN <b>permtonum</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:stirling"></div>
+<div id="stirling"></div>
+<h4>stirling(n, k, {<em>flag</em> = 1})</h4>
+<p>
+Stirling number of the first kind s(n,k) (<em>flag</em> = 1, default) or
+of the second kind S(n,k) (<em>flag</em> = 2), where n, k are non-negative
+integers. The former is (-1)<sup>n-k</sup> times the
+number of permutations of n symbols with exactly k cycles; the latter is
+the number of ways of partitioning a set of n elements into k non-empty
+subsets. Note that if all s(n,k) are needed, it is much faster to compute
+&sum;<sub>k</sub> s(n,k) x^k = x(x-1)...(x-n+1).
+Similarly, if a large number of S(n,k) are needed for the same k,
+one should use
+&sum;<sub>n</sub> S(n,k) x^n = (x^k)/((1-x)...(1-kx)).
+(Should be implemented using a divide and conquer product.) Here are
+simple variants for n fixed:</p>
+<p>
+</p><pre class="code">  /* list of s(n,k), k = 1..n */
+  vecstirling(n) = Vec( factorback(vector(n-1,i,1-i*'x)) )
+  
+  /* list of S(n,k), k = 1..n */
+  vecstirling2(n) =
+  { my(Q = x^(n-1), t);
+    vector(n, i, t = divrem(Q, x-i); Q=t[1]; simplify(t[2]));
+  }
+  
+  /* Bell numbers, B<sub>n</sub> = B[n+1] = sum(k = 0, n, S(n,k)), n = 0..N */
+  vecbell(N)=
+  { my (B = vector(N+1));
+    B[1] = B[2] = 1;
+    for (n = 2, N,
+      my (C = binomial(n-1));
+      B[n+1] = sum(k = 1, n, C[k]*B[k]);
+    ); B;
+  }
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>stirling</b>(long n, long k, long flag)</code>.
+Also available are <code>GEN <b>stirling1</b>(ulong n, ulong k)</code>
+(<em>flag</em> = 1) and <code>GEN <b>stirling2</b>(ulong n, ulong k)</code> (<em>flag</em> = 2).</p>
+<p>
+
+<hr>
+</body>

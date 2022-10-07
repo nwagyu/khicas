@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Converting a series expansion into a polynomial: convert convertir
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en312.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en314.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:convertpoly" class="subsection">5.27.25  Converting a series expansion into a polynomial: <span style="font-family:monospace">convert</span> <span style="font-family:monospace">convertir</span>
+<a id="hevea_default550"></a>
+<a id="hevea_default551"></a>
+<a id="hevea_default552"></a></h3>
+<p>The <span style="font-family:monospace">convert</span> command (see Section <a href="cascmd_en273.html#ssec%3Aconvert">5.23.26</a>), 
+with the option <span style="font-family:monospace">polynom</span>, converts
+a series (see Section <a href="cascmd_en395.html#ssec%3Ataylor">5.36.2</a>) into a
+polynomial. It should be used for operations
+like drawing the graph of the Taylor series of a function near a
+point.</p><p>For this purpose:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">convert</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">series</span>, a series.
+</li><li class="li-itemize"><span style="font-family:monospace">polynom</span>, the option.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">convert(</span><span style="font-style:italic">series</span><span style="font-family:monospace">,polynom)</span> returns
+<span style="font-style:italic">series</span> with the <span style="font-family:monospace">order_size</span> function replaced by 0.
+</li></ul><h4 id="sec729" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert(taylor(sin(x)),polynom)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>3</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>5</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">120</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">convert(series(sin(x),x=0,6),polynom)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>3</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">6</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>5</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">120</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en312.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en314.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Substituting a variable by a value: ()
+</title>
+</head>
+<body >
+<a href="cascmd_en196.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en198.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec410" class="subsection">5.12.19  Substituting a variable by a value: <span style="font-family:monospace">()</span>
+<a id="hevea_default326"></a></h3>
+<p>Another way to substitute a variable by a value, besides with the
+<span style="font-family:monospace">|</span> operator or the <span style="font-family:monospace">subst</span> command, is with something
+akin to functional notation. You can follow an expression or
+expression name with equalities of the form <span style="font-style:italic">variable</span> =
+<span style="font-style:italic">value</span>.</p><h4 id="sec411" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">Expr:= x + 2*y + 3*z</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">subst(Expr,[x=1,y=2])</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">Expr | x=1, y=2</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">Expr(x=1,y=2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  5+3 <span style="font-style:italic">z</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(h*k*t^2+h^3*t^3)(t=2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  4 <span style="font-style:italic">h</span> <span style="font-style:italic">k</span>+8 <span style="font-style:italic">h</span><sup>3</sup>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en196.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en198.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

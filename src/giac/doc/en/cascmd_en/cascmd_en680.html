@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The exponential distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en679.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en681.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:exponentiald" class="subsection">8.4.15  The exponential distribution
+</h3>
+<h4 id="sec1760" class="subsubsection">The probability density function for the exponential distribution: <span style="font-family:monospace">exponential</span> <span style="font-family:monospace">exponentiald</span>
+<a id="hevea_default1255"></a>
+<a id="hevea_default1256"></a></h4>
+<p>The exponential distribution depends on one parameters, λ&gt;0;
+the value of the density function at <span style="font-style:italic">x</span> ≥ 0 is
+<span style="font-family:monospace">exponential</span>(λ,<span style="font-style:italic">x</span>) = λ <span style="font-style:italic">e</span><sup>−λ <span style="font-style:italic">x</span></sup>.
+The <span style="font-family:monospace">exponential</span> command computes the exponential distribution.<br>
+<span style="font-family:monospace">exponentiald</span> is a synonym for <span style="font-family:monospace">exponential</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">exponential</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+λ, a positive number (the parameter).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a positive number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">exponential(</span>λ,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the
+exponential density function with parameter λ at <span style="font-style:italic">x</span>; namely,
+<span style="font-family:monospace">exponential</span>(λ,<span style="font-style:italic">x</span>) = λ <span style="font-style:italic">e</span><sup>−λ <span style="font-style:italic">x</span></sup>. 
+</li></ul><h4 id="sec1761" class="subsubsection">Example</h4>
+<div class="center">
+<span style="font-family:monospace">exponential(2.1,3.5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.00134944395675
+</td></tr>
+</table>
+<h4 id="sec1762" class="subsubsection">The cumulative distribution function for the exponential distribution: <span style="font-family:monospace">exponential_cdf</span> <span style="font-family:monospace">exponentiald_cdf</span>
+<a id="hevea_default1257"></a>
+<a id="hevea_default1258"></a></h4>
+<p>The <span style="font-family:monospace">exponential_cdf</span> (or <span style="font-family:monospace">exponentiald_cdf</span>) command computes
+the cumulative distribution function for the exponential distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">exponential_cdf</span> (or <span style="font-family:monospace">exponentiald_cdf</span>)
+takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+λ, a positive number (the parameter).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a positive number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">exponential_cdf(</span>λ,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) for the exponential distribution with
+parameter λ.
+</li><li class="li-itemize"><span style="font-family:monospace">exponential_cdf(</span>λ,<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> ≤ <span style="font-style:italic">y</span>).
+</li></ul><h4 id="sec1763" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">exponential_cdf(2.3,3.2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.99936380154
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">exponential_cdf(2.3,0.9,3.2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.125549583246
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1764" class="subsubsection">The inverse distribution function for the exponential distribution: <span style="font-family:monospace">exponential_icdf</span> <span style="font-family:monospace">exponentiald_icdf</span>
+<a id="hevea_default1259"></a>
+<a id="hevea_default1260"></a></h4>
+<p>The <span style="font-family:monospace">exponential_icdf</span> (or <span style="font-family:monospace">exponentiald_icdf</span>) command computes
+the inverse distribution for the exponential distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">exponential_icdf</span> (or <span style="font-family:monospace">exponentiald_icdf</span>) takes two
+arguments:
+<ul class="itemize"><li class="li-itemize">
+λ, a positive number (the parameter).
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a positive real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">exponential_icdf(</span>λ,<span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for the exponential distribution with parameter
+λ; namely, the value of <span style="font-style:italic">x</span> for which 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) = <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1765" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">exponential_icdf(2.3,0.87)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.887052534142
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en679.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en681.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

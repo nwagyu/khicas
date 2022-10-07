@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Making a list of integers: range
+
+</title>
+</head>
+<body >
+<a href="cascmd_en423.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en425.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:range2" class="subsection">5.40.4  Making a list of integers: <span style="font-family:monospace">range</span>
+<a id="hevea_default707"></a>
+</h3>
+<p>The <span style="font-family:monospace">range</span> command creates lists of equally spaced numbers.
+It can take one, two or three arguments.</p><p>With one argument:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">range</span> takes one argument:<br>
+ <span style="font-style:italic">n</span>, a positive integer.
+</li><li class="li-itemize"><span style="font-family:monospace">range(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns the list <span style="font-family:monospace">[0,1,…,</span><span style="font-style:italic">n</span>−1<span style="font-family:monospace">]</span>.
+</li></ul><h4 id="sec987" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">range(5)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,1,2,3,4</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>With two or three arguments:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">range</span> takes two mandatory and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, two real numbers with <span style="font-style:italic">a</span>&lt;<span style="font-style:italic">b</span> (unless the third
+argument <span style="font-style:italic">p</span> is provided and negative).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">p</span>, a nonzero real number used for the step size (by
+default 1).<br>
+ (If <span style="font-style:italic">p</span>&lt;0, then <span style="font-style:italic">a</span> must be larger than <span style="font-style:italic">b</span>.)
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">range(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span> ⟨ <span style="font-style:italic">p</span> ⟩<span style="font-family:monospace">)</span> returns the list
+<span style="font-family:monospace">[</span><span style="font-style:italic">a</span>, <span style="font-style:italic">a</span>+<span style="font-style:italic">p</span>, …<span style="font-family:monospace">]</span> up to, but not including, <span style="font-style:italic">b</span>.
+</li></ul><h4 id="sec988" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">range(4,10)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,5,6,7,8,9</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">range(2.3,7.4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2.3,3.3,4.3,5.3,6.3,7.3</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">range(4,13,2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">4,6,8,10,12</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">range(10,4,-1)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">10,9,8,7,6,5</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p>You can use the <span style="font-family:monospace">range</span> command to create a list of values
+<span style="font-style:italic">f</span>(<span style="font-style:italic">k</span>), where <span style="font-style:italic">k</span> is an integer satisfying a certain condition. (See
+Section <a href="cascmd_en756.html#ssec%3Afor">12.3.3</a> for the <span style="font-family:monospace">for</span> loop used below.)
+</p><ul class="itemize"><li class="li-itemize">
+You can list the values of an expression in a variable which
+goes over a range defined by <span style="font-family:monospace">range</span>.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">[k^2 + k for k in range(10)]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0,2,6,12,20,30,42,56,72,90</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">You can list the values of an expression in a variable which
+goes over a range defined by <span style="font-family:monospace">range</span> and which satisfies a
+given condition.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">[k for k in range (4,10) if isprime(k)]</span>
+</div>
+(See Section <a href="cascmd_en108.html#ssec%3Aisprime">5.5.14</a> for <span style="font-family:monospace">isprime</span>.)<br>
+ <span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,7</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">[k^2 + k for k in range(1,10,2) if isprime(k)]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">12,30,56</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en423.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en425.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

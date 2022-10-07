@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Training a neural network: train</title>
+</head>
+<body >
+<a href="cascmd_en699.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en702.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:train" class="subsection">9.2.2  Training a neural network: <span style="font-family:monospace">train</span></h3>
+<p>
+<a id="hevea_default1286"></a></p><p>The command <span style="font-family:monospace">train</span> is used for training neural networks created by the command
+<span style="font-family:monospace">neural_network</span> (see Section <a href="cascmd_en699.html#sec%3Annet1">9.2.1</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">train</span> takes three mandatory arguments and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">net</span>, a neural network.
+</li><li class="li-itemize"><span style="font-style:italic">input</span>, an input vector or a list of input vectors.
+</li><li class="li-itemize"><span style="font-style:italic">expout</span>, the expected output(s) from <span style="font-style:italic">input</span>.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">batchsize</span>, a positive integer specifying the batch size.
+Weight updates are applied only after processing each batch of samples. By setting this
+value to a negative number, weight deltas are accumulated but the weights are not updated.
+(By default, <span style="font-style:italic">batchsize</span> is equal to the number of input vectors, i.e. weights will
+be updated after processing the whole input.)
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">train</span> returns a copy of the input network containing weight modifications. If the
+weights are not modified (depending on the <span style="font-style:italic">batchsize</span>), the returned newtork contains
+the accumulated weight deltas which will be applied alongside any subsequent modification
+in the next update. Before calling <span style="font-family:monospace">train</span> again, the resulting so-far trained network
+can be tested for accuracy.
+</li><li class="li-itemize"><span style="font-family:monospace">train</span> applies batch/minibatch/stochastic gradient descent (depending on the
+batch size) in attempt to optimize the weight parameters. Optionally, it takes advantage of the weight decay,
+classical momentum or Adam (adaptive moment estimation) methods which usually make the learning process
+faster and the resulting model more accurate. These tools are enabled for the network during the
+construction (see Section <a href="cascmd_en699.html#sec%3Annet1">9.2.1</a>).
+</li><li class="li-itemize">It is advisable to set the <span style="font-family:monospace">block_size</span> option to the batch size when constructing the
+network (see Section <a href="cascmd_en699.html#sec%3Annet1">9.2.1</a>). This makes the forward passing and backpropagation more efficient
+thanks to the fast BLAS level 3 routines.
+</li></ul><h4 id="sec1817" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+In the first example, we demonstrate learning a nonlinear function. Let
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>)=<span style="font-style:italic">x</span><sub>1</sub>sin(3<span style="font-style:italic">x</span><sub>2</sub>)cos(2<span style="font-style:italic">x</span><sub>1</sub><span style="font-style:italic">x</span><sub>2</sub>). </td></tr>
+</table>
+We create a neural network with three hidden layers and train it to predict the value <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>)
+given the input vector <span style="font-weight:bold"><span style="font-style:italic">x</span></span>=(<span style="font-style:italic">x</span><sub>1</sub>,<span style="font-style:italic">x</span><sub>2</sub>) in the square <span style="font-style:italic">S</span>=[−1,1]<sup>2</sup>.
+We use Adam with the default parameters and set the
+weight decay factor to 10<sup>−4</sup>. The block size is set to 100 (we will use full-batch gradient descent,
+meaning that the network will process training samples in bulks of 100 samples at once).
+The network has 30+20+10 neurons in hidden layers (not counting the bias neurons).
+We store the network topology in <span style="font-family:monospace">t</span>.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">t:=[2,30,20,10,1]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">net:=neural_network(t,momentum=adaptive,weight_decay=1e-4,block_size=100)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"a neural network with input of size 2 and output of size 1" </td></tr>
+</table>
+Next we create 5000 training samples in <span style="font-style:italic">S</span> by using the uniform random variable <span style="font-style:italic">U</span>(−1,1). <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(x):=x[0]*sin(3*x[1])*cos(2*x[0]*x[1])</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">data:=ranm(5000,2,uniformd(-1,1)):; res:=apply(f,data):;</span>
+</td></tr>
+</table>
+</div>
+Now we have data points in <span style="font-family:monospace">data</span> and the corresponding function values in <span style="font-family:monospace">res</span>.
+In a similar manner, we create a collection of another 100 samples, which will be kept
+unseen by the network and used for testing its accuracy. <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">test_data:=ranm(100,2,uniformd(-1,1)):; test_res:=apply(f,test_data):;</span>
+</div>
+Now we train the network using 2500 epochs. We test the accuracy in intervals of 250 epochs.
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">for epoch from 1 to 2500 do</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  net:=train(net,data,res);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  if irem(epoch,250)==0 then</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">    print(mean(net(test_data,test_res)));</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  fi;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">od:;</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Possible output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">0.00211048030912</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">0.000199757341385</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">8.70954607301e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">6.21486919568e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">5.22746108944e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">5.0011469063e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">4.91138941048e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">4.81631000381e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">4.86611973063e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">4.79773288935e-05</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace"> </span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">Evaluation time: 16.85</span>
+</td></tr>
+</table>
+</div>
+Note that half-MSE is used as the error function by default (this is a regression model).
+Now we generate a random point <span style="font-weight:bold"><span style="font-style:italic">x</span></span><sub>0</sub> in <span style="font-style:italic">S</span> and compute the predicted and exact
+value of <span style="font-style:italic">f</span>(<span style="font-weight:bold"><span style="font-style:italic">x</span></span><sub>0</sub>).<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">x0:=ranv(2,uniformd(-1,1))</span>
+</div>
+<span style="font-style:italic">Possible output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−0.402978600934,−0.836934269406</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">net(x0), f(x0)</span>
+</div>
+<span style="font-style:italic">Possible output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.18592080555,0.185619807512 </td></tr>
+</table>
+To plot the learned surface, use the command:
+<div class="center">
+<span style="font-family:monospace">plot3d(quote(net([x1,x2])),x1=-1..1,x2=-1..1)</span>
+</div>
+</li><li class="li-itemize">In the second example we demonstrate learning a simple nonlinear separation of data.
+Let <table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">f</span>(<span style="font-style:italic">t</span>)=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">t</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">,</td></tr>
+</table> which defines a parabola that splits
+the unit square <span style="font-style:italic">S</span>=[0,1]<sup>2</sup> into two regions. We generate 1024 random points in <span style="font-style:italic">S</span> and
+label them either as <span style="font-family:monospace">below</span> or <span style="font-family:monospace">above</span>, depending on whether they are located
+below or above the parabola.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">f(t):=0.4+1.5*(t-0.5)^2:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">g:=unapply(x[1]&lt;f(x[0])?"below":"above",x):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">pts:=ranm(1024,2,uniformd(0,1)):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">lab:=apply(g,pts):;</span>
+</td></tr>
+</table>
+</div>
+Next we create a neural network with four hidden layers which we train to label random points in <span style="font-style:italic">S</span>.
+The error function used by default is the log-loss function since we have a binary classifier.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">params:=seq[momentum=adaptive,weight_decay=1e-3,block_size=128]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">net:=neural_network([2,10$4,1],classes=["below","above"],params)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"a classifier with input of size 2 and 2 classes" </td></tr>
+</table>
+We train on the generated data with batch size 128 and 500 epochs.
+Before starting each epoch, the training data is shuffled (thus avoiding symmetry).<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">for epoch from 1 to 500 do</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  p:=randperm(size(pts));</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  net:=train(net,sortperm(pts,p),sortperm(res,p),128);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">od:;</span>
+</td></tr>
+</table>
+</div>
+Now we test the accuracy of the classifier by using 1000 random test samples which we store in <span style="font-family:monospace">tst</span>.
+The number of misses is the Hamming distance of the vector of predicted labels <span style="font-family:monospace">net(tst)</span> from
+the vector of correct labels which we obtain by using the command <span style="font-family:monospace">apply(g,tst)</span>.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">tst:=ranm(1000,2,uniformd(0,1)):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">(1-hamdist(net(tst),apply(g,tst))/size(tst))*100.0</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Possible output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">99.8 </td></tr>
+</table>
+</li><li class="li-itemize">In the third example, we train a neural network on the MNIST dataset in PNG format, which can be
+obtained here: <a href="https://github.com/myleott/mnist_png"><span style="font-family:monospace">https://github.com/myleott/mnist_png</span></a>. This dataset contains 60000 training
+grayscale images of handwritten digits in 28× 28 resolution, anlogside 10000 testing images.
+Let us assume that the contents of
+<span style="font-family:monospace">mnist_png.tar.gz</span> is unpacked in the <span style="font-family:monospace">Downloads</span> folder. Now put the files
+<span style="font-family:monospace">mnist_training.csv</span> and <span style="font-family:monospace">mnist_testing.csv</span>, which can be obtained here:
+<a href="https://github.com/marohnicluka/giac/tree/master/data"><span style="font-family:monospace">https://github.com/marohnicluka/giac/tree/master/data</span></a>,
+into the subfolders <span style="font-family:monospace">training</span> and <span style="font-family:monospace">testing</span>, respectively. These CSV files contain
+image paths and labels. We use these files to load and encode training and testing data in <span style="font-family:monospace">giac</span>.<br>
+ First we load the training data. <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">csv:=csv2gen("/home/luka/Downloads/mnist_png/training/mnist_training.csv",","):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">train_data:=matrix(size(csv),28*28):; // allocate memory for training samples</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">train_lab:=col(csv,1):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">path:="/home/luka/Downloads/mnist_png/training/":;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">for k from 1 to size(csv) do</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  train_data[k-1]=&lt;flatten(readrgb(path+csv[k-1,0])[1])/255.0;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">od:;</span>
+</td></tr>
+</table>
+</div>
+Loading the images takes several minutes. Note that we flatten and normalize the images, so that
+the training vectors contain numbers strictly in [0,1].<br>
+ We load the testing images in a similar manner and store the data in <span style="font-family:monospace">test_data</span> and
+<span style="font-family:monospace">test_lab</span>.<br>
+ Now we create a neural network with three hidden layers which we train to classify the handwritten digits.
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">c:=["zero","one","two","three","four","five","six","seven","eight","nine"]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">params:=seq[func=ReLU,weights="he-normal",momentum=adaptive,weight_decay=1e-4]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">net:=neural_network([28*28,500$3,10],block_size=100,classes=c,params);</span></td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">"a classifier with input of size 784 and 10 classes" </td></tr>
+</table>
+Note that we use ReLU activation in hidden layers (by default, tanh is used for classifiers) and
+He normal initialization for weights.<br>
+ We train the network with batch size 100 by iterating over 5 epochs.
+Training data is shuffled before each epoch and the mean error on testing data is printed after each epoch.<br>
+ <span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">for epoch from 1 to 5 do</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  p:=randperm(size(train_data));</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  net:=train(net,sortperm(train_data,p),sortperm(train_lab,p),100);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  print(mean(net(test_data,test_lab)));</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">od:;</span>
+</td></tr>
+</table>
+</div>
+The training takes about a minute.<br>
+<span style="font-style:italic">Possible output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">0.110725006182</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">0.104843072908</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">0.0859572165559</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">0.0675629083633</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">0.0626279369745</span>
+</td></tr>
+</table>
+</div>
+These error values are computed using the cross-entropy function, which is
+used by default in multiclass classifiers.
+To test the accuracy of the network, we use the following command.
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">(1-hamdist(net(test_data),test_lab)/size(test_data))*100.0</span>
+</div>
+<span style="font-style:italic">Possible output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">97.88 </td></tr>
+</table>
+Therefore, our network recognizes the correct digit upon “seeing” an image
+of it in about 98% of cases.
+</li></ul>
+<hr>
+<a href="cascmd_en699.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en702.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

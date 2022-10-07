@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Configuring the computations</title>
+</head>
+<body >
+<a href="cascmd_en026.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en028.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:confcomp" class="subsection">2.5.7  Configuring the computations</h3>
+<p>You can configure how <span style="font-family:monospace">Xcas</span> computes by using the menu item
+<span style="font-family:monospace">Cfg</span>▸<span style="font-family:monospace">Cas configuration</span> or by clicking on
+the status line. This will open a window with the following options:
+</p><ol class="enumerate" type=1><li class="li-enumerate">
+<span style="font-family:monospace">Prog style</span> (default: <span style="font-family:monospace">Xcas</span>)<br>
+ This has a menu from which you can choose a different language
+to program in; you can choose from <span style="font-family:monospace">Xcas</span>, <span style="font-family:monospace">Python
+^==**</span> (Python syntax, except that <span style="font-family:monospace">^</span> will be the
+exponentiation operator as in <span style="font-family:monospace">Xcas</span> rather than the
+<span style="font-style:oblique">exclusive or</span> operator as in Python), <span style="font-family:monospace">Python ^==xor</span>
+(Python syntax, where <span style="font-family:monospace">^</span> is the <span style="font-style:oblique">exclusive or</span> operator),
+<span style="font-family:monospace">Maple</span>, <span style="font-family:monospace">Mupad</span> and <span style="font-family:monospace">TI89/92</span>.</li><li class="li-enumerate"><span style="font-family:monospace">eval</span> (default: 25)<br>
+ This has an input field where you can type in a positive integer
+specifying the maximum number of recursions allowed when evaluating
+expressions.</li><li class="li-enumerate"><span style="font-family:monospace">prog</span> (default: 1)<br>
+ This has an input field where you can type in a positive integer
+specifying the maximum number of recursions allowed when executing
+programs.</li><li class="li-enumerate"><span style="font-family:monospace">recurs</span> (default: 100)<br>
+ This has an input field where you can type in a positive integer
+specifying the maximum number of recursive calls.</li><li class="li-enumerate"><span style="font-family:monospace">debug</span> (default: 0)<br>
+ This has an input field where you can type in a 0 or 1. If this is 1, then
+<span style="font-family:monospace">Xcas</span> will display intermediate information on the
+algorithms used by <span style="font-family:monospace">giac</span>. If this is 0, then no such
+information is displayed.</li><li class="li-enumerate"><a id="enum:maxiter"></a> <span style="font-family:monospace">maxiter</span> (default: 20)<br>
+ This has an input field where you can type in an integer specifying
+the maximum number of iterations to be used in Newton’s method.</li><li class="li-enumerate"><a id="enum:float"></a> <span style="font-family:monospace">Float format</span> (default: <span style="font-family:monospace">standard</span>)<br>
+ This has a menu from which you can choose how to display
+decimal numbers. Your choices will be:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">standard</span> In standard notation, a number will be
+written out completely without using exponentials; for example,
+<span style="font-family:monospace">15000.12</span> will be displayed as <span style="font-family:monospace">15000.12</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">scientific</span> In scientific notation, a number will be
+written as a number between 1 and 10 times a power of ten; for example,
+<span style="font-family:monospace">15000.12</span> will be displayed as <span style="font-family:monospace">1.500012000000e+04</span>
+(where the number after <span style="font-family:monospace">e</span> indicates the power of 10).
+</li><li class="li-itemize"><span style="font-family:monospace">engineer</span> In engineering notation, a number will be
+written as a number between 1 and 1000 times a power of ten, where
+the power of 10 is a multiple of three. For example,
+<span style="font-family:monospace">15000.12</span> will be displayed as <span style="font-family:monospace">15.00012e3</span>.
+</li></ul></li><li class="li-enumerate"><a id="enum:digs"></a> <span style="font-family:monospace">Digits</span> (default: 12)<br>
+ This has an input field where you can type in a positive integer which will
+indicate the number of significant digits that <span style="font-family:monospace">Xcas</span> will use.</li><li class="li-enumerate"><a id="enum:eps"></a> <span style="font-family:monospace">epsilon</span> (default: 1e-12)<br>
+ This has an input field where you can type in a floating point number
+which will be the value of epsilon used by <span style="font-family:monospace">epsilon2zero</span>,
+which is a function that replaces numbers with absolute value less
+than epsilon by 0 (see Section <a href="cascmd_en585.html#ssec%3Aepsilon2zero">5.59.1</a>).</li><li class="li-enumerate"><span style="font-family:monospace">proba</span> (default: 1e-15)<br>
+ This has an input field where you can type in a floating point number.
+If this number is greater than zero, then in some cases
+<span style="font-family:monospace">giac</span> can use probabilistic algorithms and give a result
+with probability of being false less than this value. (One such
+example of a probabilistic algorithm that <span style="font-family:monospace">giac</span> can use is
+the algorithm to compute the determinant of a large matrix with
+integer coefficients.)</li><li class="li-enumerate"><span style="font-family:monospace">approx</span> (default: unchecked)<br>
+ This has a checkbox. If the box is checked, then exact
+numbers such as √<span style="text-decoration:overline">2</span> will be given a floating point approximation. If
+the box in unchecked, then exact values will be used when possible.
+(See Section <a href="cascmd_en024.html#ssec%3Aapprox">2.5.4</a>.)</li><li class="li-enumerate"><span style="font-family:monospace">autosimplify</span> (default: 1)<br>
+ This has an input field where you can type in 0, 1 or 2. A value of 0
+means no automatic simplification will be done, a value of 1 means
+grouped simplification will be automatic. A value of 2 means that
+all simplification will be automatic.</li><li class="li-enumerate"><span style="font-family:monospace">threads</span> (default: 1)<br>
+ This has an input field where you can enter a positive integer to
+indicate the number of threads (for a possible future threaded
+version).</li><li class="li-enumerate"><a id="enum:base"></a> <span style="font-family:monospace">Integer basis</span> (default: 10)<br>
+ This has a menu from which you can choose an integer base
+to work in; your choices will be 8, 10 and 16.</li><li class="li-enumerate"><span style="font-family:monospace">radian</span> (default: <span style="font-family:monospace">checked</span>)<br>
+ This has a checkbox. If the box is checked, then angles
+will be measured in radians, otherwise they will be measured in
+degrees.</li><li class="li-enumerate"><span style="font-family:monospace">Complex</span> (default: <span style="font-family:monospace">unchecked</span>)<br>
+ This has a checkbox. If this box is checked, then
+<span style="font-family:monospace">giac</span> will work in complex mode, meaning, for example, that
+polynomials will be factored with complex numbers if necessary.</li><li class="li-enumerate"><span style="font-family:monospace">Cmplx_var</span> (default: <span style="font-family:monospace">unchecked</span>)<br>
+ This has a checkbox. If this box is checked, then
+variables will by default be assumed to be complex. For example,
+the expression <span style="font-family:monospace">re(z)</span> won’t be simplified, it will return
+<span style="font-family:monospace">re(z)</span>. If this box is unchecked, then variables by default
+will be assumed to be real, and so <span style="font-family:monospace">re(z)</span> will be
+simplified to <span style="font-family:monospace">z</span>.</li><li class="li-enumerate"><span style="font-family:monospace">increasing power</span> (default: <span style="font-family:monospace">unchecked</span>)<br>
+ This has a checkbox. If this box is checked, then
+polynomials will be written out in increasing powers of the
+variable; otherwise they will be written in decreasing powers.</li><li class="li-enumerate"><a id="enum:trig"></a> <span style="font-family:monospace">All_trig_sol</span> (default: <span style="font-family:monospace">unchecked</span>)<br>
+ This has a checkbox. If this box is checked, then <span style="font-family:monospace">Xcas</span> will
+give the complete solutions of trigonometric equations. For
+example, the solution of cos(<span style="font-style:italic">x</span>)=0 will be given as
+[(2<span style="font-style:italic">n</span>_0π + π)/2], where <span style="font-style:italic">n</span><sub>0</sub> can be any
+integer. If this box is unchecked, then only the primary solutions
+of trigonometric equations will be given. For example, the
+solutions of cos(<span style="font-style:italic">x</span>)=0 will be the pair [−π/2,π/2].</li><li class="li-enumerate"><span style="font-family:monospace">Sqrt</span> (default: <span style="font-family:monospace">checked</span>)<br>
+ This has a checkbox. If this box is checked, then the
+<span style="font-family:monospace">factor</span> command will factor second degree polynomials, even
+when the roots are not in the field determined by the coefficients.
+For example, <span style="font-family:monospace">factor(x^2 - 3)</span> will return (<span style="font-style:italic">x</span>−√<span style="text-decoration:overline">3</span>) (<span style="font-style:italic">x</span>+√<span style="text-decoration:overline">3</span>).
+If this box is unchecked, then <span style="font-family:monospace">factor(x^2 - 3)</span> will return <span style="font-style:italic">x</span><sup>2</sup>−3.
+</li></ol><p>
+This page also has buttons for applying the settings, saving the
+settings for future sessions, canceling any new settings, and restoring
+the default settings.</p>
+<hr>
+<a href="cascmd_en026.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en028.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The least squares solution of a linear system: LSQ lsq
+
+</title>
+</head>
+<body >
+<a href="cascmd_en577.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en579.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1443" class="subsection">5.56.9  The least squares solution of a linear system: <span style="font-family:monospace">LSQ</span> <span style="font-family:monospace">lsq</span>
+<a id="hevea_default976"></a>
+<a id="hevea_default977"></a></h3>
+<p>The <span style="font-family:monospace">lsq</span> command finds the least squares solution to a matrix
+equation <span style="font-style:italic">AX</span>=<span style="font-style:italic">b</span>.<br>
+<span style="font-family:monospace">LSQ</span> is a synonym for <span style="font-family:monospace">lsq</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lsq</span> takes two arguments:<br>
+ <ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">A</span>, a matrix. 
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, a vector or matrix
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">lsq(</span><span style="font-style:italic">A</span>,<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns the least squares solution to the
+equation <span style="font-style:italic">AX</span>=<span style="font-style:italic">b</span>. 
+</li></ul><h4 id="sec1444" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lsq([[1,2],[3,4]], [5,11])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lsq([[1,2], [3,4]], [[5,7], [11,9]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >−5</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >6</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Note that:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">linsolve([[1,2],[3,4],[3,6]]*[x, y] - [5,11,13],[x, y])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+since the linear system has no solution. You can still find the least
+squares solution:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lsq([[1,2],[3,4],[3,6]],[5,11,13])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">11</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">11</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">10</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">The least squares solution:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lsq([[3,4]], [12])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">36</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">25</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">48</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">25</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+represents the point on the line 3<span style="font-style:italic">x</span> + 4<span style="font-style:italic">y</span> = 12 closest to the origin;<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates(projection(line(3*x+4*y=12),point(0)))</span>
+</div>
+(see Section <a href="cascmd_en842.html#ssec%3A2dcoordinates">13.13.4</a>, Section <a href="cascmd_en866.html#ssec%3A2dprojection">13.15.8</a>,
+Section <a href="cascmd_en601.html#ssec%3Adoite">7.7.1</a> and Section <a href="cascmd_en788.html#ssec%3A2dpoint">13.6.2</a>)<br>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">36</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">25</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">48</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">25</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en577.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en579.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

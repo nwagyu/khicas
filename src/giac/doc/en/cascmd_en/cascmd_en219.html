@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Table of variations of a function: tabvar
+</title>
+</head>
+<body >
+<a href="cascmd_en218.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en220.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec504" class="subsection">5.17.2  Table of variations of a function: <span style="font-family:monospace">tabvar</span>
+<a id="hevea_default410"></a></h3>
+<p>The table of variations of a function consists of
+</p><ul class="itemize"><li class="li-itemize">
+The first row, for the variable, which gives the endpoints of
+subintervals of the domain, as well as any critical points and
+inflection points.
+</li><li class="li-itemize">The second row, for the derivative, which gives the values of the
+derivative at the values in the first row (or limits as the variable
+approaches one of the values) and between them the sign (+ or −)
+of the derivative in the corresponding subinterval.
+</li><li class="li-itemize">The third row, for the function, which gives the values of the
+function at the values in the first row, and between them whether
+the function is increasing or decreasing in the corresponding
+subinterval.
+</li><li class="li-itemize">The fourth row, for the second derivative, which
+gives the values of the second derivative at the values in the
+first row, and between them whether the second derivative is
+positive or negative (and hence whether the graph is concave up or
+concave down) in the subinterval.
+</li></ul><p>The <span style="font-family:monospace">tabvar</span> command finds the table of variations of a
+function.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">tabvar</span> takes one mandatory argument and one
+optional argument.
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression of a single variable.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the variable (by default, <span style="font-style:italic">x</span>=<span style="font-family:monospace">x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">tabvar(</span><span style="font-style:italic">expr</span> ⟨ ,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span> returns the
+table of variations of the function <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>) =  <span style="font-style:italic">expr</span> and
+draws the graph on the <span style="font-family:monospace">DispG</span> screen, accessible 
+with the menu
+<span style="font-family:monospace">Cfg</span>▸<span style="font-family:monospace">Show</span>▸<span style="font-family:monospace">DispG</span>.
+</li></ul><h4 id="sec505" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">tabvar(x^2 - x - 2,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Function plot x^2-x-2, variable x</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Domain x</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Vertical parabolic asymptote at -infinity</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Vertical parabolic asymptote at +infinity</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Variations x^2-x-2</span>
+</td></tr>
+</table>
+</div>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">x</span></td><td style="text-align:center;white-space:nowrap" >−∞</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >+∞ </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">y</span>′=2 <span style="font-style:italic">x</span>−1</td><td style="text-align:center;white-space:nowrap" >−∞</td><td style="text-align:center;white-space:nowrap" >−</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >+</td><td style="text-align:center;white-space:nowrap" >+∞ </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">y</span>=<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">x</span>−2</td><td style="text-align:center;white-space:nowrap" >+∞</td><td style="text-align:center;white-space:nowrap" >↓</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">9</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >↑</td><td style="text-align:center;white-space:nowrap" >+∞ </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">y</span>″</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >+ (⋃)</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >+ (⋃)</td><td style="text-align:center;white-space:nowrap" >2
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">plotfunc(x^2-x-2,x=((-0.6681472) .. 1.7222552))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Inside Xcas you can see the function with Cfg&gt;Show&gt;DispG.</span>
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">tabvar((2*t-1)/(t-1),t)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Function plot (2*t-1)/(t-1), variable t</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Domain t&lt;&gt;1</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Vertical asymptote x=1</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Horizontal asymptote y=2</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Horizontal asymptote y=2</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Variations (2*t-1)/(t-1)</span>
+</td></tr>
+</table>
+</div>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">t</span></td><td style="text-align:center;white-space:nowrap" >−∞</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >&nbsp;</td><td style="text-align:center;white-space:nowrap" >+∞ </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">y</span>′=−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">t</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−</td><td style="text-align:center;white-space:nowrap" >||</td><td style="text-align:center;white-space:nowrap" >||</td><td style="text-align:center;white-space:nowrap" >−</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">y</span>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2 <span style="font-style:italic">t</span>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">t</span>−1</td></tr>
+</table></td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >↓</td><td style="text-align:center;white-space:nowrap" >−∞</td><td style="text-align:center;white-space:nowrap" >+∞</td><td style="text-align:center;white-space:nowrap" >↓</td><td style="text-align:center;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  <span style="font-style:italic">y</span>″</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >− (⋂ )</td><td style="text-align:center;white-space:nowrap" >||</td><td style="text-align:center;white-space:nowrap" >||</td><td style="text-align:center;white-space:nowrap" >+
+(⋃ )</td><td style="text-align:center;white-space:nowrap" >0
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">plotfunc((2*t-1)/(t-1),t=((-0.1681472) .. 2.2222552))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Inside Xcas you can see the function with Cfg&gt;Show&gt;DispG.</span>
+</td></tr>
+</table>
+</div>
+Note that in this case, the value 1 appears twice in the first row, so
+that both one-sided limits of <span style="font-family:monospace">y</span> can be displayed at the
+vertical asymptote <span style="font-style:italic">t</span>=1. The values of 2 for <span style="font-family:monospace">y</span> at −∞
+and ∞ indicate a horizontal asymptote of <span style="font-style:italic">y</span>=2.
+</li></ul>
+<hr>
+<a href="cascmd_en218.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en220.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

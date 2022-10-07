@@ -1,0 +1,60 @@
+* { font-family: sans-serif }
+
+body {
+    margin: 20px 15%;
+    padding: 30px;
+    border-radius: 45px;
+    border: 8px solid #55b4d4;
+}
+
+/* pour les tous petits écrans */
+@media only screen and (max-width: 500px){
+    body {
+        margin: 20px;
+        padding: 20px;
+        border-radius: 40px;
+    }
+}
+
+/* pour les petits écrans */
+@media only screen and (max-width: 800px){
+    ul { padding-inline-start: 20px }
+    h1 { text-align: center }
+}
+
+/* pour les grands écrans */
+@media only screen and (min-width: 1300px){
+    body {
+        margin: 50px 20%;
+        padding: 50px;
+        border-radius: 60px;
+    }
+}
+
+/* pour éviter que les boutons se touchent d'une <li> à une autre */
+
+li {
+    margin-top: 5px;
+    overflow-x: auto
+}
+
+/* pour les boutons */
+
+button {
+    height: 30px;
+    padding: 0px 15px;
+}
+
+input { padding: 5px 15px }
+
+button, input {
+    border: solid 0;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #86b300;
+    transition: background 200ms;
+}
+
+button:hover, input:hover {
+    background: #99bf4d;
+}

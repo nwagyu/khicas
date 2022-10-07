@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Smith normal form: smith
+</title>
+</head>
+<body >
+<a href="cascmd_en526.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en528.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1297" class="subsection">5.48.15  Smith normal form: <span style="font-family:monospace">smith</span>
+<a id="hevea_default908"></a></h3>
+<p>The <span style="font-family:monospace">smith</span> command finds the Smith normal form of a matrix
+with elements in a field <span style="font-style:italic">K</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">smith</span> takes one argument:<br>
+ <span style="font-style:italic">A</span>, a square matrix with elements in a field <span style="font-style:italic">K</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">smith(</span><span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns a list [<span style="font-style:italic">U</span>,<span style="font-style:italic">V</span>,<span style="font-style:italic">D</span>] of three matrices 
+where <span style="font-style:italic">U</span> and <span style="font-style:italic">V</span> are invertible, <span style="font-style:italic">D</span> is diagonal, and <span style="font-style:italic">D</span>=<span style="font-style:italic">UAV</span>.Input:
+</li></ul><h4 id="sec1298" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">M:=([[5,-2,3,6],[1,-3,1,3],[7,-6,-4,7],[-2,-4,-3,0]]) % 17 :;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:= x*idn(4) -M</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−5</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >2%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>+3%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−7</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >6%17</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>+4%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−7</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2%17</td><td style="text-align:center;white-space:nowrap" >4%17</td><td style="text-align:center;white-space:nowrap" >3%17</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">U, D, V:= smith(A):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">U</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >6%17</td><td style="text-align:center;white-space:nowrap" >4%17</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−2 <span style="font-style:italic">x</span>+5</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−4 <span style="font-style:italic">x</span>−5</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−3 <span style="font-style:italic">x</span>−6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>−3 <span style="font-style:italic">x</span>+6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">2 <span style="font-style:italic">x</span><sup>2</sup>+5 <span style="font-style:italic">x</span>+6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">4 <span style="font-style:italic">x</span><sup>2</sup>+8 <span style="font-style:italic">x</span>+2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">3 <span style="font-style:italic">x</span><sup>2</sup>+4 <span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>3</sup>−2 <span style="font-style:italic">x</span><sup>2</sup>+2 <span style="font-style:italic">x</span>−6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">V</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+3</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−6 <span style="font-style:italic">x</span><sup>2</sup>−3 <span style="font-style:italic">x</span>−7</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">6 <span style="font-style:italic">x</span><sup>5</sup>+2 <span style="font-style:italic">x</span><sup>4</sup>−2 <span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span><sup>2</sup>−8 <span style="font-style:italic">x</span>+6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >1%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−6 <span style="font-style:italic">x</span>−2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">6 <span style="font-style:italic">x</span><sup>4</sup>+<span style="font-style:italic">x</span><sup>3</sup>−6 <span style="font-style:italic">x</span><sup>2</sup>+5 <span style="font-style:italic">x</span>−6</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >1%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>3</sup>+3 <span style="font-style:italic">x</span><sup>2</sup>+7</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >1%17</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">D</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >1%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >1%17</td><td style="text-align:center;white-space:nowrap" >0%17</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" >0%17</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>4</sup>−2 <span style="font-style:italic">x</span><sup>3</sup>+8 <span style="font-style:italic">x</span><sup>2</sup>−3 <span style="font-style:italic">x</span>+2</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%17</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+You can check this:<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal(U*A*V-D)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">B:=[[x^2+x-1,1,0,1],[-1,x,0,-1],[0,x^2+1,x,0],[1,0,1,x^2+x+1]] % 3:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L:=smith(B)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>4</sup>−<span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>4</sup>−<span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >1%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >1%3</td><td style="text-align:center;white-space:nowrap" >0%3</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>6</sup>+<span style="font-style:italic">x</span><sup>5</sup>+<span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1%3</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">x</span>%3</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>7</sup>+<span style="font-style:italic">x</span><sup>6</sup>+<span style="font-style:italic">x</span><sup>4</sup>+<span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >1%3</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span>−1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>6</sup>+<span style="font-style:italic">x</span><sup>5</sup>+<span style="font-style:italic">x</span><sup>3</sup>+<span style="font-style:italic">x</span><sup>2</sup>+<span style="font-style:italic">x</span>+1</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >1%3</td><td style="text-align:center;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">x</span><sup>4</sup>−<span style="font-style:italic">x</span><sup>3</sup>−<span style="font-style:italic">x</span><sup>2</sup>−<span style="font-style:italic">x</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">%3</td></tr>
+</table></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >0%3</td><td style="text-align:center;white-space:nowrap" >1%3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en526.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en528.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

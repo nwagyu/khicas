@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Récupérer et installer un logiciel</title>
+</head>
+<body >
+<a href="casrouge019.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge021.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec530" class="chapter">Chapitre 20  Récupérer et installer un logiciel</h1>
+<p>
+La description qui suit s’applique au navigateur Netscape. Elle
+s’applique de manière identique pour d’autres navigateurs à
+quelques détails près.</p><p>Lorsqu’un lien mentionne un logiciel que vous voulez télécharger, 
+maintenez la touche Shift appuyée et cliquez avec la souris sur
+ce lien. Une fenêtre s’ouvre et vous propose de sauvegarder
+un fichier sur votre disque dur, changez éventuellement le nom
+de ce fichier et notez l’emplacement du répertoire où il a été
+sauvegardé.</p><p>La méthode d’installation du logiciel dépend de votre système d’exploitation
+et du type de fichier téléchargé, que l’on détermine en général par
+son extension, c’est-à-dire par les lettres (en principe 3) qui
+suivent le caractère point dans le nom de ce fichier.</p><p>Sous Windows, vous récupérerez en général un fichier exécutable <code>exe</code>
+il suffit alors de cliquer sur son icône pour installer le logiciel.
+Ou alors il s’agira d’une archive, il vous faudra alors un logiciel
+de décompression pour l’installer (l’un des plus populaires s’appelle
+Winzip et propose une version à l’essai gratuitement). Une fois
+désarchivé votre logiciel, vous trouverez dans l’archive un fichier
+donnant des instructions complémentaires ou vous devrez vous référer
+au site où vous avez téléchargé l’archive.</p><p>Sous Linux, les formats les plus courants sont <code>rpm</code>,
+<code>deb</code> et <code>tgz</code> (ou <code>tar.gz</code>).</p><p>Les deux premiers correspondent à des distributions Linux (Red Hat,
+Mandrake, Suse par exemple pour <code>rpm</code>, Debian pour <code>deb</code>)
+ils doivent être installés par <code>root</code> (tapez <code>su</code>
+dans une fenêtre de commandes pour passer <code>root</code>)
+en utilisant respectivement les commandes:<br>
+<code>rpm -U nom_de_fichier.rpm</code> pour Red Hat, Mandrake, Suse<br>
+<code>apt-get install nom_de_fichier_deb</code> pour Debian<br>
+Regardez bien les éventuels messages d’erreurs qui apparaissent. Ils
+peuvent signaler que vous devez installer d’autres logiciels de votre
+distribution Linux pour faire fonctionner votre nouveau logiciel.
+En général ces logiciels non installés se trouvent sur le CD-ROM
+de votre distribution Linux. Ils s’installent par la même commande,
+mais vous devrez d’abord vous déplacer dans le répertoire du CD-ROM
+qui les contient. Pour cela, introduisez le CD-ROM dans le lecteur,
+attendez quelques secondes, tapez : <code>ls /mnt/cdrom</code><br>
+(si rien n’apparait, tapez : <code>mount /mnt/cdrom</code> et recommencez). <br>
+Ensuite tapez <code>cd /mnt/cdrom</code> puis allez dans
+le répertoire correct (par exemple <code>cd Mandrake/RPMS</code> pour
+une distribution Mandrake) et lancez les commandes d’installation
+des logiciels manquants (<code>rpm -U ...</code> ou <code>apt ...</code>).
+Certaines distributions Linux proposent des interfaces plus ou moins
+conviviales pour installer des logiciels, par exemple <code>rpmdrake</code>
+pour Mandrake, <code>dselect</code> pour Debian...</p><p>Les archives <code>tar.gz</code> et <code>tgz</code> s’installent 
+sur toute distribution Linux. Commencez par en
+regarder la table des matières par la commande:<br>
+<code>tar tvfz nom_de_fichier.tgz</code><br>
+afin de déterminer depuis quel répertoire il faut décompacter le fichier
+ou lisez la documentation du logiciel disponible en général sur le site
+où vous avez téléchargé l’archive.
+Si vous voyez apparaitre des chemins tels que <code>usr/local/bin</code> ou
+<code>usr/bin</code>, placez vous dans le répertoire racine (<code>cd /</code>)
+puis tapez:<br>
+<code>tar xvfz nom_du_repertoire/nom_de_fichier.tgz</code><br>
+(si vous avez sauvegardé l’archive dans votre répertoire, vous pouvez
+utiliser :<br>
+<code>~votre_nom_de_login</code> comme <code>nom_de_repertoire</code>),<br>
+sinon, tapez simplement depuis le répertoire où se trouve l’archive:<br>
+<code>tar xvfz nom_de_fichier.tgz</code><br>
+placez-vous dans le répertoire créé et lisez les fichiers <code>README</code>
+ou/et <code>INSTALL</code> qui s’y trouvent sans doute.<br>
+Remarques :</p><p>1/ N’oubliez pas de quitter le compte de <code>root</code> avant
+d’utiliser votre logiciel (en tapant simultanément sur les touches
+Ctrl et D).</p><p>2/ les archives <code>.tar.bz2</code> se traitent de manière identique,
+à ceci près qu’il faut enlever le <code>z</code> de <code>tvfz</code> ou <code>xvfz</code>
+et rajouter <br>
+<code> --use-compress-program bunzip2</code>, par exemple:<br>
+<code>tar tvf nom_de_fichier.tar.bz2 --use-compress-program bunzip2</code></p><p>3/ les archives <code>.zip</code> se visualisent par la commande :<br>
+<code>unzip -v nom_de_fichier.zip</code> et se désarchivent par la commande :<br>
+<code>unzip nom_de_fichier.zip</code></p><p>Sous linux et autres Unix, vous trouverez également des fichiers
+sources qu’il vous faudra compiler avant de pouvoir utiliser le logiciel
+correspondant. De nombreux fichiers sources suivent la procédure
+d’installation du projet GNU. Pour les compiler la procédure est
+la suivante (après avoir décompressé l’archive):<br>
+<code>cd nom_d_archive</code><br>
+<code>./configure</code><br>
+<code>make</code><br>
+Puis on passe <code>root</code> en tapant <code>su</code>, puis : <code>make install-strip</code><br>
+puis quittez le compte <code>root</code> (en tapant simultanément 
+sur les touches <code>Ctrl</code> et <code>D</code>).
+Vous pourrez alors utiliser le logiciel nouvellement installé 
+(éventuellement
+après avoir tapé la commande <code>rehash</code> si votre interpréteur de
+commandes est <code>tcsh</code>).</p><p>Si cela ne fonctionne pas vous devriez trouver un fichier <code>README</code>
+ou <code>INSTALL</code> qui explique la procédure à suivre.
+</p><hr>
+<a href="casrouge019.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge021.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

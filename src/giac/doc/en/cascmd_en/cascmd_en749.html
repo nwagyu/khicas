@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Printing: print Disp ClrIO
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en748.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en750.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1915" class="subsection">12.2.6  Printing: <span style="font-family:monospace">print</span> <span style="font-family:monospace">Disp</span> <span style="font-family:monospace">ClrIO</span>
+<a id="hevea_default1382"></a>
+<a id="hevea_default1383"></a>
+<a id="hevea_default1384"></a></h3>
+<p>The <span style="font-family:monospace">print</span> command prints in a special pane.<br>
+<span style="font-family:monospace">Disp</span> is a synonym for <span style="font-family:monospace">print</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">print</span> takes one argument:<br>
+ <span style="font-style:italic">seq</span>, a sequence of objects.
+</li><li class="li-itemize"><span style="font-family:monospace">print(</span><span style="font-style:italic">seq</span><span style="font-family:monospace">)</span> returns 1 and prints the 
+<span style="font-style:italic">seq</span> in a special pane just above the output line.
+</li></ul><h4 id="sec1916" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">print("Hello")</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Hello</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >1
+</td></tr>
+</table>
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">a:= 12</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">print("a =",a)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">a =,12</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >1
+</td></tr>
+</table>
+</div>
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">ClrIO</span> command erases printing on the level it was typed.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ClrIO</span> takes no arguments and no parentheses.
+</li><li class="li-itemize"><span style="font-family:monospace">ClrIO</span> returns 1 and erases any printing on the
+special pane above the output line on the level it was typed. 
+</li></ul><h4 id="sec1917" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">print("Hello"); ClrIO</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+ <br>
+(1,1)
+</div>
+<hr>
+<a href="cascmd_en748.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en750.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

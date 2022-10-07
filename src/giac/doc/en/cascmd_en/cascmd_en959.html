@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Orthogonal projection in space: projection
+</title>
+</head>
+<body >
+<a href="cascmd_en958.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en960.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dprojection" class="subsection">14.14.8  Orthogonal projection in space: <span style="font-family:monospace">projection</span>
+<a id="hevea_default1665"></a></h3>
+<p>See Section <a href="cascmd_en866.html#ssec%3A2dprojection">13.15.8</a> for projections in the plane.</p><p>The <span style="font-family:monospace">projection</span> command creates a projection.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">projection</span> takes one mandatory argument and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">O</span>, a geometrix object.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">P</span>, a point.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">projection(</span><span style="font-style:italic">O</span><span style="font-family:monospace">)</span> returns a new command which projects
+points onto <span style="font-style:italic">O</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">projection(</span><span style="font-style:italic">O</span>,<span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns and draws the projection of
+<span style="font-style:italic">P</span> onto <span style="font-style:italic">O</span>.
+</li></ul><h4 id="sec2424" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">P:=point(0,0,1);</span>
+<span style="font-family:monospace">p1:= projection(line(point(0,0,0), point(1,1,1)))</span>
+<span style="font-family:monospace">coordinates(p1(P))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+which is the projection of (0,0,1) onto the line.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">coordinates(projection(plane(point(1,0,0),point(0,0,0),point(1,1,1)),point(0,0,1)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">0,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+which is the projection of the point (0,0,1) onto the plane.
+</li></ul>
+<hr>
+<a href="cascmd_en958.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en960.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

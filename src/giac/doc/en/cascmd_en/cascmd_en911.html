@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Tangent planes in space: tangent
+</title>
+</head>
+<body >
+<a href="cascmd_en910.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en912.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dtangents" class="subsection">14.6.3  Tangent planes in space: <span style="font-family:monospace">tangent</span>
+<a id="hevea_default1617"></a></h3>
+<p>See Section <a href="cascmd_en808.html#ssec%3A2dtangents">13.7.7</a> for tangents in the plane.</p><p>The <span style="font-family:monospace">tangent</span> command finds tangent planes to surfaces.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">tangent</span> takes two arguments:<br>
+ <ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">obj</span>, an object in space.
+</li><li class="li-itemize"><span style="font-style:italic">P</span>, a point in space.<br>
+ If <span style="font-style:italic">obj</span> is the graph of a function, then <span style="font-style:italic">P</span> can be a
+point in the domain of the function, and the point on the graph
+will be used.
+</li></ul>
+or
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">e</span>, a point defined with <span style="font-family:monospace">element</span> (see
+Section <a href="cascmd_en801.html#ssec%3Aelement">13.6.15</a>) using a curve and parameter value.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">tangent(</span><span style="font-style:italic">obj</span><span style="font-style:italic">P</span><span style="font-family:monospace">)</span>
+returns and draws the plane through <span style="font-style:italic">P</span> that’s perpendicular to 
+<span style="font-style:italic">obj</span>.
+</li></ul><h4 id="sec2315" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">S: = sphere([0,0,0],3)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">tangent(S,[2,2,1])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en316.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">G:=plotfunc(x^2 + y^2, [x,y])</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">tangent(G,[2,2])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en317.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en910.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en912.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

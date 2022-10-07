@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The modulus and argument of a complex number: abs arg
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en171.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en173.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:absarg" class="subsection">5.10.4  The modulus and argument of a complex number: <span style="font-family:monospace">abs</span> <span style="font-family:monospace">arg</span>
+<a id="hevea_default294"></a>
+<a id="hevea_default295"></a>
+</h3>
+<p>A complex number <span style="font-style:italic">z</span> can be written in polar form <span style="font-style:italic">re</span><sup><span style="font-style:italic">i</span>θ</sup>,
+where <span style="font-style:italic">r</span> is the modulus and θ is the argument. The angle
+θ is only determined up to a multiple of 2π; there will be
+a unique value in the interval (−π,π], the value in this
+interval is called the <em>principal value</em> of the argument.</p><p>The <span style="font-family:monospace">abs</span> and <span style="font-family:monospace">arg</span> commands find the modulus and
+argument of a complex number.</p><p>The <span style="font-family:monospace">abs</span> command finds the modulus of a complex number (see also
+Section <a href="cascmd_en213.html#ssec%3Astandardfns">5.16.2</a>).
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">abs</span> takes one argument:<br>
+ <span style="font-style:italic">z</span>, a complex number.
+</li><li class="li-itemize"><span style="font-family:monospace">abs(</span><span style="font-style:italic">z</span><span style="font-family:monospace">)</span> returns the modulus |<span style="font-style:italic">z</span>|.
+</li></ul><h4 id="sec359" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">abs(3+4*i)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">5
+</td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">arg</span> command finds the argument of a complex number.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">arg</span> takes one argument:<br>
+ <span style="font-style:italic">z</span>, a complex number.
+</li><li class="li-itemize"><span style="font-family:monospace">arg(</span><span style="font-style:italic">z</span><span style="font-family:monospace">)</span> returns the principal value of the argument of <span style="font-style:italic">z</span>.
+</li></ul><h4 id="sec360" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">arg(3+4*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  arctan</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">4</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">arg(3.0+4.0*i)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  0.927295218002
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en171.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en173.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

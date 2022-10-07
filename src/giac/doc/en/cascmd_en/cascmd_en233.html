@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Integrals and limits</title>
+</head>
+<body >
+<a href="cascmd_en232.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en234.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec548" class="subsection">5.20.7  Integrals and limits</h3>
+<p>The <span style="font-family:monospace">limit</span> command (see Section <a href="index.html#sec%3Alimit">5.18</a>) can compute limits
+involving integrals.subsubsection*Examples
+</p><ul class="itemize"><li class="li-itemize">
+Find the limit, as <span style="font-style:italic">a</span> approaches +∞, of
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">a</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup></td></tr>
+</table></td><td class="dcell"> <span style="font-style:italic">dx</span>
+</td></tr>
+</table>
+<span style="font-style:italic">Input (if </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> is assigned, first input </span><span style="font-style:italic"><span style="font-family:monospace">purge(a)</span></span><span style="font-style:italic">):</span>
+<div class="center">
+<span style="font-family:monospace">limit(integrate(1/(x^2),x,2,a),a,+(infinity))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+Since ∫<sub>2</sub><sup><span style="font-style:italic">a</span></sup>1/<span style="font-style:italic">x</span><sup>2</sup><span style="font-style:italic">dx</span> = 1/2 − 1/<span style="font-style:italic">a</span>, the integral
+∫<sub>2</sub><sup><span style="font-style:italic">a</span></sup>1/<span style="font-style:italic">x</span><sup>2</sup><span style="font-style:italic">dx</span> tends to 1/2 as <span style="font-style:italic">a</span> goes to infinity.
+</li><li class="li-itemize">Find the limit, as <span style="font-style:italic">a</span> approaches +∞, of
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left"><span style="font-style:italic">a</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">2</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup>−1</td></tr>
+</table></td><td class="dcell">+ln</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>+1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span>−1</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"> <span style="font-style:italic">dx</span>
+</td></tr>
+</table>
+<span style="font-style:italic">Input (if </span><span style="font-style:italic"><span style="font-family:monospace">a</span></span><span style="font-style:italic"> is assigned, first input </span><span style="font-style:italic"><span style="font-family:monospace">purge(a)</span></span><span style="font-style:italic">:</span>
+<div class="center">
+<span style="font-family:monospace">limit(integrate(x/(x^2-1)+log((x+1)/(x-1)),x,2,a),a,+infinity)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">+∞
+</td></tr>
+</table>
+Since ∫<sub>2</sub><sup><span style="font-style:italic">a</span></sup> <span style="font-style:italic">x</span>/(<span style="font-style:italic">x</span><sup>2</sup>−1) <span style="font-style:italic">dx</span> = (1/2)(ln(<span style="font-style:italic">a</span><sup>2</sup>−1) − ln(3)) and
+∫<sub>2</sub><sup><span style="font-style:italic">a</span></sup>ln((<span style="font-style:italic">x</span>+1)/(<span style="font-style:italic">x</span>−1))<span style="font-style:italic">dx</span> = ln(<span style="font-style:italic">a</span>+1) + ln(<span style="font-style:italic">a</span>−1)
++<span style="font-style:italic">a</span>ln((<span style="font-style:italic">a</span>+1)/(<span style="font-style:italic">a</span>−1))−3ln(3), the integral
+∫<sub>2</sub><sup><span style="font-style:italic">a</span></sup><span style="font-style:italic">x</span>/(<span style="font-style:italic">x</span><sup>2</sup>−1) + ln((<span style="font-style:italic">x</span>+1)/(<span style="font-style:italic">x</span>−1))<span style="font-style:italic">dx</span> goes to infinity as <span style="font-style:italic">a</span>
+goes to infinity.
+</li><li class="li-itemize">For an example when the integral can’t be simply evaluated, find
+the limit, as <span style="font-style:italic">a</span> approaches 0, of
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:xx-large">∫</span></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">3<span style="font-style:italic">a</span></td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left"><span style="font-style:italic">a</span></td></tr>
+</table></td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">cos(<span style="font-style:italic">x</span>)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span></td></tr>
+</table></td><td class="dcell"><span style="font-style:italic">dx</span>
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">limit(int(cos(x)/x,x,a,3a),a,0)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">ln</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">3</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table>
+To find this limit yourself, you can note that 1−<span style="font-style:italic">x</span><sup>2</sup>/2 ≤ cos(<span style="font-style:italic">x</span>)
+≤ 1, and so 1/<span style="font-style:italic">x</span> − <span style="font-style:italic">x</span>/2 ≤ cos(<span style="font-style:italic">x</span>)/<span style="font-style:italic">x</span> ≤ 1/<span style="font-style:italic">x</span>, and so
+∫<sub><span style="font-style:italic">a</span></sub><sup>3<span style="font-style:italic">a</span></sup>1/<span style="font-style:italic">x</span>−<span style="font-style:italic">x</span>/2 <span style="font-style:italic">dx</span> ≤ ∫<sub><span style="font-style:italic">a</span></sub><sup>3<span style="font-style:italic">a</span></sup>cos(<span style="font-style:italic">x</span>)/<span style="font-style:italic">x</span> <span style="font-style:italic">dx</span> ≤
+∫<sub><span style="font-style:italic">a</span></sub><sup>3<span style="font-style:italic">a</span></sup>1/<span style="font-style:italic">x</span> <span style="font-style:italic">dx</span>, which gives you
+ln(3) − 2<span style="font-style:italic">a</span><sup>2</sup> ≤ ∫<sub><span style="font-style:italic">a</span></sub><sup>3<span style="font-style:italic">a</span></sup>cos(<span style="font-style:italic">x</span>)/<span style="font-style:italic">x</span> <span style="font-style:italic">dx</span> ≤ ln(3), and so as
+<span style="font-style:italic">a</span> approaches 0, ∫<sub><span style="font-style:italic">a</span></sub><sup>3<span style="font-style:italic">a</span></sup>cos(<span style="font-style:italic">x</span>)/<span style="font-style:italic">x</span> <span style="font-style:italic">dx</span> will approach ln(3).
+</li></ul>
+<hr>
+<a href="cascmd_en232.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en234.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

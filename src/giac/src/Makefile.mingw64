@@ -1,0 +1,80 @@
+# -*- mode:Makefile -*-
+# Building giac/xcas in MSYS2
+PARIDIR=c:/Pari64-2-13-0
+CXXFLAGS = -O2 -I. \
+	-I/mingw64/include \
+	-I/mingw64/x86_64-w64-mingw32/include \
+	-I$(PARIDIR)/include \
+	-DWIN32 -DMINGW_HAS_SECURE_API=1 -DHAVE_CONFIG_H -D__MINGW_H -DGIAC_NO_OPTIMIZATIONS -DGIAC_GENERIC_CONSTANTS -DGIAC_MPQS -D_GLIBCXX_USE_CXX11_ABI=0 -fno-strict-aliasing -DIN_GIAC
+CFLAGS = -std=c99 -O2 -I. -I/mingw64/include -I/mingw64/x86_64-w64-mingw32/include -DWIN32
+CC=gcc
+CXX=g++
+GIACOBJS = alg_ext.o cocoa.o csturm.o derive.o desolve.o ezgcd.o first.o gauss.o gausspol.o gen.o global.o graphe.o graphtheory.o help.o identificateur.o ifactor.o index.o input_lexer.o input_parser.o intg.o intgab.o isom.o lin.o lpsolve.o maple.o markup.o mathml.o misc.o modfactor.o modpoly.o moyal.o nautywrapper.o optimization.o pari.o permu.o plot.o plot3d.o prog.o quater.o risch.o rpn.o series.o signalprocessing.o solve.o sparse.o subst.o sym2poly.o symbolic.o tex.o threaded.o ti89.o tinymt32.o unary.o usual.o vecteur.o
+OBJS= gl2ps.o Cfg.o Editeur.o Equation.o Flv_CStyle.o Flv_Data_Source.o Flv_List.o Flv_Style.o Flv_Table.o Flve_Check_Button.o Flve_Combo.o Flve_Input.o Graph.o Graph3d.o Help1.o History.o Input.o Print.o Python.o Tableur.o Xcas1.o
+LIBS = \
+	-L/mingw64/lib \
+	-L$(PARIDIR) \
+	-Lnauty \
+	-L. \
+	-lmpfi \
+	-lmpfr \
+	-lntl \
+	-lecm \
+	-lgmp \
+	-lgsl \
+	-lcblas \
+	-lblas \
+	-llapack \
+	-lglpk \
+	-lsamplerate \
+	-lgfortran \
+	-lintl \
+	-lpng \
+	-ljpeg \
+	-ljpeg \
+	-ldl \
+	-lnauty \
+	-lz \
+	-lm \
+	-liconv \
+	-lquadmath \
+	-lpari \
+	-lao \
+	-lcurl \
+	-lfltk \
+	-lfltk_gl \
+	-lfltk_images \
+	-lopengl32 \
+	-lgl2ps \
+	-lreadline \
+	-lhistory
+hist.o: 	hist.cxx
+	$(CXX) $(CXXFLAGS) -c hist.cxx
+hist.cxx:	hist.fl
+	fluid -c hist.fl
+gl2ps.o: gl2ps.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+nautywrapper.o: nautywrapper.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+%.o: %.cc
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
+giac.dll:   $(GIACOBJS)
+	$(CXX) $(CXXFLAGS) -s -shared $(GIACOBJS) -o giac.dll $(LIBS)
+libgiac.dll:   $(GIACOBJS) $(OBJS)
+	$(CXX) $(CXXFLAGS) -s -shared $(GIACOBJS) $(OBJS) -o libgiac.dll $(LIBS)
+icas.exe:   libgiac.dll icas.o
+	$(CXX) $(CXXFLAGS) icas.o -o icas.exe $(LIBS) -lgiac
+xcas.exe:   libgiac.dll hist.o
+	$(CXX) $(CXXFLAGS) -o xcas.exe hist.o $(LIBS) -lgiac
+install:   icas.exe xcas.exe
+	mkdir -p ../mingw64
+	mkdir -p ../mingw64/bin
+	cp *cas.exe ../mingw64/bin/.
+	cp libgiac.dll ../mingw64/bin/.
+	cp /mingw64/bin/lib{ao-4,blas,brotlicommon,brotlidec,crypto-1_1-x64,curl-4,dl,gcc_s_seh-1,gfortran-5,gl2ps,glpk-40,gmp-10,gsl-25,gslcblas-0,iconv-2,idn2-0,intl-8,jpeg-8,lapack,nghttp2-14,png16-16,psl-5,quadmath-0,readline8,samplerate-0,ssh2-1,ssl-1_1-x64,stdc++-6,termcap-0,unistring-2,winpthread-1,zstd}.dll ../mingw64/bin/.
+	cp /mingw64/bin/mgwfltknox{_gl-1.3,_images-1.3,-1.3}.dll ../mingw64/bin/.
+	cp /mingw64/bin/zlib1.dll ../mingw64/bin/.
+	cp $(PARIDIR)/libpari.dll ../mingw64/bin/.
+.PHONY: clean
+clean:
+	rm -f $(GIACOBJS) $(OBJS)

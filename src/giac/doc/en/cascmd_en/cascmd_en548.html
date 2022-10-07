@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Solving (mixed integer) linear programming problems: lpsolve
+</title>
+</head>
+<body >
+<a href="cascmd_en547.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en549.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1353" class="subsection">5.52.2  Solving (mixed integer) linear programming problems: <span style="font-family:monospace">lpsolve</span>
+<a id="hevea_default939"></a></h3>
+<p>The <span style="font-family:monospace">lpsolve</span> command can solve linear programming problems,
+where a multivariate linear function needs to be maximized or
+minimized subject to linear (in)equality constraints, as well as
+(mixed) integer programming problems. You can either enter a problem 
+directly (in symbolic or matrix form) or load it from a file in LP or
+(compressed) MPS format.</p>
+<h4 id="sec1354" class="subsubsection">Solving an LP problem in symbolic form</h4>
+<p>To enter a problem symbolically:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lpsolve</span> takes one mandatory argument and three
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">obj</span>, a symbolic expression representing the
+objective function or a path to a file containing the LP problem.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">constr</span>, list of linear constraints which
+may be equalities or inequalities or doubly bounded expressions in
+form <span style="font-style:italic">a</span>≤ <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>)≤ <span style="font-style:italic">b</span> entered as
+<span style="font-family:monospace">f(x)=a..b</span>. (If <span style="font-style:italic">obj</span> is a file name, this
+option is omitted.)
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">bd</span>, a sequence of expressions of type
+<span style="font-family:monospace">x=a..b</span>, specifying that the variable <span style="font-style:italic">x</span> is bounded
+below by <span style="font-style:italic">a</span>∈ℝ∪{−∞} and above by
+<span style="font-style:italic">b</span>∈ℝ∪{+∞}. If the bounds are stored in a
+two-column matrix, consider using the conversion routine
+<span style="font-family:monospace">box_constraints</span> (see Section <a href="cascmd_en409.html#ssec%3Anumb2intvl">5.38.8</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">opts</span>, a sequence of solver settings
+in form <span style="font-style:italic">option</span>=<span style="font-style:italic">value</span>, where <span style="font-style:italic">option</span>
+may be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lp_assume</span> (or <span style="font-family:monospace">assume</span>), which specifies a global
+constraint on variables and whose value can be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lp_nonnegative</span> (all variables are nonnegative)
+</li><li class="li-itemize"><span style="font-family:monospace">lp_integer</span> or <span style="font-family:monospace">integer</span> (all variables are integers)
+</li><li class="li-itemize"><span style="font-family:monospace">lp_binary</span> (all variables are binary, i.e. 0 or 1)
+</li><li class="li-itemize"><span style="font-family:monospace">lp_nonnegint</span> or <span style="font-family:monospace">nonnegint</span> (all variables are nonnegative integers)
+</li></ul>
+(by default, <span style="font-style:italic">unset</span>.)
+</li><li class="li-itemize"><span style="font-family:monospace">lp_integervariables</span>, whose value should be a list
+of identifiers or indices of integer variables (empty by default).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_binaryvariables</span>, whose value should be a list
+of identifiers or indices of binary variables (empty by default).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_maximize</span> (or <span style="font-family:monospace">maximize</span>), whose value can
+be <span style="font-family:monospace">true</span> or <span style="font-family:monospace">false</span> setting the objective
+direction (by default <span style="font-family:monospace">false</span>, meaning that the objective is minimized).
+You can enter only <span style="font-family:monospace">maximize</span>, which is equivalent to
+<span style="font-family:monospace">maximize=true</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">lp_method</span>, setting the solver type, which can be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">exact</span>
+</li><li class="li-itemize"><span style="font-family:monospace">float</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_simplex</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_interiorpoint</span>
+</li></ul>
+(by default, <span style="font-family:monospace">lp_method=lp_simplex</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_depthlimit</span>, whose value can be a positive
+integer, which sets the maximum depth of the branch-and-bound tree
+(by default, <span style="font-style:italic">unlimited</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_nodelimit</span>, whose value can be a positive integer,
+which sets the maximum number of nodes in the branch-and-bound tree
+(by default, <span style="font-style:italic">unlimited</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_iterationlimit</span>, whose value can be a positive integer
+setting the maximum iterations of the simplex
+algorithm (by default, <span style="font-style:italic">unlimited</span>).<br>
+ If the maximum number of iterations is reached, the current
+feasible solution (not necessarily an optimal one) is returned.
+</li><li class="li-itemize"><span style="font-family:monospace">lp_timelimit</span>, whose value can be a positive real number,
+setting the maximum solving time in milliseconds (by default, <span style="font-style:italic">unlimited</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">acyclic</span>, whose value can be either <span style="font-family:monospace">true</span> or
+<span style="font-family:monospace">false</span>, enabling/disabling the Bland rule safeguarding
+(by default, <span style="font-family:monospace">true</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_maxcuts</span>, whose value can be a nonnegative integer
+setting the maximum GMI cuts per node (by default 5). 
+</li><li class="li-itemize"><span style="font-family:monospace">lp_gaptolerance</span>, whose value can be a positive
+number, setting the relative integrality gap threshold (by default, 0).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_presolve</span>, whose value can be either <span style="font-family:monospace">true</span> or
+<span style="font-family:monospace">false</span>, enabling/disabling the preprocessing step (by default,
+<span style="font-family:monospace">true</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_heuristic</span>, whose value can be either <span style="font-family:monospace">true</span> or
+<span style="font-family:monospace">false</span>, enabling/disabling the rounding heuristic (by default,
+<span style="font-family:monospace">true</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_nodeselect</span>, which sets the branching node
+selection strategy and whose value can be one of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lp_depthfirst</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_breadthfirst</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_bestlocalbound</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_hybrid</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_bestprojection</span>
+</li></ul>
+(by default, <span style="font-family:monospace">lp_nodeselect=lp_bestlocalbound</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_varselect</span>, which sets the branching variable
+selection strategy, whose value can be one of
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lp_firstfractional</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_lastfractional</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_mostfractional</span>
+</li><li class="li-itemize"><span style="font-family:monospace">lp_pseudocost</span>
+</li></ul>
+(by default, <span style="font-family:monospace">lp_varselect=lp_pseudocost</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">lp_verbose</span>, whose value can be <span style="font-family:monospace">true</span> or
+<span style="font-family:monospace">false</span> (by default <span style="font-family:monospace">false</span>). You can enter
+only <span style="font-family:monospace">lp_verbose</span>, which is equivalent to <span style="font-family:monospace">lp_verbose=true</span>.
+</li></ul>
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">lpsolve(</span><span style="font-style:italic">obj,</span> ⟨<span style="font-style:italic">constr,bd,opts</span>⟩<span style="font-family:monospace">)</span>
+returns a list <span style="font-family:monospace">[</span><span style="font-style:italic">optimum,soln</span><span style="font-family:monospace">]</span>, where
+<span style="font-style:italic">optimum</span> is the minimum/maximum value of the objective
+function and <span style="font-style:italic">soln</span> is the list of coordinates corresponding to
+the point at which the optimal value is attained, i.e. the optimal
+solution. If there is no feasible solution, an empty list is returned.
+When the objective function is unbounded, <span style="font-style:italic">optimum</span> is returned
+as <span style="font-family:monospace">+infinity</span> (for maximization problems) or
+<span style="font-family:monospace">-infinity</span> (for minimization problems). If an error is
+experienced while solving, then the process is terminated and <span style="font-family:monospace">undef</span> is
+returned.
+</li></ul><p>
+The given objective function is minimized by default. To maximize it,
+include the option <span style="font-family:monospace">lp_maximize=true</span> or <span style="font-family:monospace">lp_maximize</span>
+or simply <span style="font-family:monospace">maximize</span>. Also note that all variables are, unless
+specified otherwise, assumed to be continuous and unrestricted in
+sign.</p><h4 id="sec1355" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Solve the problem specified in (<a href="cascmd_en547.html#eq%3Alpexample">11</a>):<br>
+<span style="font-style:italic">Input</span>:
+<div class="center">
+<span style="font-family:monospace">lpsolve(2x+y-z+4,[x&lt;=1,y&gt;=2,x+3y-z=2,3x-y+z&lt;=8,-x+y&lt;=5])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−4,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=0,<span style="font-style:italic">y</span>=5,<span style="font-style:italic">z</span>=13</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+Therefore, the minimum value of <span style="font-style:italic">f</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span>)=2 <span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>−<span style="font-style:italic">z</span>+4 is equal to −4
+under the given constraints. The optimal value is attained at point
+(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>,<span style="font-style:italic">z</span>)=(0,5,13). 
+</li><li class="li-itemize">Constraints may also take the form <span style="font-family:monospace">expr=a..b</span> for bounded
+linear expressions. For example, minimize <span style="font-style:italic">x</span>+2<span style="font-style:italic">y</span>+3<span style="font-style:italic">z</span> subject to
+1≤ <span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>≤ 5 and 2≤ <span style="font-style:italic">y</span>+<span style="font-style:italic">z</span>+1≤ 4, where <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>≥ 0.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lpsolve(x+2y+3z,[x+y=1..5,y+z+1=2..4,x&gt;=0,y&gt;=0])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−2,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=0,<span style="font-style:italic">y</span>=5,<span style="font-style:italic">z</span>=−4</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Use the <span style="font-family:monospace">assume=lp_nonnegative</span> option to specify that all
+variables are nonnegative. It is easier than entering the
+nonnegativity constraints explicitly. For example, minimize
+−<span style="font-style:italic">x</span>−<span style="font-style:italic">y</span> subject to <span style="font-style:italic">y</span>≤ 3<span style="font-style:italic">x</span>+1/2 and <span style="font-style:italic">y</span>≤ −5<span style="font-style:italic">x</span>+2, where <span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>≥ 0.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lpsolve(-x-y,[y&lt;=3x+1/2,y&lt;=-5x+2],assume=lp_nonnegative)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">5</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">16</td></tr>
+</table></td><td class="dcell">,<span style="font-style:italic">y</span>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">17</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">16</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Bounds can be added separately for some variables. They should be
+entered after the constraints. For example, minimize −6<span style="font-style:italic">x</span>+4<span style="font-style:italic">y</span>+<span style="font-style:italic">z</span> subject to
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >  5<span style="font-style:italic">x</span>−10<span style="font-style:italic">y</span></td><td style="text-align:left;white-space:nowrap" >≤ 20,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > 2<span style="font-style:italic">z</span>−3<span style="font-style:italic">y</span></td><td style="text-align:left;white-space:nowrap" >=6,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > −<span style="font-style:italic">x</span>+3<span style="font-style:italic">y</span></td><td style="text-align:left;white-space:nowrap" >≤ 3,
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+where 1≤ <span style="font-style:italic">x</span>≤ 20 and <span style="font-style:italic">y</span>≥ 0.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lpsolve(-6x+4y+z,[5x-10y&lt;=20,2z-3y=6,-x+3y&lt;=3],x=1..20,y=0..inf)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">133</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=18,<span style="font-style:italic">y</span>=7,<span style="font-style:italic">z</span>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">27</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1356" class="subsubsection">Solving an LP problem in matrix form</h4>
+<p>To enter a problem in matrix form:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lpsolve</span> takes 
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">obj</span>, a vector of coefficients representing the objective
+function.
+</li><li class="li-itemize"><span style="font-style:italic">constr</span>, a list [<span style="font-style:italic">A</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">A</span><sub>eq</sub>,<span style="font-style:italic">b</span><sub>eq</sub>]
+such that objective function <span style="font-style:italic">obj</span><sup><span style="font-style:italic">T</span></sup>· <span style="font-style:italic">x</span> is to be
+minimized/maximized subject to constraints <span style="font-style:italic">Ax</span> ≤ <span style="font-style:italic">b</span> and
+<span style="font-style:italic">A</span><sub>eq</sub><span style="font-style:italic">x</span> = <span style="font-style:italic">b</span><sub>eq</sub>.<p>If the problem does not
+contain equality constraints, <span style="font-style:italic">A</span><sub>eq</sub> and 
+<span style="font-style:italic">b</span><sub>eq</sub> may be omitted. For a problem that does not contain
+inequality constraints, empty lists must be entered in place of 
+<span style="font-style:italic">A</span> and <span style="font-style:italic">b</span>.
+</p></li><li class="li-itemize"><span style="font-style:italic">bd</span>, a list of two vectors [<span style="font-style:italic">b</span><sub><span style="font-style:italic">l</span></sub>,<span style="font-style:italic">b</span><sub><span style="font-style:italic">u</span></sub>] of the same
+length as <span style="font-style:italic">c</span> such that <span style="font-style:italic">b</span><sub><span style="font-style:italic">l</span></sub>≤ <span style="font-style:italic">x</span> ≤ <span style="font-style:italic">b</span><sub><span style="font-style:italic">u</span></sub>.
+These vectors may contain <span style="font-family:monospace">+infinity</span> or <span style="font-family:monospace">-infinity</span>.
+</li><li class="li-itemize"><span style="font-style:italic">opts</span>, as before.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">lpsolve(</span><span style="font-style:italic">obj,</span> ⟨<span style="font-style:italic">constr,bd,opts</span>⟩<span style="font-family:monospace">)</span>
+returns a list <span style="font-family:monospace">[</span><span style="font-style:italic">optimum,soln</span><span style="font-family:monospace">]</span> as before.
+<span style="font-style:italic">optimum</span> is the minimum/maximum value of the objective
+function and <span style="font-style:italic">soln</span> is the list of coordinates corresponding to
+the point at which the optimal value is attained, i.e. the optimal
+solution. If there is no feasible solution, an empty list is returned.
+When the objective function is unbounded, <span style="font-style:italic">optimum</span> is returned
+as <span style="font-family:monospace">+infinity</span> (for maximization problems) or
+<span style="font-family:monospace">-infinity</span> (for minimization problems). If an error is
+experienced while solving (terminating the process), <span style="font-family:monospace">undef</span> is
+returned.
+
+</li></ul><h4 id="sec1357" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+We minimize −2<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span> subject to −<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>≤ 3, <span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>≤ 5, <span style="font-style:italic">x</span>≥ 0 and <span style="font-style:italic">y</span>≥ 0
+by providing the parameters <span style="font-style:italic">A</span> and <span style="font-style:italic">b</span>.
+<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">c:=[-2,1]:; A:=[[-1,1],[1,1],[-1,0],[0,-1]]:; b:=[3,5,0,0]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">lpsolve(c,[A,b])</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−10,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">5,0</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">Enter variable bounds as the third argument. The following example minimizes −2<span style="font-style:italic">x</span>+5<span style="font-style:italic">y</span>−3<span style="font-style:italic">z</span>
+subject to 2≤ <span style="font-style:italic">x</span>≤ 6, 3≤ <span style="font-style:italic">y</span>≤ 10 and 1≤ <span style="font-style:italic">z</span>≤ 7/2.
+<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lpsolve([-2,5,-3],[],[[2,3,1],[6,10,7/2]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">15</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">6,3,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">7</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">To solve problems with only equality constraints, enter empty lists in places of <span style="font-style:italic">A</span> and <span style="font-style:italic">b</span>.
+The following example minimizes 4<span style="font-style:italic">x</span>+5<span style="font-style:italic">y</span> subject to −<span style="font-style:italic">x</span>+3/2 <span style="font-style:italic">y</span>=2 and −3<span style="font-style:italic">x</span>+2<span style="font-style:italic">y</span>=3.
+<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">lpsolve([4,5],[[],[],[[-1,3/2],[-3,2]],[2,3]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">26</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">6</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<h5 id="sec1358" class="paragraph">Simplex method implementation.</h5>
+<p>
+Only the two-phase primal simplex method is implemented for <span style="font-family:monospace">lpsolve</span>
+and it uses the upper-bounding technique. Basic columns are not kept
+in the simplex tableau, which therefore contains only the columns of
+non-basic variables. To prevent cycling, an adaptation of Bland’s
+rule is used. A preprocessing routine, helping to reduce the size of the problem,
+is available and enabled by default (you can disable it by typing
+<span style="font-family:monospace">lp_presolve=false</span>). All computation is done by using
+arbitrary-precision integer arithmetic, which is always exact but slower than the
+floating-point arithmetic. Note that all problem data should be rational.</p><p>Cycling in simplex algorithm may happen, although it is rare in practice.
+Bland rule safeguarding is used by default in order to prevent cycling. However,
+Bland’s pivoting rule is known to converge slowly; therefore it may slow
+down the computation in problems which would otherwise not cycle. To disable
+the safeguarding, use the option <span style="font-family:monospace">acyclic=false</span>.</p>
+<h4 id="sec1359" class="subsubsection">Solving MIP (Mixed Integer Programming) problems</h4>
+<p>The <span style="font-family:monospace">lpsolve</span> command allows restricting (some) variables to
+integer values. Such problems, called (<em>mixed</em>) <em>integer
+programming problems</em>, are solved by applying the branch-and-bound method.</p><p>To solve pure integer programming problems, in which all variables are
+integers, use the option <span style="font-family:monospace">assume=integer</span> or
+<span style="font-family:monospace">assume=lp_integer</span>.</p><h4 id="sec1360" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">lpsolve(-5x-7y,[7x+y&lt;=35,-x+3y&lt;=6],assume=integer)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−41,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=4,<span style="font-style:italic">y</span>=3</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>Use the option <span style="font-family:monospace">assume=lp_binary</span> to specify that all variables
+are binary, i.e. the only allowed values are 0 and 1. These usually 
+represent <span style="font-family:monospace">false</span> and <span style="font-family:monospace">true</span>, respectively, giving the
+variable a certain meaning in a logical context.</p><h4 id="sec1361" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">lpsolve(8x1+11x2+6x3+4x4,[5x1+7x2+4x3+3x4&lt;=14],assume=lp_binary,maximize)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">21,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=0,<span style="font-style:italic">x</span><sub>2</sub>=1,<span style="font-style:italic">x</span><sub>3</sub>=1,<span style="font-style:italic">x</span><sub>4</sub>=1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>To solve mixed integer problems, where some variables are integers and
+some are continuous, use the option keywords <span style="font-family:monospace">lp_integervariables</span>
+to specify integer variables and/or <span style="font-family:monospace">lp_binaryvariables</span> to
+specify binary variables.</p><p>Input:
+</p><div class="center">
+<span style="font-family:monospace">lpsolve(x+3y+3z,[x+3y+2z&lt;=7,2x+2y+z&lt;=11],</span><br>
+<span style="font-family:monospace">assume=lp_nonnegative,lp_maximize,lp_integervariables=[x,z])</span>
+</div><p>
+Output:
+</p><div class="center">
+	<span style="font-family:monospace">[10,[x=1,y=0,z=3]]</span>
+</div><p><br>
+</p><p>Use the <span style="font-family:monospace">assume=lp_nonnegint</span> or <span style="font-family:monospace">assume=nonnegint</span>
+option to get nonnegative integer values.</p><h4 id="sec1362" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">lpsolve(2x+5y,[3x-y=1,x-y&lt;=5],assume=nonnegint)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">12,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span>=1,<span style="font-style:italic">y</span>=2</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p><br>
+</p><p>When specifying MIP problems in matrix form, the lists corresponding to
+the options <span style="font-family:monospace">lp_integervariables</span> and <span style="font-family:monospace">lp_binaryvariables</span>
+should contain indices of the variables, as in the following example.</p><h4 id="sec1363" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">c:=[2,-3,-5]:; A:=[[-5,4,-5],[2,5,7],[2,-3,4]]:; b:=[3,1,-2]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">lpsolve(c,[A,b],lp_integervariables=[0,2])</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">19</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">1,</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">,−1</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+You can also specify a range of indices instead of a list when there is too much variables. Example: <span style="font-family:monospace">lp_binaryvariables=0..99</span> means that all variables  <span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>  such that  0≤ <span style="font-style:italic">i</span>≤ 99  are binary.</p>
+<h5 id="sec1364" class="paragraph">Branch-and-bound implementation.</h5>
+<p>The branch-and-bound algorithm generates a binary tree of subproblems,
+called <em>nodes</em>, by branching on integer variables with fractional values.
+Leaf nodes of the tree, called <em>active nodes</em>, are stored in a list.
+In each iteration of the algorithm, an active node is selected, branched on a
+particular variable into two new nodes, and subsequently removed from
+the list. A node in which no branching is possible represents a feasible
+solution. The corresponding objective value is used to fathom nodes which cannot
+possibly lead to a better solution. The algorithm terminates when there is no
+space left for improvement.</p><p>If presolving is enabled, then basic preprocessing is done at each node of the
+tree, except when <span style="font-family:monospace">lp_presolve=root</span> is set, in which case only the root node
+is processed. Additionally, after a non-integer-feasible solution with better objective
+value than the current incumbent is obtained by solving the linear relaxation, a
+rounding heuristic is applied in attempt to achieve integral feasibility. The
+heuristic is enabled by default; you can disable it by setting
+<span style="font-family:monospace">lp_heuristic</span> to <span style="font-family:monospace">false</span>.</p>
+<h5 id="sec1365" class="paragraph">Node-selection strategies.</h5>
+<p> 
+A node-selection strategy can be chosen by using the
+<span style="font-family:monospace">lp_nodeselect</span> option. Possible values are:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">lp_bestlocalbound</span>, which chooses an active node having the best bound for the objective value,
+</li><li class="li-itemize"><span style="font-family:monospace">lp_depthfirst</span>, which chooses the newest active node,
+</li><li class="li-itemize"><span style="font-family:monospace">lp_hybrid</span>, which combines the above two strategies,
+</li><li class="li-itemize"><span style="font-family:monospace">lp_breadthfirst</span>, which chooses the oldest active node,
+</li><li class="li-itemize"><span style="font-family:monospace">lp_bestprojection</span>, which chooses a node with the best simple projection.
+</li></ul><p>
+By default, the <span style="font-family:monospace">lp_bestlocalbound</span> strategy is used. The
+<span style="font-family:monospace">lp_hybrid</span> strategy works as follows: until an incumbent
+solution is found, the solver uses the <span style="font-family:monospace">lp_depthfirst</span> strategy,
+“diving” into the tree as an incumbent solution is more likely to be
+located deeply. When an incumbent is found, the solver switches to the
+<span style="font-family:monospace">lp_bestlocalbound</span> strategy in attempt to close the integrality gap
+as quickly as possible.</p>
+<h5 id="sec1366" class="paragraph">Variable-selection strategies.</h5>
+<p>
+A variable-selection strategy can be chosen by using the
+<span style="font-family:monospace">lp_varselect</span> option. Possible values are:
+</p><ul class="itemize"><li class="li-itemize">
+	<span style="font-family:monospace">lp_firstfractional</span>, which chooses the first fractional variable,
+	</li><li class="li-itemize"><span style="font-family:monospace">lp_lastfractional</span>, which chooses the last fractional variable,
+	</li><li class="li-itemize"><span style="font-family:monospace">lp_mostfractional</span>, which chooses a variable
+with fractional part closest to 0.5, 
+	</li><li class="li-itemize"><span style="font-family:monospace">lp_pseudocost</span>, which chooses the variable
+which had the greatest impact on the objective value in
+previous branchings.
+</li></ul><p>
+By default, the <span style="font-family:monospace">lp_pseudocost</span> strategy is used. However,
+since a pseudocost-based choice cannot be made until all integer
+variables have been branched upon at least one time in each direction,
+the <span style="font-family:monospace">lp_mostfractional</span> strategy is used until that condition is
+fulfilled.</p><p>Using an appropriate combination of node/variable selection strategies may
+significantly reduce the number of subproblems needed to be examined
+when solving a particular MIP problem, as illustrated in the following example.
+</p><h4 id="sec1367" class="subsubsection">Example</h4>
+<p>
+Minimize <span style="font-style:italic">z</span>=<span style="font-weight:bold"><span style="font-style:italic">c</span></span>·<span style="font-weight:bold"><span style="font-style:italic">x</span></span> subject to 
+<span style="font-weight:bold"><span style="font-style:italic">A</span></span> <span style="font-weight:bold"><span style="font-style:italic">x</span></span>=<span style="font-weight:bold"><span style="font-style:italic">b</span></span>, where 
+<span style="font-weight:bold"><span style="font-style:italic">x</span></span>∈ℤ<sub>+</sub><sup>8</sup> and 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-weight:bold"><span style="font-style:italic">A</span></span>=</td><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >  22</td><td style="text-align:center;white-space:nowrap" >13</td><td style="text-align:center;white-space:nowrap" >26</td><td style="text-align:center;white-space:nowrap" >33</td><td style="text-align:center;white-space:nowrap" >21</td><td style="text-align:center;white-space:nowrap" >3</td><td style="text-align:center;white-space:nowrap" >14</td><td style="text-align:center;white-space:nowrap" >26 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  39</td><td style="text-align:center;white-space:nowrap" >16</td><td style="text-align:center;white-space:nowrap" >22</td><td style="text-align:center;white-space:nowrap" >28</td><td style="text-align:center;white-space:nowrap" >26</td><td style="text-align:center;white-space:nowrap" >30</td><td style="text-align:center;white-space:nowrap" >23</td><td style="text-align:center;white-space:nowrap" >24 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  18</td><td style="text-align:center;white-space:nowrap" >14</td><td style="text-align:center;white-space:nowrap" >29</td><td style="text-align:center;white-space:nowrap" >27</td><td style="text-align:center;white-space:nowrap" >30</td><td style="text-align:center;white-space:nowrap" >38</td><td style="text-align:center;white-space:nowrap" >26</td><td style="text-align:center;white-space:nowrap" >26 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >  41</td><td style="text-align:center;white-space:nowrap" >26</td><td style="text-align:center;white-space:nowrap" >28</td><td style="text-align:center;white-space:nowrap" >36</td><td style="text-align:center;white-space:nowrap" >18</td><td style="text-align:center;white-space:nowrap" >38</td><td style="text-align:center;white-space:nowrap" >16</td><td style="text-align:center;white-space:nowrap" >26
+</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td class="dcell">,
+  
+<span style="font-weight:bold"><span style="font-style:italic">b</span></span>=</td><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >  7872 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >10466 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >11322 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >12058 
+</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td class="dcell">,
+  
+<span style="font-weight:bold"><span style="font-style:italic">c</span></span>=</td><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >  2 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >10 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >13 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >17 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >7 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >7 </td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >3
+</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td class="dcell">. 
+</td></tr>
+</table><p>
+The optimal solution is <span style="font-style:italic">z</span><sup>∗</sup>=1854,
+<span style="font-weight:bold"><span style="font-style:italic">x</span></span><sup>∗</sup>=(24,15,19,11,3,99,4,226). In the following table,
+different strategies are compared according to the number of examined nodes
+and total solving time (in seconds).</p><div class="center">
+<table border=1  style="border-spacing:0;" class="cellpadding1"><tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > <span style="font-weight:bold">Node selection</span></td><td style="text-align:left;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold">Variable selection</span></td><td style="text-align:left;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold">Nodes examined</span></td><td style="text-align:left;border:solid 1px;white-space:nowrap" ><span style="font-weight:bold">Time</span></td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > Best local bound</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >Last fractional</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >13102</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >4.8</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > Best projection</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >Most fractional</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >26238</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >11.7</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > Hybrid</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >First fractional</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >55046</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >19.5</td></tr>
+<tr><td style="text-align:left;border:solid 1px;white-space:nowrap" > Depth-first</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >Pseudocost</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >131466</td><td style="text-align:left;border:solid 1px;white-space:nowrap" >36.2</td></tr>
+</table>
+</div><p>Note that the above comparison is problem-specific; it does not mean that
+<span style="font-family:monospace">lp_bestlocalbound</span> with <span style="font-family:monospace">lp_lastfractional</span> is always the best
+strategy. Usually, one has to experiment with different combinations to
+find which one is optimal for the given problem. However, the strategies
+which use larger amounts of information generally perform better.
+Therefore, it is reasonable to assume that <span style="font-family:monospace">lp_bestlocalbound</span> will be
+more appropriate than <span style="font-family:monospace">lp_breadthfirst</span>, for instance.</p>
+<h5 id="sec1368" class="paragraph">Cutting planes.</h5>
+<p>
+Gomory mixed integer (GMI) cuts are generated at every node of the
+branch-and-bound tree to improve the objective value bound. 
+After solving the relaxed subproblem using the simplex method,
+GMI cuts are added to the subproblem which is subsequently reoptimized.
+This procedure is repeated until no useful cuts can be generated or
+until <span style="font-family:monospace">lp_maxcuts</span> limit is reached.</p><p>Simplex reoptimizations are fast because they start with the last feasible basis;
+however, applying cuts makes the simplex tableau larger, which may slow the
+computation down.
+To limit the number of GMI cuts that is allowed be appended to a subproblem,
+you can use <span style="font-family:monospace">lp_maxcuts</span> option, setting it either to zero (which
+disables the cut generation altogether) or to some positive integer.
+You may set it to <span style="font-family:monospace">+infinity</span> as well, thus allowing any number of cuts
+to be applied to a node. By default, <span style="font-family:monospace">lp_maxcuts</span> equals to 5.</p>
+<h5 id="sec1369" class="paragraph">Stopping criteria.</h5>
+<p>
+There are several ways to force the
+branch-and-bound algorithm to stop prematurely when the execution takes
+too much time. You can set <span style="font-family:monospace">lp_timelimit</span> to an integer
+which defines the maximum number of milliseconds allowed to find an
+optimal solution. Other ways are to set <span style="font-family:monospace">lp_nodelimit</span> or
+<span style="font-family:monospace">lp_depthlimit</span> to limit the number of nodes generated in
+the branch-and-bound tree or its depth, respectively. Finally, you can set
+<span style="font-family:monospace">lp_gaptolerance</span> to some positive value, say  <span style="font-style:italic">t</span>&gt;0, which
+terminates the algorithm after finding an incumbent solution and
+proving that the corresponding objective value differs from the optimum
+value for less than <span style="font-style:italic">t</span>· 100 % . This is done by monitoring the
+size of the integrality gap, i.e. the difference between the current incumbent
+objective value and the best objective value bound among active nodes.</p><p>If the branch-and-bound algorithm terminates prematurely, a warning message
+indicating the cause is displayed. The incumbent solution, if any, is
+returned as the result, else the problem is declared to be infeasible.</p>
+<h5 id="sec1370" class="paragraph">Displaying detailed output.</h5>
+<p>
+Typing <span style="font-family:monospace">lp_verbose=true</span> or <span style="font-family:monospace">lp_verbose</span> when
+specifying options for <span style="font-family:monospace">lpsolve</span> causes detailed messages to be printed
+during and after solving a LP problem. During the simplex algorithm, a status
+report in form
+</p><div class="center">
+<span style="font-style:italic">n</span><span style="font-family:monospace"> obj: </span><span style="font-style:italic">z</span>
+</div><p>
+is printed every two seconds, where <span style="font-style:italic">n</span> is the number of simplex iterations and
+<span style="font-style:italic">z</span> is the current objective value. If the line is prefixed with the asterisk
+character (<span style="font-family:monospace">*</span>), it means that the solver is optimizing the given objective
+(Phase 2); otherwise, the solver is searching for a feasible basis (Phase 1),
+in which case <span style="font-style:italic">z</span> is a relative value in percentages (when it reaches zero,
+Phase 2 is initiated). Note that values of <span style="font-style:italic">z</span> reported in Phase 2 may not
+correspond to the actual values if presolving is enabled. </p><p>If the problem contains integrality constraints, then the simplex
+algorithm messages are not printed. Instead, during the branch-and-bound
+algorithm, a status report in form
+</p><div class="center">
+<span style="font-style:italic">n</span><span style="font-family:monospace">: </span><span style="font-style:italic">m</span><span style="font-family:monospace"> nodes active, bound: </span><span style="font-style:italic">b</span> ⟨<span style="font-family:monospace"> gap: </span><span style="font-style:italic">g</span>⟩
+</div><p>
+is displayed every 5 seconds, where <span style="font-style:italic">n</span> is the number of
+already examined subproblems, <span style="font-style:italic">b</span> is the lower resp. upper bound (for
+minimization resp. maximization), and <span style="font-style:italic">g</span> is the relative integrality gap.
+Also, a message is printed every time the incumbent solution is found or updated,
+as well as when the solver switches to pseudocost-based branching. After the
+algorithm is finished, a summary is displayed containing the total number of
+examined subproblems, the number of most nodes being active at the same time, and
+the number of applied GMI cuts along with the respective average objective value
+improvement. </p><p>In the following example, we solve the MIP given above.
+The solver shows all progress and summary messages.</p><h4 id="sec1371" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:=[[22,13,26,33,21,3,14,26],[39,16,22,28,26,30,23,24],</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">    [18,14,29,27,30,38,26,26],[41,26,28,36,18,38,16,26]]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">b:=[7872,10466,11322,12058]:; c:=[2,10,13,17,7,5,7,3]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">lpsolve(c,[[],[],A,b],assume=nonnegint,lp_verbose)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Constraint matrix has 4 rows, 9 columns, and 36 nonzeros</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Variables: 0 continuous, 8 integer (0 binary)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Constraints: 4 equalities, 0 inequalities</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Optimizing...</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Starting branch &amp; bound...</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">   11310: 147 nodes active, bound: 1793.43</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">   12709: Incumbent solution found: 1854</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">   20646: 931 nodes active, bound: 1841.81, gap: 0.657343%</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">   23836: Tree is empty</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">Summary:</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace"> * 23836 subproblem(s) examined</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace"> * max. tree size: 1256 nodes</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace"> * 13 GMI cut(s) applied</span>
+</td></tr>
+</table>
+</div><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1854,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">24,15,19,11,3,99,4,226</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1372" class="subsubsection">Solving problems in floating-point arithmetic</h4>
+<p><a id="sec:lp-float"></a></p><p>The <span style="font-family:monospace">lpsolve</span> command provides, in addition to its own exact solver
+implementing the primal simplex method with the upper-bounding technique, an
+interface to GLPK (GNU Linear Programming Kit) library which contains
+sophisticated LP/MIP solvers in floating-point arithmetic, designed to
+be very fast and to handle large problems. Choosing between the
+available solvers is done by setting <span style="font-family:monospace">lp_method</span> option.</p><p>By default, <span style="font-family:monospace">lp_method</span> is set to <span style="font-family:monospace">lp_simplex</span>, which
+solves the problem by using the native solver, but only if all problem
+coefficients are exact. If at least one of them is approximative
+(a floating-point number), then the GLPK solver is used instead.</p><p>Setting <span style="font-family:monospace">lp_method</span> to <span style="font-family:monospace">exact</span> forces the solver to
+perform exact computation even when some coefficients are inexact
+(they are converted to rational equivalents before applying the simplex
+method). In this case the native solver is used.</p><p>Setting <span style="font-family:monospace">lp_method</span> to <span style="font-family:monospace">float</span> forces <span style="font-family:monospace">lpsolve</span> to use
+the GLPK simplex solver. If a (mixed) integer problem is given, then the branch-and-cut algorithm in GLPK is used. The parameters can be
+controlled by setting the <span style="font-family:monospace">lp_timelimit</span>, <span style="font-family:monospace">lp_iterationlimit</span>,
+<span style="font-family:monospace">lp_gaptolerance</span>, <span style="font-family:monospace">lp_maxcuts</span>, <span style="font-family:monospace">lp_heuristic</span>,
+<span style="font-family:monospace">lp_verbose</span>, <span style="font-family:monospace">lp_nodeselect</span>, and <span style="font-family:monospace">lp_varselect</span>
+options. If <span style="font-family:monospace">lp_varselect</span> is not set, then the Driebeek–Tomlin
+heuristic is used,
+and if <span style="font-family:monospace">lp_nodeselect</span> is not set, then the best-local-bound selection
+method is used. If <span style="font-family:monospace">lp_maxcuts</span> is greater than
+zero, then GMI/MIR cut generation is enabled, else it is disabled. If
+the problem contains binary variables, then cover/clique cut generation
+is enabled, else it is disabled. If <span style="font-family:monospace">lp_heuristic=false</span>, then the simple
+rounding heuristic in GLPK is disabled (by default it is enabled).
+Finally, <span style="font-family:monospace">lp_verbose=true</span> enables GLPK messages, which are useful for
+monitoring solver’s progress.</p><p>Setting <span style="font-family:monospace">lp_method</span> to <span style="font-family:monospace">lp_interiorpoint</span> uses
+the primal-dual interior-point algorithm in GLPK. The only
+optional argument that affects this kind of solver is <span style="font-family:monospace">lp_verbose</span>.
+The interior-point algorithm is faster than the simplex method for large
+and sparse LP problems. Note, however, that it does not support integrality
+constraints.</p><p>For example, we solve the following LP problem using the default settings.
+</p><div class="center">
+	Minimize  1.06 <span style="font-style:italic">x</span><sub>1</sub>+0.56 <span style="font-style:italic">x</span><sub>2</sub>+3.0 <span style="font-style:italic">x</span><sub>3</sub>	
+</div><p>
+subject to
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1.06 <span style="font-style:italic">x</span><sub>1</sub>+0.015 <span style="font-style:italic">x</span><sub>3</sub></td><td style="text-align:left;white-space:nowrap" >≥ 729824.87</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+0.56 <span style="font-style:italic">x</span><sub>2</sub>+0.649 <span style="font-style:italic">x</span><sub>3</sub></td><td style="text-align:left;white-space:nowrap" >≥ 1522188.03</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">x</span><sub>3</sub></td><td style="text-align:left;white-space:nowrap" >≥ 1680.05
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">lpsolve(1.06x1+0.56x2+3x3,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [1.06x1+0.015x3&gt;=729824.87,0.56x2+0.649x3&gt;=1522188.03,x3&gt;=1680.05])</span></td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2255937.4968,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=688490.254009,<span style="font-style:italic">x</span><sub>2</sub>=2716245.85277,<span style="font-style:italic">x</span><sub>3</sub>=1680.05</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+If the requirement <span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>∈ℤ for <span style="font-style:italic">k</span>=1,2, the following result is
+obtained from the MIP solver in GLPK.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">lpsolve(1.06x1+0.56x2+3x3,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [1.06x1+0.015x3&gt;=729824.87,0.56x2+0.649x3&gt;=1522188.03,x3&gt;=1680.05],</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  lp_integervariables=[0,1])</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2255938.37,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=688491,<span style="font-style:italic">x</span><sub>2</sub>=2716246,<span style="font-style:italic">x</span><sub>3</sub>=1680.05</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+The solution of the original problem can also be obtained with
+the interior-point solver by using the
+<span style="font-family:monospace">lp_method=lp_interiorpoint</span> option.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">lpsolve(1.06x1+0.56x2+3x3,</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  [1.06x1+0.015x3&gt;=729824.87,0.56x2+0.649x3&gt;=1522188.03,x3&gt;=1680.05],</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">  lp_method=lp_interiorpoint)</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">2255937.50731,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=688490.256652,<span style="font-style:italic">x</span><sub>2</sub>=2716245.85608,<span style="font-style:italic">x</span><sub>3</sub>=1680.05195065</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<h4 id="sec1373" class="subsubsection">Loading a problem from a file</h4>
+<p>Linear (integer) programming problems can be loaded from MPS<sup><a id="text4" href="cascmd_en593.html#note4">1</a></sup> or CPLEX
+LP<sup><a id="text5" href="cascmd_en593.html#note5">2</a></sup> format files. The file name should be a string passed as
+the <span style="font-style:italic">obj</span> parameter. If the file name has extension <span style="font-family:monospace">.lp</span>, then CPLEX LP format is assumed. If the extension is <span style="font-family:monospace">.mps</span> resp. <span style="font-family:monospace">.gz</span>, then MPS resp. gzipped MPS format is assumed.</p><p>For example, assume that the file <span style="font-family:monospace">somefile.lp</span> is stored in
+the working directory and that it contains the following lines of text:
+</p><pre class="verbatim">Maximize
+ obj: 2x1 + 4x2 + 3x3
+Subject To
+ c1: 3x1 + 5x2 + 2x3 &lt;= 60
+ c2: 2x1 + x2 + 2x3 &lt;= 40
+ c3: x1 + 3x2 + 2x3 &lt;= 80
+General
+ x1 x3
+End
+</pre><p>
+To find an optimal solution to the linear program specified in this file, enter:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+	<span style="font-family:monospace">lpsolve("somefile.lp")</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">71.8,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=0,<span style="font-style:italic">x</span><sub>2</sub>=5.2,<span style="font-style:italic">x</span><sub>3</sub>=17</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>
+You can provide additional variable bounds, assumptions, and options
+alongside the file name, as in the examples below.
+Note that the original constraints (those which are read from file)
+cannot be removed.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">lpsolve("somefile.lp",x2=5.4..inf,lp_method=exact)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">352</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=0,<span style="font-style:italic">x</span><sub>2</sub>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">28</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td><td class="dcell">,<span style="font-style:italic">x</span><sub>3</sub>=16</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+Next we force all variables to integral values.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">lpsolve("somefile.lp",x2=5.4..inf,assume=integer)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">69.0,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell"><span style="font-style:italic">x</span><sub>1</sub>=0,<span style="font-style:italic">x</span><sub>2</sub>=6,<span style="font-style:italic">x</span><sub>3</sub>=15</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table><p>It is advisable to use only (capital) letters, digits and underscores
+when naming variables in an LP file, although the corresponding format
+allows many more characters. That is because these names are converted
+to <span style="font-family:monospace">giac</span> identifiers during the loading process.</p><p>Note that the coefficients of a problem loaded from file are always
+floating-point values. Therefore, to solve the problem with the native solver,
+you have to use the option <span style="font-family:monospace">lp_method=exact</span>
+(see Section <a href="#sec%3Alp-float">5.52.2</a>).</p>
+<hr>
+<a href="cascmd_en547.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en549.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

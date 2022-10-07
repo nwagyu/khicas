@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Companion matrix of a polynomial: companion
+</title>
+</head>
+<body >
+<a href="cascmd_en522.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en524.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:compagne" class="subsection">5.48.11  Companion matrix of a polynomial: <span style="font-family:monospace">companion</span>
+<a id="hevea_default903"></a></h3>
+<p>The <span style="font-family:monospace">companion</span> command finds a matrix given its characteristic
+polynomial; specifically, if the polynomial is
+<span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>)=<span style="font-style:italic">x</span><sup><span style="font-style:italic">n</span></sup>+<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span>−1</sub><span style="font-style:italic">x</span><sup><span style="font-style:italic">n</span>−1</sup>+…+<span style="font-style:italic">a</span><sub>−1</sub><span style="font-style:italic">x</span>+<span style="font-style:italic">a</span><sub>0</sub>, this matrix is equal to 
+the identity matrix of size <span style="font-style:italic">n</span>−1 bordered with [0,0..,0,−<span style="font-style:italic">a</span><sub>0</sub>] as first
+row, and with [−<span style="font-style:italic">a</span><sub>0</sub>,−<span style="font-style:italic">a</span><sub>1</sub>,…,−<span style="font-style:italic">a</span><sub><span style="font-style:italic">n</span>−1</sub>] as last column.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">companion</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a unitary polynomial.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, the name of its variable.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">companion(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the matrix whose characteristic polynomial is <span style="font-style:italic">P</span>.
+</li></ul><h4 id="sec1289" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">companion(x^2+5x-7,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >7</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >−5</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">companion(x^4+3x^3+2x^2+4x-1,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−4</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−2</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >−3</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en522.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en524.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

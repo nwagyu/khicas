@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Logistic regression: logistic_regression logistic_regression_plot
+
+</title>
+</head>
+<body >
+<a href="cascmd_en648.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en650.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1622" class="subsection">8.2.9  Logistic regression: <span style="font-family:monospace">logistic_regression</span> <span style="font-family:monospace">logistic_regression_plot</span>
+<a id="hevea_default1171"></a>
+<a id="hevea_default1172"></a></h3>
+<p>Differential equations of the form <span style="font-style:italic">y</span>′ = <span style="font-style:italic">y</span>(<span style="font-style:italic">a</span>*<span style="font-style:italic">y</span> + <span style="font-style:italic">b</span>) come up often,
+particularly when studying bounded population growth. With the
+initial condition <span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>0) = <span style="font-style:italic">y</span>0, the solution is the logistic equation
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">y</span> = </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">−<span style="font-style:italic">b</span>*<span style="font-style:italic">y</span>0</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">a</span>*<span style="font-style:italic">y</span>0 − (<span style="font-style:italic">a</span>*<span style="font-style:italic">y</span>0+<span style="font-style:italic">b</span>)exp(<span style="font-style:italic">b</span>(<span style="font-style:italic">x</span>0−<span style="font-style:italic">x</span>))</td></tr>
+</table></td><td class="dcell"> 
+</td></tr>
+</table><p> 
+However, you often don’t know the values of <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>. 
+You can approximate these values given (<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">y</span><sub>0</sub>) and
+[<span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0),<span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0+1),…,<span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0+<span style="font-style:italic">n</span>−1)] by taking the initial value
+<span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>0) = <span style="font-style:italic">y</span>0 and the approximation <span style="font-style:italic">y</span>(<span style="font-style:italic">t</span>+1) ≈ <span style="font-style:italic">y</span>(<span style="font-style:italic">t</span>) + <span style="font-style:italic">y</span>′(<span style="font-style:italic">t</span>) to
+get the approximations 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>0+1)</td><td style="text-align:left;white-space:nowrap" > ≈ <span style="font-style:italic">y</span>0 + <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0)</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>0+2)</td><td style="text-align:left;white-space:nowrap" > ≈ <span style="font-style:italic">y</span>0 + <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0) + <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0+1)</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+⋮</td><td style="text-align:left;white-space:nowrap" > </td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>0+<span style="font-style:italic">n</span>)</td><td style="text-align:left;white-space:nowrap" > ≈ <span style="font-style:italic">y</span>0 + <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0) +… <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0+<span style="font-style:italic">n</span>−1)
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+Since <span style="font-style:italic">y</span>′/<span style="font-style:italic">y</span> = <span style="font-style:italic">a</span> + <span style="font-style:italic">by</span>, you can take the
+approximate values of <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span>0+<span style="font-style:italic">j</span>)/<span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>0+<span style="font-style:italic">j</span>) and use linear interpolation
+to get the best fit values of <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, and then solve the
+differential equation.</p><p>The <span style="font-family:monospace">logistic_regression</span> command uses this approach to find the best fit logistic
+equation for given data.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">logistic_regression</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list representing [<span style="font-style:italic">y</span><sub>10</sub>,<span style="font-style:italic">y</span><sub>11</sub>,…,<span style="font-style:italic">y</span><sub>1(<span style="font-style:italic">n</span>−1)</sub>],
+where <span style="font-style:italic">y</span><sub>1<span style="font-style:italic">j</span></sub> represents the value of <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span><sub>0</sub> + <span style="font-style:italic">j</span>).
+</li><li class="li-itemize"><span style="font-style:italic">x</span><sub>0</sub>, the initial <span style="font-style:italic">x</span> value.
+</li><li class="li-itemize"><span style="font-style:italic">y</span><sub>0</sub>, the initial <span style="font-style:italic">y</span> value.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">logistic_regression(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">y</span><sub>0</sub><span style="font-family:monospace">)</span>
+returns a list [<span style="font-style:italic">y</span>,<span style="font-style:italic">y</span>′,<span style="font-style:italic">C</span>,<span style="font-style:italic">y</span><sub><span style="font-style:italic">max</span></sub>,<span style="font-style:italic">x</span><sub><span style="font-style:italic">max</span></sub>,<span style="font-style:italic">R</span>,<span style="font-style:italic">Y</span>] where
+<span style="font-style:italic">y</span> is the logistic function, <span style="font-style:italic">y</span>′ is the derivative,
+<span style="font-style:italic">C</span>=−<span style="font-style:italic">b</span>/<span style="font-style:italic">a</span>, <span style="font-style:italic">y</span><sub><span style="font-style:italic">max</span></sub> is the maximum value of <span style="font-style:italic">y</span>′,
+<span style="font-style:italic">x</span><sub><span style="font-style:italic">max</span></sub> is where <span style="font-style:italic">y</span>′ has its maximum, <span style="font-style:italic">R</span> is linear
+correlation coefficient <span style="font-style:italic">R</span> of <span style="font-style:italic">Y</span>=<span style="font-style:italic">y</span>′/<span style="font-style:italic">y</span> as a function of <span style="font-style:italic">y</span> with <span style="font-style:italic">Y</span>=<span style="font-style:italic">a</span>*<span style="font-style:italic">y</span> + <span style="font-style:italic">b</span>.
+</li></ul><h4 id="sec1623" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">logistic_regression([0.0,1.0,2.5],0,1)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><code>   Pinstant=0.132478632479*Pcumul+0.0206552706553</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>   Correlation 0.780548607383, Estimated total P=-0.155913978495</code></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><code>   Returning estimated Pcumul, Pinstant, Ptotal, Pinstantmax, tmax, R</code>
+</td></tr>
+</table>
+</div><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">0.155913978495</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">1+<span style="font-style:italic">e</span></td><td class="dcell"><table class="display"><tr><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">−0.0554152581707 <span style="font-style:italic">x</span>+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.140088513344+3.14159265359 <span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+<tr><td class="dcell">&nbsp;</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table></td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">0.00161022271237</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">1+cos</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−<span style="font-style:italic">i</span> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">−0.0554152581707 <span style="font-style:italic">x</span>+</td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">0.140088513344+3.14159265359 <span style="font-style:italic">i</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >−0.155913978495,−0.000805111356186,2.52797727501+56.6918346552 <span style="font-style:italic">i</span>,</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">0.780548607383</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p><br>
+</p><p>The <span style="font-family:monospace">logistic_regression_plot</span> command draws the best fit
+logistic equation.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">logistic_regression_plot</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a list representing [<span style="font-style:italic">y</span><sub>10</sub>,<span style="font-style:italic">y</span><sub>11</sub>,…,<span style="font-style:italic">y</span><sub>1(<span style="font-style:italic">n</span>−1)</sub>],
+where <span style="font-style:italic">y</span><sub>1<span style="font-style:italic">j</span></sub> represents the value of <span style="font-style:italic">y</span>′(<span style="font-style:italic">x</span><sub>0</sub> + <span style="font-style:italic">j</span>).
+</li><li class="li-itemize"><span style="font-style:italic">x</span><sub>0</sub>, the initial <span style="font-style:italic">x</span> value.
+</li><li class="li-itemize"><span style="font-style:italic">y</span><sub>0</sub>, the initial <span style="font-style:italic">y</span> value.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">logistic_regression_plot(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">x</span><sub>0</sub>,<span style="font-style:italic">y</span><sub>0</sub><span style="font-family:monospace">)</span>
+draws the best fit logistic equation.
+</li></ul><h4 id="sec1624" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">logistic_regression_plot([1,2,4,6,8,7,5],0,2.0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en127.png">
+</div>
+<hr>
+<a href="cascmd_en648.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en650.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

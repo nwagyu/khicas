@@ -1,0 +1,163 @@
+python3 ../py/makeversionhdr.py build/genhdr/mpversion.h
+GEN build/genhdr/qstr.i.last
+nspire-gcc -E -DNO_QSTR -Ibuild/tmp -DMICROPY_LIB -I. -I.. -I../py -Ibuild -Wall -Werror -Wno-error=cpp -Wno-error=format -ansi -std=gnu99 -DFFCONF_H=\"lib/oofatfs/ffconf.h\" -Ofast -g   main.c >build/genhdr/qstr.i.last
+GEN build/genhdr/qstr.split
+python3 ../py/makeqstrdefs.py split build/genhdr/qstr.i.last build/genhdr/qstr build/genhdr/qstrdefs.collected.h
+touch build/genhdr/qstr.split
+GEN build/genhdr/qstrdefs.collected.h
+python3 ../py/makeqstrdefs.py cat build/genhdr/qstr.i.last build/genhdr/qstr build/genhdr/qstrdefs.collected.h
+QSTR not updated
+CC main.c
+nspire-gcc -DMICROPY_LIB -I. -I.. -I../py -Ibuild -Wall -Werror -Wno-error=cpp -Wno-error=format -ansi -std=gnu99 -DFFCONF_H=\"lib/oofatfs/ffconf.h\" -Ofast -g   -c -MD -o build/./main.o main.c
+LINK micropython
+nspire-gcc -o micropython build/py/mpstate.o build/py/nlr.o build/py/nlrx86.o build/py/nlrx64.o build/py/nlrthumb.o build/py/nlrpowerpc.o build/py/nlrxtensa.o build/py/nlrsetjmp.o build/py/malloc.o build/py/gc.o build/py/pystack.o build/py/qstr.o build/py/vstr.o build/py/mpprint.o build/py/unicode.o build/py/mpz.o build/py/reader.o build/py/lexer.o build/py/parse.o build/py/scope.o build/py/compile.o build/py/emitcommon.o build/py/emitbc.o build/py/asmbase.o build/py/asmx64.o build/py/emitnx64.o build/py/asmx86.o build/py/emitnx86.o build/py/asmthumb.o build/py/emitnthumb.o build/py/emitinlinethumb.o build/py/asmarm.o build/py/emitnarm.o build/py/asmxtensa.o build/py/emitnxtensa.o build/py/emitinlinextensa.o build/py/emitnxtensawin.o build/py/formatfloat.o build/py/parsenumbase.o build/py/parsenum.o build/py/emitglue.o build/py/persistentcode.o build/py/runtime.o build/py/runtime_utils.o build/py/scheduler.o build/py/nativeglue.o build/py/ringbuf.o build/py/stackctrl.o build/py/argcheck.o build/py/warning.o build/py/profile.o build/py/map.o build/py/obj.o build/py/objarray.o build/py/objattrtuple.o build/py/objbool.o build/py/objboundmeth.o build/py/objcell.o build/py/objclosure.o build/py/objcomplex.o build/py/objdeque.o build/py/objdict.o build/py/objenumerate.o build/py/objexcept.o build/py/objfilter.o build/py/objfloat.o build/py/objfun.o build/py/objgenerator.o build/py/objgetitemiter.o build/py/objint.o build/py/objint_longlong.o build/py/objint_mpz.o build/py/objlist.o build/py/objmap.o build/py/objmodule.o build/py/objobject.o build/py/objpolyiter.o build/py/objproperty.o build/py/objnone.o build/py/objnamedtuple.o build/py/objrange.o build/py/objreversed.o build/py/objset.o build/py/objsingleton.o build/py/objslice.o build/py/objstr.o build/py/objstrunicode.o build/py/objstringio.o build/py/objtuple.o build/py/objtype.o build/py/objzip.o build/py/opmethods.o build/py/sequence.o build/py/stream.o build/py/binary.o build/py/builtinimport.o build/py/builtinevex.o build/py/builtinhelp.o build/py/modarray.o build/py/modbuiltins.o build/py/modcollections.o build/py/modgc.o build/py/modio.o build/py/modmath.o build/py/modcmath.o build/py/modmicropython.o build/py/modstruct.o build/py/modsys.o build/py/moduerrno.o build/py/modthread.o build/py/vm.o build/py/bc.o build/py/showbc.o build/py/repl.o build/py/smallint.o build/py/frozenmod.o build/extmod/moductypes.o build/extmod/modujson.o build/extmod/modure.o build/extmod/moduzlib.o build/extmod/moduheapq.o build/extmod/modutimeq.o build/extmod/moduhashlib.o build/extmod/moducryptolib.o build/extmod/modubinascii.o build/extmod/virtpin.o build/extmod/machine_mem.o build/extmod/machine_pinbase.o build/extmod/machine_signal.o build/extmod/machine_pulse.o build/extmod/machine_i2c.o build/extmod/machine_spi.o build/extmod/modbluetooth.o build/extmod/modussl_axtls.o build/extmod/modussl_mbedtls.o build/extmod/modurandom.o build/extmod/moduselect.o build/extmod/moduwebsocket.o build/extmod/modwebrepl.o build/extmod/modframebuf.o build/extmod/vfs.o build/extmod/vfs_blockdev.o build/extmod/vfs_reader.o build/extmod/vfs_posix.o build/extmod/vfs_posix_file.o build/extmod/vfs_fat.o build/extmod/vfs_fat_diskio.o build/extmod/vfs_fat_file.o build/extmod/vfs_lfs.o build/extmod/utime_mphal.o build/extmod/uos_dupterm.o build/lib/embed/abort_.o build/lib/utils/printf.o build/./unix_mphal.o build/./modos.o build/./texture.o build/./gccollect.o build/./modnsp.o build/./input.o build/./file.o build/./graphic.o build/./main.o   -lm  -Wl,--nspireio
+arm-none-eabi-ld: /home/parisse/Ndless/ndless-sdk/bin/../system/crt0.o: in function `__base':
+(.text+0x1c): undefined reference to `main'
+arm-none-eabi-ld: build/./unix_mphal.o: in function `mp_hal_stdout_tx_strn':
+/home/parisse/micropython-1.12/nspire/unix_mphal.c:73: undefined reference to `console_output'
+arm-none-eabi-ld: build/./unix_mphal.o: in function `mp_hal_stdout_tx_strn_cooked':
+/home/parisse/micropython-1.12/nspire/unix_mphal.c:73: undefined reference to `console_output'
+arm-none-eabi-ld: build/./unix_mphal.o: in function `mp_hal_stdout_tx_strn':
+/home/parisse/micropython-1.12/nspire/unix_mphal.c:73: undefined reference to `console_output'
+arm-none-eabi-ld: build/./input.o: in function `prompt':
+/home/parisse/micropython-1.12/nspire/input.c:46: undefined reference to `console_input'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/input.c:46: undefined reference to `console_input'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_line':
+/home/parisse/micropython-1.12/nspire/graphic.c:166: undefined reference to `c_draw_line'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_show_screen':
+/home/parisse/micropython-1.12/nspire/graphic.c:133: undefined reference to `sync_screen'
+arm-none-eabi-ld: build/./graphic.o: in function `cas_caseval':
+/home/parisse/micropython-1.12/nspire/graphic.c:727: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `matplotl_show':
+/home/parisse/micropython-1.12/nspire/graphic.c:2022: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `matplotl_clf':
+/home/parisse/micropython-1.12/nspire/graphic.c:2028: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_get_pixel':
+/home/parisse/micropython-1.12/nspire/graphic.c:310: undefined reference to `os_get_pixel'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_dessine_tortue':
+/home/parisse/micropython-1.12/nspire/graphic.c:312: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:312: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_hideturtle':
+/home/parisse/micropython-1.12/nspire/graphic.c:1717: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1718: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_down':
+/home/parisse/micropython-1.12/nspire/graphic.c:1725: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1726: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_showturtle':
+/home/parisse/micropython-1.12/nspire/graphic.c:1709: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1710: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_reset':
+/home/parisse/micropython-1.12/nspire/graphic.c:1613: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1614: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_up':
+/home/parisse/micropython-1.12/nspire/graphic.c:1733: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1734: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_write':
+/home/parisse/micropython-1.12/nspire/graphic.c:1821: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1824: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_right':
+/home/parisse/micropython-1.12/nspire/graphic.c:1600: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1606: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_pas_de_cote':
+/home/parisse/micropython-1.12/nspire/graphic.c:1754: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1760: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_left':
+/home/parisse/micropython-1.12/nspire/graphic.c:1587: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1593: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_speed':
+/home/parisse/micropython-1.12/nspire/graphic.c:1862: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1868: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_setx':
+/home/parisse/micropython-1.12/nspire/graphic.c:1795: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1801: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_sety':
+/home/parisse/micropython-1.12/nspire/graphic.c:1808: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1814: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_setheading':
+/home/parisse/micropython-1.12/nspire/graphic.c:1767: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1773: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_forward':
+/home/parisse/micropython-1.12/nspire/graphic.c:1562: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1568: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_backward':
+/home/parisse/micropython-1.12/nspire/graphic.c:1574: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1580: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_saute':
+/home/parisse/micropython-1.12/nspire/graphic.c:1741: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1747: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_setposition':
+/home/parisse/micropython-1.12/nspire/graphic.c:1780: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1788: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_rectangle_plein':
+/home/parisse/micropython-1.12/nspire/graphic.c:1677: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1685: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_triangle_plein':
+/home/parisse/micropython-1.12/nspire/graphic.c:1692: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1702: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_circle':
+/home/parisse/micropython-1.12/nspire/graphic.c:1629: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1646: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_disque':
+/home/parisse/micropython-1.12/nspire/graphic.c:1653: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1670: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `turtle_pencolor':
+/home/parisse/micropython-1.12/nspire/graphic.c:1831: undefined reference to `turtle_freeze'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:1855: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `matplotl_text':
+/home/parisse/micropython-1.12/nspire/graphic.c:2088: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_clear_screen':
+/home/parisse/micropython-1.12/nspire/graphic.c:126: undefined reference to `c_fill_rect'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_set_pixel':
+/home/parisse/micropython-1.12/nspire/graphic.c:154: undefined reference to `c_set_pixel'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_rectangle':
+/home/parisse/micropython-1.12/nspire/graphic.c:237: undefined reference to `c_draw_rectangle'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_fill_rect':
+/home/parisse/micropython-1.12/nspire/graphic.c:248: undefined reference to `c_fill_rect'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_circle':
+/home/parisse/micropython-1.12/nspire/graphic.c:260: undefined reference to `c_draw_circle'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_filled_circle':
+/home/parisse/micropython-1.12/nspire/graphic.c:271: undefined reference to `c_draw_filled_circle'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_arc':
+/home/parisse/micropython-1.12/nspire/graphic.c:286: undefined reference to `c_draw_arc'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_filled_arc':
+/home/parisse/micropython-1.12/nspire/graphic.c:301: undefined reference to `c_draw_filled_arc'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_string':
+/home/parisse/micropython-1.12/nspire/graphic.c:331: undefined reference to `c_draw_string_medium'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:329: undefined reference to `c_draw_string'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:326: undefined reference to `c_draw_string_small'
+arm-none-eabi-ld: build/./graphic.o: in function `matplotl_arrow':
+/home/parisse/micropython-1.12/nspire/graphic.c:2207: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `graphic_draw_polygon_':
+/home/parisse/micropython-1.12/nspire/graphic.c:217: undefined reference to `c_draw_filled_polygon'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:219: undefined reference to `c_draw_polygon'
+arm-none-eabi-ld: build/./graphic.o: in function `matplotl_axis':
+/home/parisse/micropython-1.12/nspire/graphic.c:2067: undefined reference to `caseval'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:2043: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `matplotl_plot':
+/home/parisse/micropython-1.12/nspire/graphic.c:2127: undefined reference to `caseval'
+arm-none-eabi-ld: /home/parisse/micropython-1.12/nspire/graphic.c:2115: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o: in function `matplotl_bar_hist':
+/home/parisse/micropython-1.12/nspire/graphic.c:2162: undefined reference to `caseval'
+arm-none-eabi-ld: build/./graphic.o:/home/parisse/micropython-1.12/nspire/graphic.c:2165: more undefined references to `caseval' follow
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_rref':
+/home/parisse/micropython-1.12/nspire/graphic.c:1063: undefined reference to `c_rref'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_egv':
+/home/parisse/micropython-1.12/nspire/graphic.c:1079: undefined reference to `c_egv'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_eig':
+/home/parisse/micropython-1.12/nspire/graphic.c:1096: undefined reference to `c_eig'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_inv':
+/home/parisse/micropython-1.12/nspire/graphic.c:1120: undefined reference to `c_inv'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_proot':
+/home/parisse/micropython-1.12/nspire/graphic.c:1218: undefined reference to `c_proot'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_pcoeff':
+/home/parisse/micropython-1.12/nspire/graphic.c:1242: undefined reference to `c_pcoeff'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_fftifft':
+/home/parisse/micropython-1.12/nspire/graphic.c:1263: undefined reference to `c_fft'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_det':
+/home/parisse/micropython-1.12/nspire/graphic.c:1366: undefined reference to `c_det'
+arm-none-eabi-ld: build/./graphic.o: in function `linalg_inv':
+/home/parisse/micropython-1.12/nspire/graphic.c:1120: undefined reference to `c_inv'
+arm-none-eabi-ld: build/./main.o: in function `stderr_print_strn':
+/home/parisse/micropython-1.12/nspire/main.c:65: undefined reference to `console_output'
+collect2: erreur: ld a retourné le statut de sortie 1
+make: *** [../py/mkrules.mk:146: micropython] Error 1

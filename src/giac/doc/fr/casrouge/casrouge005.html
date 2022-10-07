@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Des programmes tres simples sur les chaînes de caractères</title>
+</head>
+<body >
+<a href="casrouge004.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge006.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec135" class="chapter">Chapitre 5  Des programmes tres simples sur les chaînes de caractères</h1>
+<h2 id="sec136" class="section">5.1  Compter un nombre d’occurences</h2>
+<h3 id="sec137" class="subsection">5.1.1  Nombre d’occurences d’une lettre</h3>
+<p>
+On parcourt la chaîne <span style="font-style:italic">S</span> et on augmente le compteur <span style="font-style:italic">n</span> de 1 lorsqu’il y a 
+égalité avec le caractère <span style="font-style:italic">c</span>.
+</p><pre class="verbatim">Occurc(c,S):={
+  local n,d,j;
+  d:=dim(S)-1;
+  n:=0;
+  pour j de 0 jusque d faire
+    si c==S[j]  alors n:=n+1 fsi;
+  fpour;
+  retourne n;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Occurc("e","occurrences")</span><br>
+On obtient : <span style="font-family:monospace">2</span>
+</p>
+<h3 id="sec138" class="subsection">5.1.2  Nombre d’occurences d’une sous-chaîne</h3>
+<p>
+Il faut comparer à chaque étape la sous-chaîne <span style="font-family:monospace">ch</span> avec un morceau de
+la chaîne <span style="font-family:monospace">S</span> qui a même longueur.<br>
+On va utiliser <span style="font-family:monospace">mid(S,j,k)</span> qui renvoie la sous chaîne de <span style="font-family:monospace">S</span> de
+longueur <span style="font-family:monospace">k</span> qui commence à l’indice <span style="font-family:monospace">j</span> ou <span style="font-family:monospace">mid(S,j)</span> qui 
+renvoie la sous-chaîne fin de <span style="font-family:monospace">S</span> commençant à l’indice <span style="font-family:monospace">j</span>.<br>
+<span style="font-weight:bold">Remarque</span> À la place de <span style="font-family:monospace">mid(S,j,k)</span> on peut aussi utiliser 
+<span style="font-family:monospace">S[j..j+k-1]</span> (on met les indices de début et de fin de la sous-chaîne) 
+et à la place de <span style="font-family:monospace">mid(S,j)</span> on peut aussi utiliser <span style="font-family:monospace">S[j..dim(S)-1]</span>.<br>
+On considère que dans "aaa" on voit une seule sous-chaîne "aa".
+</p><pre class="verbatim">Occurch(ch,S):={
+  local n,d,j,k;
+  d:=dim(S)-1;
+  k:=dim(ch);
+  n:=0;
+  j:=0;
+  tantque j&lt;= d-k+1 faire
+    si ch==mid(S,j,k)  alors 
+      n:=n+1; 
+      j:=j+k; 
+      sinon
+        j:=j+1
+    fsi;
+  fpour;
+  retourne n;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Occurch("e","occurrences")</span><br>
+On obtient : <span style="font-family:monospace">2</span><br>
+On tape :<br>
+<span style="font-family:monospace">Occurch("az","aaazaaazaaaz")</span><br>
+On obtient : <span style="font-family:monospace">3</span><br>
+On tape :<br>
+<span style="font-family:monospace">Occurch("aa","aaazaaazaaaz")</span><br>
+On obtient : <span style="font-family:monospace">3</span></p>
+<h2 id="sec139" class="section">5.2  Supprimer une lettre et sous-chaîne</h2>
+<h3 id="sec140" class="subsection">5.2.1  Supprimer une lettre</h3>
+<p>
+On parcourt la chaîne <span style="font-style:italic">S</span> lorsqu’il y a 
+égalité avec le caractère <span style="font-style:italic">c</span> il faudra supprimer ce caractère en 
+faisant une concaténation entre ce qu’il y a avant <span style="font-style:italic">c</span> (si <span style="font-style:italic">c</span> est d’indice 
+<span style="font-style:italic">j</span> c’est <span style="font-family:monospace">mid(S,0,j)</span> car ce qu’il y a avant <span style="font-style:italic">c</span> est de longueur <span style="font-style:italic">j</span>) et 
+ce qu’il y a après <span style="font-style:italic">c</span> (<span style="font-family:monospace">mid(S,j+1)</span>). On met alors à jour la longueur 
+de <span style="font-style:italic">S</span>.
+</p><pre class="verbatim">Supprimec(c,S):={
+  local d,j;
+  d:=dim(S)-1;
+  j:=0;
+  tantque j&lt;=d faire
+    si c==S[j]  alors 
+      S:=mid(S,0,j)+mid(S,j+1);
+      d:=d-1;
+    sinon
+      j:=j+1
+    fsi;
+  ftantque;
+  retourne S;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Supprimec("e","occurrences")</span><br>
+On obtient : <span style="font-family:monospace">"occurrncs"</span>
+</p>
+<h3 id="sec141" class="subsection">5.2.2  Supprimer une sous-chaîne</h3>
+<p>
+On parcourt la chaîne <span style="font-style:italic">s</span> lorsqu’il y a 
+égalité avec la sous-chaîne <span style="font-style:italic">ch</span> il faudra supprimer cette sous-chaîne en 
+faisant une concaténation entre ce qu’il y a avant <span style="font-style:italic">ch</span> et ce qu’il y a 
+après <span style="font-style:italic">ch</span>. On met alors à jour la longueur de <span style="font-style:italic">S</span>.
+</p><pre class="verbatim">Supprimech(ch,S):={
+  local k,d,j;
+  d:=dim(S)-1;
+  k:=dim(ch);
+  j:=0;
+  tantque j&lt;=d faire
+    si ch==mid(S,j,k)  alors 
+      S:=mid(S,0,j)+mid(S,j+k);
+      d:=d-k;
+    sinon
+      j:=j+1
+    fsi;
+  ftantque;
+  retourne S;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Supprimech("e","occurrences")</span><br>
+On obtient : <span style="font-family:monospace">"occurrncs"</span><br>
+On tape :<br>
+<span style="font-family:monospace">Supprimech("az","azerazerazaz")</span><br>
+On obtient : <span style="font-family:monospace">"erer"</span><br>
+On tape :<br>
+<span style="font-family:monospace">Supprimesch("aa","aaazaaazaaaz")</span><br>
+On obtient : <span style="font-family:monospace">"azazaz"</span></p>
+<h2 id="sec142" class="section">5.3  Remplacer une lettre ou une sous-chaîne par une autre chaîne</h2>
+<h3 id="sec143" class="subsection">5.3.1  Remplacer une lettre par une autre lettre</h3>
+<p>
+Pour remplacer le caractére <span style="font-style:italic">a</span> par <span style="font-style:italic">b</span> dans <span style="font-style:italic">S</span>, on parcourt <span style="font-style:italic">S</span> et quand 
+on trouve le caractére <span style="font-style:italic">a</span> on change ce caractére.
+</p><pre class="verbatim">Remplaceab(a,b,S):={
+local d,j;
+  d:=dim(S)-1;
+  j:=0;
+  tantque j&lt;=d faire
+    si a==S[j]  alors 
+      S:=mid(S,0,j)+b+mid(S,j+1);
+    sinon
+      j:=j+1
+    fsi;
+  ftantque;
+  retourne S;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Remplaceab("a","e","azerazerazaz")</span><br>
+On obtient : <span style="font-family:monospace">"ezerezerezez"</span>
+</p>
+<h3 id="sec144" class="subsection">5.3.2  Remplacer une sous-chaîne par une autre</h3>
+<p>
+Pour remplacer la sous-chaîne <span style="font-style:italic">cha</span> par la sous-chaîne <span style="font-style:italic">chb</span> dans <span style="font-style:italic">S</span>, on 
+parcourt <span style="font-style:italic">S</span> et quand on trouve la sous-chaîne <span style="font-style:italic">cha</span>. on 
+fait une concaténation entre ce qu’il y a avant <span style="font-style:italic">cha</span>, la sous-chaîne <span style="font-style:italic">chb</span>
+et ce qu’il y a après <span style="font-style:italic">cha</span>. On met alors à jour la longueur de <span style="font-style:italic">S</span>.
+</p><pre class="verbatim">Remplacechab(cha,chb,S):={
+local ka,kb,d,j;
+  d:=dim(S)-1;
+  ka:=dim(cha);
+  kb:=dim(chb);
+  j:=0;
+  tantque j&lt;=d faire
+    si cha==mid(S,j,ka)  alors 
+      S:=mid(S,0,j)+chb+mid(S,j+ka);
+      d:=d-ka+kb;
+    sinon
+      j:=j+1
+    fsi;
+  ftantque;
+  retourne S;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">Remplacechab("a","e","azerazerazaz")</span><br>
+On obtient : <span style="font-family:monospace">"ezerezerezez"</span><br>
+On tape :<br>
+<span style="font-family:monospace">Remplacechab("az","bcd","azerazerazaz")</span><br>
+On obtient : <span style="font-family:monospace">"bcderbcderbcdbcd"</span></p>
+<hr>
+<a href="casrouge004.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge006.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

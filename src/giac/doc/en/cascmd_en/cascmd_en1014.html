@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Parzen window function: parzen_window
+</title>
+</head>
+<body >
+<a href="cascmd_en1013.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1015.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2533" class="subsection">15.2.22  Parzen window function: <span style="font-family:monospace">parzen_window</span>
+<a id="hevea_default1724"></a></h3>
+<p>The <span style="font-family:monospace">parzen_window</span> command finds a Parzen window of
+a sequence.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">parzen_window</span> takes one mandatory argument
+and one optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">v</span>, a real vector with length <span style="font-style:italic">n</span>.
+</li><li class="li-itemize">Optionally, an interval <span style="font-style:italic">n</span><sub>0</sub>..<span style="font-style:italic">n</span><sub>1</sub> (by default 0..(<span style="font-style:italic">n</span>−1)).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">parzen_window(</span><span style="font-style:italic">v</span> ⟨,<span style="font-style:italic">n</span><sub>1</sub>..<span style="font-style:italic">n</span><sub>2</sub>⟩<span style="font-family:monospace">)</span>
+returns the elementwise product of [<span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span><sub>1</sub></sub>,…,<span style="font-style:italic">v</span><sub><span style="font-style:italic">n</span><sub>2</sub></sub>]
+and the vector <span style="font-style:italic">w</span> of length <span style="font-style:italic">N</span>=<span style="font-style:italic">n</span><sub>2</sub>−<span style="font-style:italic">n</span><sub>1</sub>+1 defined by 
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">    <span style="font-style:italic">w</span><sub><span style="font-style:italic">k</span></sub>=</td><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎧<br>
+⎪<br>
+⎪<br>
+⎨<br>
+⎪<br>
+⎪<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">    </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−6 <span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub><sup>2</sup> </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎪<br>
+⎪<br>
+⎪<br>
+⎪</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">−<span style="font-style:italic">k</span></td><td class="dcell">⎪<br>
+⎪<br>
+⎪<br>
+⎪</td><td class="dcell">≤</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">N</span>−1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td class="dcell">,</td></tr>
+</table></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">    2 </td><td class="dcell">⎛<br>
+⎝</td><td class="dcell">1−<span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>3</sup>,</td></tr>
+</table></td><td style="text-align:left;white-space:nowrap" >otherwise,
+</td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+where <span style="font-style:italic">x</span><sub><span style="font-style:italic">k</span></sub>=|1−2 <span style="font-style:italic">k</span>/<span style="font-style:italic">N</span>−1| for <span style="font-style:italic">k</span>=0,1,…,<span style="font-style:italic">N</span>−1.
+</li></ul><h4 id="sec2534" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L0:=randvector(1000,0..1):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">scatterplot(L0);</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en408.png">
+</div><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">L:=parzen_window(L0):;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">scatterplot(L);</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en409.png">
+</div>
+<hr>
+<a href="cascmd_en1013.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en1015.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

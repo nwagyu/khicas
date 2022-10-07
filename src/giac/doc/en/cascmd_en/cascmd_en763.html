@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Assignments in a program</title>
+</head>
+<body >
+<a href="cascmd_en762.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en764.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1953" class="subsection">12.4.2  Assignments in a program</h3>
+<p>Recall that the <span style="font-family:monospace">=&lt;</span> operator will change the value of a single
+entry in a list or matrix by reference (see Section <a href="cascmd_en056.html#ssec%3Arefassign">4.4.3</a>).
+This make it efficient when changing many values, one at a time, in a
+list, as might be done by a program.</p><p>You must be careful when doing this, since your intent might be
+changed when a program is compiled. For example, if a program contains
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">local a;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">a:= [0,1,2,3,4];</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">…</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">a[3] =&lt; 33;</span></td></tr>
+</table>
+</div><p>
+then in the compiled program, <span style="font-family:monospace">a:= [0,1,2,3,4]</span> will be
+replaced by <span style="font-family:monospace">a:= [0,1,2,33,4]</span>. To avoid this, you can assign
+a copy of the list to <span style="font-family:monospace">a</span>; you could write:
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">local a;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">a:= copy([0,1,2,3,4]);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">…</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">a[3] =&lt; 33;</span>
+</td></tr>
+</table>
+</div><p>
+Alternately, you could use a command which recreates a list every time
+the program is run, such as <span style="font-family:monospace">makelist</span><a id="hevea_default1413"></a> or
+<span style="font-family:monospace">$</span>, instead of copying a list; <span style="font-family:monospace">a:=
+makelist(n,n,0,4)</span> or <span style="font-family:monospace">a:= [n$(n=0..4)]</span> can also be used in
+place of <span style="font-family:monospace">a:= [0,1,2,3,4]</span>.</p>
+<hr>
+<a href="cascmd_en762.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en764.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Dealing with errors: try catch throw error ERROR
+
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en772.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en774.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1986" class="subsection">12.4.12  Dealing with errors: <span style="font-family:monospace">try</span> <span style="font-family:monospace">catch</span> <span style="font-family:monospace">throw</span> <span style="font-family:monospace">error</span> <span style="font-family:monospace">ERROR</span>
+<a id="hevea_default1430"></a>
+<a id="hevea_default1431"></a>
+<a id="hevea_default1432"></a>
+<a id="hevea_default1433"></a>
+<a id="hevea_default1434"></a></h3>
+<p>Some commands produce errors, and if your program tries to run such a
+command it will halt with an error. 
+The <span style="font-family:monospace">try</span> and <span style="font-family:monospace">catch</span> commands help you avoid this. They
+to use them, put potentially problematic statements in a block
+following <span style="font-family:monospace">try</span>, and immediately after the block put
+<span style="font-family:monospace">catch</span> with an argument of an unused symbol, and follow that
+with a block of statements that can deal with the error.
+</p><div class="center">
+<span style="font-family:monospace">try </span><span style="font-style:italic">tryblock</span><span style="font-family:monospace"> catch </span><span style="font-style:italic">symbol</span><span style="font-style:italic"> catchblock</span>
+</div><p>
+If <span style="font-style:italic">tryblock</span> doesn’t produce an error,
+then
+</p><div class="center">
+<span style="font-family:monospace"> catch </span><span style="font-style:italic">symbol</span><span style="font-style:italic"> catchblock</span>
+</div><p>
+If <span style="font-style:italic">tryblock</span> does produce an error, then a
+string describing the error is assigned to <span style="font-style:italic">symbol</span>,
+and <span style="font-style:italic">catchblock</span> is evaluated.</p><h4 id="sec1987" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+The command
+<div class="center">
+<span style="font-family:monospace">[[1,1]]*[[2,2]]</span>
+</div>
+produces an error saying <span style="font-style:italic">Error: Invalid dimension</span>.
+However,
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">try {[[1,1]]*[[2,2]]}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">catch (err) {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  print("The error is " + err)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  }</span>
+</td></tr>
+</table>
+</div>
+will not produce an error:<br>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<span style="font-family:monospace">The error is Error: Invalid dimension</span>
+</div>
+</li><li class="li-itemize">With the following program:
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">test(x):= {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >   local y, str, err;
+<span style="font-family:monospace">  try { y:= [[1,1]]*x; str:= "This produced a product.";}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  catch (err)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  {y:= x;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">    str:= "This produced an error " + err + " The input is returned.";}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">    print(str);</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">    return y;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  }</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">test([[2],[2]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">This produced a product.</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > [4]
+</td></tr>
+</table>
+</div>
+with the text in the pane above the output line.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">test([[2,2]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">This produced an error Error: Invalid dimension The input is returned.</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > [[2,2]]
+</td></tr>
+</table>
+</div>
+with the text in the pane above the output line.<p><br>
+</p><p>You can produce your own string to describe an error message with the
+<span style="font-family:monospace">throw</span> command.<br>
+<span style="font-family:monospace">error</span> and <span style="font-family:monospace">ERROR</span> are synonyms for <span style="font-family:monospace">throw</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">throw</span> takes one argument:<br>
+ <span style="font-style:italic">str</span>, a string describing an error.
+</li><li class="li-itemize"><span style="font-family:monospace">throw(</span><span style="font-style:italic">str</span><span style="font-family:monospace">)</span> generates an error with
+error string <span style="font-style:italic">str</span>, possibly to be caught by <span style="font-family:monospace">catch</span>.
+</li></ul><h4 id="sec1988" class="subsubsection">Example</h4>
+<p>
+With the program:
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">f(x):= {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">if (type(x) != DOM_INT)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  throw("Not an integer");</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">else</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">  return x;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">}</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">f(12)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">12
+</td></tr>
+</table><p>
+since 12 is an integer.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">f(1.2)</span>
+</div><p>
+will signal an error
+</p><div class="center">
+<span style="font-family:monospace">Not an integer Error: Bad Argument Value</span>
+</div><p>
+since 1.2 in not an integer.</p><p>You can catch this error in other programs. Consider the program:
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">g(x):= {</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">try(f(x)) catch(err) {x:= 0;}</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">return x;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">}</span>
+</td></tr>
+</table>
+</div><p>
+then:<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">g(12)</span>
+</div><p>
+<span style="font-family:monospace">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">12
+</td></tr>
+</table><p>
+since 12 is an integer.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">g(1.2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0
+</td></tr>
+</table><p>
+since 1.2 is not an integer, <span style="font-family:monospace">f(x)</span> will give an error and so
+<span style="font-family:monospace">g(x)</span> will return 0.</p>
+<hr>
+<a href="cascmd_en772.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en774.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

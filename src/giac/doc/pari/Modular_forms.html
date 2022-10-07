@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Modular forms</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">Modular forms</h2>
+
+<p></p>
+<p></p>
+<p>This section describes routines for working with modular forms and modular
+form spaces.</p>
+<p>
+<hr>
+<div id="Modular_form_spaces"></div>
+<h4>Modular form spaces</h4>
+<p></p>
+<p></p>
+<p>These structures are initialized by the <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> command; supported
+modular form <em>spaces</em> with corresponding flags are the following:</p>
+<p>
+<b>*</b> The full modular form space M<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;), where k is an
+integer or a half-integer and &chi; a Dirichlet character modulo N
+(flag 4, the default).</p>
+<p>
+<b>*</b> The cuspidal space S<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;) (flag 1).</p>
+<p>
+<b>*</b> The Eisenstein space &Escr;<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;) (flag 3), so
+that M<sub>k</sub> = &Escr;<sub>k</sub>&bigoplus;  S<sub>k</sub>.</p>
+<p>
+<b>*</b> The new space S<sub>k</sub><sup>new</sup>(&Gamma;<sub>0</sub>(N),&chi;) (flag 0).</p>
+<p>
+<b>*</b> The old space S<sub>k</sub><sup>old</sup>(&Gamma;<sub>0</sub>(N),&chi;) (flag 2), so that
+S<sub>k</sub> = S<sub>k</sub><sup>new</sup>&bigoplus;  S<sub>k</sub><sup>old</sup>.</p>
+<p>
+These resulting <code>mf</code> structure contains a basis of modular forms, which
+is accessed by the function <code><a href="Modular_forms.html#se:mfbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfbasis</a></code>; the elements of this basis have
+Fourier coefficients in the cyclotomic field &Qopf;(&chi;). These coefficients
+are given algebraically, as rational numbers or <code>t_POLMOD</code>s. The member
+function <code>mf.mod</code> recovers the modulus used to define &Qopf;(&chi;), which
+is a cyclotomic polynomial &Phi;<sub>n</sub>(t). When needed, the elements of
+&Qopf;(&chi;) are considered to be canonically embedded into &Copf; via
+<code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Mod"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Mod</a></code>(t,&Phi;<sub>n</sub>(t)) <code> &longmapsto; </code>exp(2i&pi;/n).</p>
+<p>
+The basis of eigenforms for the new space is obtained by the function
+<code><a href="Modular_forms.html#se:mfeigenbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfeigenbasis</a></code>: the elements of this basis now have Fourier coefficients
+in a relative field extension of &Qopf;(&chi;). Note that if the space is
+larger than the new space (i.e. is the cuspidal or full space) we
+nevertheless obtain only the eigenbasis for the new space.</p>
+<p>
+
+<hr>
+<div id="Generalized_modular_forms"></div>
+<h4>Generalized modular forms</h4>
+<p></p>
+<p></p>
+<p>A modular form is represented in a special internal format giving the
+possibility to compute an arbitrary number of terms of its Fourier coefficients
+at infinity [a(0),a(1),...,a(n)] using the function <code><a href="Modular_forms.html#se:mfcoefs"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfcoefs</a></code>. These
+coefficients are given algebraically, as rational numbers or <code>t_POLMOD</code>s.
+The member function <code>f.mod</code> recovers the modulus used in the
+coefficients of f, which will be the same as for &Qopf;(chi) (a cyclotomic
+polynomial), or define a number field extension.</p>
+<p>
+Modular forms are obtained either directly from other mathematical objects,
+e.g., elliptic curves, or by a specific formula, e.g., Eisenstein series or
+Ramanujan's Delta function, or by applying standard operators to existing forms
+(Hecke operators, Rankin-Cohen brackets,...). A function <code><a href="Modular_forms.html#se:mfparams"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfparams</a></code> is
+provided so that one can recover the level, weight, character and field of
+definition corresponding to a given modular form.</p>
+<p>
+A number of creation functions and operations are provided. It is however
+important to note that strictly speaking some of these operations create
+objects which are <em>not</em> modular forms: typical examples are
+derivation or integration of modular forms, the Eisenstein series E<sub>2</sub>, eta
+quotients, or quotients of modular forms. These objects are nonetheless very
+important in the theory, so are not considered as errors; however the user must
+be aware that no attempt is made to check that the objects that he handles are
+really modular.</p>
+<p>
+
+<hr>
+<div id="se:getcache"></div>
+<div id="getcache"></div>
+<h4>getcache()</h4>
+<p>
+Returns information about various auto-growing caches. For
+each ressource, we report its name, its size, the number of cache misses
+(since the last extension), the largest cache miss and the size of the cache
+in bytes.</p>
+<p>
+The caches are initially empty, then set automatically to a small
+inexpensive default value, then grow on demand up to some maximal value.
+Their size never decreases, they are only freed on exit.</p>
+<p>
+The current caches are</p>
+<p>
+<b>*</b> Hurwitz class numbers H(D) for |D| &leq; N, computed in time
+O(N<sup>3/2</sup>) using O(N) space.</p>
+<p>
+<b>*</b> Factorizations of small integers up to N, computed in time
+O(N<sup>1+&varepsilon;</sup>) using O(Nlog N) space.</p>
+<p>
+<b>*</b> Divisors of small integers up to N, computed in time
+O(N<sup>1+&varepsilon;</sup>) using O(Nlog N) space.</p>
+<p>
+<b>*</b> Primitive dihedral forms of weight 1 and level up to N,
+computed in time O(N<sup>2+&varepsilon;</sup>) and space O(N^2).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? getcache()  \\ on startup, all caches are empty
+  %1 =
+  [ "Factors" 0 0 0 0]
+  
+  ["Divisors" 0 0 0 0]
+  
+  [       "H" 0 0 0 0]
+  
+  ["Dihedral" 0 0 0 0]
+  ? mfdim([500,1,0],0); \\ non-trivial computation
+  time = 540 ms.
+  ? getcache()
+  %3 =
+  [ "Factors" 50000 0      0 4479272]
+  
+  ["Divisors" 50000 1 100000 5189808]
+  
+  [       "H" 50000 0      0  400008]
+  
+  ["Dihedral"  1000 0      0 2278208]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>getcache</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunmf"></div>
+<div id="lfunmf"></div>
+<h4>lfunmf(<em>mf</em>, {F})</h4>
+<p>
+If F is a modular form in <code>mf</code>, output the L-functions
+corresponding to its [&Qopf;(F):&Qopf;(&chi;)] complex embeddings, ready for use with
+the <code><a href="_L_minusfunctions.html#se:lfun"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfun</a></code> package. If F is omitted, output the L-functions attached
+to all eigenforms in the new space; the result is a vector whose length is
+the number of Galois orbits of newforms. Each entry contains the vector of
+L-functions corresponding to the d complex embeddings of an orbit of
+dimension d over &Qopf;(&chi;).</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([35,2],0);mffields(mf)
+  %1 = [y, y^2 - y - 4]
+  ? f = mfeigenbasis(mf)[2]; mfparams(f) \\ orbit of dimension two
+  %2 = [35, 2, 1, y^2 - y - 4]
+  ? [L1,L2] = lfunmf(mf, f); \\ Two L-functions
+  ? lfun(L1,1)
+  %4 = 0.81018461849460161754947375433874745585
+  ? lfun(L2,1)
+  %5 = 0.46007635204895314548435893464149369804
+  ? [ lfun(L,1) | L &lt;- concat(lfunmf(mf)) ]
+  %6 = [0.70291..., 0.81018..., 0.46007...]
+</pre><p>
+The <code><a href="Vectors__matrices__linear_algebra_and_sets.html#se:concat"
+    onClick="parent.itemFrame.location='cont_Vectors__matrices__linear_algebra_and_sets.html'">concat</a></code> instruction concatenates the vectors
+corresponding to the various (here two) orbits, so that we obtain the vector
+of all the L-functions attached to eigenforms.</p>
+<p>
+The library syntax is <code>GEN <b>lfunmf</b>(GEN mf, GEN F = NULL, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfDelta"></div>
+<div id="mfDelta"></div>
+<h4>mfDelta()</h4>
+<p>
+Mf structure corresponding to the Ramanujan Delta function &Delta;.</p>
+<p>
+</p><pre class="code">  ? mfcoefs(mfDelta(),4)
+  %1 = [0, 1, -24, 252, -1472]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfDelta</b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfEH"></div>
+<div id="mfEH"></div>
+<h4>mfEH(k)</h4>
+<p>
+k being in 1/2+&Zopf;, returns the Cohen-Eisenstein series H<sub>k</sub> of
+weight k on &Gamma;<sub>0</sub>(4).</p>
+<p>
+</p><pre class="code">  ? H = mfEH(13/2); mfcoefs(H,4)
+  %1 = [691/32760, -1/252, 0, 0, -2017/252]
+</pre><p>
+The coefficients of H are given by the Cohen-Hurwitz function
+H(k-1/2,N) and can be obtained for moderately large values of N (the
+algorithm uses &Otilde;(N) time):</p>
+<p>
+</p><pre class="code">  ? mfcoef(H,10^5+1)
+  time = 55 ms.
+  %2 = -12514802881532791504208348
+  ? mfcoef(H,10^7+1)
+  time = 6,044 ms.
+  %3 = -1251433416009877455212672599325104476
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfEH</b>(GEN k)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfEk"></div>
+<div id="mfEk"></div>
+<h4>mfEk(k)</h4>
+<p>
+Mf structure corresponding to the standard Eisenstein series E<sub>k</sub>.</p>
+<p>
+</p><pre class="code">  ? mfcoefs(mfEk(8),4)
+  %1 = [1, 480, 61920, 1050240, 7926240]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfEk</b>(long k)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfTheta"></div>
+<div id="mfTheta"></div>
+<h4>mfTheta({<em>psi</em> = 1})</h4>
+<p>
+The unary theta function corresponding to the primitive Dirichlet
+character &psi;, hence of weight 1/2 if &psi; is even, of weight 3/2
+if &psi; is odd.</p>
+<p>
+</p><pre class="code">  ? Ser(mfcoefs(mfTheta(),30))
+  %1 = 1 + 2*x + 2*x^4 + 2*x^9 + 2*x^16 + 2*x^25 + O(x^31)
+  ? Ser(mfcoefs(mfTheta(8),30))
+  %2 = 2*x - 2*x^9 - 2*x^25 + O(x^31)
+  ? Ser(mfcoefs(mfTheta(-8),30))
+  %3 = 2*x + 6*x^9 - 10*x^25 + O(x^31)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfTheta</b>(GEN psi = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfatkin"></div>
+<div id="mfatkin"></div>
+<h4>mfatkin(<em>mfatk</em>, F)</h4>
+<p>
+Given a <code>mfatk</code> output by <code>mfatk = mfatkininit(mf,Q)</code> and
+a modular form F belonging to the pace <code>mf</code>, returns the modular
+form C*F|W<sub>Q</sub>, which has <code>polmod</code> coefficients in &Qopf;(F);
+<code>mfatk[3]</code> gives the constant C, and <code>mfatk[1]</code> gives
+the modular form space to which F|W<sub>Q</sub> belongs (or is set to 0 if
+it is <code>mf</code>).</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([35,2],0); vecF = mfbasis(mf); F = vecF[1];
+  ? mfcoefs(F, 4)
+  %2 = [0, 3, -1, 0, 3]
+  ? mfatk = mfatkininit(mf,7);
+  ? wF = mfatkin(mfatk, F); mfcoefs(wF, 4)
+  %4 = [0, 1, -1, -2, 7]
+  ? mfatk = mfatkininit(mf,35);
+  ? wF = mfatkin(mfatk, F); mfcoefs(wF, 4)
+  %6 = [0, -3, 1, 0, -3]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfatkin</b>(GEN mfatk, GEN F)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfatkineigenvalues"></div>
+<div id="mfatkineigenvalues"></div>
+<h4>mfatkineigenvalues(<em>mf</em>, Q)</h4>
+<p>
+Given a modular form space <code>mf</code> which must be new or cuspidal, and a
+primitive divisor Q of the level N of <code>mf</code>, outputs the Atkin-Lehner
+eigenvalues of w<sub>Q</sub> on the new space, grouped by orbit.
+If <code>mf</code> is the new space and &chi; is a
+(trivial or) quadratic character defined modulo N/Q, the result is rounded
+and the eigenvalues are &#177;1 in even weight, and &#177; i in odd weight.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([35,2],0); mffields(mf)
+  %1 = [y, y^2 - y - 4] \\ two orbits, dimension 1 and 2
+  ? mfatkineigenvalues(mf,5)
+  %2 = [[1], [-1, -1]]
+  ? mf = mfinit([12,7,Mod(3,4)],0);
+  ? mfatkineigenvalues(mf,3)
+  %4 = [[I, -I, -I, I, I, -I]]  \\ one orbit
+</pre><p></p>
+<p>
+Note that if you want the eigenvalues on a larger space than the new space,
+e.g. the full space, you can directly call <code>[mfB,M,C] = mfatkininit</code> and
+compute the eigenvalues as the roots of the characteristic polynomial of
+M/C, i.e. by dividing the roots of <code>charpoly(M)</code> by C. Note that the
+characteristic polynomial is computed exactly since M has coefficients in
+&Qopf;(&chi;), whereas C may be given by a complex number. If the coefficients
+of the characteristic polynomial are polmods modulo T they must be embedded
+to &Copf; first using <code>subst(lift(), t, exp(2*I*Pi/n))</code>, when T is
+<code>poliscyclo(n)</code>; note that T = <code>mf.mod</code>.</p>
+<p>
+The library syntax is <code>GEN <b>mfatkineigenvalues</b>(GEN mf, long Q, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfatkininit"></div>
+<div id="mfatkininit"></div>
+<h4>mfatkininit(<em>mf</em>, Q)</h4>
+<p>
+Given a modular form space with parameters N,k,&chi; and a
+primitive divisor Q of the level N, initializes data necessary for
+working with the Atkin-Lehner operator W<sub>Q</sub>, for now only the function
+<code><a href="Modular_forms.html#se:mfatkin"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfatkin</a></code>. We write &chi;  ~  &chi;<sub>Q</sub> &chi;<sub>N/Q</sub> where
+the two characters are primitive with (coprime) conductors dividing
+Q and N/Q respectively. For F &in;  M<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;),
+the form F | W<sub>Q</sub> still has level N and weight k but its
+Nebentypus may no longer be &chi;: it becomes <span style="text-decoration:overline">&chi;<sub>Q</sub></span> &chi;<sub>N/Q</sub>)
+if k is integral and <span style="text-decoration:overline">&chi;<sub>Q</sub></span> &chi;<sub>N/Q</sub>)(4Q/.) if not.</p>
+<p>
+The result is a technical 4-component vector <code>[mfB, CM, C, mf]</code>, where</p>
+<p>
+<b>*</b> <code>mfB</code> encodes the modular form space to which
+F|W<sub>Q</sub> belongs when F  &in;  M<sub>k</sub>(&Gamma;<sub>0</sub>(N), &chi;): an <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>
+corresponding to a new Nebentypus or the integer 0 when the character does
+not change. This does not depend on F.</p>
+<p>
+<b>*</b> <code>CM</code> is the matrix of W<sub>Q</sub> on the bases of <code>mf</code> and <code>mfB</code>
+multiplied by a normalizing constant C(k,&chi;,Q). This matrix has polmod
+coefficients in &Qopf;(&chi;).</p>
+<p>
+<b>*</b> <code>C</code> is the complex constant C(k,&chi;,Q). For k
+is integral, let A(k,&chi;, Q) = Q<sup>&varepsilon;</sup>/g(&chi;<sub>Q</sub>), where
+&varepsilon; = 0 for k even and 1/2 for k odd and
+where g(&chi;<sub>Q</sub>) is the Gauss sum attached to &chi;<sub>Q</sub>). (A similar, more
+complicated, definition holds in half-integral weight depending on the parity
+of k - 1/2.)  Then if M denotes the matrix of W<sub>Q</sub> on the bases
+of <code>mf</code> and <code>mfB</code>, A.M has coefficients in &Qopf;(&chi;).
+If A is rational, we let C = 1 and C = A as a floating point complex
+number otherwise, and finally <code>MC</code> := M.C.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? mf=mfinit([32,4],0); [mfB,MC,C]=mfatkininit(mf,32); MC
+  %1 =
+  [5/16 11/2  55/8]
+  
+  [ 1/8    0  -5/4]
+  
+  [1/32 -1/4 11/16]
+  
+  ? C
+  %2 = 1
+  ? mf=mfinit([32,4,8],0); [mfB,MC,C]=mfatkininit(mf,32); MC
+  %3 =
+  [  1/8 -7/4]
+  
+  [-1/16 -1/8]
+  ? C
+  %4 = 0.35355339059327376220042218105242451964
+  ? algdep(C,2)   \\ C = 1/sqrt(8)
+  %5 = 8*x^2 - 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfatkininit</b>(GEN mf, long Q, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfbasis"></div>
+<div id="mfbasis"></div>
+<h4>mfbasis(<em>NK</em>, {<em>space</em> = 4})</h4>
+<p>
+If NK = [N,k,<em>CHI</em>] as in <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>, gives a basis of the
+corresponding subspace of M<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;). NK can also be the
+output of <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>, in which case <code>space</code> can be omitted.
+To obtain the eigenforms, use <code><a href="Modular_forms.html#se:mfeigenbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfeigenbasis</a></code>.</p>
+<p>
+If <code>space</code> is a full space M<sub>k</sub>, the output is the union of first, a
+basis of the space of Eisenstein series, and second, a basis of the cuspidal
+space.</p>
+<p>
+</p><pre class="code">  ? see(L) = apply(f-&gt;mfcoefs(f,3), L);
+  ? mf = mfinit([35,2],0);
+  ? see( mfbasis(mf) )
+  %2 = [[0, 3, -1, 0], [0, -1, 9, -8], [0, 0, -8, 10]]
+  ? see( mfeigenbasis(mf) )
+  %3 = [[0, 1, 0, 1], [Mod(0, z^2 - z - 4), Mod(1, z^2 - z - 4), \
+         Mod(-z, z^2 - z - 4), Mod(z - 1, z^2 - z - 4)]]
+  ? mf = mfinit([35,2]);
+  ? see( mfbasis(mf) )
+  %5 = [[1/6, 1, 3, 4], [1/4, 1, 3, 4], [17/12, 1, 3, 4], \
+         [0, 3, -1, 0], [0, -1, 9, -8], [0, 0, -8, 10]]
+  ? see( mfbasis([48,4],0) )
+  %6 = [[0, 3, 0, -3], [0, -3, 0, 27], [0, 2, 0, 30]]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfbasis</b>(GEN NK, long space)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfbd"></div>
+<div id="mfbd"></div>
+<h4>mfbd(F, d)</h4>
+<p>
+F being an modular form, return B(d)(F), where B(d) is
+the expanding operator &tau;<code> &longmapsto; </code>d&tau;.</p>
+<p>
+</p><pre class="code">  ? D2=mfbd(mfDelta(),2); mfcoefs(D2, 6)
+  %1 = [0, 0, 1, 0, -24, 0, 252]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfbd</b>(GEN F, long d)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfbracket"></div>
+<div id="mfbracket"></div>
+<h4>mfbracket(F, G, {m = 0})</h4>
+<p>
+F and G being modular forms, compute the m-th Rankin-Cohen
+bracket of F and G.</p>
+<p>
+</p><pre class="code">  ? E4 = mfEk(4); E6 = mfEk(6);
+  ? D1 = mfbracket(E4,E4,2); mfcoefs(D1,5)/4800
+  %2 = [0, 1, -24, 252, -1472, 4830]
+  ? D2 = mfbracket(E4,E6,1); mfcoefs(D2,10)/(-3456)
+  %3 = [0, 1, -24, 252, -1472, 4830]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfbracket</b>(GEN F, GEN G, long m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfcoef"></div>
+<div id="mfcoef"></div>
+<h4>mfcoef(F, n)</h4>
+<p>
+Compute the n-th Fourier coefficient of the modular form F.
+Note that this is the n+1-st component of the vector
+<code>mfcoefs(F,n)</code> as well as the second component of <code>mfcoefs(F,1,n)</code>.
+By abuse of language, this command also applies to lazy power series as output
+by <code><a href="Modular_forms.html#se:mfderiv"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfderiv</a></code>.</p>
+<p>
+</p><pre class="code">  ? mfcoef(mfDelta(),10)
+  %1 = -115920
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfcoef</b>(GEN F, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfcoefs"></div>
+<div id="mfcoefs"></div>
+<h4>mfcoefs(F, n, {d = 1})</h4>
+<p>
+Compute the vector of Fourier coefficients [a[0],a[d],...,a[nd]] of the
+modular form F; d must be positive and d = 1 by default. By abuse of
+language, this command also applies to lazy power series as output by
+<code><a href="Modular_forms.html#se:mfderiv"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfderiv</a></code>.</p>
+<p>
+</p><pre class="code">  ? D = mfDelta();
+  ? mfcoefs(D,10)
+  %2 = [0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, -115920]
+  ? mfcoefs(D,5,2)
+  %3 = [0, -24, -1472, -6048, 84480, -115920]
+  ? mfcoef(D,10)
+  %4 = -115920
+</pre><p></p>
+<p>
+This function also applies when F is a modular form space as output by
+<code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>; it then returns the matrix whose columns give the Fourier
+expansions of the elements of <code><a href="Modular_forms.html#se:mfbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfbasis</a></code>(F):</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([1,12]);
+  ? mfcoefs(mf,5)
+  %2 =
+  [691/65520     0]
+  
+  [        1     1]
+  
+  [     2049   -24]
+  
+  [   177148   252]
+  
+  [  4196353 -1472]
+  
+  [ 48828126  4830]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfcoefs</b>(GEN F, long n, long d)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfconductor"></div>
+<div id="mfconductor"></div>
+<h4>mfconductor(<em>mf</em>, F)</h4>
+<p>
+<code>mf</code> being output by <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> for the cuspidal space and
+F a modular form, gives the smallest level on which F is defined.</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([96,6],1); vF = mfbasis(mf); mfdim(mf)
+  %1 = 72
+  ? vector(10,i, mfconductor(mf, vF[i]))
+  %2 = [3, 6, 12, 24, 48, 96, 4, 8, 12, 16]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>mfconductor</b>(GEN mf, GEN F)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfcosets"></div>
+<div id="mfcosets"></div>
+<h4>mfcosets(N)</h4>
+<p>
+List of right cosets of &Gamma;<sub>0</sub>(N) \&Gamma;, i.e., matrices
+&gamma;<sub>j</sub>  &in;  &Gamma; such that &Gamma; =  &bigsqcup; <sub>j</sub> &Gamma;<sub>0</sub>(N) &gamma;<sub>j</sub>.
+The &gamma;<sub>j</sub> are chosen in the form [a,b;c,d] with c | N.
+N can be either a positive integer or a modular form space.</p>
+<p>
+</p><pre class="code">  ? mfcosets(4)
+  %1 = [[0, -1; 1, 0], [1, 0; 1, 1], [0, -1; 1, 2], [0, -1; 1, 3],\
+        [1, 0; 2, 1], [1, 0; 4, 1]]
+</pre><p></p>
+<p>
+<b>Warning.</b> in the present implementation, the trivial coset is
+represented by [1,0;N,1] and is the last in the list.</p>
+<p>
+The library syntax is <code>GEN <b>mfcosets</b>(GEN N)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfcuspisregular"></div>
+<div id="mfcuspisregular"></div>
+<h4>mfcuspisregular(<em>NK</em>, <em>cusp</em>)</h4>
+<p>
+In the space defined by <code>NK = [N,k,CHI]</code> or <code>NK = mf</code>,
+determine if <code>cusp</code> in canonical format (oo or denominator
+dividing N) is regular or not.</p>
+<p>
+</p><pre class="code">  ? mfcuspisregular([4,3,-4],1/2)
+  %1 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>mfcuspisregular</b>(GEN NK, GEN cusp)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfcusps"></div>
+<div id="mfcusps"></div>
+<h4>mfcusps(N)</h4>
+<p>
+List of cusps of &Gamma;<sub>0</sub>(N) in the form a/b with b | N.
+N can be either an integer of a modular form space.</p>
+<p>
+</p><pre class="code">  ? mfcusps(24)
+  %1 = [0, 1/2, 1/3, 1/4, 1/6, 1/8, 1/12, 1/24]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfcusps</b>(GEN N)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfcuspval"></div>
+<div id="mfcuspval"></div>
+<h4>mfcuspval(<em>mf</em>, F, <em>cusp</em>)</h4>
+<p>
+Valuation of modular form F in the space <code>mf</code> at
+<code>cusp</code>, which can be either  oo  or any rational number, and the
+result is either a rational number or  oo  if F is zero. If &Qopf;(F)
+ != &Qopf;(&chi;), return the vector of valuations attached to the
+[&Qopf;(F):&Qopf;(chi)] complex embeddings of F.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? T=mfTheta();mf=mfinit([12,1/2]);mfcusps(12)
+  %1 = [0, 1/2, 1/3, 1/4, 1/6, 1/12]
+  ? apply(x-&gt;mfcuspval(mf,T,x),%1)
+  %2 = [0, 1/4, 0, 0, 1/4, 0]
+  ? mf=mfinit([12,6,12],1);F=mfbasis(mf)[5];
+  ? apply(x-&gt;mfcuspval(mf,F,x),%1)
+  %4 = [1/12, 1/6, 1/2, 2/3, 1/2, 2]
+  ? mf=mfinit([12,3,-4],1);F=mfbasis(mf)[1];
+  ? apply(x-&gt;mfcuspval(mf,F,x),%1)
+  %6 = [1/12, 1/6, 1/4, 2/3, 1/2, 1]
+  
+  ? mf = mfinit([625,2],0); [F] = mfeigenbasis(mf); mfparams(F)
+  %7 = [625, 2, 1, y^2 - y - 1] \\ [Q(F):Q(chi)] = poldegree(y^2-y-1)
+  ? mfcuspval(mf, F, 1/25)
+  %8 = [1, 2] \\ one conjugate has valuation 1, and the other is 2
+  ? mfcuspval(mf, F, 1/5)
+  %9 = [1/25, 1/25]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfcuspval</b>(GEN mf, GEN F, GEN cusp, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfcuspwidth"></div>
+<div id="mfcuspwidth"></div>
+<h4>mfcuspwidth(N, <em>cusp</em>)</h4>
+<p>
+Width of <code>cusp</code> in &Gamma;<sub>0</sub>(N), N being either an integer or a
+modular form space.</p>
+<p>
+</p><pre class="code">  ? mfcusps(12)
+  %1 = [0, 1/2, 1/3, 1/4, 1/6, 1/12]
+  ? [mfcuspwidth(12,c) | c &lt;- mfcusps(12)]
+  %2 = [12, 3, 4, 3, 1, 1]
+  ? mfcuspwidth(12, oo)
+  %3 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>mfcuspwidth</b>(GEN N, GEN cusp)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfderiv"></div>
+<div id="mfderiv"></div>
+<h4>mfderiv(F, {m = 1})</h4>
+<p>
+m-th formal derivative of the power series corresponding to
+the modular form F, with respect to the differential operator
+qd/dq (default m = 1).</p>
+<p>
+</p><pre class="code">  ? D=mfDelta();
+  ? mfcoefs(D, 4)
+  %2 = [0, 1, -24, 252, -1472]
+  ? mfcoefs(mfderiv(D), 4)
+  %3 = [0, 1, -48, 756, -5888]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfderiv</b>(GEN F, long m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfderivE2"></div>
+<div id="mfderivE2"></div>
+<h4>mfderivE2(F, {m = 1})</h4>
+<p>
+If F is an modular form of weight k,
+compute the Serre derivative (q.d/dq)F - kE_2F/12, which corresponds to a
+modular form of weight k+2, and if m &gt; 1, the m-th iterate.</p>
+<p>
+</p><pre class="code">  ? mfcoefs(mfderivE2(mfEk(4)),5)*(-3)
+  %1 = [1, -504, -16632, -122976, -532728]
+  ? mfcoefs(mfEk(6),5)
+  %2 = [1, -504, -16632, -122976, -532728]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfderivE2</b>(GEN F, long m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfdescribe"></div>
+<div id="mfdescribe"></div>
+<h4>mfdescribe(F, {&G})</h4>
+<p>
+Gives a human-readable description of F, which is either a modular
+form space or a modular form. If the address of G is given,
+puts into G the vector of parameters of the outmost operator defining F
+(the empty vector if F is a leaf or a modular form space).</p>
+<p>
+</p><pre class="code">  ? E1 = mfeisenstein(4,-3,-4); mfdescribe(E1)
+  %1 = "F<sub>4</sub>(-3, -4)"
+  ? E2 = mfeisenstein(3,5,-7); mfdescribe(E2)
+  %2 = "F<sub>3</sub>(5, -7)"
+  ? E3 = mfderivE2(mfmul(E1,E2), 3); mfdescribe(E3,&G)
+  %3 = "DERE2^3(MUL(F<sub>4</sub>(-3, -4), F<sub>3</sub>(5, -7)))"
+  ? mfdescribe(G[1][1])
+  %4 = "MUL(F<sub>4</sub>(-3, -4), F<sub>3</sub>(5, -7))"
+  ? G[2]
+  %5 = 3
+  ? for (i = 0, 4, mf = mfinit([37,4],i); print(mfdescribe(mf)));
+  S<sub>4</sub>^new(G<sub>0</sub>(37, 1))
+  S<sub>4</sub>(G<sub>0</sub>(37, 1))
+  S<sub>4</sub>^old(G<sub>0</sub>(37, 1))
+  E<sub>4</sub>(G<sub>0</sub>(37, 1))
+  M<sub>4</sub>(G<sub>0</sub>(37, 1))
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfdescribe</b>(GEN F, GEN *G = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfdim"></div>
+<div id="mfdim"></div>
+<h4>mfdim(<em>NK</em>, {<em>space</em> = 4})</h4>
+<p>
+If NK = [N,k,<em>CHI</em>] as in <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>, gives the dimension of the
+corresponding subspace of M<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;). NK can also be the
+output of <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>, in which case space must be omitted.</p>
+<p>
+The subspace is described by the small integer <code>space</code>: 0 for the
+newspace S<sub>k</sub><sup>new</sup>(&Gamma;<sub>0</sub>(N),&chi;), 1 for the cuspidal
+space S<sub>k</sub>, 2 for the oldspace S<sub>k</sub><sup>old</sup>, 3 for the space of
+Eisenstein series E<sub>k</sub> and 4 for the full space M<sub>k</sub>.</p>
+<p>
+<b>Wildcards.</b>
+As in <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>, <em>CHI</em> may be the wildcard 0
+(all Galois orbits of characters); in this case, the output is a vector of
+[<em>order</em>, <em>conrey</em>, <em>dim</em>, <em>dimdih</em>] corresponding
+to the non-trivial spaces, where</p>
+<p>
+<b>*</b> <em>order</em> is the order of the character,</p>
+<p>
+<b>*</b> <em>conrey</em> its Conrey label from which the character may be recovered
+via <code><a href="Arithmetic_functions.html#se:znchar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znchar</a></code>(<em>conrey</em>),</p>
+<p>
+<b>*</b> <em>dim</em> the dimension of the corresponding space,</p>
+<p>
+<b>*</b> <em>dimdih</em> the dimension of the subspace of dihedral forms
+corresponding to Hecke characters if k = 1 (this is not implemented for
+the old space and set to -1 for the time being) and 0 otherwise.</p>
+<p>
+The spaces are sorted by increasing order of the character; the characters are
+taken up to Galois conjugation and the Conrey number is the minimal one among
+Galois conjugates. In weight 1, this is only implemented when
+the space is 0 (newspace), 1 (cusp space), 2(old space) or 3(Eisenstein
+series).</p>
+<p>
+<b>Wildcards for sets of characters.</b> <em>CHI</em> may be a set
+of characters, and we return the set of [<em>dim</em>,<em>dimdih</em>].</p>
+<p>
+<b>Wildcard for M<sub>k</sub>(&Gamma;<sub>1</sub>(N)).</b>
+Additionally, the wildcard <em>CHI</em> = -1 is available in which case we
+output the total dimension of the corresponding
+subspace of M<sub>k</sub>(&Gamma;<sub>1</sub>(N)). In weight 1, this is not implemented
+when the space is 4 (fullspace).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? mfdim([23,2], 0) \\ new space
+  %1 = 2
+  ? mfdim([96,6], 0)
+  %2 = 10
+  ? mfdim([10^9,4], 3)  \\ Eisenstein space
+  %1 = 40000
+  ? mfdim([10^9+7,4], 3)
+  %2 = 2
+  ? mfdim([68,1,-1],0)
+  %3 = 3
+  ? mfdim([68,1,0],0)
+  %4 = [[2, Mod(67, 68), 1, 1], [4, Mod(47, 68), 1, 1]]
+  ? mfdim([124,1,0],0)
+  %5 = [[6, Mod(67, 124), 2, 0]]
+</pre><p></p>
+<p>
+This last example shows that there exists a nondihedral form of weight 1
+in level 124.</p>
+<p>
+The library syntax is <code>GEN <b>mfdim</b>(GEN NK, long space)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfdiv"></div>
+<div id="mfdiv"></div>
+<h4>mfdiv(F, G)</h4>
+<p>
+Given two modular forms F and G, compute F/G assuming
+that the quotient will not have poles at infinity. If this is the
+case, use <code><a href="Modular_forms.html#se:mfshift"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfshift</a></code> before doing the division.</p>
+<p>
+</p><pre class="code">  ? D = mfDelta(); \\ Delta
+  ? H = mfpow(mfEk(4), 3);
+  ? J = mfdiv(H, D)
+   ***   at top-level: J=mfdiv(H,mfdeltac
+   ***                   ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** mfdiv: domain error in mfdiv: ord(G) &gt; ord(F)
+  ? J = mfdiv(H, mfshift(D,1));
+  ? mfcoefs(J, 4)
+  %4 = [1, 744, 196884, 21493760, 864299970]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfdiv</b>(GEN F, GEN G)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfeigenbasis"></div>
+<div id="mfeigenbasis"></div>
+<h4>mfeigenbasis(<em>mf</em>)</h4>
+<p>
+Vector of the eigenforms for the space <code>mf</code>.
+The initial basis of forms computed by <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> before splitting
+is also available via <code><a href="Modular_forms.html#se:mfbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfbasis</a></code>.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([26,2],0);
+  ? see(L) = for(i=1,#L,print(mfcoefs(L[i],6)));
+  ? see( mfeigenbasis(mf) )
+  [0, 1, -1, 1, 1, -3, -1]
+  [0, 1, 1, -3, 1, -1, -3]
+  ? see( mfbasis(mf) )
+  [0, 2, 0, -2, 2, -4, -4]
+  [0, -2, -4, 10, -2, 0, 8]
+</pre><p></p>
+<p>
+The eigenforms are internally expressed as (algebraic) linear combinations of
+<code>mfbasis(mf)</code> and it is very inefficient to compute many coefficients
+of those forms individually: you should rather use <code>mfcoefs(mf)</code>
+to expand the basis once and for all, then multiply by <code>mftobasis(mf,f)</code>
+for the forms you're interested in:</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([96,6],0); B = mfeigenbasis(mf); #B
+  %1 = 8;
+  ? vector(#B, i, mfcoefs(B[i],1000)); \\ expanded individually: slow
+  time = 7,881 ms.
+  ? M = mfcoefs(mf, 1000); \\ initialize once
+  time = 982 ms.
+  ? vector(#B, i, M * mftobasis(mf,B[i])); \\ then expand: much faster
+  time = 623 ms.
+</pre><p></p>
+<p></p>
+<p>
+When the eigenforms are defined over an extension field of &Qopf;(&chi;) for a
+non-rational character, their coefficients are hard to read and you may want
+to lift them or to express them in an absolute number field. In the
+construction below T defines &Qopf;(f) over &Qopf;, a is the image of the
+generator <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Mod"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Mod</a></code>(t, t^2+t+1) of &Qopf;(&chi;) in &Qopf;(f)
+and y - ka is the image of the root y of <code>f.mod</code>:</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([31, 2, Mod(25,31)], 0); [f] = mfeigenbasis(mf);
+  ? f.mod
+  %2 = Mod(1, t^2 + t + 1)*y^2 + Mod(2*t + 2, t^2 + t + 1)
+  ? v = liftpol(mfcoefs(f,5))
+  %3 = [0, 1, (-t - 1)*y - 1, t*y + (t + 1), (2*t + 2)*y + 1, t]
+  ? [T,a,k] = rnfequation(mf.mod, f.mod, 1)
+  %4 = [y^4 + 2*y^2 + 4, Mod(-1/2*y^2 - 1, y^4 + 2*y^2 + 4), 0]
+  ? liftpol(substvec(v, [t,y], [a, y-k*a]))
+  %5 = [0, 1, 1/2*y^3 - 1, -1/2*y^3 - 1/2*y^2 - y, -y^3 + 1, -1/2*y^2 - 1]
+</pre><p>
+Beware that the meaning of y has changed in the last line
+is different: it now represents of root of T, no longer of <code>f.mod</code>
+(the notions coincide if k = 0 as here but it will not always be the case).
+This can be avoided with an extra variable substitution, for instance</p>
+<p>
+</p><pre class="code">  ? [T,a,k] = rnfequation(mf.mod, subst(f.mod,'y,'x), 1)
+  %6 = [x^4 + 2*x^2 + 4, Mod(-1/2*x^2 - 1, x^4 + 2*x^2 + 4), 0]
+  ? liftpol(substvec(v, [t,y], [a, x-k*a]))
+  %7 = [0, 1, 1/2*x^3 - 1, -1/2*x^3 - 1/2*x^2 - x, -x^3 + 1, -1/2*x^2 - 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfeigenbasis</b>(GEN mf)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfeigensearch"></div>
+<div id="mfeigensearch"></div>
+<h4>mfeigensearch(<em>NK</em>, {<em>AP</em>})</h4>
+<p>
+Search for a normalized rational eigen cuspform with quadratic
+character given restrictions on a few initial coefficients. The meaning of
+the parameters is as follows:</p>
+<p>
+<b>*</b> <code>NK</code> governs the limits of the search: it is of the form
+[N,k]: search for given level N, weight k and quadratic
+character; note that the character (D/.) is uniquely determined by (N,k).
+The level N can be replaced by a vector of allowed levels.</p>
+<p>
+<b>*</b> <code>AP</code> is the search criterion, which can be omitted: a list of
+pairs [..., [p,a<sub>p</sub>],...], where p is a prime number and a<sub>p</sub> is
+either a <code>t_INT</code> (the p-th Fourier coefficient must match a<sub>p</sub> exactly)
+or a <code>t_INTMOD</code> <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Mod"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Mod</a></code>(a,b) (the p-th coefficient must be congruent
+to a modulo b).</p>
+<p>
+The result is a vector of newforms f matching the search criteria, sorted
+by increasing level then increasing |D|.</p>
+<p>
+</p><pre class="code">  ? #mfeigensearch([[1..80],2], [[2,2],[3,-1]])
+  %1 = 1
+  ? #mfeigensearch([[1..80],2], [[2,2],[5,2]])
+  %2 = 1
+  ? v = mfeigensearch([[1..20],2], [[3,Mod(2,3)],[7,Mod(5,7)]]); #v
+  %3 = 1
+  ? F=v[1]; [mfparams(F)[1], mfcoefs(F,15)]
+  %4 = [11, [0, 1, -2, -1, 2, 1, 2, -2, 0, -2, -2, 1, -2, 4, 4, -1]]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfeigensearch</b>(GEN NK, GEN AP = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfeisenstein"></div>
+<div id="mfeisenstein"></div>
+<h4>mfeisenstein(k, {<em>CHI1</em>}, {<em>CHI2</em>})</h4>
+<p>
+Create the Eisenstein series E<sub>k</sub>(&chi;) (trivial
+character if omitted) or E<sub>k</sub>(&chi;<sub>1</sub>,&chi;<sub>2</sub>), where k &geq; 1 and &chi;<sub>i</sub>
+are Dirichlet characters.</p>
+<p>
+</p><pre class="code">  ? CHI = Mod(3,4);
+  ? E = mfeisenstein(3, CHI);
+  ? mfcoefs(E, 6)
+  %2 = [-1/4, 1, 1, -8, 1, 26, -8]
+  ? CHI2 = Mod(4,5);
+  ? mfcoefs(mfeisenstein(3,CHI,CHI2), 6)
+  %3 = [0, 1, -1, -10, 1, 25, 10]
+  ? mfcoefs(mfeisenstein(4,CHI,CHI), 6)
+  %4 = [0, 1, 0, -28, 0, 126, 0]
+  ? mfcoefs(mfeisenstein(4), 6)
+  %5 = [1/240, 1, 9, 28, 73, 126, 252]
+</pre><p>
+Note that <code>meisenstein</code>(k) is 0 for k odd and
+-B<sub>k</sub>/(2k).E<sub>k</sub> for k even, where
+E<sub>k</sub>(q) = 1 - (2k/B<sub>k</sub>)&sum;<sub>n &geq; 1</sub> &sigma;<sub>k-1</sub>(n) q^n
+is the standard Eisenstein series. (Thus it is normalized so that its linear
+coefficient is 1.)</p>
+<p>
+The library syntax is <code>GEN <b>mfeisenstein</b>(long k, GEN CHI1 = NULL, GEN CHI2 = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfembed"></div>
+<div id="mfembed"></div>
+<h4>mfembed(f, {v})</h4>
+<p>
+Let f be a modular form with parameters [N,k,&chi;,P] (see
+<code><a href="Modular_forms.html#se:mfparams"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfparams</a></code>, we denote &Qopf;(&chi;) the subfield of &Copf; generated by the
+values of &chi; and &Qopf;(f) the field of definition of f. In this context
+&Qopf;(chi) has a single canonical complex embeding given by
+s: <code>Mod(t, polcyclo(n,t))</code> <code> &longmapsto; </code>exp(2i&pi;/n) and the number field
+&Qopf;(f) has [&Qopf;(f):&Qopf;(&chi;)] induced embeddings attached to the complex
+roots of the polynomial s(P). If &Qopf;(f) is stricly larger than &Qopf;(&chi;)
+we only allow an f which is an eigenform, produced by <code><a href="Modular_forms.html#se:mfeigenbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfeigenbasis</a></code>.</p>
+<p>
+This function is meant to create embeddings of &Qopf;(f) and/or apply them
+to the object v, typically a vector of Fourier coefficients of f
+from <code><a href="Modular_forms.html#se:mfcoefs"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfcoefs</a></code>.</p>
+<p>
+<b>*</b> If v is omitted and f is a modular form as above, we return the
+embedding of &Qopf;(&chi;) if &Qopf;(&chi;) = &Qopf;(f) and a vector containing
+[&Qopf;(f):&Qopf;(&chi;)] embeddings of &Qopf;(f) otherwise.</p>
+<p>
+<b>*</b> If v is given, it must be a scalar in &Qopf;(f), or a vector/matrix of
+such, we apply the embeddings coefficientwise and return either
+a single result if &Qopf;(f) = &Qopf;(&chi;) and a vector of [&Qopf;(f):&Qopf;(&chi;)]
+results otherwise.</p>
+<p>
+<b>*</b> Finally f can be replaced by a single embedding produced by
+<code><a href="Modular_forms.html#se:mfembed"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfembed</a></code>(f) (v was omitted) and we apply that particular embedding
+to v.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? mf = mfinit([35,2,Mod(11,35)], 0);
+  ? [f] = mfbasis(mf);
+  ? f.mod  \\  &Qopf;(&chi;) = &Qopf;(&zeta;<sub>3</sub>)
+  %3 = t^2 + t + 1
+  ? v = mfcoefs(f,5); lift(v)  \\  coefficients in &Qopf;(&chi;)
+  %4 = [0, 2, -2*t - 2, 2*t, 2*t, -2*t - 2]
+  ? mfembed(f, v)   \\ single embedding
+  %5 = [0, 2, -1 - 1.7320...*I, -1 + 1.73205...*I, -1 + 1.7320...*I, ...]
+  
+  ? [F] = mfeigenbasis(mf);
+  ? mffields(mf)
+  %7 = [y^2 + Mod(-2*t, t^2 + t + 1)]   \\  [&Qopf;(f):&Qopf;(&chi;)] = 2
+  ? V = liftpol( mfcoefs(F,5) );
+  %8 = [0, 1, y + (-t - 1), (t + 1)*y + t, (-2*t - 2)*y + t, -t - 1]
+  ? vall = mfembed(F, V); #vall
+  %9 = 2    \\ 2 embeddings, both applied to V
+  ? vall[1] \\ the first
+  %10 = [0, 1, -1.2071... - 2.0907...*I, 0.2071... - 0.3587...*I, ...]
+  ? vall[2] \\ and the second one
+  %11 = [0, 1, 0.2071... + 0.3587...*I, -1.2071... + 2.0907...*I, ...]
+  
+  ? vE = mfembed(F); #vE   \\ same 2 embeddings
+  %12 = 2
+  ? mfembed(vE[1], V)  \\ apply first embedding to V
+  %13 = [0, 1, -1.2071... - 2.0907...*I, 0.2071... - 0.3587...*I, ...]
+</pre><p></p>
+<p></p>
+<p>
+For convenience, we also allow a modular form space from <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>
+instead of f, corresponding to the single embedding of &Qopf;(&chi;).</p>
+<p>
+</p><pre class="code">  ? [mfB,MC,C] = mfatkininit(mf,7); MC  \\  coefs in &Qopf;(&chi;)
+  %13 =
+  [       Mod(2/7*t, t^2 + t + 1) Mod(-1/7*t - 2/7, t^2 + t + 1)]
+  
+  [Mod(-1/7*t - 2/7, t^2 + t + 1)        Mod(2/7*t, t^2 + t + 1)]
+  
+  ? C   \\ normalizing constant
+  %14 = 0.33863... - 0.16787*I
+  ? M = mfembed(mf, MC) / C  \\ the true matrix for the action of w<sub>7</sub>
+  [-0.6294... + 0.4186...*I -0.3625... - 0.5450...*I]
+  
+  [-0.3625... - 0.5450...*I -0.6294... + 0.4186...*I]
+  
+  ? exponent(M*conj(M) - 1)   \\ Μ * conj(M) is close to 1
+  %16 = -126
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfembed0</b>(GEN f, GEN v = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfeval"></div>
+<div id="mfeval"></div>
+<h4>mfeval(<em>mf</em>, F, <em>vtau</em>)</h4>
+<p>
+Computes the numerical value of the modular form F, belonging
+to <em>mf</em>, at the complex number <code>vtau</code> or the vector <code>vtau</code>
+of complex numbers in the completed upper-half plane. The result is given
+with absolute error less than 2<sup>-B</sup>, where B = realbitprecision.</p>
+<p>
+If the field of definition &Qopf;(F) is larger than &Qopf;(&chi;) then F may be
+embedded into &Copf; in d = [&Qopf;(F):&Qopf;(&chi;)] ways, in which case a vector of
+the d results is returned.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([11,2],0); F = mfbasis(mf)[1]; mfparams(F)
+  %1 = [11, 2, 1, y]  \\ Q(F) = Q(chi) = Q
+  ? mfeval(mf,F,I/2)
+  %2 = 0.039405471130100890402470386372028382117
+  ? mf = mfinit([35,2],0); F = mfeigenbasis(mf)[2]; mfparams(F)
+  %3 = [35, 2, 1, y^2 - y - 4] \\ [Q(F) : Q(chi)] = 2
+  ? mfeval(mf,F,I/2)
+  %4 = [0.045..., 0.0385...] \\ sigma<sub>1</sub>(F) and sigma<sub>2</sub>(F) at I/2
+  ? mf = mfinit([12,4],1); F = mfbasis(mf)[1];
+  ? mfeval(mf, F, 0.318+10^(-7)*I)
+  %6 = 3.379... E-21 + 6.531... E-21*I \\ instantaneous !
+</pre><p>
+In order to maximize the imaginary part of the argument,
+the function computes (f | <sub>k</sub> &gamma;)(&gamma;<sup>-1</sup>.&tau;) for a
+suitable &gamma; not necessarily in &Gamma;<sub>0</sub>(N) (in which case f | 
+&gamma; is evaluated using <code><a href="Modular_forms.html#se:mfslashexpansion"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfslashexpansion</a></code>).</p>
+<p>
+</p><pre class="code">  ? T = mfTheta(); mf = mfinit(T); mfeval(mf,T,[0,1/2,1,oo])
+  %1 = [1/2 - 1/2*I, 0, 1/2 - 1/2*I, 1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfeval</b>(GEN mf, GEN F, GEN vtau, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mffields"></div>
+<div id="mffields"></div>
+<h4>mffields(<em>mf</em>)</h4>
+<p>
+Given <code>mf</code> as output by <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> with parameters
+(N,k,&chi;), returns the vector of polynomials defining each Galois orbit of
+newforms over &Qopf;(&chi;).</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([35,2],0); mffields(mf)
+  %1 = [y, y^2 - y - 4]
+</pre><p>
+Here the character is trivial so &Qopf;(&chi;) = &Qopf;) and there
+are 3 newforms: one is rational (corresponding to y), the other two are
+conjugate and defined over the quadratic field &Qopf;[y]/(y^2-y-4).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? [G,chi] = znchar(Mod(3,35));
+  ? zncharconductor(G,chi)
+  %2 = 35
+  ? charorder(G,chi)
+  %3 = 12
+  ? mf = mfinit([35, 2, [G,chi]],0); mffields(mf)
+  %4 = [y, y]
+</pre><p>
+Here the character is primitive of order 12 and the two newforms are
+defined over &Qopf;(&chi;) = &Qopf;(&zeta;_12).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? mf = mfinit([35, 2, Mod(13,35)],0); mffields(mf)
+  %3 = [y^2 + Mod(5*t, t^2 + 1)]
+</pre><p>
+This time the character has order 4 and there are two conjugate
+newforms over &Qopf;(&chi;) = Q(i).</p>
+<p>
+The library syntax is <code>GEN <b>mffields</b>(GEN mf)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mffromell"></div>
+<div id="mffromell"></div>
+<h4>mffromell(E)</h4>
+<p>
+E being an elliptic curve defined over Q given by an
+integral model in <code><a href="Elliptic_curves.html#se:ellinit"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellinit</a></code> format, computes a 3-component vector
+<code>[mf,F,v]</code>, where F is the newform corresponding to E by
+modularity, <code>mf</code> is the newspace to which F belongs, and
+<code>v</code> gives the coefficients of F on <code>mfbasis(mf)</code>.</p>
+<p>
+</p><pre class="code">  ? E = ellinit("26a1");
+  ? [mf,F,co] = mffromell(E);
+  ? co
+  %2 = [3/4, 1/4]~
+  ?  mfcoefs(F, 5)
+  %3 = [0, 1, -1, 1, 1, -3]
+  ? ellan(E, 5)
+  %4 = [1, -1, 1, 1, -3]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mffromell</b>(GEN E)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mffrometaquo"></div>
+<div id="mffrometaquo"></div>
+<h4>mffrometaquo(<em>eta</em>, {<em>flag</em> = 0})</h4>
+<p>
+Modular form corresponding to the eta quotient matrix <code><a href="Transcendental_functions.html#se:eta"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">eta</a></code>.
+If the valuation v at infinity is fractional, return 0. If the eta
+quotient is not holomorphic but simply meromorphic, return 0 if
+<code>flag = 0</code>, return the eta quotient (divided by q to the power -v if
+v &lt; 0, i.e., with valuation 0) if flag is set.</p>
+<p>
+</p><pre class="code">  ? mffrometaquo(Mat([1,1]),1)
+  %1 = 0
+  ? mfcoefs(mffrometaquo(Mat([1,24])),6)
+  %2 = [0, 1, -24, 252, -1472, 4830, -6048]
+  ? mfcoefs(mffrometaquo([1,1;23,1]),10)
+  %3 = [0, 1, -1, -1, 0, 0, 1, 0, 1, 0, 0]
+  ? F = mffrometaquo([1,2;2,-1]); mfparams(F)
+  %4 = [16,1/2,1,y]
+  ? mfcoefs(F,10)
+  %5 = [1, -2, 0, 0, 2, 0, 0, 0, 0, -2, 0]
+  ? mffrometaquo(Mat([1,-24]))
+  %6 = 0
+  ? f = mffrometaquo(Mat([1,-24]),1); mfcoefs(f,6)
+  %7 = [1, 24, 324, 3200, 25650, 176256, 1073720]
+</pre><p>
+For convenience, a <code>t_VEC</code> is also accepted instead of
+a factorization matrix with a single row:</p>
+<p>
+</p><pre class="code">  ? f = mffrometaquo([1,24]); \\ also valid
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mffrometaquo</b>(GEN eta, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mffromlfun"></div>
+<div id="mffromlfun"></div>
+<h4>mffromlfun(L)</h4>
+<p>
+Let L being an L-function in any of the <code><a href="_L_minusfunctions.html#se:lfun"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfun</a></code> formats representing
+a self-dual modular form (for instance an eigenform). Return
+<code>[NK,space,v]</code> when <code>mf = mfinit(NK,space)</code> is the modular
+form space containing the form and <code>mftobasis(mf, v)</code> will represent it
+on the space basis. If L has rational coefficients, this will be enough
+to recognize the modular form in <em>mf</em>:</p>
+<p>
+</p><pre class="code">  ? L = lfuncreate(x^2+1);
+  ? lfunan(L,10)
+  %2 = [1, 1, 0, 1, 2, 0, 0, 1, 1, 2]
+  ? [NK,space,v] = mffromlfun(L); NK
+  %4 = [4, 1, -4]
+  ? mf=mfinit(NK,space); w = mftobasis(mf,v)
+  %5 = [1.0000000000000000000000000000000000000]~
+  ? [f] = mfbasis(mf); mfcoefs(f,10)   \\ includes a<sub>0</sub> !
+  %6 = [1/4, 1, 1, 0, 1, 2, 0, 0, 1, 1, 2]
+</pre><p></p>
+<p></p>
+<p>
+If L has inexact complex coefficients, one can for instance
+compute an eigenbasis for <em>mf</em> and check whether one of the attached
+L-function is reasonably close to L. In the example, we cheat by
+producing the L function from an eigenform in a known space, but the
+function does not use this information:</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([32,6,Mod(5,32)],0);
+  ? [poldegree(K) | K&lt;-mffields(mf)]
+  %2 = [19] \\ one orbit, [Q(F) : Q(chi)] = 19
+  ? L = lfunmf(mf)[1][1]; \\ one of the 19 L-functions attached to F
+  ? lfunan(L,3)
+  %4 = [1, 5.654... - 0.1812...*I, -7.876... - 19.02...*I]
+  ? [NK,space,v] = mffromlfun(L); NK
+  %5 = [32, 6, Mod(5, 32)]
+  ? vL = concat(lfunmf(mf)); \\ L functions for all cuspidal eigenforms
+  ? an = lfunan(L,10);
+  ? for (i = 1, #vL, if (normlp(lfunan(vL[i],10) - an, oo) &lt; 1e-10, print(i)));
+  1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mffromlfun</b>(GEN L, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mffromqf"></div>
+<div id="mffromqf"></div>
+<h4>mffromqf(Q, {P})</h4>
+<p>
+Q being an even integral positive definite quadratic form
+and P a homogeneous spherical polynomial for Q, computes
+a 3-component vector [<em>mf</em>,F,v], where F is the theta function
+corresponding to (Q,P), <em>mf</em> is the corresponding space of modular
+forms (from <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>), and v gives the coefficients of F on
+<code>mfbasis(mf)</code>.</p>
+<p>
+</p><pre class="code">  ? [mf,F,v] = mffromqf(2*matid(10)); v
+  %1 = [64/5, 4/5, 32/5]~
+  ? mfcoefs(F, 5)
+  %2 = [1, 20, 180, 960, 3380, 8424]
+  ? mfcoef(F, 10000) \\ number of ways of writing 10000 as sum of 10 squares
+  %3 = 128205250571893636
+  ? mfcoefs(F, 10000);  \\ fast !
+  time = 220ms
+  ? [mf,F,v] = mffromqf([2,0;0,2],x^4-6*x^2*y^2+y^4);
+  ? mfcoefs(F,10)
+  %6 = [0, 4, -16, 0, 64, -56, 0, 0, -256, 324, 224]
+  ? mfcoef(F,100000)  \\ instantaneous
+  %7 = 41304367104
+</pre><p></p>
+<p>
+Odd dimensions are supported, corresponding to forms of half-integral weight:</p>
+<p>
+</p><pre class="code">  ? [mf,F,v] = mffromqf(2*matid(3));
+  ? mfisequal(F, mfpow(mfTheta(),3))
+  %2 = 1
+  ? mfcoefs(F, 32) \\ illustrate Legendre's 3-square theorem
+  %3 = [ 1,
+         6, 12,  8, 6, 24, 24, 0, 12,
+        30, 24, 24, 8, 24, 48, 0, 6,
+        48, 36, 24,24, 48, 24, 0, 24,
+        30, 72, 32, 0, 72, 48, 0, 12]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mffromqf</b>(GEN Q, GEN P = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfgaloistype"></div>
+<div id="mfgaloistype"></div>
+<h4>mfgaloistype(<em>NK</em>, {F})</h4>
+<p>
+<code>NK</code> being either <code>[N,1,CHI]</code> or an <code>mf</code> output by
+<code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> in weight 1, gives the vector of types of Galois
+representations attached to each cuspidal eigenform,
+unless the modular form <code>F</code> is specified, in which case only for <code>F</code>
+(note that it is not tested whether <code>F</code> belongs to the correct modular
+form space, nor whether it is a cuspidal eigenform). Types A<sub>4</sub>, S<sub>4</sub>,
+A<sub>5</sub> are represented by minus their cardinality -12, -24, or -60,
+and type D<sub>n</sub> is represented by its cardinality, the integer 2n:</p>
+<p>
+</p><pre class="code">  ? mfgaloistype([124,1, Mod(67,124)]) \\ A4
+  %1 = [-12]
+  ? mfgaloistype([148,1, Mod(105,148)]) \\ S4
+  %2 = [-24]
+  ? mfgaloistype([633,1, Mod(71,633)]) \\ D10, A5
+  %3 = [10, -60]
+  ? mfgaloistype([239,1, -239]) \\ D6, D10, D30
+  %4 = [6, 10, 30]
+  ? mfgaloistype([71,1, -71])
+  %5 = [14]
+  ? mf = mfinit([239,1, -239],0); F = mfeigenbasis(mf)[2];
+  ? mfgaloistype(mf, F)
+  %7 = 10
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfgaloistype</b>(GEN NK, GEN F = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfhecke"></div>
+<div id="mfhecke"></div>
+<h4>mfhecke(<em>mf</em>, F, n)</h4>
+<p>
+F being a modular form in modular form space <em>mf</em>, returns
+T(n)F, where T(n) is the n-th Hecke operator.</p>
+<p>
+<b>Warning.</b> If F is of level M &lt; N, then T(n)F
+is in general not the same in M<sub>k</sub>(&Gamma;<sub>0</sub>(M),&chi;) and in
+M<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;). We take T(n) at the same level as the one used in
+<code>mf</code>.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([26,2],0); F = mfbasis(mf)[1]; mftobasis(mf,F)
+  %1 = [1, 0]~
+  ? G2 = mfhecke(mf,F,2); mftobasis(mf,G2)
+  %2 = [0, 1]~
+  ? G5 = mfhecke(mf,F,5); mftobasis(mf,G5)
+  %3 = [-2, 1]~
+</pre><p>
+Modular forms of half-integral weight are supported, in
+which case n must be a perfect square, else T<sub>n</sub> will act as 0 (the
+operator T<sub>p</sub> for p | N is not supported yet):</p>
+<p>
+</p><pre class="code">  ? F = mfpow(mfTheta(),3); mf = mfinit(F);
+  ? mfisequal(mfhecke(mf,F,9), mflinear([F],[4]))
+  %2 = 1
+</pre><p>
+(F is an eigenvector of all T<sub>p^2</sub>, with eigenvalue p+1 for
+odd p.)</p>
+<p>
+<b>Warning.</b> When n is a large composite, resp.&nbsp;the square of a large
+composite in half-integral weight, it is in general more efficient to use
+<code><a href="Modular_forms.html#se:mfheckemat"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfheckemat</a></code> on the <code><a href="Modular_forms.html#se:mftobasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mftobasis</a></code> coefficients:</p>
+<p>
+</p><pre class="code">  ? mfcoefs(mfhecke(mf,F,3^10), 10)
+  time = 917 ms.
+  %3 = [324, 1944, 3888, 2592, 1944, 7776, 7776, 0, 3888, 9720, 7776]
+  ? M = mfheckemat(mf,3^10) \\ instantaneous
+  %4 =
+  [324]
+  ? G = mflinear(mf, M*mftobasis(mf,F));
+  ? mfcoefs(G, 10) \\ instantaneous
+  %6 = [324, 1944, 3888, 2592, 1944, 7776, 7776, 0, 3888, 9720, 7776]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfhecke</b>(GEN mf, GEN F, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfheckemat"></div>
+<div id="mfheckemat"></div>
+<h4>mfheckemat(<em>mf</em>, <em>vecn</em>)</h4>
+<p>
+If <code>vecn</code> is an integer, matrix of the Hecke operator T(n) on the
+basis formed by <code>mfbasis(mf)</code>. If it is a vector, vector of
+such matrices, usually faster than calling each one individually.</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([32,4],0); mfheckemat(mf,3)
+  %1 =
+  [0 44   0]
+  
+  [1  0 -10]
+  
+  [0 -2   0]
+  ? mfheckemat(mf,[5,7])
+  %2 = [[0, 0, 220; 0, -10, 0; 1, 0, 12], [0, 88, 0; 2, 0, -20; 0, -4, 0]]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfheckemat</b>(GEN mf, GEN vecn)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfinit"></div>
+<div id="mfinit"></div>
+<h4>mfinit(<em>NK</em>, {<em>space</em> = 4})</h4>
+<p>
+Create the space of modular forms corresponding to the data contained in
+<code>NK</code> and <code>space</code>. <code>NK</code> is a vector which can be
+either [N,k] (N level, k weight) corresponding to a subspace of
+M<sub>k</sub>(&Gamma;<sub>0</sub>(N)), or [N,k,<em>CHI</em>] (<em>CHI</em> a character)
+corresponding to a subspace of M<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;). Alternatively,
+it can be a modular form F or modular form space, in which case we use
+<code><a href="Modular_forms.html#se:mfparams"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfparams</a></code> to define the space parameters.</p>
+<p>
+The subspace is described by the small integer <code>space</code>: 0 for the
+newspace S<sub>k</sub><sup>new</sup>(&Gamma;<sub>0</sub>(N),&chi;), 1 for the cuspidal
+space S<sub>k</sub>, 2 for the oldspace S<sub>k</sub><sup>old</sup>, 3 for the space of
+Eisenstein series E<sub>k</sub> and 4 for the full space M<sub>k</sub>.</p>
+<p>
+<b>Wildcards.</b> For given level and weight, it is advantageous to
+compute simultaneously spaces attached to different Galois orbits
+of characters, especially in weight 1. The parameter <em>CHI</em> may be set
+to 0 (wildcard), in which case we return a vector of all <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>(s) of
+non trivial spaces in S<sub>k</sub>(&Gamma;<sub>1</sub>(N)), one for each Galois orbit
+(see <code>znchargalois</code>). One may also set <em>CHI</em> to a vector of
+characters and we return a vector of all mfinits of subspaces of
+M<sub>k</sub>(G<sub>0</sub>(N),&chi;) for &chi; in the list, in the same order. In weight 1,
+only S<sub>1</sub><sup>new</sup>, S<sub>1</sub> and E<sub>1</sub> support wildcards.</p>
+<p>
+The output is a technical structure S, or a vector of structures if
+<em>CHI</em> was a wildcard, which contains the following information:
+[N,k,&chi;] is given by <code><a href="Modular_forms.html#se:mfparams"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfparams</a></code>(S), the space
+dimension is <code><a href="Modular_forms.html#se:mfdim"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfdim</a></code>(S) and a &Copf;-basis for the space is
+<code><a href="Modular_forms.html#se:mfbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfbasis</a></code>(S). The structure is entirely algebraic and does not depend
+on the current <code>realbitprecision</code>.</p>
+<p>
+</p><pre class="code">  ? S = mfinit([36,2], 0); \\ new space
+  ? mfdim(S)
+  %2 = 1
+  ? mfparams
+  %3 = [36, 2, 1, y]  \\ trivial character
+  ? f = mfbasis(S)[1]; mfcoefs(f,10)
+  %4 = [0, 1, 0, 0, 0, 0, 0, -4, 0, 0, 0]
+  
+  ? vS = mfinit([36,2,0],0); \\ with wildcard
+  ? #vS
+  %6 = 4   \\ 4 non trivial spaces (mod Galois action)
+  ? apply(mfdim,vS)
+  %7 = [1, 2, 1, 4]
+  ? mfdim([36,2,0], 0)
+  %8 = [[1, Mod(1, 36), 1, 0], [2, Mod(35, 36), 2, 0], [3, Mod(13, 36), 1, 0],
+        [6, Mod(11, 36), 4, 0]]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfinit</b>(GEN NK, long space)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfisCM"></div>
+<div id="mfisCM"></div>
+<h4>mfisCM(F)</h4>
+<p>
+Tests whether the eigenform F is a CM form. The answer
+is 0 if it is not, and if it is, either the unique negative discriminant
+of the CM field, or the pair of two negative discriminants of CM fields,
+this latter case occuring only in weight 1 when the projective image is
+D<sub>2</sub> = C<sub>2</sub> x C<sub>2</sub>, i.e., coded 4 by <code><a href="Modular_forms.html#se:mfgaloistype"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfgaloistype</a></code>.</p>
+<p>
+</p><pre class="code">  ? F = mffromell(ellinit([0,1]))[2]; mfisCM(F)
+  %1 = -3
+  ? mf = mfinit([39,1,-39],0); F=mfeigenbasis(mf)[1]; mfisCM(F)
+  %2 = Vecsmall([-3, -39])
+  ? mfgaloistype(mf)
+  %3 = [4]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfisCM</b>(GEN F)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfisequal"></div>
+<div id="mfisequal"></div>
+<h4>mfisequal(F, G, {<em>lim</em> = 0})</h4>
+<p>
+Checks whether the modular forms F and G are equal. If <code>lim</code>
+is nonzero, only check equality of the first lim+1 Fourier coefficients.</p>
+<p>
+</p><pre class="code">  ? D = mfDelta(); F = mfderiv(D);
+  ? G = mfmul(mfEk(2), D);
+  ? mfisequal(F, G)
+  %2 = 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>mfisequal</b>(GEN F, GEN G, long lim)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfkohnenbasis"></div>
+<div id="mfkohnenbasis"></div>
+<h4>mfkohnenbasis(<em>mf</em>)</h4>
+<p>
+<code>mf</code> being a cuspidal space of half-integral weight k &geq; 3/2
+with level N and character &chi;, gives a
+basis B of the Kohnen +-space of <code>mf</code> as a matrix whose columns are
+the coefficients of B on the basis of <code>mf</code>. The conductor of either
+&chi; or &chi;.(-4/.) must divide N/4.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([36,5/2],1); K = mfkohnenbasis(mf); K~
+  %1 =
+  [-1 0 0 2 0 0]
+  
+  [ 0 0 0 0 1 0]
+  ? (mfcoefs(mf,20) * K)~
+  %4 =
+  [0 -1 0 0 2 0 0 0  0 0 0 0 0 -6 0 0 8 0 0 0 0]
+  
+  [0  0 0 0 0 1 0 0 -2 0 0 0 0  0 0 0 0 1 0 0 2]
+  
+  ? mf = mfinit([40,3/2,8],1); mfkohnenbasis(mf)
+   ***   at top-level: mfkohnenbasis(mf)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** mfkohnenbasis: incorrect type in mfkohnenbasis [incorrect CHI] (t_VEC).
+</pre><p>
+In the final example both &chi; = (8/.) and &chi;.(-4/.)
+have conductor 8, which does not divide N/4 = 10.</p>
+<p>
+The library syntax is <code>GEN <b>mfkohnenbasis</b>(GEN mf)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfkohnenbijection"></div>
+<div id="mfkohnenbijection"></div>
+<h4>mfkohnenbijection(<em>mf</em>)</h4>
+<p>
+<code>mf</code> being a cuspidal space of half-integral weight, returns
+<code>[mf2,M,K,shi]</code>, where M is a matrix giving a Hecke-module
+isomorphism from the cuspidal space <code>mf2</code> giving
+S<sub>2k-1</sub>(&Gamma;<sub>0</sub>(N),&chi;^2) to the
+Kohnen +-space S<sub>k</sub>^+(&Gamma;<sub>0</sub>(4N),&chi;), <code>K</code> represents a basis B
+of the Kohnen +-space as a matrix whose columns are the coefficients of B
+on the basis of <code>mf</code>, and <code>shi</code> gives the linear combination of
+Shimura lifts giving M<sup>-1</sup>.</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([60,5/2],1); [mf2,M,K,shi]=mfkohnenbijection(mf); M
+  %1 =
+  [ -5/14 -1/14  1/2  3/2]
+  
+  [ 37/84 -1/84  1/2  1/2]
+  
+  [-17/84  5/84 -3/2 -9/2]
+  
+  [     0     0 -1/2 -1/2]
+  
+  ? shi
+  %2 = Vecsmall([1, 5])
+</pre><p></p>
+<p>
+This last command shows that the map giving the bijection is the sum of the
+Shimura lift with D = 1 and the one with D = 5.</p>
+<p>
+Since it gives a bijection of Hecke modules, this matrix can be used to
+transport modular form data from the easily computed space of level N
+and weight 2k-1 to the more difficult space of level 4N and weight
+k: matrices of Hecke operators, new space, splitting into eigenspaces and
+eigenforms. Examples:</p>
+<p>
+</p><pre class="code">  ? K^(-1)*mfheckemat(mf,121)*K /* matrix of T_11^2 on K. Slowish. */
+  time = 1,280 ms.
+  %1 =
+  [ 48  24  24  24]
+  
+  [  0  32   0 -20]
+  
+  [-48 -72 -40 -72]
+  
+  [  0   0   0  52]
+  ? M*mfheckemat(mf2,11)*M^(-1) /* instantaneous via T_11 on S<sub>2k-1</sub> */
+  time = 0 ms.
+  %2 =
+  [ 48  24  24  24]
+  
+  [  0  32   0 -20]
+  
+  [-48 -72 -40 -72]
+  
+  [  0   0   0  52]
+  ? mf20=mfinit(mf2,0); [mftobasis(mf2,b) | b&lt;-mfbasis(mf20)]
+  %3 = [[0, 0, 1, 0]~, [0, 0, 0, 1]~]
+  ? F1=M*[0,0,1,0]~
+  %4 = [1/2, 1/2, -3/2, -1/2]~
+  ? F2=M*[0,0,0,1]~
+  %5 = [3/2, 1/2, -9/2, -1/2]
+  ? K*F1
+  %6 = [1, 0, 0, 1, 1, 0, 0, 1, -3, 0, 0, -3, 0, 0]~
+  ? K*F2
+  %7 = [3, 0, 0, 3, 1, 0, 0, 1, -9, 0, 0, -3, 0, 0]~
+</pre><p></p>
+<p></p>
+<p>
+This gives a basis of the new space of S<sub>5/2</sub>^+(&Gamma;<sub>0</sub>(60)) expressed
+on the initial basis of S<sub>5/2</sub>(&Gamma;<sub>0</sub>(60)). If we want the eigenforms, we
+write instead:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? BE=mfeigenbasis(mf20);[E1,E2]=apply(x-&gt;K*M*mftobasis(mf2,x),BE)
+  %1 = [[1, 0, 0, 1, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0]~,\
+        [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, -3, 0, 0]~
+  ? EI1 = mflinear(mf, E1); EI2=mflinear(mf, E2);
+</pre><p></p>
+<p>
+These are the two eigenfunctions in the space <code>mf</code>, the first (resp.,
+second) will have Shimura image a multiple of BE[1] (resp., BE[2]).
+The function <code><a href="Modular_forms.html#se:mfkohneneigenbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfkohneneigenbasis</a></code> does this directly.</p>
+<p>
+The library syntax is <code>GEN <b>mfkohnenbijection</b>(GEN mf)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfkohneneigenbasis"></div>
+<div id="mfkohneneigenbasis"></div>
+<h4>mfkohneneigenbasis(<em>mf</em>, <em>bij</em>)</h4>
+<p>
+<code>mf</code> being a cuspidal space of half-integral weight k &geq; 3/2 and
+<code>bij</code> being the output of <code>mfkohnenbijection(mf)</code>, outputs a
+3-component vector <code>[mf0,BNEW,BEIGEN]</code>, where <code>BNEW</code> and
+<code>BEIGEN</code> are two matrices whose columns are the coefficients
+of a basis of the Kohnen new space and of the eigenforms on the basis of
+<code>mf</code> respectively, and <code>mf0</code> is the corresponding new space of
+integral weight 2k-1.</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([44,5/2],1);bij=mfkohnenbijection(mf);
+  ? [mf0,BN,BE]=mfkohneneigenbasis(mf,bij);
+  ? BN~
+  %2 =
+  [2 0 0 -2  2 0  -8]
+  
+  [2 0 0  4 14 0 -32]
+  
+  ? BE~
+  %3 = [Mod(1, y^2 - 3) Mod(0, y^2 - 3) Mod(0, y^2 - 3) Mod(y - 1, y^2 - 3)\
+        Mod(2*y + 1, y^2 - 3) Mod(0, y^2 - 3) Mod(-4*y - 4, y^2 - 3)]
+  ? lift(mfcoefs(mf,20)*BE[,1])
+  %4 = [0, 1, 0, 0, y - 1, 2*y + 1, 0, 0, 0, -4*y - 4, 0, 0,\
+        -5*y + 3, 0, 0, 0, -6, 0, 0, 0, 7*y + 9]~
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfkohneneigenbasis</b>(GEN mf, GEN bij)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mflinear"></div>
+<div id="mflinear"></div>
+<h4>mflinear(<em>vF</em>, v)</h4>
+<p>
+<code>vF</code> being a vector of modular forms and <code>v</code>
+a vector of coefficients of same length, compute the linear
+combination of the entries of <code>vF</code> with coefficients <code>v</code>.
+<b>Note.</b> Use this in particular to subtract two forms F and G
+(with vF = [F,G] and v = [1,-1]), or to multiply an form by
+a scalar &lambda; (with vF = [F] and v = [&lambda;]).</p>
+<p>
+</p><pre class="code">  ? D = mfDelta(); G = mflinear([D],[-3]);
+  ? mfcoefs(G,4)
+  %2 = [0, -3, 72, -756, 4416]
+</pre><p>
+For user convenience, we allow</p>
+<p>
+<b>*</b> a modular form space <code>mf</code> as a <code>vF</code> argument, which is
+understood as <code>mfbasis(mf)</code>;</p>
+<p>
+<b>*</b> in this case, we also allow a modular form f as v, which
+is understood as <code><a href="Modular_forms.html#se:mftobasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mftobasis</a></code>(<em>mf</em>, f).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? T = mfpow(mfTheta(),7); F = mfShimura(T,-3); \\ Shimura lift for D=-3
+  ? mfcoefs(F,8)
+  %2 = [-5/9, 280, 9240, 68320, 295960, 875280, 2254560, 4706240, 9471000]
+  ? mf = mfinit(F); G = mflinear(mf,F);
+  ? mfcoefs(G,8)
+  %4 = [-5/9, 280, 9240, 68320, 295960, 875280, 2254560, 4706240, 9471000]
+</pre><p>
+This last construction allows to replace a general modular
+form by a simpler linear combination of basis functions, which is often
+more efficient:</p>
+<p>
+</p><pre class="code">  ? T10=mfpow(mfTheta(),10); mfcoef(T10, 10^4) \\ direct evaluation
+  time = 399 ms.
+  %5 = 128205250571893636
+  ? mf=mfinit(T10); F=mflinear(mf,T10); \\ instantaneous
+  ? mfcoef(F, 10^4) \\ after linearization
+  time = 67 ms.
+  %7 = 128205250571893636
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mflinear</b>(GEN vF, GEN v)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfmanin"></div>
+<div id="mfmanin"></div>
+<h4>mfmanin(<em>FS</em>)</h4>
+<p>
+Given the modular symbol FS associated to an eigenform F by
+<code>mfsymbol(mf,F)</code>, computes the even and odd special polynomials as well
+as the even and odd periods &omega;^+ and &omega;^- as a vector
+[[P^+,P^-],[&omega;^+,&omega;^-,r]], where
+r = Im(&omega;^+<span style="text-decoration:overline">&omega;^-</span>)/ &lt; F,F &gt; . If F has several embeddings
+into &Copf;, give the vector of results corresponding to each embedding.</p>
+<p>
+</p><pre class="code">  ? D=mfDelta(); mf=mfinit(D); DS=mfsymbol(mf,D);
+  ? [pols,oms]=mfmanin(DS); pols
+  %2 = [[4*x^9 - 25*x^7 + 42*x^5 - 25*x^3 + 4*x],\
+        [-36*x^10 + 691*x^8 - 2073*x^6 + 2073*x^4 - 691*x^2 + 36]]
+  ? oms
+  %3 = [0.018538552324740326472516069364750571812,\
+       -0.00033105361053212432521308691198949874026*I, 4096/691]
+  ? mf=mfinit([11,2],0); F=mfeigenbasis(mf)[1]; FS=mfsymbol(mf,F);
+  ? [pols,oms]=mfmanin(FS);pols
+  %5 = [[0, 0, 0, 1, 1, 0, 0, -1, -1, 0, 0, 0],\
+        [2, 0, 10, 5, -5, -10, -10, -5, 5, 10, 0, -2]]
+  ? oms[3]
+  %6 = 24/5
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfmanin</b>(GEN FS, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfmul"></div>
+<div id="mfmul"></div>
+<h4>mfmul(F, G)</h4>
+<p>
+Multiply the two forms F and G.</p>
+<p>
+</p><pre class="code">  ? E4 = mfEk(4); G = mfmul(mfmul(E4,E4),E4);
+  ? mfcoefs(G, 4)
+  %2 = [1, 720, 179280, 16954560, 396974160]
+  ? mfcoefs(mfpow(E4,3), 4)
+  %3 = [1, 720, 179280, 16954560, 396974160]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfmul</b>(GEN F, GEN G)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfnumcusps"></div>
+<div id="mfnumcusps"></div>
+<h4>mfnumcusps(N)</h4>
+<p>
+Number of cusps of &Gamma;<sub>0</sub>(N)</p>
+<p>
+</p><pre class="code">  ? mfnumcusps(24)
+  %1 = 8
+  ? mfcusps(24)
+  %1 = [0, 1/2, 1/3, 1/4, 1/6, 1/8, 1/12, 1/24]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfnumcusps</b>(GEN N)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfparams"></div>
+<div id="mfparams"></div>
+<h4>mfparams(F)</h4>
+<p>
+If F is a modular form space, returns <code>[N,k,CHI,space]</code>, level,
+weight, character, and space code. If F is a modular form, returns
+<code>[N,k,CHI,P]</code>, where P is the (polynomial giving the) field of
+definition of F: in that case the level N may be a multiple of the
+level of F and the polynomial P may define a larger field than &Qopf;(F).
+If you want the true level of F from this result, use
+<code>mfconductor(mfinit(F),F)</code>. The polynomial P defines an extension of
+&Qopf;(&chi;) = &Qopf;[t]/(&Phi;(t)) for the cyclotomic polynomial of order
+f(&chi;); it has coefficients in that number field (polmods in t).</p>
+<p>
+In contrast with <code>mfparams(f)[4]</code> which always gives the polynomial
+P defining the relative extension &Qopf;(f)/&Qopf;(&chi;), the member function
+<code>f.mod</code> returns the polynomial used to define &Qopf;(f) over &Qopf;
+(either a cyclotomic polynomial or a polynomial with cyclotomic
+coefficients).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? E1 = mfeisenstein(4,-3,-4); E2 = mfeisenstein(3,5,-7); E3 = mfmul(E1,E2);
+  ? apply(mfparams, [E1,E2,E3])
+  %2 = [[12, 4, 12, y], [35, 3, -35, y], [420, 7, -420, y]]
+  
+  ? mf = mfinit([36,2,Mod(13,36)],0); [f] = mfeigenbasis(mf); mfparams(mf)
+  %3 = [36, 2, Mod(13, 36), 0]
+  ? mfparams(f)
+  %4 = [36, 2, Mod(13, 36), y]
+  ? f.mod
+  %5 = t^2 + t + 1
+  
+  ? mf = mfinit([36,4,Mod(13,36)],0); [f] = mfeigenbasis(mf);
+  ? mfparams(f)
+  %7 = [36, 4, Mod(13, 36), y^3 + Mod(2*t - 2, t^2 + t + 1)*y^2
+        + Mod(-4*t + 6, t^2+t+1)*y + Mod(10*t - 1, t^2+t+1)]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfparams</b>(GEN F)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfperiodpol"></div>
+<div id="mfperiodpol"></div>
+<h4>mfperiodpol(<em>mf</em>, f, {<em>flag</em> = 0})</h4>
+<p>
+Period polynomial of the cuspidal part of the form f, in other words
+&int;<sub>0</sub><sup>i oo </sup>(X-&tau;)<sup>k-2</sup>f(&tau;)d&tau;. If <code>flag</code> is 0, ordinary
+period polynomial. If it is 1 or -1, even or odd part of that polynomial.
+f can also be the modular symbol output by <code><a href="Modular_forms.html#se:mfsymbol"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsymbol</a></code>(mf,f).</p>
+<p>
+</p><pre class="code">  ? D = mfDelta(); mf = mfinit(D,0);
+  ? PP = mfperiodpol(mf, D, -1); PP/=polcoeff(PP, 1); bestappr(PP)
+  %1 = x^9 - 25/4*x^7 + 21/2*x^5 - 25/4*x^3 + x
+  ? PM = mfperiodpol(mf, D, 1); PM/=polcoeff(PM, 0); bestappr(PM)
+  %2 = -x^10 + 691/36*x^8 - 691/12*x^6 + 691/12*x^4 - 691/36*x^2 + 1
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfperiodpol</b>(GEN mf, GEN f, long flag, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfperiodpolbasis"></div>
+<div id="mfperiodpolbasis"></div>
+<h4>mfperiodpolbasis(k, {<em>flag</em> = 0})</h4>
+<p>
+Basis of period polynomials for weight k. If flag = 1 or -1, basis of
+odd or even period polynomials.</p>
+<p>
+</p><pre class="code">  ? mfperiodpolbasis(12,1)
+  %1 = [x^8 - 3*x^6 + 3*x^4 - x^2, x^10 - 1]
+  ? mfperiodpolbasis(12,-1)
+  %2 = [4*x^9 - 25*x^7 + 42*x^5 - 25*x^3 + 4*x]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfperiodpolbasis</b>(long k, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfpetersson"></div>
+<div id="mfpetersson"></div>
+<h4>mfpetersson(<em>fs</em>, {<em>gs</em>})</h4>
+<p>
+Petersson scalar product of the modular forms f and g belonging to
+the same modular form space <code>mf</code>, given by the corresponding
+"modular symbols" <code>fs</code> and <code>gs</code> output by <code><a href="Modular_forms.html#se:mfsymbol"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsymbol</a></code>
+(also in weight 1 and half-integral weight, where symbols do not exist).
+If <code>gs</code> is omitted it is understood to be equal to <code>fs</code>.
+The scalar product is normalized by the factor 1/[&Gamma;:&Gamma;<sub>0</sub>(N)].
+Note that f and g can both be noncuspidal, in which case the program
+returns an error if the product is divergent.
+If the fields of definition &Qopf;(f) and &Qopf;(g) are equal to &Qopf;(&chi;)
+the result is a scalar. If [&Qopf;(f):&Qopf;(&chi;)] = d &gt; 1 and
+[&Qopf;(g):&Qopf;(&chi;)] = e &gt; 1 the result is a d x e matrix corresponding
+to all the embeddings of f and g. In the intermediate cases d = 1 or
+e = 1 the result is a row or column vector.</p>
+<p>
+</p><pre class="code">  ? D=mfDelta(); mf=mfinit(D); DS=mfsymbol(mf,D); mfpetersson(DS)
+  %1 = 1.0353620568043209223478168122251645932 E-6
+  ? mf=mfinit([11,6],0);B=mfeigenbasis(mf);BS=vector(#B,i,mfsymbol(mf,B[i]));
+  ? mfpetersson(BS[1])
+  %3 = 1.6190120685220988139111708455305245466 E-5
+  ? mfpetersson(BS[1],BS[2])
+  %4 = [-3.826479006582967148 E-42 - 2.801547395385577002 E-41*I,\
+        1.6661127341163336125 E-41 + 1.1734725972345985061 E-41*I,\
+        0.E-42 - 6.352626992842664490 E-41*I]~
+  ? mfpetersson(BS[2])
+  %5 =
+  [  2.7576133733... E-5  2.0... E-42          6.3... E-43         ]
+  
+  [ -4.1... E-42          6.77837030070... E-5 3.3...E-42          ]
+  
+  [ -6.32...E-43          3.6... E-42          2.27268958069... E-5]
+  
+  ? mf=mfinit([23,2],0); F=mfeigenbasis(mf)[1]; FS=mfsymbol(mf,F);
+  ? mfpetersson(FS)
+  %5 =
+  [0.0039488965740025031688548076498662860143 -3.56 ... E-40]
+  
+  [ -3.5... E-40  0.0056442542987647835101583821368582485396]
+</pre><p></p>
+<p></p>
+<p>
+Noncuspidal example:</p>
+<p>
+</p><pre class="code">  ? E1=mfeisenstein(5,1,-3);E2=mfeisenstein(5,-3,1);
+  ? mf=mfinit([12,5,-3]); cusps=mfcusps(12);
+  ? apply(x-&gt;mfcuspval(mf,E1,x),cusps)
+  %3 = [0, 0, 1, 0, 1, 1]
+  ? apply(x-&gt;mfcuspval(mf,E2,x),cusps)
+  %4 = [1/3, 1/3, 0, 1/3, 0, 0]
+  ? E1S=mfsymbol(mf,E1);E2S=mfsymbol(mf,E2);
+  ? mfpetersson(E1S,E2S)
+  %6 = -1.884821671646... E-5 - 1.9... E-43*I
+</pre><p></p>
+<p></p>
+<p>
+Weight 1 and 1/2-integral weight example:</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([23,1,-23],1);F=mfbasis(mf)[1];FS=mfsymbol(mf,F);
+  ? mfpetersson(mf,FS)
+  %2 = 0.035149946790370230814006345508484787443
+  ? mf=mfinit([4,9/2],1);F=mfbasis(mf)[1];FS=mfsymbol(mf,F);
+  ? mfpetersson(FS)
+  %4 = 0.00015577084407139192774373662467908966030
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfpetersson</b>(GEN fs, GEN gs = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfpow"></div>
+<div id="mfpow"></div>
+<h4>mfpow(F, n)</h4>
+<p>
+Compute F^n, where n is an integer:</p>
+<p>
+</p><pre class="code">  ? G = mfpow(mfEk(4), 3);  \\ E4^3
+  ? mfcoefs(G, 4)
+  %2 = [1, 720, 179280, 16954560, 396974160]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfpow</b>(GEN F, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfsearch"></div>
+<div id="mfsearch"></div>
+<h4>mfsearch(<em>NK</em>, V, {<em>space</em>})</h4>
+<p>
+<code>NK</code> being of the form <code>[N,k]</code> with k possibly half-integral,
+search for a modular form with rational coefficients, of weight k and
+level N, whose initial coefficients a(0),... are equal to V;
+<code>space</code> specifies the modular form spaces in which to search, in
+<code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> or <code><a href="Modular_forms.html#se:mfdim"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfdim</a></code> notation. The output is a list of matching forms
+with that given level and weight. Note that the character is of the form
+(D/.), where D is a (positive or negative) fundamental discriminant
+dividing N. The forms are sorted by increasing |D|.</p>
+<p>
+The parameter N can be replaced by a vector of allowed levels, in which
+case the list of forms is sorted by increasing level, then increasing |D|.
+If a form is found at level N, any multiple of N with the same D is not
+considered. Some useful possibilities are</p>
+<p>
+<b>*</b> <code>[N<sub>1</sub>..N<sub>2</sub>]</code>: all levels between N<sub>1</sub> and N<sub>2</sub>,
+endpoints included;</p>
+<p>
+<b>*</b> <code>F * [N<sub>1</sub>..N<sub>2</sub>]</code>: same but levels divisible by F;</p>
+<p>
+<b>*</b> <code><a href="Arithmetic_functions.html#se:divisors"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">divisors</a></code>(N<sub>0</sub>): all levels dividing N<sub>0</sub>.</p>
+<p>
+Note that this is different from <code><a href="Modular_forms.html#se:mfeigensearch"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfeigensearch</a></code>, which only searches
+for rational eigenforms.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? F = mfsearch([[1..40], 2], [0,1,2,3,4], 1); #F
+  %1 = 3
+  ? [ mfparams(f) | f &lt;- F ]
+  %2 = [[38, 2, 1, y], [40, 2, 8, y], [40, 2, 40, y]]
+  ? mfcoefs(F[1],10)
+  %3 = [0, 1, 2, 3, 4, -5, -8, 1, -7, -5, 7]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfsearch</b>(GEN NK, GEN V, long space)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfshift"></div>
+<div id="mfshift"></div>
+<h4>mfshift(F, s)</h4>
+<p>
+Divide the form F by q^s, omitting the remainder if there is one.
+One can have s &lt; 0.</p>
+<p>
+</p><pre class="code">  ? D=mfDelta(); mfcoefs(mfshift(D,1), 4)
+  %1 = [1, -24, 252, -1472, 4830]
+  ? mfcoefs(mfshift(D,2), 4)
+  %2 = [-24, 252, -1472, 4830, -6048]
+  ? mfcoefs(mfshift(D,-1), 4)
+  %3 = [0, 0, 1, -24, 252]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfshift</b>(GEN F, long s)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfshimura"></div>
+<div id="mfshimura"></div>
+<h4>mfshimura(<em>mf</em>, F, {D = 1})</h4>
+<p>
+F being a modular form of half-integral weight k &geq; 3/2 and D a
+(not necessarily fundamental) discriminant of suitable sign, returns the
+Shimura lift G of weight 2k-1 corresponding to D. The sign of D
+should be equal to (-1)<sup>k-1/2</sup>&epsilon;, where &epsilon; = 1 if &chi; is
+defined modulo N/4, &epsilon; = -1 if (-4/.)&chi; is defined modulo
+N/4 (and error otherwise). This function returns [<em>mf2</em>,G,v]
+where <em>mf2</em> is a modular form space containing G and v expresses G
+in terms of <code><a href="Modular_forms.html#se:mfbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfbasis</a></code>(<em>mf2</em>); so that G is
+<code><a href="Modular_forms.html#se:mflinear"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mflinear</a></code>(<em>mf2</em>,v). By extension, we allow D to be a positive
+squarefree integer, but in that case if (-1)<sup>k-1/2</sup>&epsilon;.D is not a
+discriminant, the Kohnen +-space will in general not be sent to
+level N/4 but only N/2.</p>
+<p>
+</p><pre class="code">  ? F = mfpow(mfTheta(), 7); mf = mfinit(F);
+  ? [mf2, G, v] = mfshimura(mf, F, -3); mfcoefs(G,5)
+  %2 = [-5/9, 280, 9240, 68320, 295960, 875280]
+  ? mfparams(G)
+  %3 = [1, 6, 1, y]
+  ? mfparams(mf2)
+  %4 = [2, 6, 1, 4] \\ it may happen that G has lower level than expected
+  ? v
+  %5 = [280, 0]~
+  ? mfcoefs(mf2, 5)
+  %6 =
+  [-1/504 -1/504]
+  
+  [     1      0]
+  
+  [    33      1]
+  
+  [   244      0]
+  
+  [  1057     33]
+  
+  [  3126      0]
+  ? mf = mfinit([60,5/2],1); F = mflinear(mf,mfkohnenbasis(mf)[,1]);
+  ? mfparams(mfshimura(mf,F,1)[2])
+  %8 = [15, 4, 1, y]
+  ? mfparams(mfshimura(mf,F,6)[2])
+  %9 = [30, 4, 1, y]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfshimura</b>(GEN mf, GEN F, long D)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfslashexpansion"></div>
+<div id="mfslashexpansion"></div>
+<h4>mfslashexpansion(<em>mf</em>, f, g, n, <em>flrat</em>, {&<em>params</em>})</h4>
+<p>
+Let <em>mf</em> be a modular form space in level N, f a modular form
+belonging to <em>mf</em> and let g be in M<sub>2</sub>^+(Q). This function
+computes the Fourier expansion of f|<sub>k</sub> g to n terms. We first describe
+the behaviour when <code>flrat</code> is 0: the result is a
+vector v of floating point complex numbers such that
+f|<sub>k</sub> g(&tau;) = q^&alpha; &sum;<sub>m &geq; 0</sub> v[m+1] q<sup>m/w</sup>,
+where q = e(&tau;), w is the width of the cusp g(i oo )
+(namely (N/(c^2,N) if g is integral) and &alpha; is a rational number.
+If <code>params</code> is given, it is set to the parameters [&alpha;,w,
+<code><a href="Vectors__matrices__linear_algebra_and_sets.html#se:matid"
+    onClick="parent.itemFrame.location='cont_Vectors__matrices__linear_algebra_and_sets.html'">matid</a></code>(2)].</p>
+<p>
+If <code>flrat</code> is 1, the program tries to rationalize the expression, i.e.,
+to express the coefficients as rational numbers or polmods. We
+write g = &lambda;.M.A where &lambda;  &in;  &Qopf;<sup>*</sup>,
+M &in;  SL<sub>2</sub>(&Zopf;) and A = [a,b;0,d] is upper triangular,
+integral and primitive  with a &gt; 0, d &gt; 0 and 0 &leq; b &lt; d. Let
+&alpha; and w by the parameters attached to the expansion of
+F := f |<sub>k</sub> M as above, i.e.
+ F(&tau;) = q^&alpha; &sum;<sub>m &geq; 0</sub> v[m+1] q<sup>m/w</sup>.
+The function returns the expansion v of F = f |<sub>k</sub> M and sets
+the parameters to [&alpha;, w, A]. Finally, the desired expansion is
+(a/d)<sup>k/2</sup> F(&tau; + b/d). The latter is identical to the returned
+expansion when A is the identity, i.e. when g &in;  PSL<sub>2</sub>(&Zopf;).
+If this is not the case, the expansion differs from v by the multiplicative
+constant (a/d)<sup>k/2</sup> e(&alpha; b/(dw)) and a twist by a root of unity
+q<sup>1/w</sup>  &rightarrow;  e(b/(dw)) q<sup>1/w</sup>. The complications introduced by this extra
+matrix A allow to recognize the coefficients in a much smaller cyclotomic
+field, hence to obtain a simpler description overall. (Note that this
+rationalization step may result in an error if the program cannot perform it.)</p>
+<p></p>
+<p>
+</p><pre class="code">  ? mf = mfinit([32,4],0); f = mfbasis(mf)[1];
+  ? mfcoefs(f, 10)
+  %2 = [0, 3, 0, 0, 0, 2, 0, 0, 0, 47, 0]
+  ? mfatk = mfatkininit(mf,32); mfcoefs(mfatkin(mfatk,f),10) / mfatk[3]
+  %3 = [0, 1, 0, 16, 0, 22, 0, 32, 0, -27, 0]
+  ? mfatk[3] \\ here normalizing constant C = 1, but need in general
+  %4 = 1
+  ? mfslashexpansion(mf,f,[0,-1;1,0],10,1,&params) * 32^(4/2)
+  %5 = [0, 1, 0, 16, 0, 22, 0, 32, 0, -27, 0]
+  ? params
+  %6 = [0, 32, [1, 0; 0, 1]]
+  
+  ? mf = mfinit([12,8],0); f = mfbasis(mf)[1];
+  ? mfslashexpansion(mf,f,[1,0;2,1],7,0)
+  %7 = [0, 0, 0, 0.6666666... + 0.E-38*I, 0, -3.999999... + 6.92820...*I, 0,\
+        -11.99999999... - 20.78460969...*I]
+  ? mfslashexpansion(mf,f,[1,0;2,1],7,1, &params)
+  %8 = [0, 0, 0, 2/3, 0, Mod(8*t, t^2+t+1), 0, Mod(-24*t-24, t^2+t+1)]
+  ? params
+  %9 = [0, 3, [1, 0; 0, 1]]
+</pre><p></p>
+<p>
+If [&Qopf;(f):&Qopf;(&chi;)] &gt; 1, the coefficients may be polynomials in y,
+where y is any root of the polynomial giving the field of definition of
+f (<code>f.mod</code> or <code>mfparams(f)[4]</code>).</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([23,2],0);f=mfeigenbasis(mf)[1];
+  ? mfcoefs(f,5)
+  %1 = [Mod(0, y^2 - y - 1), Mod(1, y^2 - y - 1), Mod(-y, y^2 - y - 1),\
+    Mod(2*y - 1, y^2 - y - 1), Mod(y - 1, y^2 - y - 1), Mod(-2*y, y^2 - y - 1)]
+  ? mfslashexpansion(mf,f,[1,0;0,1],5,1)
+  %2 = [0, 1, -y, 2*y - 1, y - 1, -2*y]
+  ? mfslashexpansion(mf,f,[0,-1;1,0],5,1)
+  %3 = [0, -1/23, 1/23*y, -2/23*y + 1/23, -1/23*y + 1/23, 2/23*y]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfslashexpansion</b>(GEN mf, GEN f, GEN g, long n, long flrat, GEN *params = NULL, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfspace"></div>
+<div id="mfspace"></div>
+<h4>mfspace(<em>mf</em>, {f})</h4>
+<p>
+Identify the modular space <em>mf</em>, resp.&nbsp;the modular form f in
+<em>mf</em> if present, as the flag given to <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code>.
+Returns 0 (newspace), 1 (cuspidal space), 2 (old space),
+3 (Eisenstein space) or 4 (full space).</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([1,12],1); mfspace(mf)
+  %1 = 1
+  ? mfspace(mf, mfDelta())
+  %2 = 0 \\ new space
+</pre><p>
+This function returns -1 when the form f is modular
+but does not belong to the space.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([1,2]; mfspace(mf, mfEk(2))
+  %3 = -1
+</pre><p>
+When f is not modular and is for instance only quasi-modular, the
+function returns nonsense:</p>
+<p>
+</p><pre class="code">  ? M6 = mfinit([1,6]);
+  ? dE4 = mfderiv(mfEk(4)); \\ not modular !
+  ? mfspace(M6,dE4)  \\ asserts (wrongly) that E4' belongs to new space
+  %3 = 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>mfspace</b>(GEN mf, GEN f = NULL)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfsplit"></div>
+<div id="mfsplit"></div>
+<h4>mfsplit(<em>mf</em>, {<em>dimlim</em> = 0}, {<em>flag</em> = 0})</h4>
+<p>
+<code>mf</code> from <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> with integral weight containing the new space
+(either the new space itself or the cuspidal space or the full space), and
+preferably the newspace itself for efficiency, split the space into Galois
+orbits of eigenforms of the newspace, satisfying various restrictions.</p>
+<p>
+The functions returns [vF, vK], where vF gives (Galois orbit of)
+eigenforms and vK is a list of polynomials defining each Galois orbit.
+The eigenforms are given in <code><a href="Modular_forms.html#se:mftobasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mftobasis</a></code> format, i.e. as a matrix
+whose columns give the forms with respect to <code>mfbasis(mf)</code>.</p>
+<p>
+If <code>dimlim</code> is set, only the Galois orbits of dimension  &leq; <code>dimlim</code>
+are computed (i.e. the rational eigenforms if <code>dimlim</code> = 1 and the
+character is real). This can considerably speed up the function when a Galois
+orbit is defined over a large field.</p>
+<p>
+<code>flag</code> speeds up computations when the dimension is large: if flag = d &gt; 0,
+when the dimension of the eigenspace is  &gt; d, only the Galois polynomial is
+computed.</p>
+<p>
+Note that the function <code><a href="Modular_forms.html#se:mfeigenbasis"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfeigenbasis</a></code> returns all eigenforms in an
+easier to use format (as modular forms which can be input as is in other
+functions); <code><a href="Modular_forms.html#se:mfsplit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsplit</a></code> is only useful when you can restrict
+to orbits of small dimensions, e.g. rational eigenforms.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? mf=mfinit([11,2],0); f=mfeigenbasis(mf)[1]; mfcoefs(f,16)
+  %1 = [0, 1, -2, -1, ...]
+  ? mf=mfinit([23,2],0); f=mfeigenbasis(mf)[1]; mfcoefs(f,16)
+  %2 = [Mod(0, z^2 - z - 1), Mod(1, z^2 - z - 1), Mod(-z, z^2 - z - 1), ...]
+  ? mf=mfinit([179,2],0); apply(poldegree, mffields(mf))
+  %3 = [1, 3, 11]
+  ? mf=mfinit([719,2],0);
+  ? [vF,vK] = mfsplit(mf, 5); \\ fast when restricting to small orbits
+  time = 192 ms.
+  ? #vF  \\ a single orbit
+  %5 = 1
+  ? poldegree(vK[1]) \\ of dimension 5
+  %6 = 5
+  ? [vF,vK] = mfsplit(mf); \\ general case is slow
+  time = 2,104 ms.
+  ? apply(poldegree,vK)
+  %8 = [5, 10, 45] \\ because degree 45 is large...
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mfsplit</b>(GEN mf, long dimlim, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfsturm"></div>
+<div id="mfsturm"></div>
+<h4>mfsturm(<em>NK</em>)</h4>
+<p>
+Gives the Sturm bound for modular forms on &Gamma;<sub>0</sub>(N) and
+weight k, i.e., an upper bound for the order of the zero at infinity of
+a nonzero form. <code>NK</code> is either</p>
+<p>
+<b>*</b> a pair [N,k],</p>
+<p>
+<b>*</b> or the output of <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> in which case the exact upper bound
+is returned.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? NK = [96,6]; mfsturm(NK)
+  %1 = 97
+  ? mf=mfinit(NK,1); mfsturm(mf)
+  %2 = 76
+  ? mfdim(NK,0) \\ new space
+  %3 = 72
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>mfsturm</b>(GEN NK)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfsymbol"></div>
+<div id="mfsymbol"></div>
+<h4>mfsymbol(<em>mf</em>, f)</h4>
+<p>
+Initialize data for working with all period polynomials of the modular
+form f: this is essential for efficiency for functions such as
+<code><a href="Modular_forms.html#se:mfsymboleval"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsymboleval</a></code>, <code><a href="Modular_forms.html#se:mfmanin"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfmanin</a></code>, and <code><a href="Modular_forms.html#se:mfpetersson"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfpetersson</a></code>. An <code><a href="Modular_forms.html#se:mfsymbol"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsymbol</a></code>
+contains an <code>mf</code> structure and can always be used whenever an <code>mf</code>
+would be needed.</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([23,2],0);F=mfeigenbasis(mf)[1];
+  ? FS=mfsymbol(mf,F);
+  ? mfsymboleval(FS,[0,oo])
+  %3 = [8.762565143790690142 E-39 + 0.0877907874...*I,
+       -5.617375463602574564 E-39 + 0.0716801031...*I]
+  ? mfpetersson(FS)
+  %4 =
+  [0.0039488965740025031688548076498662860143 1.2789721111175127425 E-40]
+  
+  [1.2630501762985554269 E-40 0.0056442542987647835101583821368582485396]
+</pre><p></p>
+<p>
+By abuse of language, initialize data for working with <code><a href="Modular_forms.html#se:mfpetersson"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfpetersson</a></code> in
+weight 1 and half-integral weight (where no symbol exist); the <code>mf</code>
+argument may be an <code><a href="Modular_forms.html#se:mfsymbol"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsymbol</a></code> attached to a form on the space,
+which avoids recomputing data independent of the form.</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([12,9/2],1); F=mfbasis(mf);
+  ? fs=mfsymbol(mf,F[1]);
+  time = 476 ms
+  ? mfpetersson(fs)
+  %2 = 1.9722437519492014682047692073275406145 E-5
+  ? f2s = mfsymbol(mf,F[2]);
+  time = 484 ms.
+  ? mfpetersson(f2s)
+  %4 = 1.2142222531326333658647877864573002476 E-5
+  ? gs = mfsymbol(fs,F[2]); \\ re-use existing symbol, a little faster
+  time = 430 ms.
+  ? mfpetersson(gs) == %4  \\ same value
+  %6 = 1
+</pre><p>
+For simplicity, we also allow <code>mfsymbol(f)</code> instead of
+<code>mfsymbol(mfinit(f), f)</code>:</p>
+<p>
+The library syntax is <code>GEN <b>mfsymbol</b>(GEN mf, GEN f = NULL, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mfsymboleval"></div>
+<div id="mfsymboleval"></div>
+<h4>mfsymboleval(<em>fs</em>, <em>path</em>, {<em>ga</em> = <em>id</em>})</h4>
+<p>
+Evaluation of the modular symbol fs (corresponding to the modular
+form f) output by <code><a href="Modular_forms.html#se:mfsymbol"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsymbol</a></code> on the given path <code>path</code>, where
+<code>path</code> is either a vector [s<sub>1</sub>,s<sub>2</sub>] or an integral matrix [a,b;c,d]
+representing the path [a/c,b/d]. In both cases s<sub>1</sub> or s<sub>2</sub> (or a/c or
+b/d) can also be elements of the upper half-plane.
+To avoid possibly lengthy <code><a href="Modular_forms.html#se:mfsymbol"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfsymbol</a></code> computations, the program also
+accepts fs of the form <code>[mf,F]</code>, but in that case s<sub>1</sub> and s<sub>2</sub>
+are limited to <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:oo"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">oo</a></code> and elements of the upper half-plane.
+The result is the polynomial equal to
+&int;<sub>s<sub>1</sub></sub><sup>s<sub>2</sub></sup>(X-&tau;)<sup>k-2</sup>F(&tau;)d&tau;, the integral being
+computed along a geodesic joining s<sub>1</sub> and s<sub>2</sub>. If <code>ga</code> in GL<sub>2</sub>^+(&Qopf;)
+is given, replace F by F|<sub>k</sub>&gamma;. Note that if the integral diverges,
+the result will be a rational function.
+If the field of definition &Qopf;(f) is larger than &Qopf;(&chi;) then f can be
+embedded into &Copf; in d = [&Qopf;(f):&Qopf;(&chi;)] ways, in which case a vector of
+the d results is returned.</p>
+<p>
+</p><pre class="code">  ? mf=mfinit([35,2],1);f=mfbasis(mf)[1];fs=mfsymbol(mf,f);
+  ? mfsymboleval(fs,[0,oo])
+  %1 = 0.31404011074188471664161704390256378537*I
+  ? mfsymboleval(fs,[1,3;2,5])
+  %2 = -0.1429696291... - 0.2619975641...*I
+  ? mfsymboleval(fs,[I,2*I])
+  %3 = 0.00088969563028739893631700037491116258378*I
+  ? E2=mfEk(2);E22=mflinear([E2,mfbd(E2,2)],[1,-2]);mf=mfinit(E22);
+  ? E2S = mfsymbol(mf,E22);
+  ? mfsymboleval(E2S,[0,1])
+  %6 = (-1.00000...*x^2 + 1.00000...*x - 0.50000...)/(x^2 - x)
+</pre><p></p>
+<p>
+The rational function which is given in case the integral diverges is
+easy to interpret. For instance:</p>
+<p>
+</p><pre class="code">  ? E4=mfEk(4);mf=mfinit(E4);ES=mfsymbol(mf,E4);
+  ? mfsymboleval(ES,[I,oo])
+  %2 = 1/3*x^3 - 0.928067...*I*x^2 - 0.833333...*x + 0.234978...*I
+  ? mfsymboleval(ES,[0,I])
+  %3 = (-0.234978...*I*x^3 - 0.833333...*x^2 + 0.928067...*I*x + 0.333333...)/x
+</pre><p></p>
+<p>
+<code>mfsymboleval(ES,[a,oo])</code> is the limit as T &rightarrow;  oo  of
+&int;<sub>a</sub><sup>iT</sup>(X-&tau;)<sup>k-2</sup>F(&tau;)d&tau; + a(0)(X-iT)<sup>k-1</sup>/(k-1) ,
+where a(0) is the 0th coefficient of F at infinity. Similarly,
+<code>mfsymboleval(ES,[0,a])</code> is the limit as T &rightarrow;  oo  of
+&int;<sub>i/T</sub>^a(X-&tau;)<sup>k-2</sup>F(&tau;)d&tau;+b(0)(1+iTX)<sup>k-1</sup>/(k-1) ,
+where b(0) is the 0th coefficient of F|<sub>k</sub> S at infinity.</p>
+<p>
+The library syntax is <code>GEN <b>mfsymboleval</b>(GEN fs, GEN path, GEN ga = NULL, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mftaylor"></div>
+<div id="mftaylor"></div>
+<h4>mftaylor(F, n, {<em>flreal</em> = 0})</h4>
+<p>
+F being a form in M<sub>k</sub>(SL<sub>2</sub>(&Zopf;)), computes the first n+1
+canonical Taylor expansion of F around &tau; = I. If <code>flreal = 0</code>,
+computes only an algebraic equivalence class. If <code>flreal</code> is set,
+compute p<sub>n</sub> such that for &tau; close enough to I we have
+f(&tau;) = (2I/(&tau;+I))^k&sum;<sub>n &gt;= 0</sub>p<sub>n</sub>((&tau;-I)/(&tau;+I))^n .</p>
+<p>
+</p><pre class="code">  ? D=mfDelta();
+  ? mftaylor(D,8)
+  %2 = [1/1728, 0, -1/20736, 0, 1/165888, 0, 1/497664, 0, -11/3981312]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mftaylor</b>(GEN F, long n, long flreal, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mftobasis"></div>
+<div id="mftobasis"></div>
+<h4>mftobasis(<em>mf</em>, F, {<em>flag</em> = 0})</h4>
+<p>
+Coefficients of the form F on the basis given by <code>mfbasis(mf)</code>.
+A q-expansion or vector of coefficients
+can also be given instead of F, but in this case an error message may occur
+if the expansion is too short. An error message is also given if F does not
+belong to the modular form space. If <code>flag</code> is set, instead of
+error messages the output is an affine space of solutions if a q-expansion
+or vector of coefficients is given, or the empty column otherwise.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([26,2],0); mfdim(mf)
+  %1 = 2
+  ? F = mflinear(mf,[a,b]); mftobasis(mf,F)
+  %2 = [a, b]~
+</pre><p></p>
+<p>
+A q-expansion or vector of coefficients can also be given instead of F.</p>
+<p>
+</p><pre class="code">  ? Th = 1 + 2*sum(n=1, 8, q^(n^2), O(q^80));
+  ? mf = mfinit([4,5,Mod(3,4)]);
+  ? mftobasis(mf, Th^10)
+  %3 = [64/5, 4/5, 32/5]~
+</pre><p></p>
+<p>
+If F does not belong to the corresponding space, the result is incorrect
+and simply matches the coefficients of F up to some bound, and
+the function may either return an empty column or an error message.
+If <code>flag</code> is set, there are no error messages, and the result is
+an empty column if F is a modular form; if F is supplied via a series
+or vector of coefficients which does not contain enough information to force
+a unique (potential) solution, the function returns [v,K] where v is a
+solution and K is a matrix of maximal rank describing the affine space of
+potential solutions v + K.x.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([4,12],1);
+  ? mftobasis(mf, q-24*q^2+O(q^3), 1)
+  %2 = [[43/64, -63/8, 800, 21/64]~, [1, 0; 24, 0; 2048, 768; -1, 0]]
+  ? mftobasis(mf, [0,1,-24,252], 1)
+  %3 = [[1, 0, 1472, 0]~, [0; 0; 768; 0]]
+  ? mftobasis(mf, [0,1,-24,252,-1472], 1)
+  %4 = [1, 0, 0, 0]~ \\ now uniquely determined
+  ? mftobasis(mf, [0,1,-24,252,-1472,0], 1)
+  %5 = [1, 0, 0, 0]~ \\ wrong result: no such form exists
+  ? mfcoefs(mflinear(mf,%), 5)  \\ double check
+  %6 = [0, 1, -24, 252, -1472, 4830]
+  ? mftobasis(mf, [0,1,-24,252,-1472,0])
+   ***   at top-level: mftobasis(mf,[0,1,
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** mftobasis: domain error in mftobasis: form does not belong to space
+  ? mftobasis(mf, mfEk(10))
+   ***   at top-level: mftobasis(mf,mfEk(
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** mftobasis: domain error in mftobasis: form does not belong to space
+  ? mftobasis(mf, mfEk(10), 1)
+  %7 = []~
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mftobasis</b>(GEN mf, GEN F, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mftocoset"></div>
+<div id="mftocoset"></div>
+<h4>mftocoset(N, M, <em>Lcosets</em>)</h4>
+<p>
+M being a matrix in SL<sub>2</sub>(Z) and <code>Lcosets</code> being
+<code>mfcosets(N)</code>, a list of right cosets of &Gamma;<sub>0</sub>(N),
+find the coset to which M belongs. The output is a pair
+[&gamma;,i] such that M = &gamma; <code>Lcosets</code>[i], &gamma; &in; &Gamma;<sub>0</sub>(N).</p>
+<p>
+</p><pre class="code">  ? N = 4; L = mfcosets(N);
+  ? mftocoset(N, [1,1;2,3], L)
+  %2 = [[-1, 1; -4, 3], 5]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mftocoset</b>(long N, GEN M, GEN Lcosets)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mftonew"></div>
+<div id="mftonew"></div>
+<h4>mftonew(<em>mf</em>, F)</h4>
+<p>
+<code>mf</code> being being a full or cuspidal space with parameters [N,k,&chi;]
+and F a cusp form in that space, returns a vector of 3-component vectors
+[M,d,G], where f(&chi;) | M | N, d | N/M, and G is a form
+in S<sub>k</sub><sup>new</sup>(&Gamma;<sub>0</sub>(M),&chi;) such that F is equal to the sum of
+the B(d)(G) over all these 3-component vectors.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([96,6],1); F = mfbasis(mf)[60]; s = mftonew(mf,F); #s
+  %1 = 1
+  ? [M,d,G] = s[1]; [M,d]
+  %2 = [48, 2]
+  ? mfcoefs(F,10)
+  %3 = [0, 0, -160, 0, 0, 0, 0, 0, 0, 0, -14400]
+  ? mfcoefs(G,10)
+  %4 = [0, 0, -160, 0, 0, 0, 0, 0, 0, 0, -14400]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mftonew</b>(GEN mf, GEN F)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mftraceform"></div>
+<div id="mftraceform"></div>
+<h4>mftraceform(<em>NK</em>, {<em>space</em> = 0})</h4>
+<p>
+If NK = [N,k,CHI,.] as in <code><a href="Modular_forms.html#se:mfinit"
+    onClick="parent.itemFrame.location='cont_Modular_forms.html'">mfinit</a></code> with k integral, gives the
+trace form in the corresponding subspace of S<sub>k</sub>(&Gamma;<sub>0</sub>(N),&chi;).
+The supported values for <code>space</code> are 0: the newspace (default),
+1: the full cuspidal space.</p>
+<p>
+</p><pre class="code">  ? F = mftraceform([23,2]); mfcoefs(F,16)
+  %1 = [0, 2, -1, 0, -1, -2, -5, 2, 0, 4, 6, -6, 5, 6, 4, -10, -3]
+  ? F = mftraceform([23,1,-23]); mfcoefs(F,16)
+  %2 = [0, 1, -1, -1, 0, 0, 1, 0, 1, 0, 0, 0, 0, -1, 0, 0, -1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mftraceform</b>(GEN NK, long space)</code>.</p>
+<p>
+
+<hr>
+<div id="se:mftwist"></div>
+<div id="mftwist"></div>
+<h4>mftwist(F, D)</h4>
+<p>
+F being a modular form, returns the twist of F by the
+integer D, i.e., the form G such that
+<code>mfcoef(G,n) = </code>(D/n)<code>mfcoef(F,n)</code>, where (D/n) is the Kronecker
+symbol.</p>
+<p>
+</p><pre class="code">  ? mf = mfinit([11,2],0); F = mfbasis(mf)[1]; mfcoefs(F, 5)
+  %1 = [0, 1, -2, -1, 2, 1]
+  ? G = mftwist(F,-3); mfcoefs(G, 5)
+  %2 = [0, 1, 2, 0, 2, -1]
+  ? mf2 = mfinit([99,2],0); mftobasis(mf2, G)
+  %3 = [1/3, 0, 1/3, 0]~
+</pre><p>
+Note that twisting multiplies the level by D^2. In
+particular it is not an involution:</p>
+<p>
+</p><pre class="code">  ? H = mftwist(G,-3); mfcoefs(H, 5)
+  %4 = [0, 1, -2, 0, 2, 1]
+  ? mfparams(G)
+  %5 = [99, 2, 1, y]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>mftwist</b>(GEN F, GEN D)</code>.</p>
+<p>
+
+<hr>
+</body>

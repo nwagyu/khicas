@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>2-d graph</title>
+</head>
+<body >
+<a href="cascmd_en596.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en598.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:plotfunc" class="subsection">7.4.1  2-d graph</h3>
+<p>The <span style="font-family:monospace">plotfunc</span> command draws the graph of a function.<br>
+<span style="font-family:monospace">funcplot</span> is a synonym for <span style="font-family:monospace">plotfunc</span>.</p><p><span style="font-family:monospace">plotfunc</span> can draw the graph of a one-variable function or a
+two-variable function; this section will discuss one-variable
+functions and the next section will discuss two-variable functions.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">plotfunc</span> takes one mandatory argument and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression defining a function.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">var</span>, the variable name (by default
+<span style="font-family:monospace">x</span>) possibly with bounds. If the variable is given as
+<span style="font-style:italic">var=a..b</span>, the graph will be drawn from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>,
+otherwise it will be graphed over the default interval 
+(see Section <a href="cascmd_en028.html#ssec%3Aconfgraph">2.5.8</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">opt</span>, which can be
+<span style="font-family:monospace">xstep=</span><span style="font-style:italic">n</span> to specify the discretization
+step or <span style="font-family:monospace">nstep=</span><span style="font-style:italic">n</span> to specify the number of points used to
+graph.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">plotfunc(</span><span style="font-style:italic">expr,var</span> ⟨<span style="font-style:italic">opt</span>⟩<span style="font-family:monospace">)</span>
+draws the graph.
+</li></ul><h4 id="sec1493" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x^2-2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en030.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(a^2-2,a=-1..2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en031.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x^2-2,x,xstep=5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en032.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">plotfunc(x^2-2,x=-2..3,nstep=30)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en033.png">
+</div>
+</li></ul>
+<hr>
+<a href="cascmd_en596.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en598.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Producing random matrices: randmatrix ranm randMat
+
+
+
+</title>
+</head>
+<body >
+<a href="cascmd_en664.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en666.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:randmatrix" class="subsection">8.3.16  Producing random matrices: <span style="font-family:monospace">randmatrix</span> <span style="font-family:monospace">ranm</span> <span style="font-family:monospace">randMat</span>
+<a id="hevea_default1196"></a>
+<a id="hevea_default1197"></a>
+<a id="hevea_default1198"></a>
+</h3>
+<p>The <span style="font-family:monospace">randmatrix</span> command produces random vectors and matrices.
+(See also Section <a href="cascmd_en316.html#ssec%3Aranm1">5.27.28</a> and Section <a href="cascmd_en664.html#ssec%3Arandvector">8.3.15</a>.)<br>
+<span style="font-family:monospace">ranm</span> and <span style="font-family:monospace">randMat</span> are synonyms for <span style="font-family:monospace">randmatrix</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">randmatrix</span> takes one mandatory argument and three
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">n</span>, an integer.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">p</span>, an integer.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">a</span>, an integer.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>, a range.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">distr</span>, a distribution, which can be one
+of:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">’rand(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)’</span> (see Section <a href="cascmd_en650.html#ssec%3Arand">8.3.1</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">’binomial(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">p</span><span style="font-family:monospace">)’</span>, <span style="font-family:monospace">’binomial,</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">p</span><span style="font-family:monospace">’</span>
+or <span style="font-family:monospace">’randbinomial(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">p</span><span style="font-family:monospace">)’</span>, for a binomial distribution
+(see Section <a href="cascmd_en668.html#ssec%3Abinomial">8.4.3</a> and Section <a href="cascmd_en652.html#ssec%3Arandbinomial">8.3.3</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">’multinomial(</span><span style="font-style:italic">P</span><span style="font-family:monospace">,</span><span style="font-style:italic">K</span><span style="font-family:monospace">)’</span>,
+<span style="font-family:monospace">’multinomial,</span><span style="font-style:italic">P</span><span style="font-family:monospace">,</span><span style="font-style:italic">K</span><span style="font-family:monospace">’</span> or
+<span style="font-family:monospace">’randmultinomial(</span><span style="font-style:italic">P</span><span style="font-family:monospace">,</span><span style="font-style:italic">K</span><span style="font-family:monospace">)’</span> for a multinomial distribution
+(see Section <a href="cascmd_en670.html#ssec%3Amultinomial">8.4.5</a> and Section <a href="cascmd_en653.html#ssec%3Arandmultinomial">8.3.4</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">’poisson(</span>λ<span style="font-family:monospace">)’</span>, <span style="font-family:monospace">’poisson,
+</span>λ<span style="font-family:monospace">’</span> or <span style="font-family:monospace">’randpoisson(</span>λ<span style="font-family:monospace">)’</span> for a Poisson
+distribution (see Section <a href="cascmd_en671.html#ssec%3Apoisson">8.4.6</a> and
+Section <a href="cascmd_en654.html#ssec%3Arandpoisson">8.3.5</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">’normald(</span>µ<span style="font-family:monospace">,</span>σ<span style="font-family:monospace">)’</span>,
+<span style="font-family:monospace">’normald,</span>µ<span style="font-family:monospace">,</span>σ<span style="font-family:monospace">’</span> or <span style="font-family:monospace">’randnorm(</span>µ<span style="font-family:monospace">,</span>σ<span style="font-family:monospace">)’</span>
+for a normal distribution (see Section <a href="cascmd_en672.html#ssec%3Anormald">8.4.7</a> and
+Section <a href="cascmd_en655.html#ssec%3Arandnorm">8.3.6</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">’exp(</span><span style="font-style:italic">a</span><span style="font-family:monospace">)’</span>, <span style="font-family:monospace">’exp,</span><span style="font-style:italic">a</span><span style="font-family:monospace">’</span> or
+<span style="font-family:monospace">’randexp(</span><span style="font-style:italic">a</span><span style="font-family:monospace">)’</span> for an exponential distribution (see
+Section <a href="cascmd_en680.html#ssec%3Aexponentiald">8.4.15</a> and Section <a href="cascmd_en662.html#ssec%3Arandexp">8.3.13</a>).
+</li><li class="li-itemize"><span style="font-family:monospace">’fisher(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">m</span><span style="font-family:monospace">)’</span>, <span style="font-family:monospace">’fisher,</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">m</span><span style="font-family:monospace">’</span> or
+’randfisher(<span style="font-style:italic">n</span>,<span style="font-style:italic">m</span>)’ for a Fisher-Snédécor
+distribution (see Section <a href="cascmd_en675.html#ssec%3Afishersnedecor">8.4.10</a> and
+Section <a href="cascmd_en658.html#ssec%3Arandfisher">8.3.9</a>).
+</li></ul>
+Note that <span style="font-style:italic">distr</span> is in quotes.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">randmatrix(</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> returns a vector of
+length <span style="font-style:italic">n</span> whose elements are integers chosen randomly from
+[−99,−98,…,98,99] with equal probability.
+</li><li class="li-itemize"><span style="font-family:monospace">randmatrix(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">p</span><span style="font-family:monospace">)</span> returns an <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span> matrix
+whose elements are integers chosen randomly from [−99,99] with
+equal probability.
+</li><li class="li-itemize"><span style="font-family:monospace">randmatrix(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">p</span><span style="font-family:monospace">,</span><span style="font-style:italic">a</span><span style="font-family:monospace">)</span> returns an <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span> matrix
+whose elements are integers chosen randomly from [0,<span style="font-style:italic">a</span>) (or (<span style="font-style:italic">a</span>,0]
+is <span style="font-style:italic">a</span> is negative) with equal probability. 
+</li><li class="li-itemize"><span style="font-family:monospace">randmatrix(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">p</span><span style="font-family:monospace">,</span><span style="font-style:italic">a</span>..<span style="font-style:italic">b</span><span style="font-family:monospace">)</span> returns an <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span>
+matrix whose elements are real numbers chosen randomly from 
+[<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>) with equal probability.
+</li><li class="li-itemize"><span style="font-family:monospace">randmatrix(</span><span style="font-style:italic">n</span><span style="font-family:monospace">,</span><span style="font-style:italic">p</span><span style="font-family:monospace">,</span><span style="font-style:italic">distr</span><span style="font-family:monospace">)</span>
+returns an <span style="font-style:italic">n</span>× <span style="font-style:italic">p</span> matrix whose elements are numbers chosen
+randomly according to distribution <span style="font-style:italic">distr</span>.
+</li></ul><h4 id="sec1662" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">randmatrix(5)</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−48,54,28,−51,63</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">randmatrix(2,3)</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >40</td><td style="text-align:center;white-space:nowrap" >−74</td><td style="text-align:center;white-space:nowrap" >−87</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >40</td><td style="text-align:center;white-space:nowrap" >−19</td><td style="text-align:center;white-space:nowrap" >20</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">randmatrix(2,3,10)</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >2</td><td style="text-align:center;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >4</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">randmatrix(2,3,0..1)</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >0.384355471935</td><td style="text-align:center;white-space:nowrap" >0.655490326229</td><td style="text-align:center;white-space:nowrap" >0.924850208685</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0.159429819323</td><td style="text-align:center;white-space:nowrap" >0.952957109548</td><td style="text-align:center;white-space:nowrap" >0.220945354551</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">randmatrix(2,3,’randnorm(2,1)’)</span>
+</div>
+<span style="font-style:italic">Output (for example):</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎝</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >2.17670501195</td><td style="text-align:center;white-space:nowrap" >0.653882567048</td><td style="text-align:center;white-space:nowrap" >2.94543112983</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2.46150672679</td><td style="text-align:center;white-space:nowrap" >2.19251320854</td><td style="text-align:center;white-space:nowrap" >2.44211638655</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎠</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en664.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en666.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

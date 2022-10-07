@@ -1,0 +1,15 @@
+#! /bin/bash
+touch tmpzzz.c
+cc -c tmpzzz.c
+echo -n "objcopy --input binary --output " > mklibjs0
+objdump -f tmpzzz.o | grep "file format" | awk '{printf $4}' >> mklibjs0
+echo -n " --binary-architecture " >> mklibjs0
+objdump -f tmpzzz.o | grep "architecture" | awk '{printf $2}' | awk -F, '{ printf $1 }'  >> mklibjs0
+echo " qjscalcjs.js qjscalcjs.o" >> mklibjs0
+echo -n "objcopy --input binary --output " >> mklibjs0
+objdump -f tmpzzz.o | grep "file format" | awk '{printf $4}' >> mklibjs0
+echo -n " --binary-architecture " >> mklibjs0
+objdump -f tmpzzz.o | grep "architecture" | awk '{printf $2}' | awk -F, '{ printf $1 }'  >> mklibjs0
+echo " xcasjs.js xcasjs.o" >> mklibjs0
+bash mklibjs0
+ar cru libjs.a qjscalcjs.o xcasjs.o

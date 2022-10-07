@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>A point on a geometric object in the plane: element
+</title>
+</head>
+<body >
+<a href="cascmd_en800.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en802.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:element" class="subsection">13.6.15  A point on a geometric object in the plane: <span style="font-family:monospace">element</span>
+<a id="hevea_default1490"></a></h3>
+<p>The <span style="font-family:monospace">element</span> command is most useful in a two-dimensional
+geometry screen; it creates objects that are restricted to a geometric
+figure.</p><p><span style="font-family:monospace">element</span> takes different types of arguments:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">element</span> can take one mandatory argument and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span>..<span style="font-style:italic">b</span>, a range of values.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">init</span> and <span style="font-style:italic">step</span>, an initial
+value (by default (<span style="font-style:italic">a</span>+<span style="font-style:italic">b</span>)/2) and step size (by default (<span style="font-style:italic">b</span>−<span style="font-style:italic">a</span>)/100).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">element(</span><span style="font-style:italic">a</span>..<span style="font-style:italic">b</span> ⟨<span style="font-style:italic">init,step</span>⟩<span style="font-family:monospace">)</span>
+creates a parameter restricted to the interval from <span style="font-style:italic">a</span> to <span style="font-style:italic">b</span>, with the given
+initial value and whose value can be changed in the given step
+sizes.
+</li></ul><p>For example, the command <span style="font-family:monospace">t:= element(0..pi)</span> creates a
+parameter <span style="font-family:monospace">t</span> which can take on values between 0 and π
+and has initial value π/2. It also creates a slider labeled
+<span style="font-family:monospace">t</span> which can be used to change the values. The values of
+any later formulas involving <span style="font-family:monospace">t</span> will change with <span style="font-family:monospace">t</span>.</p><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">element</span> can take one mandatory argument and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a curve.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">init</span>, an initial value (by default
+1/2).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">element(</span><span style="font-style:italic">C</span> ⟨,<span style="font-style:italic">init</span>⟩<span style="font-family:monospace">)</span>
+creates a point which will be restricted to the curve, the
+initial position of the point is determined by setting the parameter
+(in the default parameterization of the object) to the initial
+value. If the point can be moved by the mouse (as it can when the
+geometry screen is in <span style="font-family:monospace">Pointer</span> mode), then the motion will
+be restricted to the geometric object.
+</li></ul><p>For example, the command <span style="font-family:monospace">A:= element(circle(0,2))</span> creates a
+point labeled <span style="font-family:monospace">A</span> whose position is restricted to the circle
+of radius 2 centered at the origin. Since the circle has default
+parameterization 2exp(<span style="font-style:italic">i</span> <span style="font-style:italic">t</span>), <span style="font-family:monospace">A</span> starts out at
+2exp(<span style="font-style:italic">i</span>/2).</p><p><br>
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">element</span> can take two mandatory arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a polygon or polygonal line with <span style="font-style:italic">n</span> sides.
+</li><li class="li-itemize"><span style="font-family:monospace">[floor(</span><span style="font-style:italic">t</span><span style="font-family:monospace">),frac(</span><span style="font-style:italic">t</span><span style="font-family:monospace">)]</span>, where <span style="font-style:italic">t</span> is a variable previously
+defined by <span style="font-style:italic">t</span><span style="font-family:monospace"> = element(0..</span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">element(</span><span style="font-style:italic">P</span><span style="font-family:monospace">,[floor(</span><span style="font-style:italic">t</span><span style="font-family:monospace">),frac(</span><span style="font-style:italic">t</span><span style="font-family:monospace">)])</span>
+creates a point restricted to the polygonal line. With the
+sides numbered starting at 0, the value of <span style="font-family:monospace">floor(</span><span style="font-style:italic">t</span><span style="font-family:monospace">)</span>
+determines which side the point is on, and the value of
+<span style="font-family:monospace">frac(</span><span style="font-style:italic">t</span><span style="font-family:monospace">)</span> determines how far along the side the point is.
+</li></ul>
+<hr>
+<a href="cascmd_en800.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en802.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

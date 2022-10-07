@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Pole and polar: pole polar
+
+</title>
+</head>
+<body >
+<a href="cascmd_en887.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en889.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2246" class="subsection">13.17.5  Pole and polar: <span style="font-family:monospace">pole</span> <span style="font-family:monospace">polar</span>
+<a id="hevea_default1589"></a>
+<a id="hevea_default1590"></a></h3>
+<p>Given a circle centered at <span style="font-style:italic">O</span>, a point <span style="font-style:italic">A</span> is a pole and a line <span style="font-style:italic">L</span>
+is the corresponding polar if <span style="font-style:italic">L</span> is the line passing through the
+inversion of <span style="font-style:italic">A</span> with respect to the circle (see
+Section <a href="cascmd_en865.html#ssec%3A2dinversion">13.15.7</a>) passing through the line
+<span style="font-style:italic">OA</span>.</p><p>The <span style="font-family:monospace">polar</span> command finds the polar of a point.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">polar</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a circle.
+</li><li class="li-itemize"><span style="font-style:italic">A</span>, a point.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">polar(</span><span style="font-style:italic">C</span>,<span style="font-style:italic">A</span><span style="font-family:monospace">)</span> returns and draws the polar of the point
+<span style="font-style:italic">A</span> with respect to <span style="font-style:italic">C</span>.
+</li></ul><h4 id="sec2247" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">polar(circle(0,1),(i+1)/2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en281.png">
+</div><p><br>
+</p><p>The <span style="font-family:monospace">pole</span> command finds the pole of a line.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">pole</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a circle.
+</li><li class="li-itemize"><span style="font-style:italic">L</span>, a line
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">pole(</span><span style="font-style:italic">C</span>,<span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns and draws the pole of the line
+<span style="font-style:italic">L</span> with respect to <span style="font-style:italic">C</span>.
+</li></ul><h4 id="sec2248" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">pole(circle(0,1),line(i,1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en282.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">affix(pole(circle(0,1),line(i,1)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">1+<span style="font-style:italic">i</span>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en887.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en889.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

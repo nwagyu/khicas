@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Hierarchical clustering: cluster</title>
+</head>
+<body >
+<a href="cascmd_en695.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en698.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1809" class="subsection">9.1.1  Hierarchical clustering: <span style="font-family:monospace">cluster</span></h3>
+<p><a id="sec:hclust"></a>
+<a id="hevea_default1283"></a></p><p>The <span style="font-family:monospace">cluster</span> command is used for hierarchical agglomerative clustering
+of custom data by using a custom distance function.</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">cluster</span> takes one or more arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">data</span>, a list of data points.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">opt</span>, a sequence of options which may contain the following:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">k</span> or <span style="font-family:monospace">count=</span><span style="font-style:italic">k</span>, where <span style="font-style:italic">k</span> is a positive integer
+specifying the number of clusters (unset by default).
+</li><li class="li-itemize"><span style="font-family:monospace">count_inf=</span><span style="font-style:italic">k</span><sub><span style="font-style:italic">l</span></sub>, where <span style="font-style:italic">k</span><sub><span style="font-style:italic">l</span></sub> is a positive integer specifying the
+minimal number of clusters (unset by default).
+</li><li class="li-itemize"><span style="font-family:monospace">count_sup=</span><span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub>, where <span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub> is a positive integer specifying the
+maximal number of clusters (by default, <span style="font-style:italic">k</span><sub><span style="font-style:italic">u</span></sub>=16).
+</li><li class="li-itemize"><span style="font-family:monospace">type=</span><span style="font-style:italic">linkage</span>, where <span style="font-style:italic">linkage</span> is a string specifying
+the linkage method. Avaliable methods are:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">single</span> (the default),
+</li><li class="li-itemize"><span style="font-family:monospace">complete</span>,
+</li><li class="li-itemize"><span style="font-family:monospace">average</span>,
+</li><li class="li-itemize"><span style="font-family:monospace">weighted</span>,
+</li><li class="li-itemize"><span style="font-family:monospace">ward</span>.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">distance=</span><span style="font-style:italic">dist</span>, where <span style="font-style:italic">dist</span> is a distance function. By default,
+the squared Euclidean distance function <span style="font-family:monospace">distance2</span> is used unless <span style="font-style:italic">data</span>
+is a list of strings, in which case Levenshtein distance is used.
+For example, the taxicab distance function can be entered as follows:
+<div class="center">
+<span style="font-family:monospace">taxicab:=(p1,p2)-&gt;l1norm(p1-p2)</span>
+</div>
+</li><li class="li-itemize"><span style="font-family:monospace">index=</span><span style="font-style:italic">ind</span>, where <span style="font-style:italic">ind</span> is a string or a list of strings
+specifying the index function(s) used for selecting the optimal number of clusters (unset by default).
+Available index functions are:
+<span style="font-family:monospace">silhouette</span>, <span style="font-family:monospace">mcclain-rao</span>, <span style="font-family:monospace">dunn</span>, and <span style="font-family:monospace">all</span>.
+<span style="font-style:italic">ind</span> may also take a boolean value, in which case no index is used
+(<span style="font-style:italic">ind</span><span style="font-family:monospace">=false</span>) or the silhouette index is used (<span style="font-style:italic">ind</span><span style="font-family:monospace">=true</span>).
+</li><li class="li-itemize"><span style="font-family:monospace">output=</span><span style="font-style:italic">out</span>, where <span style="font-style:italic">out</span> is one of the following:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">part</span>, for outputting the partition of data into clusters.
+</li><li class="li-itemize"><span style="font-family:monospace">list</span>, for outputting the list of cluster indices for data points (the default).
+</li><li class="li-itemize"><span style="font-family:monospace">plot</span>, for outputting a colored visualization of data points with additional
+specifications given in <span style="font-family:monospace">display</span> option (see below). Note that this is possible only with
+two- and three-dimensional numerical data.
+</li><li class="li-itemize"><span style="font-family:monospace">count</span>, for outputting only the number of clusters.
+</li><li class="li-itemize"><span style="font-family:monospace">index</span>, for outputting the list of values of the (first) used index.
+</li><li class="li-itemize"><span style="font-family:monospace">tree</span>, for outputting a dendrogram drawing which visualizes the linking process.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">display=</span><span style="font-style:italic">disp</span>, where <span style="font-style:italic">disp</span> is a configuration for plot output
+(by default, points are drawn as dots of width 2).
+</li><li class="li-itemize"><span style="font-family:monospace">labels=</span><span style="font-style:italic">lab</span>, where <span style="font-style:italic">lab</span> is a boolean value which specifies
+whether the data points are shown in the dendrogram.
+</li></ul>
+</li></ul>
+</li><li class="li-itemize">Hierarchical clustering is slower than the <span style="font-style:italic">k</span>-means algorithm (see Section <a href="cascmd_en698.html#sec%3Akmeans">9.1.2</a>)
+but may produce a better classification of the data. Hierarchical clustering is also a method of
+choice for custom data types and distance functions.
+</li><li class="li-itemize">If more than one index is computed in a clustering process, then the optimal number of clusters
+is decided by voting: the number which was selected by most indices is used.
+</li></ul><h4 id="sec1810" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+We apply <span style="font-family:monospace">cluster</span> command to the “aggregation” shape dataset
+obtained from <a href="http://cs.joensuu.fi/sipu/datasets/"><span style="font-family:monospace">http://cs.joensuu.fi/sipu/datasets/</span></a>.
+The dataset is loaded from file in a table cell in <span style="font-family:monospace">Xcas</span> and associated with
+the variable <span style="font-family:monospace">data</span>. We use the <span style="font-family:monospace">average</span> linkage method and <span style="font-family:monospace">silhouette</span>
+index (which is used by default if <span style="font-family:monospace">index=true</span>). By setting <span style="font-family:monospace">output</span> parameter
+to <span style="font-family:monospace">plot</span>, we obtain a visualization of colored clusters as shown in Figure <a href="#fig%3Ahclust">9.1</a>.
+<blockquote class="figure"><div class="center"><div class="center"><hr style="width:80%;height:2"></div>
+<img src="cascmd_en134.png">
+<div class="caption"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="vertical-align:top;text-align:left;" >Figure 9.1: Clustering in <span style="font-family:monospace">Xcas</span><a id="fig:hclust"></a></td></tr>
+</table></div>
+<div class="center"><hr style="width:80%;height:2"></div></div></blockquote>
+</li><li class="li-itemize">For string data, Levenshtein distance is used by default (see Section <a href="cascmd_en091.html#sec%3Alevenshtein">5.3.15</a>).
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">cluster(["cat","mouse","rat","spouse","house","cut"],output=part)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >"cat"</td><td style="text-align:center;white-space:nowrap" >"rat"</td><td style="text-align:center;white-space:nowrap" >"cut"</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >"mouse"</td><td style="text-align:center;white-space:nowrap" >"spouse"</td><td style="text-align:center;white-space:nowrap" >"house"</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize">In this example we cluster genomic sequences into five clusters by using
+<span style="font-family:monospace">average</span> linkage and Hamming distance function.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">data:=["GTCTT","AAGCT","GGTAA","AGGCT","GTCAT","CGGCC",</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">       "GGGAG","GTTAT","GTCAT","AGGCT","GTCAG","AGGAT"]:;</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">cluster(data,type="average",count=5,distance=hamdist,output=part)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >[</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"GTCTT","GTCAT","GTTAT","GTCAT","GTCAG"</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"AAGCT","AGGCT","AGGCT","AGGAT"</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" ><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"GGTAA"</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"CGGCC"</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">"GGGAG"</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">] </td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en695.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en698.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

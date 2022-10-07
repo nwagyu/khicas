@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Exercices simples</title>
+</head>
+<body >
+<a href="casrouge002.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge004.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec120" class="chapter">Chapitre 3  Exercices simples</h1>
+<h2 id="sec121" class="section">3.1  Savoir si une liste est croissante</h2>
+<p>
+Une liste de taille 1 est croissante.<br>
+Si la taille est de la liste <span style="font-family:monospace">l</span> est <span style="font-family:monospace">s</span> il faut faire attention que 
+les indices de <span style="font-family:monospace">l</span> vont de <span style="font-family:monospace">0</span> à <span style="font-family:monospace">s-1</span>. On compare donc 
+<span style="font-family:monospace">l[0]</span> et <span style="font-family:monospace">l[1]</span>, puis <span style="font-family:monospace">l[j-1]</span> et <span style="font-family:monospace">l[j]</span> donc
+on initialise <span style="font-family:monospace">j</span> à <span style="font-family:monospace">1</span> et tantque <span style="font-family:monospace">j&lt;s</span> on compare 
+<span style="font-family:monospace">l[j-1]</span> et <span style="font-family:monospace">l[j]</span> si ils ne sont pas dans le bon ordre on s’arrête
+sinon on augmente <span style="font-family:monospace">j</span> de 1.<br>
+On écrit :
+</p><pre class="verbatim">est_crois(l):={
+local j,s;
+s:=size(l);
+j:=1;
+tantque j&lt;s faire
+  si l[j-1]&gt;l[j] alors return false fsi;
+  j:=j+1;
+ftantque;
+return true;
+}:;
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">est_crois([1,2,0,4])</span><br>
+On obtient :<br>
+<span style="font-family:monospace">faux</span><br>
+On tape :<br>
+<span style="font-family:monospace">est_crois([1,2,3,4])</span><br>
+On obtient :<br>
+<span style="font-family:monospace">vrai</span><br>
+<span style="font-weight:bold">Exercice</span><br>
+Écrire un programme qui renvoie :<br>
+0 si la liste n’est pas moontone<br>
+1 si la liste est croissante<br>
+2 si la liste est décroissante<br>
+3 si la liste est constante.
+</p>
+<hr>
+<a href="casrouge002.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge004.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

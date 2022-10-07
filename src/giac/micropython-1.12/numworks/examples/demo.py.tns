@@ -1,0 +1,73 @@
+import nsp
+from nsp import Texture
+
+@micropython.native
+def mandel(x, y, max_iters):
+    c = complex(x, y)
+    z = 0.0j
+    for i in range(max_iters):
+        z = z*z + c
+        if (z.real*z.real + z.imag*z.imag) >= 4:
+            return i
+    return max_iters
+
+screen = Texture(320, 240, None)
+screen.fill(0x0000)
+
+width = 320
+height = 240
+iter = 16
+
+min_x = -2.0
+max_x = 1.0
+min_y = -1.0
+max_y = 1.0
+pixel_size_x = (max_x - min_x) / width
+pixel_size_y = (max_y - min_y) / height
+
+time_start = nsp.readRTC()
+    
+for x in range(height):
+    real = min_x + x * pixel_size_x
+    for y in range(width):
+        imag = min_y + y * pixel_size_y
+        color = mandel(real, imag, iter)
+        screen.setPx(y, x, color << 14 | color << 8 | color << 3)
+
+    screen.display()
+
+print("%ux%u (%u iters) in %u seconds" % (width, height, iter, nsp.readRTC() - time_start))
+nsp.waitKeypress()
+
+mandel_tex = Texture(320, 240, None)
+screen.drawOnto(mandel_tex)
+
+time_start = nsp.readRTC()
+for i in range(120 - 16):
+    mandel_tex.drawOnto(screen,src_x=i,src_y=i,src_w=320-(2*i),src_h=240-(2*i))
+    screen.display()
+print("%d FPS" % ((240-32)/(nsp.readRTC() - time_start)))
+nsp.waitKeypress()
+
+time_start = nsp.readRTC()
+for i in range(240 - 48):
+    mandel_tex.drawOnto(screen,dest_x=i,dest_y=i,dest_w=64,dest_h=48)
+    screen.display()
+print("%d FPS" % ((240-32)/(nsp.readRTC() - time_start)))
+nsp.waitKeypress()
+
+time_start = nsp.readRTC()
+for i in range(320):
+    mandel_tex.drawOnto(screen,dest_x=320-i,dest_w=i)
+    screen.display()
+
+print("%d FPS" % ((240-32)/(nsp.readRTC() - time_start)))
+nsp.waitKeypress()
+
+time_start = nsp.readRTC()
+for i in range(320):
+    mandel_tex.drawOnto(screen,dest_x=320-i,dest_w=i,src_w=i)
+    screen.display()
+
+print("%d FPS" % ((240-32)/(nsp.readRTC() - time_start)))
+nsp.waitKeypress()

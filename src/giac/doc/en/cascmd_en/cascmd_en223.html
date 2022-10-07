@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Maximum and minimum of an expression: fMax fMin
+
+</title>
+</head>
+<body >
+<a href="cascmd_en222.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en224.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec514" class="subsection">5.19.3  Maximum and minimum of an expression: <span style="font-family:monospace">fMax</span> <span style="font-family:monospace">fMin</span>
+<a id="hevea_default414"></a>
+<a id="hevea_default415"></a></h3>
+<p>The <span style="font-family:monospace">fMax</span> and <span style="font-family:monospace">fMin</span> commands find where maxima and
+minima occur. They can do this for expressions of one variable or for
+expressions of several variables subject to a set of constraints,
+either equalities or inequalities.</p><p>The find the maximum and minimum of an expression with one variable:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">fMax</span> and <span style="font-family:monospace">fMin</span> take two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression involving one
+variable.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">x</span>, the name of the variable (by default 
+<span style="font-style:italic">x</span>=<span style="font-family:monospace">x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">fMax(</span><span style="font-style:italic">expr</span> ⟨,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span> returns the
+value of <span style="font-style:italic">x</span> that maximizes the expression.
+</li><li class="li-itemize"><span style="font-family:monospace">fMin(</span><span style="font-style:italic">expr</span> ⟨ ,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span> returns the
+value of <span style="font-style:italic">x</span> that minimizes the expression.
+</li></ul><h4 id="sec515" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fMax(sin(x),x)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">fMax(sin(x))</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">fMax(sin(y),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fMin(sin(x),x)</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">fMin(sin(x))</span>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">fMin(sin(y),y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">π</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p>The find the maximum and minimum of an expression with several
+variables subject to constraints:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">fMax</span> and <span style="font-family:monospace">fMin</span> take four mandatory and two
+optional arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">expr</span>, an expression with several variables.
+</li><li class="li-itemize"><span style="font-style:italic">constr</span>, a list of constraints (equalities and
+inequalities).
+</li><li class="li-itemize"><span style="font-style:italic">vars</span>, a list of the variables.
+</li><li class="li-itemize"><span style="font-style:italic">init</span>, an initial guess (which must be a list of
+nonzero reals representing a feasible point).
+</li><li class="li-itemize">Optionally, є, the precision. If this isn’t
+given, the default epsilon value is used (see Section <a href="cascmd_en027.html#ssec%3Aconfcomp">2.5.7</a>,
+item <a href="cascmd_en027.html#enum%3Aeps">9</a>).
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">N</span>, the maximum number of iterations.
+</li></ul>
+The expression <span style="font-style:italic">expr</span> does not need to be differentiable.
+</li><li class="li-itemize"><span style="font-family:monospace">fMax(</span><span style="font-style:italic">expr, constr ,vars ,init</span> ⟨ ,є⟩  ⟨,<span style="font-style:italic">N</span> ⟩<span style="font-family:monospace">)</span>
+returns the vector of values that maximizes <span style="font-style:italic">expr</span> subject to
+the constraints <span style="font-style:italic">constr</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">fMin(</span><span style="font-style:italic">expr, constr ,vars ,init</span> ⟨ ,є⟩  ⟨,<span style="font-style:italic">N</span> ⟩<span style="font-family:monospace">)</span>
+returns the vector of values that minimizes <span style="font-style:italic">expr</span> subject to
+the constraints <span style="font-style:italic">constr</span>.
+</li></ul><h4 id="sec516" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fMax((x-2)^2+(y-1)^2,[-.25x^2-y^2+1&gt;=0,x-2y+1=0],[x,y],[.5,.75])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1.82287565553,−0.411437827766</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+	<span style="font-family:monospace">fMin((x-5)^2+y^2-25,[y&gt;=x^2],[x,y],[1,1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  </td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1.2347728625,1.52466402196</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>Although the initial point is required to be feasible, the algorithm
+will sometimes succeed even with a poor choice of initial point.
+Note that the initial value of a variable must not be zero.</p>
+<hr>
+<a href="cascmd_en222.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en224.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

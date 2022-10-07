@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Chinese remainders: chinrem
+</title>
+</head>
+<body >
+<a href="cascmd_en334.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en336.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec779" class="subsection">5.28.11  Chinese remainders: <span style="font-family:monospace">chinrem</span>
+<a id="hevea_default583"></a></h3>
+<p>The Chinese Remainder Theorem states that if <span style="font-style:italic">R</span>(<span style="font-style:italic">x</span>) and <span style="font-style:italic">Q</span>(<span style="font-style:italic">x</span>) are
+relatively prime polynomials, then for any polynomials <span style="font-style:italic">A</span>(<span style="font-style:italic">x</span>) and
+<span style="font-style:italic">B</span>(<span style="font-style:italic">x</span>), there exists a polynomial <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>) such that:
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >    <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>)</td><td style="text-align:left;white-space:nowrap" >=<span style="font-style:italic">A</span>(<span style="font-style:italic">x</span>) (mod <span style="font-style:italic">R</span> )(<span style="font-style:italic">x</span>)</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>)</td><td style="text-align:left;white-space:nowrap" >=<span style="font-style:italic">B</span>(<span style="font-style:italic">x</span>) (mod <span style="font-style:italic">Q</span> )(<span style="font-style:italic">x</span>)
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table><p>
+The <span style="font-family:monospace">chinrem</span> command finds the polynomial <span style="font-style:italic">P</span>.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">chinrem</span> takes two mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+[<span style="font-style:italic">A</span>,<span style="font-style:italic">R</span>] and [<span style="font-style:italic">B</span>,<span style="font-style:italic">Q</span>], two lists, each consisting of two
+polynomials given by expressions or lists of coefficients in
+decreasing order. 
+</li><li class="li-itemize">Optionally, if the polynomials are expressions, <span style="font-style:italic">x</span>,
+the main variable (by default <span style="font-family:monospace">x</span>).
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">chinrem(</span>[<span style="font-style:italic">A</span>,<span style="font-style:italic">R</span>],[<span style="font-style:italic">B</span>,<span style="font-style:italic">Q</span>]  ⟨,<span style="font-style:italic">x</span>⟩<span style="font-family:monospace">)</span> returns the list [<span style="font-style:italic">P</span>,<span style="font-style:italic">S</span>],
+where <span style="font-style:italic">P</span> and <span style="font-style:italic">S</span> are polynomials such that:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">
+     
+
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >    <span style="font-style:italic">S</span></td><td style="text-align:left;white-space:nowrap" >=<span style="font-style:italic">R</span> <span style="font-style:italic">Q</span></td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">P</span></td><td style="text-align:left;white-space:nowrap" >=<span style="font-style:italic">A</span> (mod <span style="font-style:italic">R</span> )</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >
+<span style="font-style:italic">P</span></td><td style="text-align:left;white-space:nowrap" > =<span style="font-style:italic">B</span> (mod <span style="font-style:italic">Q</span> )
+</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td><td style="text-align:left;white-space:nowrap" >&nbsp;</td><td style="text-align:right;white-space:nowrap" >&nbsp;</td></tr>
+</table></td></tr>
+</table>
+If <span style="font-style:italic">R</span> and <span style="font-style:italic">Q</span> are coprime, a solution <span style="font-style:italic">P</span>
+always exists and all the solutions are congruent modulo
+<span style="font-style:italic">S</span>=<span style="font-style:italic">R</span>· <span style="font-style:italic">Q</span>.
+</li></ul><h4 id="sec780" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+Solve:
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎧<br>
+⎨<br>
+⎩</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >             <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>)=</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span> </td><td style="text-align:right;white-space:nowrap" >mod (<span style="font-style:italic">x</span><sup>2</sup>+1)</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >             <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>)=</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">x</span>−1 </td><td style="text-align:right;white-space:nowrap" >mod (<span style="font-style:italic">x</span><sup>2</sup>−1)
+</td></tr>
+</table></td><td class="dcell">
+</td></tr>
+</table>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chinrem([[1,0],[1,0,1]],[[1,-1],[1,0,-1]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,1,−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,0,0,0,−1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">chinrem([x,x^2+1],[x-1,x^2-1])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sup>2</sup></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">+<span style="font-style:italic">x</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">,<span style="font-style:italic">x</span><sup>4</sup>−1</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+hence  <span style="font-style:italic">P</span>(<span style="font-style:italic">x</span>)=−<span style="font-style:italic">x</span><sup>2</sup>−2<span style="font-style:italic">x</span>+1/2  (mod  <span style="font-style:italic">x</span><sup>4</sup>−1)<br>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">chinrem([[1,2],[1,0,1]],[[1,1],[1,1,1]])</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−1,−1,0,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">,</td><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,1,2,1,1</td><td class="dcell">⎤<br>
+⎦</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">chinrem([y+2,y^2+1],[y+1,y^2+y+1],y)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">−<span style="font-style:italic">y</span><sup>3</sup>−<span style="font-style:italic">y</span><sup>2</sup>+1,<span style="font-style:italic">y</span><sup>4</sup>+<span style="font-style:italic">y</span><sup>3</sup>+2 <span style="font-style:italic">y</span><sup>2</sup>+<span style="font-style:italic">y</span>+1</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en334.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en336.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

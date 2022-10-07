@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Forcing evaluation: unquote
+</title>
+</head>
+<body >
+<a href="cascmd_en182.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en184.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec381" class="subsection">5.12.5  Forcing evaluation: <span style="font-family:monospace">unquote</span>
+<a id="hevea_default308"></a></h3>
+<p><span style="font-family:monospace">unquote</span> is used for evaluation inside a quoted expression.<br>
+For example in an assignment, the variable is automatically quoted
+(not evaluated) so that the user does not have to quote it explicitly
+each time he want to modify its value. In some circumstances, you
+might want to evaluate it.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">purge(b);a:=b;unquote(a):=3</span>
+</div><p>
+The variable <span style="font-family:monospace">b</span> begins as a purely symbolic variable, and
+the value of <span style="font-family:monospace">a</span> is equal to the symbolic variable <span style="font-family:monospace">b</span>. In the
+assignment <span style="font-family:monospace">unquote(a):=3</span>, the left hand side
+<span style="font-family:monospace">unquote(a)</span> is evaluated to <span style="font-family:monospace">b</span>, and so <span style="font-family:monospace">b</span> is
+assigned the value <span style="font-family:monospace">3</span>. Since <span style="font-family:monospace">a</span> evaluates to
+the same thing as <span style="font-weight:bold">b</span>, <span style="font-family:monospace">a</span> also evaluated to <span style="font-family:monospace">3</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">a,b</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3,3
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en182.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en184.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Using strings as names: make_symbol
+</title>
+</head>
+<body >
+<a href="cascmd_en765.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en767.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1959" class="subsection">12.4.5  Using strings as names: <span style="font-family:monospace">make_symbol</span>
+<a id="hevea_default1419"></a></h3>
+<p>Variable and function names are symbols, namely sequences of
+characters, which are different from strings. For example, you can
+have a variable named <span style="font-family:monospace">abc</span>, but not <span style="font-family:monospace">"abc"</span>.
+The <span style="font-family:monospace">make_symbol</span> command turns a string into a symbol; for example
+<span style="font-family:monospace">make_symbol("abc")</span> is the symbol <span style="font-family:monospace">abc</span>.</p><h4 id="sec1960" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">a:= "abc";</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">make_symbol(a):= 3</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">make_symbol("abc"):= 3</span>
+</div>
+<span style="font-style:italic">then:</span>
+<div class="center">
+<span style="font-family:monospace">abc</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3
+</td></tr>
+</table>
+The variable <span style="font-family:monospace">abc</span> will have the value <span style="font-family:monospace">3</span>.
+</li><li class="li-itemize">Similarly for functions.<br>
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">b:= "sin";</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">make_symbol(b)(pi/4)</span>
+</td></tr>
+</table>
+</div>
+<span style="font-style:italic">or:</span>
+<div class="center">
+<span style="font-family:monospace">make_symbol("sin")(pi/4)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >2</td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td></tr>
+</table>
+which is <span style="font-family:monospace">sin(pi/4)</span>.
+</li></ul>
+<hr>
+<a href="cascmd_en765.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en767.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

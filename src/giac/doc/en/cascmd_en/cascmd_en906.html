@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Perpendicular lines and planes in space: perpendicular
+</title>
+</head>
+<body >
+<a href="cascmd_en905.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en907.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:3dperp" class="subsection">14.5.6  Perpendicular lines and planes in space: <span style="font-family:monospace">perpendicular</span>
+<a id="hevea_default1612"></a></h3>
+<p>See Section <a href="cascmd_en807.html#ssec%3A2dperp">13.7.6</a> for perpendicular lines in the plane.</p><p>The <span style="font-family:monospace">perpendicular</span> command can take its arguments in different
+ways. It returns and draws a line or plane, depending on the arguments.</p><p>A point and a line.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">perpendicular</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point.
+</li><li class="li-itemize"><span style="font-style:italic">L</span>, a line.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">perpendicular(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">L</span><span style="font-family:monospace">)</span> returns and draws the line
+through <span style="font-style:italic">P</span> that is perpendicular to <span style="font-style:italic">L</span>.
+</li></ul><h4 id="sec2302" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">perpendicular(point(0,0,0),line(point(1,0,0),point(0,1,0)))</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en309.png">
+</div><p><br>
+</p><p>A line and a plane.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">perpendicular</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">L</span>, a line.
+</li><li class="li-itemize"><span style="font-style:italic">P</span>, a plane.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">perpendicular(</span><span style="font-style:italic">L</span>,<span style="font-style:italic">P</span><span style="font-family:monospace">)</span> returns and draws the plane
+containing <span style="font-style:italic">L</span> that is perpendicular to <span style="font-style:italic">P</span>.
+</li></ul><h4 id="sec2303" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">perpendicular(line(point(0,0,0),point(1,1,0)),plane(point(1,0,0),</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" >        <span style="font-family:monospace">point(0,1,0),point(0,0,1)))</span>
+</td></tr>
+</table>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en310.png">
+</div>
+<hr>
+<a href="cascmd_en905.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en907.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

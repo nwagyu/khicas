@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Defining a sequence or a list: seq[ ] ()
+
+</title>
+</head>
+<body >
+<a href="cascmd_en410.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en412.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec953" class="subsection">5.39.1  Defining a sequence or a list: <span style="font-family:monospace">seq[ ]</span> <span style="font-family:monospace">()</span>
+<a id="hevea_default681"></a>
+<a id="hevea_default682"></a></h3>
+<p>Recall (see Section <a href="cascmd_en050.html#ssec%3Aseqbasics">4.3.1</a>) that a sequence is represented by
+a sequence of elements separated by commas, either without delimiters,
+with parentheses (<span style="font-family:monospace">(</span> and <span style="font-family:monospace">)</span>) as delimiters, or with
+<span style="font-family:monospace">seq[</span> and <span style="font-family:monospace">]</span> as delimiters.</p><h4 id="sec954" class="subsubsection">Examples</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">a,b,c,d</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">(a,b,c,d)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">seq[a,b,c,d]</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">c</span>,<span style="font-style:italic">d</span>
+</td></tr>
+</table><p>Similarly (see Section <a href="cascmd_en052.html#ssec%3Alstbasics">4.3.3</a>) a list (or a vector) is
+a sequence of elements separated by commas delimited with <span style="font-family:monospace">[</span>
+and <span style="font-family:monospace">]</span>.</p><h4 id="sec955" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">[1,2,5]</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">1,2,5</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+[]
+</div>
+(to create the empty list).<br>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li></ul><p><br>
+</p><p>Lists have more structure than sequences. For example, a list can
+contain lists (for example, a matrix is a list of lists of the same
+size, see Section <a href="index.html#sec%3Adefmat">5.44</a>). Lists may be used to represent vectors
+(lists of coordinates), matrices, or univariate polynomials (lists of
+coefficients by decreasing order, see Section <a href="cascmd_en289.html#ssec%3Aspoly">5.27.1</a>).</p><p>Sequences, on the other hand, are flat. An element of a sequence
+cannot be a sequence. </p><p>See Section <a href="index.html#sec%3Alists">5.40</a> for some commands only for lists.</p>
+<hr>
+<a href="cascmd_en410.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en412.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

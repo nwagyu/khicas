@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The beta distribution
+</title>
+</head>
+<body >
+<a href="cascmd_en676.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en678.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:betad" class="subsection">8.4.12  The beta distribution
+</h3>
+<h4 id="sec1739" class="subsubsection">The probability density function for the beta distribution: <span style="font-family:monospace">betad</span>
+<a id="hevea_default1243"></a></h4>
+<p>The beta distribution depends on two parameters, <span style="font-style:italic">a</span>&gt;0 and <span style="font-style:italic">b</span>&gt;0; the
+value of the density function at <span style="font-style:italic">x</span> in [0,1] is
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><a id="eq:betad"></a>
+<span style="font-family:monospace">betad</span>(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span>) = Γ(<span style="font-style:italic">a</span>+<span style="font-style:italic">b</span>)<span style="font-style:italic">x</span><sup><span style="font-style:italic">a</span>−1</sup>(1−<span style="font-style:italic">x</span>)<sup><span style="font-style:italic">b</span>−1</sup>/(Γ(<span style="font-style:italic">a</span>)Γ(<span style="font-style:italic">b</span>))
+    (9)</td></tr>
+</table><p>
+(see Section <a href="cascmd_en148.html#ssec%3Agamma">5.8.13</a>).<br>
+The <span style="font-family:monospace">betad</span> command computes the density function for the beta
+distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">betad</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, positive numbers, the parameters.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">betad(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns the value of the density
+function for the beta distribution with parameters <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>,
+given in (<a href="#eq%3Abetad">9</a>).
+</li></ul><h4 id="sec1740" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">betad(2,1,0.3)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.6
+</td></tr>
+</table>
+<h4 id="sec1741" class="subsubsection">The cumulative distribution function for the beta distribution: <span style="font-family:monospace">betad_cdf</span>
+<a id="hevea_default1244"></a></h4>
+<p>The <span style="font-family:monospace">betad_cdf</span> command computes 
+the cumulative distribution function for the beta distribution. 
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">beta_cdf</span> takes three mandatory arguments and one
+optional argument:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, real numbers (the parameters).
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, a real number.
+</li><li class="li-itemize">Optionally, <span style="font-style:italic">y</span>, a real number. 
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">betad_cdf(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) for the beta distribution with parameters
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">beta_cdf(</span><span style="font-style:italic">n</span>,<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span><span style="font-family:monospace">)</span> returns 
+Prob(<span style="font-style:italic">x</span> ≤ <span style="font-style:italic">X</span> ≤ <span style="font-style:italic">y</span>).
+</li></ul><p>
+It turns out that 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-family:monospace">betad_cdf</span>(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span>) = β(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span>)Γ(<span style="font-style:italic">a</span>+<span style="font-style:italic">b</span>)/(Γ(<span style="font-style:italic">a</span>)Γ(<span style="font-style:italic">b</span>))
+</td></tr>
+</table><p>
+where β(<span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span>) = ∫<sub>0</sub><sup><span style="font-style:italic">x</span></sup> <span style="font-style:italic">t</span><sup><span style="font-style:italic">a</span>−1</sup>(1−<span style="font-style:italic">t</span>)<sup><span style="font-style:italic">b</span>−1</sup> <span style="font-style:italic">dt</span> (see
+Section <a href="cascmd_en151.html#ssec%3Abeta">5.8.16</a>).</p><h4 id="sec1742" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">betad_cdf(2,3,0.2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.1808
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">betad_cdf(2,3,0.25,0.5)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.42578125
+</td></tr>
+</table>
+</li></ul>
+<h4 id="sec1743" class="subsubsection">The inverse distribution function for the beta distribution: <span style="font-family:monospace">betad_icdf</span>
+<a id="hevea_default1245"></a></h4>
+<p>The <span style="font-family:monospace">betad_icdf</span> command
+computes the inverse distribution for the beta distribution.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">beta_icdf</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>, real numbers (the parameters).
+</li><li class="li-itemize"><span style="font-style:italic">h</span>, a real number between 0 and 1.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">beta_icdf(</span><span style="font-style:italic">a</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">h</span><span style="font-family:monospace">)</span> returns the inverse
+distribution for the beta distribution with parameters <span style="font-style:italic">a</span> and <span style="font-style:italic">b</span>;
+namely, the value of <span style="font-style:italic">x</span> for which Prob(<span style="font-style:italic">X</span> ≤ <span style="font-style:italic">x</span>) = <span style="font-style:italic">h</span>.
+</li></ul><h4 id="sec1744" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">betad_icdf(2,3,0.2)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.212317128278
+</td></tr>
+</table>
+<hr>
+<a href="cascmd_en676.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en678.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

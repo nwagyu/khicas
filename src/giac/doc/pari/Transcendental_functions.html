@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Transcendental functions</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:trans"></div>
+<h2 class="center">Transcendental functions</h2>
+
+<p></p>
+<p>
+Since the values of transcendental functions cannot be exactly represented,
+these functions will always return an inexact object: a real number,
+a complex number, a p-adic number or a power series.  All these objects
+have a certain finite precision.</p>
+<p>
+As a general rule, which of course in some cases may have exceptions,
+transcendental functions operate in the following way:</p>
+<p>
+<b>*</b> If the argument is either a real number or an inexact complex number
+(like <code>1.0 + I</code> or <code>Pi*I</code> but not <code>2 - 3*I</code>), then the
+computation is done with the precision of the argument.
+In the example below, we see that changing the precision to 50 digits does
+not matter, because x only had a precision of 19 digits.</p>
+<p>
+</p><pre class="code">  ? \p 15
+     realprecision = 19 significant digits (15 digits displayed)
+  ? x = Pi/4
+  %1 = 0.785398163397448
+  ? \p 50
+     realprecision = 57 significant digits (50 digits displayed)
+  ? sin(x)
+  %2 = 0.7071067811865475244
+</pre><p></p>
+<p></p>
+<p>
+Note that even if the argument is real, the result may be complex
+(e.g.&nbsp;acos(2.0) or acosh(0.0)). See each individual
+function help for the definition of the branch cuts and choice of principal
+value.</p>
+<p>
+<b>*</b> If the argument is either an integer, a rational, an exact complex
+number or a quadratic number, it is first converted to a real
+or complex number using the current precision, which can be
+view and manipulated using the defaults <code>realprecision</code> (in decimal
+digits) or <code>realbitprecision</code> (in bits). This precision can be changed
+indifferently</p>
+<p>
+<b>*</b> in decimal digits: use <code>\p</code> or <code>default(realprecision,...)</code>.</p>
+<p>
+<b>*</b> in bits: use <code>\pb</code> or <code>default(realbitprecision,...)</code>.</p>
+<p>
+After this conversion, the computation proceeds as above for real or complex
+arguments.</p>
+<p>
+In library mode, the <code>realprecision</code> does not matter; instead the
+precision is taken from the <code>prec</code> parameter which every transcendental
+function has. As in <code>gp</code>, this <code>prec</code> is not used when the argument
+to a function is already inexact. Note that the argument <em>prec</em> stands
+for the length in words of a real number, including codewords. Hence we must
+have <em>prec</em> &geq; 3. (Some functions allow a <code>bitprec</code> argument
+instead which allow finer granularity.)</p>
+<p>
+Some accuracies attainable on 32-bit machines cannot be attained
+on 64-bit machines for parity reasons. For example the default <code>gp</code> accuracy
+is 28 decimal digits on 32-bit machines, corresponding to <em>prec</em> having
+the value 5, but this cannot be attained on 64-bit machines.</p>
+<p>
+<b>*</b> If the argument is a polmod (representing an algebraic number),
+then the function is evaluated for every possible complex embedding of that
+algebraic number.  A column vector of results is returned, with one component
+for each complex embedding.  Therefore, the number of components equals
+the degree of the <code>t_POLMOD</code> modulus.</p>
+<p>
+<b>*</b> If the argument is an intmod or a p-adic, at present only a
+few functions like <code><a href="Transcendental_functions.html#se:sqrt"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sqrt</a></code> (square root), <code><a href="Transcendental_functions.html#se:sqr"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sqr</a></code> (square), <code><a href="Transcendental_functions.html#se:log"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">log</a></code>,
+<code><a href="Transcendental_functions.html#se:exp"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">exp</a></code>, powering, <code><a href="Transcendental_functions.html#se:teichmuller"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">teichmuller</a></code> (Teichm&uuml;ller character) and
+<code><a href="Transcendental_functions.html#se:agm"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">agm</a></code> (arithmetic-geometric mean) are implemented.</p>
+<p>
+Note that in the case of a 2-adic number, <code><a href="Transcendental_functions.html#se:sqr"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sqr</a></code>(x) may not be
+identical to x*x: for example if x = 1+O(2^5) and y = 1+O(2^5) then
+x*y = 1+O(2^5) while <code><a href="Transcendental_functions.html#se:sqr"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sqr</a></code>(x) = 1+O(2^6). Here, x * x yields the
+same result as <code><a href="Transcendental_functions.html#se:sqr"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sqr</a></code>(x) since the two operands are known to be
+<em>identical</em>. The same statement holds true for p-adics raised to the
+power n, where v<sub>p</sub>(n) &gt; 0.</p>
+<p>
+<b>Remark.</b> If we wanted to be strictly consistent with
+the PARI philosophy, we should have x*y = (4 mod 8) and <code><a href="Transcendental_functions.html#se:sqr"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sqr</a></code>(x) = 
+(4 mod 32) when both x and y are congruent to 2 modulo 4.
+However, since intmod is an exact object, PARI assumes that the modulus
+must not change, and the result is hence (0 mod 4) in both cases. On
+the other hand, p-adics are not exact objects, hence are treated
+differently.</p>
+<p>
+<b>*</b> If the argument is a polynomial, a power series or a rational function,
+it is, if necessary, first converted to a power series using the current
+series precision, held in the default <code>seriesprecision</code>. This precision
+(the number of significant terms) can be changed using <code>\ps</code> or
+<code>default(seriesprecision,...)</code>. Then the Taylor series expansion of the
+function around X = 0 (where X is the main variable) is computed to a
+number of terms depending on the number of terms of the argument and the
+function being computed.</p>
+<p>
+Under <code>gp</code> this again is transparent to the user. When programming in
+library mode, however, it is <em>strongly</em> advised to perform an explicit
+conversion to a power series first, as in</p>
+<p>
+</p><pre class="code">    x = gtoser(x, gvar(x), seriesprec)
+</pre><p></p>
+<p>
+where the number of significant terms <code>seriesprec</code> can be specified
+explicitly. If you do not do this, a global variable <code>precdl</code> is used
+instead, to convert polynomials and rational functions to a power series with
+a reasonable number of terms; tampering with the value of this global
+variable is <em>deprecated</em> and strongly discouraged.</p>
+<p>
+<b>*</b> If the argument is a vector or a matrix, the result is the
+componentwise evaluation of the function. In particular, transcendental
+functions on square matrices, which are not implemented in the present
+version <b>2.12.1</b>, will have a different name if they are implemented some day.</p>
+<p>
+<hr>
+<div id="backslashpow"></div>
+<h4>^</h4>
+<p> The expression x^n is powering.</p>
+<p>
+<b>*</b> If the exponent n is an integer, then exact operations are performed
+using binary (left-shift) powering techniques. If x is a p-adic number, its
+precision will increase if v<sub>p</sub>(n) &gt; 0. Powering a binary quadratic form
+(types <code>t_QFI</code> and <code>t_QFR</code>) returns a representative of the class, which is
+always reduced if the input was. (In particular, <code>x^1</code> returns x
+itself, whether it is reduced or not.)</p>
+<p>
+PARI is able to rewrite the multiplication x * x of two <em>identical</em>
+objects as x^2, or <code><a href="Transcendental_functions.html#se:sqr"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sqr</a></code>(x). Here, identical means the operands are
+two different labels referencing the same chunk of memory; no equality test
+is performed. This is no longer true when more than two arguments are
+involved.</p>
+<p>
+<b>*</b> If the exponent n is not an integer, powering is treated as the
+transcendental function exp(nlog x), and in particular acts
+componentwise on vector or matrices, even square matrices ! (See
+Section <a href="Transcendental_functions.html#se:trans"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">se:trans</a>.)</p>
+<p>
+<b>*</b> As an exception, if the exponent is a rational number p/q and x an
+integer modulo a prime or a p-adic number, return a solution y of
+y^q = x^p if it exists. Currently, q must not have large prime factors.
+Beware that</p>
+<p>
+</p><pre class="code">  ? Mod(7,19)^(1/2)
+  %1 = Mod(11, 19) /* is any square root */
+  ? sqrt(Mod(7,19))
+  %2 = Mod(8, 19)  /* is the smallest square root */
+  ? Mod(7,19)^(3/5)
+  %3 = Mod(1, 19)
+  ? %3^(5/3)
+  %4 = Mod(1, 19)  /* Mod(7,19) is just another cubic root */
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> If the exponent is a negative integer, an inverse must be computed.
+For non-invertible <code>t_INTMOD</code> x, this will fail and implicitly exhibit a
+non trivial factor of the modulus:</p>
+<p>
+</p><pre class="code">  ? Mod(4,6)^(-1)
+    ***   at top-level: Mod(4,6)^(-1)
+    ***                         ^ &mdash; --
+    *** _^_: impossible inverse modulo: Mod(2, 6).
+</pre><p></p>
+<p>
+(Here, a factor 2 is obtained directly. In general, take the gcd of the
+representative and the modulus.) This is most useful when performing
+complicated operations modulo an integer N whose factorization is
+unknown. Either the computation succeeds and all is well, or a factor d
+is discovered and the computation may be restarted modulo d or N/d.</p>
+<p>
+For non-invertible <code>t_POLMOD</code> x, the behavior is the same:</p>
+<p>
+</p><pre class="code">  ? Mod(x^2, x^3-x)^(-1)
+    ***   at top-level: Mod(x^2,x^3-x)^(-1)
+    ***                               ^ &mdash; --
+    *** _^_: impossible inverse in RgXQ_inv: Mod(x^2, x^3 - x).
+</pre><p>
+Note that the underlying algorihm (subresultant) assumes
+the base ring is a domain:</p>
+<p>
+</p><pre class="code">  ? a = Mod(3*y^3+1, 4); b = y^6+y^5+y^4+y^3+y^2+y+1; c = Mod(a,b);
+  ? c^(-1)
+    ***   at top-level: Mod(a,b)^(-1)
+    ***                         ^ &mdash; --
+    *** _^_: impossible inverse modulo: Mod(2, 4).
+</pre><p></p>
+<p>
+In fact c is invertible, but &Zopf;/4&Zopf; is not a domain and the algorithm
+fails. It is possible for the algorithm to succeed in such situations
+and any returned result will be correct, but chances are an error
+will occur first. In this specific case, one should work with 2-adics.
+In general, one can also try the following approach</p>
+<p>
+</p><pre class="code">  ? inversemod(a, b) =
+  { my(m, v = variable(b));
+    m = polsylvestermatrix(polrecip(a), polrecip(b));
+    m = matinverseimage(m, matid(#m)[,1]);
+    Polrev(m[1..poldegree(b)], v);
+  }
+  ? inversemod(a,b)
+  %2 = Mod(2,4)*y^5 + Mod(3,4)*y^3 + Mod(1,4)*y^2 + Mod(3,4)*y + Mod(2,4)
+</pre><p></p>
+<p>
+This is not guaranteed to work either since <code><a href="Vectors__matrices__linear_algebra_and_sets.html#se:matinverseimage"
+    onClick="parent.itemFrame.location='cont_Vectors__matrices__linear_algebra_and_sets.html'">matinverseimage</a></code> must also
+invert pivots. See Section <a href="Vectors__matrices__linear_algebra_and_sets.html#se:linear_algebra"
+    onClick="parent.itemFrame.location='cont_Vectors__matrices__linear_algebra_and_sets.html'">se:linear_algebra</a>.</p>
+<p>
+For a <code>t_MAT</code> x, the matrix is expected to be square and invertible, except
+in the special case <code>x^(-1)</code> which returns a left inverse if one exists
+(rectangular x with full column rank).</p>
+<p>
+</p><pre class="code">  ? x = Mat([1;2])
+  %1 =
+  [1]
+  
+  [2]
+  
+  ? x^(-1)
+  %2 =
+  [1 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gpow</b>(GEN x, GEN n, long prec)</code>
+for x^n.</p>
+<p>
+
+<hr>
+<div id="se:Catalan"></div>
+<div id="Catalan"></div>
+<h4>Catalan</h4>
+<p>
+Catalan's constant G = &sum;<sub>n &gt;= 0</sub>((-1)^n)/((2n+1)^2) = 0.91596....
+Note that <code><a href="Transcendental_functions.html#se:Catalan"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Catalan</a></code> is one of the few reserved names which cannot be
+used for user variables.</p>
+<p>
+The library syntax is <code>GEN <b>mpcatalan</b>(long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:Euler"></div>
+<div id="Euler"></div>
+<h4>Euler</h4>
+<p>
+Euler's constant &gamma; = 0.57721.... Note that
+<code><a href="Transcendental_functions.html#se:Euler"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Euler</a></code> is one of the few reserved names which cannot be used for
+user variables.</p>
+<p>
+The library syntax is <code>GEN <b>mpeuler</b>(long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:I"></div>
+<div id="I"></div>
+<h4>I</h4>
+<p>
+The complex number sqrt{-1}.</p>
+<p>
+The library syntax is <code>GEN <b>gen<sub>I</sub></b>()</code>.</p>
+<p>
+
+<hr>
+<div id="se:Pi"></div>
+<div id="Pi"></div>
+<h4>Pi</h4>
+<p>
+The constant &pi; (3.14159...). Note that <code><a href="Transcendental_functions.html#se:Pi"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">Pi</a></code> is one of the few
+reserved names which cannot be used for user variables.</p>
+<p>
+The library syntax is <code>GEN <b>mppi</b>(long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:abs"></div>
+<div id="abs"></div>
+<h4>abs(x)</h4>
+<p>
+Absolute value of x (modulus if x is complex).
+Rational functions are not allowed. Contrary to most transcendental
+functions, an exact argument is <em>not</em> converted to a real number before
+applying <code><a href="Transcendental_functions.html#se:abs"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">abs</a></code> and an exact result is returned if possible.</p>
+<p>
+</p><pre class="code">  ? abs(-1)
+  %1 = 1
+  ? abs(3/7 + 4/7*I)
+  %2 = 5/7
+  ? abs(1 + I)
+  %3 = 1.414213562373095048801688724
+</pre><p></p>
+<p>
+If x is a polynomial, returns -x if the leading coefficient is
+real and negative else returns x. For a power series, the constant
+coefficient is considered instead.</p>
+<p>
+The library syntax is <code>GEN <b>gabs</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:acos"></div>
+<div id="acos"></div>
+<h4>acos(x)</h4>
+<p>
+Principal branch of cos<sup>-1</sup>(x) = -i log (x + isqrt{1-x^2}).
+In particular, Re(acos(x)) &in;  [0,&pi;] and if x &in;  &Ropf; and |x| &gt; 1,
+then acos(x) is complex. The branch cut is in two pieces:
+]- oo ,-1] , continuous with quadrant II, and [1,+ oo [, continuous
+with quadrant IV. We have acos(x) = &pi;/2 - asin(x) for all
+x.</p>
+<p>
+The library syntax is <code>GEN <b>gacos</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:acosh"></div>
+<div id="acosh"></div>
+<h4>acosh(x)</h4>
+<p>
+Principal branch of cosh<sup>-1</sup>(x) = 2
+ log(sqrt{(x+1)/2} + sqrt{(x-1)/2}). In particular,
+Re(acosh(x)) &geq; 0 and
+Im(acosh(x)) &in;  ]-&pi;,&pi;]; if x &in;  &Ropf; and x &lt; 1, then
+acosh(x) is complex.</p>
+<p>
+The library syntax is <code>GEN <b>gacosh</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:agm"></div>
+<div id="agm"></div>
+<h4>agm(x, y)</h4>
+<p>
+Arithmetic-geometric mean of x and y. In the
+case of complex or negative numbers, the optimal AGM is returned
+(the largest in absolute value over all choices of the signs of the square
+roots).  p-adic or power series arguments are also allowed. Note that
+a p-adic agm exists only if x/y is congruent to 1 modulo p (modulo
+16 for p = 2). x and y cannot both be vectors or matrices.</p>
+<p>
+The library syntax is <code>GEN <b>agm</b>(GEN x, GEN y, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:arg"></div>
+<div id="arg"></div>
+<h4>arg(x)</h4>
+<p>
+Argument of the complex number x, such that -&pi; &lt; arg(x) &leq; &pi;.</p>
+<p>
+The library syntax is <code>GEN <b>garg</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:asin"></div>
+<div id="asin"></div>
+<h4>asin(x)</h4>
+<p>
+Principal branch of sin<sup>-1</sup>(x) = -i log(ix + sqrt{1 - x^2}).
+In particular, Re(asin(x)) &in;  [-&pi;/2,&pi;/2] and if x &in;  &Ropf; and
+|x| &gt; 1 then asin(x) is complex. The branch cut is in two pieces:
+]- oo ,-1], continuous with quadrant II, and [1,+ oo [ continuous
+with quadrant IV. The function satisfies i asin(x) = 
+asinh(ix).</p>
+<p>
+The library syntax is <code>GEN <b>gasin</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:asinh"></div>
+<div id="asinh"></div>
+<h4>asinh(x)</h4>
+<p>
+Principal branch of sinh<sup>-1</sup>(x) = log(x + sqrt{1+x^2}). In
+particular Im(asinh(x)) &in;  [-&pi;/2,&pi;/2].
+The branch cut is in two pieces: ]-i  oo ,-i], continuous with quadrant
+III and [+i,+i  oo [, continuous with quadrant I.</p>
+<p>
+The library syntax is <code>GEN <b>gasinh</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:atan"></div>
+<div id="atan"></div>
+<h4>atan(x)</h4>
+<p>
+Principal branch of tan<sup>-1</sup>(x) = log ((1+ix)/(1-ix)) /
+2i. In particular the real part of atan(x) belongs to
+]-&pi;/2,&pi;/2[.
+The branch cut is in two pieces:
+]-i oo ,-i[, continuous with quadrant IV, and ]i,+i  oo [ continuous
+with quadrant II. The function satisfies atan(x) = 
+-iatanh(ix) for all x != &#177; i.</p>
+<p>
+The library syntax is <code>GEN <b>gatan</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:atanh"></div>
+<div id="atanh"></div>
+<h4>atanh(x)</h4>
+<p>
+Principal branch of tanh<sup>-1</sup>(x) = log ((1+x)/(1-x)) / 2. In
+particular the imaginary part of atanh(x) belongs to
+[-&pi;/2,&pi;/2]; if x &in;  &Ropf; and |x| &gt; 1 then atanh(x) is complex.</p>
+<p>
+The library syntax is <code>GEN <b>gatanh</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bernfrac"></div>
+<div id="bernfrac"></div>
+<h4>bernfrac(x)</h4>
+<p>
+Bernoulli number B<sub>x</sub>,
+where B<sub>0</sub> = 1, B<sub>1</sub> = -1/2, B<sub>2</sub> = 1/6,..., expressed as a rational number.
+The argument x should be of type integer.</p>
+<p>
+The library syntax is <code>GEN <b>bernfrac</b>(long x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bernpol"></div>
+<div id="bernpol"></div>
+<h4>bernpol(n, {v = 'x})</h4>
+<p>
+Bernoulli polynomial B<sub>n</sub> in variable v.</p>
+<p>
+</p><pre class="code">  ? bernpol(1)
+  %1 = x - 1/2
+  ? bernpol(3)
+  %2 = x^3 - 3/2*x^2 + 1/2*x
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>bernpol</b>(long n, long v = -1)</code> where <code>v</code> is a variable number.</p>
+<p>
+
+<hr>
+<div id="se:bernreal"></div>
+<div id="bernreal"></div>
+<h4>bernreal(x)</h4>
+<p>
+Bernoulli number
+B<sub>x</sub>, as <code><a href="Transcendental_functions.html#se:bernfrac"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">bernfrac</a></code>, but B<sub>x</sub> is returned as a real number
+(with the current precision).</p>
+<p>
+The library syntax is <code>GEN <b>bernreal</b>(long x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:bernvec"></div>
+<div id="bernvec"></div>
+<h4>bernvec(x)</h4>
+<p>
+This routine is obsolete, kept for backward compatibility only.</p>
+<p>
+The library syntax is <code>GEN <b>bernvec</b>(long x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:besselh1"></div>
+<div id="besselh1"></div>
+<h4>besselh1(<em>nu</em>, x)</h4>
+<p>
+H^1-Bessel function of index <em>nu</em> and argument x.</p>
+<p>
+The library syntax is <code>GEN <b>hbessel1</b>(GEN nu, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:besselh2"></div>
+<div id="besselh2"></div>
+<h4>besselh2(<em>nu</em>, x)</h4>
+<p>
+H^2-Bessel function of index <em>nu</em> and argument x.</p>
+<p>
+The library syntax is <code>GEN <b>hbessel2</b>(GEN nu, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:besseli"></div>
+<div id="besseli"></div>
+<h4>besseli(<em>nu</em>, x)</h4>
+<p>
+I-Bessel function of index <em>nu</em> and
+argument x. If x converts to a power series, the initial factor
+(x/2)^&nu;/&Gamma;(&nu;+1) is omitted (since it cannot be represented in PARI
+when &nu; is not integral).</p>
+<p>
+The library syntax is <code>GEN <b>ibessel</b>(GEN nu, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:besselj"></div>
+<div id="besselj"></div>
+<h4>besselj(<em>nu</em>, x)</h4>
+<p>
+J-Bessel function of index <em>nu</em> and
+argument x. If x converts to a power series, the initial factor
+(x/2)^&nu;/&Gamma;(&nu;+1) is omitted (since it cannot be represented in PARI
+when &nu; is not integral).</p>
+<p>
+The library syntax is <code>GEN <b>jbessel</b>(GEN nu, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:besseljh"></div>
+<div id="besseljh"></div>
+<h4>besseljh(n, x)</h4>
+<p>
+J-Bessel function of half integral index.
+More precisely, <code><a href="Transcendental_functions.html#se:besseljh"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">besseljh</a></code>(n,x) computes J<sub>n+1/2</sub>(x) where n
+must be of type integer, and x is any element of &Copf;. In the
+present version <b>2.12.1</b>, this function is not very accurate when x is small.</p>
+<p>
+The library syntax is <code>GEN <b>jbesselh</b>(GEN n, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:besselk"></div>
+<div id="besselk"></div>
+<h4>besselk(<em>nu</em>, x)</h4>
+<p>
+K-Bessel function of index <em>nu</em> and argument x.</p>
+<p>
+The library syntax is <code>GEN <b>kbessel</b>(GEN nu, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:besseln"></div>
+<div id="besseln"></div>
+<h4>besseln(<em>nu</em>, x)</h4>
+<p>
+N-Bessel function of index <em>nu</em> and argument x.</p>
+<p>
+The library syntax is <code>GEN <b>nbessel</b>(GEN nu, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:cos"></div>
+<div id="cos"></div>
+<h4>cos(x)</h4>
+<p>
+Cosine of x.</p>
+<p>
+The library syntax is <code>GEN <b>gcos</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:cosh"></div>
+<div id="cosh"></div>
+<h4>cosh(x)</h4>
+<p>
+Hyperbolic cosine of x.</p>
+<p>
+The library syntax is <code>GEN <b>gcosh</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:cotan"></div>
+<div id="cotan"></div>
+<h4>cotan(x)</h4>
+<p>
+Cotangent of x.</p>
+<p>
+The library syntax is <code>GEN <b>gcotan</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:cotanh"></div>
+<div id="cotanh"></div>
+<h4>cotanh(x)</h4>
+<p>
+Hyperbolic cotangent of x.</p>
+<p>
+The library syntax is <code>GEN <b>gcotanh</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:dilog"></div>
+<div id="dilog"></div>
+<h4>dilog(x)</h4>
+<p>
+Principal branch of the dilogarithm of x,
+i.e.&nbsp;analytic continuation of the power series log<sub>2</sub>(x) = &sum;<sub>n &geq; 1</sub>x^n/n^2.</p>
+<p>
+The library syntax is <code>GEN <b>dilog</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:eint1"></div>
+<div id="eint1"></div>
+<h4>eint1(x, {n})</h4>
+<p>
+Exponential integral &int;<sub>x</sub>^ oo (e<sup>-t</sup>)/(t)dt = 
+<code><a href="Transcendental_functions.html#se:incgam"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">incgam</a></code>(0, x), where the latter expression extends the function
+definition from real x &gt; 0 to all complex x != 0.</p>
+<p>
+If n is present, we must have x &gt; 0; the function returns the
+n-dimensional vector [<code><a href="Transcendental_functions.html#se:eint1"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">eint1</a></code>(x),...,<code><a href="Transcendental_functions.html#se:eint1"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">eint1</a></code>(nx)]. Contrary to
+other transcendental functions, and to the default case (n omitted), the
+values are correct up to a bounded <em>absolute</em>, rather than relative,
+error 10<sup>-n</sup>, where n is <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:precision"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">precision</a></code>(x) if x is a <code>t_REAL</code>
+and defaults to <code>realprecision</code> otherwise. (In the most important
+application, to the computation of L-functions via approximate functional
+equations, those values appear as weights in long sums and small individual
+relative errors are less useful than controlling the absolute error.) This is
+faster than repeatedly calling <code>eint1(i * x)</code>, but less precise.</p>
+<p>
+The library syntax is <code>GEN <b>veceint1</b>(GEN x, GEN n = NULL, long prec)</code>.
+Also available is <code>GEN <b>eint1</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:erfc"></div>
+<div id="erfc"></div>
+<h4>erfc(x)</h4>
+<p>
+Complementary error function, analytic continuation of
+(2/sqrt&pi;)&int;<sub>x</sub>^ oo e<sup>-t^2</sup>dt = <code><a href="Transcendental_functions.html#se:incgam"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">incgam</a></code>(1/2,x^2)/sqrt&pi;,
+where the latter expression extends the function definition from real x to
+all complex x != 0.</p>
+<p>
+The library syntax is <code>GEN <b>gerfc</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:eta"></div>
+<div id="eta"></div>
+<h4>eta(z, {<em>flag</em> = 0})</h4>
+<p>
+Variants of Dedekind's &eta; function.
+If <em>flag</em> = 0, return &prod;<sub>n = 1</sub>^ oo (1-q^n), where q depends on x
+in the following way:</p>
+<p>
+<b>*</b> q = e<sup>2i&pi; x</sup> if x is a <em>complex number</em> (which must then
+have positive imaginary part); notice that the factor q<sup>1/24</sup> is
+missing!</p>
+<p>
+<b>*</b> q = x if x is a <code>t_PADIC</code>, or can be converted to a
+<em>power series</em> (which must then have positive valuation).</p>
+<p>
+If <em>flag</em> is non-zero, x is converted to a complex number and we return the
+true &eta; function, q<sup>1/24</sup>&prod;<sub>n = 1</sub>^ oo (1-q^n),
+where q = e<sup>2i&pi; x</sup>.</p>
+<p>
+The library syntax is <code>GEN <b>eta0</b>(GEN z, long flag, long prec)</code>.</p>
+<p>
+Also available is <code>GEN <b>trueeta</b>(GEN x, long prec)</code> (<em>flag</em> = 1).</p>
+<p>
+
+<hr>
+<div id="se:exp"></div>
+<div id="exp"></div>
+<h4>exp(x)</h4>
+<p>
+Exponential of x.
+p-adic arguments with positive valuation are accepted.</p>
+<p>
+The library syntax is <code>GEN <b>gexp</b>(GEN x, long prec)</code>.
+For a <code>t_PADIC</code> x, the function
+<code>GEN <b>Qp_exp</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:expm1"></div>
+<div id="expm1"></div>
+<h4>expm1(x)</h4>
+<p>
+Return exp(x)-1, computed in a way that is also accurate
+when the real part of x is near 0.
+A naive direct computation would suffer from catastrophic cancellation;
+PARI's direct computation of exp(x) alleviates this well known problem at
+the expense of computing exp(x) to a higher accuracy when x is small.
+Using <code><a href="Transcendental_functions.html#se:expm1"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">expm1</a></code> is recommended instead:</p>
+<p>
+</p><pre class="code">  ? default(realprecision, 10000); x = 1e-100;
+  ? a = expm1(x);
+  time = 4 ms.
+  ? b = exp(x)-1;
+  time = 4 ms.
+  ? default(realprecision, 10040); x = 1e-100;
+  ? c = expm1(x);  \\ reference point
+  ? abs(a-c)/c  \\ relative error in expm1(x)
+  %7 = 1.4027986153764843997 E-10019
+  ? abs(b-c)/c  \\ relative error in exp(x)-1
+  %8 = 1.7907031188259675794 E-9919
+</pre><p>
+As the example above shows, when x is near 0,
+<code><a href="Transcendental_functions.html#se:expm1"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">expm1</a></code> is more accurate than <code>exp(x)-1</code>.</p>
+<p>
+The library syntax is <code>GEN <b>gexpm1</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:gamma"></div>
+<div id="gamma"></div>
+<h4>gamma(s)</h4>
+<p>
+For s a complex number, evaluates Euler's gamma
+function 
+&Gamma;(s) = &int;<sub>0</sub>^ oo t<sup>s-1</sup>exp(-t)dt.
+Error if s is a non-positive integer, where &Gamma; has a pole.</p>
+<p>
+For s a <code>t_PADIC</code>, evaluates the Morita gamma function at s, that
+is the unique continuous p-adic function on the p-adic integers
+extending &Gamma;<sub>p</sub>(k) = (-1)^k &prod;<sub>j &lt; k</sub>'j, where the prime means that p
+does not divide j.</p>
+<p>
+</p><pre class="code">  ? gamma(1/4 + O(5^10))
+  %1= 1 + 4*5 + 3*5^4 + 5^6 + 5^7 + 4*5^9 + O(5^10)
+  ? algdep(%,4)
+  %2 = x^4 + 4*x^2 + 5
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>ggamma</b>(GEN s, long prec)</code>.
+For a <code>t_PADIC</code> x, the function <code>GEN <b>Qp_gamma</b>(GEN x)</code> is
+also available.</p>
+<p>
+
+<hr>
+<div id="se:gammah"></div>
+<div id="gammah"></div>
+<h4>gammah(x)</h4>
+<p>
+Gamma function evaluated at the argument x+1/2.</p>
+<p>
+The library syntax is <code>GEN <b>ggammah</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:gammamellininv"></div>
+<div id="gammamellininv"></div>
+<h4>gammamellininv(G, t, {m = 0})</h4>
+<p>
+Returns the value at t of the inverse Mellin transform
+G initialized by <code><a href="Transcendental_functions.html#se:gammamellininvinit"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gammamellininvinit</a></code>.</p>
+<p>
+</p><pre class="code">  ? G = gammamellininvinit([0]);
+  ? gammamellininv(G, 2) - 2*exp(-Pi*2^2)
+  %2 = -4.484155085839414627 E-44
+</pre><p></p>
+<p></p>
+<p>
+The alternative shortcut</p>
+<p>
+</p><pre class="code">    gammamellininv(A,t,m)
+</pre><p>
+for</p>
+<p>
+</p><pre class="code">    gammamellininv(gammamellininvinit(A,m), t)
+</pre><p>
+is available.</p>
+<p>
+The library syntax is <code>GEN <b>gammamellininv</b>(GEN G, GEN t, long m, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:gammamellininvasymp"></div>
+<div id="gammamellininvasymp"></div>
+<h4>gammamellininvasymp(A, n, {m = 0})</h4>
+<p>
+Return the first n terms of the asymptotic expansion at infinity
+of the m-th derivative K<sup>(m)</sup>(t) of the inverse Mellin transform of the
+function
+f(s) = &Gamma;_&Ropf;(s+a<sub>1</sub>)...&Gamma;_&Ropf;(s+a<sub>d</sub>) ,
+where <code>A</code> is the vector [a<sub>1</sub>,...,a<sub>d</sub>] and
+&Gamma;_&Ropf;(s) = &pi;<sup>-s/2</sup> &Gamma;(s/2) (Euler's <code><a href="Transcendental_functions.html#se:gamma"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gamma</a></code>).
+The result is a vector
+[M[1]...M[n]] with M[1] = 1, such that
+K<sup>(m)</sup>(t) = sqrt{2<sup>d+1</sup>/d}t<sup>a+m(2/d-1)</sup>e<sup>-d&pi; t^{2/d</sup>}
+   &sum;<sub>n &geq; 0</sub> M[n+1] (&pi; t<sup>2/d</sup>)<sup>-n</sup> 
+with a = (1-d+&sum;<sub>1 &leq; j &leq; d</sub>a<sub>j</sub>)/d.</p>
+<p>
+The library syntax is <code>GEN <b>gammamellininvasymp</b>(GEN A, long precdl, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:gammamellininvinit"></div>
+<div id="gammamellininvinit"></div>
+<h4>gammamellininvinit(A, {m = 0})</h4>
+<p>
+Initialize data for the computation by <code><a href="Transcendental_functions.html#se:gammamellininv"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gammamellininv</a></code> of
+the m-th derivative of the inverse Mellin transform of the function
+f(s) = &Gamma;_&Ropf;(s+a<sub>1</sub>)...&Gamma;_&Ropf;(s+a<sub>d</sub>)
+where <code>A</code> is the vector [a<sub>1</sub>,...,a<sub>d</sub>] and
+&Gamma;_&Ropf;(s) = &pi;<sup>-s/2</sup> &Gamma;(s/2) (Euler's <code><a href="Transcendental_functions.html#se:gamma"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gamma</a></code>). This is the
+special case of Meijer's G functions used to compute L-values via the
+approximate functional equation.</p>
+<p>
+<b>Caveat.</b> Contrary to the PARI convention, this function
+guarantees an <em>absolute</em> (rather than relative) error bound.</p>
+<p>
+For instance, the inverse Mellin transform of &Gamma;_&Ropf;(s) is
+2exp(-&pi; z^2):</p>
+<p>
+</p><pre class="code">  ? G = gammamellininvinit([0]);
+  ? gammamellininv(G, 2) - 2*exp(-Pi*2^2)
+  %2 = -4.484155085839414627 E-44
+</pre><p></p>
+<p>
+The inverse Mellin transform of &Gamma;_&Ropf;(s+1) is
+2 zexp(-&pi; z^2), and its second derivative is
+ 4&pi; z exp(-&pi; z^2)(2&pi; z^2 - 3):</p>
+<p>
+</p><pre class="code">  ? G = gammamellininvinit([1], 2);
+  ? a(z) = 4*Pi*z*exp(-Pi*z^2)*(2*Pi*z^2-3);
+  ? b(z) = gammamellininv(G,z);
+  ? t(z) = b(z) - a(z);
+  ? t(3/2)
+  %3 = -1.4693679385278593850 E-39
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gammamellininvinit</b>(GEN A, long m, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:hyperu"></div>
+<div id="hyperu"></div>
+<h4>hyperu(a, b, x)</h4>
+<p>
+U-confluent hypergeometric function with
+parameters a and b. The parameters a and b can be complex but
+the present implementation requires x to be positive.</p>
+<p>
+The library syntax is <code>GEN <b>hyperu</b>(GEN a, GEN b, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:incgam"></div>
+<div id="incgam"></div>
+<h4>incgam(s, x, {g})</h4>
+<p>
+Incomplete gamma function &int;<sub>x</sub>^ oo e<sup>-t</sup>t<sup>s-1</sup>dt, extended by
+analytic continuation to all complex x, s not both 0. The relative error
+is bounded in terms of the precision of s (the accuracy of x is ignored
+when determining the output precision). When g is given, assume that
+g = &Gamma;(s). For small |x|, this will speed up the computation.</p>
+<p>
+The library syntax is <code>GEN <b>incgam0</b>(GEN s, GEN x, GEN g = NULL, long prec)</code>.
+Also available is <code>GEN <b>incgam</b>(GEN s, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:incgamc"></div>
+<div id="incgamc"></div>
+<h4>incgamc(s, x)</h4>
+<p>
+Complementary incomplete gamma function.
+The arguments x and s are complex numbers such that s is not a pole of
+&Gamma; and |x|/(|s|+1) is not much larger than 1 (otherwise the
+convergence is very slow). The result returned is &int;<sub>0</sub>^x
+e<sup>-t</sup>t<sup>s-1</sup>dt.</p>
+<p>
+The library syntax is <code>GEN <b>incgamc</b>(GEN s, GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lambertw"></div>
+<div id="lambertw"></div>
+<h4>lambertw(y)</h4>
+<p>
+Lambert W function, solution of the implicit equation xe^x = y,
+for y &gt; 0.</p>
+<p>
+The library syntax is <code>GEN <b>glambertW</b>(GEN y, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lngamma"></div>
+<div id="lngamma"></div>
+<h4>lngamma(x)</h4>
+<p>
+Principal branch of the logarithm of the gamma function of x. This
+function is analytic on the complex plane with non-positive integers
+removed, and can have much larger arguments than <code><a href="Transcendental_functions.html#se:gamma"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gamma</a></code> itself.</p>
+<p>
+For x a power series such that x(0) is not a pole of <code><a href="Transcendental_functions.html#se:gamma"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gamma</a></code>,
+compute the Taylor expansion. (PARI only knows about regular power series
+and can't include logarithmic terms.)</p>
+<p>
+</p><pre class="code">  ? lngamma(1+x+O(x^2))
+  %1 = -0.57721566490153286060651209008240243104*x + O(x^2)
+  ? lngamma(x+O(x^2))
+   ***   at top-level: lngamma(x+O(x^2))
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** lngamma: domain error in lngamma: valuation != 0
+  ? lngamma(-1+x+O(x^2))
+   *** lngamma: Warning: normalizing a series with 0 leading term.
+   ***   at top-level: lngamma(-1+x+O(x^2))
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** lngamma: domain error in intformal: residue(series, pole) != 0
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>glngamma</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:log"></div>
+<div id="log"></div>
+<h4>log(x)</h4>
+<p>
+Principal branch of the natural logarithm of
+x  &in;  &Copf;<sup>*</sup>, i.e.&nbsp;such that Im(log(x)) &in;  ]-&pi;,&pi;].
+The branch cut lies
+along the negative real axis, continuous with quadrant 2, i.e.&nbsp;such that
+lim<sub>b &rightarrow;  0^+</sub> log (a+bi) = log a for a  &in; &Ropf;<sup>*</sup>. The result is complex
+(with imaginary part equal to &pi;) if x &in;  &Ropf; and x &lt; 0. In general,
+the algorithm uses the formula
+log(x)  ~  (&pi;)/(2agm(1, 4/s)) - m log 2, 
+if s = x 2^m is large enough. (The result is exact to B bits provided
+s &gt; 2<sup>B/2</sup>.) At low accuracies, the series expansion near 1 is used.</p>
+<p>
+p-adic arguments are also accepted for x, with the convention that
+log(p) = 0. Hence in particular exp(log(x))/x is not in general equal to
+1 but to a (p-1)-th root of unity (or &#177;1 if p = 2) times a power of p.</p>
+<p>
+The library syntax is <code>GEN <b>glog</b>(GEN x, long prec)</code>.
+For a <code>t_PADIC</code> x, the function
+<code>GEN <b>Qp_log</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:log1p"></div>
+<div id="log1p"></div>
+<h4>log1p(x)</h4>
+<p>
+Return log(1+x), computed in a way that is also accurate
+when the real part of x is near 0. This is the reciprocal function
+of <code><a href="Transcendental_functions.html#se:expm1"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">expm1</a></code>(x) = exp(x)-1.</p>
+<p>
+</p><pre class="code">  ? default(realprecision, 10000); x = Pi*1e-100;
+  ? (expm1(log1p(x)) - x) / x
+  %2 = -7.668242895059371866 E-10019
+  ? (log1p(expm1(x)) - x) / x
+  %3 = -7.668242895059371866 E-10019
+</pre><p>
+When x is small, this function is both faster and more
+accurate than log(1+x):</p>
+<p>
+</p><pre class="code">  ? \p38
+  ? x = 1e-20;
+  ? localprec(100); c = log1p(x); \\ reference point
+  ? a = log1p(x); abs((a - c)/c)
+  %6 = 0.E-38
+  ? b = log(1+x); abs((b - c)/c)  \\ slightly less accurate
+  %7 = 1.5930919111324522770 E-38
+  ? for (i=1,10^5,log1p(x))
+  time = 81 ms.
+  ? for (i=1,10^5,log(1+x))
+  time = 100 ms. \\ slower, too
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>glog1p</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:polylog"></div>
+<div id="polylog"></div>
+<h4>polylog(m, x, {<em>flag</em> = 0})</h4>
+<p>
+One of the different polylogarithms, depending on <em>flag</em>:</p>
+<p>
+If <em>flag</em> = 0 or is omitted: m-th polylogarithm of x, i.e.&nbsp;analytic
+continuation of the power series Li<sub>m</sub>(x) = &sum;<sub>n &geq; 1</sub>x^n/n^m
+(x &lt; 1). Uses the functional equation linking the values at x and 1/x
+to restrict to the case |x| &leq; 1, then the power series when
+|x|^2 &leq; 1/2, and the power series expansion in log(x) otherwise.</p>
+<p>
+Using <em>flag</em>, computes a modified m-th polylogarithm of x.
+We use Zagier's notations; let Re<sub>m</sub> denote Re or Im depending
+on whether m is odd or even:</p>
+<p>
+If <em>flag</em> = 1: compute ~ D<sub>m</sub>(x), defined for |x| &leq; 1 by
+Re<sub>m</sub>(&sum;<sub>k = 0</sub><sup>m-1</sup> ((-log|x|)^k)/(k!)Li<sub>m-k</sub>(x)
++((-log|x|)<sup>m-1</sup>)/(m!)log|1-x|).</p>
+<p>
+If <em>flag</em> = 2: compute D<sub>m</sub>(x), defined for |x| &leq; 1 by
+Re<sub>m</sub>(&sum;<sub>k = 0</sub><sup>m-1</sup>((-log|x|)^k)/(k!)Li<sub>m-k</sub>(x)
+-(1)/(2)((-log|x|)^m)/(m!)).</p>
+<p>
+If <em>flag</em> = 3: compute P<sub>m</sub>(x), defined for |x| &leq; 1 by
+Re<sub>m</sub>(&sum;<sub>k = 0</sub><sup>m-1</sup>(2^kB<sub>k</sub>)/(k!)(log|x|)^kLi<sub>m-k</sub>(x)
+-(2<sup>m-1</sup>B<sub>m</sub>)/(m!)(log|x|)^m).</p>
+<p>
+These three functions satisfy the functional equation
+f<sub>m</sub>(1/x) = (-1)<sup>m-1</sup>f<sub>m</sub>(x).</p>
+<p>
+The library syntax is <code>GEN <b>polylog0</b>(long m, GEN x, long flag, long prec)</code>.
+Also available is
+<code>GEN <b>gpolylog</b>(long m, GEN x, long prec)</code> (<em>flag</em> = 0).</p>
+<p>
+
+<hr>
+<div id="se:psi"></div>
+<div id="psi"></div>
+<h4>psi(x)</h4>
+<p>
+The &psi;-function of x, i.e.&nbsp;the logarithmic derivative
+&Gamma;'(x)/&Gamma;(x).</p>
+<p>
+The library syntax is <code>GEN <b>gpsi</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sin"></div>
+<div id="sin"></div>
+<h4>sin(x)</h4>
+<p>
+Sine of x.</p>
+<p>
+The library syntax is <code>GEN <b>gsin</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sinc"></div>
+<div id="sinc"></div>
+<h4>sinc(x)</h4>
+<p>
+Cardinal sine of x, i.e. sin(x)/x if x != 0, 1 otherwise.
+Note that this function also allows to compute
+(1-cos(x)) / x^2 = <code><a href="Transcendental_functions.html#se:sinc"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">sinc</a></code>(x/2)^2 / 2
+accurately near x = 0.</p>
+<p>
+The library syntax is <code>GEN <b>gsinc</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sinh"></div>
+<div id="sinh"></div>
+<h4>sinh(x)</h4>
+<p>
+Hyperbolic sine of x.</p>
+<p>
+The library syntax is <code>GEN <b>gsinh</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sqr"></div>
+<div id="sqr"></div>
+<h4>sqr(x)</h4>
+<p>
+Square of x. This operation is not completely
+straightforward, i.e.&nbsp;identical to x * x, since it can usually be
+computed more efficiently (roughly one-half of the elementary
+multiplications can be saved). Also, squaring a 2-adic number increases
+its precision. For example,</p>
+<p>
+</p><pre class="code">  ? (1 + O(2^4))^2
+  %1 = 1 + O(2^5)
+  ? (1 + O(2^4)) * (1 + O(2^4))
+  %2 = 1 + O(2^4)
+</pre><p></p>
+<p>
+Note that this function is also called whenever one multiplies two objects
+which are known to be <em>identical</em>, e.g.&nbsp;they are the value of the same
+variable, or we are computing a power.</p>
+<p>
+</p><pre class="code">  ? x = (1 + O(2^4)); x * x
+  %3 = 1 + O(2^5)
+  ? (1 + O(2^4))^4
+  %4 = 1 + O(2^6)
+</pre><p></p>
+<p>
+(note the difference between <code>%2</code> and <code>%3</code> above).</p>
+<p>
+The library syntax is <code>GEN <b>gsqr</b>(GEN x)</code>.</p>
+<p>
+
+<hr>
+<div id="se:sqrt"></div>
+<div id="sqrt"></div>
+<h4>sqrt(x)</h4>
+<p>
+Principal branch of the square root of x, defined as sqrt{x} = 
+exp(log x / 2). In particular, we have
+Arg(sqrt(x)) &in;  ]-&pi;/2, &pi;/2], and if x &in;  &Ropf; and x &lt; 0,
+then the result is complex with positive imaginary part.</p>
+<p>
+Intmod a prime p, <code>t_PADIC</code> and <code>t_FFELT</code> are allowed as arguments. In
+the first 2 cases (<code>t_INTMOD</code>, <code>t_PADIC</code>), the square root (if it
+exists) which is returned is the one whose first p-adic digit is in the
+interval [0,p/2]. For other arguments, the result is undefined.</p>
+<p>
+The library syntax is <code>GEN <b>gsqrt</b>(GEN x, long prec)</code>.
+For a <code>t_PADIC</code> x, the function
+<code>GEN <b>Qp_sqrt</b>(GEN x)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:sqrtn"></div>
+<div id="sqrtn"></div>
+<h4>sqrtn(x, n, {&z})</h4>
+<p>
+Principal branch of the nth root of x,
+i.e.&nbsp;such that Arg(sqrtn(x)) &in;  ]-&pi;/n, &pi;/n]. Intmod
+a prime and p-adics are allowed as arguments.</p>
+<p>
+If z is present, it is set to a suitable root of unity allowing to
+recover all the other roots. If it was not possible, z is
+set to zero. In the case this argument is present and no nth root exist,
+0 is returned instead of raising an error.</p>
+<p>
+</p><pre class="code">  ? sqrtn(Mod(2,7), 2)
+  %1 = Mod(3, 7)
+  ? sqrtn(Mod(2,7), 2, &z); z
+  %2 = Mod(6, 7)
+  ? sqrtn(Mod(2,7), 3)
+    ***   at top-level: sqrtn(Mod(2,7),3)
+    ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    *** sqrtn: nth-root does not exist in gsqrtn.
+  ? sqrtn(Mod(2,7), 3,  &z)
+  %2 = 0
+  ? z
+  %3 = 0
+</pre><p></p>
+<p></p>
+<p>
+The following script computes all roots in all possible cases:</p>
+<p>
+</p><pre class="code">  sqrtnall(x,n)=
+  { my(V,r,z,r2);
+    r = sqrtn(x,n, &z);
+    if (!z, error("Impossible case in sqrtn"));
+    if (type(x) == "t_INTMOD" || type(x)=="t_PADIC",
+      r2 = r*z; n = 1;
+      while (r2!=r, r2*=z;n++));
+    V = vector(n); V[1] = r;
+    for(i=2, n, V[i] = V[i-1]*z);
+    V
+  }
+  addhelp(sqrtnall,"sqrtnall(x,n):compute the vector of nth-roots of x");
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gsqrtn</b>(GEN x, GEN n, GEN *z = NULL, long prec)</code>.
+If x is a <code>t_PADIC</code>, the function
+<code>GEN <b>Qp_sqrtn</b>(GEN x, GEN n, GEN *z)</code> is also available.</p>
+<p>
+
+<hr>
+<div id="se:tan"></div>
+<div id="tan"></div>
+<h4>tan(x)</h4>
+<p>
+Tangent of x.</p>
+<p>
+The library syntax is <code>GEN <b>gtan</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:tanh"></div>
+<div id="tanh"></div>
+<h4>tanh(x)</h4>
+<p>
+Hyperbolic tangent of x.</p>
+<p>
+The library syntax is <code>GEN <b>gtanh</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:teichmuller"></div>
+<div id="teichmuller"></div>
+<h4>teichmuller(x, {<em>tab</em>})</h4>
+<p>
+Teichm&uuml;ller character of the p-adic number x, i.e. the unique
+(p-1)-th root of unity congruent to x / p<sup>v<sub>p</sub>(x)</sup> modulo p.
+If x is of the form [p,n], for a prime p and integer n,
+return the lifts to &Zopf; of the images of i + O(p^n) for
+i = 1,..., p-1, i.e. all roots of 1 ordered  by residue class modulo
+p. Such a vector can be fed back to <code><a href="Transcendental_functions.html#se:teichmuller"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">teichmuller</a></code>, as the
+optional argument <code>tab</code>, to speed up later computations.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? z = teichmuller(2 + O(101^5))
+  %1 = 2 + 83*101 + 18*101^2 + 69*101^3 + 62*101^4 + O(101^5)
+  ? z^100
+  %2 = 1 + O(101^5)
+  ? T = teichmuller([101, 5]);
+  ? teichmuller(2 + O(101^5), T)
+  %4 = 2 + 83*101 + 18*101^2 + 69*101^3 + 62*101^4 + O(101^5)
+</pre><p>
+As a rule of thumb, if more than
+p / 2(log<sub>2</sub>(p) + <code><a href="Combinatorics.html#se:hammingweight"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">hammingweight</a></code>(p))
+values of <code><a href="Transcendental_functions.html#se:teichmuller"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">teichmuller</a></code> are to be computed, then it is worthwile to
+initialize:</p>
+<p>
+</p><pre class="code">  ? p = 101; n = 100; T = teichmuller([p,n]); \\ instantaneous
+  ? for(i=1,10^3, vector(p-1, i, teichmuller(i+O(p^n), T)))
+  time = 60 ms.
+  ? for(i=1,10^3, vector(p-1, i, teichmuller(i+O(p^n))))
+  time = 1,293 ms.
+  ? 1 + 2*(log(p)/log(2) + hammingweight(p))
+  %8 = 22.316[...]
+</pre><p>
+Here the precompuation induces a speedup by a factor
+1293/ 60  ~  21.5.</p>
+<p>
+<b>Caveat.</b>
+If the accuracy of <code>tab</code> (the argument n above) is lower than the
+precision of x, the <em>former</em> is used, i.e. the cached value is not
+refined to higher accuracy. It the accuracy of <code>tab</code> is larger, then
+the precision of x is used:</p>
+<p>
+</p><pre class="code">  ? Tlow = teichmuller([101, 2]); \\ lower accuracy !
+  ? teichmuller(2 + O(101^5), Tlow)
+  %10 = 2 + 83*101 + O(101^5)  \\ no longer a root of 1
+  
+  ? Thigh = teichmuller([101, 10]); \\ higher accuracy
+  ? teichmuller(2 + O(101^5), Thigh)
+  %12 = 2 + 83*101 + 18*101^2 + 69*101^3 + 62*101^4 + O(101^5)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>teichmuller</b>(GEN x, GEN tab = NULL)</code>.</p>
+<p>
+Also available are the functions <code>GEN <b>teich</b>(GEN x)</code> (<code>tab</code> is
+<code>NULL</code>) as well as
+<code>GEN <b>teichmullerinit</b>(long p, long n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:theta"></div>
+<div id="theta"></div>
+<h4>theta(q, z)</h4>
+<p>
+Jacobi sine theta-function
+ &theta;<sub>1</sub>(z, q) = 2q<sup>1/4</sup> &sum;<sub>n &geq; 0</sub> (-1)^n q<sup>n(n+1)</sup> sin((2n+1)z).</p>
+<p>
+The library syntax is <code>GEN <b>theta</b>(GEN q, GEN z, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:thetanullk"></div>
+<div id="thetanullk"></div>
+<h4>thetanullk(q, k)</h4>
+<p>
+k-th derivative at z = 0 of <code><a href="Transcendental_functions.html#se:theta"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">theta</a></code>(q,z).</p>
+<p>
+The library syntax is <code>GEN <b>thetanullk</b>(GEN q, long k, long prec)</code>.</p>
+<p>
+<code>GEN <b>vecthetanullk</b>(GEN q, long k, long prec)</code> returns the vector
+of all (d^i&theta;)/(dz^i)(q,0) for all odd i = 1, 3,..., 2k-1.
+<code>GEN <b>vecthetanullk_tau</b>(GEN tau, long k, long prec)</code> returns
+<code>vecthetanullk_tau</code> at q = exp(2i&pi; <code>tau</code>).</p>
+<p>
+
+<hr>
+<div id="se:weber"></div>
+<div id="weber"></div>
+<h4>weber(x, {<em>flag</em> = 0})</h4>
+<p>
+One of Weber's three f functions.
+If <em>flag</em> = 0, returns
+f(x) = exp(-i&pi;/24).&eta;((x+1)/2)/&eta;(x)   {such that}  
+j = (f<sup>24</sup>-16)^3/f<sup>24</sup>,
+where j is the elliptic j-invariant  (see the function <code><a href="Elliptic_curves.html#se:ellj"
+    onClick="parent.itemFrame.location='cont_Elliptic_curves.html'">ellj</a></code>).
+If <em>flag</em> = 1, returns
+f<sub>1</sub>(x) = &eta;(x/2)/&eta;(x)  {such that}  
+j = (f<sub>1</sub><sup>24</sup>+16)^3/f<sub>1</sub><sup>24</sup>.
+Finally, if <em>flag</em> = 2, returns
+f<sub>2</sub>(x) = sqrt{2}&eta;(2x)/&eta;(x)  {such that}  
+j = (f<sub>2</sub><sup>24</sup>+16)^3/f<sub>2</sub><sup>24</sup>.
+Note the identities f^8 = f<sub>1</sub>^8+f<sub>2</sub>^8 and ff_1f<sub>2</sub> = sqrt2.</p>
+<p>
+The library syntax is <code>GEN <b>weber0</b>(GEN x, long flag, long prec)</code>.
+Also available are <code>GEN <b>weberf</b>(GEN x, long prec)</code>,
+<code>GEN <b>weberf1</b>(GEN x, long prec)</code> and <code>GEN <b>weberf2</b>(GEN x, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zeta"></div>
+<div id="zeta"></div>
+<h4>zeta(s)</h4>
+<p>
+For s != 1 a complex number, Riemann's zeta
+function  &zeta;(s) = &sum;<sub>n &geq; 1</sub>n<sup>-s</sup>,
+computed using the Euler-Maclaurin summation formula, except
+when s is of type integer, in which case it is computed using
+Bernoulli numbers for s &leq; 0 or s &gt; 0 and
+even, and using modular forms for s &gt; 0 and odd. Power series
+are also allowed:</p>
+<p>
+</p><pre class="code">  ? zeta(2) - Pi^2/6
+  %1 = 0.E-38
+  ? zeta(1+x+O(x^3))
+  %2 = 1.0000000000000000000000000000000000000*x^-1 + \
+       0.57721566490153286060651209008240243104 + O(x)
+</pre><p></p>
+<p></p>
+<p>
+For s != 1 a p-adic number, Kubota-Leopoldt zeta function at s, that
+is the unique continuous p-adic function on the p-adic integers
+that interpolates the values of (1 - p<sup>-k</sup>) &zeta;(k) at negative
+integers k such that k = 1 (mod p-1) (resp. k is odd) if
+p is odd (resp. p = 2). Power series are not allowed in this case.</p>
+<p>
+</p><pre class="code">  ? zeta(-3+O(5^10))
+  %1 = 4*5^-1 + 4 + 3*5 + 4*5^3 + 4*5^5 + 4*5^7 + O(5^9)))))
+  ? (1-5^3) * zeta(-3)
+  %2 = -1.0333333333333333333333333333333333333
+  ? bestappr(%)
+  %3 = -31/30
+  ? zeta(-3+O(5^10)) - (-31/30)
+  %4 = O(5^9)
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>gzeta</b>(GEN s, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zetahurwitz"></div>
+<div id="zetahurwitz"></div>
+<h4>zetahurwitz(s, x, {<em>der</em> = 0})</h4>
+<p>
+Hurwitz zeta function &zeta;(s,x) = &sum;<sub>n &geq; 0</sub>(n+x)<sup>-s</sup> and
+analytically continued, with s != 1 and x not a negative or zero
+integer. Note that &zeta;(s,1) = &zeta;(s). s can also be a polynomial,
+rational function, or power series. If <code>der</code> is positive, compute the
+<code>der</code>'th derivative with respect to s. Note that the derivative
+with respect to x is simply -s&zeta;(s+1,x).</p>
+<p>
+</p><pre class="code">  ? zetahurwitz(Pi,Pi)
+  %1 = 0.056155444497585099925180502385781494484
+  ? zetahurwitz(2,1) - zeta(2)
+  %2 = -2.350988701644575016 E-38
+  ? zetahurwitz(Pi,3) - (zeta(Pi)-1-1/2^Pi)
+  %3 = -2.2040519077917890774 E-39
+  ? zetahurwitz(-7/2,1) - zeta(-7/2)
+  %4 = -2.295887403949780289 E-41
+  ? zetahurwitz(-2.3,Pi+I*log(2))
+  %5 = -5.1928369229555125820137832704455696057\
+      - 6.1349660138824147237884128986232049582*I
+  ? zetahurwitz(-1+x^2+O(x^3),1)
+  %6 = -0.083333333333333333333333333333333333333\
+       - 0.16542114370045092921391966024278064276*x^2 + O(x^3)
+  ? zetahurwitz(1+x+O(x^4),2)
+  %7 = 1.0000000000000000000000000000000000000*x^-1\
+     - 0.42278433509846713939348790991759756896\
+     + 0.072815845483676724860586375874901319138*x + O(x^2)
+  ? zetahurwitz(2,1,2) \\ zeta''(2)
+  %8 = 1.9892802342989010234208586874215163815
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>zetahurwitz</b>(GEN s, GEN x, long der, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zetamult"></div>
+<div id="zetamult"></div>
+<h4>zetamult(s, {T})</h4>
+<p>
+For s a vector of positive integers such that s[1] &geq; 2,
+returns the multiple zeta value (MZV)
+&zeta;(s<sub>1</sub>,..., s<sub>k</sub>) = &sum;<sub>n<sub>1</sub> &gt; ... &gt; n<sub>k</sub> &gt; 0</sub> n<sub>1</sub><sup>-s<sub>1</sub></sup>...n<sub>k</sub><sup>-s<sub>k</sub></sup>.</p>
+<p>
+</p><pre class="code">  ? zetamult([2,1]) - zeta(3) \\ Euler's identity
+  %1 = 0.E-38
+</pre><p></p>
+<p>
+If the bit precision is B, this function runs in time &Otilde;(k B^2).</p>
+<p>
+If T is provided, it must be the output of <code><a href="Transcendental_functions.html#se:zetamultinit"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">zetamultinit</a></code>(w) for
+some w &geq; s<sub>1</sub> +...+ s<sub>k</sub> and will provide a small speed up,
+usually about 10%.</p>
+<p>
+</p><pre class="code">  ? T = zetamultinit(20); s = [2,1,1,1,1,1,1,1,1];
+  ? for(i=1,10^3, zetamult(s))
+  time = 373 ms.
+  ? for(i=1,10^3, zetamult(s, T)) \\ faster
+  time = 279 ms.
+  ? zetamult(vector(10,i,2), T)
+  %4 = 1.7165384749821433018378232207719985786 E-10
+  ? zetamult(vector(11,i,2), T) \\ overshoot
+   ***   at top-level: zetamult(vector(11,i
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** zetamult: domain error in zetamult: weight &gt; 20
+</pre><p></p>
+<p></p>
+<p>
+In addition to the above format (<code>avec</code>), the function
+also accepts an internal binary format <code>evec</code> (each s<sub>i</sub> is replaced
+by s<sub>i</sub> bits, all of them 0 but the last one), and an <code>index</code> format
+(if e is the positive integer attached the <code>evec</code> vector of
+bits, the index is the integer e + 2<sup>k-2</sup>). The function
+<code><a href="Transcendental_functions.html#se:zetamultconvert"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">zetamultconvert</a></code> allows to pass from one format to the other; the
+function <code><a href="Transcendental_functions.html#se:zetamultall"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">zetamultall</a></code> computes simultaneously all MZVs of weight
+&sum;<sub>i &leq; k</sub> s<sub>i</sub> up to n.</p>
+<p>
+The library syntax is <code>GEN <b>zetamult0</b>(GEN s, GEN T = NULL, long prec)</code>.
+Also available is <code>GEN <b>zetamult</b>(GEN avec, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zetamultall"></div>
+<div id="zetamultall"></div>
+<h4>zetamultall(n)</h4>
+<p>
+List of all multiple zeta values for weight s<sub>1</sub> +...+ s<sub>k</sub> up to n.
+The function returns a vector with 2<sup>n-1</sup>-1 components whose i-th entry
+is the MZV of <code>index</code> i (see <code><a href="Transcendental_functions.html#se:zetamult"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">zetamult</a></code>).</p>
+<p>
+</p><pre class="code">  ? z = zetamultall(5);
+  ? z[10]
+  %2 = 0.22881039760335375976874614894168879193
+  ? zetamultconvert(10) \\ convert index 10 to avec
+  %3 = Vecsmall([3, 2])
+  ? zetamult(%)
+  %4 = 0.22881039760335375976874614894168879193
+  ? zetamult(10)
+  %5 = 0.22881039760335375976874614894168879193
+</pre><p>
+If the bit precision is B, this function runs in time
+O(2^n n B^2) for an output of size O(2^n B).</p>
+<p>
+The library syntax is <code>GEN <b>zetamultall</b>(long n, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zetamultconvert"></div>
+<div id="zetamultconvert"></div>
+<h4>zetamultconvert(a, {<em>fl</em> = 1})</h4>
+<p>
+<code>a</code> being either an <code>evec</code>, <code>avec</code>, or index <code>m</code>,
+converts into <code>evec</code> (<code>fl = 0</code>), <code>avec</code> (<code>fl = 1</code>, default), or
+index <code>m</code> (<code>fl = 2</code>); see <code><a href="Transcendental_functions.html#se:zetamult"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">zetamult</a></code> for explanations.</p>
+<p>
+</p><pre class="code">  ? zetamultconvert(10)
+  %1 = Vecsmall([3, 2])
+  ? zetamultconvert(13)
+  %2 = Vecsmall([2, 2, 1])
+  ? zetamultconvert(10, 0)
+  %3 = Vecsmall([0, 0, 1, 0, 1])
+  ? zetamultconvert(13, 0)
+  %4 = Vecsmall([0, 1, 0, 1, 1])
+</pre><p>
+The last two lines imply that [3,2] and [2,2,1]
+are dual (reverse order of bits and swap 0 and 1 in <code>evec</code> form).
+Hence they have the same zeta value:</p>
+<p>
+</p><pre class="code">  ? zetamult([3,2])
+  %5 = 0.22881039760335375976874614894168879193
+  ? zetamult([2,2,1])
+  %6 = 0.22881039760335375976874614894168879193
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>zetamultconvert</b>(GEN a, long fl)</code>.</p>
+<p>
+
+<hr>
+<div id="se:zetamultinit"></div>
+<div id="zetamultinit"></div>
+<h4>zetamultinit(<em>maxw</em>)</h4>
+<p>
+Initialize data (depending on the precision) used to compute
+multiple zeta values at
+integral points s = [s<sub>1</sub>,...,s<sub>k</sub>] for any s<sub>1</sub> +...+ s<sub>k</sub>  &leq; 
+<em>maxw</em>. The corresponding data is inexpensive to compute or store
+and provides a small speedup (usually about 10%) when multiple values are to
+be computed at a given accuracy.</p>
+<p>
+</p><pre class="code">  ? for(i = 1, 2^12-1, zetamult(i))
+  time = 1,413 ms
+  ? T = zetamultinit(13); \\ instantaneous
+  ? for(i = 1, 2^12-1, zetamult(i, T)) \\ used cached data
+  time = 1,315 ms
+  ? zetamultall(12); \\ much faster !
+  time = 27 ms
+  
+  ? T=zetamultinit(102); sizebyte(T) \\ small even for huge weights
+  time = 5 ms.
+  %5 = 1440504
+  ? for(i = 1, 2^5, zetamult(2^100+i))
+  time = 633 ms.
+  ? for(i = 1, 2^5, zetamult(2^100+i, T))
+  time = 550 ms.
+</pre><p></p>
+<p>
+For small weights, <code><a href="Transcendental_functions.html#se:zetamultall"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">zetamultall</a></code> will be much more efficient; but it
+is not an option when the weight gets large.</p>
+<p>
+The library syntax is <code>GEN <b>zetamultinit</b>(long maxw, long prec)</code>.</p>
+<p>
+
+<hr>
+</body>

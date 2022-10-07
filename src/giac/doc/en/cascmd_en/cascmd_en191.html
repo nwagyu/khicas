@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Normal form: normal
+</title>
+</head>
+<body >
+<a href="cascmd_en190.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en192.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:normal" class="subsection">5.12.13  Normal form: <span style="font-family:monospace">normal</span><a id="hevea_default320"></a>
+</h3>
+<p>The <span style="font-family:monospace">normal</span> command takes an expression and considers it to be
+a rational function with respect to generalized identifiers (which are
+either true identifiers or transcendental functions replaced by
+temporary identifiers) with coefficients in ℚ or
+ℚ[<span style="font-style:italic">i</span>] or in an algebraic extension (such as
+ℚ[√<span style="text-decoration:overline">2</span>] and finds its expanded irreducible
+representation.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">normal</span> takes one argument:<br>
+ <span style="font-style:italic">expr</span>, an expression.
+</li><li class="li-itemize"><span style="font-family:monospace">normal(</span><span style="font-style:italic">expr</span><span style="font-family:monospace">)</span> returns the expanded irreducible
+representation of <span style="font-style:italic">expr</span>. (See also <span style="font-family:monospace">ratnormal</span>,
+Section <a href="cascmd_en194.html#ssec%3Aratnormal">5.12.16</a>, for pure rational function or
+<span style="font-family:monospace">simplify</span>, Section <a href="cascmd_en192.html#ssec%3Asimplify">5.12.14</a>, if the transcendental
+functions are not algebraically independent.)
+</li></ul><h4 id="sec397" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal((x-1)*(x+1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  <span style="font-style:italic">x</span><sup>2</sup>−1
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">normal((1-sin(x))*(1+sin(x))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">  −sin<sup>2</sup><span style="font-style:italic">x</span>+1
+</td></tr>
+</table>
+</li></ul><p><br>
+</p><p><span style="font-weight:bold">Remarks.</span>
+</p><ul class="itemize"><li class="li-itemize">
+Unlike <span style="font-family:monospace">simplify</span>,
+<span style="font-family:monospace">normal</span> does not try to find algebraic relations between
+transcendental functions like cos(<span style="font-style:italic">x</span>)<sup>2</sup>+sin(<span style="font-style:italic">x</span>)<sup>2</sup>=1.
+</li><li class="li-itemize">It is sometimes necessary to run the <span style="font-family:monospace">normal</span> command twice to
+get a fully irreducible representation of an expression
+containing algebraic extensions.
+</li></ul>
+<hr>
+<a href="cascmd_en190.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en192.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

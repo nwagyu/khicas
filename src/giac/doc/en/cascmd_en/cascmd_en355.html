@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Building a polynomial from its evaluation: genpoly
+</title>
+</head>
+<body >
+<a href="cascmd_en354.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en356.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec824" class="subsection">5.31.4  Building a polynomial from its evaluation: <span style="font-family:monospace">genpoly</span>
+<a id="hevea_default606"></a></h3>
+<p>The <span style="font-family:monospace">genpoly</span> command finds a polynomial which evaluates to a
+given polynomial.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">genpoly</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a polynomial with <span style="font-style:italic">n</span>−1 variables.
+</li><li class="li-itemize"><span style="font-style:italic">b</span>, an integer.
+</li><li class="li-itemize"><span style="font-style:italic">x</span>, the name of a variable.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">genpoly(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">b</span>,<span style="font-style:italic">x</span><span style="font-family:monospace">)</span>
+returns the polynomial <span style="font-style:italic">Q</span> with <span style="font-style:italic">n</span> variables (the <span style="font-style:italic">n</span>−1 variables in 
+<span style="font-style:italic">P</span> and the variable <span style="font-style:italic">x</span>) such that the
+coefficients of <span style="font-style:italic">Q</span> are in the interval (−<span style="font-style:italic">b</span>/2,<span style="font-style:italic">b</span>/2] and <span style="font-style:italic">Q</span>|<sub><span style="font-style:italic">x</span>=<span style="font-style:italic">b</span></sub> =
+<span style="font-style:italic">P</span>.
+In other words, <span style="font-style:italic">P</span> is written in base <span style="font-style:italic">b</span> but using the
+convention that the Euclidean remainder belongs to (−<span style="font-style:italic">b</span>/2,<span style="font-style:italic">b</span>/2]
+(this convention is also known as s-mod representation).
+</li></ul><h4 id="sec825" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">genpoly(61,6,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">2 <span style="font-style:italic">x</span><sup>2</sup>−2 <span style="font-style:italic">x</span>+1
+</td></tr>
+</table>
+Indeed 61 divided by 6 is 10 with remainder 1, then 10 divided by 6 is 2
+with remainder -2 (instead of the usual quotient 1 and remainder 4 out of bounds),
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">61=2*6<sup>2</sup>−2*6+1 
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">genpoly(5,6,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>−1
+</td></tr>
+</table>
+Indeed: 5=6−1.
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">genpoly(7,6,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span>+1
+</td></tr>
+</table>
+Indeed: 7=6+1<br>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">genpoly(7*y+5,6,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span> <span style="font-style:italic">y</span>+<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>−1
+</td></tr>
+</table>
+Indeed: <span style="font-style:italic">x</span>*<span style="font-style:italic">y</span>+<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>−1=<span style="font-style:italic">y</span>(<span style="font-style:italic">x</span>+1)+(<span style="font-style:italic">x</span>−1).
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">genpoly(7*y+5*z^2,6,x)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span> <span style="font-style:italic">y</span>+<span style="font-style:italic">x</span> <span style="font-style:italic">z</span><sup>2</sup>+<span style="font-style:italic">y</span>−<span style="font-style:italic">z</span><sup>2</sup>
+</td></tr>
+</table>
+Indeed: <span style="font-style:italic">x</span>*<span style="font-style:italic">y</span>+<span style="font-style:italic">x</span>*<span style="font-style:italic">z</span>+<span style="font-style:italic">y</span>−<span style="font-style:italic">z</span>=<span style="font-style:italic">y</span>*(<span style="font-style:italic">x</span>+1)+<span style="font-style:italic">z</span>*(<span style="font-style:italic">x</span>−1).
+</li></ul>
+<hr>
+<a href="cascmd_en354.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en356.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

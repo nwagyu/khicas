@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Lines and directed lines in the plane: line
+</title>
+</head>
+<body >
+<a href="cascmd_en801.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en803.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="ssec:2dlines" class="subsection">13.7.1  Lines and directed lines in the plane: <span style="font-family:monospace">line</span>
+<a id="hevea_default1491"></a></h3>
+<p>See Section <a href="cascmd_en901.html#ssec%3A3dlines">14.5.1</a> for lines in space.</p><p>The <span style="font-family:monospace">line</span> command returns and draws a directed line. It can take its
+arguments in different ways.</p><p>Two points:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">line</span> can take two arguments:<br>
+ <span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span>, two points (which can also be given as a list).
+</li><li class="li-itemize"><span style="font-family:monospace">line(</span><span style="font-style:italic">P</span>,<span style="font-style:italic">Q</span><span style="font-family:monospace">)</span> returns and draws the line whose
+direction is from the <span style="font-style:italic">P</span> to <span style="font-style:italic">Q</span>.
+</li></ul><p><br>
+</p><p>A point and a slope.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">line</span> can take two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">p</span>, a point.
+</li><li class="li-itemize"><span style="font-family:monospace">slope=</span><span style="font-style:italic">m</span>
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">line(</span><span style="font-style:italic">p</span><span style="font-family:monospace">,slope=</span><span style="font-style:italic">m</span><span style="font-family:monospace">)</span> returns and draws the line
+through the given point with the given slope, where
+direction of the line is determined by the slope.
+</li></ul><p><br>
+</p><p>A point and a direction vector.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">line</span> can take two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">P</span>, a point.
+</li><li class="li-itemize"><span style="font-family:monospace">[</span><span style="font-style:italic">u</span><sub>1</sub><span style="font-family:monospace">,</span><span style="font-style:italic">u</span><sub>2</sub><span style="font-family:monospace">]</span>, a direction vector.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">line(</span><span style="font-style:italic">P</span><span style="font-family:monospace">,[</span><span style="font-style:italic">u</span><sub>1</sub><span style="font-family:monospace">,</span><span style="font-style:italic">u</span><sub>2</sub><span style="font-family:monospace">])</span> returns and draws the line
+through the given point with the direction given by the direction vector.
+</li></ul><p><br>
+</p><p>An equation.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">line</span> can take one argument:<br>
+ <span style="font-style:italic">a</span><span style="font-family:monospace">*x+</span><span style="font-style:italic">b</span><span style="font-family:monospace">*y+</span><span style="font-style:italic">c</span><span style="font-family:monospace">=0</span>.
+</li><li class="li-itemize"><span style="font-family:monospace">line(</span><span style="font-style:italic">a</span><span style="font-family:monospace">*x+</span><span style="font-style:italic">b</span><span style="font-family:monospace">*y+</span><span style="font-style:italic">c</span><span style="font-family:monospace">=0)</span> returns and draws the line
+given by the equation. The direction of the line is given by
+<span style="font-family:monospace">[</span><span style="font-style:italic">b</span>,−<span style="font-style:italic">a</span><span style="font-family:monospace">]</span>. 
+</li></ul><h4 id="sec2052" class="subsubsection">Example</h4>
+<p>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<span style="font-family:monospace">line(0,1+i)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">line(1+i,slope=1)</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">line(1+i,[3,3])</span>
+</div><p>
+<span style="font-style:italic">or:</span>
+</p><div class="center">
+<span style="font-family:monospace">line(y - x = 0)</span>
+</div><p>
+<span style="font-style:italic">Output:</span>
+</p><div class="center">
+<img src="cascmd_en179.png">
+</div><p><br>
+</p><p><span style="font-weight:bold">Warning:</span> To draw a line with an additional argument for color
+(such as <span style="font-family:monospace">color=blue</span>), this argument must be the third
+argument. In particular, for a list of two points to specify a line
+in this command, the list must be turned into a sequence, such as with
+<span style="font-family:monospace">op</span>. For example, given a list <span style="font-family:monospace">L</span> of two points
+(possibly the result of a different command) which determines a line,
+to draw the line <span style="font-family:monospace">blue</span> enter <span style="font-family:monospace">line(op(L),color=blue)</span>;
+entering <span style="font-family:monospace">line(L,color=blue)</span> will result in an error.</p>
+<hr>
+<a href="cascmd_en801.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en803.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

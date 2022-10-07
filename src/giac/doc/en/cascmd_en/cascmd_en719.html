@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>fsolve with the option secant_solver
+</title>
+</head>
+<body >
+<a href="cascmd_en718.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en720.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1851" class="subsection">10.4.5  <span style="font-family:monospace">fsolve</span> with the option <span style="font-family:monospace">secant_solver</span>
+<a id="hevea_default1308"></a></h3>
+<p>The secant method is a simplified version of Newton’s method. The
+computation of <span style="font-style:italic">x</span><sub>1</sub> is done using Newton’s method, but then the
+computation of <span style="font-style:italic">f</span>′(<span style="font-style:italic">x</span><sub><span style="font-style:italic">n</span></sub>), <span style="font-style:italic">n</span>&gt;1 is done approximately. This method is
+used when the computation of the derivative is expensive: 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span>+1</sub>=<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">f</span>′<sub><span style="font-style:italic">est</span></sub></td></tr>
+</table></td><td class="dcell">,   <span style="font-style:italic">f</span>′<sub><span style="font-style:italic">est</span></sub>=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>)−<span style="font-style:italic">f</span>(<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span>−1</sub>)</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span></sub>−<span style="font-style:italic">x</span><sub><span style="font-style:italic">i</span>−1</sub></td></tr>
+</table></td><td class="dcell"> 
+</td></tr>
+</table><p> 
+The convergence for roots of multiplicity 1 is of order
+(1 + √<span style="text-decoration:overline">5</span>)/2 ≈ 1.62… .</p><h4 id="sec1852" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fsolve((cos(x))=x,x,-1..1,secant_solver)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎣</td><td class="dcell">0.739085133215</td><td class="dcell">⎤<br>
+⎦</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">fsolve((cos(x))=x,x,0,secant_solver)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">0.739085133215
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en718.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en720.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

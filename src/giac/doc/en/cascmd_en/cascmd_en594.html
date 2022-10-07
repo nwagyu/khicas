@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title></title>
+</head>
+<body >
+<a href="cascmd_en592.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en595.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h4 id="sec1480" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">trigsimplify(curvature([5*cos(t),5*sin(t)],t))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">curvature([2*cos(t),3*sin(t)],t)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">6 cos<sup>2</sup><span style="font-style:italic">t</span>+6 sin<sup>2</sup><span style="font-style:italic">t</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >9 cos<sup>2</sup><span style="font-style:italic">t</span>+4 sin<sup>2</sup><span style="font-style:italic">t</span></td></tr>
+</table></td></tr>
+</table></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center"><table class="display"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell">9 cos<sup>2</sup><span style="font-style:italic">t</span>+4 sin<sup>2</sup><span style="font-style:italic">t</span></td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup></td></tr>
+</table></td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">curvature([2*cos(t),3*sin(t)],t,pi/2)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">3</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">curvature(plot(x^2),point(1,1))</span>
+</div>
+(see Section <a href="index.html#sec%3Aplot2d">7.5</a> and Section <a href="cascmd_en788.html#ssec%3A2dpoint">13.6.2</a>.)
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">25</td></tr>
+</table></td><td class="dcell"> </td><td class="dcell"><span style="font-size:x-large">√</span></td><td class="dcell"><table style="border:0;border-spacing:1;border-collapse:separate;" class="cellpadding0"><tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >5</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">osculating_circle</span> command 
+finds and draws the osculating circle of a curve.</p><p>To find the osculating circle from a parameterization:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">osculating_circle</span> takes three arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a curve.
+</li><li class="li-itemize"><span style="font-style:italic">t</span>, the parameter of the curve.
+</li><li class="li-itemize"><span style="font-style:italic">t</span><sub>0</sub>, a value of the parameter.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">osculating_circle(</span><span style="font-style:italic">C</span>,<span style="font-style:italic">t</span>,<span style="font-style:italic">t</span><sub>0</sub><span style="font-family:monospace">)</span> draws and returns the
+osculating circle of the curve at the point specified by <span style="font-style:italic">t</span><sub>0</sub>.
+</li></ul><p><br>
+</p><p>To find the osculating circle from a curve object:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">osculating_circle</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a curve.
+</li><li class="li-itemize"><span style="font-style:italic">p</span>, a point on the curve.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">osculating_circle(</span><span style="font-style:italic">C</span>,<span style="font-style:italic">p</span><span style="font-family:monospace">)</span> draws and returns the
+osculating circle of <span style="font-style:italic">C</span> at the point <span style="font-style:italic">p</span>.
+</li></ul><h4 id="sec1481" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">osculating_circle(plot(x^2),point(1,1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en022.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">equation(osculating_circle(plot(x^2),point(1,1)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+4</td><td class="dcell">⎞<br>
+⎠</td><td class="dcell"><sup>2</sup>+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">y</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">7</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">125</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">equation(osculating_circle([t^2,t^3],t,1))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">x</span>+</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">11</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">+</td><td class="dcell">⎛<br>
+⎜<br>
+⎜<br>
+⎝</td><td class="dcell"><span style="font-style:italic">y</span>−</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">16</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">3</td></tr>
+</table></td><td class="dcell">⎞<br>
+⎟<br>
+⎟<br>
+⎠</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:left">2</td></tr>
+<tr><td class="dcell" style="text-align:left"><br>
+<br>
+<br>
+</td></tr>
+<tr><td class="dcell" style="text-align:left">&nbsp;</td></tr>
+</table></td><td class="dcell">=</td><td class="dcell"><table class="display"><tr><td class="dcell" style="text-align:center">2197</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">36</td></tr>
+</table></td></tr>
+</table>
+</li></ul><p><br>
+</p><p>The <span style="font-family:monospace">evolute</span> command finds and draws the evolute of a curve.</p><p>To find the evolute from a parameterization:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">evolute</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">C</span>, a curve.
+</li><li class="li-itemize"><span style="font-style:italic">t</span>, the parameter of the curve.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">evolute(</span><span style="font-style:italic">C</span>,<span style="font-style:italic">t</span><span style="font-family:monospace">)</span> draws and returns the
+evolute of the curve.
+</li></ul><p><br>
+</p><p>To find the evolute from a curve object:
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">evolute</span> takes one argument:<br>
+ <span style="font-style:italic">C</span>, a curve.
+</li><li class="li-itemize"><span style="font-family:monospace">evolute(</span><span style="font-style:italic">C</span><span style="font-family:monospace">)</span> draws and returns the
+evolute of <span style="font-style:italic">C</span>.
+</li></ul><h4 id="sec1482" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">evolute(plot(x^2))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<div class="center">
+<img src="cascmd_en023.png">
+</div>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">equation(evolute(plot(x^2)))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">27 <span style="font-style:italic">x</span><sup>2</sup>−16 <span style="font-style:italic">y</span><sup>3</sup>+24 <span style="font-style:italic">y</span><sup>2</sup>−12 <span style="font-style:italic">y</span>+2=0
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">equation(evolute([t^2,t],t))</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">16 <span style="font-style:italic">x</span><sup>3</sup>−24 <span style="font-style:italic">x</span><sup>2</sup>+12 <span style="font-style:italic">x</span>−27 <span style="font-style:italic">y</span><sup>2</sup>−2=0
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en592.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en595.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

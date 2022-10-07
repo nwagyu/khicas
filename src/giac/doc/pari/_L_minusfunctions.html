@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: L-functions</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<h2 class="center">L-functions</h2>
+
+<p></p>
+<p></p>
+<p>This section describes routines related to L-functions. We first introduce
+the basic concept and notations, then explain how to represent them in GP.
+Let &Gamma;<sub>&Ropf;</sub>(s) = &pi;<sup>-s/2</sup>&Gamma;(s/2), where &Gamma; is Euler's gamma
+function. Given d &geq; 1 and a d-tuple A = [&alpha;<sub>1</sub>,...,&alpha;<sub>d</sub>] of
+complex numbers, we let &gamma;<sub>A</sub>(s) = &prod;<sub>&alpha;  &in;  A</sub> &Gamma;<sub>&Ropf;</sub>(s +
+&alpha;).</p>
+<p>
+Given a sequence a = (a<sub>n</sub>)<sub>n &geq; 1</sub> of complex numbers (such that a<sub>1</sub> = 1),
+a positive <em>conductor</em> N  &in;  &Zopf;, and a <em>gamma factor</em>
+&gamma;<sub>A</sub> as above, we consider the Dirichlet series
+ L(a,s) = &sum;<sub>n &geq; 1</sub> a<sub>n</sub> n<sup>-s</sup> 
+and the attached completed function
+ &Lambda;(a,s) = N<sup>s/2</sup>&gamma;<sub>A</sub>(s).L(a,s). </p>
+<p>
+Such a datum defines an <em>L-function</em> if it satisfies the three
+following assumptions:</p>
+<p>
+<b>*</b> [Convergence] The a<sub>n</sub> = O_&epsilon;(n<sup>k<sub>1</sub>+&epsilon;</sup>) have polynomial
+growth, equivalently L(s) converges absolutely in some right half-plane
+Re(s) &gt; k<sub>1</sub> + 1.</p>
+<p>
+<b>*</b> [Analytic continuation] L(s) has a meromorphic continuation to the
+whole complex plane with finitely many poles.</p>
+<p>
+<b>*</b> [Functional equation] There exist an integer k, a complex number
+&epsilon; (usually of modulus&nbsp;1), and an attached sequence a<sup>*</sup>
+defining both an L-function L(a<sup>*</sup>,s) satisfying the above two assumptions
+and a completed function &Lambda;(a<sup>*</sup>,s) = N<sup>s/2</sup>&gamma;<sub>A</sub>(s).
+L(a<sup>*</sup>,s), such that
+&Lambda;(a,k-s) = &epsilon; &Lambda;(a<sup>*</sup>,s)
+for all regular points.</p>
+<p>
+More often than not in number theory we have a^ *= <span style="text-decoration:overline">a</span> (which
+forces |&epsilon; |= 1), but this needs not be the case. If a is a real
+sequence and a = a<sup>*</sup>, we say that L is <em>self-dual</em>. We do not assume
+that the a<sub>n</sub> are multiplicative, nor equivalently that L(s) has an Euler
+product.</p>
+<p>
+<b>Remark.</b>
+Of course, a determines the L-function, but the (redundant) datum a,a<sup>*</sup>,
+A, N, k, &epsilon; describes the situation in a form more suitable for fast
+computations; knowing the polar part r of &Lambda;(s) (a rational function
+such that &Lambda;-r is holomorphic) is also useful. A subset of these,
+including only finitely many a<sub>n</sub>-values will still completely determine L
+(in suitable families), and we provide routines to try and compute missing
+invariants from whatever information is available.</p>
+<p>
+<b>Important Caveat.</b>
+The implementation assumes that the implied constants in the O_&epsilon; are
+small. In our generic framework, it is impossible to return proven results
+without more detailed information about the L function. The intended use of
+the L-function package is not to prove theorems, but to experiment and
+formulate conjectures, so all numerical results should be taken with a grain
+of salt. One can always increase <code>realbitprecision</code> and recompute: the
+difference estimates the actual absolute error in the original output.</p>
+<p>
+<b>Note.</b> The requested precision has a major impact on runtimes.
+Because of this, most L-function routines, in particular <code><a href="_L_minusfunctions.html#se:lfun"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfun</a></code> itself,
+specify the requested precision in <em>bits</em>, not in decimal digits.
+This is transparent for the user once <code>realprecision</code> or
+<code>realbitprecision</code> are set. We advise to manipulate precision via
+<code>realbitprecision</code> as it allows finer granularity: <code>realprecision</code>
+increases by increments of 64 bits, i.e. 19 decimal digits at a time.</p>
+<p>
+<hr>
+<div id="Theta_functions"></div>
+<h4>Theta functions</h4>
+<p></p>
+<p></p>
+<p>Given an L-function as above, we define an attached theta function
+via Mellin inversion: for any positive real t &gt; 0, we let
+ &theta;(a,t) := (1)/(2&pi; i)&int;<sub>Re(s) = c</sub> t<sup>-s</sup> &Lambda;(s) ds 
+where c is any positive real number c &gt; k<sub>1</sub>+1 such that c + Re(a) &gt; 0
+for all a &in;  A. In fact, we have
+&theta;(a,t) = &sum;<sub>n &geq; 1</sub> a<sub>n</sub> K(nt/N<sup>1/2</sup>)
+&nbsp;&nbsp;where  
+K(t) := (1)/(2&pi; i)&int;<sub>Re(s) = c</sub> t<sup>-s</sup> &gamma;<sub>A</sub>(s) ds.
+Note that this function is analytic and actually makes sense for complex t,
+such that Re(t<sup>2/d</sup>) &gt; 0, i.e. in a cone containing the positive real
+half-line. The functional equation for &Lambda; translates into
+ &theta;(a,1/t) - &epsilon; t^k&theta;(a<sup>*</sup>,t) = P_&Lambda;(t), 
+where P_&Lambda; is an explicit polynomial in t and log t given by the
+Taylor development of the polar part of &Lambda;: there are no log's if
+all poles are simple, and P = 0 if &Lambda; is entire. The values
+&theta;(t) are generally easier to compute than the L(s), and this
+functional equation provides a fast way to guess possible values for
+missing invariants in the L-function definition.</p>
+<p>
+
+<hr>
+<div id="Data_structures_describing__L__and_theta_functions"></div>
+<h4>Data structures describing L and theta functions</h4>
+<p></p>
+<p></p>
+<p>We have 3 levels of description:</p>
+<p>
+<b>*</b> an <code>Lmath</code> is an arbitrary description of the underlying
+mathematical situation (to which e.g., we associate the a<sub>p</sub> as traces of
+Frobenius elements); this is done via constructors to be described in the
+subsections below.</p>
+<p>
+<b>*</b> an <code>Ldata</code> is a computational description of situation, containing
+the complete datum (a,a<sup>*</sup>,A,k,N,&epsilon;,r). Where a and a<sup>*</sup> describe
+the coefficients (given n,b we must be able to compute [a<sub>1</sub>,...,a<sub>n</sub>]
+with bit accuracy b), A describes the Euler factor, the (classical) weight
+is k, N is the conductor, and r describes the polar part of L(s).
+This is obtained via the function <code><a href="_L_minusfunctions.html#se:lfuncreate"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncreate</a></code>. N.B. For motivic
+L-functions, the motivic weight w is w = k-1; but we also support
+non-motivic L-functions.</p>
+<p>
+<b>Design problem.</b> All components of an <code>Ldata</code> should be given
+exactly since the accuracy to which they must be computed is not bounded a
+priori; but this is not always possible, in particular for &epsilon; and r.</p>
+<p>
+<b>*</b> an <code>Linit</code> contains an <code>Ldata</code> and everything needed for fast
+<em>numerical</em> computations. It specifies the functions to be considered
+(either L<sup>(j)</sup>(s) or &theta;<sup>(j)</sup>(t) for derivatives of order j  &leq; 
+m, where m is now fixed) and specifies a <em>domain</em> which limits
+the range of arguments (t or s, respectively to certain cones and
+rectangular regions) and the output accuracy. This is obtained via the
+functions <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code> or <code><a href="_L_minusfunctions.html#se:lfunthetainit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfunthetainit</a></code>.</p>
+<p>
+All the functions which are specific to L or theta functions share the
+prefix <code><a href="_L_minusfunctions.html#se:lfun"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfun</a></code>. They take as first argument either an <code>Lmath</code>, an
+<code>Ldata</code>, or an <code>Linit</code>. If a single value is to be computed,
+this makes no difference, but when many values are needed (e.g. for plots or
+when searching for zeros), one should first construct an <code>Linit</code>
+attached to the search range and use it in all subsequent calls.
+If you attempt to use an <code>Linit</code> outside the range for which it was
+initialized, a warning is issued, because the initialization is
+performed again, a major inefficiency:</p>
+<p>
+</p><pre class="code">  ? Z = lfuncreate(1); \\ Riemann zeta
+  ? L = lfuninit(Z, [1/2, 0, 100]); \\ zeta(1/2+it), |t| &lt; 100
+  ? lfun(L, 1/2)    \\ OK, within domain
+  %3 = -1.4603545088095868128894991525152980125
+  ? lfun(L, 0)      \\ not on critical line !
+    *** lfun: Warning: lfuninit: insufficient initialization.
+  %4 = -0.50000000000000000000000000000000000000
+  ? lfun(L, 1/2, 1) \\ attempt first derivative !
+  *** lfun: Warning: lfuninit: insufficient initialization.
+  %5 = -3.9226461392091517274715314467145995137
+</pre><p></p>
+<p></p>
+<p>
+For many L-functions, passing from <code>Lmath</code> to an <code>Ldata</code> is
+inexpensive: in that case one may use <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code> directly from the
+<code>Lmath</code> even when evaluations in different domains are needed. The
+above example could equally have skipped the <code><a href="_L_minusfunctions.html#se:lfuncreate"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncreate</a></code>:</p>
+<p>
+</p><pre class="code">  ? L = lfuninit(1, [1/2, 0, 100]); \\ zeta(1/2+it), |t| &lt; 100
+</pre><p>
+In fact, when computing a single value, you can even skip
+<code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code>:</p>
+<p>
+</p><pre class="code">  ? L = lfun(1, 1/2, 1); \\ zeta'(1/2)
+  ? L = lfun(1, 1+x+O(x^5)); \\ first 5 terms of Taylor development at 1
+</pre><p>
+Both give the desired results with no warning.</p>
+<p>
+<b>Complexity.</b>
+The implementation requires O(N(|t|+1))<sup>1/2</sup> coefficients a<sub>n</sub>
+to evaluate L of conductor N at s = &sigma; + i t.</p>
+<p>
+We now describe the available high-level constructors, for built-in L
+functions.</p>
+<p>
+
+<hr>
+<div id="Dirichlet__L_minusfunctions"></div>
+<h4>Dirichlet L-functions</h4>
+<p></p>
+<p></p>
+<p>Given a Dirichlet character &chi;:(&Zopf;/N&Zopf;)<sup>*</sup> &rightarrow;  &Copf;, we let
+L(&chi;, s) = &sum;<sub>n &geq; 1</sub> &chi;(n) n<sup>-s</sup>.
+Only primitive characters are supported. Given a fundamental discriminant
+D, the function L((D/.), s), for the quadratic Kronecker symbol, is encoded
+by the <code>t_INT</code> D. This includes Riemann &zeta; function via the special
+case D = 1.</p>
+<p>
+More general characters can be represented in a variety of ways:</p>
+<p>
+<b>*</b> via Conrey notation (see <code><a href="Arithmetic_functions.html#se:znconreychar"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreychar</a></code>): &chi;<sub>N</sub>(m,.)
+is given as the <code>t_INTMOD</code> <code>Mod(m,N)</code>.</p>
+<p>
+<b>*</b> via a <em>znstar</em> structure describing the abelian  group (&Zopf;/N&Zopf;)<sup>*</sup>,
+where the character is given in terms of the <em>znstar</em> generators:</p>
+<p>
+</p><pre class="code">    ? G = znstar(100, 1); \\ (Z/100Z)<sup>*</sup>
+    ? G.cyc \\ ~ Z/20 . g1  + Z/2 . g2 for some generators g1 and g2
+    %2 = [20, 2]
+    ? G.gen
+    %3 = [77, 51]
+    ? chi = [a, b]  \\ maps g1 to e(a/20) and g2 to e(b/2);  e(x) = exp(2ipi x)
+</pre><p></p>
+<p>
+More generally, let (&Zopf;/N&Zopf;)^ *= &bigoplus;  (&Zopf;/d<sub>i</sub>&Zopf;) g<sub>i</sub> be given via a
+<em>znstar</em> structure G (<code>G.cyc</code> gives the d<sub>i</sub> and <code>G.gen</code> the
+g<sub>i</sub>). A <em>character</em> &chi; on G is given by a row vector
+v = [a<sub>1</sub>,...,a<sub>n</sub>] such that &chi;(&prod; g<sub>i</sub><sup>n<sub>i</sub></sup>) = exp(2&pi; i&sum; a<sub>i</sub>
+n<sub>i</sub> / d<sub>i</sub>). The pair [G, v] encodes the <em>primitive</em> character
+attached to &chi;.</p>
+<p>
+<b>*</b> in fact, this construction [G, m] describing a character
+is more general: m is also allowed to be a Conrey index as seen above,
+or a Conrey logarithm (see <code><a href="Arithmetic_functions.html#se:znconreylog"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">znconreylog</a></code>), and the latter format is
+actually the fastest one.</p>
+<p>
+<b>*</b> it is also possible to view Dirichlet characters as Hecke characters
+over K = &Qopf; (see below), for a modulus [N, [1]] but this is both more
+complicated and less efficient.</p>
+<p>
+In all cases, a non-primitive character is replaced by the attached primitive
+character.</p>
+<p>
+
+<hr>
+<div id="Hecke__L_minusfunctions"></div>
+<h4>Hecke L-functions</h4>
+<p></p>
+<p></p>
+<p>The Dedekind zeta function of a number field K = &Qopf;[X]/(T) is encoded
+either by the defining polynomial T, or any absolute number fields
+structure (preferably at least a <em>bnf</em>).</p>
+<p>
+Given a finite order Hecke character &chi;: Cl<sub>f</sub>(K) &rightarrow;  &Copf;, we let
+L(&chi;, s) = &sum;<sub>A  &subset;  O<sub>K</sub></sub> &chi;(A) (N<sub>K/&Qopf;</sub>A)<sup>-s</sup>.</p>
+<p>
+Let Cl<sub>f</sub>(K) = &bigoplus;  (&Zopf;/d<sub>i</sub>&Zopf;) g<sub>i</sub> given by a <em>bnr</em> structure with
+generators: the d<sub>i</sub> are given by <code>K.cyc</code> and the g<sub>i</sub> by <code>K.gen</code>.
+A <em>character</em> &chi; on the ray class group is given by a row vector
+v = [a<sub>1</sub>,...,a<sub>n</sub>] such that &chi;(&prod; g<sub>i</sub><sup>n<sub>i</sub></sup>) = exp(2&pi; i&sum;
+a<sub>i</sub> n<sub>i</sub> / d<sub>i</sub>). The pair [<em>bnr</em>, v] encodes the <em>primitive</em>
+character attached to &chi;.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? K  = bnfinit(x^2-60);
+  ? Cf = bnrinit(K, [7, [1,1]], 1); \\ f = 7 oo<sub>1</sub> oo<sub>2</sub>
+  ? Cf.cyc
+  %3 = [6, 2, 2]
+  ? Cf.gen
+  %4 = [[2, 1; 0, 1], [22, 9; 0, 1], [-6, 7]~]
+  ? lfuncreate([Cf, [1,0,0]]); \\  &chi;(g<sub>1</sub>) = &zeta;<sub>6</sub>, &chi;(g<sub>2</sub>) = &chi;(g<sub>3</sub>) = 1
+</pre><p></p>
+<p></p>
+<p>
+Dirichlet characters on (&Zopf;/N&Zopf;)<sup>*</sup> are a special case,
+where K = &Qopf;:</p>
+<p>
+</p><pre class="code">  ? Q  = bnfinit(x);
+  ? Cf = bnrinit(Q, [100, [1]]); \\ for odd characters on (Z/100Z)*
+</pre><p></p>
+<p>
+For even characters, replace by <code>bnrinit(K, N)</code>. Note that the simpler
+direct construction in the previous section will be more efficient.</p>
+<p>
+
+<hr>
+<div id="Artin__L__functions"></div>
+<h4>Artin L functions</h4>
+<p></p>
+<p></p>
+<p>Given a Galois number field N/&Qopf; with group G = <code><a href="General_number_fields.html#se:galoisinit"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoisinit</a></code>(N),
+a representation &rho; of G over the cyclotomic field &Qopf;(&zeta;<sub>n</sub>)
+is specified by the matrices giving the images of <code>G.gen</code> by &rho;.
+The corresponding Artin L function is created using <code><a href="_L_minusfunctions.html#se:lfunartin"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfunartin</a></code>.</p>
+<p>
+</p><pre class="code">     P = quadhilbert(-47); \\  degree 5, Galois group D<sub>5</sub>
+     N = nfinit(nfsplitting(P)); \\ Galois closure
+     G = galoisinit(N);
+     [s,t] = G.gen; \\ order 5 and 2
+     L = lfunartin(N,G, [[a,0;0,a^-1],[0,1;1,0]], 5); \\ irr. degree 2
+</pre><p>
+In the above, the polynomial variable (here <code>a</code>) represents
+&zeta;<sub>5</sub> := exp(2i&pi;/5) and the two matrices give the images of
+s and t. Here, priority of <code>a</code> must be lower than the priority
+of <code>x</code>.</p>
+<p>
+
+<hr>
+<div id="_L_minusfunctions_of_algebraic_varieties"></div>
+<h4>L-functions of algebraic varieties</h4>
+<p></p>
+<p></p>
+<p>L-function of elliptic curves over number fields are supported.</p>
+<p>
+</p><pre class="code">  ? E = ellinit([1,1]);
+  ? L = lfuncreate(E);  \\ L-function of E/Q
+  ? E2 = ellinit([1,a], nfinit(a^2-2));
+  ? L2 = lfuncreate(E2);  \\ L-function of E/Q(sqrt(2))
+</pre><p></p>
+<p></p>
+<p>
+L-function of hyperelliptic genus-2 curve can be created with
+<code><a href="_L_minusfunctions.html#se:lfungenus2"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfungenus2</a></code>. To create the L function of the curve
+y^2+(x^3+x^2+1)y = x^2+x:</p>
+<p>
+</p><pre class="code">  ? L = lfungenus2([x^2+x, x^3+x^2+1]);
+</pre><p></p>
+<p>
+Currently, the model needs to be minimal at 2, and if the conductor is even,
+its valuation at 2 might be incorrect (a warning is issued).</p>
+<p>
+
+<hr>
+<div id="Eta_quotients_slash_Modular_forms"></div>
+<h4>Eta quotients / Modular forms</h4>
+<p></p>
+<p></p>
+<p>An eta quotient is created by applying <code><a href="_L_minusfunctions.html#se:lfunetaquo"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfunetaquo</a></code> to a matrix with
+2 columns [m, r<sub>m</sub>] representing
+ f(&tau;) := &prod;<sub>m</sub> &eta;(m&tau;)<sup>r<sub>m</sub></sup>. 
+It is currently assumed that f is a self-dual cuspidal form on
+&Gamma;<sub>0</sub>(N) for some N.
+For instance, the L-function &sum; &tau;(n) n<sup>-s</sup>
+attached to Ramanujan's &Delta; function is encoded as follows</p>
+<p>
+</p><pre class="code">  ? L = lfunetaquo(Mat([1,24]));
+  ? lfunan(L, 100)  \\ first 100 values of tau(n)
+</pre><p></p>
+<p></p>
+<p>
+More general modular forms defined by modular symbols will be added later.</p>
+<p>
+
+<hr>
+<div id="Lowminuslevel_Ldata_format"></div>
+<h4>Low-level Ldata format</h4>
+<p></p>
+<p></p>
+<p>When no direct constructor is available, you can still input an L function
+directly by supplying [a, a<sup>*</sup>,A, k, N, &epsilon;, r] to <code><a href="_L_minusfunctions.html#se:lfuncreate"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncreate</a></code>
+(see <code>??lfuncreate</code> for details).</p>
+<p>
+It is <em>strongly</em> suggested to first check consistency of the created
+L-function:</p>
+<p>
+</p><pre class="code">  ? L = lfuncreate([a, as, A, k, N, eps, r]);
+  ? lfuncheckfeq(L)  \\ check functional equation
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:lfun"></div>
+<div id="lfun"></div>
+<h4>lfun(L, s, {D = 0})</h4>
+<p>
+Compute the L-function value L(s), or if <code>D</code> is set, the
+derivative of order <code>D</code> at s. The parameter
+<code>L</code> is either an Lmath, an Ldata (created by <code><a href="_L_minusfunctions.html#se:lfuncreate"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncreate</a></code>, or an
+Linit (created by <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code>), preferrably the latter if many values
+are to be computed.</p>
+<p>
+The argument s is also allowed to be a power series; for instance, if s = 
+&alpha; + x + O(x^n), the function returns the Taylor expansion of order n
+around &alpha;. The result is given with absolute error less than 2<sup>-B</sup>,
+where B = realbitprecision.</p>
+<p>
+<b>Caveat.</b> The requested precision has a major impact on runtimes.
+It is advised to manipulate precision via <code>realbitprecision</code> as
+ explained above instead of <code>realprecision</code> as the latter allows less
+granularity: <code>realprecision</code> increases by increments of 64 bits, i.e. 19
+decimal digits at a time.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? lfun(x^2+1, 2)  \\ Lmath: Dedekind zeta for Q(i) at 2
+  %1 = 1.5067030099229850308865650481820713960
+  
+  ? L = lfuncreate(ellinit("5077a1")); \\ Ldata: Hasse-Weil zeta function
+  ? lfun(L, 1+x+O(x^4))  \\ zero of order 3 at the central point
+  %3 = 0.E-58 - 5.[...] E-40*x + 9.[...] E-40*x^2 + 1.7318[...]*x^3 + O(x^4)
+  
+  \\ Linit: zeta(1/2+it), |t| &lt; 100, and derivative
+  ? L = lfuninit(1, [100], 1);
+  ? T = lfunzeros(L, [1,25]);
+  %5 = [14.134725[...], 21.022039[...]]
+  ? z = 1/2 + I*T[1];
+  ? abs( lfun(L, z) )
+  %7 = 8.7066865533412207420780392991125136196 E-39
+  ? abs( lfun(L, z, 1) )
+  %8 = 0.79316043335650611601389756527435211412  \\ simple zero
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>lfun0</b>(GEN L, GEN s, long D, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunabelianrelinit"></div>
+<div id="lfunabelianrelinit"></div>
+<h4>lfunabelianrelinit(<em>bnfL</em>, <em>bnfK</em>, <em>polrel</em>, <em>sdom</em>, {<em>der</em> = 0})</h4>
+<p>
+Returns the <code>Linit</code> structure attached to the Dedekind zeta function
+ of the number field L (see <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code>), given a subfield K such that
+ L/K is abelian.
+ Here <code>polrel</code> defines L over K, as usual with the priority of the
+ variable of <code>bnfK</code> lower than that of <code>polrel</code>.
+ <code>sdom</code> and <code>der</code> are as in <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code>.</p>
+<p>
+</p><pre class="code">   ? D = -47; K = bnfinit(y^2-D);
+   ? rel = quadhilbert(D); T = rnfequation(K.pol, rel); \\ degree 10
+   ? L = lfunabelianrelinit(T,K,rel, [2,0,0]); \\ at 2
+   time = 84 ms.
+   ? lfun(L, 2)
+   %4 = 1.0154213394402443929880666894468182650
+   ? lfun(T, 2) \\ using parisize &gt; 300MB
+   time = 652 ms.
+   %5 = 1.0154213394402443929880666894468182656
+</pre><p>
+As the example shows, using the (abelian) relative structure
+ is more efficient than a direct computation. The difference becomes drastic
+ as the absolute degree increases while the subfield degree remains constant.</p>
+<p>
+The library syntax is <code>GEN <b>lfunabelianrelinit</b>(GEN bnfL, GEN bnfK, GEN polrel, GEN sdom, long der, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunan"></div>
+<div id="lfunan"></div>
+<h4>lfunan(L, n)</h4>
+<p>
+Compute the first n terms of the Dirichlet series attached to the
+ L-function given by <code>L</code> (<code>Lmath</code>, <code>Ldata</code> or <code>Linit</code>).</p>
+<p>
+</p><pre class="code">   ? lfunan(1, 10)  \\ Riemann zeta
+   %1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+   ? lfunan(5, 10)  \\ Dirichlet L-function for kronecker(5,.)
+   %2 = [1, -1, -1, 1, 0, 1, -1, -1, 1, 0]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>lfunan</b>(GEN L, long n, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunartin"></div>
+<div id="lfunartin"></div>
+<h4>lfunartin(<em>nf</em>, <em>gal</em>, <em>rho</em>, n)</h4>
+<p>
+Returns the <code>Ldata</code> structure attached to the
+Artin L-function provided by the representation &rho; of the Galois group
+of the extension K/&Qopf;, defined over the cyclotomic field &Qopf;(&zeta;<sub>n</sub>),
+where <em>nf</em> is the nfinit structure attached to K,
+<em>gal</em> is the galoisinit structure attached to K/&Qopf;, and <em>rho</em> is
+given either</p>
+<p>
+<b>*</b> by the values of its character on the conjugacy classes
+(see <code><a href="General_number_fields.html#se:galoisconjclasses"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoisconjclasses</a></code> and <code><a href="General_number_fields.html#se:galoischartable"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoischartable</a></code>)</p>
+<p>
+<b>*</b> or by the matrices that are the images of the generators
+<code><em>gal</em>.gen</code>.</p>
+<p>
+Cyclotomic numbers in <code>rho</code> are represented by polynomials, whose
+variable is understood as the complex number exp(2 i &pi;/n).</p>
+<p>
+In the following example we build the Artin L-functions attached to the two
+irreducible degree 2 representations of the dihedral group D<sub>10</sub> defined
+over &Qopf;(&zeta;<sub>5</sub>), for the extension H/&Qopf; where H is the Hilbert class
+field of &Qopf;(sqrt{-47}).
+We show numerically some identities involving Dedekind &zeta; functions and
+Hecke L series.</p>
+<p>
+</p><pre class="code">  ? P = quadhilbert(-47)
+  %1 = x^5 + 2*x^4 + 2*x^3 + x^2 - 1
+  ? N = nfinit(nfsplitting(P));
+  ? G = galoisinit(N); \\ D_10
+  ? [T,n] = galoischartable(G);
+  ? T  \\ columns give the irreducible characters
+  %5 =
+  [1  1              2              2]
+  
+  [1 -1              0              0]
+  
+  [1  1 -y^3 - y^2 - 1      y^3 + y^2]
+  
+  [1  1      y^3 + y^2 -y^3 - y^2 - 1]
+  ? n
+  %6 = 5
+  ? L2 = lfunartin(N,G, T[,2], n);
+  ? L3 = lfunartin(N,G, T[,3], n);
+  ? L4 = lfunartin(N,G, T[,4], n);
+  ? s = 1 + x + O(x^4);
+  ? lfun(-47,s) - lfun(L2,s)
+  %11 ~ 0
+  ? lfun(1,s)*lfun(-47,s)*lfun(L3,s)^2*lfun(L4,s)^2 - lfun(N,s)
+  %12 ~ 0
+  ? lfun(1,s)*lfun(L3,s)*lfun(L4,s) - lfun(P,s)
+  %13 ~ 0
+  ? bnr = bnrinit(bnfinit(x^2+47),1,1);
+  ? bnr.cyc
+  %15 = [5] \\ Z/5Z: 4 non-trivial ray class characters
+  ? lfun([bnr,[1]], s) - lfun(L3, s)
+  %16 ~ 0
+  ? lfun([bnr,[2]], s) - lfun(L4, s)
+  %17 ~ 0
+  ? lfun([bnr,[3]], s) - lfun(L3, s)
+  %18 ~ 0
+  ? lfun([bnr,[4]], s) - lfun(L4, s)
+  %19 ~ 0
+</pre><p></p>
+<p>
+The first identity identifies the non-trivial abelian character with
+(-47,.); the second is the factorization of the regular representation of
+D<sub>10</sub>; the third is the factorization of the natural representation of
+D<sub>10</sub> &subset;  S<sub>5</sub>; and the final four are the expressions of the degree 2
+representations as induced from degree 1 representations.</p>
+<p>
+The library syntax is <code>GEN <b>lfunartin</b>(GEN nf, GEN gal, GEN rho, long n, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfuncheckfeq"></div>
+<div id="lfuncheckfeq"></div>
+<h4>lfuncheckfeq(L, {t})</h4>
+<p>
+Given the data attached to an L-function (<code>Lmath</code>, <code>Ldata</code>
+or <code>Linit</code>), check whether the functional equation is satisfied.
+This is most useful for an <code>Ldata</code> constructed "by hand", via
+<code><a href="_L_minusfunctions.html#se:lfuncreate"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncreate</a></code>, to detect mistakes.</p>
+<p>
+If the function has poles, the polar part must be specified. The routine
+returns a bit accuracy b such that |w - <sup>w</sup>| &lt; 2<sup>b</sup>, where w is
+the root number contained in <code>data</code>, and <sup>w</sup> is a computed value
+derived from <span style="text-decoration:overline">&theta;</span>(t) and &theta;(1/t) at some t != 0 and
+the assumed functional equation. Of course, a large negative value of the
+order of <code>realbitprecision</code> is expected.</p>
+<p>
+If t is given, it should be close to the unit disc for efficiency and
+such that <span style="text-decoration:overline">&theta;</span>(t) != 0. We then check the functional
+equation at that t.</p>
+<p>
+</p><pre class="code">  ? \pb 128       \\ 128 bits of accuracy
+  ? default(realbitprecision)
+  %1 = 128
+  ? L = lfuncreate(1);  \\ Riemann zeta
+  ? lfuncheckfeq(L)
+  %3 = -124
+</pre><p>
+i.e. the given data is consistent to within 4 bits for the
+particular check consisting of estimating the root number from all other
+given quantities. Checking away from the unit disc will either fail with
+a precision error, or give disappointing results (if &theta;(1/t) is
+large it will be computed with a large absolute error)</p>
+<p>
+</p><pre class="code">  ? lfuncheckfeq(L, 2+I)
+  %4 = -115
+  ? lfuncheckfeq(L,10)
+   ***   at top-level: lfuncheckfeq(L,10)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; 
+   *** lfuncheckfeq: precision too low in lfuncheckfeq.
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>lfuncheckfeq</b>(GEN L, GEN t = NULL, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunconductor"></div>
+<div id="lfunconductor"></div>
+<h4>lfunconductor(L, {<em>ab</em> = [1, 10000]}, {<em>flag</em> = 0})</h4>
+<p>
+Compute the conductor of the given L-function
+ (if the structure contains a conductor, it is ignored);
+ <code>ab</code> = [a,b] is the interval where we expect to find the conductor;
+ it may be given as a single scalar b, in which case we look in [1,b].
+ Increasing <code>ab</code> slows down the program but gives better accuracy for the
+ result.</p>
+<p>
+ If <code>flag</code> is 0 (default), give either the conductor found as an
+ integer, or a vector (possibly empty) of conductors found. If <code>flag</code> is
+ 1, same but give the computed floating point approximations to the
+ conductors found, without rounding to integers. It <code>flag</code> is 2, give
+ all the conductors found, even those far from integers.</p>
+<p>
+<b>Caveat.</b> This is a heuristic program and the result is not
+ proven in any way:</p>
+<p>
+</p><pre class="code">   ? L = lfuncreate(857); \\ Dirichlet L function for kronecker(857,.)
+   ? \p19
+     realprecision = 19 significant digits
+   ? lfunconductor(L)
+   %2 = [17, 857]
+   ? lfunconductor(L,,1) \\ don't round
+   %3 = [16.99999999999999999, 857.0000000000000000]
+  
+   ? \p38
+     realprecision = 38 significant digits
+   ? lfunconductor(L)
+   %4 = 857
+</pre><p></p>
+<p></p>
+<p>
+<b>Note.</b> This program should only be used if the primes dividing the
+ conductor are unknown, which is rare. If they are known, a direct
+ search through possible prime exponents using <code><a href="_L_minusfunctions.html#se:lfuncheckfeq"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncheckfeq</a></code> will
+ be more efficient and rigorous:</p>
+<p>
+</p><pre class="code">   ? E = ellinit([0,0,0,4,0]); /* Elliptic curve y^2 = x^3+4x */
+   ? E.disc  \\ |disc E| = 2^12
+   %2 = -4096
+   \\ create Ldata by hand. Guess that root number is 1 and conductor N
+   ? L(N) = lfuncreate([n-&gt;ellan(E,n), 0, [0,1], 2, N, 1]);
+   ? fordiv(E.disc, d, print(d,": ",lfuncheckfeq(L(d))))
+   1: 0
+   2: 0
+   4: -1
+   8: -2
+   16: -3
+   32: -127
+   64: -3
+   128: -2
+   256: -2
+   512: -1
+   1024: -1
+   2048: 0
+   4096: 0
+   ? lfunconductor(L(1)) \\ lfunconductor ignores conductor = 1 in Ldata !
+   %5 = 32
+</pre><p>
+The above code assumed that root number was 1;
+ had we set it to -1, none of the <code><a href="_L_minusfunctions.html#se:lfuncheckfeq"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncheckfeq</a></code> values would have been
+ acceptable:</p>
+<p>
+</p><pre class="code">   ? L2(N) = lfuncreate([n-&gt;ellan(E,n), 0, [0,1], 2, N, -1]);
+   ? [ lfuncheckfeq(L2(d)) | d&lt;-divisors(E.disc) ]
+   %7 = [0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, -1, -1]
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>lfunconductor</b>(GEN L, GEN ab = NULL, long 10000], long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfuncost"></div>
+<div id="lfuncost"></div>
+<h4>lfuncost(L, {<em>sdom</em>}, {<em>der</em> = 0})</h4>
+<p>
+Estimate the cost of running
+<code>lfuninit(L,sdom,der)</code> at current bit precision. Returns [t,b], to
+indicate that t coefficients a<sub>n</sub> will be computed, as well as t values of
+<code><a href="Transcendental_functions.html#se:gammamellininv"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gammamellininv</a></code>, all at bit accuracy b.
+A subsequent call to <code><a href="_L_minusfunctions.html#se:lfun"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfun</a></code> at s evaluates a polynomial of degree t
+at exp(h s) for some real parameter h, at the same bit accuracy b.
+If L is already an <code>Linit</code>, then <em>sdom</em> and <em>der</em> are ignored
+and are best left omitted; the bit accuracy is also inferred from L: in
+short we get an estimate of the cost of using that particular <code>Linit</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \pb 128
+  ? lfuncost(1, [100]) \\ for zeta(1/2+I*t), |t| &lt; 100
+  %1 = [7, 242]  \\ 7 coefficients, 242 bits
+  ? lfuncost(1, [1/2, 100]) \\ for zeta(s) in the critical strip, |Im s| &lt; 100
+  %2 = [7, 246]  \\ now 246 bits
+  ? lfuncost(1, [100], 10) \\ for zeta(1/2+I*t), |t| &lt; 100
+  %3 = [8, 263]  \\ 10th derivative increases the cost by a small amount
+  ? lfuncost(1, [10^5])
+  %3 = [158, 113438]  \\ larger imaginary part: huge accuracy increase
+  
+  ? L = lfuncreate(polcyclo(5)); \\ Dedekind zeta for Q(zeta<sub>5</sub>)
+  ? lfuncost(L, [100]) \\ at s = 1/2+I*t), |t| &lt; 100
+  %5 = [11457, 582]
+  ? lfuncost(L, [200]) \\ twice higher
+  %6 = [36294, 1035]
+  ? lfuncost(L, [10^4])  \\ much higher: very costly !
+  %7 = [70256473, 45452]
+  ? \pb 256
+  ? lfuncost(L, [100]); \\ doubling bit accuracy
+  %8 = [17080, 710]
+</pre><p>
+In fact, some L functions can be factorized algebraically
+by the <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code> call, e.g. the Dedekind zeta function of abelian
+fields, leading to much faster evaluations than the above upper bounds.
+In that case, the function returns a vector of costs as above for each
+individual function in the product actually evaluated:</p>
+<p>
+</p><pre class="code">  ? L = lfuncreate(polcyclo(5)); \\ Dedekind zeta for Q(zeta<sub>5</sub>)
+  ? lfuncost(L, [100])  \\ a priori cost
+  %2 = [11457, 582]
+  ? L = lfuninit(L, [100]); \\ actually perform all initializations
+  ? lfuncost(L)
+  %4 = [[16, 242], [16, 242], [7, 242]]
+</pre><p>
+The Dedekind function of this abelian quartic field
+is the product of four Dirichlet L-functions attached to the trivial
+character, a non-trivial real character and two complex conjugate
+characters. The non-trivial characters happen to have the same conductor
+(hence same evaluation costs), and correspond to two evaluations only
+since the two conjugate characters are evaluated simultaneously.
+For a total of three L-functions evaluations, which explains the three
+components above. Note that the actual cost is much lower than the a priori
+cost in this case.</p>
+<p>
+The library syntax is <code>GEN <b>lfuncost0</b>(GEN L, GEN sdom = NULL, long der, long bitprec)</code>.
+Also available is
+<code>GEN <b>lfuncost</b>(GEN L, GEN dom, long der, long bitprec)</code>
+when L is <em>not</em> an <code>Linit</code>; the return value is a <code>t_VECSMALL</code>
+in this case.</p>
+<p>
+
+<hr>
+<div id="se:lfuncreate"></div>
+<div id="lfuncreate"></div>
+<h4>lfuncreate(<em>obj</em>)</h4>
+<p>
+This low-level routine creates <code>Ldata</code> structures, needed by
+<em>lfun</em> functions, describing an L-function and its functional equation.
+You are urged to use a high-level constructor when one is available,
+and this function accepts them, see <code>??lfun</code>:</p>
+<p>
+</p><pre class="code">  ? L = lfuncreate(1); \\ Riemann zeta
+  ? L = lfuncreate(5); \\ Dirichlet L-function for quadratic character (5/.)
+  ? L = lfuncreate(x^2+1); \\ Dedekind zeta for Q(i)
+  ? L = lfuncreate(ellinit([0,1])); \\ L-function of E/Q: y^2=x^3+1
+</pre><p>
+One can then use, e.g., <code>Lfun(L,s)</code> to directly
+evaluate the respective L-functions at s, or <code>lfuninit(L, [c,w,h]</code>
+to initialize computations in the rectangular box Re(s-c) &leq; w,
+Im(s) &leq; h.</p>
+<p>
+We now describe the low-level interface, used to input non-builtin
+L-functions. The input is now a 6 or 7 component vector
+V = [a, astar, Vga, k, N, eps, poles], whose components are as follows:</p>
+<p>
+<b>*</b> <code>V[1] = a</code> encodes the Dirichlet series coefficients (a<sub>n</sub>). The
+preferred format is a closure of arity 1: <code>n- &gt; vector(n,i,a(i))</code> giving
+the vector of the first n coefficients. The closure is allowed to return
+a vector of more than n coefficients (only the first n will be
+considered) or even less than n, in which case loss of accuracy will occur
+and a warning that <code>#an</code> is less than expected is issued. This
+allows to precompute and store a fixed large number of Dirichlet
+coefficients in a vector v and use the closure <code>n- &gt; v</code>, which
+does not depend on n. As a shorthand for this latter case, you can input
+the vector v itself instead of the closure.</p>
+<p>
+</p><pre class="code">  ? z = lfuncreate([n-&gt;vector(n,i,1), 1, [0], 1, 1, 1, 1]); \\ Riemann zeta
+  ? lfun(z,2) - Pi^2/6
+  %2 = -5.877471754111437540 E-39
+</pre><p></p>
+<p></p>
+<p>
+A second format is limited to L-functions affording an
+Euler product. It is a closure of arity 2 <code>(p,d)- &gt; F(p)</code> giving the
+local factor L<sub>p</sub>(X) at p as a rational function, to be evaluated at
+p<sup>-s</sup> as in <code><a href="Arithmetic_functions.html#se:direuler"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">direuler</a></code>; d is set to <code><a href="Arithmetic_functions.html#se:logint"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">logint</a></code>(n,p) + 1, where
+n is the total number of Dirichlet coefficients (a<sub>1</sub>,...,a<sub>n</sub>) that will
+be computed. In other words, the smallest integer d such that p^d &gt; n.
+This parameter d allows to compute only part of
+L<sub>p</sub> when p is large and L<sub>p</sub> expensive to compute: any polynomial
+(or <code>t_SER</code>) congruent to L<sub>p</sub> modulo X^d is acceptable since only
+the coefficients of X^0,..., X<sup>d-1</sup> are needed to expand the Dirichlet
+series. The closure can of course ignore this parameter:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? z = lfuncreate([(p,d)-&gt;1/(1-x), 1, [0], 1, 1, 1, 1]); \\ Riemann zeta
+  ? lfun(z,2) - Pi^2/6
+  %4 = -5.877471754111437540 E-39
+</pre><p></p>
+<p>
+One can describe separately the generic local factors coefficients
+and the bad local factors by setting <code>dir</code> = [F, L<sub>bad</sub>],
+were L<sub>bad</sub> = [[p<sub>1</sub>,L<sub>p<sub>1</sub></sub>],...,[p<sub>k</sub>,L<sub>p<sub>k</sub></sub>]], where F
+describes the generic local factors as above, except that when p = p<sub>i</sub>
+for some i &leq; k, the coefficient a<sub>p</sub> is directly set to L<sub>p<sub>i</sub></sub>
+instead of calling F.</p>
+<p></p>
+<p>
+</p><pre class="code">  N = 15;
+  E = ellinit([1, 1, 1, -10, -10]); \\ = "15a1"
+  F(p,d) = 1 / (1 - ellap(E,p)*'x + p*'x^2);
+  Lbad = [[3, 1/(1+'x)], [5, 1/(1-'x)]];
+  L = lfuncreate([[F,Lbad], 0, [0,1], 2, N, ellrootno(E)]);
+</pre><p>
+Of course, in this case, <code>lfuncreate(E)</code> is preferable!</p>
+<p>
+<b>*</b> <code>V[2] = astar</code> is the Dirichlet series coefficients of the dual
+function, encoded as <code>a</code> above. The sentinel values 0 and 1 may
+be used for the special cases where a = a<sup>*</sup> and a = <span style="text-decoration:overline">a<sup>*</sup></span>,
+respectively.</p>
+<p>
+<b>*</b> <code>V[3] = Vga</code> is the vector of &alpha;<sub>j</sub> such that the gamma
+factor of the L-function is equal to
+&gamma;<sub>A</sub>(s) = &prod;<sub>1 &leq; j &leq; d</sub>&Gamma;<sub>&Ropf;</sub>(s+&alpha;<sub>j</sub>),
+where &Gamma;<sub>&Ropf;</sub>(s) = &pi;<sup>-s/2</sup>&Gamma;(s/2).
+This same syntax is used in the <code><a href="Transcendental_functions.html#se:gammamellininv"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gammamellininv</a></code> functions.
+In particular the length d of <code>Vga</code> is the degree of the L-function.
+In the present implementation, the &alpha;<sub>j</sub> are assumed to be exact
+rational numbers. However when calling theta functions with <em>complex</em>
+(as opposed to real) arguments, determination problems occur which may
+give wrong results when the &alpha;<sub>j</sub> are not integral.</p>
+<p>
+<b>*</b> <code>V[4] = k</code> is a positive integer k. The functional equation relates
+values at s and k-s. For instance, for an Artin L-series such as a
+Dedekind zeta function we have k = 1, for an elliptic curve k = 2, and
+for a modular form, k is its weight. For motivic L-functions, the
+<em>motivic</em> weight w is w = k-1.</p>
+<p>
+By default we assume that a<sub>n</sub> = O_&epsilon;(n<sup>k<sub>1</sub>+&epsilon;</sup>), where
+k<sub>1</sub> = w and even k<sub>1</sub> = w/2 when the L function has no pole
+(Ramanujan-Petersson). If this is not the case, you can replace the
+k argument by a vector [k,k<sub>1</sub>], where k<sub>1</sub> is the upper bound you can
+assume.</p>
+<p>
+<b>*</b> <code>V[5] = N</code> is the conductor, an integer N &geq; 1, such that
+&Lambda;(s) = N<sup>s/2</sup>&gamma;<sub>A</sub>(s)L(s) with &gamma;<sub>A</sub>(s) as above.</p>
+<p>
+<b>*</b> <code>V[6] = eps</code> is the root number &varepsilon;, i.e., the
+complex number (usually of modulus 1) such that
+&Lambda;(a, k-s) = &varepsilon; &Lambda;(a<sup>*</sup>, s).</p>
+<p>
+<b>*</b> The last optional component <code>V[7] = poles</code> encodes the poles of the
+L or &Lambda;-functions, and is omitted if they have no poles.
+A polar part is given by a list of 2-component vectors
+[&beta;,P<sub>&beta;</sub>(x)], where
+&beta; is a pole and the power series P<sub>&beta;</sub>(x) describes
+the attached polar part, such that L(s) - P_&beta;(s-&beta;) is holomorphic
+in a neighbourhood of &beta;. For instance P_&beta; = r/x+O(1) for a
+simple pole at &beta; or r<sub>1</sub>/x^2+r<sub>2</sub>/x+O(1) for a double pole.
+The type of the list describing the polar part allows to distinguish between
+L and &Lambda;: a <code>t_VEC</code> is attached to L, and a <code>t_COL</code>
+is attached to &Lambda;. Unless a = <span style="text-decoration:overline">a<sup>*</sup></span> (coded by <code>astar</code>
+equal to 0 or 1), it is mandatory to specify the polar part of &Lambda;
+rather than those of L since the poles of L<sup>*</sup> cannot be infered from the
+latter ! Whereas the functional equation allows to deduce the polar part of
+&Lambda;<sup>*</sup> from the polar part of &Lambda;.</p>
+<p>
+Finally, if a = <span style="text-decoration:overline">a<sup>*</sup></span>, we allow a shortcut to describe
+the frequent situation where L has at most simple pole, at s = k,
+with residue r a complex scalar: you may then input <code>poles</code> = r.
+This value r can be set to 0 if unknown and it will be computed.</p>
+<p>
+The library syntax is <code>GEN <b>lfuncreate</b>(GEN obj)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfundiv"></div>
+<div id="lfundiv"></div>
+<h4>lfundiv(<em>L1</em>, <em>L2</em>)</h4>
+<p>
+Creates the <code>Ldata</code> structure (without initialization) corresponding
+ to the quotient of the Dirichlet series L<sub>1</sub> and L<sub>2</sub> given by
+<code>L1</code> and <code>L2</code>. Assume that v<sub>z</sub>(L<sub>1</sub>) &geq; v<sub>z</sub>(L<sub>2</sub>) at all
+complex numbers z: the construction may not create new poles, nor increase
+the order of existing ones.</p>
+<p>
+The library syntax is <code>GEN <b>lfundiv</b>(GEN L1, GEN L2, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunetaquo"></div>
+<div id="lfunetaquo"></div>
+<h4>lfunetaquo(M)</h4>
+<p>
+Returns the <code>Ldata</code> structure attached to the L function
+attached to the modular form
+z<code>: &mdash; &gt;</code>&prod;<sub>i = 1</sub>^n &eta;(M<sub>i,1</sub> z)<sup>M<sub>i,2</sub></sup>
+It is currently assumed that f is a self-dual cuspidal form on
+&Gamma;<sub>0</sub>(N) for some N.
+For instance, the L-function &sum; &tau;(n) n<sup>-s</sup>
+attached to Ramanujan's &Delta; function is encoded as follows</p>
+<p>
+</p><pre class="code">  ? L = lfunetaquo(Mat([1,24]));
+  ? lfunan(L, 100)  \\ first 100 values of tau(n)
+</pre><p>
+For convenience, a <code>t_VEC</code> is also accepted instead of
+a factorization matrix with a single row:</p>
+<p>
+</p><pre class="code">  ? L = lfunetaquo([1,24]); \\ same as above
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>lfunetaquo</b>(GEN M)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfungenus2"></div>
+<div id="lfungenus2"></div>
+<h4>lfungenus2(F)</h4>
+<p>
+Returns the <code>Ldata</code> structure attached to the L function
+attached to the genus-2 curve defined by y^2 = F(x) or
+y^2+Q(x) y = P(x) if F = [P,Q].
+Currently, the model needs to be minimal at 2, and if the conductor
+is even, its valuation at 2 might be incorrect (a warning is issued).</p>
+<p>
+The library syntax is <code>GEN <b>lfungenus2</b>(GEN F)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunhardy"></div>
+<div id="lfunhardy"></div>
+<h4>lfunhardy(L, t)</h4>
+<p>
+Variant of the Hardy Z-function given by <code>L</code>, used for
+plotting or locating zeros of L(k/2+it) on the critical line.
+The precise definition is as
+follows: if as usual k/2 is the center of the critical strip, d is the
+degree, &alpha;<sub>j</sub> the entries of <code>Vga</code> giving the gamma factors,
+and &varepsilon; the root number, then if we set
+s = k/2+it = &rho; e<sup>i&theta;</sup> and
+E = (d(k/2-1)+&sum;<sub>1 &leq; j &leq; d</sub>&alpha;<sub>j</sub>)/2, the computed function at t is
+equal to
+Z(t) = &varepsilon;<sup>-1/2</sup>&Lambda;(s).|s|<sup>-E</sup>e<sup>dt&theta;/2</sup> ,
+which is a real function of t for self-dual &Lambda;,
+vanishing exactly when L(k/2+it) does on the critical line. The
+normalizing factor |s|<sup>-E</sup>e<sup>dt&theta;/2</sup> compensates the
+exponential decrease of &gamma;<sub>A</sub>(s) as t &rightarrow;  oo  so that
+Z(t)  ~  1.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? T = 100; \\ maximal height
+  ? L = lfuninit(1, [T]); \\ initialize for zeta(1/2+it), |t|&lt;T
+  ? \p19 \\ no need for large accuracy
+  ? ploth(t = 0, T, lfunhardy(L,t))
+</pre><p>
+Using <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code> is critical for this particular
+applications since thousands of values are computed. Make sure to initialize
+up to the maximal t needed: otherwise expect to see many warnings for
+unsufficient initialization and suffer major slowdowns.</p>
+<p>
+The library syntax is <code>GEN <b>lfunhardy</b>(GEN L, GEN t, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfuninit"></div>
+<div id="lfuninit"></div>
+<h4>lfuninit(L, <em>sdom</em>, {<em>der</em> = 0})</h4>
+<p>
+Initalization function for all functions linked to the
+computation of the L-function L(s) encoded by <code>L</code>, where
+s belongs to the rectangular domain <code>sdom</code> = [<em>center</em>,w,h]
+centered on the real axis, |Re(s)-<em>center</em>| &leq; w, |Im(s)| &leq; h,
+where all three components of <code>sdom</code> are real and w, h are
+non-negative. <code>der</code> is the maximum order of derivation that will be used.
+The subdomain [k/2, 0, h] on the critical line (up to height h)
+can be encoded as [h] for brevity. The subdomain [k/2, w, h]
+centered on the critical line can be encoded as [w, h] for brevity.</p>
+<p>
+The argument <code>L</code> is an <code>Lmath</code>, an <code>Ldata</code> or an <code>Linit</code>. See
+<code>??Ldata</code> and <code>??lfuncreate</code> for how to create it.</p>
+<p>
+The height h of the domain is a <em>crucial</em> parameter: if you only
+need L(s) for real s, set h to&nbsp;0.
+The running time is roughly proportional to
+(B / d+&pi; h/4)<sup>d/2+3</sup>N<sup>1/2</sup>,
+where B is the default bit accuracy, d is the degree of the
+L-function, and N is the conductor (the exponent d/2+3 is reduced
+to d/2+2 when d = 1 and d = 2). There is also a dependency on w,
+which is less crucial, but make sure to use the smallest rectangular
+domain that you need.</p>
+<p>
+</p><pre class="code">  ? L0 = lfuncreate(1); \\ Riemann zeta
+  ? L = lfuninit(L0, [1/2, 0, 100]); \\ for zeta(1/2+it), |t| &lt; 100
+  ? lfun(L, 1/2 + I)
+  ? L = lfuninit(L0, [100]); \\ same as above !
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>lfuninit0</b>(GEN L, GEN sdom, long der, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunlambda"></div>
+<div id="lfunlambda"></div>
+<h4>lfunlambda(L, s, {D = 0})</h4>
+<p>
+Compute the completed L-function &Lambda;(s) = N<sup>s/2</sup>&gamma;(s)L(s),
+or if <code>D</code> is set, the derivative of order <code>D</code> at s.
+The parameter <code>L</code> is either an <code>Lmath</code>, an <code>Ldata</code> (created by
+<code><a href="_L_minusfunctions.html#se:lfuncreate"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuncreate</a></code>, or an <code>Linit</code> (created by <code><a href="_L_minusfunctions.html#se:lfuninit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuninit</a></code>), preferrably the
+latter if many values are to be computed.</p>
+<p>
+The result is given with absolute error less than 2<sup>-B</sup>|&gamma;(s)N<sup>s/2</sup>|,
+where B = realbitprecision.</p>
+<p>
+The library syntax is <code>GEN <b>lfunlambda0</b>(GEN L, GEN s, long D, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunmfspec"></div>
+<div id="lfunmfspec"></div>
+<h4>lfunmfspec(L)</h4>
+<p>
+Returns <code>[valeven,valodd,omminus,omplus]</code>,
+ where <code>valeven</code> (resp., <code>valodd</code>) is the vector of even (resp., odd)
+ periods of the modular form given by <code>L</code>, and <code>omminus</code> and
+ <code>omplus</code> the corresponding real numbers &omega;^- and &omega;^+
+ normalized in a noncanonical way. For the moment, only for modular forms of even weight.</p>
+<p>
+The library syntax is <code>GEN <b>lfunmfspec</b>(GEN L, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunmul"></div>
+<div id="lfunmul"></div>
+<h4>lfunmul(<em>L1</em>, <em>L2</em>)</h4>
+<p>
+Creates the <code>Ldata</code> structure (without initialization) corresponding
+ to the product of the Dirichlet series given by <code>L1</code> and
+ <code>L2</code>.</p>
+<p>
+The library syntax is <code>GEN <b>lfunmul</b>(GEN L1, GEN L2, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunorderzero"></div>
+<div id="lfunorderzero"></div>
+<h4>lfunorderzero(L, {m = -1})</h4>
+<p>
+Computes the order of the possible zero of the L-function at the
+center k/2 of the critical strip; return 0 if L(k/2) does not vanish.</p>
+<p>
+If m is given and has a non-negative value, assumes the order is at most m.
+Otherwise, the algorithm chooses a sensible default:</p>
+<p>
+<b>*</b> if the L argument is an <code>Linit</code>, assume that a multiple zero at
+s = k / 2 has order less than or equal to the maximal allowed derivation
+order.</p>
+<p>
+<b>*</b> else assume the order is less than 4.</p>
+<p>
+You may explicitly increase this value using optional argument&nbsp;m; this
+overrides the default value above. (Possibly forcing a recomputation
+of the <code>Linit</code>.)</p>
+<p>
+The library syntax is <code>long <b>lfunorderzero</b>(GEN L, long m, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunqf"></div>
+<div id="lfunqf"></div>
+<h4>lfunqf(Q)</h4>
+<p>
+Returns the <code>Ldata</code> structure attached to the &Theta; function
+of the lattice attached to the definite positive quadratic form Q.</p>
+<p>
+</p><pre class="code">  ? L = lfunqf(matid(2));
+  ? lfunqf(L,2)
+  %2 = 6.0268120396919401235462601927282855839
+  ? lfun(x^2+1,2)*4
+  %3 = 6.0268120396919401235462601927282855839
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>lfunqf</b>(GEN Q, long prec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunrootres"></div>
+<div id="lfunrootres"></div>
+<h4>lfunrootres(<em>data</em>)</h4>
+<p>
+Given the <code>Ldata</code> attached to an L-function (or the output of
+<code><a href="_L_minusfunctions.html#se:lfunthetainit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfunthetainit</a></code>), compute the root number and the residues.</p>
+<p>
+The output is a 3-component vector
+[[[a<sub>1</sub>,r<sub>1</sub>],...,[a<sub>n</sub>, r<sub>n</sub>], [[b<sub>1</sub>, R<sub>1</sub>],...,[b<sub>m</sub>, R<sub>m</sub>]], w],
+where r<sub>i</sub> is the
+polar part of L(s) at a<sub>i</sub>, R<sub>i</sub> is is the polar part of &Lambda;(s) at
+b<sub>i</sub> or [0,0,r] if there is no pole,
+and w is the root number. In the present implementation,</p>
+<p>
+<b>*</b> either the polar part must be completely known (and is then arbitrary):
+the function determines the root number,</p>
+<p></p>
+<p>
+</p><pre class="code">  ? L = lfunmul(1,1); \\ zeta^2
+  ? [r,R,w] = lfunrootres(L);
+  ? r  \\ single pole at 1, double
+  %3 = [[1, 1.[...]*x^-2 + 1.1544[...]*x^-1 + O(x^0)]]
+  ? w
+  %4 = 1
+  ? R \\ double pole at 0 and 1
+  %5 = [[1,[...]], [0,[...]]
+</pre><p></p>
+<p></p>
+<p>
+<b>*</b> or at most a single pole is allowed: the function computes both
+the root number and the residue (0 if no pole).</p>
+<p>
+The library syntax is <code>GEN <b>lfunrootres</b>(GEN data, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunsympow"></div>
+<div id="lfunsympow"></div>
+<h4>lfunsympow(E, m)</h4>
+<p>
+Returns the <code>Ldata</code> structure attached to the L function
+attached to the m-th symmetric power of the elliptic curve E defined over
+the rationals.</p>
+<p>
+The library syntax is <code>GEN <b>lfunsympow</b>(GEN E, ulong m)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfuntheta"></div>
+<div id="lfuntheta"></div>
+<h4>lfuntheta(<em>data</em>, t, {m = 0})</h4>
+<p>
+Compute the value of the m-th derivative
+at t of the theta function attached to the L-function given by <code>data</code>.
+ <code>data</code> can be either the standard L-function data, or the output of
+<code><a href="_L_minusfunctions.html#se:lfunthetainit"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfunthetainit</a></code>. The result is given with absolute error less than
+2<sup>-B</sup>, where B = realbitprecision.</p>
+<p>
+The theta function is defined by the formula
+&Theta;(t) = &sum;<sub>n &geq; 1</sub>a(n)K(nt/sqrt(N)), where a(n) are the coefficients
+of the Dirichlet series, N is the conductor, and K is the inverse Mellin
+transform of the gamma product defined by the <code>Vga</code> component.
+Its Mellin transform is equal to &Lambda;(s)-P(s), where &Lambda;(s)
+is the completed L-function and the rational function P(s) its polar part.
+In particular, if the L-function is the L-function of a modular form
+f(&tau;) = &sum;<sub>n &geq; 0</sub>a(n)q^n with q = exp(2&pi; i&tau;), we have
+&Theta;(t) = 2(f(it/sqrt{N})-a(0)). Note that a(0) = -L(f,0) in this case.</p>
+<p>
+The library syntax is <code>GEN <b>lfuntheta</b>(GEN data, GEN t, long m, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunthetacost"></div>
+<div id="lfunthetacost"></div>
+<h4>lfunthetacost(L, {<em>tdom</em>}, {m = 0})</h4>
+<p>
+This function estimates the cost of running
+<code>lfunthetainit(L,tdom,m)</code> at current bit precision. Returns the number of
+coefficients a<sub>n</sub> that would be computed. This also estimates the
+cost of a subsequent evaluation <code><a href="_L_minusfunctions.html#se:lfuntheta"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfuntheta</a></code>, which must compute
+that many values of <code><a href="Transcendental_functions.html#se:gammamellininv"
+    onClick="parent.itemFrame.location='cont_Transcendental_functions.html'">gammamellininv</a></code> at the current bit precision.
+If L is already an <code>Linit</code>, then <em>tdom</em> and m are ignored
+and are best left omitted: we get an estimate of the cost of using that
+particular <code>Linit</code>.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \pb 1000
+  ? L = lfuncreate(1); \\ Riemann zeta
+  ? lfunthetacost(L); \\ cost for theta(t), t real &gt;= 1
+  %1 = 15
+  ? lfunthetacost(L, 1 + I); \\ cost for theta(1+I). Domain error !
+   ***   at top-level: lfunthetacost(1,1+I)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+   *** lfunthetacost: domain error in lfunthetaneed: arg t &gt; 0.785
+  ? lfunthetacost(L, 1 + I/2) \\ for theta(1+I/2).
+  %2 = 23
+  ? lfunthetacost(L, 1 + I/2, 10) \\ for theta^((10))(1+I/2).
+  %3 = 24
+  ? lfunthetacost(L, [2, 1/10]) \\ cost for theta(t), |t| &gt;= 2, |arg(t)| &lt; 1/10
+  %4 = 8
+  
+  ? L = lfuncreate( ellinit([1,1]) );
+  ? lfunthetacost(L)  \\ for t &gt;= 1
+  %6 = 2471
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>long <b>lfunthetacost0</b>(GEN L, GEN tdom = NULL, long m, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunthetainit"></div>
+<div id="lfunthetainit"></div>
+<h4>lfunthetainit(L, {<em>tdom</em>}, {m = 0})</h4>
+<p>
+Initalization function for evaluating the m-th derivative of theta
+functions with argument t in domain <em>tdom</em>. By default (<em>tdom</em>
+omitted), t is real, t &geq; 1. Otherwise, <em>tdom</em> may be</p>
+<p>
+<b>*</b> a positive real scalar &rho;: t is real, t &geq; &rho;.</p>
+<p>
+<b>*</b> a non-real complex number: compute at this particular t; this
+allows to compute &theta;(z) for any complex z satisfying |z| &geq; |t|
+and |arg z| &leq; |arg t|; we must have |2 arg z / d| &lt; &pi;/2, where
+d is the degree of the &Gamma; factor.</p>
+<p>
+<b>*</b> a pair [&rho;,&alpha;]: assume that |t| &geq; &rho; and |arg t|  &leq; 
+&alpha;; we must have |2&alpha; / d| &lt; &pi;/2, where d is the degree of
+the &Gamma; factor.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? \p500
+  ? L = lfuncreate(1); \\ Riemann zeta
+  ? t = 1+I/2;
+  ? lfuntheta(L, t); \\ direct computation
+  time = 30 ms.
+  ? T = lfunthetainit(L, 1+I/2);
+  time = 30 ms.
+  ? lfuntheta(T, t); \\ instantaneous
+</pre><p>
+The T structure would allow to quickly compute &theta;(z)
+for any z in the cone delimited by t as explained above. On the other hand</p>
+<p>
+</p><pre class="code">  ? lfuntheta(T,I)
+   ***   at top-level: lfuntheta(T,I)
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash; --
+   *** lfuntheta: domain error in lfunthetaneed: arg t &gt; 0.785398163397448
+</pre><p></p>
+<p>
+The initialization is equivalent to</p>
+<p>
+</p><pre class="code">  ? lfunthetainit(L, [abs(t), arg(t)])
+</pre><p></p>
+<p></p>
+<p>
+The library syntax is <code>GEN <b>lfunthetainit</b>(GEN L, GEN tdom = NULL, long m, long bitprec)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfuntwist"></div>
+<div id="lfuntwist"></div>
+<h4>lfuntwist(L, <em>chi</em>)</h4>
+<p>
+Creates the Ldata structure (without initialization) corresponding to the
+twist of L by the primitive character attached to the Dirichlet character
+<code>chi</code>.  The conductor of the character must be coprime to the conductor
+of the L-function L.</p>
+<p>
+The library syntax is <code>GEN <b>lfuntwist</b>(GEN L, GEN chi)</code>.</p>
+<p>
+
+<hr>
+<div id="se:lfunzeros"></div>
+<div id="lfunzeros"></div>
+<h4>lfunzeros(L, <em>lim</em>, {<em>divz</em> = 8})</h4>
+<p>
+<code>lim</code> being either a positive upper limit or a non-empty real
+interval inside [0,+ oo [, computes an
+ordered list of zeros of L(s) on the critical line up to the given
+upper limit or in the given interval. Use a naive algorithm which may miss
+some zeros: it assumes that two consecutive zeros at height T &geq; 1
+differ at least by 2&pi;/&omega;, where
+&omega; := <code>divz</code>.(dlog(T/2&pi;) +d+ 2log(N/(&pi;/2)^d)).
+To use a finer search mesh, set divz to some integral value
+larger than the default ( = 8).</p>
+<p>
+</p><pre class="code">  ? lfunzeros(1, 30) \\ zeros of Rieman zeta up to height 30
+  %1 = [14.134[...], 21.022[...], 25.010[...]]
+  ? #lfunzeros(1, [100,110])  \\ count zeros with 100 &lt;= Im(s) &lt;= 110
+  %2 = 4
+</pre><p>
+The algorithm also assumes that all zeros are simple except
+possibly on the real axis at s = k/2 and that there are no poles in the
+search interval. (The possible zero at s = k/2 is repeated according to
+its multiplicity.)</p>
+<p>
+Should you pass an <code>Linit</code> argument to the function, beware that the
+algorithm needs at least</p>
+<p>
+</p><pre class="code">     L = lfuninit(Ldata, [T+1])
+</pre><p>
+where T is the upper bound of the interval defined by
+<code>lim</code>: this allows to detect zeros near T. Make sure that your
+<code>Linit</code> domain contains this one, i.e. a domain [1,T+1] is fine but
+[0, T] is not! The algorithm assumes that a multiple zero at s = k / 2
+has order less than or equal to the maximal derivation order allowed by the
+<code>Linit</code>. You may increase that value in the <code>Linit</code> but this is
+costly: only do it for zeros of low height or in <code><a href="_L_minusfunctions.html#se:lfunorderzero"
+    onClick="parent.itemFrame.location='cont__L_minusfunctions.html'">lfunorderzero</a></code> instead.</p>
+<p>
+The library syntax is <code>GEN <b>lfunzeros</b>(GEN L, GEN lim, long divz, long bitprec)</code>.</p>
+<p>
+
+<hr>
+</body>

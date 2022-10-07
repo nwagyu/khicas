@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>Factoring a unit: ufactor
+</title>
+</head>
+<body >
+<a href="cascmd_en733.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en735.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec1885" class="subsection">11.1.6  Factoring a unit: <span style="font-family:monospace">ufactor</span>
+<a id="hevea_default1325"></a></h3>
+<p>The <span style="font-family:monospace">ufactor</span> command factors units in unit objects.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">ufactor</span> takes two arguments:
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">unitobj</span>, a unit object.
+</li><li class="li-itemize"><span style="font-style:italic">u</span>, the unit to factor.
+</li></ul>
+</li><li class="li-itemize"><span style="font-family:monospace">ufactor(</span><span style="font-style:italic">unitobj,</span><span style="font-style:italic">u</span><span style="font-family:monospace">)</span>
+returns a unit object multiplied by the remaining
+<span style="font-family:monospace">MKSA</span> units.
+</li></ul><h4 id="sec1886" class="subsubsection">Examples</h4>
+<ul class="itemize"><li class="li-itemize">
+<span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ufactor(3_J,_W)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3.0 <span style="font-style:italic">W</span> <span style="font-style:italic">s</span>
+</td></tr>
+</table>
+</li><li class="li-itemize"><span style="font-style:italic">Input:</span>
+<div class="center">
+<span style="font-family:monospace">ufactor(3_W,_J)</span>
+</div>
+<span style="font-style:italic">Output:</span>
+<table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">3.0 <span style="font-style:italic">J</span> <span style="font-style:italic">s</span><sup>−1</sup>
+</td></tr>
+</table>
+</li></ul>
+<hr>
+<a href="cascmd_en733.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en735.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

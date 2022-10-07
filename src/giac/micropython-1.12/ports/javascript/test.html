@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title></title>
+</head>
+
+<script src="build/micropython.js"></script>
+<button onclick="mp_js_init(128000); console.log('init')">init</button>
+<textarea id="in" title="" onkeypress="console.log('exec',value);if (event.keyCode!=13) return true; mp_js_do_str(value); return false;"></textarea>
+<br>
+<textarea id="mp_js_stdout"></textarea>
+<body>
+<h1></h1>
+
+
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Tue Aug 11 16:19:45 CEST 2020 <!-- hhmts end -->
+</body> </html>

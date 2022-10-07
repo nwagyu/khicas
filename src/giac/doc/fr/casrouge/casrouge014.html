@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="casrouge.css">
+<title>Algorithmes d’algébre</title>
+</head>
+<body >
+<a href="casrouge013.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge015.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h1 id="sec445" class="chapter">Chapitre 14  Algorithmes d’algébre</h1>
+<h2 id="sec446" class="section">14.1  Méthode pour résoudre des systèmes linéaires</h2>
+<p>
+Dans <span style="font-family:monospace">Xcas</span>, il existe déjà les fonctions qui correspondent
+aux algorithmes qui suivent, ce sont :
+<span style="font-family:monospace">ref, rref, ker, pivot</span> 
+</p>
+<h3 id="sec447" class="subsection">14.1.1  Le pivot de Gauss quand <span style="font-style:italic">A</span> est de rang maximum</h3>
+<p>
+Étant donné un système d’équations noté <span style="font-style:italic">AX</span>=<span style="font-style:italic">b</span>, on cherche à le 
+remplacer par un système équivalent et triangulaire inférieur.<br>
+À un système d’équations <span style="font-style:italic">AX</span>=<span style="font-style:italic">b</span>, on associe la matrice <span style="font-style:italic">M</span> formée 
+par <span style="font-style:italic">A</span> que l’on borde avec <span style="font-style:italic">b</span> comme dernière colonne.<br>
+La méthode de Gauss (resp Gauss-Jordan) consiste à multiplier <span style="font-style:italic">A</span> et <span style="font-style:italic">b</span> 
+(donc <span style="font-style:italic">M</span>) par des matrices inversibles, afin de rendre <span style="font-style:italic">A</span> triangulaire 
+inférieure (resp diagonale). Cette transformation, qui se fera au coup 
+par coup en traitant toutes les colonnes de <span style="font-style:italic">A</span> (donc toutes les colonnes de 
+<span style="font-style:italic">M</span>, sauf la dernière), consiste par des combinaisons de lignes de <span style="font-style:italic">M</span> 
+à mettre des zéros sous (resp de part et d’autre) la diagonale de <span style="font-style:italic">A</span>.<br>
+La fonction <span style="font-family:monospace">gauss_redi</span> ci-dessous, transforme <span style="font-style:italic">M</span> par la méthode de
+Gauss, la variable <span style="font-family:monospace">pivo</span> (car <span style="font-family:monospace">pivot</span> est une fonction de <span style="font-family:monospace">Xcas</span>)
+sert à mettre le pivot choisi.<br>
+ Pour <span style="font-style:italic">j</span>=0..<span style="font-style:italic">p</span>−2 (<span style="font-style:italic">p</span>−2 car on ne traite pas la dernière colonne de <span style="font-style:italic">M</span>), 
+dans chaque colonne <span style="font-style:italic">j</span>, on cherche ce qui va faire office de pivot à partir de la diagonale : dans le programme ci-dessous on choisit le premier 
+élément non nul, puis par un échange de lignes, on met le pivot sur la 
+diagonale (<span style="font-style:italic">pivo</span>=<span style="font-style:italic">M</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">j</span>]). Il ne reste plus qu’à former, pour chaque ligne 
+<span style="font-style:italic">k</span> (<span style="font-style:italic">k</span>&gt;<span style="font-style:italic">j</span>) et pour <span style="font-style:italic">a</span>=<span style="font-style:italic">M</span>[<span style="font-style:italic">k</span>,<span style="font-style:italic">j</span>], la combinaison :<br>
+ <span style="font-style:italic">pivo</span>*<span style="font-style:italic">ligne</span><sub><span style="font-style:italic">k</span></sub>−<span style="font-style:italic">a</span>*<span style="font-style:italic">ligne</span><sub><span style="font-style:italic">j</span></sub> (et ainsi <span style="font-style:italic">M</span>[<span style="font-style:italic">k</span>,<span style="font-style:italic">j</span>] devient nul).<br>
+On écrit pour réaliser cette combinaison :<br>
+<span style="font-family:monospace">a:=M[k,j];<br>
+ for (l:=j;l&lt;nc;l++){<br>
+ M[k,l]:=M[k,l]*pivo-M[j,l]*a;}</span><br>
+On remarquera qu’il suffit que <span style="font-style:italic">l</span> parte de <span style="font-style:italic">j</span> car :<br>
+pour tout <span style="font-style:italic">l</span>&lt;<span style="font-style:italic">j</span>, on a déjà obtenu, par le traitement des colonnes 
+<span style="font-style:italic">l</span>=0..<span style="font-style:italic">j</span>−1, <span style="font-style:italic">M</span>[<span style="font-style:italic">k</span>,<span style="font-style:italic">l</span>]=0.<br>
+Le programme ci-dessous ne sera utile que si on trouve un pivot pour 
+chaque colonne : c’est à dire si la matrice <span style="font-style:italic">A</span> est de rang maximum. 
+En effet, dans ce programme, si on ne trouve pas de pivot (i. e. si tous les 
+éléments d’une colonne sont nuls sur et sous la diagonale), on continue 
+comme si de rien était...
+</p><pre class="verbatim">gauss_redi(M):={
+local pivo,j,k,nl,nc,temp,l,n,a;
+nl:=nrows(M);
+nc:=ncols(M);
+n:=min(nl,nc-1);
+//on met des 0 sous la diagonale du carre n*n
+for (j:=0;j&lt;n;j++) {
+  //choix du pivot mis ds pivo
+    k:=j;
+    while (M[k,j]==0 and k&lt;nl-1) {k:=k+1;}
+    //on ne fait la suite que si on a pivo!=0
+    if (M[k,j]!=0) {
+      pivo:=M[k,j];
+      //echange de la ligne j et de la ligne k
+      for (l:=j;l&lt;nc;l++){
+       temp:=M[j,l];
+       M[j,l] := M[k,l];
+        M[k,l]:=temp;     
+      }
+     //fin du choix du pivot qui est M[j,j]
+      for (k:=j+1;k&lt;nl;k++) {
+        a:=M[k,j];
+        for (l:=j;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[j,l]*a; 
+         } 
+       }
+    }  
+}
+return M;
+}
+</pre><p> 
+On tape :<br>
+<span style="font-family:monospace">M0:= [[1,2,3,6],[2,3,1,6],[3,2,1,6]]</span><br>
+<span style="font-family:monospace">gauss_redi(M0)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,3,6],[0,-1,-5,-6],[0,0,-12,-12]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M1:= [[1,2,3,4],[0,0,1,2],[0,0,5,1]]</span><br>
+<span style="font-family:monospace">gauss_redi(M1)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,3,4],[0,0,1,2],[0,0,5,1]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M2:= [[1,2,3,4],[0,0,1,2],[0,0,5,1],[0,0,3,2],[0,0,-1,1]]</span><br>
+<span style="font-family:monospace">gauss_redi(M2)</span>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,3,4],[0,0,1,2],[0,0,5,1],[0,0,0,7],[0,0,0,6]]</span><br>
+c’est à dire :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-family:monospace"><span style="font-style:italic">gauss</span></span><span style="font-family:monospace">_</span><span style="font-family:monospace"><span style="font-style:italic">redi</span></span></td><td class="dcell"><span style="font-family:monospace">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</span></td><td class="dcell"><span style="font-family:monospace">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</span></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >5</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−1</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><span style="font-family:monospace">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</span></td><td class="dcell"><span style="font-family:monospace">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</span></td></tr>
+</table></td><td class="dcell">=</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >5</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >7</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h3 id="sec448" class="subsection">14.1.2  Le pivot de Gauss pour <span style="font-style:italic">A</span> quelconque</h3>
+<p>
+On cherche un programme valable lorsque <span style="font-style:italic">A</span> est quelconque :
+on veut, dans ce cas, mettre des zéros sous la "fausse diagonale" de <span style="font-style:italic">A</span>
+(ce qu’on appelle "fausse diagonale" c’est la diagonale obtenue en ne tenant 
+pas compte des colonnes pour lesquelles la recherche du pivot a été 
+infructueuse : un peu comme si ces colonnes étaient rejetées à la fin 
+de la matrice).<br>
+Donc, dans ce programme, si on ne trouve pas de pivot pour la colonne d’indice
+<span style="font-style:italic">jc</span> (i. e. si tous les éléments de la colonne <span style="font-style:italic">jc</span> sont nuls sur et sous 
+la diagonale), on continue en cherchant, pour la colonne suivante (celle 
+d’indice <span style="font-style:italic">jc</span>+1), un pivot à partir de l’élément situé à la ligne 
+d’indice <span style="font-style:italic">jc</span> (et non comme précédemment à partir de <span style="font-style:italic">jc</span>+1),
+pour mettre sur la colonne <span style="font-style:italic">jc</span>+1, des zéros sur les lignes <span style="font-style:italic">jc</span>+1,...,<span style="font-style:italic">nl</span>−1.
+On est donc obligé, d’avoir 2 indices <span style="font-style:italic">jl</span> et <span style="font-style:italic">jc</span> pour repérer les 
+indices de la "fausse diagonale".
+</p><pre class="verbatim">gauss_red(M):={
+local pivo,jc,jl,k,nl,nc,temp,l,a;
+nl:=nrows(M);
+nc:=ncols(M);
+//on met des 0 sous la fausse diagonale d'indice jl,jc 
+jc:=0;
+jl:=0;
+//on traite chaque colonne (indice jc)
+while (jc&lt;nc-1 and jl&lt;nl-1) {
+  //choix du pivot que l'on veut mettre en M[jl,jc]
+    k:=jl;
+    while (M[k,jc]==0 and k&lt;nl-1) {k:=k+1;}
+    //on ne fait la suite que si M[k,jc](=pivo)!=0
+    if (M[k,jc]!=0) {
+      pivo:=M[k,jc];
+      //echange de la ligne jl et de la ligne k
+      for (l:=jc;l&lt;nc;l++){
+       temp:=M[jl,l];
+       M[jl,l] := M[k,l];
+        M[k,l]:=temp;     
+      }
+     //fin du choix du pivot qui est M[jl,jc]
+      //on met des 0 sous la fausse diagonale de 
+      //la colonne jc
+      for (k:=jl+1;k&lt;nl;k++) {
+        a:=M[k,jc];
+        for (l:=jc;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[jl,l]*a; 
+         } 
+       }
+      //on a 1 pivot,l'indice-ligne de 
+      //la fausse diag augmente de 1
+      jl:=jl+1;
+    }//fin du if (M[k,jc]!=0)
+    //colonne suivante,l'indice-colonne de
+    //la fausse diag augmente de 1
+    jc:=jc+1;  
+}//fin du while
+return M;
+}
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">M0:= [[1,2,3,6],[2,3,1,6],[3,2,1,6]]</span><br>
+<span style="font-family:monospace">gauss_red(M0)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,3,6],[0,-1,-5,-6],[0,0,-12,-12]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M1:= [[1,2,3,4],[0,0,1,2],[0,0,5,1]]</span><br>
+<span style="font-family:monospace">gauss_red(M1)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,3,4],[0,0,1,2],[0,0,0,-9]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M2:= [[1,2,3,4],[0,0,1,2],[0,0,5,1],[0,0,3,2],[0,0,-1,1]]</span><br>
+<span style="font-family:monospace">gauss_red(M2)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,3,4],[0,0,1,2],[0,0,0,-9],[0,0,0,-4],[0,0,0,3]]</span></p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-family:monospace"><span style="font-style:italic">gauss</span></span><span style="font-family:monospace">_</span><span style="font-family:monospace"><span style="font-style:italic">red</span></span></td><td class="dcell"><span style="font-family:monospace">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</span></td><td class="dcell"><span style="font-family:monospace">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</span></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >5</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−1</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><span style="font-family:monospace">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</span></td><td class="dcell"><span style="font-family:monospace">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</span></td></tr>
+</table></td><td class="dcell">=</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−9</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h3 id="sec449" class="subsection">14.1.3  La méthode de Gauss-Jordan</h3>
+<p>
+Étant donnée un système d’équations, on cherche à le remplacer 
+par un système diagonale équivalent.
+À un système d’équations <span style="font-style:italic">AX</span>=<span style="font-style:italic">b</span>, on associe la matrice <span style="font-style:italic">M</span> formée 
+de <span style="font-style:italic">A</span>, bordée par <span style="font-style:italic">b</span> comme dernière colonne.<br>
+La fonction <span style="font-family:monospace">gaussjordan_redi</span> transforme <span style="font-style:italic">M</span> par la méthode de 
+Gauss-Jordan.
+On cherche dans chaque colonne <span style="font-style:italic">j</span>,(<span style="font-style:italic">j</span>=0..<span style="font-style:italic">nc</span>−2) à partir de la diagonale, 
+ce qui va faire office de pivot : dans le programme ci-dessous on choisit le 
+premier élément non nul, puis par un échange de lignes, on met le pivot 
+sur la diagonale (<span style="font-style:italic">pivo</span>=<span style="font-style:italic">M</span>[<span style="font-style:italic">j</span>,<span style="font-style:italic">j</span>]). Il ne reste plus qu’à former, pour chaque 
+ligne <span style="font-style:italic">k</span> (<span style="font-style:italic">k</span>≠ <span style="font-style:italic">j</span>) et pour <span style="font-style:italic">a</span>=<span style="font-style:italic">M</span>[<span style="font-style:italic">k</span>,<span style="font-style:italic">j</span>], la combinaison :<br>
+<span style="font-style:italic">pivo</span>*<span style="font-style:italic">ligne</span><sub><span style="font-style:italic">k</span></sub>−<span style="font-style:italic">a</span>*<span style="font-style:italic">ligne</span><sub><span style="font-style:italic">j</span></sub> (et ainsi <span style="font-style:italic">M</span>[<span style="font-style:italic">k</span>,<span style="font-style:italic">j</span>] devient nul).<br>
+On écrit pour réaliser cette combinaison :<br>
+lorsque <span style="font-style:italic">k</span>&lt;<span style="font-style:italic">j</span> <br>
+<span style="font-family:monospace">a:=M[k,j];<br>
+ for (l:=0;l&lt;j;l++){<br>
+ M[k,l]:=M[k,l]*pivo-M[j,l]*a;}</span><br>
+et lorsque <span style="font-style:italic">k</span>&gt;<span style="font-style:italic">j</span><br>
+<span style="font-family:monospace">a:=M[k,j];<br>
+ for (l:=j;l&lt;nc;l++){<br>
+ M[k,l]:=M[k,l]*pivo-M[j,l]*a;}</span><br>
+On remarquera que <span style="font-style:italic">l</span> part soit de 0 soit de <span style="font-style:italic">j</span> car pour <span style="font-style:italic">l</span>&lt;<span style="font-style:italic">j</span>, on a
+<span style="font-style:italic">M</span>[<span style="font-style:italic">k</span>,<span style="font-style:italic">l</span>]=0 seulement si <span style="font-style:italic">k</span>&gt;<span style="font-style:italic">j</span>.<br>
+Si on ne trouve pas de pivot, on continue comme si de rien n’était : on
+obtiendra donc des zéros au dessus de la diagonale que si on 
+a trouvé un pivot pour chaque colonne.
+</p><pre class="verbatim">gaussjordan_redi(M):={
+local pivo,j,k,nl,nc,temp,l,n,a;
+nl:=nrows(M);
+nc:=ncols(M);
+n:=min(nl,nc-1);
+//on met 0 sous et au dessus de la diag du carre n*n
+for (j:=0;j&lt;n;j++) {
+  //choix du pivot
+    k:=j;
+    while (M[k,j]==0 and k&lt;nl-1) {k:=k+1;}
+    //on ne fait la suite que si on a pivo!=0
+    if (M[k,j]!=0) {
+      pivo:=M[k,j];
+      //echange de la ligne j et de la ligne k
+      for (l:=j;l&lt;nc;l++){
+       temp:=M[j,l];
+       M[j,l] := M[k,l];
+        M[k,l]:=temp;     
+      }
+     //fin du choix du pivot qui est M[j,j]
+     // on met des zeros au dessus de la diag
+     for (k:=0;k&lt;j;k++) {
+        a:=M[k,j];
+        for (l:=0;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[j,l]*a; 
+         } 
+      }
+      // on met des zeros au dessous de la diag
+      for (k:=j+1;k&lt;nl;k++) {
+        a:=M[k,j];
+        for (l:=j;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[j,l]*a; 
+         } 
+       }
+    }  
+}
+return M;
+}
+</pre><p> 
+De la même façon que pour la mèthode de Gauss, on va mettre des 
+zéros sous la "fausse diagonale" et au dessus de cette "fausse diagonale"
+(on ne pourra pas bien sûr, mettre des zéros au dessus de cette "fausse 
+diagonale", pour les colonnes sans pivot!!)
+</p><pre class="verbatim">gaussjordan_red(M):={
+local pivo,jc,jl,k,nl,nc,temp,l,a;
+nl:=nrows(M);
+nc:=ncols(M);
+//on met des 0 sous la fausse diagonale 
+jc:=0;
+jl:=0;
+//on doit traiter toutes les colonnes sauf la derniere 
+//on doit traiter toutes les lignes
+while (jc&lt;nc-1 and jl&lt;nl) {
+  //choix du pivot que l'on veut mettre en M[jl,jc]
+    k:=jl;
+    while (M[k,jc]==0 and k&lt;nl-1) {k:=k+1;}
+    //on ne fait la suite que si on a pivo!=0
+    if (M[k,jc]!=0) {
+      pivo:=M[k,jc];
+      //echange de la ligne jl et de la ligne k
+      for (l:=jc;l&lt;nc;l++){
+       temp:=M[jl,l];
+       M[jl,l] := M[k,l];
+        M[k,l]:=temp;     
+      }
+     //fin du choix du pivot qui est M[jl,jc]
+      //on met des 0 au dessus la fausse diagonale de 
+      //la colonne jc
+      for (k:=0;k&lt;jl;k++) {
+        a:=M[k,jc];  
+        for (l:=0;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[jl,l]*a; 
+         } 
+       }
+       //on met 0 sous la fausse diag de la colonne jc
+       for (k:=jl+1;k&lt;nl;k++) {
+        a:=M[k,jc];
+        for (l:=jc;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[jl,l]*a; 
+         } 
+       }
+      //on a un pivot donc le numero de  
+      //la ligne de la fausse diag augmente de 1
+      jl:=jl+1;
+    }
+    //ds tous les cas, le numero de
+    //la colonne de la fausse diag augmente de 1
+    jc:=jc+1;  
+}
+return M;
+}
+</pre><p> 
+On tape :<br>
+<span style="font-family:monospace">M0:= [[1,2,3,6],[2,3,1,6],[3,2,1,6]]</span><br>
+<span style="font-family:monospace">gaussjordan_red(M0)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[12,0,0,12],[0,12,0,12],[0,0,-12,-12]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M1:= [[1,2,3,4],[0,0,1,2],[0,0,5,1]]</span><br>
+<span style="font-family:monospace">gaussjordan_red(M1)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,0,-2],[0,0,1,2],[0,0,0,-9]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M2:= [[1,2,3,4],[0,0,1,2],[0,0,5,1],[0,0,3,2],[0,0,-1,1]]</span><br>
+<span style="font-family:monospace">gaussjordan_red(M2)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,2,0,-2],[0,0,1,2],[0,0,0,-9],[0,0,0,-4],[0,0,0,3]]</span></p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-family:monospace"><span style="font-style:italic">gaussjordan</span></span><span style="font-family:monospace">_</span><span style="font-family:monospace"><span style="font-style:italic">red</span></span></td><td class="dcell"><span style="font-family:monospace">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</span></td><td class="dcell"><span style="font-family:monospace">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</span></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >5</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−1</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><span style="font-family:monospace">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</span></td><td class="dcell"><span style="font-family:monospace">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</span></td></tr>
+</table></td><td class="dcell">=</td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−9</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >3</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h3 id="sec450" class="subsection">14.1.4  La méthode de Gauss et de Gauss-Jordan avec recherche du pivot</h3>
+<p> 
+On peut bien sûr modifier la recherche du pivot.<br>
+Pour les méthodes numériques il est recommandé de normaliser les 
+équations (on divise chaque ligne <span style="font-style:italic">k</span> par max<sub><span style="font-style:italic">j</span></sub>|<span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span>,<span style="font-style:italic">j</span></sub>|) et de choisir 
+le pivot qui a la plus grande valeur absolue.<br>
+En calcul formel, on prend l’expression exacte la plus simple possible.
+Ici on normalise les équations à chaque étape et on choisit 
+le pivot qui a la plus grande valeur absolue : c’est ce que font, avec ce choix du pivot les programmes (cf le répertoire exemples),
+<span style="font-family:monospace">gauss_reducni</span> (analogue à <span style="font-family:monospace">gauss_redi</span>), 
+<span style="font-family:monospace">gauss_reducn</span> (analogue à <span style="font-family:monospace">gauss_red</span>)), 
+<span style="font-family:monospace">gaussjordan_reducni</span> (analogue à <span style="font-family:monospace">gaussjordan_redi</span>) et
+<span style="font-family:monospace">gaussjordan_reducn</span> (analogue à <span style="font-family:monospace">gaussjordan_red</span>) : </p><pre class="verbatim">     
+gaussjordan_reducn(M):={
+local pivo,j,jc,jl,k,nl,nc,temp,l,a,piv,kpiv,maxi;
+nl:=nrows(M);
+nc:=ncols(M);
+//on met des 0 sous la fausse diagonale 
+jc:=0;
+jl:=0;
+while (jc&lt;nc-1 and jl&lt;nl) {
+   //on normalise les lignes
+   for (jj:=0;jj&lt;nl;jj++) {
+       maxi:=max(abs(seq(M[jj,kk], kk=0..nc-1)));
+       for (kk:=0;kk&lt;nc;kk++) {
+           M[jj,kk]:=M[jj,kk]/maxi;
+       }  
+   }
+   //choix du pivot que l'on veut mettre en M[jl,jc]
+    kpiv:=jl;
+    piv:=abs(M[kpiv,jc]);
+    for (k:=jl+1;k&lt;nl;k++){
+    if (abs(M[k,jc])&gt;piv) {piv:=abs(M[k,jc]);kpiv:=k;}
+    }
+   //on ne fait la suite que si on a piv!=0
+    if (piv!=0) {
+      pivo:=M[kpiv,jc];
+      k:=kpiv;
+      //echange de la ligne jl et de la ligne k
+      for (l:=jc;l&lt;nc;l++){
+       temp:=M[jl,l];
+       M[jl,l] := M[k,l];
+        M[k,l]:=temp;     
+      }
+     //fin du choix du pivot qui est M[jl,jc]
+     //on met des 0 au dessus la fausse diagonale 
+     //de la colonne jc
+      for (k:=0;k&lt;jl;k++) {
+        a:=M[k,jc];  
+        for (l:=0;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[jl,l]*a; 
+         } 
+       }
+       //on met des 0 sous la fausse dia de la colonne jc
+       for (k:=jl+1;k&lt;nl;k++) {
+        a:=M[k,jc];
+        for (l:=jc;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]*pivo-M[jl,l]*a; 
+         } 
+       }
+      //on a un pivot donc,le numero de
+      //la ligne de la fausse diag augmente de 1
+      jl:=jl+1;
+    }
+    //ds tous les cas,le numero de
+    //la colonne de la fausse diag augmente de 1
+    jc:=jc+1;  
+}
+return M;
+}
+</pre><p> 
+On tape :<br>
+<span style="font-family:monospace">M0:= [[1,2,3,6],[2,3,1,6],[3,2,1,6]]</span><br>
+<span style="font-family:monospace">gaussjordan_reducn(M0)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[5/6,0,0,5/6],[0,5/6,0,5/6],[0,0,1,1]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M1:= [[1,2,3,4],[0,0,1,2],[0,0,5,1]]</span><br>
+<span style="font-family:monospace">gaussjordan_reducn(M1)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1/4,1/2,0,17/20],[0,0,1,1/5],[0,0,0,9/10]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">M2:=[[1,2,3,4],[0,0,1,2],[0,0,5,1],[0,0,3,2],[0,0,-1,1]]</span><br>
+<span style="font-family:monospace">gaussjordan_reducn(M2)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1/4,1/2,0,17/20],[0,0,1,1/5],</span><br>
+<span style="font-family:monospace">[0,0,0,9/10],[0,0,0,7/15],[0,0,0,6/5]]</span></p><p>On a donc :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table class="display"><tr style="vertical-align:middle"><td class="dcell"><span style="font-family:monospace"><span style="font-style:italic">gaussjordan</span></span><span style="font-family:monospace">_</span><span style="font-family:monospace"><span style="font-style:italic">reducn</span></span></td><td class="dcell"><span style="font-family:monospace">⎛<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎜<br>
+⎝</span></td><td class="dcell"><span style="font-family:monospace">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</span></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >4</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >5</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >3</td><td style="text-align:right;white-space:nowrap" >2</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−1</td><td style="text-align:right;white-space:nowrap" >1</td></tr>
+</table></td><td class="dcell"><span style="font-family:monospace">
+</span></td><td class="dcell"><span style="font-family:monospace">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</span></td><td class="dcell"><span style="font-family:monospace">⎞<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎟<br>
+⎠</span></td></tr>
+</table></td><td class="dcell">= </td><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell">
+</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">4</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">2</td></tr>
+</table></td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">17</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">20</td></tr>
+</table></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > </td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">1</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > </td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">9</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">10</td></tr>
+</table></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > </td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">7</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">15</td></tr>
+</table></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" > </td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" ><table class="display"><tr><td class="dcell" style="text-align:center">6</td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td class="dcell" style="text-align:center">5</td></tr>
+</table></td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table>
+<h3 id="sec451" class="subsection">14.1.5  Application : recherche du noyau grâce à Gauss-Jordan</h3>
+<p>
+Soit une application linéaire <span style="font-style:italic">f</span> de ℝ<sup><span style="font-style:italic">n</span></sup> dans ℝ<sup><span style="font-style:italic">p</span></sup>,
+de matrice <span style="font-style:italic">A</span> dans la base canonique de ℝ<sup><span style="font-style:italic">n</span></sup> et de ℝ<sup><span style="font-style:italic">p</span></sup>.<br>
+Trouver le noyau de <span style="font-style:italic">f</span> revient à résoudre <span style="font-style:italic">f</span>(<span style="font-style:italic">X</span>)=0 ou encore 
+à résoudre <span style="font-style:italic">AX</span>=0 pour <span style="font-style:italic">X</span>∈ℝ<sup><span style="font-style:italic">n</span></sup>.<br>
+Pour cela, on va utiliser la méthode de Gauss-Jordan en rajoutant des lignes 
+de 0 aux endroits où l’on n’a pas trouvé de pivot de façon à ce que 
+les pivots suivants se trouve sur la diagonale (et non sur la 
+"fausse diagonale"). <br>
+Plus précisément :<br>
+- quand on a trouvé un pivot pour une colonne, à l’aide de la méthode 
+habituelle de réduction de Gauss-Jordan, on met sur cette colonne :<br>
+ 1 sur la diagonale et<br>
+ 0 de part et d’autre du 1.<br>
+- quand on n’a pas trouvé de pivot pour la colonne <span style="font-style:italic">j</span>, on rajoute
+une ligne de 0 : la ligne <span style="font-style:italic">j</span> devient une ligne de 0 et les autres lignes 
+sont décalées.<br>
+- on rajoute éventuellement à la fin, des lignes de 0, pour traiter 
+toutes les colonnes de <span style="font-style:italic">A</span> et avoir une matrice carrée.<br>
+- on enlève éventuellement à la fin, des lignes de 0, pour avoir 
+une matrice carrée.<br>
+Remarque : on ne change pas le nombre de colonnes.<br>
+Ainsi, si la colonne <span style="font-style:italic">C</span><sub><span style="font-style:italic">j</span></sub> a un 0 sur sa diagonale, si <span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub> est le <span style="font-style:italic">j</span>-ième
+vecteur de la base canonique de ℝ<sup><span style="font-style:italic">n</span></sup>, alors <span style="font-style:italic">N</span><sub><span style="font-style:italic">j</span></sub>=<span style="font-style:italic">C</span><sub><span style="font-style:italic">j</span></sub>−<span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub> est 
+un vecteur du noyau. En effet, on a <span style="font-style:italic">A</span>(<span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub>)=<span style="font-style:italic">C</span><sub><span style="font-style:italic">j</span></sub>; si on a <span style="font-style:italic">C</span><sub><span style="font-style:italic">j</span></sub>=<span style="font-style:italic">a</span>1<span style="font-style:italic">e</span><sub>1</sub>+....+<span style="font-style:italic">a</span><sub><span style="font-style:italic">j</span>−1</sub><span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span>−1</sub>, pour <span style="font-style:italic">k</span>&lt;<span style="font-style:italic">j</span>, et pour <span style="font-style:italic">a</span><sub><span style="font-style:italic">k</span></sub>!=0, on a <span style="font-style:italic">A</span>(<span style="font-style:italic">e</span><sub><span style="font-style:italic">k</span></sub>)=<span style="font-style:italic">e</span><sub><span style="font-style:italic">k</span></sub> c’est à dire 
+<span style="font-style:italic">A</span>(<span style="font-style:italic">C</span><sub><span style="font-style:italic">j</span></sub>)=<span style="font-style:italic">C</span><sub><span style="font-style:italic">j</span></sub>=<span style="font-style:italic">A</span>(<span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub>), soit <span style="font-style:italic">A</span>(<span style="font-style:italic">C</span><sub><span style="font-style:italic">j</span></sub>−<span style="font-style:italic">e</span><sub><span style="font-style:italic">j</span></sub>)=<span style="font-style:italic">A</span>(<span style="font-style:italic">N</span><sub><span style="font-style:italic">j</span></sub>)=0.<br>
+Voici le programme correspondant en conservant la variable <span style="font-family:monospace">jl</span> afin de 
+faciliter la lisibilité du programme :
+</p><pre class="verbatim">     
+gaussjordan_noyau(M):={
+local pivo,jc,jl,k,j,nl,nc,temp,l,a,noyau;
+nl:=nrows(M);
+nc:=ncols(M);
+//on met des 0 sous la diagonale 
+jc:=0;
+jl:=0;
+// on traite toutes les colonnes
+while (jc&lt;nc and jl&lt;nl) {
+  //choix du pivot que l'on veut mettre en M[jl,jc]
+    k:=jl;
+    while (M[k,jc]==0 and k&lt;nl-1) {k:=k+1;}
+    //on ne fait la suite que si on a pivo!=0
+    if (M[k,jc]!=0) {
+      pivo:=M[k,jc];
+      //echange de la ligne jl et de la ligne k
+      for (l:=jc;l&lt;nc;l++){
+       temp:=M[jl,l];
+       M[jl,l] := M[k,l];
+        M[k,l]:=temp;     
+      }
+     //fin du choix du pivot qui est M[jl,jc]
+      //on met 1 sur la diagonale de la colonne jc
+      for (l:=0;l&lt;nc;l++) {
+      M[jl,l]:=M[jl,l]/pivo;
+      }
+      //on met des 0 au dessus de la diagonale
+      // de la colonne jc
+      for (k:=0;k&lt;jl;k++) {
+        a:=M[k,jc];  
+        for (l:=0;l&lt;nc;l++){
+          M[k,l]:=M[k,l]-M[jl,l]*a; 
+         } 
+       }
+       //on met des 0 sous la diag de la colonne jc
+       for (k:=jl+1;k&lt;nl;k++) {
+        a:=M[k,jc];
+        for (l:=jc;l&lt;nc;l++){ 
+          M[k,l]:=M[k,l]-M[jl,l]*a; 
+         } 
+       }
+    }
+    else{
+    //on ajoute une ligne de 0 si ce n'est pas le dernier 0
+    if (jl&lt;nc-1){
+     for (j:=nl;j&gt;jl;j--){
+      M[j]:=M[j-1];
+      }
+    M[jl]:=makelist(0,1,nc);
+    nl:=nl+1;
+    }
+   }
+    //ds tous les cas,le numero de colonne et 
+    //le numero de ligne augmente de 1
+    jc:=jc+1;  jl:=jl+1;
+    //il faut faire toutes les colonnes 
+    if (jl==nl and jl&lt;nc) { M[nl]:=makelist(0,1,nc);nl:=nl+1;}
+}
+noyau:=[];
+//on enleve les lignes en trop pour avoir 
+//une matrice carree de dim nc
+//on retranche la matrice identite
+M:=M[0..nc-1]-idn(nc);
+for(j:=0;j&lt;nc;j++){
+if (M[j,j]==-1) {noyau:=append(noyau,M[0..nc-1,j]);}
+}
+return noyau;
+}
+</pre><p> 
+<span style="font-weight:bold">Remarque</span><br>
+On peut écrire le même programme en supprimant la variable 
+<span style="font-style:italic">jl</span> puisque <span style="font-style:italic">jl</span>=<span style="font-style:italic">jc</span> (on met <span style="font-style:italic">jc</span> à la place de <span style="font-style:italic">jl</span> et on supprime <span style="font-style:italic">jl</span>:=0
+et <span style="font-style:italic">jl</span>:=<span style="font-style:italic">jl</span>+1).<br>
+On met ce programme 
+dans un niveau éditeur de programmes (que l’on ouvre avec <span style="font-family:monospace">Alt+p</span>), puis 
+on le teste et on le valide avec <span style="font-family:monospace">OK</span>.<br>
+On tape :<br>
+<span style="font-family:monospace">gaussjordan_noyau([[1,2,3],[1,3,6],[2,5,9]])</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[-3,3,-1]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">gaussjordan_noyau([[1,2,3,4],[1,3,6,6],[2,5,9,10]])</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[-3,3,-1,0],[0,2,0,-1]]</span>
+</p>
+<h2 id="sec452" class="section">14.2  Résolution d’un système linéaire</h2>
+<h3 id="sec453" class="subsection">14.2.1  Résolution d’un système d’équations linéaires</h3>
+<h4 id="sec454" class="subsubsection">L’algorithme</h4>
+<p>
+On associe à un système d’équations linéaires, une matrice <span style="font-style:italic">A</span> 
+constituèe de la matrice du système augmentèe d’une colonne formée
+par l’opposé du second membre.<br>
+Par exemple au système : 
+[<span style="font-style:italic">x</span>+<span style="font-style:italic">y</span>=4,<span style="font-style:italic">x</span>−<span style="font-style:italic">y</span>=2] d’inconnues [<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>] on associe la matrice :<br>
+<span style="font-style:italic">A</span>=[[1,1,−4],[1,−1,−2]].<br>
+Puis on réduit avec la méthode de Gauss-Jordan la matrice <span style="font-style:italic">A</span> pour obtenir 
+une matrice <span style="font-style:italic">B</span>. Pour chaque ligne de <span style="font-style:italic">B</span> :<br>
+- si il n’y a que des zéro on regarde la ligne suivante,<br>
+- si il y a des zéro sauf en dernière position, il n’y a pas de solution,<br>
+- dans les autres cas on obtient la valeur de la variable de même indice
+que le premier élément non nul rencontré sur la ligne,<br>
+- les valeurs arbitraires correspondent aux zéros de la diagonale de <span style="font-style:italic">B</span> et 
+en général il y a des valeurs non nulles au dessus de ces zéros,
+c’est pourquoi il faut initialisé la solution au vecteur des variables.</p>
+<h4 id="sec455" class="subsubsection">Le programme</h4>
+<p>
+Voici le programme de résolution d’un système linéaire :
+</p><pre class="verbatim">//Veq vecteur des equations 
+//v vecteur de variables
+//renvoie le vecteur solution
+linsolv(Veq,v):={
+  local A,B,j,k,l,deq,d,res,ll,rep;
+  d:=size(v);
+  deq:=size(Veq);
+  //A est la matrice du systeme +le 2nd membre
+  A:=syst2mat(Veq,v);
+  //B matrice reduite de Gauss-jordan
+  B:=rref(A);
+  res:=v;
+  //ll ligne l de B
+  ll:=makelist(0,0,d);
+  for (l:=0; l&lt;deq;l++){
+    for (k:=0;k&lt;d+1;k++){
+      ll[k]:=B[l][k];
+    }
+  j:=l;
+  while (ll[j]==0 &amp;&amp; j&lt;d){
+    j:=j+1;
+  }
+  //si (j==d and ll[d]==0) 
+  //ll=ligne de zeros on ne fait rien
+  if (j==d and ll[d]!=0){
+    // pas de sol
+    return [];
+  } 
+  else {//la sol res[j] vaut rep/ll[j]
+      if (j&lt;d) {
+      rep:=-ll[d];
+      for (k:=j+1;k&lt;d;k++) {
+      rep:=rep-ll[k]*v[k];
+      }
+      res[j]:=rep/ll[j];
+      }
+    }
+  }
+  return res;
+}
+</pre>
+<h4 id="sec456" class="subsubsection">Autre algorithme</h4>
+<h3 id="sec457" class="subsection">14.2.2  Résolution de <span style="font-style:italic">MX</span>=<span style="font-style:italic">b</span> donné sous forme matricielle</h3>
+<h4 id="sec458" class="subsubsection">L’algorithme</h4>
+<p>
+On transforme la résolution de <span style="font-style:italic">MX</span>=<span style="font-style:italic">b</span> en <span style="font-style:italic">MX</span>−<span style="font-style:italic">b</span>=<span style="font-style:italic">AY</span>=0 où <span style="font-style:italic">A</span> est la matrice
+constituèe de la matrice <span style="font-style:italic">M</span> du système augmentèe d’une 
+colonne formée par l’opposé du second membre <span style="font-style:italic">b</span>.<br>
+<span style="font-style:italic">Y</span> est donc un vecteur du noyau de <span style="font-style:italic">A</span> ayant comme dernière composante 1.<br>
+D’après l’algorithme de recherche du noyau, seul le dernier vecteur a comme 
+dernière composante -1. Si <span style="font-family:monospace">-ker(A)</span> renvoie <span style="font-style:italic">n</span> vecteurs, la solution 
+<span style="font-style:italic">Y</span> est donc une combinaison arbitraire des <span style="font-style:italic">n</span>−1 premiers vecteurs du noyau 
+plus le <span style="font-style:italic">n</span>-ième vecteur. 
+</p>
+<h4 id="sec459" class="subsubsection">Le programme</h4>
+<p>
+Voici le programme de résolution de <span style="font-style:italic">AX</span>=<span style="font-style:italic">b</span> :
+</p><pre class="verbatim">//M*res=b res renvoie le vecteur solution
+//M:=[[1,1],[1,-1]]; b:=[4,2]
+//M:=[[1,1,1],[1,1,1],[1,1,1]];b:=[0,0,0]
+//M:=[[1,2,1],[1,2,5],[1,2,1]];b:=[0,1,0]
+linsolvm(M,b):={
+  local A,B,N,n,k,d,res;
+  d:=ncols(M);
+  //A est la matrice du systeme +le 2nd membre
+  A:=border(M,-b);
+  //N contient une base du noyau
+  N:=-ker(A);
+  n:=size(N);
+  //res a d+1 composante (la derniere=1)
+  res:=makelist(0,0,d);
+  //C_(k) designe les constantes arbitraires 
+  for (k:=0;k&lt;n-1;k++){
+    res:=res+N[k]*C_(k);
+  }
+  res:=res+N[n-1];
+  res:=suppress(res,d);
+  return res;
+}
+</pre>
+<h2 id="sec460" class="section">14.3  La décomposition LU d’une matrice</h2>
+<p>
+C’est l’interprétation matricielle de la méthode de Gauss.<br>
+Si <span style="font-style:italic">A</span> est une matrice carrée d’ordre <span style="font-style:italic">n</span>, il existe une matrice <span style="font-style:italic">L</span>
+triangulaire supérieure, une matrice <span style="font-style:italic">L</span>
+triangulaire inférieure, et une matrice <span style="font-style:italic">P</span> de permutation telles que :<br>
+<span style="font-style:italic">P</span>*<span style="font-style:italic">A</span>=<span style="font-style:italic">L</span>*<span style="font-style:italic">U</span>.<br>
+Supposons tout d’abord que l’on peut faire la méthode de Gauss sans 
+échanger des lignes. Mettre des zéros sous la diagonale de la 1-ière
+colonne (d’ndice 0) de <span style="font-style:italic">A</span>, reviens à multiplier <span style="font-style:italic">A</span> par la matrice <span style="font-style:italic">E</span><sub>0</sub>
+qui a des 1 sur sa diagonale, comme première colonne :<br>
+[1,−<span style="font-style:italic">A</span>[1,0]/<span style="font-style:italic">A</span>[0,0], ...−<span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>−1,0]/<span style="font-style:italic">A</span>[0,0]] et des zéros ailleurs.<br>
+Puis si <span style="font-style:italic">A</span>1=<span style="font-style:italic">E</span>1*<span style="font-style:italic">A</span>, mettre des zéros sous la diagonale de la 2-ière 
+colonne (d’ndice 1) de <span style="font-style:italic">A</span>1, reviens à multiplier <span style="font-style:italic">A</span>1 par la matrice <span style="font-style:italic">E</span><sub>1</sub>
+qui a des 1 sur sa diagonale, comme deuxième colonne :<br>
+[0,1,−<span style="font-style:italic">A</span>1[2,1]/<span style="font-style:italic">A</span>[1,1], ...−<span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>−1,1]/<span style="font-style:italic">A</span>[1,1]] et des zéros ailleurs.<br>
+On continue ainsi jusqu’à mettre des zéros sous la diagonale de la colonne 
+d’indice <span style="font-style:italic">n</span>−2, et à la fin la matrice <span style="font-style:italic">U</span>=<span style="font-style:italic">E</span><sub><span style="font-style:italic">n</span>−2</sub>*...*<span style="font-style:italic">E</span><sub>1</sub>*<span style="font-style:italic">E</span><sub>0</sub>*<span style="font-style:italic">A</span> est 
+triangulaire supérieure et on a <span style="font-style:italic">L</span>=<span style="font-style:italic">inv</span>(<span style="font-style:italic">E</span><sub><span style="font-style:italic">n</span>−2</sub>*...*<span style="font-style:italic">E</span><sub>1</sub>*<span style="font-style:italic">E</span><sub>0</sub>).<br>
+Le calcul de <span style="font-style:italic">inv</span>(<span style="font-style:italic">L</span>) est simple car on a :<br>
+- <span style="font-style:italic">inv</span>(<span style="font-style:italic">E</span><sub>0</sub>) des 1 sur sa diagonale, comme colonne d’indice 0
+[1,+<span style="font-style:italic">A</span>[1,0]/<span style="font-style:italic">A</span>[0,0], ...+<span style="font-style:italic">A</span>[<span style="font-style:italic">n</span>−1,0]/<span style="font-style:italic">A</span>[0,0]] et des zéros ailleurs de même
+<span style="font-style:italic">inv</span>(<span style="font-style:italic">E</span><sub><span style="font-style:italic">k</span></sub>) est obtenue à partir de <span style="font-style:italic">E</span><sub><span style="font-style:italic">k</span></sub> "en changeant les moins en plus".<br>
+- la colonne d’indice <span style="font-style:italic">k</span> de <span style="font-style:italic">inv</span>(<span style="font-style:italic">E</span><sub>0</sub>)*<span style="font-style:italic">inv</span>(<span style="font-style:italic">E</span><sub>1</sub>)...<span style="font-style:italic">inv</span>(<span style="font-style:italic">E</span><sub><span style="font-style:italic">n</span>−2</sub>) est égale à
+la colonne d’indice <span style="font-style:italic">k</span> de <span style="font-style:italic">E</span><sub><span style="font-style:italic">k</span></sub>.<br>
+Lorsqu’il y a à faire une permutation de lignes, il faut répercuter cette 
+permutation sur <span style="font-style:italic">L</span> et sur <span style="font-style:italic">U</span> : pour faciliter la programmation on va 
+conserver les valeurs de <span style="font-style:italic">L</span> et de <span style="font-style:italic">U</span> dans une seule matrice <span style="font-style:italic">R</span> que l’on
+séparera à la fin : <span style="font-style:italic">U</span> sera la partie supérieure et la diagonale de <span style="font-style:italic">R</span> 
+<span style="font-style:italic">L</span> sera la partie inférieure de <span style="font-style:italic">R</span>, avec des 1 sur sa diagonale.<br>
+Voici le programme de séparation :
+</p><pre class="verbatim">splitmat(R):={
+  local L,U,n,k,j;
+  n:=size(R);
+  L:=idn(n);
+  U:=makemat(0,n,n);
+  for (k:=0;k&lt;n;k++){
+    for (j:=k;j&lt;n;j++){
+      U[k,j]:= R[k,j];
+    }
+  } 
+  for (k:=1;k&lt;n;k++){
+    for (j:=0;j&lt;k;j++){
+      L[k,j]:= R[k,j];
+    }
+  }
+return (L,U);
+};
+</pre><p>Le programme ci-dessous, <span style="font-family:monospace">decomplu(A)</span>, renvoie la permutation <span style="font-style:italic">p</span> que l’on
+a fait sur les lignes, <span style="font-style:italic">L</span> et <span style="font-style:italic">U</span> et on a:
+<span style="font-style:italic">P</span>*<span style="font-style:italic">A</span>=<span style="font-style:italic">L</span>*<span style="font-style:italic">U</span>.<br>
+Voici le programme de décomposition LU qui utilise <span style="font-family:monospace">splitmat</span> ci-dessus :
+</p><pre class="verbatim">//A:=[[5,2,1],[5,2,2],[-4,2,1]]
+//A:=[[5,2,1],[5,-6,2],[-4,2,1]]
+// utilise splitmat
+decomplu(A):={
+  local B,R,L,U,n,j,k,l,temp,p;
+  n:=size(A);
+  p:=seq(k,k,0,n-1);
+  R:=makemat(0,n,n);
+  B:=A;
+  l:=0;
+//on traite toutes les colonnes
+  while (l&lt;n-1) {
+    if (A[l,l]!=0){
+    //pas de permutations 
+    //on recopie dans R la ligne l de A 
+    //a partir de la diagonale
+      for (j:=l;j&lt;n;j++){R[l,j]:=A[l,j];}
+      //on met des zeros sous la diagonale 
+      //dans la colonne l
+      for (k:=l+1;k&lt;n;k++){
+ for (j:=l+1;j&lt;n;j++){
+   A[k,j]:=A[k,j]-A[l,j]*A[k,l]/A[l,l];
+   R[k,j]:=A[k,j];
+ } 
+ R[k,l]:=A[k,l]/A[l,l];
+ A[k,l]:=0;
+      }
+    l:=l+1;
+    }
+    else {
+      k:=l;
+      while ((k&lt;n-1) and (A[k,l]==0)) {
+        k:=k+1;
+      }
+      //si (A[k,l]==0) A est non inversible, 
+      //on passe a la colonne suivante
+      if (A[k,l]==0) {
+ l:=l+1;
+      }
+      else {
+      //A[k,l]!=0) on echange la ligne l et k ds A et R
+       for (j:=l;j&lt;n;j++){
+        temp:=A[k,j];
+        A[k,j]:=A[l,j];
+        A[l,j]:=temp;
+       };
+       for (j:=0;j&lt;n;j++){
+        temp:=R[k,j];
+        R[k,j]:=R[l,j];
+        R[l,j]:=temp;
+       }
+       //on note cet echange dans  p
+       temp:=p[k];
+       p[k]:=p[l];
+       p[l]:=temp;
+     }//fin du if (A[k,l]==0)
+    }//fin du if (A[l,l]!=0)
+  }//fin du while
+  L,U:=splitmat(R);
+  return(p,L,U);
+};
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">A:=[[5,2,1],[5,2,2],[-4,2,1]]</span><br>
+<span style="font-family:monospace">decomplu(A)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[0,2,1],[[1,0,0],[-4/5,1,0],[1,0,1]],</span><br>
+<span style="font-family:monospace">[[5,2,1],[0,18/5,9/5],[0,0,1]]</span><br>
+On verifie, on tape (car <span style="font-family:monospace">permu2mat(p)=P=inv(P)</span>) :<br>
+<span style="font-family:monospace">[[1,0,0],[0,0,1],[0,1,0]]*[[1,0,0],[-4/5,1,0],[1,0,1]]*</span><br>
+<span style="font-family:monospace">[[5,2,1],[0,18/5,9/5],[0,0,1]]</span><br>
+On obtient bien <span style="font-family:monospace">[[5,2,1],[5,2,2],[-4,2,1]]</span><br>
+On tape :<br>
+<span style="font-family:monospace">B:=[[5,2,1],[5,-6,2],[-4,2,1]]</span><br>
+<span style="font-family:monospace">decomplu(B)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[0,1,2],,[[1,0,0],[1,1,0],[-4/5,-9/20,1]],</span><br>
+<span style="font-family:monospace">[[5,2,1],[0,-8,1],[0,0,9/4]]</span><br>
+On verifie, on tape :<br>
+<span style="font-family:monospace">[[1,0,0],[1,1,0],[-4/5,-9/20,1]]*[[5,2,1],[0,-8,1],[0,0,9/4]]</span><br>
+On obtient bien <span style="font-family:monospace">[[5,2,1],[5,-6,2],[-4,2,1]]</span>
+</p>
+<h2 id="sec461" class="section">14.4  Décomposition de Cholesky d’une matrice symétrique définie positive</h2>
+<h3 id="sec462" class="subsection">14.4.1  Les méthodes</h3>
+<p>
+Lorsque la matrice <span style="font-family:monospace">A</span> est la matrice associée à une forme bilinéaire
+définie positive, on lui associe la matrice symétrique 
+<span style="font-family:monospace">B=1/2*(A+tran(A))</span> qui est la matrice de la forme quatratique 
+associée.<br>
+Avec ses hypothèses, il existe une matrice triangulaire inférieure unique
+<span style="font-family:monospace">C</span> telle que <span style="font-family:monospace">B=C*tran(C)</span>.<br>
+Pour déterminer <span style="font-family:monospace">C</span> on présente ici deux méthodes :
+</p>
+<h4 id="sec463" class="subsubsection">La méthode utilisant la décomposition LU</h4>
+<p>
+Si on décompose <span style="font-family:monospace">B</span> selon la méthode LU, on n’est pas obligé de faire
+des échanges de lignes car les sous-matrices principales <span style="font-style:italic">B</span><sub><span style="font-style:italic">k</span></sub> d’ordre <span style="font-style:italic">k</span> 
+(obtenues en prenant les <span style="font-style:italic">k</span> premières lignes et colonnes de <span style="font-style:italic">B</span>) sont des 
+matrices inversibles car ce sont des matrices de formes définies positives.<br>
+On a donc :<br>
+<span style="font-family:monospace">p,L,U:=decomplu(B)</span> avec <span style="font-family:monospace">p=[0,1..n-1]</span> si <span style="font-family:monospace">A</span> est d’ordre 
+<span style="font-family:monospace">n</span>.
+Posons <span style="font-family:monospace">D</span> la matrice diagonale ayant comme diagonale la racine carrée de
+la diagonale de <span style="font-family:monospace">U</span>.<br>
+On a alors <span style="font-family:monospace">C=L*D</span> et <span style="font-family:monospace">tran(C)=inv(D)*U</span>. <br>
+Pour le montrer on utilise le théorème :<br>
+Si <span style="font-family:monospace">B=C*F</span> avec
+<span style="font-family:monospace">B</span> symétrique, <span style="font-family:monospace">C</span> triangulaire inférieure et <span style="font-family:monospace">F</span> triangulaire
+supérieure de même diagonale que <span style="font-family:monospace">C</span> alors <span style="font-family:monospace">F=tran(C)</span>. <br>
+En effet on a :<br>
+<span style="font-family:monospace">B=tran(B)</span> donc <span style="font-family:monospace">C*F=tran(C*F)=tran(F)*tran(C)</span>.<br>
+On en déduit l’égalité des 2 matrices :<br>
+<span style="font-family:monospace">inv(tran(F))*C=tran(C)*inv(F)</span><br>
+la première est triangulaire inférieure, et la deuxième est triangulaire 
+supérieure donc ces matrices sont diagonales et leur diagonale n’a que des 1
+ces 2 matrices sont donc égales à la matrice unité.
+</p>
+<h4 id="sec464" class="subsubsection">La méthode par identification</h4>
+<p>
+On peut aussi déterminer <span style="font-family:monospace">C</span> par identification en utilisant 
+l’égalité <span style="font-family:monospace">B=C*tran(C)</span> et <span style="font-family:monospace">C</span> triangulaire inférieure.<br>
+On trouve pour tout entier <span style="font-style:italic">j</span> compris entre 0 et <span style="font-style:italic">n</span>−1 :<br>
+- pour la diagonale :<br>
+<span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">C</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">])</span><sup><span style="font-family:monospace">2</span></sup><span style="font-family:monospace">=</span><span style="font-family:monospace"><span style="font-style:italic">B</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]-∑</span><sub><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">=0</span></sub><sup><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">-1</span></sup><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">C</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">])</span><sup><span style="font-family:monospace">2</span></sup><br>
+- pour les termes subdiagonaux c’est à dire pour <span style="font-style:italic">j</span>+1 ≤ <span style="font-style:italic">l</span> ≤ <span style="font-style:italic">n</span>−1 :<br>
+<span style="font-family:monospace"><span style="font-style:italic">C</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]=1/</span><span style="font-family:monospace"><span style="font-style:italic">C</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]*(</span><span style="font-family:monospace"><span style="font-style:italic">B</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]-∑</span><sub><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">=0</span></sub><sup><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">-1</span></sup><span style="font-family:monospace"><span style="font-style:italic">C</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">]*</span><span style="font-family:monospace"><span style="font-style:italic">C</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">])</span><br>
+On peut donc calculer les coefficients de <span style="font-family:monospace">C</span> par colonnes, en effet, pour 
+avoir la colonne <span style="font-style:italic">j</span> :<br>
+- on calcule le terme diagonal <span style="font-family:monospace">C[j,j]</span> qui fait intervenir les termes de 
+la ligne <span style="font-style:italic">j</span> des colonnes précédentes (avec un test vérifiant
+que le terme <span style="font-family:monospace"><span style="font-style:italic">B</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]-∑</span><sub><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">=0</span></sub><sup><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">-1</span></sup><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">C</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">])</span><sup><span style="font-family:monospace">2</span></sup> est positif), puis,<br>
+- on calcule les termes subdiagonaux <span style="font-family:monospace">C[l,j]</span> pour <span style="font-style:italic">j</span>+1 ≤ <span style="font-style:italic">l</span> ≤ <span style="font-style:italic">n</span>−1 
+qui font intervenir les termes des colonnes précédentes des lignes 
+précédentes.
+Mais cet algorithme n’est pas très bon car les termes de la matrice <span style="font-family:monospace">C</span> 
+sont obtenus à chaque étape avec une multiplication ou une division de 
+racine carrée : il serait préférable d’introduire les racines carrées 
+qu’à la fin du calcul comme dans la méthode LU. On va donc calculer une 
+matrice <span style="font-family:monospace">CC</span> (sans utiliser de racines carrées) et une matrice diagonale 
+<span style="font-family:monospace">D</span> (qui aura des racines carrées sur sa diagonale)
+de tel sorte que <span style="font-family:monospace">C=CC*D</span> (la colonne <span style="font-style:italic">k</span> de <span style="font-family:monospace">CC*D</span> est la colonne <span style="font-style:italic">k</span>
+de <span style="font-family:monospace">CC</span> multiplié par <span style="font-family:monospace">D[k,k]</span>). <br>
+Par exemple : <span style="font-family:monospace">C[0,0]* C[0,0]= B[0,0]</span> on pose :<br>
+<span style="font-family:monospace">CC[0,0]= B[0,0]=a</span> et <span style="font-family:monospace">D[0,0]=1/sqrt(a)</span> ainsi <br>
+<span style="font-family:monospace">C[0,0]= CC[0,0]/sqrt(a)=sqrt(a)</span> et on a bien :<br>
+ <span style="font-family:monospace">C[0,0]* C[0,0]=a=B[0,0]</span><br>
+On aura donc <span style="font-family:monospace">C[l,0]=CC[l,0]/sqrt(a)</span> c’est à dire :<br>
+<span style="font-family:monospace">CC[l,0]=B[l,0]</span> pour 0≤ <span style="font-style:italic">l</span>&lt;<span style="font-style:italic">n</span><br>
+Puis :<br>
+ <span style="font-family:monospace">C[1,1]*C[1,1]=B[1,1]-C[1,0]*C[1,0]=<br>
+B[1,1]-CC[1,0]*CC[1,0]/a=b</span><br>
+on pose :<br>
+<span style="font-family:monospace">CC[1,1]= B[1,1]-CC[1,0]*CC[1,0]/a=b </span> et<br>
+<span style="font-family:monospace">D[1,1]=1/sqrt(b)</span><br>
+ On aura donc pour 2≤ <span style="font-style:italic">l</span>&lt;<span style="font-style:italic">n</span> ;<br>
+<span style="font-family:monospace">C[l,1]=CC[l,1]/sqrt(b)=1/sqrt(b)*(B[l,1]-C[l,0]*C[1,0])</span> <br>
+c’est à dire pour 2≤ <span style="font-style:italic">l</span>&lt;<span style="font-style:italic">n</span> :<br>
+<span style="font-family:monospace">CC[l,1]=B[l,1]-C[l,0]*C[1,0]=B[l,1]-CC[l,0]*CC[1,0]/a</span> <br>
+etc.....<br>
+Les formules de récurences pour le calcul de <span style="font-family:monospace">CC</span> sont :<br>
+- pour la diagonale :<br>
+<span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]=</span><span style="font-family:monospace"><span style="font-style:italic">B</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]-∑</span><sub><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">=0</span></sub><sup><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">-1</span></sup><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">])</span><sup><span style="font-family:monospace">2</span></sup><span style="font-family:monospace">/</span><span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">]</span><br>
+- pour les termes subdiagonaux c’est à dire pour <span style="font-style:italic">j</span>+1 ≤ <span style="font-style:italic">l</span> ≤ <span style="font-style:italic">n</span>−1 :<br>
+<span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]=</span><span style="font-family:monospace"><span style="font-style:italic">B</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]-∑</span><sub><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">=0</span></sub><sup><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">-1</span></sup><span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">l</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">]*</span><span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">]/</span><span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">k</span></span><span style="font-family:monospace">]</span><br>
+avec <span style="font-family:monospace"><span style="font-style:italic">D</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">]=1/</span><span style="font-family:monospace"><span style="font-style:italic">sqrt</span></span><span style="font-family:monospace">(</span><span style="font-family:monospace"><span style="font-style:italic">CC</span></span><span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">j</span></span><span style="font-family:monospace">])</span>.
+</p>
+<h3 id="sec465" class="subsection">14.4.2  Le programme de factorisation de Cholesky avec LU</h3>
+<pre class="verbatim"> 
+//utilise decomplu et splitmat ci-dessus
+//A:=[[1,0,-1],[0,2,4],[-1,4,11]]
+//A:=[[1,1,1],[1,2,4],[1,4,11]]
+//A:=[[1,0,-2],[0,2,6],[0,2,11]]
+//A:=[[1,-2,4],[-2,13,-11],[4,-11,21]]
+//A:=[[-1,-2,4],[-2,13,-11],[4,-11,21]] (pas def pos)
+//A:=[[24,66,13],[66,230,-11],[13,-11,210]]
+choles(A):={
+  local j,n,p,L,U,D,p0;
+  n:=size(A);
+  A:=1/2*(A+tran(A));
+ (p,L,U):=decomplu(A);
+  p0:=makelist(x-&gt;x,0,n-1);
+  if (p!=p0) {return "pas definie positive ";}
+  D:=makemat(0,n,n);
+  for (j:=0;j&lt;n;j++) {
+    //if (U[j,j]&lt;0) {return "pas def positive";}
+    D[j,j]:=sqrt(U[j,j]);
+  }
+  return normal(L*D);
+}
+</pre>
+<h3 id="sec466" class="subsection">14.4.3  Le programme de factorisation de Cholesky par identification</h3>
+<pre class="verbatim"> 
+//A:=[[1,0,-1],[0,2,4],[-1,4,11]]
+//A:=[[1,1,1],[1,2,4],[1,4,11]]
+//A:=[[1,0,-2],[0,2,6],[0,2,11]]
+//A:=[[1,-2,4],[-2,13,-11],[4,-11,21]]
+//A:=[[-1,-2,4],[-2,13,-11],[4,-11,21]] (pas def pos)
+//A:=[[24,66,13],[66,230,-11],[13,-11,210]]
+cholesi(A):={
+  local j,n,l,k,C,c2,s;
+  n:=size(A);
+  A:=1/2*(A+tran(A));
+  C:=makemat(0,n,n);;
+  for (j:=0;j&lt;n;j++) {
+    s:=0;
+    for (k:=0;k&lt;j;k++) {
+      s:=s+(C[j,k])^2;
+    }
+    c2:=A[j,j]-s; 
+    if (c2&lt;=0) {return "pas definie positive ";}
+    C[j,j]:=normal(sqrt(c2));
+    for (l:=j+1;l&lt;n;l++) {
+      s:=0;
+      for (k:=0;k&lt;j;k++) {
+ s:=s+C[l,k]*C[j,k];
+      }
+      C[l,j]:=normal(1/sqrt(c2)*(A[l,j]-s));
+    }
+  }
+return C;
+}
+</pre><p>
+Ce programme n’est pas très bon car les termes de la matrice <span style="font-family:monospace">C</span> sont
+obtenus avec une multiplication ou une division de racine carrée...<br>
+On se pourra se reporter ci-dessous pour avoir le programme choleski optimisé.
+</p>
+<h3 id="sec467" class="subsection">14.4.4  Le programme optimisé de factorisation de Cholesky par identification</h3>
+<pre class="verbatim"> 
+//A:=[[1,0,-1],[0,2,4],[-1,4,11]]
+//A:=[[1,1,1],[1,2,4],[1,4,11]]
+//A:=[[1,0,-2],[0,2,6],[0,2,11]]
+//A:=[[1,-2,4],[-2,13,-11],[4,-11,21]]
+//A:=[[-1,-2,4],[-2,13,-11],[4,-11,21]] (pas def pos)
+//A:=[[24,66,13],[66,230,-11],[13,-11,210]]
+choleski(A):={
+  local j,n,l,k,CC,D,c2,s;
+  n:=size(A);
+  A:=1/2*(A+tran(A));
+  CC:=makemat(0,n,n);
+  D:=makemat(0,n,n);
+  for (j:=0;j&lt;n;j++) {
+    s:=0;
+    for (k:=0;k&lt;j;k++) {
+      s:=s+(CC[j,k])^2/CC[k,k];
+    }
+    c2:=normal(A[j,j]-s); 
+    //if (c2&lt;=0) {return "pas definie positive ";}
+    CC[j,j]:=c2;
+    D[j,j]:=normal(1/sqrt(c2));
+    for (l:=j+1;l&lt;n;l++) {
+      s:=0;
+      for (k:=0;k&lt;j;k++) {
+ s:=s+CC[l,k]*CC[j,k]/CC[k,k];
+      }
+      CC[l,j]:=normal(A[l,j]-s);
+    }
+  }
+return normal(CC*D);
+}
+</pre><p>
+Avec cette méthode, pour obtenir les coefficients diagonaux ont utilise la
+même relation de récurrence que pour les autres coefficients. De plus on 
+peut effectuer directement et facilement la multiplication par <span style="font-family:monospace">D</span> sans 
+avoir à définir <span style="font-family:monospace">D</span> en multipliant les colonnes de <span style="font-family:monospace">CC</span> par la 
+même valeur <span style="font-family:monospace">1/sqrt(c)</span> avec <span style="font-family:monospace">c=CC[k,k]</span>...<br>
+donc on écrit :
+</p><pre class="verbatim"> 
+choleskii(A):={
+  local j,n,l,k,CC,c,s;
+  n:=size(A);
+  A:=1/2*(A+tran(A));
+  CC:=makemat(0,n,n);
+  for (j:=0;j&lt;n;j:=j+1) { 
+     for (l:=j;l&lt;n;l++) {
+      s:=0;
+      for (k:=0;k&lt;j;k++) {
+ //if (CC[k,k]&lt;=0) {return "pas definie positive ";}
+ if (CC[k,k]==0) {return "pas definie";}
+ s:=s+CC[l,k]*CC[j,k]/CC[k,k];
+      }
+      CC[l,j]:=A[l,j]-s;
+    }
+  } 
+  for (k:=0;k&lt;n;k++) {
+    c:=CC[k,k];
+    for (j:=k;j&lt;n;j++) {
+      CC[j,k]:=normal(CC[j,k]/sqrt(c));
+    }
+  }
+  return CC;
+}
+</pre><p>
+Avec la traduction pour avoir une fonction interne à Xcas :
+</p><pre class="verbatim"> 
+cholesky(_args)={
+gen args=(_args+mtran(_args))/2;
+matrice &amp;A=*args._VECTptr;
+int n=A.size(),j,k,l;
+vector&lt;vecteur&gt; C(n,vecteur(n)), D(n,vecteur(n));
+for (j=0;j&lt;n;j++) {
+gen s;
+for (k=0;k&lt;j;k++)
+s=s+pow(C[j][k],2)/C[k][k];
+gen c2=A[j][j]-s;
+if (is_strictly_positive(-c2)) 
+setsizeerr("Not a positive define matrice");
+C[j][j]=c2;
+D[j][j]=normal(1/sqrt(c2));
+for (l=j+1;l&lt;n;l++) {
+s=0;
+for (k=0;k&lt;j;k++) 
+s=s+C[l][k]*C[j][k]/C[k][k];
+C[l][j]=A[l][j]-s;
+}
+}
+matrice Cmat,Dmat;
+vector_of_vecteur2matrice(C,Cmat);
+vector_of_vecteur2matrice(D,Dmat);
+return Cmat*Dmat;
+}
+</pre>
+<h2 id="sec468" class="section">14.5  Réduction de Hessenberg</h2>
+<h3 id="sec469" class="subsection">14.5.1  La méthode</h3>
+<p>
+Une matrice de Hessenberg est une matrice qui a des zéros sous 
+la "deuxième diagonale inférieure".<br>
+ Soit <span style="font-style:italic">A</span> une matrice. On va chercher <span style="font-style:italic">B</span> une matrice de Hessenberg semblable
+à <span style="font-style:italic">A</span>. Pour cela on va mettre des zéros sous cette diagonale 
+en utilisant la méthode de Gauss mais en prenant les pivots sur la
+"deuxième diagonale inférieure" encore appelée "sous-diagonale": cela 
+revient à multiplier <span style="font-style:italic">A</span> par 
+<span style="font-style:italic">Q</span>=<span style="font-style:italic">R</span><sup>−1</sup> et cela permet de conserver les zéros lorsque l’on multiplie 
+à chaque étape le résultat par <span style="font-style:italic">R</span> pour obtenir une matrice semblable 
+à <span style="font-style:italic">A</span>. Si on est obligé de faire un échange de lignes (correspondant à 
+la multiplication à droite par <span style="font-style:italic">E</span>) il faudra faire aussi un échange de 
+colonnes (correspondant à la multiplication à gauche par <span style="font-style:italic">E</span>.<br>
+Par exemple si on a :<br>
+<span style="font-style:italic">A</span>:=[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>00</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>01</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>02</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>03</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>04</sub></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>11</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>12</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>13</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>14</sub></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>20</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>21</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>22</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>23</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>24</sub></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>30</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>31</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>32</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>33</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>34</sub></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>40</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>41</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>42</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>43</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>44</sub>
+</td></tr>
+</table><p>
+] <br>
+Pour mettre des zéros dans la première colonne en dessous de <span style="font-style:italic">a</span><sub>10</sub>, on 
+va multiplier <span style="font-style:italic">A</span> à gauche par <span style="font-style:italic">Q</span> et à droite par <span style="font-style:italic">R</span>=<span style="font-style:italic">Q</span><sup>−1</sup> avec si on 
+suppose <span style="font-style:italic">a</span><sub>10</sub>!=0 c’est à dire si on peut choisir comme pivot <span style="font-style:italic">a</span><sub>10</sub> :
+<span style="font-style:italic">Q</span>:=[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">a</span><sub>20</sub>/<span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">a</span><sub>30</sub>/<span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >−<span style="font-style:italic">a</span><sub>40</sub>/<span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1
+</td></tr>
+</table><p>
+] <br>
+<span style="font-style:italic">R</span>:=[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >+<span style="font-style:italic">a</span><sub>20</sub>/<span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >+<span style="font-style:italic">a</span><sub>30</sub>/<span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1</td><td style="text-align:center;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >+<span style="font-style:italic">a</span><sub>40</sub>/<span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >1
+</td></tr>
+</table><p>
+] <br>
+On tape alors :<br>
+<span style="font-family:monospace"><span style="font-style:italic">A</span></span><span style="font-family:monospace">:=[[</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">00</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">01</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">02</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">03</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">04</span></sub><span style="font-family:monospace">],[</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">10</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">11</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">12</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">13</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">14</span></sub><span style="font-family:monospace">],</span><br>
+<span style="font-family:monospace">[</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">20</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">21</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">22</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">23</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">24</span></sub><span style="font-family:monospace">],[</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">30</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">31</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">32</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">33</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">34</span></sub><span style="font-family:monospace">],[</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">40</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">41</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">42</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">43</span></sub><span style="font-family:monospace">,</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">44</span></sub><span style="font-family:monospace">]]</span><br>
+<span style="font-family:monospace"><span style="font-style:italic">Q</span></span><span style="font-family:monospace">:=[[1,0,0,0,0],[0,1,0,0,0],[0,(-</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">20</span></sub><span style="font-family:monospace">)/</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">10</span></sub><span style="font-family:monospace">,1,0,0],</span><br>
+<span style="font-family:monospace">[0,(-</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">30</span></sub><span style="font-family:monospace">)/</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">10</span></sub><span style="font-family:monospace">,0,1,0],[0,(-</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">40</span></sub><span style="font-family:monospace">)/</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">10</span></sub><span style="font-family:monospace">,0,0,1]]</span><br>
+<span style="font-family:monospace"><span style="font-style:italic">R</span></span><span style="font-family:monospace">:=[[1,0,0,0,0],[0,1,0,0,0],[0,(</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">20</span></sub><span style="font-family:monospace">)/</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">10</span></sub><span style="font-family:monospace">,1,0,0],</span><br>
+<span style="font-family:monospace">[0,(</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">30</span></sub><span style="font-family:monospace">)/</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">10</span></sub><span style="font-family:monospace">,0,1,0],[0,(</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">40</span></sub><span style="font-family:monospace">)/</span><span style="font-family:monospace"><span style="font-style:italic">a</span></span><sub><span style="font-family:monospace">10</span></sub><span style="font-family:monospace">,0,0,1]]</span><br>
+On obtient la matrice <span style="font-style:italic">B</span>1:<br>
+<span style="font-style:italic">B</span>1=<span style="font-style:italic">Q</span>*<span style="font-style:italic">A</span>*<span style="font-style:italic">R</span>=<span style="font-style:italic">R</span><sup>−1</sup>*<span style="font-style:italic">A</span>*<span style="font-style:italic">R</span>=[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>00</sub></td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>02</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>03</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>04</sub></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>10</sub></td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>12</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>13</sub></td><td style="text-align:center;white-space:nowrap" ><span style="font-style:italic">a</span><sub>14</sub></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td></tr>
+<tr><td style="text-align:center;white-space:nowrap" >0</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...</td><td style="text-align:center;white-space:nowrap" >...
+</td></tr>
+</table><p>
+]
+où les ... sont des expressions des coefficients de <span style="font-style:italic">A</span>.<br>
+On va faire cette transformation successivement sur la deuxième colonne de
+la matrice <span style="font-style:italic">B</span>1 pour obtenir <span style="font-style:italic">B</span>2 etc...<br>
+On appellera <span style="font-style:italic">B</span> toutes les matrices obtenues successivement.<br>
+Si on doit échanger les deux lignes <span style="font-style:italic">k</span> et <span style="font-style:italic">j</span> pour avoir un pivot, cela 
+revient à multiplier à gauche la matrice <span style="font-style:italic">B</span> par une matrice <span style="font-style:italic">E</span> égale 
+à la matrice identité ayant subie l’échange des deux lignes <span style="font-style:italic">k</span> et <span style="font-style:italic">j</span>. 
+Il faudra alors, aussi multiplier à droite la matrice <span style="font-style:italic">B</span> par <span style="font-style:italic">E</span> c’est à 
+dire échanger les deux colonnes <span style="font-style:italic">k</span> et <span style="font-style:italic">j</span> de <span style="font-style:italic">B</span>
+</p>
+<h3 id="sec470" class="subsection">14.5.2  Le programme de réduction de Hessenberg</h3>
+<pre class="verbatim"> 
+//A est mise sous forme de hessenberg B avec 
+//P matrice de passage
+//p indique si il y a eu une permutation de lignes
+//a chaque etape la matrice inv(R) 
+// met des zeros sous la "sous diagonale"
+//B=P^-1AP ex A:=[[5,2,1],[5,2,2],[-4,2,1]]
+//A:=[[5,2,1,1],[5,2,2,1],[5,2,2,1],[-4,2,1,1]]
+hessenbg(A):={
+  local B,R,P,n,j,k,l,temp,p;
+  n:=size(A);
+  P:=idn(n);
+  p:=seq(k,k,0,n-1);
+  B:=A;
+  l:=1;
+  while (l&lt;n) {
+     R:=idn(n);
+     if (B[l,l-1]!=0){
+     for (k:=l+1;k&lt;n;k++){
+ R[k,l]:=B[k,l-1]/B[l,l-1];
+ //on multiplie B a droite par inv(R)
+        for (j:=l;j&lt;n;j++){
+   B[k,j]:=B[k,j]-B[l,j]*B[k,l-1]/B[l,l-1];
+ } 
+ B[k,l-1]:=0;
+      }
+     //on multiplie B et P a gauche par R
+     B:=B*R;
+     P:=P*R;
+    l:=l+1;
+    }
+  else {
+    k:=l;
+    while ((k&lt;n-1) and (B[k,l-1]==0)) {
+    k:=k+1;
+    }
+    
+    if (B[k,l-1]==0) {l:=l+1;}
+    else{
+    //B[k,l]!=0) on echange ligne l et k ds B
+    for (j:=l-1;j&lt;n;j++){
+    temp:=B[k,j];
+    B[k,j]:=B[l,j];
+    B[l,j]:=temp;
+    };
+    //A[k,l]!=0) on echange colonne l et k ds B et P
+    for (j:=0;j&lt;n;j++){
+    temp:=B[j,k];
+    B[j,k]:=B[j,l];
+    B[j,l]:=temp;
+    };
+    for (j:=0;j&lt;n;j++){
+    temp:=P[j,k];
+    P[j,k]:=P[j,l];
+    P[j,l]:=temp;
+    };
+    temp:=p[k];
+    p[k]:=p[l];
+    p[l]:=temp;
+  }
+  }
+  }
+  return(p,P,B);
+};
+</pre><p> 
+<span style="font-style:italic">p</span> nous dit les échanges effectués et on a <span style="font-style:italic">B</span>=<span style="font-style:italic">P</span><sup>−1</sup>*<span style="font-style:italic">A</span>*<span style="font-style:italic">P</span>.<br>
+Attention !! si <span style="font-style:italic">A</span> est symétrique, cette transformation détruit la 
+symétrie et on n’a donc pas une tridiagonalistion d’une matrice symtrisue par cette méthode.
+</p>
+<h2 id="sec471" class="section">14.6  Tridiagonalisation des matrices symétriques avec des rotations</h2>
+<p>
+On a le théorème :
+Pour toute matrice symétrique <span style="font-style:italic">A</span> d’ordre <span style="font-style:italic">n</span>, il existe une matrice <span style="font-style:italic">P</span>, 
+produit de <span style="font-style:italic">n</span>−2 matrices de rotations, telle que <span style="font-style:italic">B</span>=<sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">P</span>*<span style="font-style:italic">A</span>*<span style="font-style:italic">P</span> soit 
+tridiagonale : c’est la réduction de Givens.
+</p>
+<h3 id="sec472" class="subsection">14.6.1  Matrice de rotation associée à <span style="font-style:italic">e</span><sub><span style="font-style:italic">p</span></sub>, <span style="font-style:italic">e</span><sub><span style="font-style:italic">q</span></sub></h3>
+<p>
+Dans ℝ<sup><span style="font-style:italic">n</span></sup>, on appelle rotation associée à <span style="font-style:italic">e</span><sub><span style="font-style:italic">p</span></sub>, <span style="font-style:italic">e</span><sub><span style="font-style:italic">q</span></sub>,
+une rotation d’angle <span style="font-style:italic">t</span> du plan dirigé par <span style="font-style:italic">e</span><sub><span style="font-style:italic">p</span></sub>, <span style="font-style:italic">e</span><sub><span style="font-style:italic">q</span></sub> où <span style="font-style:italic">e</span><sub><span style="font-style:italic">k</span></sub> désigne
+le <span style="font-style:italic">k</span>+1-ième vecteur de la base canonique de ℝ<sup><span style="font-style:italic">n</span></sup> (la base canonique est <span style="font-style:italic">e</span><sub>0</sub>=[1,0..,0], <span style="font-style:italic">e</span><sub>1</sub>=[0,1,0..,0] etc...).<br>
+Si ℝ<sup><span style="font-style:italic">n</span></sup> est rapporté à la base canonique, à cette rotation est 
+associée une matrice <span style="font-style:italic">G</span>(<span style="font-style:italic">n</span>,<span style="font-style:italic">p</span>,<span style="font-style:italic">q</span>,<span style="font-style:italic">t</span>) dont le terme général est :<br>
+si <span style="font-style:italic">k</span>∉{<span style="font-style:italic">p</span>,<span style="font-style:italic">q</span>}, <span style="font-style:italic">g</span><sub><span style="font-style:italic">k</span>,<span style="font-style:italic">k</span></sub>=1<br>
+<span style="font-style:italic">g</span><sub><span style="font-style:italic">p</span>,<span style="font-style:italic">p</span></sub>=<span style="font-style:italic">g</span><sub><span style="font-style:italic">q</span>,<span style="font-style:italic">q</span></sub>=cos(<span style="font-style:italic">t</span>)<br>
+<span style="font-style:italic">g</span><sub><span style="font-style:italic">p</span>,<span style="font-style:italic">q</span></sub>=−<span style="font-style:italic">g</span><sub><span style="font-style:italic">q</span>,<span style="font-style:italic">p</span></sub>=−sin(<span style="font-style:italic">t</span>)<br>
+Voici un matrice de rotation associée à <span style="font-style:italic">e</span><sub>1</sub>, <span style="font-style:italic">e</span><sub>3</sub> (deuxième et 
+quatrième vecteur de base) de ℝ<sup>5</sup> :
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell">⎡<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎢<br>
+⎣</td><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1
+</td></tr>
+</table></td><td class="dcell">
+</td><td class="dcell">⎤<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎥<br>
+⎦</td></tr>
+</table><p>
+et le programme qui construit une telle matrice :<br>
+</p><pre class="verbatim">rota(n,p,q,t):={
+local G;
+G:=idn(n);
+G[p,p]:=cos(t);
+G[q,q]:=cos(t);
+G[p,q]:=-sin(t);
+G[q,p]:=sin(t);
+return G;
+}
+</pre>
+<h3 id="sec473" class="subsection">14.6.2  Réduction de Givens</h3>
+<p>
+Soit <span style="font-style:italic">A</span> une matrice symétrique. On va chercher <span style="font-style:italic">G</span>1 une matrice de rotation
+associée à <span style="font-style:italic">e</span><sub>1</sub>,<span style="font-style:italic">e</span><sub>2</sub> pour annuler les coefficients 2,0 et 0,2
+de <sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">G</span>1*<span style="font-style:italic">A</span>*<span style="font-style:italic">G</span>1.<br>
+Regardons un exemple :<br>
+<span style="font-family:monospace">G1:=[[1,0,0,0,0],[0,cos(t),-sin(t),0,0],[0,sin(t),cos(t),0,0],</span><br>
+<span style="font-family:monospace">[0,0,0,1,0],[0,0,0,0,1]]</span><br>
+<span style="font-family:monospace">A:=[[a,b,c,d,e],[b,f,g,h,j],[c,g,k,l,m],[d,h,l,n,o],[e,j,m,o,r]]</span><br>
+On obtient :<br>
+<sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">G</span>1=[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1
+</td></tr>
+</table><p>
+], 
+<span style="font-style:italic">A</span>=
+[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">a</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">b</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">c</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">d</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">e</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">b</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">f</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">g</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">h</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">j</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">c</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">g</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">k</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">l</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">m</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">d</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">h</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">l</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">n</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">o</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">e</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">j</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">m</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">o</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">r</span>
+</td></tr>
+</table><p>
+]
+ <br>
+On a :<br>
+<sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">G</span>1*<span style="font-style:italic">A</span>=
+[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">a</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">b</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">c</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">d</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">e</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">b</span>cos(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">f</span>cos(<span style="font-style:italic">t</span>)+<span style="font-style:italic">g</span>sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >−<span style="font-style:italic">b</span>sin(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >−<span style="font-style:italic">f</span>sin(<span style="font-style:italic">t</span>)+<span style="font-style:italic">g</span>cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">d</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">h</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">l</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">n</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">o</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">e</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">j</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">m</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">o</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">r</span>
+</td></tr>
+</table><p>
+]
+<br>
+On choisit <span style="font-style:italic">t</span> pour que −<span style="font-style:italic">b</span>sin(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>cos(<span style="font-style:italic">t</span>)=0 par exemple : <br>
+cos(<span style="font-style:italic">t</span>)=<span style="font-style:italic">b</span>/√<span style="text-decoration:overline">(</span><span style="font-style:italic">b</span><sup>2</sup>+<span style="font-style:italic">c</span><sup>2</sup>) et sin(<span style="font-style:italic">t</span>)=<span style="font-style:italic">c</span>/√<span style="text-decoration:overline">(</span><span style="font-style:italic">b</span><sup>2</sup>+<span style="font-style:italic">c</span><sup>2</sup>).<br>
+On a :<br>
+<span style="font-style:italic">G</span>1:=[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >−sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1
+</td></tr>
+</table><p>
+] <br>
+et donc puisqu’on a choisit −<span style="font-style:italic">b</span>sin(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>cos(<span style="font-style:italic">t</span>)=0, on a bien annuler les 
+coefficients 2,0 et 0,2 de :<br>
+<sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">G</span>1*<span style="font-style:italic">A</span>*<span style="font-style:italic">G</span>1=
+[</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">a</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">b</span>cos(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >−<span style="font-style:italic">b</span>sin(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">d</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">e</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">b</span>cos(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >−<span style="font-style:italic">b</span>sin(<span style="font-style:italic">t</span>)+<span style="font-style:italic">c</span>cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">d</span></td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">n</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">o</span></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">e</span></td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" >..</td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">o</span></td><td style="text-align:right;white-space:nowrap" ><span style="font-style:italic">r</span>
+</td></tr>
+</table><p>
+]
+<br>
+Puis on annule les coefficients 0,3 et 3,0 de l la matrice <span style="font-style:italic">A</span>1
+obtenue en formant <sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">G</span>2*<span style="font-style:italic">A</span>1*<span style="font-style:italic">G</span>2 avec :<br>
+<span style="font-style:italic">G</span>2:=[
+</p><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >−sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >sin(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >cos(<span style="font-style:italic">t</span>)</td><td style="text-align:right;white-space:nowrap" >0</td></tr>
+<tr><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >0</td><td style="text-align:right;white-space:nowrap" >1
+</td></tr>
+</table><p>
+] en choissant correctement <span style="font-style:italic">t</span> etc... 
+</p>
+<h3 id="sec474" class="subsection">14.6.3  Le programme de tridiagonalisation par la méthode de Givens</h3>
+<pre class="verbatim">//A:=[[1,-1,2,1],[-1,1,-1,1],[2,-1,1,-1],[1,1,-1,-1]]
+//tran(R)*A*R=B si tridiagivens(A)=R,B
+//pour annuler le terme 2,0 on multiplie A par TG
+//TG[1,1]=cos(t)=TG[2,2],TG[1,2]=sin(t)=-TG[2,1], 
+//avec -sin(t)A[1,0]+cos(t)A[2,0]=0
+//TG*A multiplie par tran(TG) annule les termes 2,0 et 0,2
+//pour annuler le terme q,p (q&gt;p+1) on multiplie A par TG
+//TG[p+1,p+1]=cos(t)=TG[q,q],TG[p+1,q]=sin(t)=-TG[q,p+1], 
+//avec sin(t)A[p+1,p]=cos(t)A[q,p] 
+//donc sin(t)=A[q,p]/r et cos(t)=A[p+1,p]/r
+//avec r:=sqrt((A[p+1,p])^2+(A[q,p])^2)
+tridiagivens(A):={
+  local n,p,q,r,TG,R,c,s;
+  n:=size(A);
+  R:=idn(n);
+  for (p:=0;p&lt;n-2;p++) {
+    for (q:=p+2;q&lt;n;q++) {
+    r:=sqrt((A[p+1,p])^2+(A[q,p])^2);
+    if (r!=0) {
+    c:=normal(A[p+1,p]/r);
+    s:=normal(A[q,p]/r);
+    TG:=idn(n);
+    TG[p+1,p+1]:=c;
+    TG[q,q]:=c;
+    TG[p+1,q]:=s;    
+    TG[q,p+1]:=-s;
+    TG:=normal(TG);
+    A:=normal(TG*A);
+    A:=normal(A*tran(TG));
+    A:=normal(A);
+    R:=normal(R*tran(TG));
+    }
+    }
+  }
+  return (R,A);
+}   
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">A:=[[1,-1,2,1],[-1,1,-1,1],[2,-1,1,-1],[1,1,-1,-1]]</span><br>
+<span style="font-family:monospace">tridiagivens(A)</span><br>
+On obtient :
+</p><pre class="verbatim">[[1,0,0,0],[0,(-(sqrt(6)))/6,
+(-(sqrt(4838400000)))/201600,
+(-(sqrt(2962400000)))/64400],
+[0,sqrt(6)/3,sqrt(4838400000)/252000,
+(-(sqrt(26661600000)))/322000],
+[0,sqrt(6)/6,(-(26*sqrt(210)))/420,12*sqrt(35)/420]],
+[[1,sqrt(6),0,0],
+[sqrt(6),1/3,sqrt(275990400000)/266400,0],
+[0,sqrt(209026944000)/231840,73/105,8*sqrt(6)/35],
+[0,0,8*sqrt(6)/35,1/-35]]
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">A:=[[1,-1,2,0],[-1,1,-1,1],[2,-1,1,-1],[1,1,-1,-1]]</span><br>
+<span style="font-family:monospace">tridiagivens(A)</span><br>
+On obtient :
+</p><pre class="verbatim">[[1,0,0,0],[0,(-(sqrt(6)))/6,
+(-(sqrt(4838400000)))/201600,(-(sqrt(2962400000)))/64400],
+[0,sqrt(6)/3,sqrt(4838400000)/252000,
+(-(sqrt(26661600000)))/322000],
+[0,sqrt(6)/6,(-(26*sqrt(210)))/420,12*sqrt(35)/420]],
+[[1,5*sqrt(6)/6,13*sqrt(210)/210,(-(sqrt(35)))/35],
+[sqrt(6),1/3,sqrt(275990400000)/266400,0],
+[0,sqrt(209026944000)/231840,73/105,8*sqrt(6)/35],
+[0,0,8*sqrt(6)/35,1/-35]]
+</pre>
+<h2 id="sec475" class="section">14.7  Tridiagonalisation des matrices symétriques avec Householder</h2>
+<p>
+On a le théorème :
+Pour toute matrice symétrique <span style="font-style:italic">A</span> d’ordre <span style="font-style:italic">n</span>, il existe une matrice <span style="font-style:italic">P</span>, 
+produit de <span style="font-style:italic">n</span>−2 matrice de Householder (donc <span style="font-style:italic">P</span><sup>−1</sup>=<sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">P</span>), telle que 
+<span style="font-style:italic">B</span>=<sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">P</span>*<span style="font-style:italic">A</span>*<span style="font-style:italic">P</span> soit tridiagonale.<br>
+Si <span style="font-style:italic">A</span> n’est pas symétrique, il existe une matrice <span style="font-style:italic">P</span>, 
+produit de <span style="font-style:italic">n</span>−2 matrice de Householder, telle que <span style="font-style:italic">B</span>= <sup><span style="font-style:italic">t</span></sup><span style="font-style:italic">P</span>*<span style="font-style:italic">A</span>*<span style="font-style:italic">P</span> soit 
+un matrice de Hessenberg c’est à dire une matrice dont les coefficient 
+sous-tridiagonaux sonts nuls : c’est la réduction de Householder.<br>
+On va dans cette section écrire un programme qui renverra <span style="font-style:italic">P</span> et <span style="font-style:italic">B</span>.</p>
+<h3 id="sec476" class="subsection">14.7.1  Matrice de Householder associée à <span style="font-family:monospace">v</span></h3>
+<p>
+Soit un hyperplan défini par son vecteur normal <span style="font-family:monospace">v</span>.<br>
+On appelle matrice de Householder, la matrice d’une symétrie orthogonale 
+<span style="font-family:monospace">hv</span> par rapport à cet hyperplan. On a :<br>
+<span style="font-family:monospace">hv(u):=u-2(dot(v,u))/norm(v)</span><code><span style="font-family:monospace">^</span></code><span style="font-family:monospace">2*v</span> <br>
+et la matrice de Householder associée est :<br>
+<span style="font-family:monospace">Hv=idn(n)-2*tran(v)*[v]/(v*v)</span>.<br>
+On a :<br>
+<span style="font-family:monospace">Hv=tran(Hv)=inv(Hv)</span>
+Par convention la matrice unité est une matrice de Householder.<br>
+On écrit le programme houdeholder qui à un vecteur <span style="font-family:monospace">v</span> renvoie
+la matrice de Householder associé à <span style="font-family:monospace">v</span>.
+</p><pre class="verbatim">householder(v):={
+  local n,w,nv;
+  n:=size(v);
+  nv:=v*v;
+  w:=tran(v);
+  return normal(idn(n)-2*w*[v]/nv);
+};
+</pre>
+<h3 id="sec477" class="subsection">14.7.2  Matrice de Householder annulant les dernières composantes de <span style="font-family:monospace">a</span></h3>
+<p>
+Soit <span style="font-family:monospace">Hv</span> la matrice de Householder associée à <span style="font-family:monospace">v</span>.<br>
+Etant donné un vecteur <span style="font-family:monospace">a</span> non nul, il existe deux vecteurs <span style="font-family:monospace">v</span> tels 
+que le vecteur 
+<span style="font-family:monospace">b=Hv*tran(a)</span> a ses <span style="font-style:italic">n</span>−1 dernières composantes nulles (<span style="font-family:monospace">Hv</span> étant
+la matrice de Householder associé à <span style="font-family:monospace">v</span>).<br>
+Plus précisement, si <span style="font-family:monospace">e0=[1,0,..0]</span>,<span style="font-family:monospace">e1=[0,1,0,..0]</span> etc...,
+les vecteurs <span style="font-family:monospace">v</span> sont :<br>
+<span style="font-family:monospace">v1=a+norm(a)*e0</span> et <span style="font-family:monospace">v2=a-norm(a)*e0</span>.<br>
+Plus généralement, il existe deux vecteurs <span style="font-family:monospace">v</span> 
+tels que le vecteur 
+<span style="font-family:monospace">b=Hv*tran(a)</span> a ses composantes à partir de la 
+<span style="font-family:monospace">(l+1)</span>-ième nulles.<br>
+Plus précisement, si <span style="font-family:monospace">el=[0,..0,1,0,..0]</span> (ou toutes les composantes sont
+nulles sauf <span style="font-family:monospace">el[l]=1</span>), et si
+<span style="font-family:monospace">al=[0,...,0,a[l],..,a[n-1]]</span>, les vecteurs <span style="font-family:monospace">v</span> sont :<br>
+<span style="font-family:monospace">v1=al+norm(al)*el</span> et <span style="font-family:monospace">v2=al-norm(al)*el</span>.<br>
+On 'ecrit le programme qui étant donné <span style="font-family:monospace">a</span> et <span style="font-family:monospace">l</span> renvoie si 
+<span style="font-family:monospace">a</span> est nul renvoie la matrice identité et si <span style="font-family:monospace">a</span> est non nul renvoie
+la matrice de Householder associée à <span style="font-family:monospace">v=al+eps*norm(al)*el</span> 
+en choisisant <span style="font-family:monospace">eps</span> égal au signe de <span style="font-family:monospace">al</span> si <span style="font-family:monospace">al</span> est réelle et
+<span style="font-family:monospace">eps</span>=1 sinon.
+</p><pre class="verbatim">//renvoie une matrice hh= H tel que b:=H*tran(a) 
+//a ses n-l-1 dernieres comp=0 
+//ou encore b[l+1]=...b[n-1]=0
+make_house(a,l):={
+  local n,na,el,v;
+  n:=size(a);
+  for (k:=0;k&lt;l;k++) a[k]:=0;
+  na:=normal(norm(a)^2);
+  na:=sqrt(na);
+  if (na==0) return idn(n);
+  el:=makelist(0,1,n);
+  el[l]:=1;
+  if (im(a[l])==0 and a[l]&lt;0) v:=normal(a-na*el); 
+    else v:=normal(a+na*el);
+  return householder(v);
+};
+</pre>
+<h3 id="sec478" class="subsection">14.7.3  Réduction de Householder</h3>
+<p>
+Le programme <span style="font-family:monospace">tridiaghouse(A)</span> renvoie <span style="font-family:monospace">H,B</span> tel que 
+<span style="font-family:monospace">normal(H*A*tran(H))=B</span> (ou encore <span style="font-family:monospace">normal(tran(H)*B*H)=A</span>)
+avec <span style="font-family:monospace">H</span> est le produit de matrice 
+de householder (tran(H)=inv(H)) et <span style="font-family:monospace">B</span> est une matrice de hessenberg (ou 
+bien <span style="font-family:monospace">B</span> est une matrice tridiagonale si <span style="font-family:monospace">tran(A)=A</span>).
+</p><pre class="verbatim">tridiaghouse(A):={
+  local n, a, H,Ha;
+  B:=A;
+  n:=size(A);
+  H:=idn(n);
+  for (l:=0;l&lt;n-2;l++) {
+  a:=col(B,l);
+  Ha:=make_house(a,l+1);
+  B:=normal(Ha*B*Ha);
+  H:=normal(Ha*H);
+  }
+  //normal(H*A*tran(H))=B et B de hessenberg 
+  //(ou tridiagonale si tran(A)=A)
+  return(H,B);
+};
+</pre><p>
+On tape :<br>
+<span style="font-family:monospace">A:=[[3,2,2,2,2],[2,1,2,-1,-1],[2,2,1,-1,1],</span><br>
+<span style="font-family:monospace">[2,-1,-1,3,1],[2,-1,1,1,2]]</span><br>
+<span style="font-family:monospace">H,B:tridiaghouse(A)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,0,0,0,0],[0,1/-2,1/-2,1/-2,1/-2],[0,5*sqrt(11)/22,</span><br>
+<span style="font-family:monospace">(-(3*sqrt(11)))/22,sqrt(11)/22,(-(3*sqrt(11)))/22],</span><br>
+<span style="font-family:monospace">[0,0,22*sqrt(2)/44,0,(-(22*sqrt(2)))/44],[0,22*sqrt(22)/242,</span><br>
+<span style="font-family:monospace">22*sqrt(22)/484,(-(22*sqrt(22)))/121,22*sqrt(22)/484]],</span><br>
+<span style="font-family:monospace">[[3,-4,0,0,0],[-4,9/4,sqrt(11)/4,0,0],[0,sqrt(11)/4,3/4,</span><br>
+<span style="font-family:monospace">44*sqrt(22)/121,0],[0,0,44*sqrt(22)/121,1/2,286*sqrt(11)/484],</span><br>
+<span style="font-family:monospace">[0,0,0,286*sqrt(11)/484,7/2]]</span><br>
+On vérifie et on tape :<br>
+<span style="font-family:monospace">normal(H*A*tran(H))</span><br>
+On tape :<br>
+<span style="font-family:monospace">A:=[[1,2,3],[2,3,4],[3,4,5]]</span><br>
+<span style="font-family:monospace">H,B:=tridiaghouse(A)</span><br>
+On obtient :<br>
+<span style="font-family:monospace">[[1,0,0],[0,(-(2*sqrt(13)))/13,(-(3*sqrt(13)))/13],</span><br>
+<span style="font-family:monospace">[0,(-(3*sqrt(13)))/13,(2*sqrt(13))/13]],</span> <br>
+<span style="font-family:monospace">[[1,-(sqrt(13)),0],[-(sqrt(13)),105/13,8/13],[0,8/13,(-1)/13]]</span><br>
+On vérifie et on tape :<br>
+<span style="font-family:monospace">normal(H*A*tran(H))</span>
+</p>
+<hr>
+<a href="casrouge013.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="casrouge015.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

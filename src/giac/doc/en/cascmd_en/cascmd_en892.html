@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="hevea 2.29+5 of 2017-05-18">
+<link rel="stylesheet" type="text/css" href="cascmd_en.css">
+<title>The trace of a geometric object: trace</title>
+</head>
+<body >
+<a href="cascmd_en891.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en893.html"><img src="next_motif.gif" alt="Next"></a>
+<hr>
+<h3 id="sec2259" class="subsection">13.18.3  The trace of a geometric object: <span style="font-family:monospace">trace</span></h3>
+<p>
+<a id="hevea_default1594"></a></p><p>The <span style="font-family:monospace">trace</span> command draws the trace of an object.
+</p><ul class="itemize"><li class="li-itemize">
+<span style="font-family:monospace">trace</span> takes one argument:<br>
+ <span style="font-style:italic">G</span>, a geometric object which depends on a parameter.
+</li><li class="li-itemize"><span style="font-family:monospace">trace(</span><span style="font-style:italic">G</span><span style="font-family:monospace">)</span> draws the trace of <span style="font-style:italic">G</span> as the parameter is
+changed or the object is moved in <span style="font-family:monospace">Pointer</span> mode.
+</li></ul><h4 id="sec2260" class="subsubsection">Example</h4>
+<p>
+For example, to find the locus of points equidistant from a line
+<span style="font-family:monospace">D</span> and a point <span style="font-family:monospace">F</span>, you can create a point <span style="font-family:monospace">H</span> on 
+the line <span style="font-family:monospace">D</span>. To do this, open a graphic
+window (<span style="font-family:monospace">Alt-G</span>) and type in the following commands, one per
+line.</p><p>First, create a line <span style="font-family:monospace">D</span> (using sample points) and a
+sample point <span style="font-family:monospace">F</span>.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">A:= point(-3-i)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">B:= point(1/2 + 2*i)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">D:= line(A,B,color=0)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">F:= point(4/3,1/2,color=0)</span>
+</td></tr>
+</table>
+</div><p>Then create a point <span style="font-family:monospace">H</span> on the line <span style="font-family:monospace">D</span> which you can move
+around.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">assume(a=[0.7,-5,5,0.1])</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">H:= element(D,a)</span>
+</td></tr>
+</table>
+</div><p>
+To find a point equidistant from <span style="font-family:monospace">D</span> and <span style="font-family:monospace">F</span>, find the
+point <span style="font-family:monospace">M</span> where the perpendicular to <span style="font-family:monospace">D</span> (at <span style="font-family:monospace">H</span>)
+intersects the perpendicular bisector to <span style="font-family:monospace">HF</span>, and trace that
+point.<br>
+<span style="font-style:italic">Input:</span>
+</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">T:= perpendicular(H,D)</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">M:= single_inter(perpen_bisector(H,F),T))</span></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" > <span style="font-family:monospace">trace(M)</span>
+</td></tr>
+</table>
+</div><p>
+Then as the point <span style="font-family:monospace">H</span> on the line moves (by changing the value
+of <span style="font-family:monospace">a</span> with the slider), you will get the trace of <span style="font-family:monospace">M</span>.</p><p><br>
+</p><p>To erase traces, add traces, activate or deactivate them, use the
+<span style="font-family:monospace">Trace</span> menu of the <span style="font-family:monospace">M</span> button located on the right side
+of the geometry screen.</p>
+<hr>
+<a href="cascmd_en891.html"><img src="previous_motif.gif" alt="Previous"></a>
+<a href="index.html"><img src="contents_motif.gif" alt="Up"></a>
+<a href="cascmd_en893.html"><img src="next_motif.gif" alt="Next"></a>
+</body>
+</html>

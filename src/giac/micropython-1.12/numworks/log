@@ -1,0 +1,519 @@
+Use make V=1 or set BUILD_VERBOSE in your environment to increase build verbosity.
+GEN build/genhdr/qstr.i.last
+GEN build/genhdr/qstr.split
+GEN build/genhdr/qstrdefs.collected.h
+QSTR not updated
+CC main.c
+LINK micropython
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/mpstate.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/mpstate.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nlr.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nlr.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nlrx86.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nlrx86.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nlrx64.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nlrx64.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nlrthumb.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nlrthumb.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nlrpowerpc.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nlrpowerpc.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nlrxtensa.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nlrxtensa.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nlrsetjmp.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nlrsetjmp.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/malloc.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/malloc.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/gc.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/gc.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/pystack.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/pystack.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/qstr.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/qstr.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/vstr.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/vstr.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/mpprint.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/mpprint.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/unicode.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/unicode.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/mpz.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/mpz.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/reader.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/reader.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/lexer.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/lexer.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/parse.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/parse.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/scope.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/scope.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/compile.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/compile.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitcommon.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitcommon.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitbc.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitbc.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/asmbase.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/asmbase.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/asmx64.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/asmx64.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitnx64.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitnx64.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/asmx86.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/asmx86.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitnx86.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitnx86.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/asmthumb.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/asmthumb.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitnthumb.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitnthumb.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitinlinethumb.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitinlinethumb.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/asmarm.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/asmarm.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitnarm.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitnarm.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/asmxtensa.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/asmxtensa.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitnxtensa.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitnxtensa.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitinlinextensa.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitinlinextensa.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitnxtensawin.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitnxtensawin.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/formatfloat.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/formatfloat.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/parsenumbase.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/parsenumbase.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/parsenum.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/parsenum.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/emitglue.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/emitglue.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/persistentcode.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/persistentcode.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/runtime.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/runtime.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/runtime_utils.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/runtime_utils.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/scheduler.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/scheduler.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/nativeglue.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/nativeglue.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/ringbuf.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/ringbuf.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/stackctrl.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/stackctrl.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/argcheck.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/argcheck.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/warning.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/warning.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/profile.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/profile.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/map.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/map.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/obj.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/obj.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objarray.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objarray.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objattrtuple.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objattrtuple.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objbool.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objbool.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objboundmeth.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objboundmeth.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objcell.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objcell.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objclosure.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objclosure.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objcomplex.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objcomplex.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objdeque.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objdeque.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objdict.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objdict.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objenumerate.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objenumerate.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objexcept.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objexcept.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objfilter.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objfilter.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objfloat.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objfloat.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objfun.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objfun.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objgenerator.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objgenerator.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objgetitemiter.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objgetitemiter.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objint.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objint.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objint_longlong.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objint_longlong.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objint_mpz.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objint_mpz.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objlist.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objlist.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objmap.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objmap.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objmodule.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objmodule.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objobject.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objobject.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objpolyiter.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objpolyiter.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objproperty.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objproperty.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objnone.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objnone.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objnamedtuple.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objnamedtuple.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objrange.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objrange.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objreversed.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objreversed.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objset.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objset.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objsingleton.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objsingleton.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objslice.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objslice.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objstr.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objstr.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objstrunicode.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objstrunicode.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objstringio.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objstringio.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objtuple.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objtuple.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objtype.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objtype.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/objzip.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/objzip.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/opmethods.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/opmethods.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/sequence.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/sequence.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/stream.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/stream.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/binary.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/binary.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/builtinimport.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/builtinimport.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/builtinevex.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/builtinevex.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/builtinhelp.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/builtinhelp.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modarray.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modarray.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modbuiltins.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modbuiltins.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modcollections.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modcollections.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modgc.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modgc.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modio.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modio.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modmath.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modmath.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modcmath.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modcmath.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modmicropython.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modmicropython.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modstruct.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modstruct.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modsys.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modsys.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/moduerrno.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/moduerrno.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/modthread.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/modthread.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/vm.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/vm.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/bc.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/bc.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/showbc.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/showbc.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/repl.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/repl.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/smallint.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/smallint.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/py/frozenmod.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/py/frozenmod.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/moductypes.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/moductypes.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modujson.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modujson.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modure.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modure.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/moduzlib.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/moduzlib.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/moduheapq.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/moduheapq.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modutimeq.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modutimeq.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/moduhashlib.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/moduhashlib.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/moducryptolib.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/moducryptolib.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modubinascii.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modubinascii.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/virtpin.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/virtpin.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/machine_mem.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/machine_mem.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/machine_pinbase.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/machine_pinbase.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/machine_signal.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/machine_signal.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/machine_pulse.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/machine_pulse.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/machine_i2c.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/machine_i2c.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/machine_spi.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/machine_spi.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modbluetooth.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modbluetooth.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modussl_axtls.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modussl_axtls.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modussl_mbedtls.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modussl_mbedtls.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modurandom.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modurandom.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/moduselect.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/moduselect.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/moduwebsocket.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/moduwebsocket.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modwebrepl.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modwebrepl.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/modframebuf.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/modframebuf.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_blockdev.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_blockdev.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_reader.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_reader.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_posix.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_posix.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_posix_file.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_posix_file.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_fat.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_fat.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_fat_diskio.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_fat_diskio.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_fat_file.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_fat_file.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/vfs_lfs.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/vfs_lfs.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/utime_mphal.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/utime_mphal.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/extmod/uos_dupterm.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/extmod/uos_dupterm.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/lib/embed/abort_.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/lib/embed/abort_.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/lib/utils/printf.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/lib/utils/printf.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./modos.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./modos.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./unix_mphal.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./unix_mphal.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./modnsp.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./modnsp.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./graphic.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./graphic.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./file.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./file.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./gccollect.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./gccollect.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./main.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./main.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: error: build/./input.o uses VFP register arguments, micropython does not
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: failed to merge target specific data of file build/./input.o
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_line':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:174: undefined reference to `c_draw_line'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `cas_caseval':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:740: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `matplotl_show':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2051: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `matplotl_clf':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2057: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `os_get_pixel':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:21: undefined reference to `numworks_get_pixel'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_polygon_':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:227: undefined reference to `c_draw_polygon'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:225: undefined reference to `c_draw_filled_polygon'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_dessine_tortue':
+graphic.c:(.text.turtle_dessine_tortue+0x2): undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: graphic.c:(.text.turtle_dessine_tortue+0x8): undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_showturtle':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1726: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1727: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_hideturtle':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1734: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1735: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_reset':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1630: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1631: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_down':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1742: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1743: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_up':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1750: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1751: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_write':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1838: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1841: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_saute':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1758: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1764: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_pas_de_cote':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1771: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1777: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_sety':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1825: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1831: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_backward':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1587: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1593: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_setheading':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1784: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1790: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_setx':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1812: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1818: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_forward':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1575: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1581: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_speed':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1879: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1885: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_setposition':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1797: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1805: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_rectangle_plein':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1694: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1702: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_triangle_plein':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1709: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1719: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_left':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1600: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1608: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_right':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1615: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1623: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_circle':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1646: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1663: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_disque':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1670: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1687: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `turtle_pencolor':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1848: undefined reference to `turtle_freeze'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1872: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `matplotl_text':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2117: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_clear_screen':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:132: undefined reference to `c_fill_rect'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_set_pixel':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:162: undefined reference to `c_set_pixel'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_rectangle':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:245: undefined reference to `c_draw_rectangle'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_fill_rect':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:256: undefined reference to `c_fill_rect'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_circle':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:268: undefined reference to `c_draw_circle'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_filled_circle':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:279: undefined reference to `c_draw_filled_circle'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_arc':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:294: undefined reference to `c_draw_arc'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_filled_arc':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:309: undefined reference to `c_draw_filled_arc'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `graphic_draw_string':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:339: undefined reference to `c_draw_string_medium'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:337: undefined reference to `c_draw_string'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:334: undefined reference to `c_draw_string_small'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `matplotl_arrow':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2236: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `printtab':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:643: undefined reference to `c_sprint_double'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `matplotl_axis':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2096: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2072: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `matplotl_plot':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2156: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2144: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `matplotl_bar_hist':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2186: undefined reference to `caseval'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o:/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:2191: more undefined references to `caseval' follow
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_rref':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1076: undefined reference to `c_rref'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_egv':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1092: undefined reference to `c_egv'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_eig':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1109: undefined reference to `c_eig'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_inv':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1133: undefined reference to `c_inv'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_proot':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1231: undefined reference to `c_proot'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_pcoeff':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1255: undefined reference to `c_pcoeff'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_fftifft':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1276: undefined reference to `c_fft'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_det':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1379: undefined reference to `c_det'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_inv':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1133: undefined reference to `c_inv'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./graphic.o: in function `linalg_fftifft':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/graphic.c:1276: undefined reference to `c_fft'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/crt0.o: in function `_start':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/libgloss/arm/semihv2m/../../../../../libgloss/arm/crt0.S:428: undefined reference to `main'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/py/modmicropython.o: in function `mp_micropython_kbd_intr':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/../py/modmicropython.c:144: undefined reference to `mp_hal_set_interrupt_char'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./unix_mphal.o: in function `mp_hal_stdout_tx_strn':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/unix_mphal.c:73: undefined reference to `console_output'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./unix_mphal.o: in function `mp_hal_stdout_tx_strn_cooked':
+unix_mphal.c:(.text.mp_hal_stdout_tx_strn_cooked+0x0): undefined reference to `console_output'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./unix_mphal.o: in function `mp_hal_stdout_tx_strn':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/unix_mphal.c:73: undefined reference to `console_output'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./modnsp.o: in function `nsp_readRTC':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/modnsp.c:14: undefined reference to `millis'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./modnsp.o: in function `nsp_waitKeypress':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/modnsp.c:20: undefined reference to `getkey'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./main.o: in function `stderr_print_strn':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/main.c:92: undefined reference to `console_output'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./main.o: in function `micropython_port_vm_hook_loop':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/main.c:74: undefined reference to `back_key_pressed'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./main.o: in function `main_':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/main.c:306: undefined reference to `realpath'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: build/./input.o: in function `prompt':
+/home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/input.c:42: undefined reference to `console_input'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /home/parisse/zardam/delta/ext/giac-1.6.0/micropython-1.12/numworks/input.c:42: undefined reference to `console_input'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): in function `exit':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/stdlib/../../../../../newlib/libc/stdlib/exit.c:64: undefined reference to `_exit'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-sbrkr.o): in function `_sbrk_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/sbrkr.c:51: undefined reference to `_sbrk'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-writer.o): in function `_write_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/writer.c:49: undefined reference to `_write'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-abort.o): in function `abort':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/stdlib/../../../../../newlib/libc/stdlib/abort.c:59: undefined reference to `_exit'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-closer.o): in function `_close_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/closer.c:47: undefined reference to `_close'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-gettimeofdayr.o): in function `_gettimeofday_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/gettimeofdayr.c:62: undefined reference to `_gettimeofday'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-lseekr.o): in function `_lseek_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/lseekr.c:49: undefined reference to `_lseek'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-openr.o): in function `_open_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/openr.c:50: undefined reference to `_open'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-readr.o): in function `_read_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/readr.c:49: undefined reference to `_read'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-signalr.o): in function `_kill_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/signalr.c:53: undefined reference to `_kill'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-signalr.o): in function `_getpid_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/signalr.c:83: undefined reference to `_getpid'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-statr.o): in function `_stat_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/statr.c:55: undefined reference to `_stat'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-fstatr.o): in function `_fstat_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/fstatr.c:55: undefined reference to `_fstat'
+/usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/7.3.1/../../../arm-none-eabi/lib/libc.a(lib_a-isattyr.o): in function `_isatty_r':
+/build/newlib-hTUQk9/newlib-3.1.0.20181231/build/arm-none-eabi/newlib/libc/reent/../../../../../newlib/libc/reent/isattyr.c:52: undefined reference to `_isatty'
+collect2: error: ld returned 1 exit status
+make: *** [../py/mkrules.mk:146: micropython] Error 1

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Catalogue of GP/PARI Functions: Programming in GP: control statements</title>
+
+  <meta name="author"       content="Karim Belabas">
+  <meta name="created"      content="Wed Jan 22 18:53:36 2020">
+  <meta name="author-email" content="pari@math.u-bordeaux.fr">
+  <meta name="keywords"     content="PARI, GP, DOC">
+  
+  <link rel="stylesheet" href="/pari.css">
+  <link rel="stylesheet" href="./gphtml.css">
+</head>
+<body >
+<div id="se:programming"></div>
+<h2 class="center">Programming in GP: control statements</h2>
+
+<p></p>
+<p></p>
+<p>
+  A number of control statements are available in GP. They are simpler and
+have a syntax slightly different from their C counterparts, but are quite
+powerful enough to write any kind of program. Some of them are specific to
+GP, since they are made for number theorists. As usual, X will denote any
+simple variable name, and <em>seq</em> will always denote a sequence of
+expressions, including the empty sequence.</p>
+<p>
+<b>Caveat.</b> In constructs like</p>
+<p>
+</p><pre class="code">      for (X = a,b, seq)
+</pre><p></p>
+<p>
+the variable <code>X</code> is lexically scoped to the loop, leading to possibly
+unexpected behavior:</p>
+<p>
+</p><pre class="code">      n = 5;
+      for (n = 1, 10,
+        if (something_nice(), break);
+      );
+      \\   at this point <code>n</code> is 5 !
+</pre><p></p>
+<p>
+If the sequence <code>seq</code> modifies the loop index, then the loop
+is modified accordingly:</p>
+<p>
+</p><pre class="code">      ? for (n = 1, 10, n += 2; print(n))
+      3
+      6
+      9
+      12
+</pre><p></p>
+<p></p>
+<p>
+<hr>
+<div id="se:break"></div>
+<div id="break"></div>
+<h4>break({n = 1})</h4>
+<p>
+Interrupts execution of current <em>seq</em>, and
+immediately exits from the n innermost enclosing loops, within the
+current function call (or the top level loop); the integer n must be
+positive. If n is greater than the number of enclosing loops, all
+enclosing loops are exited.</p>
+<p>
+
+<hr>
+<div id="se:breakpoint"></div>
+<div id="breakpoint"></div>
+<h4>breakpoint()</h4>
+<p>
+Interrupt the program and enter the breakloop. The program continues when
+the breakloop is exited.</p>
+<p>
+</p><pre class="code">  ? f(N,x)=my(z=x^2+1);breakpoint();gcd(N,z^2+1-z);
+  ? f(221,3)
+    ***   at top-level: f(221,3)
+    ***                 ^ &mdash;  &mdash; --
+    ***   in function f: my(z=x^2+1);breakpoint();gcd(N,z
+    ***                              ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    ***   Break loop: type &lt;Return&gt; to continue; 'break' to go back to GP
+  break&gt; z
+  10
+  break&gt;
+  %2 = 13
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:dbg_down"></div>
+<div id="dbg_down"></div>
+<h4>dbg_down({n = 1})</h4>
+<p>
+(In the break loop) go down n frames. This allows to cancel a previous call to
+<code><a href="Programming_in_GP__control_statements.html#se:dbg_up"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">dbg_up</a></code>.</p>
+<p>
+
+<hr>
+<div id="se:dbg_err"></div>
+<div id="dbg_err"></div>
+<h4>dbg_err()</h4>
+<p>
+In the break loop, return the error data of the current error, if any.
+See <code><a href="Programming_in_GP__control_statements.html#se:iferr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">iferr</a></code> for details about error data.  Compare:</p>
+<p>
+</p><pre class="code">  ? iferr(1/(Mod(2,12019)^(6!)-1),E,Vec(E))
+  %1 = ["e_INV", "Fp_inv", Mod(119, 12019)]
+  ? 1/(Mod(2,12019)^(6!)-1)
+    ***   at top-level: 1/(Mod(2,12019)^(6!)-
+    ***                  ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; --
+    *** _/_: impossible inverse in Fp_inv: Mod(119, 12019).
+    ***   Break loop: type 'break' to go back to GP prompt
+  break&gt; Vec(dbg_err())
+  ["e_INV", "Fp_inv", Mod(119, 12019)]
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:dbg_up"></div>
+<div id="dbg_up"></div>
+<h4>dbg_up({n = 1})</h4>
+<p>
+(In the break loop) go up n frames. This allows to inspect data of the
+parent function. To cancel a <code><a href="Programming_in_GP__control_statements.html#se:dbg_up"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">dbg_up</a></code> call, use <code><a href="Programming_in_GP__control_statements.html#se:dbg_down"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">dbg_down</a></code></p>
+<p>
+
+<hr>
+<div id="se:dbg<sub>x</sub>"></div>
+<div id="dbg_x"></div>
+<h4>dbg<sub>x</sub>(A, {n})</h4>
+<p>
+Print the inner structure of <code>A</code>, complete if <code>n</code> is omitted, up
+to level <code>n</code> otherwise. This is useful for debugging. This is similar to
+<code>\x</code> but does not require <code>A</code> to be an history entry. In particular,
+it can be used in the break loop.</p>
+<p>
+
+<hr>
+<div id="se:for"></div>
+<div id="for"></div>
+<h4>for(X = a, b, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>, where
+the formal variable X goes from a to b. Nothing is done if a &gt; b.
+a and b must be in &Ropf;. If b is set to <code>+oo</code>, the loop will not
+stop; it is expected that the caller will break out of the loop itself at some
+point, using <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code> or <code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>.</p>
+<p>
+
+<hr>
+<div id="se:forcomposite"></div>
+<div id="forcomposite"></div>
+<h4>forcomposite(n = a, {b}, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>,
+where the formal variable n ranges over the composite numbers between the
+non-negative real numbers a to b, including a and b if they are
+composite. Nothing is done if a &gt; b.</p>
+<p>
+</p><pre class="code">  ? forcomposite(n = 0, 10, print(n))
+  4
+  6
+  8
+  9
+  10
+</pre><p>
+Omitting b means we will run through all composites  &geq; a,
+starting an infinite loop; it is expected that the user will break out of
+the loop himself at some point, using <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code> or <code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>.</p>
+<p>
+Note that the value of n cannot be modified within <em>seq</em>:</p>
+<p>
+</p><pre class="code">  ? forcomposite(n = 2, 10, n = [])
+   ***   at top-level: forcomposite(n=2,10,n=[])
+   ***                                      ^ &mdash; 
+   ***   index read-only: was changed to [].
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:fordiv"></div>
+<div id="fordiv"></div>
+<h4>fordiv(n, X, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>, where
+the formal variable X ranges through the divisors of n
+(see <code><a href="Arithmetic_functions.html#se:divisors"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">divisors</a></code>, which is used as a subroutine). It is assumed that
+<code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code> can handle n, without negative exponents. Instead of n,
+it is possible to input a factorization matrix, i.e. the output of
+<code>factor(n)</code>.</p>
+<p>
+This routine uses <code><a href="Arithmetic_functions.html#se:divisors"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">divisors</a></code> as a subroutine, then loops over the
+divisors. In particular, if n is an integer, divisors are sorted by
+increasing size.</p>
+<p>
+To avoid storing all divisors, possibly using a lot of memory, the following
+(much slower) routine loops over the divisors using essentially constant
+space:</p>
+<p>
+</p><pre class="code">  FORDIV(N)=
+  { my(P, E);
+  
+    P = factor(N); E = P[,2]; P = P[,1];
+    forvec( v = vector(#E, i, [0,E[i]]),
+    X = factorback(P, v)
+    \\ ...
+  );
+  }
+  ? for(i=1,10^5, FORDIV(i))
+  time = 3,445 ms.
+  ? for(i=1,10^5, fordiv(i, d, ))
+  time = 490 ms.
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:fordivfactored"></div>
+<div id="fordivfactored"></div>
+<h4>fordivfactored(n, X, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>, where
+the formal variable X ranges through [d, <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>(d)],
+where d is a divisors of n
+(see <code><a href="Arithmetic_functions.html#se:divisors"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">divisors</a></code>, which is used as a subroutine). Note that such a pair
+is accepted as argument to all multiplicative functions.</p>
+<p>
+It is assumed that
+<code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code> can handle n, without negative exponents. Instead of n,
+it is possible to input a factorization matrix, i.e. the output of
+<code>factor(n)</code>. This routine uses <code><a href="Arithmetic_functions.html#se:divisors"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">divisors</a></code>(,1) as a subroutine,
+then loops over the divisors. In particular, if n is an integer, divisors
+are sorted by increasing size.</p>
+<p>
+This function is particularly useful when n is hard to factor and one
+must evaluate multiplicative function on its divisors: we avoid
+refactoring each divisor in turn. It also provides a small speedup
+when n is easy to factor; compare</p>
+<p>
+</p><pre class="code">  ? A = 10^8; B = A + 10^5;
+  ? for (n = A, B, fordiv(n, d, eulerphi(d)));
+  time = 2,091 ms.
+  ? for (n = A, B, fordivfactored(n, d, eulerphi(d)));
+  time = 1,298 ms. \\ avoid refactoring the divisors
+  ? forfactored (n = A, B, fordivfactored(n, d, eulerphi(d)));
+  time = 1,270 ms. \\ also avoid factoring the consecutive n's !
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:forell"></div>
+<div id="forell"></div>
+<h4>forell(E, a, b, <em>seq</em>, {<em>flag</em> = 0})</h4>
+<p>
+Evaluates <em>seq</em>, where the formal variable E = [<em>name</em>, M, G]
+ranges through all elliptic curves of conductors from a to b. In this
+notation <em>name</em> is the curve name in Cremona's elliptic  curve  database,
+M is the minimal model, G is a &Zopf;-basis of the free part of the
+Mordell-Weil group E(&Qopf;). If flag is non-zero, select
+only the first curve in each isogeny class.</p>
+<p>
+</p><pre class="code">  ? forell(E, 1, 500, my([name,M,G] = E); \
+      if (#G &gt; 1, print(name)))
+  389a1
+  433a1
+  446d1
+  ? c = 0; forell(E, 1, 500, c++); c   \\ number of curves
+  %2 = 2214
+  ? c = 0; forell(E, 1, 500, c++, 1); c \\ number of isogeny classes
+  %3 = 971
+</pre><p></p>
+<p>
+The <code>elldata</code> database must be installed and contain data for the
+specified conductors.</p>
+<p>
+The library syntax is <code><b>forell</b>(void *data, long (*f)(void*,GEN), long a, long b, long flag)</code>.</p>
+<p>
+
+<hr>
+<div id="se:forfactored"></div>
+<div id="forfactored"></div>
+<h4>forfactored(N = a, b, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>, where
+the formal variable N is [n, <code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>(n)] and n goes from
+a to b; a and b must be integers. Nothing is done if a &gt; b.</p>
+<p>
+This function is only implemented for |a|, |b| &lt; 2<sup>64</sup> (2<sup>32</sup> on a 32-bit
+machine). It uses a sieve and runs in time O(sqrt{b} + b-a). It should
+be at least 3 times faster than regular factorization as long as the interval
+length b-a is much larger than sqrt{b} and get relatively faster as
+the bounds increase. The function slows down dramatically
+if <code>primelimit</code> &lt; sqrt{b}.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? B = 10^9;
+  ? for (N = B, B+10^6, factor(N))
+  time = 4,538 ms.
+  ? forfactored (N = B, B+10^6, [n,fan] = N)
+  time = 1,031 ms.
+  
+  ? B = 10^11;
+  ? for (N = B, B+10^6, factor(N))
+  time = 15,575 ms.
+  ? forfactored (N = B, B+10^6, [n,fan] = N)
+  time = 2,375 ms.
+  
+  ? B = 10^14;
+  ? for (N = B, B+10^6, factor(N))
+  time = 1min, 4,948 ms.
+  ? forfactored (N = B, B+10^6, [n,fan] = N)
+  time = 58,601 ms.
+</pre><p>
+The last timing is with the default <code>primelimit</code>
+(500000) which is much less than sqrt{B+10^6}; it goes down
+to <code>26,750ms</code> if <code>primelimit</code> gets bigger than that bound.
+In any case sqrt{B+10^6} is much larger than the interval length 10^6
+so <code><a href="Programming_in_GP__control_statements.html#se:forfactored"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">forfactored</a></code> gets relatively slower for that reason as well.</p>
+<p>
+Note that all PARI multiplicative functions accept the <code>[n,fan]</code>
+argument natively:</p>
+<p>
+</p><pre class="code">  ? s = 0; forfactored(N = 1, 10^7, s += moebius(N)*eulerphi(N)); s
+  time = 6,001 ms.
+  %1 = 6393738650
+  ? s = 0; for(N = 1, 10^7, s += moebius(N)*eulerphi(N)); s
+  time = 28,398 ms. \\ slower, we must factor N. Twice.
+  %2 = 6393738650
+</pre><p></p>
+<p></p>
+<p>
+The following loops over the fundamental dicriminants less than X:</p>
+<p>
+</p><pre class="code">  ? X = 10^8;
+  ? forfactored(d=1,X, if (isfundamental(d),));
+  time = 34,030 ms.
+  ? for(d=1,X, if (isfundamental(d),))
+  time = 1min, 24,225 ms.
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:forpart"></div>
+<div id="forpart"></div>
+<h4>forpart(X = k, <em>seq</em>, {a = k}, {n = k})</h4>
+<p>
+Evaluate <em>seq</em> over the partitions X = [x<sub>1</sub>,...x<sub>n</sub>] of the
+integer k, i.e.&nbsp;increasing sequences x<sub>1</sub> &leq; x<sub>2</sub>... &leq; x<sub>n</sub> of sum
+x<sub>1</sub>+...+ x<sub>n</sub> = k. By convention, 0 admits only the empty partition and
+negative numbers have no partitions. A partition is given by a
+<code>t_VECSMALL</code>, where parts are sorted in nondecreasing order. The
+partitions are listed by increasing size and in lexicographic order when
+sizes are equal:</p>
+<p>
+</p><pre class="code">  ? forpart(X=4, print(X))
+  Vecsmall([4])
+  Vecsmall([1, 3])
+  Vecsmall([2, 2])
+  Vecsmall([1, 1, 2])
+  Vecsmall([1, 1, 1, 1])
+</pre><p>
+Optional parameters n and a are as follows:</p>
+<p>
+<b>*</b> n = <em>nmax</em> (resp. n = [<em>nmin</em>,<em>nmax</em>]) restricts
+partitions to length less than <em>nmax</em> (resp. length between
+<em>nmin</em> and nmax), where the <em>length</em> is the number of nonzero
+entries.</p>
+<p>
+<b>*</b> a = <em>amax</em> (resp. a = [<em>amin</em>,<em>amax</em>]) restricts the parts
+to integers less than <em>amax</em> (resp. between <em>amin</em> and
+<em>amax</em>).</p>
+<p>
+By default, parts are positive and we remove zero entries unless amin &leq; 0,
+in which case we fix the size #X = <em>nmax</em>:</p>
+<p>
+</p><pre class="code">  \\ at most 3 non-zero parts, all &lt;= 4
+  ? forpart(v=5,print(Vec(v)), 4, 3)
+  [1, 4]
+  [2, 3]
+  [1, 1, 3]
+  [1, 2, 2]
+  
+  \\ between 2 and 4 parts less than 5, fill with zeros
+  ? forpart(v=5,print(Vec(v)),[0,5],[2,4])
+  [0, 0, 1, 4]
+  [0, 0, 2, 3]
+  [0, 1, 1, 3]
+  [0, 1, 2, 2]
+  [1, 1, 1, 2]
+  
+  \\ no partitions of 1 with 2 to 4 non-zero parts
+  ? forpart(v=1,print(v),[0,5],[2,4])
+  ?
+</pre><p></p>
+<p>
+The behavior is unspecified if X is modified inside the loop.</p>
+<p>
+The library syntax is <code><b>forpart</b>(void *data, long (*call)(void*,GEN), long k, GEN a, GEN n)</code>.</p>
+<p>
+
+<hr>
+<div id="se:forperm"></div>
+<div id="forperm"></div>
+<h4>forperm(a, p, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>, where the formal variable p goes through some
+permutations given by a <code>t_VECSMALL</code>. If a is a positive integer then
+P goes through the permutations of {1, 2, ..., a} in lexicographic
+order and if a is a small vector then p goes through the
+(multi)permutations lexicographically larger than or equal to a.</p>
+<p>
+</p><pre class="code">  ? forperm(3, p, print(p))
+  Vecsmall([1, 2, 3])
+  Vecsmall([1, 3, 2])
+  Vecsmall([2, 1, 3])
+  Vecsmall([2, 3, 1])
+  Vecsmall([3, 1, 2])
+  Vecsmall([3, 2, 1])
+</pre><p></p>
+<p></p>
+<p>
+When a is itself a <code>t_VECSMALL</code> or a <code>t_VEC</code> then p iterates through
+multipermutations</p>
+<p>
+</p><pre class="code">  ? forperm([2,1,1,3], p, print(p))
+  Vecsmall([2, 1, 1, 3])
+  Vecsmall([2, 1, 3, 1])
+  Vecsmall([2, 3, 1, 1])
+  Vecsmall([3, 1, 1, 2])
+  Vecsmall([3, 1, 2, 1])
+  Vecsmall([3, 2, 1, 1])
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:forprime"></div>
+<div id="forprime"></div>
+<h4>forprime(p = a, {b}, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>,
+where the formal variable p ranges over the prime numbers between the real
+numbers a to b, including a and b if they are prime. More precisely,
+the value of
+p is incremented to <code>nextprime(p + 1)</code>, the smallest prime strictly
+larger than p, at the end of each iteration. Nothing is done if a &gt; b.</p>
+<p>
+</p><pre class="code">  ? forprime(p = 4, 10, print(p))
+  5
+  7
+</pre><p>
+Setting b to <code>+oo</code> means we will run through all primes
+ &geq; a, starting an infinite loop; it is expected that the caller will break
+out of the loop itself at some point, using <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code> or <code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>.</p>
+<p>
+Note that the value of p cannot be modified within <em>seq</em>:</p>
+<p>
+</p><pre class="code">  ? forprime(p = 2, 10, p = [])
+   ***   at top-level: forprime(p=2,10,p=[])
+   ***                                   ^ &mdash; 
+   ***   prime index read-only: was changed to [].
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:forprimestep"></div>
+<div id="forprimestep"></div>
+<h4>forprimestep(p = a, b, q, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>,
+where the formal variable p ranges over the prime numbers p
+in an arithmetic progression in [a,b]: q is either an integer
+(p = a (mod q)) or an intmod <code>Mod(c,N)</code> and we restrict
+to that congruence class. Nothing is done if a &gt; b.</p>
+<p>
+</p><pre class="code">  ? forprimestep(p = 4, 30, 5, print(p))
+  19
+  29
+  ? forprimestep(p = 4, 30, Mod(1,5), print(p))
+  11
+</pre><p>
+Setting b to <code>+oo</code> means we will run through all primes
+ &geq; a, starting an infinite loop; it is expected that the caller will break
+out of the loop itself at some point, using <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code> or <code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>.</p>
+<p>
+The current implementation restricts the modulus of the arithmetic
+progression to an unsigned long (64 or 32 bits).</p>
+<p>
+</p><pre class="code">  ? forprimestep(p=2,oo,2^64,print(p))
+   ***   at top-level: forprimestep(p=2,oo,2^64,print(p))
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; -
+   *** forprimestep: overflow in t_INT--&gt;ulong assignment.
+</pre><p></p>
+<p></p>
+<p>
+Note that the value of p cannot be modified within <em>seq</em>:</p>
+<p>
+</p><pre class="code">  ? forprimestep(p = 2, 10, 3, p = [])
+   ***   at top-level: forprimestep(p=2,10,3,p=[])
+   ***                                         ^ &mdash; 
+   ***   prime index read-only: was changed to [].
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:forsquarefree"></div>
+<div id="forsquarefree"></div>
+<h4>forsquarefree(N = a, b, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>, where the formal variable N is [n,
+<code><a href="Arithmetic_functions.html#se:factor"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">factor</a></code>(n)] and n goes through squarefree integers from a to b;
+a and b must be integers of the same sign. Nothing is done if a &gt; b.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? forsquarefree(N=2,10,print(N))
+  [2, Mat([2, 1])]
+  [3, Mat([3, 1])]
+  [5, Mat([5, 1])]
+  [6, [2, 1; 3, 1]]
+  [7, Mat([7, 1])]
+  [10, [2, 1; 5, 1]]
+  
+  \\ negative numbers are allowed as well
+  ? forsquarefree(N=-10,-3,print(N))
+  [-10, [-1, 1; 2, 1; 5, 1]]
+  [-7, [-1, 1; 7, 1]]
+  [-6, [-1, 1; 2, 1; 3, 1]]
+  [-5, [-1, 1; 5, 1]]
+  [-3, [-1, 1; 3, 1]]
+  
+  \\ but not bounds of different signs
+  ? forsquarefree(N=-3,3,print(N))
+   ***   at top-level: forsquarefree(N=-3,3,print(N))
+   ***                 ^ &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash;  &mdash; 
+   *** forsquarefree: incorrect type in forsquarefree [!= signs] (t_VEC).
+</pre><p></p>
+<p></p>
+<p>
+This function is only implemented for |a|, |b| &lt; 2<sup>64</sup> (2<sup>32</sup> on a 32-bit
+machine). It uses a sieve and runs in time O(sqrt{b} + b-a). It should
+be at least 5 times faster than regular factorization as long as the interval
+length b-a is much larger than sqrt{b} and get relatively faster as
+the bounds increase. The function slows down dramatically
+if <code>primelimit</code> &lt; sqrt{b}. It is comparable to <code><a href="Programming_in_GP__control_statements.html#se:forfactored"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">forfactored</a></code>, but
+about &zeta;(2) = &pi;^2/6 times faster due to the relative density
+of squarefree integers.</p>
+<p></p>
+<p>
+</p><pre class="code">  ? B = 10^9;
+  ? for (N = B, B+10^6, factor(N))
+  time = 4,392 ms.
+  ? forfactored (N = B, B+10^6, [n,fan] = N)
+  time = 915 ms.
+  ? forsquarefree (N = B, B+10^6, [n,fan] = N)
+  time = 532 ms.
+  
+  ? B = 10^11;
+  ? for (N = B, B+10^6, factor(N))
+  time = 13,053 ms.
+  ? forfactored (N = B, B+10^6, [n,fan] = N)
+  time = 1,976 ms.
+  ? forsquarefree (N = B, B+10^6, [n,fan] = N)
+  time = 1,245 ms.
+  
+  ? B = 10^14;
+  ? for (N = B, B+10^6, factor(N))
+  time = 50,612 ms.
+  ? forsquarefree (N = B, B+10^6, [n,fan] = N)
+  time = 46,309 ms.
+</pre><p>
+The last timing is with the default <code>primelimit</code>
+(500000) which is much less than sqrt{B+10^6}; it goes down
+to <code>20,396ms</code> if <code>primelimit</code> gets bigger than that bound.
+In any case sqrt{B+10^6} is much larger than the interval length 10^6
+so <code><a href="Programming_in_GP__control_statements.html#se:forsquarefree"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">forsquarefree</a></code> gets relatively slower for that reason as well.</p>
+<p>
+Note that all PARI multiplicative functions accept the <code>[n,fan]</code>
+argument natively:</p>
+<p>
+</p><pre class="code">  ? s = 0; forsquarefree(N = 1, 10^7, s += moebius(N)*eulerphi(N)); s
+  time = 3,788 ms.
+  %1 = 6393738650
+  ? s = 0; for(N = 1, 10^7, s += moebius(N)*eulerphi(N)); s
+  time = 28,630 ms. \\ slower, we must factor N. Twice.
+  %2 = 6393738650
+</pre><p></p>
+<p></p>
+<p>
+The following loops over the fundamental dicriminants less than X:</p>
+<p>
+</p><pre class="code">  ? X = 10^8;
+  ? for(d=1,X, if (isfundamental(d),))
+  time = 1min, 29,066 ms.
+  ? forfactored(d=1,X, if (isfundamental(d),));
+  time = 42,387 ms.
+  ? forsquarefree(d=1,X, D = quaddisc(d); if (D &lt;= X, ));
+  time = 32,479 ms.
+</pre><p>
+Note that in the last loop, the fundamental discriminants
+D are not evaluated in order (since <code>quaddisc(d)</code> for squarefree d
+is either d or 4d). This is the price we pay for a faster evaluation,
+and the set of numbers we run through is the same.</p>
+<p>
+We can run through negative fundamental discriminants in the same way</p>
+<p>
+</p><pre class="code">  ? forsquarefree(d=-X,-1, D = quaddisc(d); if (D &gt;= -X, ));
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:forstep"></div>
+<div id="forstep"></div>
+<h4>forstep(X = a, b, s, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em>, where the formal variable X goes from a to b
+in increments of s. Nothing is done if s &gt; 0 and a &gt; b or if s &lt; 0
+and a &lt; b. s must be in &Ropf;<sup>*</sup> or an intmod <code>Mod(c,N)</code> (restrict to
+the corresponding arithmetic progression) or a vector of steps
+[s<sub>1</sub>,...,s<sub>n</sub>] (the successive steps in &Ropf;<sup>*</sup> are used in the order they
+appear in s).</p>
+<p></p>
+<p>
+</p><pre class="code">  ? forstep(x=5, 10, 2, print(x))
+  5
+  7
+  9
+  ? forstep(x=5, 10, Mod(1,3), print(x))
+  7
+  10
+  ? forstep(x=5, 10, [1,2], print(x))
+  5
+  6
+  8
+  9
+</pre><p>
+Setting b to <code>+oo</code> will start an infinite loop; it is
+expected that the caller will break out of the loop itself at some point,
+using <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code> or <code><a href="Programming_in_GP__control_statements.html#se:return"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">return</a></code>.</p>
+<p>
+
+<hr>
+<div id="se:forsubgroup"></div>
+<div id="forsubgroup"></div>
+<h4>forsubgroup(H = G, {<em>bound</em>}, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em> for
+each subgroup H of the <em>abelian</em> group G (given in
+SNF form or as a vector of elementary divisors).</p>
+<p>
+If <em>bound</em> is present, and is a positive integer, restrict the output to
+subgroups of index less than <em>bound</em>. If <em>bound</em> is a vector
+containing a single positive integer B, then only subgroups of index
+exactly equal to B are computed</p>
+<p>
+The subgroups are not ordered in any
+obvious way, unless G is a p-group in which case Birkhoff's algorithm
+produces them by decreasing index. A subgroup is given as a matrix
+whose columns give its generators on the implicit generators of G. For
+example, the following prints all subgroups of index less than 2 in G = 
+&Zopf;/2&Zopf; g<sub>1</sub>  x &Zopf;/2&Zopf; g<sub>2</sub>:</p>
+<p></p>
+<p>
+</p><pre class="code">  ? G = [2,2]; forsubgroup(H=G, 2, print(H))
+  [1; 1]
+  [1; 2]
+  [2; 1]
+  [1, 0; 1, 1]
+</pre><p></p>
+<p>
+The last one, for instance is generated by (g<sub>1</sub>, g<sub>1</sub> + g<sub>2</sub>). This
+routine is intended to treat huge groups, when <code><a href="General_number_fields.html#se:subgrouplist"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">subgrouplist</a></code> is not an
+option due to the sheer size of the output.</p>
+<p>
+For maximal speed the subgroups have been left as produced by the algorithm.
+To print them in canonical form (as left divisors of G in HNF form), one
+can for instance use</p>
+<p>
+</p><pre class="code">  ? G = matdiagonal([2,2]); forsubgroup(H=G, 2, print(mathnf(concat(G,H))))
+  [2, 1; 0, 1]
+  [1, 0; 0, 2]
+  [2, 0; 0, 1]
+  [1, 0; 0, 1]
+</pre><p></p>
+<p>
+Note that in this last representation, the index [G:H] is given by the
+determinant. See <code><a href="General_number_fields.html#se:galoissubcyclo"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoissubcyclo</a></code> and <code><a href="General_number_fields.html#se:galoisfixedfield"
+    onClick="parent.itemFrame.location='cont_General_number_fields.html'">galoisfixedfield</a></code> for
+applications to Galois theory.</p>
+<p>
+The library syntax is <code><b>forsubgroup</b>(void *data, long (*call)(void*,GEN), GEN G, GEN bound)</code>.</p>
+<p>
+
+<hr>
+<div id="se:forsubset"></div>
+<div id="forsubset"></div>
+<h4>forsubset(<em>nk</em>, s, <em>seq</em>)</h4>
+<p>
+If <em>nk</em> is a non-negative integer n, evaluates <code>seq</code>, where
+the formal variable s goes through all subsets of {1, 2,..., n};
+if <em>nk</em> is a pair [n,k] of integers, s goes through subsets
+of size k of {1, 2,..., n}. In both cases s goes through subsets
+in lexicographic order among subsets of the same size and smaller subsets
+come first.</p>
+<p>
+</p><pre class="code">  ? forsubset([5,3], s, print(s))
+  Vecsmall([1, 2, 3])
+  Vecsmall([1, 2, 4])
+  Vecsmall([1, 2, 5])
+  Vecsmall([1, 3, 4])
+  Vecsmall([1, 3, 5])
+  Vecsmall([1, 4, 5])
+  Vecsmall([2, 3, 4])
+  Vecsmall([2, 3, 5])
+  Vecsmall([2, 4, 5])
+  Vecsmall([3, 4, 5])
+</pre><p></p>
+<p></p>
+<p></p>
+<p>
+</p><pre class="code">  ? forsubset(3, s, print(s))
+  Vecsmall([])
+  Vecsmall([1])
+  Vecsmall([2])
+  Vecsmall([3])
+  Vecsmall([1, 2])
+  Vecsmall([1, 3])
+  Vecsmall([2, 3])
+  Vecsmall([1, 2, 3])
+</pre><p>
+The running time is proportional to the number
+of subsets enumerated, respectively 2^n and <code><a href="Combinatorics.html#se:binomial"
+    onClick="parent.itemFrame.location='cont_Combinatorics.html'">binomial</a></code>(n,k):</p>
+<p>
+</p><pre class="code">  ? c = 0; forsubset([40,35],s,c++); c
+  time = 128 ms.
+  %4 = 658008
+  ? binomial(40,35)
+  %5 = 658008
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:forvec"></div>
+<div id="forvec"></div>
+<h4>forvec(X = v, <em>seq</em>, {<em>flag</em> = 0})</h4>
+<p>
+Let v be an n-component
+vector (where n is arbitrary) of two-component vectors [a<sub>i</sub>,b<sub>i</sub>]
+for 1 &leq; i &leq; n, where all entries a<sub>i</sub>, b<sub>i</sub> are real numbers.
+This routine lets X vary over the n-dimensional hyperrectangle
+given by v, that is, X is an n-dimensional vector taking
+successively its entries X[i] in the range [a<sub>i</sub>,b<sub>i</sub>] with lexicographic
+ordering. (The component with the highest index moves the fastest.)
+The type of X is the same as the type of v: <code>t_VEC</code> or <code>t_COL</code>.</p>
+<p>
+The expression <em>seq</em> is evaluated with the successive values of X.</p>
+<p>
+If <em>flag</em> = 1, generate only nondecreasing vectors X, and
+if <em>flag</em> = 2, generate only strictly increasing vectors X.</p>
+<p>
+</p><pre class="code">  ? forvec (X=[[0,1],[-1,1]], print(X));
+  [0, -1]
+  [0, 0]
+  [0, 1]
+  [1, -1]
+  [1, 0]
+  [1, 1]
+  ? forvec (X=[[0,1],[-1,1]], print(X), 1);
+  [0, 0]
+  [0, 1]
+  [1, 1]
+  ? forvec (X=[[0,1],[-1,1]], print(X), 2)
+  [0, 1]
+</pre><p></p>
+<p></p>
+<p>
+
+<hr>
+<div id="se:if"></div>
+<div id="if"></div>
+<h4>if(a, {<em>seq1</em>}, {<em>seq2</em>})</h4>
+<p>
+Evaluates the expression sequence <em>seq1</em> if a is non-zero, otherwise
+the expression <em>seq2</em>. Of course, <em>seq1</em> or <em>seq2</em> may be empty:</p>
+<p>
+<code>if (a,<em>seq</em>)</code> evaluates <em>seq</em> if a is not equal to zero
+(you don't have to write the second comma), and does nothing otherwise,</p>
+<p>
+<code>if (a,,<em>seq</em>)</code> evaluates <em>seq</em> if a is equal to zero, and
+does nothing otherwise. You could get the same result using the <code>!</code>
+(<code>not</code>) operator: <code>if (!a,<em>seq</em>)</code>.</p>
+<p>
+The value of an <code><a href="Programming_in_GP__control_statements.html#se:if"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">if</a></code> statement is the value of the branch that gets
+evaluated: for instance</p>
+<p>
+</p><pre class="code">  x = if(n % 4 == 1, y, z);
+</pre><p>
+sets x to y if n is 1 modulo 4, and to z
+otherwise.</p>
+<p>
+Successive 'else' blocks can be abbreviated in a single compound <code><a href="Programming_in_GP__control_statements.html#se:if"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">if</a></code>
+as follows:</p>
+<p>
+</p><pre class="code">  if (test1, seq1,
+      test2, seq2,
+      ...
+      testn, seqn,
+      seqdefault);
+</pre><p>
+is equivalent to</p>
+<p>
+</p><pre class="code">  if (test1, seq1
+           , if (test2, seq2
+                      , ...
+                        if (testn, seqn, seqdefault)...));
+</pre><p>
+For instance, this allows to write traditional switch / case
+constructions:</p>
+<p>
+</p><pre class="code">  if (x == 0, do0(),
+      x == 1, do1(),
+      x == 2, do2(),
+      dodefault());
+</pre><p></p>
+<p></p>
+<p>
+<b>Remark.</b>
+The boolean operators <code>&&</code> and <code>||</code> are evaluated
+according to operator precedence as explained in Section se:operators, but,
+contrary to other operators, the evaluation of the arguments is stopped
+as soon as the final truth value has been determined. For instance</p>
+<p>
+</p><pre class="code">  if (x != 0 && f(1/x), ...)
+</pre><p></p>
+<p>
+is a perfectly safe statement.</p>
+<p>
+<b>Remark.</b> Functions such as <code><a href="Programming_in_GP__control_statements.html#se:break"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">break</a></code> and <code><a href="Programming_in_GP__control_statements.html#se:next"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">next</a></code> operate on
+<em>loops</em>, such as <code>forxxx</code>, <code><a href="Programming_in_GP__control_statements.html#se:while"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">while</a></code>, <code><a href="Programming_in_GP__control_statements.html#se:until"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">until</a></code>. The <code><a href="Programming_in_GP__control_statements.html#se:if"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">if</a></code>
+statement is <em>not</em> a loop. (Obviously!)</p>
+<p>
+
+<hr>
+<div id="se:iferr"></div>
+<div id="iferr"></div>
+<h4>iferr(<em>seq1</em>, E, <em>seq2</em>, {<em>pred</em>})</h4>
+<p>
+Evaluates the expression sequence <em>seq1</em>. If an error occurs,
+set the formal parameter <em>E</em> set to the error data.
+If <em>pred</em> is not present or evaluates to true, catch the error
+and evaluate <em>seq2</em>. Both <em>pred</em> and <em>seq2</em> can reference <em>E</em>.
+The error type is given by <code>errname(E)</code>, and other data can be
+accessed using the <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:component"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">component</a></code> function. The code <em>seq2</em> should check
+whether the error is the one expected. In the negative the error can be
+rethrown using <code>error(E)</code> (and possibly caught by an higher <code><a href="Programming_in_GP__control_statements.html#se:iferr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">iferr</a></code>
+instance). The following uses <code><a href="Programming_in_GP__control_statements.html#se:iferr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">iferr</a></code> to implement Lenstra's ECM factoring
+ method</p>
+<p>
+</p><pre class="code">  ? ecm(N, B = 1000!, nb = 100)=
+    {
+      for(a = 1, nb,
+        iferr(ellmul(ellinit([a,1]*Mod(1,N)), [0,1]*Mod(1,N), B),
+          E, return(gcd(lift(component(E,2)),N)),
+          errname(E)=="e_INV" && type(component(E,2)) == "t_INTMOD"))
+    }
+  ? ecm(2^101-1)
+  %2 = 7432339208719
+</pre><p></p>
+<p>
+The return value of <code><a href="Programming_in_GP__control_statements.html#se:iferr"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">iferr</a></code> itself is the value of <em>seq2</em> if an
+error occurs, and the value of <em>seq1</em> otherwise. We now describe the
+list of valid error types, and the attached error data <em>E</em>; in each
+case, we list in order the components of <em>E</em>, accessed via
+<code>component(E,1)</code>, <code>component(E,2)</code>, etc.</p>
+<p>
+<b>Internal errors, "system" errors.</b></p>
+<p>
+<b>*</b> <code>"e_ARCH"</code>. A requested feature s is not available on this
+ architecture or operating system.
+ <em>E</em> has one component (<code>t_STR</code>): the missing feature name s.</p>
+<p>
+<b>*</b> <code>"e_BUG"</code>. A bug in the PARI library, in function s.
+ <em>E</em> has one component (<code>t_STR</code>): the function name s.</p>
+<p>
+<b>*</b> <code>"e_FILE"</code>. Error while trying to open a file.
+ <em>E</em> has two components, 1 (<code>t_STR</code>): the file type (input, output,
+ etc.), 2 (<code>t_STR</code>): the file name.</p>
+<p>
+<b>*</b> <code>"e_IMPL"</code>. A requested feature s is not implemented.
+ <em>E</em> has one component, 1 (<code>t_STR</code>): the feature name s.</p>
+<p>
+<b>*</b> <code>"e_PACKAGE"</code>. Missing optional package s.
+ <em>E</em> has one component, 1 (<code>t_STR</code>): the package name s.</p>
+<p>
+<b>Syntax errors, type errors.</b></p>
+<p>
+<b>*</b> <code>"e_DIM"</code>. The dimensions of arguments x and y submitted
+ to function s does not match up.
+ E.g., multiplying matrices of inconsistent dimension, adding vectors of
+ different lengths,...
+ <em>E</em> has three component, 1 (<code>t_STR</code>): the function name s, 2: the
+ argument x, 3: the argument y.</p>
+<p>
+<b>*</b> <code>"e_FLAG"</code>. A flag argument is out of bounds in function s.
+ <em>E</em> has one component, 1 (<code>t_STR</code>): the function name s.</p>
+<p>
+<b>*</b> <code>"e_NOTFUNC"</code>. Generated by the PARI evaluator; tried to use a
+<code>GEN</code> x which is not a <code>t_CLOSURE</code> in a function call syntax (as in
+<code>f = 1; f(2);</code>).
+ <em>E</em> has one component, 1: the offending <code>GEN</code> x.</p>
+<p>
+<b>*</b> <code>"e_OP"</code>. Impossible operation between two objects than cannot
+ be typecast to a sensible common domain for deeper reasons than a type
+ mismatch, usually for arithmetic reasons. As in <code>O(2) + O(3)</code>: it is
+ valid to add two <code>t_PADIC</code>s, provided the underlying prime is the same; so
+ the addition is not forbidden a priori for type reasons, it only becomes so
+ when inspecting the objects and trying to perform the operation.
+ <em>E</em> has three components, 1 (<code>t_STR</code>): the operator name <em>op</em>,
+ 2: first argument, 3: second argument.</p>
+<p>
+<b>*</b> <code>"e_TYPE"</code>. An argument x of function s had an unexpected type.
+ (As in <code>factor("blah")</code>.)
+ <em>E</em> has two components, 1 (<code>t_STR</code>): the function name s,
+ 2: the offending argument x.</p>
+<p>
+<b>*</b> <code>"e_TYPE2"</code>. Forbidden operation between two objects than cannot be
+ typecast to a sensible common domain, because their types do not match up.
+ (As in <code>Mod(1,2) + Pi</code>.)
+ <em>E</em> has three components, 1 (<code>t_STR</code>): the operator name <em>op</em>,
+ 2: first argument, 3: second argument.</p>
+<p>
+<b>*</b> <code>"e_PRIORITY"</code>. Object o in function s contains
+ variables whose priority is incompatible with the expected operation.
+ E.g.&nbsp;<code>Pol([x,1], 'y)</code>: this raises an error because it's not possible to
+ create a polynomial whose coefficients involve variables with higher priority
+ than the main variable. E has four components: 1 (<code>t_STR</code>): the function
+ name s, 2: the offending argument o, 3 (<code>t_STR</code>): an operator
+ <em>op</em> describing the priority error, 4 (<code>t_POL</code>):
+ the variable v describing the priority error. The argument
+ satisfies <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:variable"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">variable</a></code>(x)&nbsp;<em>op</em> <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:variable"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">variable</a></code>(v).</p>
+<p>
+<b>*</b> <code>"e_VAR"</code>. The variables of arguments x and y submitted
+ to function s does not match up. E.g., considering the algebraic number
+ <code>Mod(t,t^2+1)</code> in <code>nfinit(x^2+1)</code>.
+ <em>E</em> has three component, 1 (<code>t_STR</code>): the function name s, 2
+ (<code>t_POL</code>): the argument x, 3 (<code>t_POL</code>): the argument y.</p>
+<p>
+<b>Overflows.</b></p>
+<p>
+<b>*</b> <code>"e_COMPONENT"</code>. Trying to access an inexistent component in a
+ vector/matrix/list in a function: the index is less than 1 or greater
+ than the allowed length.
+ <em>E</em> has four components,
+ 1 (<code>t_STR</code>): the function name
+ 2 (<code>t_STR</code>): an operator <em>op</em> ( &lt;  or  &gt; ),
+ 2 (<code>t_GEN</code>): a numerical limit l bounding the allowed range,
+ 3 (<code>GEN</code>): the index x. It satisfies x <em>op</em> l.</p>
+<p>
+<b>*</b> <code>"e_DOMAIN"</code>. An argument is not in the function's domain.
+ <em>E</em> has five components, 1 (<code>t_STR</code>): the function name,
+ 2 (<code>t_STR</code>): the mathematical name of the out-of-domain argument
+ 3 (<code>t_STR</code>): an operator <em>op</em> describing the domain error,
+ 4 (<code>t_GEN</code>): the numerical limit l describing the domain error,
+ 5 (<code>GEN</code>): the out-of-domain argument x. The argument satisfies x
+ <em>op</em> l, which prevents it from belonging to the function's domain.</p>
+<p>
+<b>*</b> <code>"e_MAXPRIME"</code>. A function using the precomputed list of prime
+ numbers ran out of primes.
+ <em>E</em> has one component, 1 (<code>t_INT</code>): the requested prime bound, which
+ overflowed <code>primelimit</code> or 0 (bound is unknown).</p>
+<p>
+<b>*</b> <code>"e_MEM"</code>. A call to <code>pari_malloc</code> or <code>pari_realloc</code>
+ failed. <em>E</em> has no component.</p>
+<p>
+<b>*</b> <code>"e_OVERFLOW"</code>. An object in function s becomes too large to be
+ represented within PARI's hardcoded limits. (As in <code>2^2^2^10</code> or
+ <code>exp(1e100)</code>, which overflow in <code>lg</code> and <code>expo</code>.)
+ <em>E</em> has one component, 1 (<code>t_STR</code>): the function name s.</p>
+<p>
+<b>*</b> <code>"e_PREC"</code>. Function s fails because input accuracy is too low.
+ (As in <code>floor(1e100)</code> at default accuracy.)
+ <em>E</em> has one component, 1 (<code>t_STR</code>): the function name s.</p>
+<p>
+<b>*</b> <code>"e_STACK"</code>. The PARI stack overflows.
+ <em>E</em> has no component.</p>
+<p>
+<b>Errors triggered intentionally.</b></p>
+<p>
+<b>*</b> <code>"e_ALARM"</code>. A timeout, generated by the <code><a href="Programming_in_GP__other_specific_functions.html#se:alarm"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">alarm</a></code> function.
+ <em>E</em> has one component (<code>t_STR</code>): the error message to print.</p>
+<p>
+<b>*</b> <code>"e_USER"</code>. A user error, as triggered by
+ <code><a href="Programming_in_GP__other_specific_functions.html#se:error"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">error</a></code>(g<sub>1</sub>,...,g<sub>n</sub>).
+ <em>E</em> has one component, 1 (<code>t_VEC</code>): the vector of n arguments given
+ to <code><a href="Programming_in_GP__other_specific_functions.html#se:error"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">error</a></code>.</p>
+<p>
+<b>Mathematical errors.</b></p>
+<p>
+<b>*</b> <code>"e_CONSTPOL"</code>. An argument of function s is a constant
+ polynomial, which does not make sense. (As in <code>galoisinit(Pol(1))</code>.)
+ <em>E</em> has one component, 1 (<code>t_STR</code>): the function name s.</p>
+<p>
+<b>*</b> <code>"e_COPRIME"</code>. Function s expected coprime arguments,
+ and did receive x,y, which were not.
+ <em>E</em> has three component, 1 (<code>t_STR</code>): the function name s,
+ 2: the argument x, 3: the argument y.</p>
+<p>
+<b>*</b> <code>"e_INV"</code>. Tried to invert a non-invertible object x in
+ function s.
+ <em>E</em> has two components, 1 (<code>t_STR</code>): the function name s,
+ 2: the non-invertible x. If x = <code><a href="Conversions_and_similar_elementary_functions_or_commands.html#se:Mod"
+    onClick="parent.itemFrame.location='cont_Conversions_and_similar_elementary_functions_or_commands.html'">Mod</a></code>(a,b)
+ is a <code>t_INTMOD</code> and a is not 0 mod b, this allows to factor
+ the modulus, as <code><a href="Arithmetic_functions.html#se:gcd"
+    onClick="parent.itemFrame.location='cont_Arithmetic_functions.html'">gcd</a></code>(a,b) is a non-trivial divisor of b.</p>
+<p>
+<b>*</b> <code>"e_IRREDPOL"</code>. Function s expected an irreducible polynomial,
+ and did receive T, which was not. (As in <code>nfinit(x^2-1)</code>.)
+ <em>E</em> has two component, 1 (<code>t_STR</code>): the function name s,
+ 2 (<code>t_POL</code>): the polynomial x.</p>
+<p>
+<b>*</b> <code>"e_MISC"</code>. Generic uncategorized error.
+ <em>E</em> has one component (<code>t_STR</code>): the error message to print.</p>
+<p>
+<b>*</b> <code>"e_MODULUS"</code>. moduli x and y submitted to function s are
+ inconsistent. As in</p>
+<p>
+</p><pre class="code">     nfalgtobasis(nfinit(t^3-2), Mod(t,t^2+1)
+</pre><p></p>
+<p>
+ <em>E</em> has three component, 1 (<code>t_STR</code>): the function s,
+ 2: the argument x, 3: the argument x.</p>
+<p>
+<b>*</b> <code>"e_PRIME"</code>. Function s expected a prime number,
+ and did receive p, which was not. (As in <code>idealprimedec(nf, 4)</code>.)
+ <em>E</em> has two component, 1 (<code>t_STR</code>): the function name s,
+ 2: the argument p.</p>
+<p>
+<b>*</b> <code>"e_ROOTS0"</code>. An argument of function s is a zero polynomial,
+ and we need to consider its roots. (As in <code>polroots(0)</code>.) <em>E</em> has
+ one component, 1 (<code>t_STR</code>): the function name s.</p>
+<p>
+<b>*</b> <code>"e_SQRTN"</code>. Trying to compute an n-th root of x, which does
+ not exist, in function s. (As in <code>sqrt(Mod(-1,3))</code>.)
+ <em>E</em> has two components, 1 (<code>t_STR</code>): the function name s,
+ 2: the argument x.</p>
+<p>
+
+<hr>
+<div id="se:next"></div>
+<div id="next"></div>
+<h4>next({n = 1})</h4>
+<p>
+Interrupts execution of current seq,
+resume the next iteration of the innermost enclosing loop, within the
+current function call (or top level loop). If n is specified, resume at
+the n-th enclosing loop. If n is bigger than the number of enclosing
+loops, all enclosing loops are exited.</p>
+<p>
+
+<hr>
+<div id="se:return"></div>
+<div id="return"></div>
+<h4>return({x = 0})</h4>
+<p>
+Returns from current subroutine, with
+result x. If x is omitted, return the <code>(void)</code> value (return no
+result, like <code><a href="Programming_in_GP__other_specific_functions.html#se:print"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__other_specific_functions.html'">print</a></code>).</p>
+<p>
+
+<hr>
+<div id="se:until"></div>
+<div id="until"></div>
+<h4>until(a, <em>seq</em>)</h4>
+<p>
+Evaluates <em>seq</em> until a is not
+equal to 0 (i.e.&nbsp;until a is true). If a is initially not equal to 0,
+<em>seq</em> is evaluated once (more generally, the condition on a is tested
+<em>after</em> execution of the <em>seq</em>, not before as in <code><a href="Programming_in_GP__control_statements.html#se:while"
+    onClick="parent.itemFrame.location='cont_Programming_in_GP__control_statements.html'">while</a></code>).</p>
+<p>
+
+<hr>
+<div id="se:while"></div>
+<div id="while"></div>
+<h4>while(a, <em>seq</em>)</h4>
+<p>
+While a is non-zero, evaluates the expression sequence <em>seq</em>. The
+test is made <em>before</em> evaluating the seq, hence in particular if a
+is initially equal to zero the <em>seq</em> will not be evaluated at all.</p>
+<p>
+
+<hr>
+</body>
