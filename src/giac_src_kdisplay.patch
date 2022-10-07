@@ -1,0 +1,26 @@
+diff --git a/src/giac/src/kdisplay.cc b/src/giac/src/kdisplay.cc
+index 709fee5..b89169d 100755
+--- a/src/giac/src/kdisplay.cc
++++ b/src/giac/src/kdisplay.cc
+@@ -53,9 +53,11 @@ const char * flash_buf=(const char *)0x90200000;
+ #endif
+ 
+ #if defined NUMWORKS && !defined DEVICE //ndef NSPIRE_NEWLIB
++/*
+ extern "C" {
+   short int nspire_exam_mode=0;
+ }
++*/
+ #endif
+ #define XWASPY 1 // save .xw file as _xw.py (to be recognized by Numworks workshop)
+ const int xwaspy_shift=33; // must be between 32 and 63, reflect in xcas.js and History.cc
+@@ -18734,7 +18736,9 @@ namespace xcas {
+     if (pythonjs_heap_size>_heap_size-52*1024)
+       pythonjs_heap_size=_heap_size-52*1024;
+ #endif
++#ifdef MICROPY_LIB
+     mp_stack_ctrl_init();
++#endif
+     //volatile int stackTop;
+     //mp_stack_set_top((void *)(&stackTop));
+     //mp_stack_set_limit(24*1024);
