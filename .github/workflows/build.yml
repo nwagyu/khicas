@@ -9,8 +9,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Install toolchain
         uses: numworks/setup-arm-toolchain@2020-q2
-      - name: Install nwlink
-        run: npm install -g nwlink
       - name: Intall autoconf macros
         run: sudo apt-get install -y autoconf-archive
       - name: Run make build

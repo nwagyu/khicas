@@ -4,7 +4,7 @@ CXX = arm-none-eabi-g++
 AR = arm-none-eabi-ar
 RANLIB = arm-none-eabi-ranlib
 STRIP = arm-none-eabi-strip
-NWLINK = nwlink
+NWLINK = npx --yes -- nwlink@0.0.15
 
 DEBUG = 0
 LINK_GC = 1

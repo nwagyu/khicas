@@ -66,7 +66,7 @@ bool waitforvblank() {
 }
 
 void numworks_set_pixel(int x, int y, int color) {
-  if (x<0 || x>=EADK_SCREEN_WIDTH|| y<0 || y>=EADK_SCREEN_HEIGTH-18)
+  if (x<0 || x>=EADK_SCREEN_WIDTH|| y<0 || y>=EADK_SCREEN_HEIGHT-18)
     return;
   eadk_display_push_rect_uniform((eadk_rect_t){(uint16_t)x, (uint16_t)(y+18),1,1},(eadk_color_t)color);
 }
@@ -80,8 +80,8 @@ void numworks_fill_rect(int x, int y, int w, int h, int c) {
     h += y;
     y=0;
   }
-  if (h+y>=EADK_SCREEN_HEIGTH-18)
-    h=EADK_SCREEN_HEIGTH-18-y;
+  if (h+y>=EADK_SCREEN_HEIGHT-18)
+    h=EADK_SCREEN_HEIGHT-18-y;
   if (x+w>=EADK_SCREEN_WIDTH)
     w=EADK_SCREEN_WIDTH-x;
   if (h<=0 || w<=0)
